@@ -9,4 +9,5 @@ export * from './components/ui/dialog';
 export * from './components/ui/select';
 export * from './components/ui/label';
 export * from './components/ui/textarea';
+export * from './components/ui/slider';
 export * from './lib/utils';

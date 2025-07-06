@@ -29,6 +29,8 @@ interface ChatState {
   isSettingsOpen: boolean;
   model: string;
   customInstructions: string;
+  temperature: number;
+  top_p: number;
   startNewSession: () => void;
   setActiveSession: (sessionId: string) => void;
   addMessage: (message: Message) => void;
@@ -42,6 +44,8 @@ interface ChatState {
   toggleSettings: () => void;
   setModel: (model: string) => void;
   setCustomInstructions: (instructions: string) => void;
+  setTemperature: (temp: number) => void;
+  setTopP: (top_p: number) => void;
 }
 
 export const useChatStore = create<ChatState>()(
@@ -54,6 +58,8 @@ export const useChatStore = create<ChatState>()(
       isSettingsOpen: false,
       model: 'gpt-4.1-nano',
       customInstructions: '',
+      temperature: 1,
+      top_p: 1,
 
       startNewSession: () => {
         const newSession: ChatSession = {
@@ -161,6 +167,8 @@ export const useChatStore = create<ChatState>()(
       toggleSettings: () => set((state) => ({ isSettingsOpen: !state.isSettingsOpen })),
       setModel: (model) => set({ model }),
       setCustomInstructions: (instructions) => set({ customInstructions: instructions }),
+      setTemperature: (temp) => set({ temperature: temp }),
+      setTopP: (top_p) => set({ top_p }),
     }),
     {
       name: 'chat-storage',

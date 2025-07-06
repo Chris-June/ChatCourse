@@ -30,6 +30,8 @@ const ChatInterface = () => {
     model,
     toggleSettings,
     customInstructions,
+    temperature,
+    top_p,
   } = useChatStore();
 
   const activeSession = getActiveSession();
@@ -80,6 +82,8 @@ const ChatInterface = () => {
           messages: [...activeSession.messages, newUserMessage],
           model,
           customInstructions,
+          temperature,
+          top_p,
         }),
       });
 

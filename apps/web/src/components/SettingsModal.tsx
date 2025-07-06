@@ -17,6 +17,7 @@ import {
   SelectLabel,
   Label,
   Textarea,
+  Slider,
 } from '@chat/ui';
 import { useChatStore } from '../store/chat';
 import { models, modelFamilies } from '@/lib/models';
@@ -24,7 +25,18 @@ import { models, modelFamilies } from '@/lib/models';
 
 
 const SettingsModal = () => {
-  const { isSettingsOpen, toggleSettings, model, setModel, customInstructions, setCustomInstructions } = useChatStore();
+  const { 
+    isSettingsOpen, 
+    toggleSettings, 
+    model, 
+    setModel, 
+    customInstructions, 
+    setCustomInstructions,
+    temperature,
+    setTemperature,
+    top_p,
+    setTopP,
+  } = useChatStore();
 
     return (
     <Dialog open={isSettingsOpen} onOpenChange={toggleSettings}>
@@ -75,6 +87,46 @@ const SettingsModal = () => {
               className="bg-zinc-800 border-zinc-700 focus:ring-zinc-600"
               rows={4}
             />
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="temperature-slider" className="text-sm font-medium text-gray-300">
+                Temperature
+              </Label>
+              <span className="text-sm text-gray-400">{temperature.toFixed(1)}</span>
+            </div>
+            <Slider
+              id="temperature-slider"
+              min={0}
+              max={2}
+              step={0.1}
+              value={[temperature]}
+              onValueChange={(value) => setTemperature(value[0])}
+            />
+            <p className="text-xs text-gray-400">
+              Lower values for temperature result in more consistent outputs, while higher values generate more diverse and creative results. Stick to a range of 0 to 1 for most use cases.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="top_p-slider" className="text-sm font-medium text-gray-300">
+                Top P
+              </Label>
+              <span className="text-sm text-gray-400">{top_p.toFixed(1)}</span>
+            </div>
+            <Slider
+              id="top_p-slider"
+              min={0}
+              max={1}
+              step={0.1}
+              value={[top_p]}
+              onValueChange={(value) => setTopP(value[0])}
+            />
+            <p className="text-xs text-gray-400">
+              Top P is an alternative to temperature that selects from the highest probability tokens. A lower value narrows the selection to more likely tokens.
+            </p>
           </div>
         </div>
 

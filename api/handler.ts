@@ -47,7 +47,7 @@ const ALLOWED_MODELS = [
 ];
 
 app.post('/api/chat', async (req, res) => {
-  const { messages, model: requestedModel, customInstructions } = req.body;
+  const { messages, model: requestedModel, customInstructions, temperature, top_p } = req.body;
 
   if (!messages) {
     return res.status(400).json({ error: { message: 'Messages are required.' } });
@@ -59,11 +59,11 @@ app.post('/api/chat', async (req, res) => {
     res.setHeader('Connection', 'keep-alive');
     res.flushHeaders();
 
-        const model = requestedModel && ALLOWED_MODELS.includes(requestedModel) 
+    const model = requestedModel && ALLOWED_MODELS.includes(requestedModel) 
       ? requestedModel 
       : 'gpt-4.1-nano';
 
-        const BASE_SYSTEM_PROMPT = "You are Intelli-Chat, a helpful and friendly AI assistant. Your responses should be concise, informative, and aim to assist the user with their requests.";
+    const BASE_SYSTEM_PROMPT = "You are Intelli-Chat, a helpful and friendly AI assistant. Your responses should be concise, informative, and aim to assist the user with their requests.";
     const combinedInstructions = [BASE_SYSTEM_PROMPT, customInstructions].filter(Boolean).join('\n\n');
     const systemMessage = combinedInstructions ? [{ role: 'system', content: combinedInstructions }] : [];
 
@@ -71,8 +71,8 @@ app.post('/api/chat', async (req, res) => {
       model,
       messages: [...systemMessage, ...messages],
       stream: true,
-      temperature: parseFloat(process.env.DEFAULT_TEMPERATURE || '0.7'),
-      top_p: parseFloat(process.env.DEFAULT_TOP_P || '0.9'),
+      temperature: temperature !== undefined && temperature >= 0 && temperature <= 2 ? temperature : parseFloat(process.env.DEFAULT_TEMPERATURE || '0.7'),
+      top_p: top_p !== undefined && top_p >= 0 && top_p <= 1 ? top_p : parseFloat(process.env.DEFAULT_TOP_P || '0.9'),
       max_tokens: parseInt(process.env.MAX_TOKENS || '512'),
     });
 
