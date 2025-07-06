@@ -36,6 +36,7 @@ const ChatInterface = () => {
 
   const activeSession = getActiveSession();
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const scrollToBottom = () => {
@@ -97,11 +98,20 @@ const ChatInterface = () => {
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split('\n\n').filter(Boolean);
+        const eventLines = chunk.split('\n\n').filter(Boolean);
 
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const data = line.substring(6);
+        for (const eventLine of eventLines) {
+          if (eventLine.startsWith('event: metadata')) {
+            const dataLine = eventLine.split('\n')[1];
+            const data = dataLine.substring(6);
+            try {
+              const metadata = JSON.parse(data);
+              useChatStore.getState().updateLastMessageMetadata(metadata);
+            } catch (err) {
+              console.error('Error parsing metadata:', err);
+            }
+          } else if (eventLine.startsWith('data: ')) {
+            const data = eventLine.substring(6);
             if (data === '[DONE]') {
               setStreaming(false);
               return;
@@ -122,14 +132,14 @@ const ChatInterface = () => {
       updateLastMessage('\n\nError: Could not fetch response.');
     } finally {
       setStreaming(false);
+      inputRef.current?.focus();
     }
   };
 
   return (
-    <div className="h-screen w-full overflow-hidden relative bg-black text-gray-100 flex">
+    <div className="h-screen w-full overflow-hidden bg-black text-gray-100 flex">
       <SideMenu
         isOpen={isMenuOpen}
-
         sessions={sessions}
         activeSessionId={activeSessionId}
         onSwitchSession={setActiveSession}
@@ -139,34 +149,35 @@ const ChatInterface = () => {
         onOpenSettings={toggleSettings}
       />
 
-      <motion.div
-        animate={{
-          transform: isMenuOpen ? 'translateX(18rem)' : 'translateX(0rem)',
-          borderTopLeftRadius: isMenuOpen ? '1rem' : '0rem',
-          borderBottomLeftRadius: isMenuOpen ? '1rem' : '0rem',
-        }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="flex-1 flex flex-col h-full bg-black shadow-2xl"
-      >
+      <div className="flex-1 flex flex-col h-full bg-black min-w-0">
         <header className="flex items-center justify-between p-4 border-b border-zinc-800 shrink-0">
           <Button variant="ghost" size="icon" onClick={() => setMenuOpen(!isMenuOpen)}>
             <Menu size={20} />
           </Button>
-                    <h1 className="text-xl font-bold">{model.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h1>
+          <h1 className="text-xl font-bold">{model.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h1>
           <div className="w-8" /> {/* Spacer to balance the header */}
         </header>
 
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {(activeSession?.messages || []).map((msg, index) => (
-            <div key={index} className={`flex items-end ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              {msg.role === 'assistant' && <Bot className="w-6 h-6 text-purple-400 mr-2 shrink-0" />}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`rounded-2xl px-4 py-2 max-w-[75%] ${msg.role === 'user' ? 'bg-zinc-700 text-white' : 'bg-zinc-800/70 text-gray-100'}`}>
-                {msg.content}
-              </motion.div>
-              {msg.role === 'user' && <User className="w-6 h-6 text-emerald-400 ml-2 shrink-0" />}
+            <div key={index} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+              <div className={`flex items-end w-full ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                {msg.role === 'assistant' && <Bot className="w-6 h-6 text-purple-400 mr-2 shrink-0" />}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`rounded-2xl px-4 py-2 max-w-[75%] ${msg.role === 'user' ? 'bg-zinc-700 text-white' : 'bg-transparent text-gray-100'}`}>
+                  {msg.content}
+                </motion.div>
+                {msg.role === 'user' && <User className="w-6 h-6 text-emerald-400 ml-2 shrink-0" />}
+              </div>
+              {msg.role === 'assistant' && msg.metadata && (
+                <div className="text-xs text-zinc-500 mt-1 ml-8 px-2 py-0.5 rounded-full bg-zinc-900/50 border border-zinc-800">
+                  <span>{msg.metadata.totalTokens} tokens</span>
+                  <span className="mx-1">·</span>
+                  <span>${msg.metadata.totalCost.toFixed(6)}</span>
+                </div>
+              )}
             </div>
           ))}
           <div ref={messagesEndRef} />
@@ -175,6 +186,7 @@ const ChatInterface = () => {
         <form onSubmit={handleSubmit} className="px-4 py-4 bg-black/90 backdrop-blur shrink-0">
           <div className="relative">
             <Input
+              ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
@@ -207,7 +219,7 @@ const ChatInterface = () => {
             </div>
           </div>
         </form>
-      </motion.div>
+      </div>
     </div>
   );
 };

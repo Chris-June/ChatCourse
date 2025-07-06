@@ -9,9 +9,19 @@ import { v4 as uuidv4 } from 'uuid';
 import { persist } from 'zustand/middleware';
 
 // Define the types for the chat messages and sessions
+export type TokenMetadata = {
+  promptTokens: number;
+  completionTokens: number;
+  totalTokens: number;
+  promptCost: number;
+  completionCost: number;
+  totalCost: number;
+};
+
 export type Message = {
   role: 'user' | 'assistant';
   content: string;
+  metadata?: TokenMetadata;
 };
 
 export type ChatSession = {
@@ -37,6 +47,7 @@ interface ChatState {
   setInput: (input: string) => void;
   setStreaming: (isStreaming: boolean) => void;
   updateLastMessage: (chunk: string) => void;
+  updateLastMessageMetadata: (metadata: TokenMetadata) => void;
   getActiveSession: () => ChatSession | undefined;
   setSessionTopic: (sessionId: string, topic: string) => void;
   renameSession: (sessionId: string, newTopic: string) => void;
@@ -97,6 +108,29 @@ export const useChatStore = create<ChatState>()(
       setInput: (input) => set({ input }),
 
       setStreaming: (isStreaming) => set({ isStreaming }),
+
+      updateLastMessageMetadata: (metadata) => {
+        set((state) => {
+          const activeSession = get().getActiveSession();
+          if (!activeSession) return state;
+
+          const lastMessage = activeSession.messages[activeSession.messages.length - 1];
+          if (lastMessage && lastMessage.role === 'assistant') {
+            const updatedMessage = { ...lastMessage, metadata };
+            const updatedSession = {
+              ...activeSession,
+              messages: [...activeSession.messages.slice(0, -1), updatedMessage],
+            };
+
+            return {
+              sessions: state.sessions.map((s) =>
+                s.id === state.activeSessionId ? updatedSession : s
+              ),
+            };
+          }
+          return state;
+        });
+      },
 
       updateLastMessage: (chunk) => {
         set((state) => {
