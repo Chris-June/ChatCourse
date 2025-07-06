@@ -47,9 +47,9 @@ app.post('/api/chat', async (req, res) => {
       ? requestedModel 
       : 'gpt-4.1-nano';
 
-        const systemMessage = customInstructions
-      ? [{ role: 'system', content: customInstructions }]
-      : [];
+        const BASE_SYSTEM_PROMPT = "You are Intelli-Chat, a helpful and friendly AI assistant. Your responses should be concise, informative, and aim to assist the user with their requests.";
+    const combinedInstructions = [BASE_SYSTEM_PROMPT, customInstructions].filter(Boolean).join('\n\n');
+    const systemMessage = combinedInstructions ? [{ role: 'system', content: combinedInstructions }] : [];
 
     const stream = await openai.chat.completions.create({
       model,
