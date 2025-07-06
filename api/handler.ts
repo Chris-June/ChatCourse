@@ -200,5 +200,5 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-// This is required for Vercel to handle the serverless function
+
 export default app;

@@ -209,10 +209,27 @@ const ChatInterface = () => {
 
       <div className="flex-1 flex flex-col h-full bg-black min-w-0">
         <header className="flex items-center justify-between p-4 border-b border-zinc-800 shrink-0">
-          <Button variant="ghost" size="icon" onClick={() => setMenuOpen(!isMenuOpen)}>
-            <Menu size={20} />
-          </Button>
-          <h1 className="text-xl font-bold">{model.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h1>
+          <div className="flex items-center space-x-2">
+            <Button variant="ghost" size="icon" onClick={() => setMenuOpen(!isMenuOpen)}>
+              <Menu size={20} />
+            </Button>
+            <div className="flex items-center space-x-2">
+              <img 
+                src="/Logo.png" 
+                alt="Chat App Logo" 
+                className="h-12 w-12 object-contain" 
+                onError={(e) => {
+                  // Fallback to relative path if absolute path fails
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null;
+                  target.src = 'Logo.png';
+                }}
+              />
+              <h1 className="text-xl font-bold">
+                {model.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+              </h1>
+            </div>
+          </div>
           <div className="w-8" /> {/* Spacer to balance the header */}
         </header>
 
