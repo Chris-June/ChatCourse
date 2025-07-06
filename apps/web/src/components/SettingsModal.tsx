@@ -4,13 +4,10 @@
  */
 
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
-  DialogClose,
   Select,
   SelectContent,
   SelectItem,
@@ -81,13 +78,7 @@ const SettingsModal = () => {
           </div>
         </div>
 
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button type="button" variant="secondary" onClick={toggleSettings}>
-              Close
-            </Button>
-          </DialogClose>
-        </DialogFooter>
+
       </DialogContent>
     </Dialog>
   );
