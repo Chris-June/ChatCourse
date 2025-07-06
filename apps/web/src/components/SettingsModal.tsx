@@ -42,7 +42,7 @@ const SettingsModal = () => {
               Model
             </label>
             <Select value={model} onValueChange={setModel}>
-              <SelectTrigger id="model-select" className="w-[180px] bg-zinc-800 border-zinc-700">
+              <SelectTrigger id="model-select" className="w-[320px] bg-zinc-800 border-zinc-700">
                 <SelectValue placeholder="Select a model" />
               </SelectTrigger>
               <SelectContent className="bg-zinc-800 border-zinc-700 text-gray-100 max-h-[400px]">
@@ -54,8 +54,8 @@ const SettingsModal = () => {
                       .map((m) => (
                         <SelectItem key={m.id} value={m.id}>
                           <div className="flex items-center justify-between w-full">
-                            <span>{m.name}</span>
-                            <span className="text-xs text-gray-400 ml-4">
+                            <span className="whitespace-nowrap">{m.name}</span>
+                            <span className="text-xs text-gray-400 ml-4 whitespace-nowrap">
                               {m.context} | In: ${m.inputCost.toFixed(2)} Out: ${m.outputCost.toFixed(2)}
                             </span>
                           </div>
