@@ -2,17 +2,19 @@
   "name": "chat-app-monorepo",
   "private": true,
   "scripts": {
-    "dev": "pnpm --filter web dev",
+    "dev": "concurrently \"pnpm --filter web dev\" \"pnpm --filter api dev\"",
     "build": "pnpm --filter web build",
     "lint": "eslint . --ext .ts,.tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write ."
   },
   "devDependencies": {
+    "concurrently": "^9.2.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "prettier": "^3.2.5",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vite": "^7.0.2"
   }
 }

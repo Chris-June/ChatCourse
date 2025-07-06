@@ -22,14 +22,16 @@ const openai = new OpenAI({
 
 // Middleware
 app.use(express.json());
-app.use((req, res, next) => {
+app.use((_req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
+const ALLOWED_MODELS = ['gpt-4.1-nano', 'gpt-4', 'gpt-3.5-turbo'];
+
 app.post('/api/chat', async (req, res) => {
-  const { messages } = req.body;
+  const { messages, model: requestedModel } = req.body;
 
   if (!messages) {
     return res.status(400).json({ error: { message: 'Messages are required.' } });
@@ -41,8 +43,12 @@ app.post('/api/chat', async (req, res) => {
     res.setHeader('Connection', 'keep-alive');
     res.flushHeaders();
 
+        const model = requestedModel && ALLOWED_MODELS.includes(requestedModel) 
+      ? requestedModel 
+      : 'gpt-4.1-nano';
+
     const stream = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL || 'gpt-4.1-nano',
+      model,
       messages: messages,
       stream: true,
       temperature: parseFloat(process.env.DEFAULT_TEMPERATURE || '0.7'),
