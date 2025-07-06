@@ -8,12 +8,12 @@
 import { motion } from 'framer-motion';
 import { Button } from '@chat/ui';
 import { useState } from 'react';
-import { X, History, Settings, PlusCircle, Edit, Trash2 } from 'lucide-react';
+import { History, Settings, PlusCircle, Edit, Trash2 } from 'lucide-react';
 import { ChatSession } from '../store/chat';
 
 interface SideMenuProps {
   isOpen: boolean;
-  onClose: () => void;
+
   sessions: ChatSession[];
   activeSessionId: string | null;
   onSwitchSession: (sessionId: string) => void;
@@ -25,7 +25,7 @@ interface SideMenuProps {
 
 const SideMenu = ({
   isOpen,
-  onClose,
+
   sessions,
   activeSessionId,
   onSwitchSession,
@@ -44,9 +44,7 @@ const SideMenu = ({
     >
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold">History</h2>
-        <Button variant="ghost" size="icon" onClick={onClose}>
-          <X size={20} />
-        </Button>
+
       </div>
 
       <Button
@@ -54,7 +52,6 @@ const SideMenu = ({
         className="w-full mb-4 bg-zinc-800 border-zinc-700 hover:bg-zinc-700"
         onClick={() => {
           onNewSession();
-          onClose();
         }}
       >
         <PlusCircle size={16} className="mr-2" />
@@ -74,7 +71,6 @@ const SideMenu = ({
               className="w-full justify-start truncate pr-16"
               onClick={() => {
                 onSwitchSession(session.id);
-                onClose();
               }}
             >
               <History size={14} className="mr-2 shrink-0" />

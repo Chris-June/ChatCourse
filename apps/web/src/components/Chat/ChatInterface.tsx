@@ -125,7 +125,7 @@ const ChatInterface = () => {
     <div className="h-screen w-full overflow-hidden relative bg-black text-gray-100 flex">
       <SideMenu
         isOpen={isMenuOpen}
-        onClose={() => setMenuOpen(false)}
+
         sessions={sessions}
         activeSessionId={activeSessionId}
         onSwitchSession={setActiveSession}
@@ -145,7 +145,7 @@ const ChatInterface = () => {
         className="flex-1 flex flex-col h-full bg-black shadow-2xl"
       >
         <header className="flex items-center justify-between p-4 border-b border-zinc-800 shrink-0">
-          <Button variant="ghost" size="icon" onClick={() => setMenuOpen(true)}>
+          <Button variant="ghost" size="icon" onClick={() => setMenuOpen(!isMenuOpen)}>
             <Menu size={20} />
           </Button>
                     <h1 className="text-xl font-bold">{model.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h1>
