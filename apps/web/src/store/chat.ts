@@ -41,6 +41,7 @@ interface ChatState {
   customInstructions: string;
   temperature: number;
   top_p: number;
+  apiKey: string;
   startNewSession: () => void;
   setActiveSession: (sessionId: string) => void;
   addMessage: (message: Message) => void;
@@ -57,6 +58,7 @@ interface ChatState {
   setCustomInstructions: (instructions: string) => void;
   setTemperature: (temp: number) => void;
   setTopP: (top_p: number) => void;
+  setApiKey: (apiKey: string) => void;
   removeLastMessage: () => void;
   setMessages: (messages: Message[]) => void;
   theme: 'dark' | 'light';
@@ -75,6 +77,7 @@ export const useChatStore = create<ChatState>()(
       customInstructions: '',
       temperature: 1,
       top_p: 1,
+      apiKey: '',
       theme: 'dark',
 
       startNewSession: () => {
@@ -213,6 +216,7 @@ export const useChatStore = create<ChatState>()(
       setCustomInstructions: (instructions) => set({ customInstructions: instructions }),
       setTemperature: (temp) => set({ temperature: temp }),
       setTopP: (top_p) => set({ top_p }),
+      setApiKey: (apiKey) => set({ apiKey }),
 
       removeLastMessage: () => {
         set((state) => {
@@ -257,6 +261,7 @@ export const useChatStore = create<ChatState>()(
         model: state.model,
         customInstructions: state.customInstructions,
         theme: state.theme,
+        apiKey: state.apiKey,
       }),
     }
   )

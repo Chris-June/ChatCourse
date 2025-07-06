@@ -1,0 +1,43 @@
+.instructions-page {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.instructions-page h2 {
+  scroll-margin-top: 1rem;
+}
+
+.instructions-page section {
+  scroll-margin-top: 2rem;
+}
+
+.instructions-page pre {
+  background-color: #374151;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+
+.instructions-page a {
+  transition: color 0.2s ease-in-out;
+}
+
+.instructions-page a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .instructions-page {
+    padding: 1rem;
+  }
+  
+  .instructions-page h1 {
+    font-size: 2rem;
+  }
+  
+  .instructions-page h2 {
+    font-size: 1.5rem;
+  }
+}

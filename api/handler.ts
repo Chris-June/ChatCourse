@@ -76,9 +76,7 @@ const getPricing = (model: string) => {
 dotenv.config({ path: path.resolve(__dirname, '../.env.local') });
 
 const app = express();
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+
 
 // Middleware
 app.use(express.json());
@@ -114,7 +112,7 @@ const ALLOWED_MODELS = [
 ];
 
 app.post('/api/chat', async (req, res) => {
-  const { messages, model: requestedModel, customInstructions, temperature, top_p } = req.body;
+  const { messages, model: requestedModel, customInstructions, temperature, top_p, apiKey } = req.body;
 
   if (!messages) {
     return res.status(400).json({ error: { message: 'Messages are required.' } });
@@ -135,6 +133,10 @@ app.post('/api/chat', async (req, res) => {
   const promptTokens = messagesForAPI.reduce((acc, msg) => {
       return acc + encoding.encode(msg.content).length;
   }, 0);
+
+  const openai = new OpenAI({
+    apiKey: apiKey || process.env.OPENAI_API_KEY,
+  });
 
   try {
     res.setHeader('Content-Type', 'text/event-stream');

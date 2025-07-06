@@ -1,6 +1,7 @@
 /**
  * @file models.ts
- * @description Defines the available OpenAI models with their pricing and context window information.
+ * @description Defines the available OpenAI models with their pricing and context window information. Always verify the model name and pricing from the OpenAI API.
+ * https://platform.openai.com/docs/pricing
  */
 
 export interface Model {

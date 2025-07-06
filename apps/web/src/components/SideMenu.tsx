@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@chat/ui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { History, Settings, PlusCircle, Edit, Trash2, Sun, Moon, Home } from 'lucide-react';
+import { History, Settings, PlusCircle, Edit, Trash2, Home, BookOpen } from 'lucide-react';
 import { ChatSession } from '../store/chat';
 
 interface SideMenuProps {
@@ -22,8 +22,6 @@ interface SideMenuProps {
   onRenameSession: (sessionId: string, newTopic: string) => void;
   onDeleteSession: (sessionId: string) => void;
   onOpenSettings: () => void;
-  theme: 'dark' | 'light';
-  toggleTheme: () => void;
 }
 
 const SideMenu = ({
@@ -36,8 +34,6 @@ const SideMenu = ({
   onRenameSession,
   onDeleteSession,
   onOpenSettings,
-  theme,
-  toggleTheme,
 }: SideMenuProps) => {
   const navigate = useNavigate();
   const [hoveredSessionId, setHoveredSessionId] = useState<string | null>(null);
@@ -119,23 +115,28 @@ const SideMenu = ({
           ))}
         </div>
 
-                <div className="mt-auto space-y-2 pt-4 border-t border-zinc-800">
+        <div className="mt-auto space-y-2 pt-4 border-t border-zinc-800">
           <Button variant="ghost" className="w-full justify-start" onClick={() => navigate('/')}>
             <Home size={16} className="mr-2" />
             Home
           </Button>
-          <Button variant="ghost" className="w-full justify-start" onClick={toggleTheme}>
-            {theme === 'dark' ? (
-              <Sun size={16} className="mr-2" />
-            ) : (
-              <Moon size={16} className="mr-2" />
-            )}
-            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+          <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={() => navigate('/instructions')}
+          >
+            <BookOpen size={16} className="mr-2" />
+            Instructions
           </Button>
-          <Button variant="ghost" className="w-full justify-start" onClick={onOpenSettings}>
+          <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={onOpenSettings}
+          >
             <Settings size={16} className="mr-2" />
             Settings
           </Button>
+
           <p className="text-xs text-gray-500 px-3 pt-2">Intelli-Chat v1.0</p>
         </div>
       </div>

@@ -18,7 +18,10 @@ import {
   Label,
   Textarea,
   Slider,
+  Input,
+  Button,
 } from '@chat/ui';
+import { Sun, Moon } from 'lucide-react';
 import { useChatStore } from '../store/chat';
 import { models, modelFamilies } from '@/lib/models';
 
@@ -36,6 +39,10 @@ const SettingsModal = () => {
     setTemperature,
     top_p,
     setTopP,
+    apiKey,
+    setApiKey,
+    theme,
+    toggleTheme,
   } = useChatStore();
 
     return (
@@ -127,6 +134,37 @@ const SettingsModal = () => {
             <p className="text-xs text-gray-400">
               Top P is an alternative to temperature that selects from the highest probability tokens. A lower value narrows the selection to more likely tokens.
             </p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="api-key" className="text-sm font-medium text-gray-300">
+              OpenAI API Key
+            </Label>
+            <Input
+              id="api-key"
+              type="password"
+              placeholder="Enter your OpenAI API key"
+              value={apiKey}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setApiKey(e.target.value)}
+              className="bg-zinc-800 border-zinc-700 focus:ring-zinc-600"
+            />
+             <p className="text-xs text-gray-400">
+              Your API key is stored locally and never sent to our servers.
+            </p>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <Label className="text-sm font-medium text-gray-300">
+              Theme
+            </Label>
+            <Button variant="ghost" className="w-full justify-start" onClick={toggleTheme}>
+            {theme === 'dark' ? (
+              <Sun size={16} className="mr-2" />
+            ) : (
+              <Moon size={16} className="mr-2" />
+            )}
+            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+          </Button>
           </div>
         </div>
 

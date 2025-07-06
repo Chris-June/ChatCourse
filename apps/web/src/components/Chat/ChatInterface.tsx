@@ -40,7 +40,7 @@ const ChatInterface = () => {
     temperature,
     top_p,
     theme,
-    toggleTheme,
+    apiKey,
   } = useChatStore();
 
   const activeSession = getActiveSession();
@@ -92,6 +92,7 @@ const ChatInterface = () => {
           customInstructions,
           temperature,
           top_p,
+          apiKey,
         }),
       });
 
@@ -198,8 +199,6 @@ const ChatInterface = () => {
       <SideMenu
         isOpen={isMenuOpen}
         sessions={sessions}
-        theme={theme}
-        toggleTheme={toggleTheme}
         activeSessionId={activeSessionId}
         onSwitchSession={setActiveSession}
         onNewSession={startNewSession}
