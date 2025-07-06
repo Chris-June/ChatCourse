@@ -46,7 +46,7 @@ interface ChatState {
   addMessage: (message: Message) => void;
   setInput: (input: string) => void;
   setStreaming: (isStreaming: boolean) => void;
-  updateLastMessage: (chunk: string) => void;
+  updateLastMessage: (updater: string | ((prev: string) => string)) => void;
   updateLastMessageMetadata: (metadata: TokenMetadata) => void;
   getActiveSession: () => ChatSession | undefined;
   setSessionTopic: (sessionId: string, topic: string) => void;
@@ -57,6 +57,10 @@ interface ChatState {
   setCustomInstructions: (instructions: string) => void;
   setTemperature: (temp: number) => void;
   setTopP: (top_p: number) => void;
+  removeLastMessage: () => void;
+  setMessages: (messages: Message[]) => void;
+  theme: 'dark' | 'light';
+  toggleTheme: () => void;
 }
 
 export const useChatStore = create<ChatState>()(
@@ -71,6 +75,7 @@ export const useChatStore = create<ChatState>()(
       customInstructions: '',
       temperature: 1,
       top_p: 1,
+      theme: 'dark',
 
       startNewSession: () => {
         const newSession: ChatSession = {
@@ -132,14 +137,19 @@ export const useChatStore = create<ChatState>()(
         });
       },
 
-      updateLastMessage: (chunk) => {
+      updateLastMessage: (updater) => {
         set((state) => {
           const activeSession = get().getActiveSession();
           if (!activeSession) return state;
 
           const lastMessage = activeSession.messages[activeSession.messages.length - 1];
           if (lastMessage && lastMessage.role === 'assistant') {
-            const updatedMessage = { ...lastMessage, content: lastMessage.content + chunk };
+            const newContent =
+              typeof updater === 'function'
+                ? updater(lastMessage.content)
+                : lastMessage.content + updater; // Append chunk if it's a string
+
+            const updatedMessage = { ...lastMessage, content: newContent };
             const updatedSession = {
               ...activeSession,
               messages: [...activeSession.messages.slice(0, -1), updatedMessage],
@@ -203,6 +213,41 @@ export const useChatStore = create<ChatState>()(
       setCustomInstructions: (instructions) => set({ customInstructions: instructions }),
       setTemperature: (temp) => set({ temperature: temp }),
       setTopP: (top_p) => set({ top_p }),
+
+      removeLastMessage: () => {
+        set((state) => {
+          const activeSession = get().getActiveSession();
+          if (!activeSession || activeSession.messages.length < 2) return state;
+
+          const updatedSession = {
+            ...activeSession,
+            messages: activeSession.messages.slice(0, -2),
+          };
+
+          return {
+            sessions: state.sessions.map((s) =>
+              s.id === state.activeSessionId ? updatedSession : s
+            ),
+          };
+        });
+      },
+
+      toggleTheme: () => set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
+
+      setMessages: (messages) => {
+        set((state) => {
+          const activeSession = get().getActiveSession();
+          if (!activeSession) return state;
+
+          const updatedSession = { ...activeSession, messages };
+
+          return {
+            sessions: state.sessions.map((s) =>
+              s.id === state.activeSessionId ? updatedSession : s
+            ),
+          };
+        });
+      },
     }),
     {
       name: 'chat-storage',
@@ -211,6 +256,7 @@ export const useChatStore = create<ChatState>()(
         activeSessionId: state.activeSessionId,
         model: state.model,
         customInstructions: state.customInstructions,
+        theme: state.theme,
       }),
     }
   )

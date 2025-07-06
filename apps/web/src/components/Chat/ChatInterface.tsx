@@ -6,10 +6,16 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Button, Input } from '@chat/ui';
-import { Plus, Send, Mic, Smile, Bot, User, Menu } from 'lucide-react';
+import { Plus, Send, Mic, Smile, Bot, User, Menu, Square, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useChatStore, Message } from '@/store/chat';
 import SideMenu from '../SideMenu';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
+import CodeBlock from '../Markdown/CodeBlock';
 
 const ChatInterface = () => {
   const {
@@ -19,12 +25,13 @@ const ChatInterface = () => {
     setInput,
     setStreaming,
     updateLastMessage,
+    updateLastMessageMetadata,
+    setMessages,
     sessions,
     activeSessionId,
     startNewSession,
     setActiveSession,
     getActiveSession,
-    setSessionTopic,
     renameSession,
     deleteSession,
     model,
@@ -32,11 +39,14 @@ const ChatInterface = () => {
     customInstructions,
     temperature,
     top_p,
+    theme,
+    toggleTheme,
   } = useChatStore();
 
   const activeSession = getActiveSession();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const scrollToBottom = () => {
@@ -53,34 +63,31 @@ const ChatInterface = () => {
     scrollToBottom();
   }, [activeSession?.messages]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!input.trim() || isStreaming || !activeSession) return;
-
-    const newUserMessage: Message = { role: 'user', content: input };
-    addMessage(newUserMessage);
-
-    // If this is the first message in a new chat, set a topic
-    if (activeSession.messages.length === 0) {
-      const topic = input.split(' ').slice(0, 5).join(' ');
-      setSessionTopic(activeSession.id, topic);
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
+  }, [theme]);
 
-    setInput('');
+  const handleStopStreaming = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+  };
 
-    const newAiMessage: Message = { role: 'assistant', content: '' };
-    addMessage(newAiMessage);
-
+  const executeChatRequest = async (messages: Message[]) => {
     setStreaming(true);
+    abortControllerRef.current = new AbortController();
 
     try {
       const response = await fetch('http://localhost:3001/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          messages: [...activeSession.messages, newUserMessage],
+        headers: { 'Content-Type': 'application/json' },
+        signal: abortControllerRef.current.signal,
+        body: JSON.stringify({
+          messages,
           model,
           customInstructions,
           temperature,
@@ -92,48 +99,78 @@ const ChatInterface = () => {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
+      let assistantMessage: Message = { role: 'assistant', content: '' };
+      addMessage(assistantMessage);
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        const eventLines = chunk.split('\n\n').filter(Boolean);
+        const lines = chunk.split('\n\n');
 
-        for (const eventLine of eventLines) {
-          if (eventLine.startsWith('event: metadata')) {
-            const dataLine = eventLine.split('\n')[1];
-            const data = dataLine.substring(6);
-            try {
-              const metadata = JSON.parse(data);
-              useChatStore.getState().updateLastMessageMetadata(metadata);
-            } catch (err) {
-              console.error('Error parsing metadata:', err);
-            }
-          } else if (eventLine.startsWith('data: ')) {
-            const data = eventLine.substring(6);
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = line.substring(6);
             if (data === '[DONE]') {
-              setStreaming(false);
-              return;
-            }
-            try {
-              const { delta } = JSON.parse(data);
-              if (delta) {
-                updateLastMessage(delta);
-              }
-            } catch (err) {
-              console.error('Error parsing stream data:', err);
+              break;
+            } else if (data.startsWith('{"metadata":')) {
+              const { metadata } = JSON.parse(data);
+              updateLastMessageMetadata(metadata);
+            } else {
+              updateLastMessage(data);
             }
           }
         }
       }
-    } catch (error) {
-      console.error('Error fetching chat response:', error);
-      updateLastMessage('\n\nError: Could not fetch response.');
+    } catch (error: unknown) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.log('Fetch aborted by user.');
+        updateLastMessage((prev: string) => prev + ' [Stopped]');
+      } else {
+        console.error('Error fetching chat response:', error);
+        updateLastMessage('\n\nError: Could not fetch response.');
+      }
     } finally {
       setStreaming(false);
       inputRef.current?.focus();
+      abortControllerRef.current = null;
     }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!input.trim() || isStreaming || !activeSession) return;
+
+    const userMessage: Message = { role: 'user', content: input };
+    addMessage(userMessage);
+    setInput('');
+
+    const messages = [...activeSession.messages, userMessage];
+    await executeChatRequest(messages);
+  };
+
+  const handleRegenerate = async () => {
+    if (!activeSession || isStreaming || activeSession.messages.length === 0) return;
+
+    let lastUserMessageIndex = -1;
+    for (let i = activeSession.messages.length - 1; i >= 0; i--) {
+      if (activeSession.messages[i].role === 'user') {
+        lastUserMessageIndex = i;
+        break;
+      }
+    }
+
+    if (lastUserMessageIndex === -1) return;
+
+    const messagesToResubmit = activeSession.messages.slice(
+      0,
+      lastUserMessageIndex + 1
+    );
+
+    setMessages(messagesToResubmit);
+
+    await executeChatRequest(messagesToResubmit);
   };
 
   return (
@@ -141,6 +178,8 @@ const ChatInterface = () => {
       <SideMenu
         isOpen={isMenuOpen}
         sessions={sessions}
+        theme={theme}
+        toggleTheme={toggleTheme}
         activeSessionId={activeSessionId}
         onSwitchSession={setActiveSession}
         onNewSession={startNewSession}
@@ -163,14 +202,37 @@ const ChatInterface = () => {
             <div key={index} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
               <div className={`flex items-end w-full ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {msg.role === 'assistant' && <Bot className="w-6 h-6 text-purple-400 mr-2 shrink-0" />}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`rounded-2xl px-4 py-2 max-w-[75%] ${msg.role === 'user' ? 'bg-zinc-700 text-white' : 'bg-transparent text-gray-100'}`}>
-                  {msg.content}
-                </motion.div>
+                {msg.role === 'assistant' ? (
+                  <div className="prose prose-sm max-w-full text-white">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm, remarkMath]}
+                      rehypePlugins={[rehypeKatex]}
+                      components={{
+                        code: CodeBlock,
+                      }}
+                    >
+                      {msg.content}
+                    </ReactMarkdown>
+                  </div>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`rounded-2xl px-4 py-2 max-w-[75%] ${msg.role === 'user' ? 'bg-zinc-700 text-white' : 'bg-transparent text-gray-100'}`}
+                  >
+                    {msg.content}
+                  </motion.div>
+                )}
                 {msg.role === 'user' && <User className="w-6 h-6 text-emerald-400 ml-2 shrink-0" />}
               </div>
+              {msg.role === 'assistant' && index === (activeSession?.messages?.length ?? 0) - 1 && !isStreaming && (
+                <div className="mt-2 flex items-center justify-start ml-8">
+                  <Button onClick={handleRegenerate} size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                    <RefreshCw size={16} className="mr-2" />
+                    Regenerate
+                  </Button>
+                </div>
+              )}
               {msg.role === 'assistant' && msg.metadata && (
                 <div className="text-xs text-zinc-500 mt-1 ml-8 px-2 py-0.5 rounded-full bg-zinc-900/50 border border-zinc-800">
                   <span>{msg.metadata.totalTokens} tokens</span>
@@ -198,24 +260,40 @@ const ChatInterface = () => {
               variant="ghost"
               size="icon"
               disabled={isStreaming}
-              className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-300 hover:text-white disabled:opacity-50">
+              className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-300 hover:text-white disabled:opacity-50"
+            >
               <Plus size={20} />
             </Button>
             <div className="absolute right-2 top-1/2 -translate-y-1/2 flex space-x-2">
-              <Button
-                type="submit"
-                variant="ghost"
-                size="icon"
-                disabled={isStreaming || !input.trim()}
-                className="text-gray-300 hover:text-white disabled:opacity-50">
-                <Send size={18} />
-              </Button>
-              <Button type="button" variant="ghost" size="icon" disabled={isStreaming} className="text-gray-300 hover:text-white disabled:opacity-50">
-                <Mic size={18} />
-              </Button>
-              <Button type="button" variant="ghost" size="icon" disabled={isStreaming} className="text-gray-300 hover:text-white disabled:opacity-50">
-                <Smile size={18} />
-              </Button>
+              {isStreaming ? (
+                <Button
+                  type="button"
+                  variant="destructive"
+                  onClick={handleStopStreaming}
+                  className="text-white bg-red-600 hover:bg-red-700 rounded-full px-4 py-2 flex items-center"
+                >
+                  <Square size={16} className="mr-2" />
+                  Stop
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    type="submit"
+                    variant="ghost"
+                    size="icon"
+                    disabled={!input.trim()}
+                    className="text-gray-300 hover:text-white disabled:opacity-50"
+                  >
+                    <Send size={18} />
+                  </Button>
+                  <Button type="button" variant="ghost" size="icon" className="text-gray-300 hover:text-white disabled:opacity-50">
+                    <Mic size={18} />
+                  </Button>
+                  <Button type="button" variant="ghost" size="icon" className="text-gray-300 hover:text-white disabled:opacity-50">
+                    <Smile size={18} />
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </form>

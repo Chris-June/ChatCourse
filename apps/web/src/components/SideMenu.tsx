@@ -8,7 +8,7 @@
 import { motion } from 'framer-motion';
 import { Button } from '@chat/ui';
 import { useState } from 'react';
-import { History, Settings, PlusCircle, Edit, Trash2 } from 'lucide-react';
+import { History, Settings, PlusCircle, Edit, Trash2, Sun, Moon } from 'lucide-react';
 import { ChatSession } from '../store/chat';
 
 interface SideMenuProps {
@@ -21,6 +21,8 @@ interface SideMenuProps {
   onRenameSession: (sessionId: string, newTopic: string) => void;
   onDeleteSession: (sessionId: string) => void;
   onOpenSettings: () => void;
+  theme: 'dark' | 'light';
+  toggleTheme: () => void;
 }
 
 const SideMenu = ({
@@ -33,6 +35,8 @@ const SideMenu = ({
   onRenameSession,
   onDeleteSession,
   onOpenSettings,
+  theme,
+  toggleTheme,
 }: SideMenuProps) => {
   const [hoveredSessionId, setHoveredSessionId] = useState<string | null>(null);
   return (
@@ -114,6 +118,14 @@ const SideMenu = ({
         </div>
 
         <div className="mt-auto space-y-2 pt-4 border-t border-zinc-800">
+          <Button variant="ghost" className="w-full justify-start" onClick={toggleTheme}>
+            {theme === 'dark' ? (
+              <Sun size={16} className="mr-2" />
+            ) : (
+              <Moon size={16} className="mr-2" />
+            )}
+            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+          </Button>
           <Button variant="ghost" className="w-full justify-start" onClick={onOpenSettings}>
             <Settings size={16} className="mr-2" />
             Settings
