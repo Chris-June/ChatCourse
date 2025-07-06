@@ -31,7 +31,7 @@ app.use((_req, res, next) => {
 const ALLOWED_MODELS = ['gpt-4.1-nano', 'gpt-4', 'gpt-3.5-turbo'];
 
 app.post('/api/chat', async (req, res) => {
-  const { messages, model: requestedModel } = req.body;
+  const { messages, model: requestedModel, customInstructions } = req.body;
 
   if (!messages) {
     return res.status(400).json({ error: { message: 'Messages are required.' } });
@@ -47,9 +47,13 @@ app.post('/api/chat', async (req, res) => {
       ? requestedModel 
       : 'gpt-4.1-nano';
 
+        const systemMessage = customInstructions
+      ? [{ role: 'system', content: customInstructions }]
+      : [];
+
     const stream = await openai.chat.completions.create({
       model,
-      messages: messages,
+      messages: [...systemMessage, ...messages],
       stream: true,
       temperature: parseFloat(process.env.DEFAULT_TEMPERATURE || '0.7'),
       top_p: parseFloat(process.env.DEFAULT_TOP_P || '0.9'),

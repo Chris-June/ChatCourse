@@ -29,6 +29,7 @@ const ChatInterface = () => {
     deleteSession,
     model,
     toggleSettings,
+    customInstructions,
   } = useChatStore();
 
   const activeSession = getActiveSession();
@@ -78,6 +79,7 @@ const ChatInterface = () => {
         body: JSON.stringify({ 
           messages: [...activeSession.messages, newUserMessage],
           model,
+          customInstructions,
         }),
       });
 

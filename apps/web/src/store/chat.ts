@@ -28,6 +28,7 @@ interface ChatState {
   isStreaming: boolean;
   isSettingsOpen: boolean;
   model: string;
+  customInstructions: string;
   startNewSession: () => void;
   setActiveSession: (sessionId: string) => void;
   addMessage: (message: Message) => void;
@@ -40,6 +41,7 @@ interface ChatState {
   deleteSession: (sessionId: string) => void;
   toggleSettings: () => void;
   setModel: (model: string) => void;
+  setCustomInstructions: (instructions: string) => void;
 }
 
 export const useChatStore = create<ChatState>()(
@@ -51,6 +53,7 @@ export const useChatStore = create<ChatState>()(
       isStreaming: false,
       isSettingsOpen: false,
       model: 'gpt-4.1-nano',
+      customInstructions: '',
 
       startNewSession: () => {
         const newSession: ChatSession = {
@@ -157,6 +160,7 @@ export const useChatStore = create<ChatState>()(
 
       toggleSettings: () => set((state) => ({ isSettingsOpen: !state.isSettingsOpen })),
       setModel: (model) => set({ model }),
+      setCustomInstructions: (instructions) => set({ customInstructions: instructions }),
     }),
     {
       name: 'chat-storage',
@@ -164,6 +168,7 @@ export const useChatStore = create<ChatState>()(
         sessions: state.sessions,
         activeSessionId: state.activeSessionId,
         model: state.model,
+        customInstructions: state.customInstructions,
       }),
     }
   )
