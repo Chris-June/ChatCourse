@@ -5,7 +5,7 @@
   "type": "module",
   "main": "handler.ts",
   "scripts": {
-    "dev": "tsx watch handler.ts"
+    "dev": "NODE_ENV=development tsx watch handler.ts"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
