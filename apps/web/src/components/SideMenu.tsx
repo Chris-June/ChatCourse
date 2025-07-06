@@ -8,7 +8,8 @@
 import { motion } from 'framer-motion';
 import { Button } from '@chat/ui';
 import { useState } from 'react';
-import { History, Settings, PlusCircle, Edit, Trash2, Sun, Moon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { History, Settings, PlusCircle, Edit, Trash2, Sun, Moon, Home } from 'lucide-react';
 import { ChatSession } from '../store/chat';
 
 interface SideMenuProps {
@@ -38,6 +39,7 @@ const SideMenu = ({
   theme,
   toggleTheme,
 }: SideMenuProps) => {
+  const navigate = useNavigate();
   const [hoveredSessionId, setHoveredSessionId] = useState<string | null>(null);
   return (
     <motion.div
@@ -117,7 +119,11 @@ const SideMenu = ({
           ))}
         </div>
 
-        <div className="mt-auto space-y-2 pt-4 border-t border-zinc-800">
+                <div className="mt-auto space-y-2 pt-4 border-t border-zinc-800">
+          <Button variant="ghost" className="w-full justify-start" onClick={() => navigate('/')}>
+            <Home size={16} className="mr-2" />
+            Home
+          </Button>
           <Button variant="ghost" className="w-full justify-start" onClick={toggleTheme}>
             {theme === 'dark' ? (
               <Sun size={16} className="mr-2" />

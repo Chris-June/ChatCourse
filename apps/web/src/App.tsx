@@ -4,14 +4,25 @@
  * It renders the main ChatInterface.
  */
 
-import ChatInterface from './components/Chat/ChatInterface';
-import SettingsModal from './components/SettingsModal';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import LandingPage from './pages/landing/LandingPage';
+import ChatPage from './pages/chat/ChatPage';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <LandingPage />,
+  },
+  {
+    path: '/chat',
+    element: <ChatPage />,
+  },
+]);
 
 function App() {
   return (
     <main>
-      <ChatInterface />
-      <SettingsModal />
+      <RouterProvider router={router} />
     </main>
   );
 }
