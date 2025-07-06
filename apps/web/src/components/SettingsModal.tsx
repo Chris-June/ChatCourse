@@ -16,10 +16,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectGroup,
+  SelectLabel,
   Label,
   Textarea,
 } from '@chat/ui';
 import { useChatStore } from '../store/chat';
+import { models, modelFamilies } from '@/lib/models';
 
 
 
@@ -42,10 +45,24 @@ const SettingsModal = () => {
               <SelectTrigger id="model-select" className="w-[180px] bg-zinc-800 border-zinc-700">
                 <SelectValue placeholder="Select a model" />
               </SelectTrigger>
-              <SelectContent className="bg-zinc-800 border-zinc-700 text-gray-100">
-                <SelectItem value="gpt-4.1-nano">GPT-4.1 Nano</SelectItem>
-                <SelectItem value="gpt-4">GPT-4</SelectItem>
-                <SelectItem value="gpt-3.5-turbo">GPT-3.5 Turbo</SelectItem>
+              <SelectContent className="bg-zinc-800 border-zinc-700 text-gray-100 max-h-[400px]">
+                {modelFamilies.map((family) => (
+                  <SelectGroup key={family}>
+                    <SelectLabel className="px-2 py-1.5 text-xs font-semibold text-gray-400">{family}</SelectLabel>
+                    {models
+                      .filter((m) => m.family === family)
+                      .map((m) => (
+                        <SelectItem key={m.id} value={m.id}>
+                          <div className="flex items-center justify-between w-full">
+                            <span>{m.name}</span>
+                            <span className="text-xs text-gray-400 ml-4">
+                              {m.context} | In: ${m.inputCost.toFixed(2)} Out: ${m.outputCost.toFixed(2)}
+                            </span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                  </SelectGroup>
+                ))}
               </SelectContent>
             </Select>
           </div>

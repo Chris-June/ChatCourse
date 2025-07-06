@@ -28,7 +28,23 @@ app.use((_req, res, next) => {
   next();
 });
 
-const ALLOWED_MODELS = ['gpt-4.1-nano', 'gpt-4', 'gpt-3.5-turbo'];
+const ALLOWED_MODELS = [
+  'gpt-4.1',
+  'gpt-4.1-mini',
+  'gpt-4.1-nano',
+  'gpt-4o',
+  'gpt-4o-mini',
+  'gpt-4-turbo-128k',
+  'gpt-4',
+  'gpt-4-32k',
+  'gpt-3.5-turbo',
+  'gpt-3.5-turbo-16k',
+  'o3',
+  'o4-mini',
+  'o1-preview',
+  'o1-mini',
+  'gpt-4.5-preview',
+];
 
 app.post('/api/chat', async (req, res) => {
   const { messages, model: requestedModel, customInstructions } = req.body;
