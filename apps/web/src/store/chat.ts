@@ -147,7 +147,7 @@ export const useChatStore = create<ChatState>()(
             const newContent =
               typeof updater === 'function'
                 ? updater(lastMessage.content)
-                : lastMessage.content + updater; // Append chunk if it's a string
+                : lastMessage.content + updater;
 
             const updatedMessage = { ...lastMessage, content: newContent };
             const updatedSession = {

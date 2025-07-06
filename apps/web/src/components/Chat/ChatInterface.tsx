@@ -102,23 +102,43 @@ const ChatInterface = () => {
       let assistantMessage: Message = { role: 'assistant', content: '' };
       addMessage(assistantMessage);
 
+      let buffer = '';
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split('\n\n');
+        buffer += decoder.decode(value, { stream: true });
+        const sseMessages = buffer.split('\n\n');
+        buffer = sseMessages.pop() || ''; // Keep potential partial message
 
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const data = line.substring(6);
+        for (const sseMessage of sseMessages) {
+          if (!sseMessage) continue;
+
+          if (sseMessage.startsWith('event: metadata')) {
+            const dataLine = sseMessage.split('\n').find(l => l.startsWith('data: '));
+            if (dataLine) {
+              const data = dataLine.substring(6);
+              try {
+                const metadata = JSON.parse(data);
+                updateLastMessageMetadata(metadata);
+              } catch (e) {
+                console.error('Failed to parse metadata:', e);
+              }
+            }
+          } else if (sseMessage.startsWith('data: ')) {
+            const data = sseMessage.substring(6);
             if (data === '[DONE]') {
+              // End of stream
               break;
-            } else if (data.startsWith('{"metadata":')) {
-              const { metadata } = JSON.parse(data);
-              updateLastMessageMetadata(metadata);
-            } else {
-              updateLastMessage(data);
+            }
+            try {
+              const { delta } = JSON.parse(data);
+              if (delta) {
+                updateLastMessage(prev => prev + delta);
+              }
+            } catch (e) {
+              // It might not be JSON, which is fine, just log it.
+              console.error('Failed to parse delta chunk:', data, e);
             }
           }
         }
