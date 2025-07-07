@@ -7,7 +7,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Home, BookOpen, ChevronDown, ChevronRight } from 'lucide-react';
+import { Home, BookOpen, ChevronDown, ChevronRight, Rocket } from 'lucide-react';
 import { Button } from '@chat/ui';
 
 interface InstructionsSidebarProps {
@@ -128,6 +128,14 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
             >
               <Home className="w-4 h-4 mr-3" />
               Back to Chat
+            </Button>
+            <Button
+              variant={location.pathname.startsWith('/instructions/setup') ? 'secondary' : 'ghost'}
+              className="w-full justify-start"
+              onClick={() => navigate('/instructions/setup/project-setup')}
+            >
+              <Rocket className="w-4 h-4 mr-3" />
+              Project Set-up
             </Button>
             <Button
               variant={location.pathname === '/instructions' ? 'secondary' : 'ghost'}

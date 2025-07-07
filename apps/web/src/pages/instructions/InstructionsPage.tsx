@@ -12,6 +12,7 @@ import Module6Routes from './modules/module-6';
 import Module7Routes from './modules/module-7';
 import Module8Routes from './modules/module-8';
 import AppendicesRoutes from './appendices';
+import SetupRoutes from './setup';
 
 const InstructionsPage: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -231,6 +232,7 @@ const InstructionsPage: React.FC = () => {
         <InstructionsSidebar isOpen={isSidebarOpen} />
         <main className="flex-1 overflow-y-auto p-8">
           <Routes>
+            <Route path="setup/*" element={<SetupRoutes />} />
             <Route path="module-1/*" element={<Module1Routes />} />
             <Route path="module-2/*" element={<Module2Routes />} />
             <Route path="module-3/*" element={<Module3Routes />} />

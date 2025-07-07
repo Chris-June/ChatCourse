@@ -2,6 +2,14 @@
 
 This is a monorepo for a chat application, consisting of a web-based frontend and a backend API. This guide will walk you through setting up the project, even if you are new to development.
 
+## 1. What You’re Getting
+
+- A **chat website** (like ChatGPT) that runs locally on your machine.  
+- A **private build space** where you can experiment without the whole internet watching.  
+- The freedom to **fork** (make your own copy) and share ideas with friends.
+
+No complex maths, no mysterious jargon—just clear instructions.
+
 ## Project Structure
 
 This project is a monorepo managed with pnpm workspaces. The structure is as follows:
@@ -21,102 +29,110 @@ This project is a monorepo managed with pnpm workspaces. The structure is as fol
 -   `apps/web`: Contains the frontend web application.
 -   `packages`: Intended for shared code between the applications (currently empty).
 
-## Getting Started: A Beginner's Guide
+## 2. Before You Begin: Tools You’ll Need
 
-This guide will walk you through the entire setup process, from installing the necessary tools to running the application.
 
-### 1. Install Prerequisites
 
-First, you need to install a few tools on your computer.
+| Tool | What it’s for | How to get it |
+|------|---------------|---------------|
+| **GitHub Account** | Saving and sharing your project. | [Create a free account](https://github.com/signup) if you don’t have one. |
+| **Node.js** | The engine that runs the project’s code. | [Download Node.js (LTS)](https://nodejs.org/) and run the installer. |
+| **Visual Studio Code (VS Code)** | A friendly text editor to open the project. | [Download VS Code](https://code.visualstudio.com/) and install it. |
 
--   **Node.js:** This is a JavaScript runtime that lets you run JavaScript code outside of a web browser. 
-    -   [Download and install Node.js (LTS version is recommended)](https://nodejs.org/en/download/)
+*Tip: “Terminal” is just a text window where you can type commands. Don’t panic—we’ll tell you exactly what to type.*
 
--   **pnpm:** This is a fast and efficient package manager for Node.js projects.
-    -   After installing Node.js, open your terminal (on Mac, you can find it in `Applications/Utilities/Terminal`) and run the following command to install pnpm:
-        ```bash
-        npm install -g pnpm
-        ```
+## 3. Get the Project Code
 
--   **Visual Studio Code (VSCode):** This is a free and popular code editor that will help you work with the project files.
-    -   [Download and install VSCode](https://code.visualstudio.com/download)
+### Option A – The Simple Download
 
-### 2. Set Up the Project
+1. Visit the project page and click **“Download ZIP.”**  
+   `https://github.com/Chris-June/Chat`
+2. Un‑zip the file. You’ll get a folder called **`Chat`**.
 
-Now that you have the tools, let's get the project code and set it up.
+### Option B – Use Git (skip if that word means nothing to you)
 
-1.  **Clone the Repository:**
-    -   Open VSCode.
-    -   Go to the "Source Control" tab on the left-hand side (it looks like a branching icon).
-    -   Click on "Clone Repository" and paste the following URL:
-        ```
-        git@github.com:Chris-June/Chat.git
-        ```
-    -   Choose a location on your computer to save the project.
+1. In VS Code choose **Source Control → Clone Repository**.  
+2. Paste `git@github.com:Chris-June/Chat.git` when asked.
 
-2.  **Open the Project in VSCode:**
-    -   Once cloning is complete, VSCode will ask if you want to open the cloned repository. Click "Open".
+Either way, remember where you put the folder—you’ll need it soon.
 
-3.  **Open the Integrated Terminal:**
-    -   In VSCode, go to the top menu and select `Terminal > New Terminal`.
-    -   This will open a command line at the bottom of the VSCode window, already in your project's directory.
+## 4. Open the Project in VS Code
 
-4.  **Install Dependencies:**
-    -   In the integrated terminal, type the following command and press Enter. This will download all the necessary libraries for the project.
-        ```bash
-        pnpm install
-        ```
+1. Launch VS Code.  
+2. Select **File → Open Folder…** and pick the **`Chat`** folder.  
+3. VS Code will ask “**Do you trust the authors?**” Click **Yes**.
 
-### 3. Configure Environment Variables
+---
 
-Environment variables are used to store sensitive information like API keys.
+## 5. Install the Project’s Libraries
 
-1.  **Create the `.env.local` file:**
-    -   In the VSCode terminal, run this command to copy the example environment file:
-        ```bash
-        cp .env.example .env.local
-        ```
-    -   You will see a new file named `.env.local` appear in the file explorer on the left side of VSCode.
+1. In VS Code choose **Terminal → New Terminal**.  
+2. A panel appears at the bottom. Copy‑paste this and press **Enter**:
 
-2.  **Add your API Key:**
-    -   Click on the `.env.local` file to open it.
-    -   You will need an API key from OpenAI. If you don't have one, you can get it from the [OpenAI Platform](https://platform.openai.com/account/api-keys).
-    -   In the `.env.local` file, replace `your-openai-api-key` with your actual OpenAI API key.
+```bash
+pnpm install
+```
 
-    ```
-    # .env.local
+Wait until the scrolling stops (≈1 minute).
 
-    # Required
-    OPENAI_API_KEY=your-openai-api-key
+---
 
-    # Optional
-    OPENAI_ORG_ID=
-    OPENAI_MODEL=gpt-4.1-nano
-    DEFAULT_TEMPERATURE=0.7
-    DEFAULT_TOP_P=0.9
-    MAX_TOKENS=512
-    ```
+## 6. Add Your AI Key
 
-### 4. Run the Application
+1. Get a free key on the OpenAI website → **[Create API Key](https://platform.openai.com/account/api-keys)**.  
+2. Copy the key (looks like `sk-…`).  
+3. In VS Code’s terminal, run:
 
-Now you are ready to start the application!
+```bash
+cp .env.example .env.local
+```
 
--   In the VSCode integrated terminal, run the following command:
-    ```bash
-    pnpm dev
-    ```
--   This will start both the frontend and backend servers. You will see some output in the terminal. Once it's ready, you can open your web browser and navigate to the local address provided in the terminal (usually `http://localhost:5173`) to see the chat application running.
+4. Open **`.env.local`** (left‑hand file list).  
+5. Find `OPENAI_API_KEY=` and paste your key after the `=` sign:  
 
-## Available Scripts
+```
+OPENAI_API_KEY=sk-1234567890abcdef
+```
 
-In the root of the project, you can run the following scripts:
+Save the file (**⌘S** or **Ctrl+S**).
 
--   `pnpm dev`: Starts the development servers for both the `web` app and the `api` concurrently.
--   `pnpm build`: Builds the `web` app for production.
--   `pnpm lint`: Lints the codebase using ESLint.
--   `pnpm format`: Formats the code using Prettier.
+## 7. Start Chatting!
 
-## Packages and Applications
+Still in the terminal, run:
+
+```bash
+pnpm dev
+```
+
+- First start takes ~20 seconds.  
+- When you see `http://localhost:5173`, **click it** (or paste it in your browser).
+
+🎉 **That’s it!** Type a message and watch the AI reply.
+
+## 8. What’s Next?
+
+| Want to… | Do this |
+|----------|---------|
+| **Change the AI’s personality** | Open `api/handler.ts`, scroll to the *System Prompt* near the end, and rewrite the text inside quotes. |
+| **Tweak responses (tone, format)** | In the chat site, click **Settings → Custom Instructions**. |
+| **Invite friends to play** | Send them this README. |
+| **Learn the techy stuff** | Expand the **Advanced Section** below (totally optional). |
+
+## 9. Glossary (Plain‑English)
+
+| Term | Simple meaning |
+|------|----------------|
+| **AI** | Software that predicts text responses. |
+| **API key** | Secret password that lets your app talk to OpenAI. |
+| **Terminal / Command Prompt** | A text box for giving your computer instructions. |
+| **Install** | Put new software on your computer. |
+| **pnpm install** | Download all the pieces the project needs. |
+| **Localhost** | Fancy word for “my own computer.” |
+| **Fork** | Make your own copy of someone’s project on GitHub. |
+
+---
+
+## 10. Advanced Section (Developers & Curious Cats)
 
 ### `apps/web`
 
