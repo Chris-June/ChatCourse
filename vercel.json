@@ -2,11 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "apps/web/vite.config.ts",
+      "src": "apps/web/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist",
-        "buildCommand": "cd apps/web && npm run build"
+        "distDir": "apps/web/dist",
+        "buildCommand": "pnpm --filter web build"
       }
     }
   ],
@@ -25,5 +25,5 @@
   "env": {
     "NODE_ENV": "production"
   },
-  "installCommand": "npm install"
+  "installCommand": "pnpm install --frozen-lockfile"
 }
