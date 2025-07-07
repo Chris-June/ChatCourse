@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { Rocket, Code, Terminal } from 'lucide-react';
+import { Rocket, Code, Presentation } from 'lucide-react';
 
 const lessons = [
-  { id: '8.1', title: 'Project Setup & API Keys', icon: Rocket },
-  { id: '8.2', title: 'Building the Frontend', icon: Code },
-  { id: '8.3', title: 'Creating the Backend', icon: Terminal },
+  { id: '8.1', title: 'Project Planning', icon: Rocket },
+  { id: '8.2', title: 'Implementation', icon: Code },
+  { id: '8.3', title: 'Presentation and Review', icon: Presentation },
 ];
 
 const Module8Page: React.FC = () => {

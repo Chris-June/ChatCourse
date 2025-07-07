@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Scale, ShieldCheck, Lightbulb } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Target, Box, Calendar } from 'lucide-react';
 
 const Lesson8_1: React.FC = () => {
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">8.1: Bias and Fairness</h1>
+        <h1 className="text-3xl font-bold text-blue-400">8.1: Project Planning</h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-7/7.3" 
@@ -24,42 +24,49 @@ const Lesson8_1: React.FC = () => {
       </div>
 
       <p className="text-lg text-gray-300">
-        AI models learn from data. If the data reflects existing societal biases, the model will learn and potentially amplify them. Ensuring fairness is a critical challenge in AI development.
+        A successful project starts with a solid plan. For our capstone, this means clearly defining what we want to achieve, what's included (and what's not), and setting a realistic timeline.
       </p>
 
-      {/* Sources of Bias */}
+      {/* Key Planning Components */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Where Does Bias Come From?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <Scale className="w-8 h-8 mx-auto mb-3 text-red-400" />
-            <h4 className="font-bold text-lg text-white text-center">Data Bias</h4>
-            <p className="text-sm text-gray-400 mt-2">The training data may underrepresent certain groups or contain stereotypes. For example, a model trained mostly on images of male doctors might associate the profession exclusively with men.</p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Core Components of Your Plan</h2>
+        <div className="space-y-4">
+          <div className="flex items-start">
+            <Target className="w-8 h-8 mr-4 text-green-400 flex-shrink-0 mt-1" />
+            <div>
+              <h4 className="font-bold text-lg text-white">Defining Objectives</h4>
+              <p className="text-gray-400">What is the primary goal of your project? What does success look like? Your objectives should be specific, measurable, achievable, relevant, and time-bound (SMART).</p>
+            </div>
           </div>
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <ShieldCheck className="w-8 h-8 mx-auto mb-3 text-yellow-400" />
-            <h4 className="font-bold text-lg text-white text-center">Algorithmic Bias</h4>
-            <p className="text-sm text-gray-400 mt-2">The design of the algorithm itself can introduce bias. For example, an optimization goal to maximize ad clicks could lead to discriminatory ad targeting, even if the data was perfectly balanced.</p>
+          <div className="flex items-start">
+            <Box className="w-8 h-8 mr-4 text-yellow-400 flex-shrink-0 mt-1" />
+            <div>
+              <h4 className="font-bold text-lg text-white">Scope Definition</h4>
+              <p className="text-gray-400">Clearly outline the features and functionality that are 'in scope' (will be built) and 'out of scope' (will not be built). This prevents 'scope creep' and keeps the project focused.</p>
+            </div>
+          </div>
+          <div className="flex items-start">
+            <Calendar className="w-8 h-8 mr-4 text-cyan-400 flex-shrink-0 mt-1" />
+            <div>
+              <h4 className="font-bold text-lg text-white">Timeline and Milestones</h4>
+              <p className="text-gray-400">Break the project down into smaller, manageable milestones. Assign deadlines to each milestone to track progress and ensure the project stays on schedule. (e.g., Week 1: Finalize UI design, Week 2: Implement core logic).</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Conceptual Exercise */}
+      {/* Exercise */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: Identifying Potential Bias
-        </h2>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Exercise: Draft Your Project Plan</h2>
         <p className="text-gray-300 mb-4">
-          Imagine you are developing an AI system to help with hiring by screening resumes. The goal is to identify the most qualified candidates for a software engineering role.
+          For your capstone project idea, create a simple project plan. Use the concepts above to guide you.
         </p>
         <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <p className="text-gray-300 mb-4">Brainstorm potential sources of bias in this system:</p>
           <ul className="list-disc pl-5 space-y-2 text-gray-300">
-            <li><strong>Data:</strong> What kind of historical data would be used for training? How could it be biased? (e.g., resumes from past hires)</li>
-            <li><strong>Features:</strong> What features from a resume might correlate with gender, race, or socioeconomic status? (e.g., names, university prestige)</li>
-            <li><strong>Impact:</strong> What would be the real-world impact if the system unfairly favored certain groups?</li>
+            <li><strong>Objective:</strong> Write a one-sentence goal for your project.</li>
+            <li><strong>Scope:</strong> List 3-5 key features that are in scope, and 1-2 that are out of scope.</li>
+            <li><strong>Milestones:</strong> Define at least three major milestones with target completion dates.</li>
           </ul>
         </div>
       </section>
@@ -70,13 +77,13 @@ const Lesson8_1: React.FC = () => {
           to="/instructions/module-7/7.3" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Fine-Tuning Models
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Future-Proofing
         </Link>
         <Link 
           to="/instructions/module-8/8.2" 
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Next: Transparency & Explainability <ChevronRight className="w-5 h-5 ml-2" />
+          Next: Implementation <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>

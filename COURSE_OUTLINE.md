@@ -82,6 +82,21 @@ We'll be working on this very project you see here! It's a living example of wha
 * **Implementation Planning**: Breaking down the requirements
 * **Testing and Iteration**: Refining the tools
 
+### 4.4 Understanding GPTs
+* **Core Concepts**: Custom instructions, knowledge, and actions
+* **Use Cases**: Personal, business, and social applications
+* **When to Build**: Identifying opportunities for custom GPTs
+
+### 4.5 Introduction to AI Agents
+* **The Agentic Mindset**: Observe, think, act loop
+* **Autonomous Systems**: How agents make decisions and use tools
+* **Real-World Examples**: From personal assistants to complex coordinators
+
+### 4.6 Leveraging MCP Servers
+* **Standardized Tool Use**: The role of MCP in agent architecture
+* **Security and Discoverability**: Why MCP is critical for robust agents
+* **Connecting to Services**: Integrating with APIs like GitHub or Google
+
 ## Module 5: Advanced Interaction Patterns
 
 ### 5.1 Multi-Turn Conversations

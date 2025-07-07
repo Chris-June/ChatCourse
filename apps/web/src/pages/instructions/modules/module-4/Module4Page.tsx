@@ -1,11 +1,14 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { ClipboardList, Code, Repeat } from 'lucide-react';
+import { FunctionSquare, Server, Wrench, BrainCircuit, Bot } from 'lucide-react';
 
 const lessons = [
-  { id: '4.1', title: 'Project Planning with AI', icon: ClipboardList },
-  { id: '4.2', title: 'AI-Assisted Development', icon: Code },
-  { id: '4.3', title: 'Review & Refinement', icon: Repeat },
+  { id: '4.1', title: 'Function Calling', icon: FunctionSquare },
+  { id: '4.2', title: 'Model Context Protocol (MCP)', icon: Server },
+  { id: '4.3', title: 'Building Custom Tools', icon: Wrench },
+  { id: '4.4', title: 'Understanding GPTs', icon: BrainCircuit },
+  { id: '4.5', title: 'Introduction to AI Agents', icon: Bot },
+  { id: '4.6', title: 'Leveraging MCP Servers', icon: Server },
 ];
 
 const Module4Page: React.FC = () => {
@@ -13,7 +16,7 @@ const Module4Page: React.FC = () => {
     <div className="flex flex-col md:flex-row h-full">
       {/* Sidebar for lessons */}
       <aside className="w-full md:w-64 bg-gray-800 p-4 md:p-6 md:border-r md:border-gray-700">
-        <h2 className="text-xl font-bold mb-4 text-blue-400">Module 4: Advanced Collaboration</h2>
+        <h2 className="text-xl font-bold mb-4 text-blue-400">Module 4: Expanding Capabilities</h2>
         <nav>
           <ul>
             {lessons.map((lesson) => (

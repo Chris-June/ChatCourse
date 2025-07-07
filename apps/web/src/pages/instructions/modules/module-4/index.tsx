@@ -4,6 +4,9 @@ import Module4Page from './Module4Page';
 import Lesson4_1 from './lessons/4.1';
 import Lesson4_2 from './lessons/4.2';
 import Lesson4_3 from './lessons/4.3';
+import Lesson4_4 from './lessons/4.4';
+import Lesson4_5 from './lessons/4.5';
+import Lesson4_6 from './lessons/4.6';
 
 const Module4Routes: React.FC = () => {
   const location = useLocation();
@@ -19,6 +22,9 @@ const Module4Routes: React.FC = () => {
         <Route path="4.1" element={<Lesson4_1 />} />
         <Route path="4.2" element={<Lesson4_2 />} />
         <Route path="4.3" element={<Lesson4_3 />} />
+        <Route path="4.4" element={<Lesson4_4 />} />
+        <Route path="4.5" element={<Lesson4_5 />} />
+        <Route path="4.6" element={<Lesson4_6 />} />
         <Route index element={<Navigate to="4.1" replace />} />
       </Route>
     </Routes>
