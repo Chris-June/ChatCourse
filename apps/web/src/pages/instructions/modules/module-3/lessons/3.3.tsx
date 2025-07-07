@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Code, FileJson, Lightbulb } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson3_3: React.FC = () => {
   return (
@@ -41,14 +42,20 @@ const Lesson3_3: React.FC = () => {
           <p className="text-gray-400 mb-3">
             By specifying the exact keys and data types, you guide the AI to produce a clean, predictable output.
           </p>
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
+          <div className="relative mb-4">
+            <CopyButton textToCopy={'Extract the name, age, and city from the following sentence. Provide the output as a JSON object with the keys "userName", "userAge", and "location".\n\nSentence: "John, a 42-year-old resident of Berlin, loves to code."'} />
+            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+              <code>
+                <span className="text-gray-400">// Prompt</span>
+                Extract the name, age, and city from the following sentence. Provide the output as a JSON object with the keys "userName", "userAge", and "location".
+                
+                Sentence: "John, a 42-year-old resident of Berlin, loves to code."
+              </code>
+            </pre>
+          </div>
+          <h4 className="font-semibold text-gray-200 mb-2">Expected AI Output:</h4>
+          <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
             <code>
-              <span className="text-gray-400">// Prompt</span>
-              Extract the name, age, and city from the following sentence. Provide the output as a JSON object with the keys "userName", "userAge", and "location".
-              
-              Sentence: "John, a 42-year-old resident of Berlin, loves to code."
-              
-              <span className="text-gray-400 mt-2">// Expected AI Output</span>
               {"{\n  \"userName\": \"John\",\n  \"userAge\": 42,\n  \"location\": \"Berlin\"\n}"}
             </code>
           </pre>
@@ -66,12 +73,15 @@ const Lesson3_3: React.FC = () => {
         </p>
         <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">Example: Creating a Comparison Table</h3>
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-            <code>
-              <span className="text-gray-400">// Prompt</span>
-              Create a markdown table comparing Python and JavaScript for web development. Include rows for 'Primary Use', 'Typing', and 'Backend Frameworks'.
-            </code>
-          </pre>
+          <div className="relative">
+            <CopyButton textToCopy={"Create a markdown table comparing Python and JavaScript for web development. Include rows for 'Primary Use', 'Typing', and 'Backend Frameworks'."} />
+            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+              <code>
+                <span className="text-gray-400">// Prompt</span>
+                Create a markdown table comparing Python and JavaScript for web development. Include rows for 'Primary Use', 'Typing', and 'Backend Frameworks'.
+              </code>
+            </pre>
+          </div>
         </div>
       </section>
 
@@ -82,11 +92,14 @@ const Lesson3_3: React.FC = () => {
           Your Turn: Generate a Structured List
         </h2>
         <p className="text-gray-300 mb-4">Try this in the chat. Ask the AI to generate a list of project ideas for a new web developer. Specify the output format clearly.</p>
-        <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-          <code>
-            Generate a list of 3 project ideas for a beginner web developer. For each project, provide a 'title' and a 'description'. Return the list as a JSON array of objects.
-          </code>
-        </pre>
+        <div className="relative">
+          <CopyButton textToCopy={"Generate a list of 3 project ideas for a beginner web developer. For each project, provide a 'title' and a 'description'. Return the list as a JSON array of objects."} />
+          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+            <code>
+              Generate a list of 3 project ideas for a beginner web developer. For each project, provide a 'title' and a 'description'. Return the list as a JSON array of objects.
+            </code>
+          </pre>
+        </div>
         <p className="text-gray-400 mt-3">This kind of structured output can be directly used to populate a UI component in an application.</p>
       </section>
 

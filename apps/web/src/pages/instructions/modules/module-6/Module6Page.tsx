@@ -3,9 +3,9 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { PenSquare, Image, Music } from 'lucide-react';
 
 const lessons = [
-  { id: '6.1', title: 'Creative Writing with AI', icon: PenSquare },
-  { id: '6.2', title: 'Visual Content Generation', icon: Image },
-  { id: '6.3', title: 'AI in Music and Audio', icon: Music },
+  { id: '6.1', title: 'Idea Generation', icon: PenSquare },
+  { id: '6.2', title: 'Design Thinking with AI', icon: Image },
+  { id: '6.3', title: 'Iterative Improvement', icon: Music },
 ];
 
 const Module6Page: React.FC = () => {
@@ -13,7 +13,7 @@ const Module6Page: React.FC = () => {
     <div className="flex flex-col md:flex-row h-full">
       {/* Sidebar for lessons */}
       <aside className="w-full md:w-64 bg-gray-800 p-4 md:p-6 md:border-r md:border-gray-700">
-        <h2 className="text-xl font-bold mb-4 text-blue-400">Module 6: Creative AI</h2>
+        <h2 className="text-xl font-bold mb-4 text-blue-400">Module 6: Collaborative Development</h2>
         <nav>
           <ul>
             {lessons.map((lesson) => (

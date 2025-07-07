@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, MessageSquare, BrainCircuit, Lightbulb } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson5_1: React.FC = () => {
   return (
@@ -74,8 +75,8 @@ const Lesson5_1: React.FC = () => {
         </p>
         <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
           <ol className="list-decimal pl-5 space-y-2 text-gray-300 text-sm">
-            <li><strong>First Prompt:</strong> "Tell me three interesting facts about the planet Jupiter."</li>
-            <li><strong>Second Prompt:</strong> "Which of those is the most surprising?"</li>
+            <li className="relative pr-10"><strong>First Prompt:</strong> "Tell me three interesting facts about the planet Jupiter."<CopyButton textToCopy={"Tell me three interesting facts about the planet Jupiter."} /></li>
+            <li className="relative pr-10"><strong>Second Prompt:</strong> "Which of those is the most surprising?"<CopyButton textToCopy={"Which of those is the most surprising?"} /></li>
           </ol>
           <p className="text-gray-400 mt-3">Notice how the AI can answer the second question without you having to mention Jupiter again. It's using the context from the first turn to understand your follow-up.</p>
         </div>

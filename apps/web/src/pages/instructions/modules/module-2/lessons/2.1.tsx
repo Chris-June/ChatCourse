@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, BrainCircuit, MessageSquare } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson2_1: React.FC = () => {
   return (
@@ -83,9 +84,15 @@ const Lesson2_1: React.FC = () => {
           <div className="bg-gray-900 p-4 rounded-lg">
               <p className="text-gray-400 mb-3">Imagine this conversation flow:</p>
               <div className="space-y-3">
-                  <p className="p-2 bg-gray-700 rounded-md"><strong className="text-cyan-400">You:</strong> "Give me three ideas for a healthy breakfast."</p>
+                  <div className="relative">
+                      <CopyButton textToCopy="Give me three ideas for a healthy breakfast." />
+                      <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-cyan-400">You:</strong> "Give me three ideas for a healthy breakfast."</p>
+                  </div>
                   <p className="p-2 bg-gray-600 rounded-md"><strong className="text-purple-400">AI:</strong> "1. Oatmeal with berries. 2. Scrambled eggs with spinach. 3. Greek yogurt with nuts."</p>
-                  <p className="p-2 bg-gray-700 rounded-md"><strong className="text-cyan-400">You:</strong> "I like the second one. Can you give me a simple recipe?"</p>
+                  <div className="relative">
+                      <CopyButton textToCopy="I like the second one. Can you give me a simple recipe?" />
+                      <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-cyan-400">You:</strong> "I like the second one. Can you give me a simple recipe?"</p>
+                  </div>
               </div>
               <p className="mt-4 text-yellow-300 text-sm">The AI knows "the second one" refers to scrambled eggs with spinach <strong>only because the previous turn is still in the context window.</strong> If the conversation were too long, it would have forgotten the list and asked for clarification.</p>
           </div>

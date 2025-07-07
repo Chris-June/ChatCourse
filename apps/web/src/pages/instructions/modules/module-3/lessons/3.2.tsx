@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, BrainCircuit, Lightbulb } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson3_2: React.FC = () => {
   return (
@@ -54,25 +55,36 @@ const Lesson3_2: React.FC = () => {
           {/* Without CoT */}
           <div className="bg-red-900/20 p-4 rounded-lg border border-red-700">
             <h3 className="font-semibold text-red-300 mb-2">Without CoT (Often Incorrect)</h3>
-            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-              <code>
-                <span className="text-gray-400">// Prompt</span>
-                A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?
-                
-                <span className="text-gray-400">// AI's quick (and wrong) answer</span>
-                The ball costs $0.10.
-              </code>
+            <div className="relative mb-4">
+              <CopyButton textToCopy={'A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?'} />
+              <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+                <code>
+                  <span className="text-gray-400">// Prompt</span>
+                  A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?
+                </code>
+              </pre>
+            </div>
+            <h4 className="font-semibold text-red-200 mb-2">AI's quick (and wrong) answer:</h4>
+            <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
+              <code>The ball costs $0.10.</code>
             </pre>
           </div>
+
           {/* With CoT */}
           <div className="bg-green-900/20 p-4 rounded-lg border border-green-700">
             <h3 className="font-semibold text-green-300 mb-2">With CoT (Correct)</h3>
-            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
+            <div className="relative mb-4">
+              <CopyButton textToCopy={"A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost? Let's think step-by-step."} />
+              <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+                <code>
+                  <span className="text-gray-400">// Prompt</span>
+                  A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost? Let's think step-by-step.
+                </code>
+              </pre>
+            </div>
+            <h4 className="font-semibold text-green-200 mb-2">AI's reasoned answer:</h4>
+            <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
               <code>
-                <span className="text-gray-400">// Prompt</span>
-                A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost? Let's think step-by-step.
-                
-                <span className="text-gray-400">// AI's reasoned answer</span>
                 1. Let A be the cost of the bat and B be the cost of the ball.
                 2. A + B = 1.10
                 3. A = B + 1.00
@@ -105,11 +117,14 @@ const Lesson3_2: React.FC = () => {
           Your Turn: Plan a Trip
         </h2>
         <p className="text-gray-300 mb-4">Try this in the chat. Give the AI the following prompt. Notice how adding the CoT phrase helps it structure the answer and calculate correctly.</p>
-        <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-          <code>
-            I want to drive from Chicago to New York, which is about 800 miles. My car gets 25 miles per gallon, and gas costs $4.00 per gallon. I also want to stop for one night in a hotel that costs $150. What is the total cost of the trip? Let's think step-by-step.
-          </code>
-        </pre>
+        <div className="relative">
+          <CopyButton textToCopy={"I want to drive from Chicago to New York, which is about 800 miles. My car gets 25 miles per gallon, and gas costs $4.00 per gallon. I also want to stop for one night in a hotel that costs $150. What is the total cost of the trip? Let's think step-by-step."} />
+          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+            <code>
+              I want to drive from Chicago to New York, which is about 800 miles. My car gets 25 miles per gallon, and gas costs $4.00 per gallon. I also want to stop for one night in a hotel that costs $150. What is the total cost of the trip? Let's think step-by-step.
+            </code>
+          </pre>
+        </div>
       </section>
 
       {/* Navigation */}

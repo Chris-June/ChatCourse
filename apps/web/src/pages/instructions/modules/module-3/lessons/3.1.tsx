@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson3_1: React.FC = () => {
   return (
@@ -38,9 +39,12 @@ const Lesson3_1: React.FC = () => {
           <p className="text-gray-400 mb-3">
             It's like asking a chef, "Make me a tasty pasta dish." You trust their general skills to come up with something good without a recipe.
           </p>
-          <div className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200">
-            <p className="text-gray-400">// Zero-shot example</p>
-            <p>Classify the sentiment of this review: "This was an amazing experience!"</p>
+          <div className="relative">
+            <CopyButton textToCopy={`Classify the sentiment of this review: "This was an amazing experience!"`} />
+            <div className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 pr-10">
+              <p className="text-gray-400">// Zero-shot example</p>
+              <p>Classify the sentiment of this review: "This was an amazing experience!"</p>
+            </div>
           </div>
         </div>
         <p className="text-sm text-yellow-300 mt-4"><strong>Best for:</strong> Simple, common tasks that the AI is already well-trained on, like general classification, summarization, or translation.</p>
@@ -57,18 +61,21 @@ const Lesson3_1: React.FC = () => {
           <p className="text-gray-400 mb-3">
             This is like giving the chef a single recipe card. They now know the exact style, format, and key ingredients you want.
           </p>
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-            <code>
-              <span className="text-gray-400">// One-shot example</span>
-              Extract the main product from the sentence.
-              
-              Sentence: "I need to buy some fresh apples."
-              Product: "apples"
-              
-              Sentence: "Can you find a new laptop for me?"
-              Product: 
-            </code>
-          </pre>
+          <div className="relative">
+            <CopyButton textToCopy={`Extract the main product from the sentence.\n\nSentence: "I need to buy some fresh apples."\nProduct: "apples"\n\nSentence: "Can you find a new laptop for me?"\nProduct:`} />
+            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+              <code>
+                <span className="text-gray-400">// One-shot example</span>
+                Extract the main product from the sentence.
+                
+                Sentence: "I need to buy some fresh apples."
+                Product: "apples"
+                
+                Sentence: "Can you find a new laptop for me?"
+                Product: 
+              </code>
+            </pre>
+          </div>
         </div>
         <p className="text-sm text-yellow-300 mt-4"><strong>Best for:</strong> Tasks that require a specific output format, like data extraction or simple code generation.</p>
       </section>
@@ -84,20 +91,23 @@ const Lesson3_1: React.FC = () => {
           <p className="text-gray-400 mb-3">
             You're not just giving one recipe; you're showing the chef how to make several different dishes to teach them your specific culinary style.
           </p>
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-            <code>
-              <span className="text-gray-400">// Few-shot example for correcting grammar</span>
-              
-              Original: "She no go to the store."
-              Corrected: "She did not go to the store."
-              
-              Original: "We is happy."
-              Corrected: "We are happy."
+          <div className="relative">
+            <CopyButton textToCopy={`Original: "She no go to the store."\nCorrected: "She did not go to the store."\n\nOriginal: "We is happy."\nCorrected: "We are happy."\n\nOriginal: "He drive fastly."\nCorrected:`} />
+            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+              <code>
+                <span className="text-gray-400">// Few-shot example for correcting grammar</span>
+                
+                Original: "She no go to the store."
+                Corrected: "She did not go to the store."
+                
+                Original: "We is happy."
+                Corrected: "We are happy."
 
-              Original: "He drive fastly."
-              Corrected:
-            </code>
-          </pre>
+                Original: "He drive fastly."
+                Corrected:
+              </code>
+            </pre>
+          </div>
         </div>
         <p className="text-sm text-yellow-300 mt-4"><strong>Best for:</strong> Complex classification, nuanced tasks, code generation following a specific pattern, or correcting for common AI mistakes.</p>
       </section>
@@ -109,12 +119,17 @@ const Lesson3_1: React.FC = () => {
           Your Turn: See the Difference
         </h2>
         <p className="text-gray-300 mb-4">Try this in the chat. Ask the AI to turn a sentence into a JSON object using each method:</p>
-        <ul className="list-decimal list-inside text-gray-300 space-y-2">
-          <li><strong>Zero-shot:</strong> "Turn the following sentence into a JSON object: 'The user, John Doe, is 30 years old.'"</li>
-          <li><strong>One-shot:</strong> Add an example to your prompt showing how you want the JSON structured.</li>
-          <li><strong>Few-shot:</strong> Add a couple more examples to handle different types of sentences.</li>
-        </ul>
-        <p className="text-gray-400 mt-3">Notice how the reliability and consistency of the JSON output improves as you provide more examples.</p>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <ul className="list-decimal list-inside text-gray-300 space-y-2">
+            <li className="relative pr-12">
+                <CopyButton textToCopy={"Turn the following sentence into a JSON object: 'The user, John Doe, is 30 years old.'"} />
+                <strong>Zero-shot:</strong> "Turn the following sentence into a JSON object: 'The user, John Doe, is 30 years old.'"
+            </li>
+            <li><strong>One-shot:</strong> Add an example to your prompt showing how you want the JSON structured.</li>
+            <li><strong>Few-shot:</strong> Add a couple more examples to handle different types of sentences.</li>
+            </ul>
+            <p className="text-gray-400 mt-3">Notice how the reliability and consistency of the JSON output improves as you provide more examples.</p>
+        </div>
       </section>
 
       {/* Navigation */}

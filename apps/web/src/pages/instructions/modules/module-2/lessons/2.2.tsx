@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Repeat, Anchor, AlertTriangle } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson2_2: React.FC = () => {
   return (
@@ -40,8 +41,14 @@ const Lesson2_2: React.FC = () => {
           <h3 className="font-semibold text-white mb-2">How to Do It:</h3>
           <p className="text-gray-400 mb-3">After a few turns, pause and write a summary. You can even ask the AI to do it for you.</p>
           <div className="space-y-3">
-              <p className="p-3 bg-gray-700 rounded-md font-mono text-sm"><strong className="text-cyan-400">Your Prompt:</strong> "Okay, let's recap. We're building a React component for a user profile card. It needs to display an avatar, a username, and a bio. The design should be clean and modern. Now, please write the initial JSX structure for this component."</p>
-              <p className="p-3 bg-gray-700 rounded-md font-mono text-sm"><strong className="text-cyan-400">Or ask the AI:</strong> "Please summarize the key requirements for the component we've discussed so far."</p>
+              <div className="relative">
+                  <CopyButton textToCopy="Okay, let's recap. We're building a React component for a user profile card. It needs to display an avatar, a username, and a bio. The design should be clean and modern. Now, please write the initial JSX structure for this component." />
+                  <p className="p-3 bg-gray-700 rounded-md font-mono text-sm pr-10"><strong className="text-cyan-400">Your Prompt:</strong> "Okay, let's recap. We're building a React component for a user profile card. It needs to display an avatar, a username, and a bio. The design should be clean and modern. Now, please write the initial JSX structure for this component."</p>
+              </div>
+              <div className="relative">
+                  <CopyButton textToCopy="Please summarize the key requirements for the component we've discussed so far." />
+                  <p className="p-3 bg-gray-700 rounded-md font-mono text-sm pr-10"><strong className="text-cyan-400">Or ask the AI:</strong> "Please summarize the key requirements for the component we've discussed so far."</p>
+              </div>
           </div>
         </div>
       </section>
@@ -56,13 +63,15 @@ const Lesson2_2: React.FC = () => {
           Don't make the AI guess. Vague references like "that thing we talked about" or "the first idea" are unreliable. Instead, be specific.
         </p>
         <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-red-900/30 p-4 rounded-lg border border-red-700">
+            <div className="bg-red-900/30 p-4 rounded-lg border border-red-700 relative">
                 <h4 className="font-semibold text-red-300 mb-2">Less Effective (Vague):</h4>
-                <p className="text-gray-300 font-mono text-sm">"Let's go with the second option. Write the code for it."</p>
+                <CopyButton textToCopy="Let's go with the second option. Write the code for it." />
+                <p className="text-gray-300 font-mono text-sm pr-10">"Let's go with the second option. Write the code for it."</p>
             </div>
-            <div className="bg-green-900/30 p-4 rounded-lg border border-green-700">
+            <div className="bg-green-900/30 p-4 rounded-lg border border-green-700 relative">
                 <h4 className="font-semibold text-green-300 mb-2">More Effective (Specific):</h4>
-                <p className="text-gray-300 font-mono text-sm">"Let's use the 'Scrambled Eggs with Spinach' idea. Please write a simple recipe for it."</p>
+                <CopyButton textToCopy="Let's use the 'Scrambled Eggs with Spinach' idea. Please write a simple recipe for it." />
+                <p className="text-gray-300 font-mono text-sm pr-10">"Let's use the 'Scrambled Eggs with Spinach' idea. Please write a simple recipe for it."</p>
             </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson1_2: React.FC = () => {
   return (
@@ -53,14 +54,16 @@ const Lesson1_2: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300">Example: From Vague to Valuable</h2>
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-red-900/30 p-4 rounded-lg border border-red-700">
+          <div className="bg-red-900/30 p-4 rounded-lg border border-red-700 relative">
             <h3 className="font-bold text-lg text-red-300 mb-2">Vague Prompt</h3>
-            <p className="font-mono text-gray-300">"Explain closures in JavaScript."</p>
+            <CopyButton textToCopy="Explain closures in JavaScript." />
+            <p className="font-mono text-gray-300 pr-10">"Explain closures in JavaScript."</p>
             <p className="text-gray-400 mt-2">This might give you a correct but generic, academic definition. Not very practical.</p>
           </div>
-          <div className="bg-green-900/30 p-4 rounded-lg border border-green-700">
+          <div className="bg-green-900/30 p-4 rounded-lg border border-green-700 relative">
             <h3 className="font-bold text-lg text-green-300 mb-2">Effective Prompt</h3>
-            <div className="font-mono text-gray-300 space-y-1">
+            <CopyButton textToCopy="You are a patient programming tutor who excels at explaining complex concepts with simple analogies. Explain the concept of closures in JavaScript. My audience is a beginner developer who understands functions and scope. Provide a simple code example and then explain it line-by-line using a real-world analogy, like a backpack or a toolbox." />
+            <div className="font-mono text-gray-300 space-y-1 pr-10">
                 <p><span className="text-yellow-400">You are a patient programming tutor</span> who excels at explaining complex concepts with simple analogies.</p>
                 <p><span className="text-cyan-400">Explain the concept of closures in JavaScript.</span></p>
                 <p><span className="text-green-400">My audience is a beginner developer who understands functions and scope. Provide a simple code example and then explain it line-by-line using a real-world analogy, like a backpack or a toolbox.</span></p>

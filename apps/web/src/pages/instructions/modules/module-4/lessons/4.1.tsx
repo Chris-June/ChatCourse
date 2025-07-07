@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Zap, Terminal, Lightbulb } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson4_1: React.FC = () => {
   return (
@@ -71,11 +72,14 @@ const Lesson4_1: React.FC = () => {
         </h2>
         <p className="text-gray-300 mb-4">You don't need to write code for this. Just think about the prompt and the function call it would trigger. Imagine you have a function `create_reminder(task: string, due_date: string)`.</p>
         <p className="text-gray-300 mb-2">What function call JSON would you expect the AI to generate for the following prompt?</p>
-        <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-          <code>
-            Remind me to submit my project report by this Friday.
-          </code>
-        </pre>
+        <div className="relative">
+          <CopyButton textToCopy={'Remind me to submit my project report by this Friday.'} />
+          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+            <code>
+              Remind me to submit my project report by this Friday.
+            </code>
+          </pre>
+        </div>
         <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">Expected JSON Output:</h3>
           <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">

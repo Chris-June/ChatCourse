@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Wrench, FileCode, Lightbulb } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson4_3: React.FC = () => {
   return (
@@ -55,8 +56,10 @@ const Lesson4_3: React.FC = () => {
         <p className="text-gray-300 mb-4">
           The schema is the most important part. It's a detailed description that the AI uses to understand your tool. It includes the function's name, a description of what it does, and a list of its parameters with their types and descriptions.
         </p>
-        <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-          <code>
+        <div className="relative">
+          <CopyButton textToCopy={`{\n  "name": "create_ticket",\n  "description": "Creates a new support ticket in the project management system.",\n  "parameters": {\n    "type": "object",\n    "properties": {\n      "title": {\n        "type": "string",\n        "description": "The title of the support ticket."\n      },\n      "description": {\n        "type": "string",\n        "description": "A detailed description of the issue."\n      }\n    },\n    "required": ["title", "description"]\n  }\n}`} />
+          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+            <code>
 {`{
   "name": "create_ticket",
   "description": "Creates a new support ticket in the project management system.",
@@ -75,8 +78,9 @@ const Lesson4_3: React.FC = () => {
     "required": ["title", "description"]
   }
 }`}
-          </code>
-        </pre>
+            </code>
+          </pre>
+        </div>
       </section>
 
       {/* Exercise */}
@@ -89,11 +93,14 @@ const Lesson4_3: React.FC = () => {
           Imagine you want to build a tool called `send_email`. Its purpose is to send an email to a specified recipient.
         </p>
         <p className="text-gray-300 mb-2">In the chat, try to write a prompt that asks the AI to create the JSON schema for this tool. Think about what parameters it would need (e.g., `recipient`, `subject`, `body`).</p>
-        <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-          <code>
-            Create a JSON schema for a function called 'send_email'. It should have parameters for the recipient's email address, the subject line, and the body of the email. All parameters should be required.
-          </code>
-        </pre>
+        <div className="relative">
+          <CopyButton textToCopy={"Create a JSON schema for a function called 'send_email'. It should have parameters for the recipient's email address, the subject line, and the body of the email. All parameters should be required."} />
+          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+            <code>
+              Create a JSON schema for a function called 'send_email'. It should have parameters for the recipient's email address, the subject line, and the body of the email. All parameters should be required.
+            </code>
+          </pre>
+        </div>
       </section>
 
       {/* Navigation */}

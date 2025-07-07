@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Beaker, Zap } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson1_3: React.FC = () => {
   return (
@@ -40,14 +41,17 @@ const Lesson1_3: React.FC = () => {
           <h3 className="font-semibold text-white mb-2">Exercise: The Iterative Loop</h3>
           <p className="text-gray-400 mb-3">Open a new chat and follow these steps:</p>
           <ol className="list-decimal list-inside text-gray-300 space-y-3">
-            <li>
-              <strong>Initial Prompt (Vague):</strong> Ask the AI to <span className="font-mono text-cyan-300">"write some code for a button."</span> Observe the generic output.
+            <li className="relative">
+              <CopyButton textToCopy="write some code for a button." />
+              <strong>Initial Prompt (Vague):</strong> Ask the AI to <span className="font-mono text-cyan-300 pr-10">"write some code for a button."</span> Observe the generic output.
             </li>
-            <li>
-              <strong>Second Prompt (Add Context):</strong> Now, get more specific. <span className="font-mono text-cyan-300">"You are a React developer using Tailwind CSS. Write the code for a primary action button. It should be blue, have white text, and rounded corners."</span> Note the improvement.
+            <li className="relative">
+              <CopyButton textToCopy="You are a React developer using Tailwind CSS. Write the code for a primary action button. It should be blue, have white text, and rounded corners." />
+              <strong>Second Prompt (Add Context):</strong> Now, get more specific. <span className="font-mono text-cyan-300 pr-10">"You are a React developer using Tailwind CSS. Write the code for a primary action button. It should be blue, have white text, and rounded corners."</span> Note the improvement.
             </li>
-            <li>
-              <strong>Third Prompt (Refine and Constrain):</strong> Let's perfect it. <span className="font-mono text-cyan-300">"Building on the last response, add a hover effect that slightly lightens the blue background. Also, add a subtle box-shadow. Ensure the component accepts an 'onClick' prop and 'children' for the button text."</span>
+            <li className="relative">
+              <CopyButton textToCopy="Building on the last response, add a hover effect that slightly lightens the blue background. Also, add a subtle box-shadow. Ensure the component accepts an 'onClick' prop and 'children' for the button text." />
+              <strong>Third Prompt (Refine and Constrain):</strong> Let's perfect it. <span className="font-mono text-cyan-300 pr-10">"Building on the last response, add a hover effect that slightly lightens the blue background. Also, add a subtle box-shadow. Ensure the component accepts an 'onClick' prop and 'children' for the button text."</span>
             </li>
           </ol>
           <p className="text-yellow-300 mt-4 text-sm"><strong>Reflection:</strong> How did the AI's response change with each iteration? You guided it from a generic concept to a specific, functional component. This is the core loop of AI collaboration.</p>

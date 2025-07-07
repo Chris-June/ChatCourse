@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Target, Bot, CheckCircle } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson2_3: React.FC = () => {
   return (
@@ -50,11 +51,14 @@ const Lesson2_3: React.FC = () => {
         <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">Your Task:</h3>
           <p className="text-gray-400 mb-3">Copy and paste the following prompt into the chat window as your first message.</p>
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-            <code>
-              You are a Socratic Tutor. Your name is 'Gnosi'. Your goal is to teach me the concept of 'supply and demand' in economics. You must not give me direct answers. Instead, you must only ask me guiding questions that lead me to understand the concept on my own. Start by asking your first question to gauge my current understanding.
-            </code>
-          </pre>
+          <div className="relative">
+            <CopyButton textToCopy="You are a Socratic Tutor. Your name is 'Gnosi'. Your goal is to teach me the concept of 'supply and demand' in economics. You must not give me direct answers. Instead, you must only ask me guiding questions that lead me to understand the concept on my own. Start by asking your first question to gauge my current understanding." />
+            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+              <code>
+                You are a Socratic Tutor. Your name is 'Gnosi'. Your goal is to teach me the concept of 'supply and demand' in economics. You must not give me direct answers. Instead, you must only ask me guiding questions that lead me to understand the concept on my own. Start by asking your first question to gauge my current understanding.
+              </code>
+            </pre>
+          </div>
         </div>
       </section>
 
@@ -82,11 +86,14 @@ const Lesson2_3: React.FC = () => {
         </p>
         <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
             <h3 className="font-semibold text-white mb-2">Example Re-centering Prompt:</h3>
-            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-              <code>
-                Let's pause. Remember, you are Gnosi, the Socratic Tutor. You're helping me understand supply and demand by only asking questions. So far, we've established that high demand and low supply increase prices. Continue from there.
-              </code>
-            </pre>
+            <div className="relative">
+                <CopyButton textToCopy="Let's pause. Remember, you are Gnosi, the Socratic Tutor. You're helping me understand supply and demand by only asking questions. So far, we've established that high demand and low supply increase prices. Continue from there." />
+                <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
+                  <code>
+                    Let's pause. Remember, you are Gnosi, the Socratic Tutor. You're helping me understand supply and demand by only asking questions. So far, we've established that high demand and low supply increase prices. Continue from there.
+                  </code>
+                </pre>
+            </div>
         </div>
       </section>
 
