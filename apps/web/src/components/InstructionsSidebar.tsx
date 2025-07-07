@@ -7,7 +7,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Home, BookOpen, ChevronDown, ChevronRight, Rocket } from 'lucide-react';
+import { Home, BookOpen, ChevronDown, ChevronRight, Rocket, Lightbulb } from 'lucide-react';
 import { Button } from '@chat/ui';
 
 interface InstructionsSidebarProps {
@@ -191,6 +191,14 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
               Resources
             </h3>
             <div className="mt-2 space-y-1">
+                <Button
+                  variant={location.pathname.startsWith('/instructions/ai-feature-ideas') ? 'secondary' : 'ghost'}
+                  className='w-full justify-start'
+                  onClick={() => navigate('/instructions/ai-feature-ideas')}
+                >
+                  <Lightbulb className="w-4 h-4 mr-3" />
+                  AI Feature Ideas
+                </Button>
                 <Button
                   variant={location.pathname.startsWith('/instructions/appendices') ? 'secondary' : 'ghost'}
                   className='w-full justify-start'

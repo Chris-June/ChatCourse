@@ -13,6 +13,7 @@ import Module7Routes from './modules/module-7';
 import Module8Routes from './modules/module-8';
 import AppendicesRoutes from './appendices';
 import SetupRoutes from './setup';
+import AIFeatureIdeasRoutes from './ai-feature-ideas';
 
 const InstructionsPage: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -242,6 +243,7 @@ const InstructionsPage: React.FC = () => {
             <Route path="module-7/*" element={<Module7Routes />} />
             <Route path="module-8/*" element={<Module8Routes />} />
             <Route path="appendices/*" element={<AppendicesRoutes />} />
+            <Route path="ai-feature-ideas/*" element={<AIFeatureIdeasRoutes />} />
             <Route index element={<DefaultContent />} />
             <Route path="*" element={<Navigate to="/instructions" replace />} />
           </Routes>

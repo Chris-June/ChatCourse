@@ -191,16 +191,15 @@ We'd love to hear your suggestions! What AI-powered features would you like to s
 Here are some common dependencies you might need for implementing these features:
 
 ### Core Dependencies
-- **AI/ML Models**: OpenAI - Other models to be added later
-- **APIs**: Translation services, calendar integrations, document processing
-- **Backend**: Database for storing conversation history and user data - Supabase is FREE
+- **AI/ML Models**: OpenAI GPT-4o (supports language translation, summarization, vision-based document understanding)
+- **APIs**: Minimal; most capabilities are handled by the AI model directly
+- **Backend**: Supabase (FREE) for user data and conversation history
 - **Frontend**: Modern JavaScript framework (React, Vue, etc.)
 
-### Feature-Specific Dependencies
-- **Translation**: Google Translate API, DeepL API
-- **Document Processing**: PDF.js, docx.js, or cloud services like AWS Textract
-- **Calendar Integration**: Google Calendar API, Microsoft Graph API
-- **Voice/Speech**: Web Speech API, Azure Cognitive Services
+- **Document Upload & Parsing**: Use lightweight libraries (e.g. pdf-parse, docx-parser) to extract raw text, or leverage vision-enabled AI models (like GPT-4o) to parse images, scans, or screenshots directly.
+- **Calendar Integration**: Google Calendar API, Microsoft Graph API (still required for scheduling)
+- **Authentication**: Supabase Auth or third-party OAuth if needed
+- **Voice Features**: Use OpenAI's real-time speech capabilities or integrate ElevenLabs for advanced voice synthesis and voice cloning.
 
 ## 🎓 Learning Outcomes
 

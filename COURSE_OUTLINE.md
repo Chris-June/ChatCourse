@@ -12,6 +12,10 @@ This is for anyone who has an idea and wants to build it, but doesn't want to ge
 
 We'll be working on this very project you see here! It's a living example of what's possible with AI. The best part? You'll get to contribute your ideas, and we'll build them together, using AI as our primary tool.
 
+**Getting Started**
+
+Before we dive in, make sure to check out the [Project Setup Guide](/instructions/setup) to get everything installed and running on your computer. The guide includes step-by-step instructions for Windows, macOS, and Linux, so you'll be up and running in no time!
+
 ---
 
 ## Module 1: The Heart of the Matter - Understanding AI Models

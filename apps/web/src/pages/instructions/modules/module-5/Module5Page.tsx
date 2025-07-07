@@ -3,9 +3,9 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { Shield, Lock, Scale } from 'lucide-react';
 
 const lessons = [
-  { id: '5.1', title: 'Understanding Bias in AI', icon: Scale },
-  { id: '5.2', title: 'Privacy & Data Security', icon: Lock },
-  { id: '5.3', title: 'Responsible AI in Practice', icon: Shield },
+  { id: '5.1', title: 'Multi-turn Conversations', icon: Scale },
+  { id: '5.2', title: 'Personalization at Scale', icon: Lock },
+  { id: '5.3', title: 'Performance Optimization', icon: Shield },
 ];
 
 const Module5Page: React.FC = () => {
@@ -13,7 +13,7 @@ const Module5Page: React.FC = () => {
     <div className="flex flex-col md:flex-row h-full">
       {/* Sidebar for lessons */}
       <aside className="w-full md:w-64 bg-gray-800 p-4 md:p-6 md:border-r md:border-gray-700">
-        <h2 className="text-xl font-bold mb-4 text-blue-400">Module 5: Ethical AI</h2>
+        <h2 className="text-xl font-bold mb-4 text-blue-400">Module 5: Advanced Interaction Patterns</h2>
         <nav>
           <ul>
             {lessons.map((lesson) => (
