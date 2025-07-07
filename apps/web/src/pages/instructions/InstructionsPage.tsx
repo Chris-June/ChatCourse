@@ -1,129 +1,249 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './InstructionsPage.css';
+import React, { useState } from 'react';
+import { Link, Routes, Route, Navigate } from 'react-router-dom';
+import { Menu, Home, BookOpen, Shield, PenSquare, DatabaseZap, Rocket } from 'lucide-react';
+import InstructionsSidebar from '../../components/InstructionsSidebar';
+import { Button } from '@chat/ui';
+import Module1Routes from './modules/module-1';
+import Module2Routes from './modules/module-2';
+import Module3Routes from './modules/module-3';
+import Module4Routes from './modules/module-4';
+import Module5Routes from './modules/module-5';
+import Module6Routes from './modules/module-6';
+import Module7Routes from './modules/module-7';
+import Module8Routes from './modules/module-8';
+import AppendicesRoutes from './appendices';
 
 const InstructionsPage: React.FC = () => {
-  return (
-    <div className="instructions-page bg-gray-900 text-white min-h-screen p-6">
-      <div className="max-w-4xl mx-auto">
-        <header className="mb-10 text-center">
-          <h1 className="text-4xl font-bold mb-4">Setup Instructions</h1>
-          <p className="text-xl text-gray-300">Follow these steps to get started with the Chat Application</p>
-        </header>
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-        <div className="space-y-8">
-          <section className="bg-gray-800 p-6 rounded-lg">
-            <h2 className="text-2xl font-semibold mb-4 text-blue-400">1. Install Prerequisites</h2>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>
-                <strong>Node.js:</strong> JavaScript runtime environment
-                <div className="text-sm text-gray-400 mt-1">
-                  Download and install from <a href="https://nodejs.org/" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">nodejs.org</a>
-                </div>
-              </li>
-              <li>
-                <strong>pnpm:</strong> Fast, disk space efficient package manager
-                <div className="bg-gray-700 p-2 rounded mt-1 font-mono text-sm">
-                  npm install -g pnpm
-                </div>
-              </li>
-              <li>
-                <strong>Visual Studio Code:</strong> Recommended code editor
-                <div className="text-sm text-gray-400 mt-1">
-                  Download from <a href="https://code.visualstudio.com/" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">code.visualstudio.com</a>
-                </div>
-              </li>
-            </ul>
-          </section>
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
-          <section className="bg-gray-800 p-6 rounded-lg">
-            <h2 className="text-2xl font-semibold mb-4 text-blue-400">2. Set Up the Project</h2>
-            <ol className="list-decimal pl-6 space-y-4">
-              <li>
-                <strong>Clone the repository:</strong>
-                <div className="bg-gray-700 p-2 rounded mt-1 font-mono text-sm">
-                  git clone git@github.com:Chris-June/Chat.git<br />
-                  cd Chat
-                </div>
-              </li>
-              <li>
-                <strong>Install dependencies:</strong>
-                <div className="bg-gray-700 p-2 rounded mt-1 font-mono text-sm">
-                  pnpm install
-                </div>
-              </li>
-            </ol>
-          </section>
-
-          <section className="bg-gray-800 p-6 rounded-lg">
-            <h2 className="text-2xl font-semibold mb-4 text-blue-400">3. Configure Your API Key</h2>
-            <p className="text-gray-300 mb-4">
-              You have two options for providing your OpenAI API key.
-            </p>
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-200">Option 1: Environment File (Recommended for Developers)</h3>
-                <p className="text-sm text-gray-400 mt-1 mb-2">
-                  This key will be used as the default for the application.
-                </p>
-                <ol className="list-decimal pl-6 space-y-4">
-                  <li>
-                    <strong>Create environment file:</strong>
-                    <div className="bg-gray-700 p-2 rounded mt-1 font-mono text-sm">
-                      cp .env.example .env.local
-                    </div>
-                  </li>
-                  <li>
-                    <strong>Add your OpenAI API key to .env.local:</strong>
-                    <div className="bg-gray-700 p-2 rounded mt-1 font-mono text-sm">
-                      OPENAI_API_KEY=your-openai-api-key
-                    </div>
-                    <p className="text-sm text-gray-400 mt-1">
-                      Get your API key from <a href="https://platform.openai.com/account/api-keys" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">OpenAI Platform</a>
-                    </p>
-                  </li>
-                </ol>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-200">Option 2: In-App Settings</h3>
-                <p className="text-sm text-gray-400 mt-1">
-                  You can also add your API key directly in the application. This key will override the default key and is stored only in your browser.
-                </p>
-                <ol className="list-decimal pl-6 space-y-2 mt-2">
-                  <li>Open the application and click on the <strong>Settings</strong> button in the side menu.</li>
-                  <li>Paste your API key into the "OpenAI API Key" field.</li>
-                  <li>Your key will be saved automatically for future sessions.</li>
-                </ol>
-              </div>
-            </div>
-          </section>
-
-          <section className="bg-gray-800 p-6 rounded-lg">
-            <h2 className="text-2xl font-semibold mb-4 text-blue-400">4. Run the Application</h2>
-            <div className="space-y-4">
-              <div>
-                <strong>Start the development server:</strong>
-                <div className="bg-gray-700 p-2 rounded mt-1 font-mono text-sm">
-                  pnpm dev
-                </div>
-              </div>
-              <div>
-                <p className="text-sm text-gray-400">
-                  Open <a href="http://localhost:3000" className="text-blue-400 hover:underline">http://localhost:3000</a> in your browser
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        <div className="mt-12 text-center">
-          <Link 
-            to="/chat" 
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition duration-300"
+  // Default content for the instructions page
+  const DefaultContent = () => (
+    <div className="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <div className="text-center">
+        <BookOpen className="mx-auto h-16 w-16 text-blue-400" />
+        <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">AI Collaboration Course</h1>
+        <p className="mt-6 text-xl leading-8 text-gray-300">
+          Learn how to effectively collaborate with AI through practical lessons and hands-on exercises.
+        </p>
+        <div className="mt-10 flex items-center justify-center gap-x-6">
+          <Link
+            to="module-1/1.1" 
+            className="rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           >
-            Start Chatting
+            Start Learning
+          </Link>
+          <Link to="/" className="text-sm font-semibold leading-6 text-gray-300 hover:text-white">
+            <span className="flex items-center">
+              <Home className="mr-1 h-4 w-4" /> Back to Home
+            </span>
           </Link>
         </div>
+      </div>
+
+      <div className="mt-16">
+        <h2 className="text-2xl font-bold text-white mb-6">Course Modules</h2>
+        <div className="grid gap-6 md:grid-cols-2">
+          <Link
+            to="module-1/1.1"
+            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
+          >
+            <div className="flex items-center">
+              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
+                <BookOpen className="h-6 w-6 text-blue-400" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-medium text-white">Module 1: The Heart of the Matter - Understanding AI Models</h3>
+                <p className="mt-1 text-sm text-gray-400">Learn the fundamentals of AI models and how to interact with them effectively.</p>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
+              <span>Start Module</span>
+              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+          
+          <Link
+            to="module-2/2.1"
+            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
+          >
+            <div className="flex items-center">
+              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
+                <BookOpen className="h-6 w-6 text-blue-400" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-medium text-white">Module 2: Guiding the Conversation - Prompts & Instructions</h3>
+                <p className="mt-1 text-sm text-gray-400">Master the art of prompting and providing custom instructions.</p>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
+              <span>Start Module</span>
+              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            to="module-3/3.1"
+            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
+          >
+            <div className="flex items-center">
+              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
+                <BookOpen className="h-6 w-6 text-blue-400" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-medium text-white">Module 3: AI in Action - Real-World Applications</h3>
+                <p className="mt-1 text-sm text-gray-400">See how AI can be applied to dynamic content, logic, and interactive features.</p>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
+              <span>Start Module</span>
+              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            to="module-4/4.1"
+            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
+          >
+            <div className="flex items-center">
+              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
+                <BookOpen className="h-6 w-6 text-blue-400" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-medium text-white">Module 4: Advanced AI Collaboration</h3>
+                <p className="mt-1 text-sm text-gray-400">Plan, develop, and refine projects with an AI pair programmer.</p>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
+              <span>Start Module</span>
+              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            to="module-5/5.1"
+            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
+          >
+            <div className="flex items-center">
+              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
+                <Shield className="h-6 w-6 text-blue-400" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-medium text-white">Module 5: Advanced Interaction Patterns</h3>
+                <p className="mt-1 text-sm text-gray-400">Explore multi-turn conversations, personalization, and performance optimization.</p>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
+              <span>Start Module</span>
+              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            to="module-6/6.1"
+            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
+          >
+            <div className="flex items-center">
+              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
+                <PenSquare className="h-6 w-6 text-blue-400" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-medium text-white">Module 6: The Collaborative Development Process</h3>
+                <p className="mt-1 text-sm text-gray-400">Learn about idea generation, design thinking, and iterative improvement with AI.</p>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
+              <span>Start Module</span>
+              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            to="module-7/7.1"
+            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
+          >
+            <div className="flex items-center">
+              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
+                <DatabaseZap className="h-6 w-6 text-blue-400" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-medium text-white">Module 7: Real-World Applications</h3>
+                <p className="mt-1 text-sm text-gray-400">Explore industry-specific solutions, ethical considerations, and future-proofing.</p>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
+              <span>Start Module</span>
+              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            to="module-8/8.1"
+            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
+          >
+            <div className="flex items-center">
+              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
+                <Rocket className="h-6 w-6 text-blue-400" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-medium text-white">Module 8: Capstone Project</h3>
+                <p className="mt-1 text-sm text-gray-400">Plan, implement, and present your own AI-assisted project.</p>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
+              <span>Start Module</span>
+              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="h-screen flex flex-col bg-zinc-950 text-zinc-50">
+      <header className="flex items-center p-4 border-b border-zinc-800 flex-shrink-0">
+        <Button onClick={toggleSidebar} variant="ghost" size="icon" className="mr-4">
+          <Menu />
+        </Button>
+        <h1 className="text-xl font-semibold">AI Collaboration Course</h1>
+      </header>
+      <div className="flex flex-1 overflow-hidden">
+        <InstructionsSidebar isOpen={isSidebarOpen} />
+        <main className="flex-1 overflow-y-auto p-8">
+          <Routes>
+            <Route path="module-1/*" element={<Module1Routes />} />
+            <Route path="module-2/*" element={<Module2Routes />} />
+            <Route path="module-3/*" element={<Module3Routes />} />
+            <Route path="module-4/*" element={<Module4Routes />} />
+            <Route path="module-5/*" element={<Module5Routes />} />
+            <Route path="module-6/*" element={<Module6Routes />} />
+            <Route path="module-7/*" element={<Module7Routes />} />
+            <Route path="module-8/*" element={<Module8Routes />} />
+            <Route path="appendices/*" element={<AppendicesRoutes />} />
+            <Route index element={<DefaultContent />} />
+            <Route path="*" element={<Navigate to="/instructions" replace />} />
+          </Routes>
+        </main>
       </div>
     </div>
   );

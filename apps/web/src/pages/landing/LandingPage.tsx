@@ -49,9 +49,9 @@ const LandingPage: React.FC = () => {
       <section className="cta-section text-center py-20">
         <h2 className="text-4xl font-bold mb-6">Ready to Begin?</h2>
         <p className="text-lg mb-8">Join our private group and start your journey into the world of AI development today.</p>
-        <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">
+        <Link to="/instructions" className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">
           Get Started Now
-        </button>
+        </Link>
       </section>
 
       {/* Footer */}
