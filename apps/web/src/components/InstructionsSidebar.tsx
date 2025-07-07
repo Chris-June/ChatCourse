@@ -17,16 +17,16 @@ interface InstructionsSidebarProps {
 const moduleData = [
   {
     id: 'module-1',
-    title: '1. Understanding AI Models',
+    title: '1. The Heart of the Matter - Understanding AI Models',
     lessons: [
-      { id: '1.1', title: 'Demystifying AI', path: '/instructions/module-1/1.1' },
+      { id: '1.1', title: 'Demystifying AI: What Exactly Are We Working With?', path: '/instructions/module-1/1.1' },
       { id: '1.2', title: 'The Art of the Prompt', path: '/instructions/module-1/1.2' },
       { id: '1.3', title: 'Hands-on Exploration', path: '/instructions/module-1/1.3' },
     ],
   },
   {
     id: 'module-2',
-    title: '2. Prompts & Instructions',
+    title: '2. Guiding the Conversation - Prompts & Instructions',
     lessons: [
       { id: '2.1', title: 'System Prompts: Setting the Stage', path: '/instructions/module-2/2.1' },
       { id: '2.2', title: 'Custom Instructions: Personalization', path: '/instructions/module-2/2.2' },
@@ -35,25 +35,25 @@ const moduleData = [
   },
   {
     id: 'module-3',
-    title: '3. Advanced Prompting',
+    title: '3. AI in Action - Real-World Applications',
     lessons: [
-      { id: '3.1', title: 'Zero-shot, One-shot, & Few-shot', path: '/instructions/module-3/3.1' },
-      { id: '3.2', title: 'Chain-of-Thought Prompting', path: '/instructions/module-3/3.2' },
-      { id: '3.3', title: 'Structuring Outputs', path: '/instructions/module-3/3.3' },
+      { id: '3.1', title: 'Dynamic Content Generation', path: '/instructions/module-3/3.1' },
+      { id: '3.2', title: 'Logic and Problem Solving', path: '/instructions/module-3/3.2' },
+      { id: '3.3', title: 'Interactive Features', path: '/instructions/module-3/3.3' },
     ],
   },
   {
     id: 'module-4',
-    title: '4. Building a Chat App',
+    title: '4. Expanding Capabilities - Tools and Integrations',
     lessons: [
-      { id: '4.1', title: 'Project Setup & API Keys', path: '/instructions/module-4/4.1' },
-      { id: '4.2', title: 'Building the Frontend', path: '/instructions/module-4/4.2' },
-      { id: '4.3', title: 'Creating the Backend', path: '/instructions/module-4/4.3' },
+      { id: '4.1', title: 'Function Calling', path: '/instructions/module-4/4.1' },
+      { id: '4.2', title: 'Model Context Protocol (MCP)', path: '/instructions/module-4/4.2' },
+      { id: '4.3', title: 'Building Custom Tools', path: '/instructions/module-4/4.3' },
     ],
   },
   {
     id: 'module-5',
-    title: '5. Advanced Interaction',
+    title: '5. Advanced Interaction Patterns',
     lessons: [
       { id: '5.1', title: 'Multi-Turn Conversations', path: '/instructions/module-5/5.1' },
       { id: '5.2', title: 'Personalization at Scale', path: '/instructions/module-5/5.2' },
@@ -62,29 +62,29 @@ const moduleData = [
   },
   {
     id: 'module-6',
-    title: '6. Introduction to AI Agents',
+    title: '6. The Collaborative Development Process',
     lessons: [
-      { id: '6.1', title: 'Introduction to AI Agents', path: '/instructions/module-6/6.1' },
-      { id: '6.2', title: 'The Agentic Mindset', path: '/instructions/module-6/6.2' },
-      { id: '6.3', title: 'Multi-Agent Systems', path: '/instructions/module-6/6.3' },
+      { id: '6.1', title: 'Idea Generation', path: '/instructions/module-6/6.1' },
+      { id: '6.2', title: 'Design Thinking with AI', path: '/instructions/module-6/6.2' },
+      { id: '6.3', title: 'Iterative Improvement', path: '/instructions/module-6/6.3' },
     ],
   },
   {
     id: 'module-7',
-    title: '7. Advanced AI Capabilities',
+    title: '7. Real-World Applications',
     lessons: [
-      { id: '7.1', title: 'Function Calling & Tool Use', path: '/instructions/module-7/7.1' },
-      { id: '7.2', title: 'Building RAG Systems', path: '/instructions/module-7/7.2' },
-      { id: '7.3', title: 'Fine-Tuning Models', path: '/instructions/module-7/7.3' },
+      { id: '7.1', title: 'Industry-Specific Solutions', path: '/instructions/module-7/7.1' },
+      { id: '7.2', title: 'Ethical Considerations', path: '/instructions/module-7/7.2' },
+      { id: '7.3', title: 'Future-Proofing', path: '/instructions/module-7/7.3' },
     ],
   },
   {
     id: 'module-8',
-    title: '8. Responsible AI',
+    title: '8. Capstone Project',
     lessons: [
-      { id: '8.1', title: 'Bias and Fairness', path: '/instructions/module-8/8.1' },
-      { id: '8.2', title: 'Transparency & Explainability', path: '/instructions/module-8/8.2' },
-      { id: '8.3', title: 'Privacy & Data Security', path: '/instructions/module-8/8.3' },
+      { id: '8.1', title: 'Project Planning', path: '/instructions/module-8/8.1' },
+      { id: '8.2', title: 'Implementation', path: '/instructions/module-8/8.2' },
+      { id: '8.3', title: 'Presentation and Review', path: '/instructions/module-8/8.3' },
     ],
   },
 ];
@@ -146,9 +146,9 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
                   <Button
                     variant='ghost'
                     onClick={() => toggleModule(module.id)}
-                    className="w-full flex items-center justify-between text-sm"
+                    className="w-full flex items-center justify-between text-sm h-auto text-left"
                   >
-                    <span>{module.title}</span>
+                    <span className="whitespace-normal">{module.title}</span>
                     {expandedModules[module.id] ? (
                       <ChevronDown className="w-4 h-4" />
                     ) : (
@@ -165,7 +165,7 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
                           className='w-full justify-start text-left h-auto whitespace-normal'
                           onClick={() => navigate(lesson.path)}
                         >
-                          <span className='truncate'>{lesson.id} {lesson.title}</span>
+                          <span>{lesson.id} {lesson.title}</span>
                         </Button>
                       ))}
                     </div>
