@@ -82,7 +82,8 @@ const ChatInterface = () => {
     abortControllerRef.current = new AbortController();
 
     try {
-      const response = await fetch('http://localhost:3001/api/chat', {
+      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+      const response = await fetch(`${apiBaseUrl}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         signal: abortControllerRef.current.signal,

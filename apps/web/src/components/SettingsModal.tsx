@@ -47,7 +47,13 @@ const SettingsModal = () => {
 
     return (
     <Dialog open={isSettingsOpen} onOpenChange={toggleSettings}>
-      <DialogContent className="bg-zinc-900 border-zinc-800 text-gray-100 max-w-2xl">
+      <DialogContent 
+        className="bg-zinc-900 border-zinc-800 text-gray-100 max-w-2xl"
+        aria-describedby="settings-description"
+      >
+        <div id="settings-description" className="sr-only">
+          Application settings dialog. Use tab to navigate between form controls.
+        </div>
         <DialogHeader>
           <DialogTitle>Settings</DialogTitle>
         </DialogHeader>
