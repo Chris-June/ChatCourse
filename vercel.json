@@ -8,9 +8,17 @@
         "distDir": "apps/web/dist",
         "buildCommand": "pnpm --filter web build"
       }
+    },
+    {
+      "src": "api/handler.ts",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/handler.ts"
+    },
     {
       "src": "/(.*)",
       "dest": "/apps/web/$1"

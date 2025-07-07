@@ -118,6 +118,14 @@ app.post('/api/chat', async (req, res) => {
     return res.status(400).json({ error: { message: 'Messages are required.' } });
   }
 
+  if (!apiKey && !process.env.OPENAI_API_KEY) {
+    return res.status(400).json({ 
+      error: { 
+        message: 'No API key provided. Please provide your OpenAI API key in the settings.' 
+      } 
+    });
+  }
+
   const model = requestedModel && ALLOWED_MODELS.includes(requestedModel) 
       ? requestedModel 
       : 'gpt-4.1-nano';

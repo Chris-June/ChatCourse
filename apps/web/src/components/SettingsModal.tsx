@@ -6,6 +6,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   Select,
@@ -51,9 +52,9 @@ const SettingsModal = () => {
         className="bg-zinc-900 border-zinc-800 text-gray-100 max-w-2xl"
         aria-describedby="settings-description"
       >
-        <div id="settings-description" className="sr-only">
+        <DialogDescription id="settings-description" className="sr-only">
           Application settings dialog. Use tab to navigate between form controls.
-        </div>
+        </DialogDescription>
         <DialogHeader>
           <DialogTitle>Settings</DialogTitle>
         </DialogHeader>
