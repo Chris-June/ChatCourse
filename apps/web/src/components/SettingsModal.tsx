@@ -176,7 +176,7 @@ const SettingsModal = () => {
                   </Button>
                 </div>
                 <p className="text-xs text-gray-400">
-                  Your API key is stored locally in your browser and never sent to our servers.
+                  Your API key is stored locally in your browser and never sent to our servers. For testing purposes, you will need to add a payment option to your OpenAI account. We find that most testers spend less than $10.00 in API Credits for this project.
                 </p>
               </div>
           </div>
