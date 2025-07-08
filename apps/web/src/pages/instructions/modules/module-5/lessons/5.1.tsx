@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, MessageSquare, BrainCircuit, Lightbulb } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
+
 
 const Lesson5_1: React.FC = () => {
   return (
@@ -49,46 +49,78 @@ const Lesson5_1: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <MessageSquare className="w-7 h-7 mr-3 text-green-400" />
-          How Context is Maintained
+          The Structure of a Conversation
         </h2>
+                <p className="text-gray-300 mb-4">
+          Behind the scenes, the conversation is just a list of message objects, each with a `role` and `content`. This entire list is sent to the model with every request.
+        </p>
+        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
+          <code>
+{`[
+  {
+    "role": "user",
+    "content": "What is the capital of France?"
+  },
+  {
+    "role": "assistant",
+    "content": "The capital of France is Paris."
+  },
+  {
+    "role": "user",
+    "content": "What is its population?"
+  }
+]`}
+          </code>
+        </pre>
+        <p className="text-gray-400 mt-4">
+          When the model receives this array, it can see that the user's latest question about "its population" refers to Paris from the previous turn.
+        </p>
+      </section>
+
+      {/* Exercise */}
+            {/* Understanding Roles */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Understanding Roles</h2>
         <p className="text-gray-300 mb-4">
-          In this application, every time you send a message, the entire chat history (both your messages and the AI's responses) is sent to the model. This history provides the necessary context.
+          The `role` is crucial for helping the model understand the flow of dialogue:
         </p>
         <ul className="list-disc pl-5 space-y-2 text-gray-300">
-            <li><strong>User:</strong> "What is the capital of France?"</li>
-            <li><strong>AI:</strong> "The capital of France is Paris."</li>
-            <li><strong>User:</strong> "What is its population?" <em>(The AI knows "it" refers to Paris because of the history).</em></li>
+          <li><strong>`user`</strong>: Represents messages from the person interacting with the AI.</li>
+          <li><strong>`assistant`</strong>: Represents the AI's own previous responses.</li>
+          <li><strong>`system`</strong>: (Optional) A high-level instruction that sets the persona and rules for the AI throughout the conversation (e.g., "You are a helpful assistant who always responds in rhyme.").</li>
         </ul>
-        <p className="text-gray-400 mt-4">
-            This is why you can ask follow-up questions and have a natural-feeling conversation. The AI isn't just responding to your last message; it's responding to the entire dialogue.
+      </section>
+
+      {/* Pro Tip: Context Window */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Pro Tip: The Context Window</h2>
+        <p className="text-gray-300 mb-4">
+          Models have a limited "context window," which is the maximum amount of text (history + new prompt) they can process at once. If a conversation becomes too long, the oldest messages will be dropped, and the AI will start to "forget" the beginning of the dialogue.
         </p>
+        <p className="text-gray-400">Managing conversation history is a key challenge in building robust chat applications. Common strategies include summarizing earlier parts of the conversation or using more advanced techniques like vector databases for long-term memory.</p>
       </section>
 
       {/* Exercise */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: Test the AI's Memory
+          Exercise: Predict the Response
         </h2>
         <p className="text-gray-300 mb-4">
-          Let's test this concept. Go to the main chat interface and try the following two-step conversation:
+          In the main chat, ask the AI: "What are the two largest moons of Mars?" After it responds, ask a follow-up: "How big are they compared to Earth's moon?"
         </p>
-        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <ol className="list-decimal pl-5 space-y-2 text-gray-300 text-sm">
-            <li className="relative pr-10"><strong>First Prompt:</strong> "Tell me three interesting facts about the planet Jupiter."<CopyButton textToCopy={"Tell me three interesting facts about the planet Jupiter."} /></li>
-            <li className="relative pr-10"><strong>Second Prompt:</strong> "Which of those is the most surprising?"<CopyButton textToCopy={"Which of those is the most surprising?"} /></li>
-          </ol>
-          <p className="text-gray-400 mt-3">Notice how the AI can answer the second question without you having to mention Jupiter again. It's using the context from the first turn to understand your follow-up.</p>
-        </div>
+        <p className="text-gray-300 mb-2">
+          Before you send the second message, predict how the AI will interpret "they." What specific information from the first turn allows it to understand your question?
+        </p>
       </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">
         <Link 
-          to="/instructions/module-4/4.3" 
+          to="/instructions/module-4/4.5" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Building Custom Tools
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Introduction to AI Agents
         </Link>
         <Link 
           to="/instructions/module-5/5.2" 

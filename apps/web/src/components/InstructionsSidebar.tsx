@@ -74,20 +74,20 @@ const moduleData = [
   },
   {
     id: 'module-7',
-    title: '7. Real-World Applications',
+    title: '7. Advanced AI Techniques',
     lessons: [
-      { id: '7.1', title: 'Industry-Specific Solutions', path: '/instructions/module-7/7.1' },
-      { id: '7.2', title: 'Ethical Considerations', path: '/instructions/module-7/7.2' },
-      { id: '7.3', title: 'Future-Proofing', path: '/instructions/module-7/7.3' },
+      { id: '7.1', title: 'Function Calling & Tool Use', path: '/instructions/module-7/7.1' },
+      { id: '7.2', title: 'Building RAG Systems', path: '/instructions/module-7/7.2' },
+      { id: '7.3', title: 'Fine-Tuning Models', path: '/instructions/module-7/7.3' },
     ],
   },
   {
     id: 'module-8',
-    title: '8. Capstone Project',
+    title: '8. Responsible AI',
     lessons: [
-      { id: '8.1', title: 'Project Planning', path: '/instructions/module-8/8.1' },
-      { id: '8.2', title: 'Implementation', path: '/instructions/module-8/8.2' },
-      { id: '8.3', title: 'Presentation and Review', path: '/instructions/module-8/8.3' },
+      { id: '8.1', title: 'Bias and Fairness', path: '/instructions/module-8/8.1' },
+      { id: '8.2', title: 'Transparency and Explainability', path: '/instructions/module-8/8.2' },
+      { id: '8.3', title: 'Security and Privacy', path: '/instructions/module-8/8.3' },
     ],
   },
 ];

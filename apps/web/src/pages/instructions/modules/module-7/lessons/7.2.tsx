@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Database, Search, FileText, Lightbulb } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Database, FileText, Lightbulb, Layers, Combine } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson7_2: React.FC = () => {
   return (
@@ -29,22 +30,27 @@ const Lesson7_2: React.FC = () => {
 
       {/* Core Components */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">The Components of a RAG System</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <Database className="w-8 h-8 mx-auto mb-3 text-green-400" />
-            <h4 className="font-bold text-lg text-white text-center">1. Knowledge Base</h4>
-            <p className="text-sm text-gray-400 mt-2">A collection of documents (e.g., PDFs, text files, database records) that contains the information you want the AI to use. This data is converted into numerical representations called embeddings.</p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">The RAG Pipeline: A Deeper Look</h2>
+        <p className="text-gray-300 mb-6">A production-ready RAG system involves more than just a database and a prompt. It's a multi-stage pipeline focused on preparing, retrieving, and synthesizing information effectively.</p>
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-xl font-semibold text-white flex items-center"><Database className="w-6 h-6 mr-2 text-green-400" />1. The Ingestion Pipeline</h3>
+            <p className="text-gray-400 mt-2">Before you can retrieve anything, you must prepare your knowledge. This involves a three-step process: loading documents, splitting them into chunks, and converting those chunks into vector embeddings for storage.</p>
           </div>
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <Search className="w-8 h-8 mx-auto mb-3 text-yellow-400" />
-            <h4 className="font-bold text-lg text-white text-center">2. Retriever</h4>
-            <p className="text-sm text-gray-400 mt-2">When a user asks a question, the retriever searches the knowledge base to find the most relevant chunks of text. This is often done using a vector database.</p>
+
+          <div>
+            <h3 className="text-xl font-semibold text-white flex items-center"><Layers className="w-6 h-6 mr-2 text-purple-400" />2. Chunking Strategy</h3>
+            <p className="text-gray-400 mt-2">How you split your documents (chunking) is critical. If chunks are too small, you lose context. If they're too large, you add noise. A common strategy is <span className="font-semibold text-purple-300">Recursive Character Text Splitting</span>, which tries to split on meaningful separators (like paragraphs or sentences) first.</p>
           </div>
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <FileText className="w-8 h-8 mx-auto mb-3 text-cyan-400" />
-            <h4 className="font-bold text-lg text-white text-center">3. Generator</h4>
-            <p className="text-sm text-gray-400 mt-2">The original prompt and the retrieved text are combined and sent to the LLM, which generates a final answer that is grounded in the retrieved facts.</p>
+
+          <div>
+            <h3 className="text-xl font-semibold text-white flex items-center"><Combine className="w-6 h-6 mr-2 text-yellow-400" />3. Retrieval with Hybrid Search</h3>
+            <p className="text-gray-400 mt-2">Simple vector search isn't always enough. <span className="font-semibold text-yellow-300">Hybrid Search</span> combines semantic (vector) search with traditional keyword search (like BM25). This approach is powerful because it can find documents that are conceptually related (via vectors) and those that contain exact keyword matches.</p>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-semibold text-white flex items-center"><FileText className="w-6 h-6 mr-2 text-cyan-400" />4. Generation with Context</h3>
+            <p className="text-gray-400 mt-2">This is the final step where the LLM shines. The user's original question is combined with the retrieved text chunks into a new, comprehensive prompt. The LLM is then instructed to answer the question *based only on the provided context*.</p>
           </div>
         </div>
       </section>
@@ -53,19 +59,25 @@ const Lesson7_2: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: Design a Documentation Helper
+          Exercise: Engineer the Generator Prompt
         </h2>
         <p className="text-gray-300 mb-4">
-          Imagine you want to build a chatbot that can answer questions about your company's internal software. The chatbot should only use the official documentation to answer questions.
+          The final prompt sent to the LLM is the most important part of a RAG system. It must clearly instruct the model to use the provided context and nothing else. Your task is to design this prompt.
         </p>
         <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <p className="text-gray-300 mb-4">Describe the high-level plan for building this RAG system:</p>
-          <ul className="list-disc pl-5 space-y-2 text-gray-300">
-            <li><strong>Knowledge Base:</strong> What documents would you include? (e.g., user manuals, API guides, tutorials).</li>
-            <li><strong>Retriever:</strong> How would the system find relevant information when a user asks, "How do I reset my password?"</li>
-            <li><strong>Generator:</strong> How would the final answer be constructed to be helpful and accurate?</li>
-          </ul>
+          <p className="text-gray-400 mb-3 text-sm">Complete the prompt template below. The goal is to create a clear and concise set of instructions for the LLM to generate a helpful, fact-based answer.</p>
+          <div className="relative p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
+            <CopyButton textToCopy={`You are an expert assistant for our internal software. Answer the user's question based ONLY on the following context. If the context does not contain the answer, say so.\n\n**Context:**\n---CONTEXT_CHUNK_1---\n---CONTEXT_CHUNK_2---\n\n**User Question:**\n---USER_QUESTION---`} />
+            <p className="text-white">
+              You are an expert assistant for our internal software. Answer the user's question based ONLY on the following context. If the context does not contain the answer, say so.<br/><br/>
+              <strong>Context:</strong><br/>
+              ---CONTEXT_CHUNK_1---<br/>
+              ---CONTEXT_CHUNK_2---<br/><br/>
+              <strong>User Question:</strong><br/>
+              ---USER_QUESTION---
+            </p>
+          </div>
         </div>
       </section>
 

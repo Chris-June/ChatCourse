@@ -37,15 +37,23 @@ const Lesson5_3: React.FC = () => {
           Instead of waiting for the entire AI response to be generated, you can stream it to the user token by token. This is what you see in action in this chat application. The text appears gradually, as it's being generated.
         </p>
         <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Why Streaming Matters:</h3>
-          <ul className="list-disc pl-5 space-y-2 text-gray-300">
-            <li><strong>Immediate Feedback:</strong> The user sees that the system is working and processing their request right away.
-            </li>
-            <li><strong>Reduced Wait Time:</strong> Users can start reading the beginning of the response while the rest is still being generated.
-            </li>
-            <li><strong>Better Engagement:</strong> A responsive, streaming interface feels more dynamic and conversational.
-            </li>
-          </ul>
+          <h3 className="font-semibold text-white mb-2">How Streaming Works (Conceptual)</h3>
+          <p className="text-gray-400 mb-2 text-sm">The server sends a stream of small data chunks. The client listens for these chunks and appends them to the display in real-time.</p>
+          <pre className="p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
+            <code>
+{`// Frontend pseudo-code
+const response = await fetch('/api/chat', { stream: true });
+
+response.body.on('data', (chunk) => {
+  // chunk might be 'Hello'
+  appendToDisplay(chunk);
+});
+
+response.body.on('end', () => {
+  // Stream finished
+});`}
+            </code>
+          </pre>
         </div>
       </section>
 
@@ -58,16 +66,49 @@ const Lesson5_3: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Not all tasks require the most powerful (and often slowest) AI model. There is a constant trade-off between a model's capability, its speed, and its cost.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <h4 className="font-bold text-lg text-white">Smaller, Faster Models</h4>
-            <p className="text-sm text-gray-400 mt-2">Best for simple, routine tasks like classification, data extraction, or simple Q&A. They are quicker and cheaper.</p>
-          </div>
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <h4 className="font-bold text-lg text-white">Larger, Powerful Models</h4>
-            <p className="text-sm text-gray-400 mt-2">Necessary for complex reasoning, creative writing, or multi-step problem-solving. They are slower and more expensive.</p>
-          </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr>
+                <th className="border-b-2 border-blue-400 p-2 text-blue-300">Model Tier</th>
+                <th className="border-b-2 border-blue-400 p-2 text-blue-300">Best For</th>
+                <th className="border-b-2 border-blue-400 p-2 text-blue-300">Avg. Latency</th>
+                <th className="border-b-2 border-blue-400 p-2 text-blue-300">Relative Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="bg-gray-900/50">
+                <td className="border-b border-gray-700 p-2"><strong>Tier 1: Fast & Light</strong></td>
+                <td className="border-b border-gray-700 p-2">Classification, simple extraction</td>
+                <td className="border-b border-gray-700 p-2">&lt; 500ms</td>
+                <td className="border-b border-gray-700 p-2">$</td>
+              </tr>
+              <tr>
+                <td className="border-b border-gray-700 p-2"><strong>Tier 2: Balanced</strong></td>
+                <td className="border-b border-gray-700 p-2">Summarization, standard Q&A</td>
+                <td className="border-b border-gray-700 p-2">1-2s</td>
+                <td className="border-b border-gray-700 p-2">$$</td>
+              </tr>
+              <tr className="bg-gray-900/50">
+                <td className="border-b border-gray-700 p-2"><strong>Tier 3: Max Power</strong></td>
+                <td className="border-b border-gray-700 p-2">Complex reasoning, agentic tasks</td>
+                <td className="border-b border-gray-700 p-2">3-5s+</td>
+                <td className="border-b border-gray-700 p-2">$$$$</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </section>
+
+      {/* Caching Strategies */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Reducing Latency with Caching</h2>
+        <p className="text-gray-300 mb-4">
+          If multiple users ask the same question, why generate the answer more than once? Caching involves storing the results of expensive operations and returning the cached result when the same input occurs again. For an AI application, you can cache the full response for common or identical prompts.
+        </p>
+        <p className="text-gray-400">
+          This dramatically reduces latency for subsequent requests and can also lead to significant cost savings.
+        </p>
       </section>
 
       {/* Conceptual Exercise */}
@@ -98,7 +139,7 @@ const Lesson5_3: React.FC = () => {
           to="/instructions/module-6/6.1" 
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Next: Introduction to AI Agents <ChevronRight className="w-5 h-5 ml-2" />
+          Next Module <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>

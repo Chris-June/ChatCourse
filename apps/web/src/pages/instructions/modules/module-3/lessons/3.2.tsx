@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, BrainCircuit, Lightbulb } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import zeroShotCotImage from '../../../../../assets/images/cot1.webp';
+import autoCotImage from '../../../../../assets/images/auto-cot3.webp';
 
 const Lesson3_2: React.FC = () => {
   return (
@@ -25,105 +26,101 @@ const Lesson3_2: React.FC = () => {
       </div>
 
       <p className="text-lg text-gray-300">
-        Large Language Models often struggle with complex reasoning. They can make simple math errors or fail logic puzzles because they try to answer too quickly. Chain-of-Thought (CoT) prompting solves this by forcing the AI to 'show its work.'
+        Introduced in Wei et al. (2022), chain-of-thought (CoT) prompting enables complex reasoning capabilities through intermediate reasoning steps. You can combine it with few-shot prompting to get better results on more complex tasks that require reasoning before responding.
       </p>
 
-      {/* What is Chain-of-Thought? */}
+      {/* Chain-of-Thought Prompting Example */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <BrainCircuit className="w-7 h-7 mr-3 text-blue-300" />
-          What is Chain-of-Thought Prompting?
-        </h2>
-        <p className="text-gray-300 mb-4">
-          It's a technique where you explicitly ask the AI to break down a problem into a series of intermediate steps before giving a final answer. By simply adding a phrase like <strong className="text-yellow-300">"Let's think step-by-step"</strong> to your prompt, you can significantly improve the AI's ability to reason through complex problems.
-        </p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Analogy: Math Class</h3>
-          <p className="text-gray-400">
-            Think of it like a math teacher who won't give you credit unless you show your work. Forcing yourself to write down each step makes you less likely to make a mistake. CoT does the same for the AI.
-          </p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Chain-of-Thought Prompting</h2>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 font-mono text-sm text-gray-200">
+          <p>Prompt:</p>
+          <pre className="whitespace-pre-wrap">{`The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
+A: Adding all the odd numbers (9, 15, 1) gives 25. The answer is False.
+The odd numbers in this group add up to an even number: 17,  10, 19, 4, 8, 12, 24.
+A: Adding all the odd numbers (17, 19) gives 36. The answer is True.
+The odd numbers in this group add up to an even number: 16,  11, 14, 4, 8, 13, 24.
+A: Adding all the odd numbers (11, 13) gives 24. The answer is True.
+The odd numbers in this group add up to an even number: 17,  9, 10, 12, 13, 4, 2.
+A: Adding all the odd numbers (17, 9, 13) gives 39. The answer is False.
+The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.
+A:`}</pre>
+          <br />
+          <p>Output:</p>
+          <pre className="whitespace-pre-wrap">Adding all the odd numbers (15, 5, 13, 7, 1) gives 41. The answer is False.</pre>
         </div>
-      </section>
-
-      {/* Example: Before and After CoT */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Example: The Logic Puzzle</h2>
-        <p className="text-gray-300 mb-4">
-          Let's look at a classic logic puzzle where models often fail without CoT.
+        <p className="text-gray-300 my-4">
+          Wow! We can see a perfect result when we provided the reasoning step. In fact, we can solve this task by providing even fewer examples, i.e., just one example seems enough:
         </p>
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Without CoT */}
-          <div className="bg-red-900/20 p-4 rounded-lg border border-red-700">
-            <h3 className="font-semibold text-red-300 mb-2">Without CoT (Often Incorrect)</h3>
-            <div className="relative mb-4">
-              <CopyButton textToCopy={'A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?'} />
-              <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
-                <code>
-                  <span className="text-gray-400">// Prompt</span>
-                  A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?
-                </code>
-              </pre>
-            </div>
-            <h4 className="font-semibold text-red-200 mb-2">AI's quick (and wrong) answer:</h4>
-            <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-              <code>The ball costs $0.10.</code>
-            </pre>
-          </div>
-
-          {/* With CoT */}
-          <div className="bg-green-900/20 p-4 rounded-lg border border-green-700">
-            <h3 className="font-semibold text-green-300 mb-2">With CoT (Correct)</h3>
-            <div className="relative mb-4">
-              <CopyButton textToCopy={"A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost? Let's think step-by-step."} />
-              <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
-                <code>
-                  <span className="text-gray-400">// Prompt</span>
-                  A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost? Let's think step-by-step.
-                </code>
-              </pre>
-            </div>
-            <h4 className="font-semibold text-green-200 mb-2">AI's reasoned answer:</h4>
-            <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-              <code>
-                1. Let A be the cost of the bat and B be the cost of the ball.
-                2. A + B = 1.10
-                3. A = B + 1.00
-                4. (B + 1.00) + B = 1.10
-                5. 2B + 1.00 = 1.10
-                6. 2B = 0.10
-                7. B = 0.05
-                The ball costs $0.05.
-              </code>
-            </pre>
-          </div>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 font-mono text-sm text-gray-200">
+          <p>Prompt:</p>
+          <pre className="whitespace-pre-wrap">{`The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
+A: Adding all the odd numbers (9, 15, 1) gives 25. The answer is False.
+The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.
+A:`}</pre>
+          <br />
+          <p>Output:</p>
+          <pre className="whitespace-pre-wrap">Adding all the odd numbers (15, 5, 13, 7, 1) gives 41. The answer is False.</pre>
         </div>
+        <p className="text-gray-300 mt-4">
+          Keep in mind that the authors claim that this is an emergent ability that arises with sufficiently large language models.
+        </p>
       </section>
 
-      {/* When to use CoT */}
+      {/* Zero-shot CoT Prompting */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">When to Use Chain-of-Thought</h2>
-        <ul className="list-disc list-inside text-gray-300 space-y-2">
-          <li><strong>Math & Word Problems:</strong> For any task involving calculations or multiple steps.</li>
-          <li><strong>Logic Puzzles:</strong> When there are multiple constraints or conditions to consider.</li>
-          <li><strong>Complex Instruction Following:</strong> If you give the AI a multi-step task, asking it to think step-by-step can ensure it doesn't miss any parts.</li>
-          <li><strong>Code Generation:</strong> To plan out the logic of a function before writing the code.</li>
-        </ul>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Zero-shot CoT Prompting</h2>
+        <div className="my-4">
+          <img src={zeroShotCotImage} alt="Zero-shot CoT diagram" className="rounded-lg mx-auto" />
+          <p className="text-center text-sm text-gray-500 mt-2">Image Source: Kojima et al. (2022)</p>
+        </div>
+        <p className="text-gray-300 mb-4">
+          One recent idea that came out more recently is the idea of zero-shot CoT (Kojima et al. 2022) that essentially involves adding "Let's think step by step" to the original prompt. Let's try a simple problem and see how the model performs:
+        </p>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 font-mono text-sm text-gray-200">
+          <p>Prompt:</p>
+          <pre className="whitespace-pre-wrap">{`I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then went and bought 5 more apples and ate 1. How many apples did I remain with?`}</pre>
+          <br />
+          <p>Output:</p>
+          <pre className="whitespace-pre-wrap">11 apples</pre>
+        </div>
+        <p className="text-gray-300 my-4">
+          The answer is incorrect! Now Let's try with the special prompt.
+        </p>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 font-mono text-sm text-gray-200">
+          <p>Prompt:</p>
+          <pre className="whitespace-pre-wrap">{`I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then went and bought 5 more apples and ate 1. How many apples did I remain with?
+Let's think step by step.`}</pre>
+          <br />
+          <p>Output:</p>
+          <pre className="whitespace-pre-wrap">{`First, you started with 10 apples.
+You gave away 2 apples to the neighbor and 2 to the repairman, so you had 6 apples left.
+Then you bought 5 more apples, so now you had 11 apples.
+Finally, you ate 1 apple, so you would remain with 10 apples.`}</pre>
+        </div>
+        <p className="text-gray-300 mt-4">
+          It's impressive that this simple prompt is effective at this task. This is particularly useful where you don't have too many examples to use in the prompt.
+        </p>
       </section>
 
-      {/* Exercise */}
+      {/* Automatic Chain-of-Thought */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Your Turn: Plan a Trip
-        </h2>
-        <p className="text-gray-300 mb-4">Try this in the chat. Give the AI the following prompt. Notice how adding the CoT phrase helps it structure the answer and calculate correctly.</p>
-        <div className="relative">
-          <CopyButton textToCopy={"I want to drive from Chicago to New York, which is about 800 miles. My car gets 25 miles per gallon, and gas costs $4.00 per gallon. I also want to stop for one night in a hotel that costs $150. What is the total cost of the trip? Let's think step-by-step."} />
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
-            <code>
-              I want to drive from Chicago to New York, which is about 800 miles. My car gets 25 miles per gallon, and gas costs $4.00 per gallon. I also want to stop for one night in a hotel that costs $150. What is the total cost of the trip? Let's think step-by-step.
-            </code>
-          </pre>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Automatic Chain-of-Thought (Auto-CoT)</h2>
+        <p className="text-gray-300 mb-4">
+          When applying chain-of-thought prompting with demonstrations, the process involves hand-crafting effective and diverse examples. This manual effort could lead to suboptimal solutions. Zhang et al. (2022) propose an approach to eliminate manual efforts by leveraging LLMs with "Let's think step by step" prompt to generate reasoning chains for demonstrations one by one. This automatic process can still end up with mistakes in generated chains. To mitigate the effects of the mistakes, the diversity of demonstrations matter. This work proposes Auto-CoT, which samples questions with diversity and generates reasoning chains to construct the demonstrations.
+        </p>
+        <p className="text-gray-300 mb-4">
+          Auto-CoT consists of two main stages:
+        </p>
+        <ol className="list-decimal list-inside text-gray-400 space-y-2 mb-4">
+          <li><strong>Question Clustering:</strong> partition questions of a given dataset into a few clusters</li>
+          <li><strong>Demonstration Sampling:</strong> select a representative question from each cluster and generate its reasoning chain using Zero-Shot-CoT with simple heuristics</li>
+        </ol>
+        <p className="text-gray-300 mb-4">
+          The simple heuristics could be length of questions (e.g., 60 tokens) and number of steps in rationale (e.g., 5 reasoning steps). This encourages the model to use simple and accurate demonstrations.
+        </p>
+        <div className="my-4">
+          <img src={autoCotImage} alt="Auto-CoT diagram" className="rounded-lg mx-auto" />
+          <p className="text-center text-sm text-gray-500 mt-2">Image Source: Zhang et al. (2022)</p>
         </div>
       </section>
 

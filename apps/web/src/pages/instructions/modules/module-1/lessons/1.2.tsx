@@ -28,6 +28,80 @@ const Lesson1_2: React.FC = () => {
         If the AI is the engine, the prompt is the steering wheel. Learning to write effective prompts is the single most important skill for collaborating with an AI. It's the difference between getting a generic, unhelpful response and a targeted, brilliant one.
       </p>
 
+      {/* Basics of Prompting */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">The Basics of Prompting</h2>
+        <p className="text-gray-300 mb-4">
+          You can achieve a lot with simple prompts, but the quality of results depends on how much information you provide and how well-crafted the prompt is. A prompt can include instructions, context, inputs, or examples to guide the model more effectively.
+        </p>
+        
+        <div className="bg-gray-900 p-4 rounded-lg border border-yellow-700 mb-6">
+          <h3 className="font-bold text-lg text-yellow-300 mb-2">Basic Prompt Example</h3>
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="font-mono text-gray-300">The sky is</p>
+              <p className="text-gray-400 mt-2">The model might respond with: <span className="text-gray-200">blue during the day and dark at night.</span></p>
+            </div>
+            <CopyButton textToCopy="The sky is" />
+          </div>
+        </div>
+
+        <div className="bg-gray-900 p-4 rounded-lg border border-cyan-700">
+          <h3 className="font-bold text-lg text-cyan-300 mb-2">Structured Prompt Example</h3>
+          <p className="text-gray-400 mb-3">With chat models like GPT-3.5 or GPT-4, you can structure prompts using different roles:</p>
+          <div className="space-y-2">
+            <div className="flex items-start">
+              <span className="text-green-400 font-mono mr-2">System:</span>
+              <p className="text-gray-300">You are a helpful assistant that explains technical concepts clearly.</p>
+            </div>
+            <div className="flex items-start">
+              <span className="text-blue-400 font-mono mr-2">User:</span>
+              <p className="text-gray-300">Explain what prompt engineering is in simple terms.</p>
+            </div>
+          </div>
+          <p className="text-gray-500 text-sm mt-3">The system message sets the behavior, while the user message contains the instruction.</p>
+        </div>
+      </section>
+
+      {/* Prompt Formatting */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Prompt Formats</h2>
+        <p className="text-gray-300 mb-4">
+          There are several ways to structure your prompts. The format you choose depends on your specific needs and the task at hand.
+        </p>
+        
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="bg-gray-900 p-4 rounded-lg border border-cyan-700">
+            <h3 className="font-bold text-lg text-cyan-300 mb-2">Zero-Shot Prompting</h3>
+            <p className="text-gray-300 font-mono mb-3">What is prompt engineering?</p>
+            <p className="text-gray-400">Directly asking a question without examples. Works well for straightforward tasks where the model has relevant knowledge.</p>
+          </div>
+          
+          <div className="bg-gray-900 p-4 rounded-lg border border-purple-700">
+            <h3 className="font-bold text-lg text-purple-300 mb-2">Few-Shot Prompting</h3>
+            <div className="space-y-2">
+              <p className="text-gray-300 font-mono">This is awesome! // Positive</p>
+              <p className="text-gray-300 font-mono">This is bad! // Negative</p>
+              <p className="text-gray-300 font-mono">What a horrible show! //</p>
+            </div>
+            <p className="text-gray-400 mt-3">Providing examples helps the model understand the pattern or format you want.</p>
+          </div>
+        </div>
+        
+        <div className="bg-gray-900 p-4 rounded-lg border border-green-700">
+          <h3 className="font-bold text-lg text-green-300 mb-2">Structured Prompt</h3>
+          <div className="space-y-2">
+            <p className="text-gray-300">Q: What is the capital of France?</p>
+            <p className="text-gray-300">A: Paris</p>
+            <p className="text-gray-300">Q: What is the capital of Japan?</p>
+            <p className="text-gray-300">A: Tokyo</p>
+            <p className="text-gray-300">Q: What is the capital of Brazil?</p>
+            <p className="text-gray-300">A: </p>
+          </div>
+          <p className="text-gray-500 text-sm mt-3">This QA format is particularly effective for teaching the model specific patterns or tasks.</p>
+        </div>
+      </section>
+
       {/* Core Principles of Prompting */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300">The Core Principles of Prompting</h2>

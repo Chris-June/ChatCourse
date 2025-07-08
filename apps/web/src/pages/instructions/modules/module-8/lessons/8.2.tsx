@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Code, Bug, Book } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Eye, MessageSquareQuote, Lightbulb } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson8_2: React.FC = () => {
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">8.2: Implementation</h1>
+        <h1 className="text-3xl font-bold text-blue-400">8.2: Transparency and Explainability</h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-8/8.1" 
@@ -24,66 +25,72 @@ const Lesson8_2: React.FC = () => {
       </div>
 
       <p className="text-lg text-gray-300">
-        This is where your plan turns into reality. The implementation phase is about building your project, solving problems as they arise, and keeping a record of your work.
+        For users to trust an AI system, they need to understand its decisions. Transparency (what the system did) and Explainability (why it did it) are the cornerstones of building that trust, especially when the stakes are high.
       </p>
 
-      {/* Key Implementation Steps */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">The Building Process</h2>
-        <div className="space-y-4">
-          <div className="flex items-start">
-            <Code className="w-8 h-8 mr-4 text-green-400 flex-shrink-0 mt-1" />
-            <div>
-              <h4 className="font-bold text-lg text-white">Guided Development</h4>
-              <p className="text-gray-400">Follow your project plan and milestones. Work step-by-step, building one feature at a time. Use AI as your collaborative partner to write code, generate assets, and solve small problems.</p>
-            </div>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Key Concepts</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-gray-900 p-4 rounded-lg">
+            <Eye className="w-8 h-8 mx-auto mb-3 text-cyan-400" />
+            <h4 className="font-bold text-lg text-white text-center">Transparency</h4>
+            <p className="text-sm text-gray-400 mt-2">This is about exposing the process. For a RAG system, transparency means showing the user which documents were retrieved to generate an answer. For a tool-using agent, it means showing which tools were called and with what parameters.</p>
           </div>
-          <div className="flex items-start">
-            <Bug className="w-8 h-8 mr-4 text-yellow-400 flex-shrink-0 mt-1" />
-            <div>
-              <h4 className="font-bold text-lg text-white">Troubleshooting</h4>
-              <p className="text-gray-400">You will encounter challenges. When you get stuck, describe the problem to the AI. Provide the error message, the code you're using, and what you've already tried. Iteratively work with the AI to find a solution.</p>
-            </div>
-          </div>
-          <div className="flex items-start">
-            <Book className="w-8 h-8 mr-4 text-cyan-400 flex-shrink-0 mt-1" />
-            <div>
-              <h4 className="font-bold text-lg text-white">Documentation</h4>
-              <p className="text-gray-400">Keep a simple log of your progress. Write down what you built, the challenges you faced, and how you solved them. This is invaluable for your final presentation and for anyone who wants to understand your project.</p>
-            </div>
+          <div className="bg-gray-900 p-4 rounded-lg">
+            <MessageSquareQuote className="w-8 h-8 mx-auto mb-3 text-purple-400" />
+            <h4 className="font-bold text-lg text-white text-center">Explainability (XAI)</h4>
+            <p className="text-sm text-gray-400 mt-2">This is about explaining the 'why'. Why did a model classify an email as spam? Techniques like LIME (Local Interpretable Model-agnostic Explanations) and SHAP (SHapley Additive exPlanations) help identify which features (e.g., specific words) most influenced a model's decision.</p>
           </div>
         </div>
       </section>
 
-      {/* Exercise */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Exercise: Start Building</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Practical Techniques for Transparency</h2>
+        <ul className="list-disc pl-5 space-y-2 text-gray-300">
+          <li><strong>Show Confidence Scores:</strong> When a model makes a classification, display its confidence level (e.g., "I'm 95% sure this is a cat"). This helps users gauge the reliability of the output.</li>
+          <li><strong>Cite Sources:</strong> In RAG applications, always provide links or references to the source documents used. This allows users to verify the information for themselves.</li>
+          <li><strong>Visualize Decisions:</strong> For image-based models, use heatmaps to show which parts of an image were most influential in a decision.</li>
+          <li><strong>Expose the Agent's 'Thoughts':</strong> For complex agents, log the step-by-step reasoning process, including which tools were considered, chosen, and what their outputs were.</li>
+        </ul>
+      </section>
+
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+          <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
+          Exercise: Design a Transparent UI
+        </h2>
         <p className="text-gray-300 mb-4">
-          Begin working on the first milestone of your capstone project. As you work, practice the skills above.
+          Imagine your RAG-based chatbot has just answered a user's question about your company's return policy. How would you design the UI to be as transparent as possible?
         </p>
         <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <ul className="list-disc pl-5 space-y-2 text-gray-300">
-            <li><strong>Implement:</strong> Build the first feature from your project plan.</li>
-            <li><strong>Troubleshoot:</strong> When you hit a snag, formulate a question for an AI to help you solve it.</li>
-            <li><strong>Document:</strong> Write a short entry in your developer log about what you accomplished and any problems you solved.</li>
-          </ul>
+          <p className="text-gray-400 mb-3 text-sm">Describe the UI components you would add to the chatbot's response to build user trust. Use the template to structure your ideas.</p>
+          <div className="relative p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
+            <CopyButton textToCopy={`**1. UI Component: Source Citations**\n- Description: Below the answer, I would add a 'Sources' section with clickable links to the exact pages in the company's knowledge base that were used.\n\n**2. UI Component: Confidence Score**\n- Description: ...\n\n**3. UI Component: Feedback Mechanism**\n- Description: ...`} />
+            <p className="text-white">
+              <strong>1. UI Component: Source Citations</strong><br/>
+              - Description: Below the answer, I would add a 'Sources' section with clickable links to the exact pages in the company's knowledge base that were used.<br/><br/>
+              <strong>2. UI Component: Confidence Score</strong><br/>
+              - Description: ...<br/><br/>
+              <strong>3. UI Component: Feedback Mechanism</strong><br/>
+              - Description: ...
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Navigation */}
       <div className="flex justify-between pt-4">
         <Link 
           to="/instructions/module-8/8.1" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Project Planning
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Bias and Fairness
         </Link>
         <Link 
           to="/instructions/module-8/8.3" 
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Next: Presentation & Review <ChevronRight className="w-5 h-5 ml-2" />
+          Next: Security and Privacy <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>

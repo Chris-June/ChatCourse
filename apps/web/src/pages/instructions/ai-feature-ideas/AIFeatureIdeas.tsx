@@ -1,4 +1,4 @@
-import { BookOpen, Zap, Lightbulb, Code, Brain, MessageSquare, Star } from 'lucide-react';
+import { Zap, Lightbulb, Brain, MessageSquare, Star } from 'lucide-react';
 import { Button } from '@chat/ui';
 
 const AIFeatureIdeas = () => {
@@ -9,7 +9,7 @@ const AIFeatureIdeas = () => {
       items: [
         {
           title: 'Context-Aware Responses',
-          difficulty: '⭐⭐',
+          difficulty: 2,
           description: 'The AI remembers previous conversations and can reference past interactions.',
           example: '"Remember when we talked about vacation plans last week? Here\'s that list of places we discussed."',
           considerations: [
@@ -18,24 +18,12 @@ const AIFeatureIdeas = () => {
             'Context Window: How much conversation history can the AI effectively use?',
             'Accuracy: Ensuring the AI accurately references past conversations',
             'User Control: Allowing users to edit or delete remembered information'
-          ]
-        },
-        {
-          title: 'Multi-Language Support',
-          difficulty: '⭐⭐',
-          description: 'Automatic real-time translation between languages within the chat.',
-          example: 'You type in English, and your international teammates read it in their native language.',
-          considerations: [
-            'Language Detection: Auto-detect vs. manual selection',
-            'Translation Quality: Handling idioms and cultural nuances',
-            'Performance: Real-time translation without delays',
-            'Supported Languages: Coverage and handling of less common languages',
-            'User Experience: Clear indication of translated messages'
-          ]
+          ],
+          relatedConcepts: ['Module 5.1: Multi-Turn Conversations', 'Module 5.2: Personalization at Scale']
         },
         {
           title: 'Meeting Summarizer',
-          difficulty: '⭐⭐',
+          difficulty: 2,
           description: 'Automatically generate meeting summaries with action items and key decisions.',
           example: 'After a long discussion, the AI provides a concise summary with bullet points.',
           considerations: [
@@ -44,7 +32,22 @@ const AIFeatureIdeas = () => {
             'Format: Best structure for different types of meetings',
             'Timing: Real-time vs. end-of-meeting summaries',
             'Edits: Allowing user modifications to summaries'
-          ]
+          ],
+          relatedConcepts: ['Module 3.2: Logic and Problem Solving']
+        },
+        {
+          title: 'Multi-Language Support',
+          difficulty: 3,
+          description: 'Automatic real-time translation between languages within the chat.',
+          example: 'You type in English, and your international teammates read it in their native language.',
+          considerations: [
+            'Language Detection: Auto-detect vs. manual selection',
+            'Translation Quality: Handling idioms and cultural nuances',
+            'Performance: Real-time translation without delays',
+            'Supported Languages: Coverage and handling of less common languages',
+            'User Experience: Clear indication of translated messages'
+          ],
+          relatedConcepts: ['Module 7.1: Function Calling & Tool Use']
         }
       ]
     },
@@ -54,7 +57,7 @@ const AIFeatureIdeas = () => {
       items: [
         {
           title: 'Smart To-Do List Generator',
-          difficulty: '⭐',
+          difficulty: 1,
           description: 'Extract action items from conversations and organize them into a task list.',
           example: '"Add milk to grocery list" gets automatically added to your tasks.',
           considerations: [
@@ -63,11 +66,12 @@ const AIFeatureIdeas = () => {
             'Integration: Syncing with external task managers',
             'Confirmation: Verifying task creation with users',
             'Organization: Categorizing and tagging tasks'
-          ]
+          ],
+          relatedConcepts: ['Module 3.2: Logic and Problem Solving']
         },
         {
-          title: 'Document Assistant',
-          difficulty: '⭐⭐',
+          title: 'Document Assistant (RAG)',
+          difficulty: 3,
           description: 'Upload documents and chat with the AI about their contents.',
           example: '"Find the quarterly sales numbers from the attached report."',
           considerations: [
@@ -76,197 +80,128 @@ const AIFeatureIdeas = () => {
             'Security: Protecting sensitive information',
             'Accuracy: Ensuring responses are document-based',
             'Citations: Referencing source material'
-          ]
+          ],
+          relatedConcepts: ['Module 7.2: Building RAG Systems']
         },
         {
           title: 'Email Drafting Assistant',
-          difficulty: '⭐',
+          difficulty: 1,
           description: 'Help compose professional emails based on brief descriptions.',
           example: '"Draft an email to the team about rescheduling Friday\'s meeting to 3 PM."',
           considerations: [
-            'Tone: Adapting to different email styles',
-            'Personalization: Handling specific details',
-            'Integration: Connecting with email clients',
-            'Edits: Making it easy to modify drafts',
-            'Templates: Providing common email structures'
-          ]
+            'Tone and Style: Matching the user\'s voice',
+            'Context: Incorporating relevant details from the conversation',
+            'Templates: Providing pre-defined email formats',
+            'Review and Edit: Allowing easy modifications',
+            'Personalization: Learning user preferences over time'
+          ],
+          relatedConcepts: ['Module 2.2: Custom Instructions', 'Module 3.1: Dynamic Content Generation']
         }
       ]
     },
     {
-      category: '🎨 Creative Features',
+      category: '💡 Creative & Content Tools',
       icon: <Lightbulb className="w-5 h-5 mr-2" />,
       items: [
         {
-          title: 'Storytelling Companion',
-          difficulty: '⭐',
-          description: 'Collaborate with AI to write stories, with the AI suggesting plot developments.',
-          example: '"What if the main character discovers a hidden door?"',
-          considerations: [
-            'Genre & Style: Adapting to different writing styles',
-            'Consistency: Maintaining character and plot coherence',
-            'User Control: Balancing AI suggestions with user direction',
-            'Content Guidelines: Filtering inappropriate content',
-            'Saving Progress: Managing story versions and drafts'
-          ]
-        },
-        {
           title: 'Brainstorming Partner',
-          difficulty: '⭐',
-          description: 'Generate creative ideas for projects, names, or solutions.',
-          example: '"Help me think of names for my new coffee shop."',
+          difficulty: 1,
+          description: 'Generate creative ideas, suggest different angles, and help overcome creative blocks.',
+          example: '"Give me five unique marketing slogans for a new eco-friendly coffee brand."',
           considerations: [
-            'Specificity: Handling vague vs. detailed requests',
-            'Variety: Ensuring diverse and creative suggestions',
-            'Refinement: Improving upon initial ideas',
-            'Domain Knowledge: Handling specialized topics',
-            'Saving Ideas: Organizing and retrieving past ideas'
-          ]
+            'Creativity vs. Relevance: Balancing novel ideas with practical constraints',
+            'Domain Knowledge: Providing context for better suggestions',
+            'Idea Organization: Structuring brainstormed ideas effectively',
+            'Follow-up Questions: Prompting the user for more details',
+            'Diverse Perspectives: Offering a range of viewpoints'
+          ],
+          relatedConcepts: ['Module 6.1: Idea Generation']
+        },
+        {
+          title: 'Code Generation Assistant',
+          difficulty: 2,
+          description: 'Generate code snippets, explain complex code, and help with debugging.',
+          example: '"Write a Python function to sort a list of dictionaries by a specific key."',
+          considerations: [
+            'Language Support: Supported programming languages',
+            'Code Quality: Ensuring generated code is efficient and secure',
+            'Context Awareness: Understanding the existing codebase',
+            'Debugging: Providing clear explanations for errors',
+            'User Skill Level: Adapting to both novice and expert programmers'
+          ],
+          relatedConcepts: ['Module 4.3: Building Custom Tools']
         }
       ]
     },
     {
-      category: '🧠 Learning & Development',
-      icon: <BookOpen className="w-5 h-5 mr-2" />,
-      items: [
-        {
-          title: 'Study Buddy',
-          difficulty: '⭐⭐',
-          description: 'Create interactive quizzes or flashcards from study materials.',
-          example: '"Quiz me on these biology terms."',
-          considerations: [
-            'Content Source: User-provided or pre-made materials',
-            'Question Types: Multiple choice, true/false, etc.',
-            'Difficulty Levels: Adjusting based on performance',
-            'Spaced Repetition: Optimizing learning schedules',
-            'Progress Tracking: Monitoring improvement over time'
-          ]
-        },
-        {
-          title: 'Code Explainer',
-          difficulty: '⭐⭐',
-          description: 'Explain code snippets in simple terms.',
-          example: '"What does this Python function do?"',
-          considerations: [
-            'Language Support: Coverage of programming languages',
-            'Complexity Levels: Adapting to user knowledge',
-            'Code Context: Handling partial code snippets',
-            'Visual Aids: Including diagrams when helpful',
-            'Interactive Learning: Supporting follow-up questions'
-          ]
-        }
-      ]
-    },
-    {
-      category: '🤖 Advanced Integrations',
-      icon: <Code className="w-5 h-5 mr-2" />,
-      items: [
-        {
-          title: 'Calendar Assistant',
-          difficulty: '⭐⭐⭐',
-          description: 'Schedule meetings and set reminders through natural language.',
-          example: '"Set up a meeting with Sarah next Tuesday at 2 PM."',
-          considerations: [
-            'Calendar Integration: Supported services',
-            'Natural Language Processing: Interpreting dates and times',
-            'Conflict Detection: Handling scheduling overlaps',
-            'Recurring Events: Managing repeating schedules',
-            'Permissions: Required access levels'
-          ]
-        },
-        {
-          title: 'Research Assistant',
-          difficulty: '⭐⭐',
-          description: 'Search the web for information and summarize findings.',
-          example: '"Find the latest research on renewable energy and summarize the key points."',
-          considerations: [
-            'Source Reliability: Identifying credible information',
-            'Bias Detection: Recognizing potential biases',
-            'Citation: Properly attributing sources',
-            'Depth vs. Breadth: Balancing comprehensive coverage',
-            'Real-time Information: Ensuring current data'
-          ]
-        },
-        {
-          title: 'Mood Detector',
-          difficulty: '⭐⭐⭐',
-          description: 'Analyze message tone and suggest appropriate responses.',
-          example: '"You seem frustrated. Would you like help drafting a professional response?"',
-          considerations: [
-            'Accuracy: Detecting emotions from text',
-            'Cultural Differences: Accounting for varied expressions',
-            'Privacy: Handling emotional data',
-            'False Positives: Managing incorrect detections',
-            'User Control: Opt-out options'
-          ]
-        }
-      ]
-    },
-    {
-      category: '🎮 Interactive Features',
+      category: '💬 Enhanced Communication',
       icon: <MessageSquare className="w-5 h-5 mr-2" />,
       items: [
         {
-          title: 'Choose-Your-Own-Adventure',
-          difficulty: '⭐⭐',
-          description: 'Create interactive stories where users make choices that affect the narrative.',
-          example: '"You reach a fork in the road. Do you go left or right?"',
+          title: 'Sentiment Analysis',
+          difficulty: 2,
+          description: 'Analyze the emotional tone of conversations to provide insights.',
+          example: 'The AI flags a customer support chat as \'Frustrated\' and suggests escalation.',
           considerations: [
-            'Branching Complexity: Managing story paths',
-            'Narrative Cohesion: Maintaining consistency',
-            'Save States: Resuming progress',
-            'Content Moderation: Filtering inappropriate content',
-            'User-Generated Content: Supporting custom stories'
-          ]
+            'Accuracy: Handling sarcasm and complex emotions',
+            'Real-time Feedback: Providing instant sentiment analysis',
+            'Privacy: Ensuring user data is handled responsibly',
+            'Actionable Insights: Offering suggestions based on sentiment',
+            'Cultural Nuances: Understanding different emotional expressions'
+          ],
+          relatedConcepts: ['Module 8.1: Bias and Fairness']
         },
         {
-          title: 'Role-Playing Scenarios',
-          difficulty: '⭐⭐',
-          description: 'Practice conversations for interviews, negotiations, or language learning.',
-          example: '"Let\'s practice for your job interview. I\'ll be the interviewer."',
+          title: 'Automated Agent (Chatbot)',
+          difficulty: 3,
+          description: 'Create a fully autonomous agent to handle specific tasks like customer support or sales.',
+          example: 'A chatbot guides a user through troubleshooting a technical issue and creates a support ticket.',
           considerations: [
-            'Scenario Variety: Available role-play options',
-            'Feedback Mechanism: Providing constructive criticism',
-            'Customization: Creating custom scenarios',
-            'Cultural Context: Handling cultural differences',
-            'Progress Tracking: Monitoring improvement over time'
-          ]
+            'Task Definition: Clearly defining the agent\'s goals and capabilities',
+            'Tool Integration: Connecting the agent to necessary APIs (e.g., for creating tickets)',
+            'Reasoning and Planning: Enabling the agent to make multi-step decisions',
+            'Guardrails: Implementing safety measures to prevent unintended actions',
+            'Handoff: Seamlessly transferring to a human agent when needed'
+          ],
+          relatedConcepts: ['Module 4.5: Introduction to AI Agents', 'Module 7.1: Function Calling & Tool Use']
         }
       ]
     }
   ];
 
-  return (
-    <div className="prose prose-invert max-w-4xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-8 flex items-center">
-        <Lightbulb className="w-10 h-10 mr-4 text-yellow-400" />
-        AI-Powered Feature Ideas
-      </h1>
+  const DifficultyDisplay = ({ level }: { level: number }) => (
+    <div className="flex items-center">
+      {[...Array(level)].map((_, i) => (
+        <Star key={i} className="w-4 h-4 text-yellow-400" />
+      ))}
+      {[...Array(3 - level)].map((_, i) => (
+        <Star key={i} className="w-4 h-4 text-zinc-600" />
+      ))}
+    </div>
+  );
 
-      <div className="mb-12 p-6 bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-xl border border-blue-800/50">
-        <h2 className="text-2xl font-bold mb-4 text-blue-300">Welcome to AI Feature Ideas!</h2>
-        <p className="mb-4">
-          This collection showcases potential AI-powered features that could enhance our chat application. 
-          Each idea includes implementation considerations and difficulty levels to help you explore 
-          the exciting possibilities of AI integration.
+  return (
+    <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+      <div className="text-center mb-12">
+        <Lightbulb className="mx-auto h-16 w-16 text-yellow-400" />
+        <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">AI Feature Ideas</h1>
+        <p className="mt-6 text-lg leading-8 text-gray-300">
+          A curated list of practical AI-powered features to inspire your next project.
         </p>
-        <div className="flex flex-wrap gap-4 mt-6">
-          <div className="flex items-center text-sm">
-            <span className="font-semibold mr-2">Difficulty:</span>
-            <div className="flex items-center mr-4">
-              <Star className="w-4 h-4 text-yellow-400 mr-1" />
-              <span>Beginner</span>
-            </div>
-            <div className="flex items-center mr-4">
-              <Star className="w-4 h-4 text-yellow-400 mr-1" />
-              <Star className="w-4 h-4 text-yellow-400 mr-1" />
-              <span>Intermediate</span>
+        <div className="mt-8 p-4 bg-zinc-800/50 rounded-lg border border-zinc-700/50 inline-block">
+          <h3 className="font-semibold text-white mb-3">Difficulty Legend:</h3>
+          <div className="flex flex-col items-start space-y-2 text-sm text-gray-400">
+            <div className="flex items-center">
+              <DifficultyDisplay level={1} />
+              <span className="ml-2">Beginner</span>
             </div>
             <div className="flex items-center">
-              <Star className="w-4 h-4 text-yellow-400 mr-1" />
-              <Star className="w-4 h-4 text-yellow-400 mr-1" />
-              <Star className="w-4 h-4 text-yellow-400 mr-1" />
-              <span>Advanced</span>
+              <DifficultyDisplay level={2} />
+              <span className="ml-2">Intermediate</span>
+            </div>
+            <div className="flex items-center">
+              <DifficultyDisplay level={3} />
+              <span className="ml-2">Advanced</span>
             </div>
           </div>
         </div>
@@ -290,27 +225,36 @@ const AIFeatureIdeas = () => {
                 >
                   <div className="flex justify-between items-start mb-3">
                     <h3 className="text-xl font-semibold text-blue-300">{item.title}</h3>
-                    <span className="text-yellow-400 text-sm font-medium bg-yellow-900/30 px-3 py-1 rounded-full">
-                      {item.difficulty}
-                    </span>
+                    <DifficultyDisplay level={item.difficulty} />
                   </div>
                   
                   <p className="text-gray-300 mb-4">{item.description}</p>
                   
                   <div className="bg-zinc-900/50 p-4 rounded-lg mb-4 border-l-4 border-blue-500">
                     <p className="text-sm text-blue-300 font-medium mb-1">Example:</p>
-                    <p className="text-gray-300 italic">"{item.example}"</p>
+                    <p className="text-gray-300 italic">{item.example}</p>
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t border-zinc-700/50">
+                    <h4 className="text-sm font-semibold text-blue-400 mb-2">Related Concepts:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {item.relatedConcepts.map((concept, i) => (
+                        <span key={i} className="text-xs bg-blue-900/50 text-blue-300 px-2 py-1 rounded-md">
+                          {concept}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                   
                   <div className="mt-4">
                     <details className="group">
-                      <summary className="flex items-center cursor-pointer text-sm font-medium text-blue-400 hover:text-blue-300">
+                      <summary className="flex items-center cursor-pointer text-sm font-medium text-gray-400 hover:text-white">
                         <span className="mr-2">Key Considerations</span>
                         <svg className="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                       </summary>
-                      <ul className="mt-2 pl-5 space-y-2 text-sm text-gray-400">
+                      <ul className="mt-3 pl-5 space-y-2 text-sm text-gray-400">
                         {item.considerations.map((consideration, i) => (
                           <li key={i} className="flex items-start">
                             <span className="text-blue-400 mr-2">•</span>

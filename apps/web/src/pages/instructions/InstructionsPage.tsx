@@ -14,6 +14,7 @@ import Module8Routes from './modules/module-8';
 import AppendicesRoutes from './appendices';
 import SetupRoutes from './setup';
 import AIFeatureIdeasRoutes from './ai-feature-ideas';
+import Conclusion from './conclusion';
 
 const InstructionsPage: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -184,8 +185,8 @@ const InstructionsPage: React.FC = () => {
                 <DatabaseZap className="h-6 w-6 text-blue-400" />
               </div>
               <div className="ml-4">
-                <h3 className="text-lg font-medium text-white">Module 7: Real-World Applications</h3>
-                <p className="mt-1 text-sm text-gray-400">Explore industry-specific solutions, ethical considerations, and future-proofing.</p>
+                <h3 className="text-lg font-medium text-white">Module 7: Advanced AI Techniques</h3>
+                <p className="mt-1 text-sm text-gray-400">Master function calling, RAG, and fine-tuning to build sophisticated AI applications.</p>
               </div>
             </div>
             <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
@@ -205,8 +206,8 @@ const InstructionsPage: React.FC = () => {
                 <Rocket className="h-6 w-6 text-blue-400" />
               </div>
               <div className="ml-4">
-                <h3 className="text-lg font-medium text-white">Module 8: Capstone Project</h3>
-                <p className="mt-1 text-sm text-gray-400">Plan, implement, and present your own AI-assisted project.</p>
+                <h3 className="text-lg font-medium text-white">Module 8: Responsible AI</h3>
+                <p className="mt-1 text-sm text-gray-400">Learn to build fair, transparent, and secure AI systems.</p>
               </div>
             </div>
             <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
@@ -244,6 +245,7 @@ const InstructionsPage: React.FC = () => {
             <Route path="module-8/*" element={<Module8Routes />} />
             <Route path="appendices/*" element={<AppendicesRoutes />} />
             <Route path="ai-feature-ideas/*" element={<AIFeatureIdeasRoutes />} />
+            <Route path="conclusion" element={<Conclusion />} />
             <Route index element={<DefaultContent />} />
             <Route path="*" element={<Navigate to="/instructions" replace />} />
           </Routes>

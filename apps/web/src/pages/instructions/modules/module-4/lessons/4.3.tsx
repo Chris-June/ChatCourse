@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Wrench, FileCode, Lightbulb } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
+
 
 const Lesson4_3: React.FC = () => {
   return (
@@ -24,12 +24,18 @@ const Lesson4_3: React.FC = () => {
         </div>
       </div>
 
+      <div className="bg-gray-800 p-4 rounded-lg shadow-inner">
+        <p className="text-gray-400">
+          In the last lesson, we saw how the <strong>Model Context Protocol (MCP)</strong> allows AI to discover and use tools from external servers. Now, let's get our hands dirty and build one of those tools from scratch.
+        </p>
+      </div>
+
       <p className="text-lg text-gray-300">
         The true power of AI is unlocked when you give it the ability to act. Building custom tools allows you to connect the AI to your unique data, APIs, and workflows, creating a system that can solve problems specific to your needs.
       </p>
 
-      {/* Step 1: Define the Tool's Purpose */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+            {/* Step 1: Define the Tool's Purpose */}
+            <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Wrench className="w-7 h-7 mr-3 text-orange-400" />
           Step 1: Define the Tool's Purpose
@@ -54,12 +60,10 @@ const Lesson4_3: React.FC = () => {
           Step 2: Provide a Schema
         </h2>
         <p className="text-gray-300 mb-4">
-          The schema is the most important part. It's a detailed description that the AI uses to understand your tool. It includes the function's name, a description of what it does, and a list of its parameters with their types and descriptions.
+          The schema is the most important part. It's a detailed description that the AI uses to understand your tool.
         </p>
-        <div className="relative">
-          <CopyButton textToCopy={`{\n  "name": "create_ticket",\n  "description": "Creates a new support ticket in the project management system.",\n  "parameters": {\n    "type": "object",\n    "properties": {\n      "title": {\n        "type": "string",\n        "description": "The title of the support ticket."\n      },\n      "description": {\n        "type": "string",\n        "description": "A detailed description of the issue."\n      }\n    },\n    "required": ["title", "description"]\n  }\n}`} />
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
-            <code>
+        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
+          <code>
 {`{
   "name": "create_ticket",
   "description": "Creates a new support ticket in the project management system.",
@@ -78,29 +82,89 @@ const Lesson4_3: React.FC = () => {
     "required": ["title", "description"]
   }
 }`}
-            </code>
-          </pre>
-        </div>
+          </code>
+        </pre>
+      </section>
+
+      {/* Step 3: Implement the Function */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Step 3: Implement the Function</h2>
+        <p className="text-gray-300 mb-4">
+          Now, write the actual code that performs the action. This is a standard JavaScript/TypeScript function.
+        </p>
+        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
+          <code>
+{`async function createTicket({ title, description }: { title: string; description: string }): Promise<{ ticket_id: string }> {
+  console.log(\`Creating ticket: \${title} - \${description}\`);
+  
+  // In a real application, you would make an API call here
+  // to a service like Jira, Asana, etc.
+  
+  const ticketId = \`TICKET-\${Math.floor(Math.random() * 1000)}\`;
+  
+  return { ticket_id: ticketId };
+}`}
+          </code>
+        </pre>
+      </section>
+
+      {/* Step 4: Connect to the AI & Handle Output */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Step 4: Connect and Handle the Response</h2>
+        <p className="text-gray-300 mb-4">
+          Finally, you need a router or dispatcher to connect the AI's request to your function and then send the result back to the model.
+        </p>
+        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
+          <code>
+{`// 1. Model generates a function call
+const modelResponse = {
+  function_call: {
+    name: 'create_ticket',
+    arguments: JSON.stringify({ title: 'Login button not working', description: 'Users cannot log in on the main page.' })
+  }
+};
+
+// 2. Your application routes the call
+const availableFunctions = { create_ticket: createTicket };
+const functionToCall = availableFunctions[modelResponse.function_call.name];
+
+// 3. Execute and get the result
+const functionArgs = JSON.parse(modelResponse.function_call.arguments);
+const result = await functionToCall(functionArgs); // { ticket_id: 'TICKET-123' }
+
+// 4. Send the result back to the model for the final response
+// The model would then generate a response like:
+// "I've created a new support ticket for you. The ID is TICKET-123."`}
+          </code>
+        </pre>
+      </section>
+
+           {/* Best Practices */}
+           <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Best Practices for Tool Building</h2>
+          <ul className="list-disc pl-5 space-y-2 text-gray-300">
+              <li><strong>Error Handling:</strong> Wrap your function logic in try/catch blocks to gracefully handle API failures or invalid data.</li>
+              <li><strong>Clear Descriptions:</strong> Write detailed descriptions for both the function and its parameters. The model relies heavily on this text to make correct decisions.</li>
+              <li><strong>Atomic Functions:</strong> Each tool should do one thing well. Avoid creating monolithic tools that perform many different actions.</li>
+              <li><strong>Return Useful Information:</strong> Your tool should return a result that is useful to the model, such as a confirmation message, an ID, or the data it requested.</li>
+          </ul>
       </section>
 
       {/* Exercise */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: Design a Tool Schema
+          Exercise: Design and Implement a Tool
         </h2>
         <p className="text-gray-300 mb-4">
-          Imagine you want to build a tool called `send_email`. Its purpose is to send an email to a specified recipient.
+          Let's build on the `send_email` tool from the previous exercise.
         </p>
-        <p className="text-gray-300 mb-2">In the chat, try to write a prompt that asks the AI to create the JSON schema for this tool. Think about what parameters it would need (e.g., `recipient`, `subject`, `body`).</p>
-        <div className="relative">
-          <CopyButton textToCopy={"Create a JSON schema for a function called 'send_email'. It should have parameters for the recipient's email address, the subject line, and the body of the email. All parameters should be required."} />
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
-            <code>
-              Create a JSON schema for a function called 'send_email'. It should have parameters for the recipient's email address, the subject line, and the body of the email. All parameters should be required.
-            </code>
-          </pre>
-        </div>
+        <p className="text-gray-300 mb-2">
+          1. First, write the full JSON schema for a tool named `send_email` that takes a `recipient`, `subject`, and `body`.
+        </p>
+        <p className="text-gray-300 mb-2">
+          2. Then, write the pseudo-code for the `sendEmail` function itself. It doesn't need to actually send an email; just log the action to the console and return a success message.
+        </p>
       </section>
 
       {/* Navigation */}

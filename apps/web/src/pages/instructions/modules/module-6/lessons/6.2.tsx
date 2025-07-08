@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Users, TestTube2, MessageSquare } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Users, TestTube2, MessageSquare, Wand2 } from 'lucide-react';
+import CopyButton from '../../../../../components/CopyButton';
 
 const Lesson6_2: React.FC = () => {
   return (
@@ -29,36 +30,45 @@ const Lesson6_2: React.FC = () => {
 
       {/* Core Concepts */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Key Stages of AI-Powered Design</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <Users className="w-8 h-8 mx-auto mb-3 text-green-400" />
-            <h4 className="font-bold text-lg text-white text-center">1. User Experience (UX)</h4>
-            <p className="text-sm text-gray-400 mt-2">Focus on the end-user's journey. How will they interact with the AI? What makes the experience feel natural and helpful, not robotic or frustrating?</p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Designing for AI: Key Principles</h2>
+        <p className="text-gray-300 mb-6">Designing for AI has unique challenges. Users need to understand what the AI can (and can't) do. The experience should feel collaborative, not magical or frustrating.</p>
+        <div className="space-y-4">
+          <div>
+            <h3 className="text-lg font-semibold text-white flex items-center"><Users className="w-5 h-5 mr-2 text-green-400" />Set Clear Expectations</h3>
+            <p className="text-gray-400 mt-1">Clearly communicate the AI's capabilities and limitations. If your AI summarizes legal documents, state that it is not a substitute for a lawyer.</p>
           </div>
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <TestTube2 className="w-8 h-8 mx-auto mb-3 text-yellow-400" />
-            <h4 className="font-bold text-lg text-white text-center">2. Prototyping</h4>
-            <p className="text-sm text-gray-400 mt-2">Quickly build and test low-fidelity versions of your idea. Use simple tools to simulate the AI interaction and gather initial impressions before writing complex code.</p>
+          <div>
+            <h3 className="text-lg font-semibold text-white flex items-center"><Wand2 className="w-5 h-5 mr-2 text-purple-400" />Provide an 'Undo' or 'Correction' Path</h3>
+            <p className="text-gray-400 mt-1">AI makes mistakes. Give users an easy way to correct the AI's understanding or undo its actions. This builds trust and makes the system more robust.</p>
           </div>
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <MessageSquare className="w-8 h-8 mx-auto mb-3 text-cyan-400" />
-            <h4 className="font-bold text-lg text-white text-center">3. Gathering Feedback</h4>
-            <p className="text-sm text-gray-400 mt-2">Show your prototype to real users. Listen to their feedback, observe where they struggle, and use their insights to refine your design.</p>
+          <div>
+            <h3 className="text-lg font-semibold text-white flex items-center"><MessageSquare className="w-5 h-5 mr-2 text-cyan-400" />Show, Don't Just Tell</h3>
+            <p className="text-gray-400 mt-1">When an AI makes a decision, briefly explain its reasoning if possible. For example, a movie recommender could say, "Because you enjoyed 'Blade Runner,' you might like 'Dune.'"</p>
           </div>
         </div>
       </section>
 
       {/* Design Exercise */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Exercise: Prototype a Feature</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+          <TestTube2 className="w-7 h-7 mr-3 text-yellow-400" />
+          Prototyping with the "Wizard of Oz" Method
+        </h2>
         <p className="text-gray-300 mb-4">
-          Let's go back to the 'Chef Assistant' idea from the previous lesson. Your task is to design the user interaction for the "Menu Planning" feature.
+          You don't need a working AI to test an AI idea. In a "Wizard of Oz" prototype, a human (the "wizard") manually simulates the AI's responses. This lets you test the user experience and conversation flow before writing a single line of code.
         </p>
         <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Your Design Task:</h3>
-          <p className="text-gray-300 mb-4">Describe the user flow. What does the user see first? What questions does the AI ask to get the necessary information (e.g., dietary needs, desired cuisine)? How is the final menu presented?</p>
-          <p className="text-gray-400 mt-2">For example: "The user clicks 'Plan My Week'. A chat interface appears. The AI asks: 'Any dietary restrictions?'..."</p>
+          <h3 className="font-semibold text-white mb-2">Exercise: Write a Wizard's Script</h3>
+          <p className="text-gray-400 mb-3 text-sm">Imagine you are the wizard for the 'Chef Assistant' menu planner. A user wants a week of healthy, low-carb lunches. Write out the conversation script you would follow. What questions would you ask? How would you present the final menu?</p>
+          <div className="relative p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
+            <CopyButton textToCopy={`**User:** I need help planning my lunches for the week.\n\n**Wizard (as AI):** I can help with that! To get started, do you have any dietary preferences or restrictions?\n\n**User:** Yes, I'm looking for low-carb options.\n\n**Wizard (as AI):** Great! How about a mix of salads, wraps using lettuce instead of tortillas, and some lean protein bowls? For example, Monday could be a grilled chicken salad...`} />
+            <p className="text-white">
+              <strong>User:</strong> I need help planning my lunches for the week.<br/><br/>
+              <strong>Wizard (as AI):</strong> I can help with that! To get started, do you have any dietary preferences or restrictions?<br/><br/>
+              <strong>User:</strong> Yes, I'm looking for low-carb options.<br/><br/>
+              <strong>Wizard (as AI):</strong> Great! How about a mix of salads, wraps using lettuce instead of tortillas, and some lean protein bowls? For example, Monday could be a grilled chicken salad...
+            </p>
+          </div>
         </div>
       </section>
 
