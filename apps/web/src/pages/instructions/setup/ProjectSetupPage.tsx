@@ -318,7 +318,6 @@ const ProjectSetupPage: React.FC = () => {
               <li>Start the development server (Step 7) if not already running</li>
               <li>Click the gear icon (⚙️) in the top-right corner of the chat interface</li>
               <li>Paste your OpenAI API key in the "API Key" field</li>
-              <li>Click "Save Changes"</li>
             </ol>
             <div className="mt-4 p-3 bg-blue-900/20 border border-blue-800 rounded text-sm">
               <p className="text-blue-200">ℹ️ Note: The key is saved in your browser's local storage and will persist between sessions. You can remove it at any time by deleting the key from the "API Key" field and clearing your browser's local storage.</p>
@@ -332,7 +331,7 @@ const ProjectSetupPage: React.FC = () => {
             <div>
               <h3 className="text-yellow-200 font-semibold">Important Security Note</h3>
               <p className="text-yellow-100 text-sm mt-1">
-                For production use, ALWAYS use environment variables (Method 1) as they are more secure and prevent exposing your API key in the browser.
+                For production, ALWAYS use environment variables (Method 1) as a secure alternative. Storing your API key in the browser is for local testing only on your own network. If testing locally use Private Browsing or Incognito mode. This will automatically clear your browser cache and prevent your API key from being saved.
               </p>
             </div>
           </div>
