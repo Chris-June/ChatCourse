@@ -238,7 +238,20 @@ const ChatInterface = () => {
           <div className="w-8" /> {/* Spacer to balance the header */}
         </header>
 
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 relative">
+          {/* Semi-transparent logo overlay */}
+          <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0 opacity-40">
+            <img 
+              src="/Logo.png" 
+              alt="Chat App Logo" 
+              className="h-80 w-80 object-contain"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.onerror = null;
+                target.src = 'Logo.png';
+              }}
+            />
+          </div>
           {(activeSession?.messages || []).map((msg, index) => (
             <div key={index} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
               <div className={`flex items-end w-full ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>

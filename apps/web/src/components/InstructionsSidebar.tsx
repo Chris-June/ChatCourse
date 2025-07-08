@@ -7,7 +7,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Home, BookOpen, ChevronDown, ChevronRight, Rocket, Lightbulb } from 'lucide-react';
+import { BookOpen, ChevronDown, ChevronRight, Rocket, Lightbulb, Bot} from 'lucide-react';
 import { Button } from '@chat/ui';
 
 interface InstructionsSidebarProps {
@@ -124,9 +124,9 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
             <Button
               variant="ghost"
               className="w-full justify-start"
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/chat')}
             >
-              <Home className="w-4 h-4 mr-3" />
+              <Bot className="w-4 h-4 mr-3" />
               Back to Chat
             </Button>
             <Button

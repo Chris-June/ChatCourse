@@ -67,8 +67,17 @@ const ProjectSetupPage: React.FC = () => {
   
   return (
     <div className="prose prose-invert max-w-none p-6">
-      <h1 className="text-4xl font-bold mb-8 flex items-center">
-        <Rocket className="w-8 h-8 mr-4 text-blue-400" /> 
+      <h1 className="text-4xl font-bold mb-6 flex items-center">
+        <img 
+          src="/Logo.png" 
+          alt="IntelliSync Logo" 
+          className="w-16 h-16 mr-4 object-contain"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.onerror = null;
+            target.src = 'Logo.png';
+          }}
+        />
         Project Setup Guide
       </h1>
       
@@ -273,18 +282,61 @@ const ProjectSetupPage: React.FC = () => {
 
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-4 flex items-center"><Key className="w-6 h-6 mr-3 text-blue-400" />6. Add Your AI Key</h2>
-        <ol className="list-decimal list-inside space-y-2 text-lg">
-          <li>Get a free key on the OpenAI website → <a href="https://platform.openai.com/account/api-keys" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300"><strong>Create API Key</strong></a>.</li>
-          <li>Copy the key (looks like `sk-…`).</li>
-          <li>In your VS Code terminal, run:</li>
-        </ol>
-        <pre className="bg-zinc-800 p-4 rounded-md mt-4"><code className="text-white">cp apps/web/.env.example apps/web/.env.local</code></pre>
-        <ol className="list-decimal list-inside space-y-2 text-lg mt-4" start={4}>
-          <li>Open <strong>`apps/web/.env.local`</strong> (in the file list).</li>
-          <li>Find <code>OPENAI_API_KEY=</code> and paste your key after the `=` sign:</li>
-        </ol>
-        <pre className="bg-zinc-800 p-4 rounded-md mt-4"><code className="text-white">OPENAI_API_KEY=sk-1234567890abcdef</code></pre>
-        <p className="mt-2 text-lg">Save the file (<strong>⌘S</strong> or <strong>Ctrl+S</strong>).</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+          <div className="bg-zinc-800/50 p-6 rounded-lg border border-zinc-700">
+            <h3 className="text-xl font-semibold mb-3 flex items-center">
+              <Terminal className="w-5 h-5 mr-2 text-blue-400" />
+              Method 1: Environment File (Recommended)
+            </h3>
+            <ol className="list-decimal list-inside space-y-2 text-sm">
+              <li>Get a free key on the <a href="https://platform.openai.com/account/api-keys" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">OpenAI website</a></li>
+              <li>Copy the key (looks like `sk-…`)</li>
+              <li>In your terminal, run:</li>
+            </ol>
+            <CommandBlock 
+              command="cp apps/web/.env.example apps/web/.env.local"
+              description="Creates a local environment file"
+            />
+            <ol className="list-decimal list-inside space-y-2 text-sm mt-4" start={4}>
+              <li>Open <code className="bg-zinc-700 px-1 rounded">apps/web/.env.local</code></li>
+              <li>Find <code>OPENAI_API_KEY=</code> and paste your key after the `=` sign</li>
+              <li>Save the file (<code>⌘S</code> or <code>Ctrl+S</code>)</li>
+            </ol>
+          </div>
+
+          <div className="bg-zinc-800/50 p-6 rounded-lg border border-zinc-700">
+            <h3 className="text-xl font-semibold mb-3 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mr-2 text-blue-400">
+                <rect width="20" height="14" x="2" y="5" rx="2" />
+                <line x1="2" x2="22" y1="10" y2="10" />
+              </svg>
+              Method 2: Frontend Settings
+            </h3>
+            <p className="text-sm mb-4">Alternatively, you can set your API key directly in the app:</p>
+            <ol className="list-decimal list-inside space-y-2 text-sm">
+              <li>Start the development server (Step 7) if not already running</li>
+              <li>Click the gear icon (⚙️) in the top-right corner of the chat interface</li>
+              <li>Paste your OpenAI API key in the "API Key" field</li>
+              <li>Click "Save Changes"</li>
+            </ol>
+            <div className="mt-4 p-3 bg-blue-900/20 border border-blue-800 rounded text-sm">
+              <p className="text-blue-200">ℹ️ Note: The key is saved in your browser's local storage and will persist between sessions. You can remove it at any time by deleting the key from the "API Key" field and clearing your browser's local storage.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-yellow-900/20 border-l-4 border-yellow-500 p-4">
+          <div className="flex">
+            <AlertTriangle className="h-5 w-5 text-yellow-400 mr-3 flex-shrink-0" />
+            <div>
+              <h3 className="text-yellow-200 font-semibold">Important Security Note</h3>
+              <p className="text-yellow-100 text-sm mt-1">
+                For production use, ALWAYS use environment variables (Method 1) as they are more secure and prevent exposing your API key in the browser.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <hr className="my-8 border-zinc-700" />

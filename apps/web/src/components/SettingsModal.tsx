@@ -144,30 +144,41 @@ const SettingsModal = () => {
           </div>
 
           <div className="space-y-2">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="api-key">OpenAI API Key</Label>
-                <a 
-                  href="https://platform.openai.com/api-keys" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-400 hover:text-blue-300 underline"
-                >
-                  Get your API key
-                </a>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="api-key">OpenAI API Key</Label>
+                  <a 
+                    href="https://platform.openai.com/api-keys" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm text-blue-400 hover:text-blue-300 underline"
+                  >
+                    Get your API key
+                  </a>
+                </div>
+                <div className="flex gap-2">
+                  <Input
+                    id="api-key"
+                    type="password"
+                    placeholder="sk-..."
+                    value={apiKey}
+                    onChange={(e) => setApiKey(e.target.value)}
+                    className="bg-zinc-800 border-zinc-700 text-white flex-1"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setApiKey('')}
+                    className="whitespace-nowrap"
+                    disabled={!apiKey}
+                  >
+                    Clear API Key
+                  </Button>
+                </div>
+                <p className="text-xs text-gray-400">
+                  Your API key is stored locally in your browser and never sent to our servers.
+                </p>
               </div>
-              <Input
-                id="api-key"
-                type="password"
-                placeholder="sk-..."
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-                className="bg-zinc-800 border-zinc-700 text-white"
-              />
-              <p className="text-xs text-gray-400">
-                Your API key is stored locally in your browser and never sent to our servers.
-              </p>
-            </div>
           </div>
 
           <div className="flex items-center justify-between">

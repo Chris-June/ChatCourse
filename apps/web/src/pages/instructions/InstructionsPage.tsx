@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Routes, Route, Navigate } from 'react-router-dom';
-import { Menu, Home, BookOpen, Shield, PenSquare, DatabaseZap, Rocket } from 'lucide-react';
+import { Menu, Home, Shield, BookOpen, PenSquare, DatabaseZap, Rocket } from 'lucide-react';
 import InstructionsSidebar from '../../components/InstructionsSidebar';
 import { Button } from '@chat/ui';
 import Module1Routes from './modules/module-1';
@@ -27,7 +27,16 @@ const InstructionsPage: React.FC = () => {
   const DefaultContent = () => (
     <div className="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <div className="text-center">
-        <BookOpen className="mx-auto h-16 w-16 text-blue-400" />
+        <img 
+          src="/Logo.png" 
+          alt="IntelliSync Logo" 
+          className="mx-auto h-32 w-32 object-contain"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.onerror = null;
+            target.src = 'Logo.png';
+          }}
+        />
         <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">AI Collaboration Course</h1>
         <p className="mt-6 text-xl leading-8 text-gray-300">
           Learn how to effectively collaborate with AI through practical lessons and hands-on exercises.
