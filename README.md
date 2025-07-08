@@ -315,7 +315,7 @@ pnpm dev
 
 | Want to… | Do this |
 |----------|---------|
-| **Change the AI’s personality** | Open `api/handler.ts`, scroll to the *System Prompt* near the end, and rewrite the text inside quotes. |
+| **Change the AI’s personality** | Open `api/handler.ts`, scroll to the *System Prompt* and rewrite the text inside quotes. |
 | **Tweak responses (tone, format)** | In the chat site, click **Settings → Custom Instructions**. |
 | **Invite friends to play** | Send them this README. |
 | **Learn the techy stuff** | Expand the **Advanced Section** below (totally optional). |
