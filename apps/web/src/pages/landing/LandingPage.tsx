@@ -1,23 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import HeroImage from '../../assets/images/Hero.png';
 import './LandingPage.css';
 
 const LandingPage: React.FC = () => {
   return (
     <div className="landing-page bg-gray-900 text-white">
       {/* Hero Section */}
-      <header className="hero-section text-center py-20">
-        <h1 className="text-5xl font-bold mb-4">Welcome to IntelliSync Solutions</h1>
-        <p className="text-xl mb-8">Your journey into understanding and shaping AI starts here.</p>
-        <Link to="/chat" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">
-          Start Learning
-        </Link>
+      <header className="hero-section relative overflow-hidden pt-48 pb-32 md:pt-56 md:pb-40">
+        <div className="absolute inset-0 z-0 h-[120%] -top-[10%]">
+          <div className="w-full h-full">
+            <img 
+              src={HeroImage} 
+              alt="AI Network Visualization" 
+              className="w-full h-full object-cover object-top opacity-60"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 via-gray-900/30 to-gray-900/50"></div>
+        </div>
+        <div className="relative z-10 container mx-auto px-6 text-center pt-16 md:pt-24">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+            Welcome to IntelliSync Solutions
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-200">
+            Your journey into understanding and shaping AI starts here.
+          </p>
+          <Link 
+            to="/chat" 
+            className="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+          >
+            Start Chatting
+          </Link>
+        </div>
       </header>
 
       {/* Introduction Section */}
-      <section id="learn-more" className="intro-section container mx-auto px-6 py-20 text-center">
-        <h2 className="text-4xl font-bold mb-6">What is This Project?</h2>
-        <p className="text-lg max-w-3xl mx-auto">
+      <section id="learn-more" className="intro-section container mx-auto px-6 py-20 text-center ">
+        <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 mb-4">What is This Project?</h2>
+        <p className="text-lg max-w-3xl mx-auto ">
           This isn't just another chat application. It's a hands-on learning experience designed for absolute beginners.
           We provide you with a working AI chat template, and together, we'll explore how to customize, enhance, and truly own your AI interactions.
           No coding experience? No problem. That's why we're here.
@@ -28,7 +48,7 @@ const LandingPage: React.FC = () => {
       <section className="features-section bg-gradient-to-b from-gray-900 to-gray-800 py-24">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 mb-4">
+            <h2 className="text-4xl md:text-5xl pb-4 font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 mb-4">
               Master the Art of Prompt Engineering
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
