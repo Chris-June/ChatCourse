@@ -123,7 +123,7 @@ const SideMenu = ({
           <Button
             variant="ghost"
             className="w-full justify-start"
-            onClick={() => navigate('/instructions')}
+            onClick={() => navigate('/instructions/setup/project-setup')}
           >
             <BookOpen size={16} className="mr-2" />
             Instructions

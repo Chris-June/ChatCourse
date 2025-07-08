@@ -153,7 +153,7 @@ const LandingPage: React.FC = () => {
           
           <div className="mt-16 text-center">
             <Link 
-              to="/instructions" 
+              to="/instructions/setup/project-setup" 
               className="inline-flex items-center px-8 py-4 border border-transparent text-base font-medium rounded-full text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-blue-500/30"
             >
               Start Learning Prompt Engineering
