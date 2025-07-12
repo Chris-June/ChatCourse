@@ -57,3 +57,73 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* God-Tier Formatting for Setup Guide */
+@layer components {
+  .setup-guide-container h1,
+  .setup-guide-container h2,
+  .setup-guide-container h3,
+  .setup-guide-container h4,
+  .setup-guide-container h5,
+  .setup-guide-container h6 {
+    @apply font-bold tracking-tight text-zinc-100;
+  }
+
+  .setup-guide-container h1 {
+    @apply text-4xl pb-2 mb-6 border-b border-zinc-700;
+  }
+
+  .setup-guide-container h2 {
+    @apply text-3xl mt-10 mb-4 pb-2 border-b border-zinc-800;
+  }
+
+  .setup-guide-container h3 {
+    @apply text-2xl mt-8 mb-4;
+  }
+
+  .setup-guide-container p,
+  .setup-guide-container ul,
+  .setup-guide-container ol {
+    @apply text-base leading-7 text-zinc-300;
+  }
+
+  .setup-guide-container a {
+    @apply text-blue-400 hover:text-blue-300 hover:underline transition-colors;
+  }
+
+  .setup-guide-container blockquote {
+    @apply bg-zinc-900/50 border-l-4 border-blue-500 p-4 my-6 rounded-r-lg;
+  }
+
+  .setup-guide-container blockquote p {
+    @apply text-zinc-300 !my-0;
+  }
+
+  .setup-guide-container code:not(pre > code) {
+    @apply bg-zinc-700/50 text-orange-300 font-mono text-sm px-1.5 py-0.5 rounded-md;
+  }
+
+  .setup-guide-container pre {
+    @apply bg-[#0d1117] rounded-lg my-6 shadow-lg overflow-hidden;
+  }
+
+  .code-block-container {
+    @apply my-6;
+  }
+
+  .code-block-header {
+      @apply flex items-center justify-between bg-zinc-800 px-4 py-2 border-b border-zinc-700;
+  }
+
+  .code-block-language {
+      @apply text-xs font-sans text-zinc-400 uppercase;
+  }
+
+  .copy-button {
+      @apply flex items-center gap-2 text-xs text-zinc-400 hover:text-white transition-colors px-2 py-1 rounded-md bg-zinc-700/50 hover:bg-zinc-700;
+  }
+
+  .setup-guide-container pre > code {
+    @apply p-4 block overflow-x-auto text-sm;
+  }
+}

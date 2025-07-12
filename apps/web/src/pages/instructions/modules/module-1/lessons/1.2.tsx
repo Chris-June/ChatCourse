@@ -154,7 +154,7 @@ const Lesson1_2: React.FC = () => {
         </p>
         <div className="bg-gray-900 p-4 rounded-lg border-2 border-dashed border-gray-600">
           <h3 className="font-semibold text-white mb-2 flex items-center"><Lightbulb className="w-5 h-5 mr-2 text-yellow-400"/> Exercise: Craft a Prompt</h3>
-          <p className="text-gray-400 mb-2">In a new chat, try to write a prompt to generate this "About Us" text. Make sure to include:</p>
+          <p className="text-gray-400 mb-2">Head back to Chat, try to write a prompt to generate this "About Us" text. Make sure to include:</p>
           <ul className="list-disc list-inside text-gray-400 space-y-1">
             <li>A <span className="font-bold text-yellow-400">Role</span> for the AI (e.g., a professional copywriter).</li>
             <li>A clear <span className="font-bold text-cyan-400">Task</span> (e.g., write 3 paragraphs).</li>

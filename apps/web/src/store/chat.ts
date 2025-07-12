@@ -255,6 +255,20 @@ export const useChatStore = create<ChatState>()(
     }),
     {
       name: 'chat-storage',
+      // Custom merge function to handle state hydration issues
+      merge: (persistedState, currentState) => {
+        const state = persistedState as any;
+        // Ensure sessions is always an array
+        if (state && typeof state === 'object' && !Array.isArray(state.sessions)) {
+          state.sessions = [];
+        }
+
+        // Deep merge
+        return {
+          ...currentState,
+          ...(persistedState as any),
+        };
+      },
       partialize: (state) => ({
         sessions: state.sessions,
         activeSessionId: state.activeSessionId,

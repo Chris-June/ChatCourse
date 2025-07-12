@@ -1,462 +1,96 @@
-import React, { useState } from 'react';
-import { Download, Terminal, Key, Rocket, Check, Copy, AlertTriangle } from 'lucide-react';
-import { Button } from '@chat/ui';
+import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import rehypeHighlight from 'rehype-highlight';
+import { Copy, Check } from 'lucide-react';
 
-type OS = 'windows' | 'macos' | 'linux';
+import 'highlight.js/styles/github-dark.css';
 
-interface CommandBlockProps {
-  command: string;
-  description?: string;
-}
-
-const CommandBlock: React.FC<CommandBlockProps> = ({ command, description }) => {
-  const [copied, setCopied] = useState(false);
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(command);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <div className="mt-4">
-      {description && <p className="text-sm text-gray-400 mb-1">{description}</p>}
-      <div className="flex items-center justify-between bg-gray-800 rounded-md p-3 font-mono text-sm">
-        <code>{command}</code>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={copyToClipboard}
-          className="ml-2 text-gray-400 hover:text-white"
-          title="Copy to clipboard"
-        >
-          {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-        </Button>
-      </div>
-    </div>
-  );
+// Define a type for the props of the code element
+type CodeProps = {
+  className?: string;
+  children?: React.ReactNode;
 };
 
-interface OsTabProps {
-  os: OS;
-  currentOs: OS;
-  setOs: (os: OS) => void;
-  children: React.ReactNode;
-}
+// Custom component to add a header with a copy button to code blocks
+const CustomPre: React.FC<React.ComponentProps<'pre'>> = ({ children }) => {
+  const [copied, setCopied] = useState(false);
 
-const OsTab: React.FC<OsTabProps> = ({
-  os,
-  currentOs,
-  setOs,
-  children,
-}) => (
-  <button
-    className={`px-4 py-2 text-sm font-medium rounded-t-lg ${
-      currentOs === os
-        ? 'bg-gray-800 text-blue-400 border-b-2 border-blue-400'
-        : 'text-gray-400 hover:text-white hover:bg-gray-700'
-    }`}
-    onClick={() => setOs(os)}
-  >
-    {children}
-  </button>
-);
+  const codeElement = React.Children.toArray(children)[0] as React.ReactElement<CodeProps>;
+
+  if (codeElement && codeElement.props) {
+    const language = codeElement.props.className?.replace('language-', '') || 'shell';
+    const codeString = String(codeElement.props.children).replace(/\n$/, '');
+
+    const handleCopy = () => {
+      navigator.clipboard.writeText(codeString);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    };
+
+    return (
+      <div className="code-block-container">
+        <div className="code-block-header">
+          <span className="code-block-language">{language}</span>
+          <button onClick={handleCopy} className="copy-button" title="Copy to clipboard">
+            {copied ? <Check size={16} /> : <Copy size={16} />}
+            <span className="sr-only">{copied ? 'Copied!' : 'Copy code'}</span>
+          </button>
+        </div>
+        <pre>{children}</pre>
+      </div>
+    );
+  }
+
+  return <pre>{children}</pre>;
+};
 
 const ProjectSetupPage: React.FC = () => {
-  const [currentOs, setCurrentOs] = useState<OS>('windows');
-  
+  const [markdown, setMarkdown] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchMarkdown = async () => {
+      try {
+        const response = await fetch('/SETUP_GUIDE.md');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch setup guide: ${response.statusText}`);
+        }
+        const text = await response.text();
+        setMarkdown(text);
+      } catch (e) {
+        if (e instanceof Error) {
+          setError(e.message);
+        } else {
+          setError('An unknown error occurred.');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMarkdown();
+  }, []);
+
+  if (loading) {
+    return <div className="p-6 text-zinc-400">Loading setup guide...</div>;
+  }
+
+  if (error) {
+    return <div className="p-6 text-red-400">Error: {error}</div>;
+  }
+
   return (
-    <div className="prose prose-invert max-w-none p-6">
-      <h1 className="text-4xl font-bold mb-6 flex items-center">
-        <img 
-          src="/Logo.png" 
-          alt="IntelliSync Logo" 
-          className="w-16 h-16 mr-4 object-contain"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.onerror = null;
-            target.src = 'Logo.png';
-          }}
-        />
-        Project Setup Guide
-      </h1>
-      
-      <div className="bg-yellow-900/30 border-l-4 border-yellow-500 p-4 mb-8">
-        <div className="flex">
-          <AlertTriangle className="h-5 w-5 text-yellow-400 mr-3 flex-shrink-0 mt-0.5" />
-          <div>
-            <h3 className="text-yellow-200 font-semibold">Before You Start</h3>
-            <p className="text-yellow-100 text-sm mt-1">
-              This guide will help you set up the project on your computer. Choose your operating system below.
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      {/* OS Selection Tabs */}
-      <div className="border-b border-gray-700 mb-6">
-        <nav className="flex space-x-1">
-          <OsTab os="windows" currentOs={currentOs} setOs={setCurrentOs}>
-            Windows
-          </OsTab>
-          <OsTab os="macos" currentOs={currentOs} setOs={setCurrentOs}>
-            macOS
-          </OsTab>
-          <OsTab os="linux" currentOs={currentOs} setOs={setCurrentOs}>
-            Linux
-          </OsTab>
-        </nav>
-      </div>
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4">1. Install Prerequisites</h2>
-        
-        {currentOs === 'windows' && (
-          <div>
-            <h3 className="text-xl font-semibold mb-3">For Windows</h3>
-            <ol className="list-decimal list-inside space-y-4">
-              <li>
-                <strong>Install Node.js (includes npm)</strong>
-                <CommandBlock 
-                  command="winget install OpenJS.NodeJS.LTS"
-                  description="Run in PowerShell (recommended) or download from nodejs.org"
-                />
-              </li>
-              <li>
-                <strong>Install pnpm</strong>
-                <CommandBlock 
-                  command="iwr https://get.pnpm.io/install.ps1 -useb | iex"
-                  description="Run in PowerShell as Administrator"
-                />
-              </li>
-              <li>
-                <strong>Install Git</strong>
-                <CommandBlock 
-                  command="winget install --id Git.Git -e --source winget"
-                  description="Run in PowerShell"
-                />
-              </li>
-            </ol>
-          </div>
-        )}
-        
-        {currentOs === 'macos' && (
-          <div>
-            <h3 className="text-xl font-semibold mb-3">For macOS</h3>
-            <ol className="list-decimal list-inside space-y-4">
-              <li>
-                <strong>Check for Homebrew</strong>
-                <CommandBlock 
-                  command="brew --version"
-                  description="If this command fails, install Homebrew from brew.sh"
-                />
-              </li>
-              <li>
-                <strong>Install Node.js and pnpm</strong>
-                <CommandBlock 
-                  command="brew install node pnpm"
-                  description="This installs both Node.js and pnpm"
-                />
-              </li>
-              <li>
-                <strong>Install Git (if not already installed)</strong>
-                <CommandBlock 
-                  command="brew install git"
-                  description="Install Git using Homebrew"
-                />
-              </li>
-            </ol>
-          </div>
-        )}
-        
-        {currentOs === 'linux' && (
-          <div>
-            <h3 className="text-xl font-semibold mb-3">For Linux</h3>
-            <ol className="list-decimal list-inside space-y-4">
-              <li>
-                <strong>Install Node.js (via nvm)</strong>
-                <p className="text-sm text-gray-400 mb-2">Using a version manager like nvm is recommended to avoid permission issues and manage multiple Node.js versions.</p>
-                <CommandBlock 
-                  command="curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash"
-                  description="1. Download and run the nvm installation script."
-                />
-                <p className="text-sm text-gray-400 my-2">You may need to restart your terminal after this step.</p>
-                <CommandBlock 
-                  command="nvm install --lts"
-                  description="2. Install the latest Long-Term Support (LTS) version of Node.js."
-                />
-              </li>
-              <li>
-                <strong>Install pnpm</strong>
-                <CommandBlock 
-                  command="npm install -g pnpm"
-                  description="Install pnpm globally using npm. You may need to use 'sudo' depending on your setup."
-                />
-              </li>
-              <li>
-                <strong>Install Git</strong>
-                <CommandBlock 
-                  command="sudo apt install git"
-                  description="Run in your terminal"
-                />
-              </li>
-            </ol>
-          </div>
-        )}
-        
-        <div className="mt-6 p-4 bg-blue-900/20 rounded-lg border border-blue-800">
-          <h4 className="font-semibold text-blue-300 mb-2">Verify Installation</h4>
-          <p className="text-sm text-blue-200 mb-2">After installation, verify everything is working by running these commands in your terminal:</p>
-          <CommandBlock command="node --version" />
-          <CommandBlock command="pnpm --version" />
-          <CommandBlock command="git --version" />
-        </div>
-      </section>
-
-      <hr className="my-8 border-zinc-700" />
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4 flex items-center"><Download className="w-6 h-6 mr-3 text-blue-400" />2. Get the Project Code</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <h3 className="text-xl font-semibold mb-2">
-              Option 1: Download ZIP
-            </h3>
-            <ol className="list-decimal list-inside space-y-2 text-sm">
-              <li>Visit the project page: <a href="https://github.com/Chris-June/Chat" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">github.com/Chris-June/Chat</a></li>
-              <li>Click the green "Code" button, then "Download ZIP"</li>
-              <li>Extract the ZIP file to a location you'll remember</li>
-            </ol>
-          </div>
-          
-          <div>
-            <h3 className="text-xl font-semibold mb-2">
-              Option 2: Clone with Git
-            </h3>
-            <ol className="list-decimal list-inside space-y-2 text-sm">
-              <li>Open your terminal (Terminal, PowerShell, or Command Prompt).</li>
-              <li>Run this command to clone the repository:</li>
-            </ol>
-            <CommandBlock 
-              command="git clone https://github.com/Chris-June/Chat.git"
-              description="This creates a 'Chat' folder with all project files"
-            />
-          </div>
-        </div>
-      </section>
-
-      <hr className="my-8 border-zinc-700" />
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4 flex items-center"><Terminal className="w-6 h-6 mr-3 text-blue-400" />3. Navigate into Project Directory</h2>
-        <CommandBlock 
-          command="cd Chat"
-          description="Navigate into the project directory you just cloned"
-        />
-      </section>
-
-      <hr className="my-8 border-zinc-700" />
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4 flex items-center"><Terminal className="w-6 h-6 mr-3 text-blue-400" />4. Open in VS Code</h2>
-        <p className="text-lg">If you have the <code>code</code> command installed, you can run <code>code .</code> from your terminal inside the `Chat` directory to open it in VS Code. Otherwise, open VS Code manually:</p>
-        <ol className="list-decimal list-inside space-y-2 mt-2">
-          <li>Launch VS Code</li>
-          <li>Select <span className="font-mono bg-gray-700 px-2 py-0.5 rounded">File → Open Folder…</span></li>
-          <li>Navigate to and select the <span className="font-mono bg-gray-700 px-2 py-0.5 rounded">Chat</span> folder</li>
-          <li>If prompted, click "Yes, I trust the authors"</li>
-        </ol>
-      </section>
-
-      <hr className="my-8 border-zinc-700" />
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4 flex items-center"><Terminal className="w-6 h-6 mr-3 text-blue-400" />5. Install Dependencies</h2>
-        <p className="text-lg">In VS Code, open a new terminal (<strong>Terminal → New Terminal</strong>). Then run this command to install the project’s libraries:</p>
-        <pre className="bg-zinc-800 p-4 rounded-md mt-4"><code className="text-white">pnpm install</code></pre>
-        <p className="mt-2 text-lg">Wait until the scrolling stops (≈1 minute).</p>
-      </section>
-
-      <hr className="my-8 border-zinc-700" />
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4 flex items-center"><Key className="w-6 h-6 mr-3 text-blue-400" />6. Add Your AI Key</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
-          <div className="bg-zinc-800/50 p-6 rounded-lg border border-zinc-700">
-            <h3 className="text-xl font-semibold mb-3 flex items-center">
-              <Terminal className="w-5 h-5 mr-2 text-blue-400" />
-              Method 1: Environment File (Recommended)
-            </h3>
-            <ol className="list-decimal list-inside space-y-2 text-sm">
-              <li>Get a free key on the <a href="https://platform.openai.com/account/api-keys" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">OpenAI website</a></li>
-              <li>Copy the key (looks like `sk-…`)</li>
-              <li>In your terminal, run:</li>
-            </ol>
-            <CommandBlock 
-              command="cp apps/web/.env.example apps/web/.env.local"
-              description="Creates a local environment file"
-            />
-            <ol className="list-decimal list-inside space-y-2 text-sm mt-4" start={4}>
-              <li>Open <code className="bg-zinc-700 px-1 rounded">apps/web/.env.local</code></li>
-              <li>Find <code>OPENAI_API_KEY=</code> and paste your key after the `=` sign</li>
-              <li>Save the file (<code>⌘S</code> or <code>Ctrl+S</code>)</li>
-            </ol>
-          </div>
-
-          <div className="bg-zinc-800/50 p-6 rounded-lg border border-zinc-700">
-            <h3 className="text-xl font-semibold mb-3 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mr-2 text-blue-400">
-                <rect width="20" height="14" x="2" y="5" rx="2" />
-                <line x1="2" x2="22" y1="10" y2="10" />
-              </svg>
-              Method 2: Frontend Settings
-            </h3>
-            <p className="text-sm mb-4">Alternatively, you can set your API key directly in the app:</p>
-            <ol className="list-decimal list-inside space-y-2 text-sm">
-              <li>Start the development server (Step 7) if not already running</li>
-              <li>Click the gear icon (⚙️) in the top-right corner of the chat interface</li>
-              <li>Paste your OpenAI API key in the "API Key" field</li>
-            </ol>
-            <div className="mt-4 p-3 bg-blue-900/20 border border-blue-800 rounded text-sm">
-              <p className="text-blue-200">ℹ️ Note: The key is saved in your browser's local storage and will persist between sessions. You can remove it at any time by deleting the key from the "API Key" field and clearing your browser's local storage.</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-yellow-900/20 border-l-4 border-yellow-500 p-4">
-          <div className="flex">
-            <AlertTriangle className="h-5 w-5 text-yellow-400 mr-3 flex-shrink-0" />
-            <div>
-              <h3 className="text-yellow-200 font-semibold">Important Security Note</h3>
-              <p className="text-yellow-100 text-sm mt-1">
-                For production, ALWAYS use environment variables (Method 1) as a secure alternative. Storing your API key in the browser is for local testing only on your own network. If testing locally use Private Browsing or Incognito mode. This will automatically clear your browser cache and prevent your API key from being saved.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <hr className="my-8 border-zinc-700" />
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4 flex items-center"><Rocket className="w-6 h-6 mr-3 text-blue-400" />7. Start Chatting!</h2>
-        <p className="text-lg">Still in the terminal, run:</p>
-        <pre className="bg-zinc-800 p-4 rounded-md mt-4"><code className="text-white">pnpm dev</code></pre>
-        <ul className="list-disc list-inside space-y-2 text-lg mt-4">
-          <li>First start takes ~20 seconds.</li>
-          <li>When you see <code>http://localhost:5173</code>, <strong>click it</strong> (or paste it in your browser).</li>
-        </ul>
-        <p className="mt-4 text-2xl font-bold">🎉 That’s it! Type a message and watch the AI reply.</p>
-      </section>
-
-      <hr className="my-8 border-zinc-700" />
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4">Troubleshooting</h2>
-        
-        <div className="space-y-4">
-          <div className="p-4 bg-gray-800/50 rounded-lg">
-            <h3 className="font-semibold text-red-400">❌ Command not found: pnpm</h3>
-            <p className="text-sm text-gray-300 mt-1">
-              This means pnpm isn't installed or isn't in your system's PATH. Try installing it again using the instructions at the top of this page.
-            </p>
-          </div>
-          
-          <div className="p-4 bg-gray-800/50 rounded-lg">
-            <h3 className="font-semibold text-yellow-400">⚠️ Port already in use</h3>
-            <p className="text-sm text-gray-300 mt-1">
-              If you see an error about a port being in use, you can either:
-              <ul className="list-disc list-inside mt-1 space-y-1">
-                <li>Close the program using the port, or</li>
-                <li>Change the port by modifying the <code className="bg-gray-700 px-1 rounded">vite.config.ts</code> file</li>
-              </ul>
-            </p>
-          </div>
-          
-          <div className="p-4 bg-gray-800/50 rounded-lg">
-            <h3 className="font-semibold text-blue-400">🔍 Need more help?</h3>
-            <p className="text-sm text-gray-300 mt-1">
-              Check the project's{' '}
-              <a href="https://github.com/Chris-June/Chat/issues" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                GitHub Issues
-              </a>{' '}
-              or join our{' '}
-              <a href="https://discord.gg/CrGqs9cxnM" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                Discord community
-              </a>{' '}
-              for support.</p>
-          </div>
-        </div>
-      </section>
-
-      <hr className="my-8 border-zinc-700" />
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4">Join Our Community</h2>
-        
-        <div className="bg-indigo-900/20 border border-indigo-800 rounded-lg p-6">
-          <div className="flex items-start">
-            <div className="flex-shrink-0">
-              <div className="w-12 h-12 rounded-full bg-indigo-700 flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.103 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.8 8.18 1.8 12.062 0a.074.074 0 01.078.01c.12.098.246.192.373.292a.077.077 0 01-.006.127 12.6 12.6 0 01-1.873.892.077.077 0 00-.041.104c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.84 19.84 0 005.994-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.086-1.92-2.4.19-1.04 1.09-1.817 2.1-1.817 1.184 0 2.158 1.086 1.92 2.4-.19 1.04-1.09 1.817-2.1 1.817zm7.96 0c-1.184 0-2.158-1.086-1.92-2.4.19-1.04 1.09-1.817 2.1-1.817 1.183 0 2.157 1.086 1.92 2.4-.19 1.04-1.09 1.817-2.1 1.817z" />
-                </svg>
-              </div>
-            </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-semibold text-indigo-100">Join Our Discord Community</h3>
-              <p className="mt-1 text-sm text-indigo-200">Connect with other learners, ask questions, and get help from our private community.</p>
-              <a 
-                href="https://discord.gg/CrGqs9cxnM" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
-              >
-                Join Discord Server
-                <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <hr className="my-8 border-zinc-700" />
-
-      <section>
-        <h2 className="text-2xl font-bold mb-4">8. What’s Next?</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-zinc-700">
-            <thead className="bg-zinc-800">
-              <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Want to…</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Do this</th>
-              </tr>
-            </thead>
-            <tbody className="bg-zinc-900 divide-y divide-zinc-700">
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap font-bold">Change the AI’s personality</td>
-                <td className="px-6 py-4">Open the <code>apps/api/src/handler.ts</code> file, scroll to the <em>System Prompt</em>, and rewrite the text inside quotes.</td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap font-bold">Tweak responses (tone, format)</td>
-                <td className="px-6 py-4">In the chat site, click <strong>Settings → Custom Instructions</strong>.</td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap font-bold">Invite friends to play</td>
-                <td className="px-6 py-4">Send them this README.</td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap font-bold">Learn the techy stuff</td>
-                <td className="px-6 py-4">Expand the <strong>Advanced Section</strong> in the README (totally optional).</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+    <div className="setup-guide-container p-6">
+      <ReactMarkdown
+        rehypePlugins={[rehypeRaw, rehypeHighlight]}
+        components={{
+          pre: CustomPre,
+        }}
+      >
+        {markdown}
+      </ReactMarkdown>
     </div>
   );
 };

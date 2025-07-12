@@ -54,10 +54,16 @@ const ChatInterface = () => {
   };
 
   useEffect(() => {
-    if (!activeSessionId && sessions.length === 0) {
-      startNewSession();
+    if (!activeSession) {
+      if (sessions.length > 0) {
+        // If there are sessions but none is active, activate the most recent one.
+        setActiveSession(sessions[sessions.length - 1].id);
+      } else {
+        // If there are no sessions at all, create a new one.
+        startNewSession();
+      }
     }
-  }, [activeSessionId, sessions, startNewSession]);
+  }, [activeSession, sessions, startNewSession, setActiveSession]);
 
   useEffect(() => {
     scrollToBottom();
@@ -164,7 +170,14 @@ const ChatInterface = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+      e.preventDefault();
+      handleSubmit(e as any);
+    }
+  };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input.trim() || isStreaming || !activeSession) return;
 
@@ -301,10 +314,11 @@ const ChatInterface = () => {
 
         <form onSubmit={handleSubmit} className="px-4 py-4 bg-black/90 backdrop-blur shrink-0">
           <div className="relative">
-            <Input
+                        <Input
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder="Type your message..."
               disabled={isStreaming}
               className="pl-10 pr-28 py-4 rounded-full bg-zinc-800 text-gray-100 placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 disabled:opacity-50"
