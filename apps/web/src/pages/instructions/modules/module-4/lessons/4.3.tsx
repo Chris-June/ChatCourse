@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Wrench, FileCode, Lightbulb } from 'lucide-react';
-
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson4_3: React.FC = () => {
   return (
@@ -34,8 +34,8 @@ const Lesson4_3: React.FC = () => {
         The true power of AI is unlocked when you give it the ability to act. Building custom tools allows you to connect the AI to your unique data, APIs, and workflows, creating a system that can solve problems specific to your needs.
       </p>
 
-            {/* Step 1: Define the Tool's Purpose */}
-            <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+      {/* Step 1: Define the Tool's Purpose */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Wrench className="w-7 h-7 mr-3 text-orange-400" />
           Step 1: Define the Tool's Purpose
@@ -62,8 +62,8 @@ const Lesson4_3: React.FC = () => {
         <p className="text-gray-300 mb-4">
           The schema is the most important part. It's a detailed description that the AI uses to understand your tool.
         </p>
-        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-          <code>
+        <div className="bg-gray-900 p-3 rounded-md">
+          <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
 {`{
   "name": "create_ticket",
   "description": "Creates a new support ticket in the project management system.",
@@ -83,19 +83,21 @@ const Lesson4_3: React.FC = () => {
   }
 }`}
           </code>
-        </pre>
+        </div>
       </section>
 
-      {/* Step 3: Implement the Function */}
+      {/* Step 3: Implement the Tool Logic */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Step 3: Implement the Function</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Step 3: Implement the Tool Logic</h2>
         <p className="text-gray-300 mb-4">
-          Now, write the actual code that performs the action. This is a standard JavaScript/TypeScript function.
+          This is the actual JavaScript/TypeScript function that executes when the AI calls your tool.
         </p>
-        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-          <code>
-{`async function createTicket({ title, description }: { title: string; description: string }): Promise<{ ticket_id: string }> {
-  console.log(\`Creating ticket: \${title} - \${description}\`);
+        <div className="bg-gray-900 p-3 rounded-md">
+          <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
+{`async function createTicket(args) {
+  const { title, description } = args;
+  
+  console.log(\`Creating ticket: \${title}\`);
   
   // In a real application, you would make an API call here
   // to a service like Jira, Asana, etc.
@@ -105,7 +107,7 @@ const Lesson4_3: React.FC = () => {
   return { ticket_id: ticketId };
 }`}
           </code>
-        </pre>
+        </div>
       </section>
 
       {/* Step 4: Connect to the AI & Handle Output */}
@@ -114,8 +116,8 @@ const Lesson4_3: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Finally, you need a router or dispatcher to connect the AI's request to your function and then send the result back to the model.
         </p>
-        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-          <code>
+        <div className="bg-gray-900 p-3 rounded-md">
+          <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
 {`// 1. Model generates a function call
 const modelResponse = {
   function_call: {
@@ -136,35 +138,34 @@ const result = await functionToCall(functionArgs); // { ticket_id: 'TICKET-123' 
 // The model would then generate a response like:
 // "I've created a new support ticket for you. The ID is TICKET-123."`}
           </code>
-        </pre>
+        </div>
       </section>
 
-           {/* Best Practices */}
-           <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Best Practices for Tool Building</h2>
-          <ul className="list-disc pl-5 space-y-2 text-gray-300">
-              <li><strong>Error Handling:</strong> Wrap your function logic in try/catch blocks to gracefully handle API failures or invalid data.</li>
-              <li><strong>Clear Descriptions:</strong> Write detailed descriptions for both the function and its parameters. The model relies heavily on this text to make correct decisions.</li>
-              <li><strong>Atomic Functions:</strong> Each tool should do one thing well. Avoid creating monolithic tools that perform many different actions.</li>
-              <li><strong>Return Useful Information:</strong> Your tool should return a result that is useful to the model, such as a confirmation message, an ID, or the data it requested.</li>
-          </ul>
+      {/* Best Practices */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Best Practices for Tool Building</h2>
+        <ul className="list-disc pl-5 space-y-2 text-gray-300">
+            <li><strong>Error Handling:</strong> Wrap your function logic in try/catch blocks to gracefully handle API failures or invalid data.</li>
+            <li><strong>Clear Descriptions:</strong> Write detailed descriptions for both the function and its parameters. The model relies heavily on this text to make correct decisions.</li>
+            <li><strong>Atomic Functions:</strong> Each tool should do one thing well. Avoid creating monolithic tools that perform many different actions.</li>
+            <li><strong>Return Useful Information:</strong> Your tool should return a result that is useful to the model, such as a confirmation message, an ID, or the data it requested.</li>
+        </ul>
       </section>
 
       {/* Exercise */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: Design and Implement a Tool
+          Your Turn: Use a Custom Tool
         </h2>
         <p className="text-gray-300 mb-4">
-          Let's build on the `send_email` tool from the previous exercise.
+          Imagine you have successfully built and registered a \`send_email\` tool with the AI. The tool takes a \`recipient\`, \`subject\`, and \`body\`.
+          Use the chat window below to ask the AI to send an email. See if it generates the correct function call based on your request.
         </p>
-        <p className="text-gray-300 mb-2">
-          1. First, write the full JSON schema for a tool named `send_email` that takes a `recipient`, `subject`, and `body`.
-        </p>
-        <p className="text-gray-300 mb-2">
-          2. Then, write the pseudo-code for the `sendEmail` function itself. It doesn't need to actually send an email; just log the action to the console and return a success message.
-        </p>
+        <InlineChat 
+          placeholder='Try: "Send an email to my manager about the Q3 report..."' 
+          simulatedResponse={`{\n  "name": "send_email",\n  "arguments": {\n    "recipient": "manager@example.com",\n    "subject": "Q3 Report",\n    "body": "Here is the Q3 report you requested.",\n  }\n}`}
+        />
       </section>
 
       {/* Navigation */}

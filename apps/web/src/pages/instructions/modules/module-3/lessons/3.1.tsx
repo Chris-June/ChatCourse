@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import zeroCotImage from '../../../../../assets/images/zero-cot2.webp';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson3_1: React.FC = () => {
   return (
@@ -36,14 +37,17 @@ const Lesson3_1: React.FC = () => {
         <p className="text-gray-300 mb-4">
           We tried a few zero-shot examples in the previous section. Here is one of the examples (i.e., text classification) we used:
         </p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 font-mono text-sm text-gray-200">
-          <p>Prompt:</p>
-          <pre className="whitespace-pre-wrap">{`Classify the text into neutral, negative or positive.
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
+          <p className="font-mono text-gray-200">Prompt:</p>
+          <div className="bg-gray-800 p-2 rounded mt-1">
+            <code className="block whitespace-pre-wrap break-words font-mono text-gray-300">{`Classify the text into neutral, negative or positive.
 Text: I think the vacation is okay.
-Sentiment:`}</pre>
-          <br />
-          <p>Output:</p>
-          <pre className="whitespace-pre-wrap">Neutral</pre>
+Sentiment:`}</code>
+          </div>
+          <p className="font-mono text-gray-200 mt-3">Output:</p>
+          <div className="bg-gray-800 p-2 rounded mt-1">
+            <code className="block whitespace-pre-wrap break-words font-mono text-green-400">Neutral</code>
+          </div>
         </div>
         <p className="text-gray-300 my-4">
           Note that in the prompt above we didn't provide the model with any examples of text alongside their classifications, the LLM already understands "sentiment" -- that's the zero-shot capabilities at work.
@@ -55,6 +59,11 @@ Sentiment:`}</pre>
           When zero-shot doesn't work, it's recommended to provide demonstrations or examples in the prompt which leads to few-shot prompting. In the next section, we demonstrate few-shot prompting.
         </p>
 
+        <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
+          <h3 className="font-semibold text-white mb-2">Your Turn: Zero-Shot</h3>
+          <p className="text-gray-400 mb-4">Try your own zero-shot prompt. Ask the model to perform a task without giving it any examples, like summarizing a paragraph or translating a sentence.</p>
+          <InlineChat placeholder="Try a zero-shot prompt here..." />
+        </div>
       </section>
 
       {/* Few-shot Prompting */}
@@ -93,15 +102,24 @@ To do a "farduddle" means to jump up and down really fast. An example of a sente
         <p className="text-gray-300 mb-4">
           Let's try out a few examples. Let's first try an example with random labels (meaning the labels Negative and Positive are randomly assigned to the inputs):
         </p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 font-mono text-sm text-gray-200">
-          <p>Prompt:</p>
-          <pre className="whitespace-pre-wrap">{`This is awesome! // Negative
-This is bad! // Positive
-Wow that movie was rad! // Positive
-What a horrible show! //`}</pre>
-          <br />
-          <p>Output:</p>
-          <pre className="whitespace-pre-wrap">Negative</pre>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
+          <p className="font-mono text-gray-200">Prompt:</p>
+          <div className="bg-gray-800 p-2 rounded mt-1">
+            <code className="block whitespace-pre-wrap break-words font-mono text-gray-300">{`This is awesome! // Positive
+This is bad! // Negative
+Wow, this is amazing! // Positive
+What a horrible show! //`}</code>
+          </div>
+          <p className="font-mono text-gray-200 mt-3">Output:</p>
+          <div className="bg-gray-800 p-2 rounded mt-1">
+            <code className="block whitespace-pre-wrap break-words font-mono text-green-400">Negative</code>
+          </div>
+        </div>
+
+        <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
+          <h3 className="font-semibold text-white mb-2">Your Turn: Few-Shot</h3>
+          <p className="text-gray-400 mb-4">Construct your own few-shot prompt. Provide the model with a few examples to guide its response for a simple classification or transformation task.</p>
+          <InlineChat placeholder="Construct a few-shot prompt with examples..." />
         </div>
       </section>
 
@@ -112,13 +130,13 @@ What a horrible show! //`}</pre>
         <p className="text-gray-300 mb-4">
           Standard few-shot prompting works well for many tasks but is still not a perfect technique, especially when dealing with more complex reasoning tasks. Let's demonstrate why this is the case. Do you recall the previous example where we provided the following task:
         </p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 font-mono text-sm text-gray-200">
-          <pre className="whitespace-pre-wrap">{`The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.
-A:`}</pre>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
+          <code className="block whitespace-pre-wrap break-words font-mono text-gray-300">{`The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.
+A:`}</code>
         </div>
         <p className="text-gray-300 my-4">If we try this again, the model outputs the following:</p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 font-mono text-sm text-gray-200">
-          <pre className="whitespace-pre-wrap">Yes, the odd numbers in this group add up to 107, which is an even number.</pre>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
+          <code className="block whitespace-pre-wrap break-words font-mono text-red-400">Yes, the odd numbers in this group add up to 107, which is an even number.</code>
         </div>
         <p className="text-gray-300 my-4">
           This is not the correct response, which not only highlights the limitations of these systems but that there is a need for more advanced prompt engineering.
@@ -126,21 +144,28 @@ A:`}</pre>
         <p className="text-gray-300 mb-4">
           Let's try to add some examples to see if few-shot prompting improves the results.
         </p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 font-mono text-sm text-gray-200">
-          <p>Prompt:</p>
-          <pre className="whitespace-pre-wrap">{`The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
+          <p className="font-mono text-gray-200">Prompt:</p>
+          <div className="bg-gray-800 p-2 rounded mt-1">
+            <code className="block whitespace-pre-wrap break-words font-mono text-gray-300">{`The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
 A: The answer is False.
+
 The odd numbers in this group add up to an even number: 17,  10, 19, 4, 8, 12, 24.
 A: The answer is True.
+
 The odd numbers in this group add up to an even number: 16,  11, 14, 4, 8, 13, 24.
 A: The answer is True.
+
 The odd numbers in this group add up to an even number: 17,  9, 10, 12, 13, 4, 2.
 A: The answer is False.
+
 The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.
-A:`}</pre>
-          <br />
-          <p>Output:</p>
-          <pre className="whitespace-pre-wrap">The answer is True.</pre>
+A:`}</code>
+          </div>
+          <p className="font-mono text-gray-200 mt-3">Output:</p>
+          <div className="bg-gray-800 p-2 rounded mt-1">
+            <code className="block whitespace-pre-wrap break-words font-mono text-red-400">The answer is True.</code>
+          </div>
         </div>
         <p className="text-gray-300 my-4">
           That didn't work. It seems like few-shot prompting is not enough to get reliable responses for this type of reasoning problem.
@@ -148,6 +173,12 @@ A:`}</pre>
         <p className="text-gray-300">
           Overall, it seems that providing examples is useful for solving some tasks. When zero-shot prompting and few-shot prompting are not sufficient, it might mean that whatever was learned by the model isn't enough to do well at the task. From here it is recommended to start thinking about fine-tuning your models or experimenting with more advanced prompting techniques.
         </p>
+
+        <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
+          <h3 className="font-semibold text-white mb-2">Your Turn: The Reasoning Challenge</h3>
+          <p className="text-gray-400 mb-4">The model failed the reasoning task above. Can you get it to answer correctly using only few-shot prompting? Try different examples or rephrase the problem.</p>
+          <InlineChat placeholder="Try to solve the reasoning problem..." />
+        </div>
       </section>
 
       {/* Navigation */}

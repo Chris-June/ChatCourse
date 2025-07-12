@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Zap, ChevronsRight, SlidersHorizontal } from 'lucide-react';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson5_3: React.FC = () => {
+  const classificationAgentPrompt = `You are an expert AI Classification Agent. Your task is to analyze a user's request and recommend the most appropriate model tier based on the following criteria:
+- **Tier 1: Fast & Light**: Best for simple classification, basic extraction, or tasks where speed is the absolute priority.
+- **Tier 2: Balanced**: Best for general purpose tasks like summarization, standard Q&A, or when a balance of performance and capability is needed.
+- **Tier 3: Max Power**: Best for complex reasoning, multi-step agentic workflows, or tasks requiring deep understanding and generation.
+Based on the user's query, state which tier is the best fit and briefly explain why.`;
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -39,8 +45,8 @@ const Lesson5_3: React.FC = () => {
         <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">How Streaming Works (Conceptual)</h3>
           <p className="text-gray-400 mb-2 text-sm">The server sends a stream of small data chunks. The client listens for these chunks and appends them to the display in real-time.</p>
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
-            <code>
+          <div className="bg-gray-700 p-3 rounded-md">
+            <code className="block whitespace-pre-wrap break-words font-mono text-xs text-gray-200">
 {`// Frontend pseudo-code
 const response = await fetch('/api/chat', { stream: true });
 
@@ -53,7 +59,7 @@ response.body.on('end', () => {
   // Stream finished
 });`}
             </code>
-          </pre>
+          </div>
         </div>
       </section>
 
@@ -115,16 +121,15 @@ response.body.on('end', () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Zap className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: Pick the Right Tool for the Job
+          Your Turn: Pick the Right Tool for the Job
         </h2>
         <p className="text-gray-300 mb-4">
-          For each scenario below, decide whether a smaller, faster model or a larger, more powerful model would be more appropriate. Discuss the reasoning behind your choice.
+          Use the chat window below to test your understanding of performance trade-offs. Describe a task, and ask the AI which model tier—fast, balanced, or powerful—would be the best fit. See if its reasoning matches what you've learned.
         </p>
-        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700 space-y-3">
-          <p className="text-gray-300"><strong>Scenario 1:</strong> A customer service chatbot that answers frequently asked questions based on a knowledge base.</p>
-          <p className="text-gray-300"><strong>Scenario 2:</strong> An AI assistant that helps a scientist analyze complex research papers and generate novel hypotheses.</p>
-          <p className="text-gray-300"><strong>Scenario 3:</strong> A tool that categorizes incoming emails into 'Important,' 'Spam,' and 'Promotions.'</p>
-        </div>
+        <InlineChat 
+          placeholder='Try asking: "What kind of model should I use for a simple email classifier?"' 
+          systemPrompt={classificationAgentPrompt}
+        />
       </section>
 
       {/* Navigation */}

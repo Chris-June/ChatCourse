@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, BarChart2, Beaker, RefreshCw } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson6_3: React.FC = () => {
+  const hypothesisAssistantPrompt = `You are an expert AI Product Manager specializing in experimentation. Your goal is to help users improve an AI feature by creating a structured experiment. When a user describes a feature they want to improve, guide them through the following steps:
+1. **Hypothesis Formulation**: Help them state a clear, testable hypothesis (e.g., "By changing X, we will improve Y, because Z.").
+2. **Metric Definition**: Help them define a single, key metric to measure the change (e.g., "User satisfaction score," "Correction rate," "Task completion time").
+3. **A/B Test Design**: Help them outline a simple A/B test (e.g., "Group A gets the old prompt, Group B gets the new prompt. We will compare the key metric between the two groups after 1,000 interactions.").
+Be encouraging and help them think critically about their ideas.`;
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -60,23 +65,15 @@ const Lesson6_3: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Beaker className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: Form an Improvement Hypothesis
+          Your Turn: Form an Improvement Hypothesis
         </h2>
         <p className="text-gray-300 mb-4">
-          A good experiment starts with a clear hypothesis. Let's practice writing one for an AI feature that summarizes articles.
+          A good experiment starts with a clear hypothesis. Use the chat window below to improve an AI feature. Describe the feature, and the AI will help you formulate a testable hypothesis, define a key metric, and create an A/B test to see if your change works.
         </p>
-        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <p className="text-gray-400 mb-3 text-sm">Copy the template below and fill it out. The goal is to create a testable hypothesis for improving the article summarizer.</p>
-          <div className="relative p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
-            <CopyButton textToCopy={`**Hypothesis:**\nIf we change the summary prompt to be more action-oriented, we will increase the 'summary helpfulness' rating because users want actionable takeaways, not just a wall of text.\n\n**Metric to Improve:**\n- User Satisfaction (Thumbs Up/Down %)\n\n**A/B Test:**\n- **Group A (Control):** 'Summarize this article.'\n- **Group B (Variant):** 'Summarize this article and extract three actionable insights for a busy professional.'`} />
-            <p className="text-white">
-              <strong>Hypothesis:</strong><br/>If we change the summary prompt to be more action-oriented, we will increase the 'summary helpfulness' rating because users want actionable takeaways, not just a wall of text.<br/><br/>
-              <strong>Metric to Improve:</strong><br/>- User Satisfaction (Thumbs Up/Down %)<br/><br/>
-              <strong>A/B Test:</strong><br/>- <strong>Group A (Control):</strong> 'Summarize this article.'<br/>- <strong>Group B (Variant):</strong> 'Summarize this article and extract three actionable insights for a busy professional.'
-            </p>
-          </div>
-        </div>
+        <InlineChat 
+          placeholder="Try: &quot;Let's improve an AI that summarizes articles.&quot;" 
+          systemPrompt={hypothesisAssistantPrompt}
+        />
       </section>
 
       {/* Navigation */}

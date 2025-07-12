@@ -1,9 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Settings, Lightbulb, ShieldCheck } from 'lucide-react';
+import InlineChat from '../../../../../components/InlineChat';
 
 
 const Lesson5_2: React.FC = () => {
+  const studentProfile = {
+    name: "Maria",
+    grade: 10,
+    subjects: ["Biology", "History"],
+    learning_style: "visual",
+    goal: "Get help with homework for her upcoming Biology exam on cell division.",
+  };
+
+  const systemPrompt = `You are an expert AI tutor specializing in biology and history. You are speaking to a student named ${studentProfile.name}, who is in grade ${studentProfile.grade}. Their learning style is ${studentProfile.learning_style}, so try to use visual descriptions or analogies. Their current goal is: "${studentProfile.goal}". Be encouraging and tailor your explanation to their needs.`;
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -40,8 +50,8 @@ const Lesson5_2: React.FC = () => {
         <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">Example: Generating a System Prompt</h3>
           <p className="text-gray-400 mb-2 text-sm">Given a user profile object:</p>
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap mb-4">
-            <code>
+          <div className="bg-gray-700 p-3 rounded-md mb-4">
+            <code className="block whitespace-pre-wrap break-words font-mono text-xs text-gray-200">
 {`const userProfile = {
   name: "Alex",
   profession: "Data Scientist",
@@ -49,16 +59,16 @@ const Lesson5_2: React.FC = () => {
   goal: "Find novel ways to visualize time-series data."
 };`}
             </code>
-          </pre>
+          </div>
           <p className="text-gray-400 mb-2 text-sm">Your application would generate this system prompt:</p>
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
-            <code>
+          <div className="bg-gray-700 p-3 rounded-md">
+            <code className="block whitespace-pre-wrap break-words font-mono text-xs text-gray-200">
 {`You are an expert AI assistant talking to Alex, a Data Scientist.
 Their expertise includes Python, Machine Learning, and SQL.
 Their current goal is to find novel ways to visualize time-series data.
 Provide technical, precise answers. When providing code, use Python.`}
             </code>
-          </pre>
+          </div>
         </div>
       </section>
 
@@ -108,15 +118,14 @@ Provide technical, precise answers. When providing code, use Python.`}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: Write a Dynamic System Prompt
+          Your Turn: Interact with a Personalized Tutor
         </h2>
         <p className="text-gray-300 mb-4">
-          You are building a personalized AI tutor for a high school student. Below is their user profile. Your task is to write the system prompt that will be sent to the AI to guide its behavior.
+          Let's see personalization in action. The AI in the chat window below has been given a dynamic system prompt based on the following student profile:
         </p>
-        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Student Profile:</h3>
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap mb-4">
-            <code>
+        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700 mb-4">
+          <div className="bg-gray-700 p-3 rounded-md">
+            <code className="block whitespace-pre-wrap break-words font-mono text-xs text-gray-200">
 {`const studentProfile = {
   name: "Maria",
   grade: 10,
@@ -125,16 +134,15 @@ Provide technical, precise answers. When providing code, use Python.`}
   goal: "Get help with homework for her upcoming Biology exam on cell division."
 };`}
             </code>
-          </pre>
-          <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <p className="text-gray-300 text-sm mb-3">
-            Write a system prompt in the text area below that uses Maria's profile to create a personalized learning experience. Aim to be encouraging and mention her learning style.
-          </p>
-          <textarea
-            className="w-full h-32 p-2 bg-gray-700 text-white rounded-md border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="e.g., You are a friendly and encouraging tutor for Maria, a 10th-grade student..."
-          ></textarea>
+          </div>
         </div>
+        <p className="text-gray-300 mb-4">
+          Pretend you are Maria. Ask for help with your biology homework and see how the AI responds. Notice if it mentions your learning style or tries to be encouraging.
+        </p>
+        <InlineChat 
+          placeholder='Try asking: "Can you help me understand mitosis?"' 
+          systemPrompt={systemPrompt}
+        />
       </section>
 
       {/* Navigation */}

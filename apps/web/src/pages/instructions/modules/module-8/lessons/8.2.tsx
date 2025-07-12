@@ -1,9 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Eye, MessageSquareQuote, Lightbulb } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson8_2: React.FC = () => {
+  const explainabilityExpertPrompt = `You are an AI Explainability and User Experience (UX) expert. Your task is to review a user-submitted explanation for a sensitive AI decision.
+
+**Case Study Context:** An AI-powered system has just denied a loan application. The model's internal reasons are: 'low_credit_score' and 'high_debt_to_income_ratio'. The user needs to write a customer-facing message that explains this decision clearly and empathetically.
+
+When a user submits their explanation, follow these steps:
+1.  **Acknowledge and Validate**: Briefly acknowledge their explanation.
+2.  **Analyze their Explanation**: Evaluate their message based on three key principles: 
+    *   **Clarity**: Is the language simple and free of jargon? 
+    *   **Empathy**: Does it acknowledge the user's disappointment?
+    *   **Actionability**: Does it provide clear next steps?
+3.  **Provide Specific Feedback**: Offer 2-3 clear, constructive bullet points. For example, 'Your explanation is clear, but it could be more empathetic by acknowledging the user's perspective. Also, consider adding a link to a resource that explains how credit scores are calculated.'
+4.  **Suggest a Gold-Standard Example**: Provide a concise, expert-level explanation for comparison. Example: 'We understand this isn't the news you were hoping for. After reviewing your application, we couldn't approve your loan at this time because the information provided didn't meet our current lending requirements, which include credit history and debt-to-income ratio. We encourage you to review your credit report for any inaccuracies and you are welcome to re-apply in the future.'
+5.  **Encourage**: End with a positive, encouraging statement about the importance of building trust through transparency.`;
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -57,25 +71,21 @@ const Lesson8_2: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: Design a Transparent UI
+          Case Study: Explaining an AI's Decision
         </h2>
-        <p className="text-gray-300 mb-4">
-          Imagine your RAG-based chatbot has just answered a user's question about your company's return policy. How would you design the UI to be as transparent as possible?
-        </p>
-        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <p className="text-gray-400 mb-3 text-sm">Describe the UI components you would add to the chatbot's response to build user trust. Use the template to structure your ideas.</p>
-          <div className="relative p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
-            <CopyButton textToCopy={`**1. UI Component: Source Citations**\n- Description: Below the answer, I would add a 'Sources' section with clickable links to the exact pages in the company's knowledge base that were used.\n\n**2. UI Component: Confidence Score**\n- Description: ...\n\n**3. UI Component: Feedback Mechanism**\n- Description: ...`} />
-            <p className="text-white">
-              <strong>1. UI Component: Source Citations</strong><br/>
-              - Description: Below the answer, I would add a 'Sources' section with clickable links to the exact pages in the company's knowledge base that were used.<br/><br/>
-              <strong>2. UI Component: Confidence Score</strong><br/>
-              - Description: ...<br/><br/>
-              <strong>3. UI Component: Feedback Mechanism</strong><br/>
-              - Description: ...
-            </p>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 space-y-4">
+          <div>
+            <h3 className="font-semibold text-white">The Scenario</h3>
+            <p className="text-gray-300">An AI-powered system has just denied a loan application. The model's internal reasons are a low credit score and a high debt-to-income ratio. Your goal is to communicate this sensitive decision to the user in a way that is clear, empathetic, and actionable.</p>
           </div>
+          <div>
+            <h3 className="font-semibold text-white">Your Task</h3>
+            <p className="text-gray-300">Write a customer-facing message that explains the AI's decision. Focus on building trust by being transparent without being overly technical. Use the chat window below to submit your explanation and receive expert feedback.</p>
+          </div>
+          <InlineChat 
+            placeholder="Write your user-facing explanation here..."
+            systemPrompt={explainabilityExpertPrompt}
+          />
         </div>
       </section>
 

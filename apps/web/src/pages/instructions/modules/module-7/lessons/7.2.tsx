@@ -1,9 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Database, FileText, Lightbulb, Layers, Combine } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
+import { ChevronLeft, ChevronRight, Database, FileText, Lightbulb, Layers } from 'lucide-react';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson7_2: React.FC = () => {
+  const ragPromptValidator = `You are an expert AI Prompt Engineer specializing in Retrieval-Augmented Generation (RAG). Your task is to review a user's generator prompt and provide constructive feedback.
+
+When a user submits a prompt, follow these steps:
+1.  **Analyze the Prompt**: Check for three key elements:
+    *   Does it explicitly instruct the model to answer **based ONLY on the provided context**?
+    *   Does it tell the model what to do if the answer **is not found** in the context (e.g., "If the answer is not in the context, say so.")?
+    *   Does it use clear placeholders for the context and the user's question?
+
+2.  **Provide Feedback**: Give 2-3 specific, actionable bullet points for improvement.
+
+3.  **Offer an Improved Version**: Provide a clear, production-ready example of a strong RAG generator prompt. Here is a gold-standard example to use:
+    "You are a helpful assistant. Use the following context to answer the user's question. Your answer should be based exclusively on the information provided. If the context does not contain the information needed to answer the question, state that you do not have enough information to provide an answer.\n\n**Context:**\n{context}\n\n**User Question:**\n{question}"
+
+4.  **Encourage**: End with a positive and encouraging closing statement.`;
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -25,34 +40,54 @@ const Lesson7_2: React.FC = () => {
       </div>
 
       <p className="text-lg text-gray-300">
-        Retrieval-Augmented Generation (RAG) is a powerful technique that grounds an LLM's responses in external knowledge. Instead of relying solely on its training data, the model can pull in relevant, up-to-date information from a specified source before generating an answer.
+        Imagine giving an AI an "open-book exam" instead of a closed-book one. That's the core idea behind **Retrieval-Augmented Generation (RAG)**. It's a powerful technique that allows a Large Language Model (LLM) to consult a specific, up-to-date knowledge base *before* answering a question. This prevents the model from making things up ("hallucinating") and ensures its answers are grounded in facts, not just its training data.
       </p>
 
       {/* Core Components */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">The RAG Pipeline: A Deeper Look</h2>
-        <p className="text-gray-300 mb-6">A production-ready RAG system involves more than just a database and a prompt. It's a multi-stage pipeline focused on preparing, retrieving, and synthesizing information effectively.</p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">How RAG Works: Retrieve, Augment, Generate</h2>
+        <p className="text-gray-300 mb-6">A RAG system follows a simple, three-step process to answer a user's query:</p>
         <div className="space-y-6">
           <div>
-            <h3 className="text-xl font-semibold text-white flex items-center"><Database className="w-6 h-6 mr-2 text-green-400" />1. The Ingestion Pipeline</h3>
-            <p className="text-gray-400 mt-2">Before you can retrieve anything, you must prepare your knowledge. This involves a three-step process: loading documents, splitting them into chunks, and converting those chunks into vector embeddings for storage.</p>
+            <h3 className="text-xl font-semibold text-white flex items-center"><Database className="w-6 h-6 mr-2 text-green-400" />1. Retrieve</h3>
+            <p className="text-gray-400 mt-2">First, the system takes the user's question (e.g., "What is the return policy?") and searches a specialized database (a vector store) for the most relevant text chunks. This is like a librarian finding the most relevant pages in a book. The key is to have your knowledge base (product docs, company policies, etc.) already processed and stored as vector embeddings.</p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-white flex items-center"><Layers className="w-6 h-6 mr-2 text-purple-400" />2. Chunking Strategy</h3>
-            <p className="text-gray-400 mt-2">How you split your documents (chunking) is critical. If chunks are too small, you lose context. If they're too large, you add noise. A common strategy is <span className="font-semibold text-purple-300">Recursive Character Text Splitting</span>, which tries to split on meaningful separators (like paragraphs or sentences) first.</p>
+            <h3 className="text-xl font-semibold text-white flex items-center"><Layers className="w-6 h-6 mr-2 text-purple-400" />2. Augment</h3>
+            <p className="text-gray-400 mt-2">Next, the system takes the relevant text chunks it found and "augments" the user's original question. It combines them into a new, more detailed prompt for the LLM. This prompt essentially says: "Using only the following information, please answer this question."</p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-white flex items-center"><Combine className="w-6 h-6 mr-2 text-yellow-400" />3. Retrieval with Hybrid Search</h3>
-            <p className="text-gray-400 mt-2">Simple vector search isn't always enough. <span className="font-semibold text-yellow-300">Hybrid Search</span> combines semantic (vector) search with traditional keyword search (like BM25). This approach is powerful because it can find documents that are conceptually related (via vectors) and those that contain exact keyword matches.</p>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-semibold text-white flex items-center"><FileText className="w-6 h-6 mr-2 text-cyan-400" />4. Generation with Context</h3>
-            <p className="text-gray-400 mt-2">This is the final step where the LLM shines. The user's original question is combined with the retrieved text chunks into a new, comprehensive prompt. The LLM is then instructed to answer the question *based only on the provided context*.</p>
+            <h3 className="text-xl font-semibold text-white flex items-center"><FileText className="w-6 h-6 mr-2 text-cyan-400" />3. Generate</h3>
+            <p className="text-gray-400 mt-2">Finally, the augmented prompt is sent to the LLM. The model reads the provided context and the user's question, then generates a final answer that is based directly on the retrieved information. This ensures the answer is accurate and up-to-date.</p>
           </div>
         </div>
+      </section>
+
+      {/* Real-World Example */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Real-World Example: Customer Support Chatbot</h2>
+        <p className="text-gray-300 mb-4">Let's see how this works for a chatbot answering a customer question about a return policy.</p>
+        <ol className="list-decimal list-inside space-y-4 text-gray-400">
+          <li>
+            <span className="font-semibold text-white">User asks:</span> "Can I return a product after 45 days?"
+          </li>
+          <li>
+            <span className="font-semibold text-white">Retrieve:</span> The RAG system searches its knowledge base of company documents. It finds a chunk of text from `return_policy.txt` that says: "All returns must be made within 30 days of purchase. Items returned after 30 days are not eligible for a refund."
+          </li>
+          <li>
+            <span className="font-semibold text-white">Augment:</span> The system creates a new prompt:
+            <div className="mt-2 p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
+              Context: "All returns must be made within 30 days of purchase..."
+              <br/>
+              User Question: "Can I return a product after 45 days?"
+            </div>
+          </li>
+          <li>
+            <span className="font-semibold text-white">Generate:</span> The LLM receives the augmented prompt and generates the final, fact-based answer: "Based on our policy, returns are not accepted after 30 days, so a return after 45 days would not be eligible for a refund."
+          </li>
+        </ol>
       </section>
 
       {/* Conceptual Exercise */}
@@ -66,18 +101,11 @@ const Lesson7_2: React.FC = () => {
         </p>
         <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <p className="text-gray-400 mb-3 text-sm">Complete the prompt template below. The goal is to create a clear and concise set of instructions for the LLM to generate a helpful, fact-based answer.</p>
-          <div className="relative p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
-            <CopyButton textToCopy={`You are an expert assistant for our internal software. Answer the user's question based ONLY on the following context. If the context does not contain the answer, say so.\n\n**Context:**\n---CONTEXT_CHUNK_1---\n---CONTEXT_CHUNK_2---\n\n**User Question:**\n---USER_QUESTION---`} />
-            <p className="text-white">
-              You are an expert assistant for our internal software. Answer the user's question based ONLY on the following context. If the context does not contain the answer, say so.<br/><br/>
-              <strong>Context:</strong><br/>
-              ---CONTEXT_CHUNK_1---<br/>
-              ---CONTEXT_CHUNK_2---<br/><br/>
-              <strong>User Question:</strong><br/>
-              ---USER_QUESTION---
-            </p>
-          </div>
+          <p className="text-gray-400 mb-3 text-sm">Engineer a generator prompt for a RAG system. Your prompt should instruct the model to answer a user's question based only on provided context. Use the chat window below to submit your prompt and get expert feedback.</p>
+          <InlineChat 
+            placeholder="Enter your RAG generator prompt here..."
+            systemPrompt={ragPromptValidator}
+          />
         </div>
       </section>
 

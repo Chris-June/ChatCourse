@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Users, TestTube2, MessageSquare, Wand2 } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson6_2: React.FC = () => {
+  const chefAssistantPrompt = "You are a helpful and friendly \"Chef Assistant\" AI. Your goal is to help users plan meals, find recipes, and answer cooking-related questions. Respond in a warm and encouraging tone.";
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -52,24 +53,16 @@ const Lesson6_2: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <TestTube2 className="w-7 h-7 mr-3 text-yellow-400" />
-          Prototyping with the "Wizard of Oz" Method
+          Your Turn: Be the User in a "Wizard of Oz" Test
         </h2>
         <p className="text-gray-300 mb-4">
-          You don't need a working AI to test an AI idea. In a "Wizard of Oz" prototype, a human (the "wizard") manually simulates the AI's responses. This lets you test the user experience and conversation flow before writing a single line of code.
+          You don't need a working AI to test an AI idea. In a "Wizard of Oz" prototype, a human simulates the AI's responses. Let's try it.
+          The chat window below is a "Chef Assistant" AI. You are the user. Tell it what you need, and the 'wizard' (our AI) will respond as if it were a real, working application. This helps test the conversation flow.
         </p>
-        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Exercise: Write a Wizard's Script</h3>
-          <p className="text-gray-400 mb-3 text-sm">Imagine you are the wizard for the 'Chef Assistant' menu planner. A user wants a week of healthy, low-carb lunches. Write out the conversation script you would follow. What questions would you ask? How would you present the final menu?</p>
-          <div className="relative p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
-            <CopyButton textToCopy={`**User:** I need help planning my lunches for the week.\n\n**Wizard (as AI):** I can help with that! To get started, do you have any dietary preferences or restrictions?\n\n**User:** Yes, I'm looking for low-carb options.\n\n**Wizard (as AI):** Great! How about a mix of salads, wraps using lettuce instead of tortillas, and some lean protein bowls? For example, Monday could be a grilled chicken salad...`} />
-            <p className="text-white">
-              <strong>User:</strong> I need help planning my lunches for the week.<br/><br/>
-              <strong>Wizard (as AI):</strong> I can help with that! To get started, do you have any dietary preferences or restrictions?<br/><br/>
-              <strong>User:</strong> Yes, I'm looking for low-carb options.<br/><br/>
-              <strong>Wizard (as AI):</strong> Great! How about a mix of salads, wraps using lettuce instead of tortillas, and some lean protein bowls? For example, Monday could be a grilled chicken salad...
-            </p>
-          </div>
-        </div>
+        <InlineChat 
+          placeholder='You are testing a Chef Assistant. Start by saying: "I need help planning my lunches..."' 
+          systemPrompt={chefAssistantPrompt}
+        />
       </section>
 
       {/* Navigation */}

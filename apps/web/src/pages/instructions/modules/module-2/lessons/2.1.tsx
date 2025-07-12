@@ -55,8 +55,8 @@ const Lesson2_1: React.FC = () => {
           Mastering the context window is the single most important skill for moving beyond simple, one-off questions. It's how you can have deep, multi-step conversations and guide the AI through complex tasks.
         </p>
         <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-green-900/30 p-4 rounded-lg border border-green-700">
-                <h4 className="font-semibold text-green-300 mb-2">Effective Context Management Leads To:</h4>
+            <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                <h4 className="font-semibold text-green-400 mb-2">Effective Context Management Leads To:</h4>
                 <ul className="list-disc list-inside text-gray-300 space-y-1">
                     <li>Coherent, logical follow-up responses.</li>
                     <li>The ability to build on previous ideas.</li>
@@ -65,8 +65,8 @@ const Lesson2_1: React.FC = () => {
                     <li>Successful completion of complex, multi-part tasks.</li>
                 </ul>
             </div>
-            <div className="bg-red-900/30 p-4 rounded-lg border border-red-700">
-                <h4 className="font-semibold text-red-300 mb-2">Poor Context Management Leads To:</h4>
+            <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                <h4 className="font-semibold text-red-400 mb-2">Poor Context Management Leads To:</h4>
                 <ul className="list-disc list-inside text-gray-300 space-y-1">
                     <li>The AI forgetting what you just told it.</li>
                     <li>Repetitive or contradictory answers.</li>
@@ -94,7 +94,9 @@ const Lesson2_1: React.FC = () => {
                       <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-cyan-400">You:</strong> "I like the second one. Can you give me a simple recipe?"</p>
                   </div>
               </div>
-              <p className="mt-4 text-yellow-300 text-sm">The AI knows "the second one" refers to scrambled eggs with spinach <strong>only because the previous turn is still in the context window.</strong> If the conversation were too long, it would have forgotten the list and asked for clarification.</p>
+              <div className="mt-4 p-3 bg-blue-900/30 rounded-lg border border-blue-700">
+                <p className="text-blue-200 text-sm"><span className="font-bold">Key Insight:</span> The AI knows "the second one" refers to scrambled eggs with spinach <strong>only because the previous turn is still in the context window.</strong> If the conversation were too long, it would have forgotten the list and asked for clarification.</p>
+              </div>
           </div>
       </section>
 

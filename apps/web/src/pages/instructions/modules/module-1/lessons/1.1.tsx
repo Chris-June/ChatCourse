@@ -65,8 +65,8 @@ const Lesson1_1: React.FC = () => {
           Understanding what AI excels at and where it struggles is crucial for effective collaboration.
         </p>
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-green-900/30 p-4 rounded-lg border border-green-700">
-            <h3 className="font-bold text-lg text-green-300 mb-2">Strengths (Capabilities)</h3>
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <h3 className="font-bold text-lg text-green-400 mb-2">Strengths (Capabilities)</h3>
             <ul className="list-disc list-inside text-gray-300 space-y-1">
               <li>Generating creative text, code, and ideas.</li>
               <li>Summarizing and explaining complex topics.</li>
@@ -75,10 +75,10 @@ const Lesson1_1: React.FC = () => {
               <li>Performing repetitive text-based tasks quickly.</li>
             </ul>
           </div>
-          <div className="bg-red-900/30 p-4 rounded-lg border border-red-700">
-            <h3 className="font-bold text-lg text-red-300 mb-2">Weaknesses (Limitations)</h3>
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <h3 className="font-bold text-lg text-red-400 mb-2">Weaknesses (Limitations)</h3>
             <ul className="list-disc list-inside text-gray-300 space-y-1">
-              <li>**Hallucinations:** Confidently making up facts.</li>
+              <li><span className="font-semibold">Hallucinations:</span> Confidently making up facts.</li>
               <li>Lack of real-world, real-time knowledge.</li>
               <li>Inconsistent logical reasoning.</li>
               <li>Can reflect biases from its training data.</li>
@@ -86,8 +86,8 @@ const Lesson1_1: React.FC = () => {
             </ul>
           </div>
         </div>
-        <div className="mt-6 p-4 bg-yellow-900/30 rounded-lg border border-yellow-700">
-            <p className="text-yellow-200"><span className="font-bold">Key Takeaway:</span> Treat the AI as a brilliant, incredibly fast, but sometimes unreliable intern. Your job as the collaborator is to guide it, verify its work, and leverage its strengths while mitigating its weaknesses.</p>
+        <div className="mt-6 p-4 bg-blue-900/30 rounded-lg border border-blue-700">
+            <p className="text-blue-200"><span className="font-bold">Key Takeaway:</span> Treat the AI as a brilliant, incredibly fast, but sometimes unreliable intern. Your job as the collaborator is to guide it, verify its work, and leverage its strengths while mitigating its weaknesses.</p>
         </div>
       </section>
 

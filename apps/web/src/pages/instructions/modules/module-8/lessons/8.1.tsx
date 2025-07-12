@@ -1,9 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Scale, ShieldCheck, Lightbulb } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson8_1: React.FC = () => {
+  const ethicsReviewerPrompt = `You are an AI Ethics and Fairness expert. Your task is to review a user's proposed strategy for mitigating bias in an AI-powered resume screening tool.
+
+**Case Study Context:** An AI tool was built to screen resumes for a software engineering role, trained on the company's hiring data from the last 10 years. The data shows a historical pattern of hiring predominantly from specific universities and demographic groups, leading the AI to unfairly penalize qualified candidates from underrepresented backgrounds.
+
+When a user submits their mitigation strategy, follow these steps:
+1.  **Acknowledge and Validate**: Briefly acknowledge their submission.
+2.  **Analyze their Strategy**: Evaluate their plan against key fairness principles. Did they correctly identify the bias (e.g., historical, representation)? Are their proposed solutions (e.g., data auditing, re-weighting, fairness metrics) relevant and effective?
+3.  **Provide Specific Feedback**: Offer 2-3 clear, constructive bullet points. For example, 'Your suggestion to audit the data is a great first step, but consider also implementing a fairness metric like demographic parity to continuously monitor the model's performance post-deployment.'
+4.  **Suggest a Gold-Standard Example**: Provide a concise, expert-level mitigation strategy for comparison. Example: 'A robust strategy would involve: 1) Augmenting the training data with diverse, synthetic resumes. 2) Implementing adversarial debiasing to prevent the model from learning proxies for protected attributes. 3) Auditing the model's decisions for equal opportunity across demographic groups before and after deployment.'
+5.  **Encourage**: End with a positive, encouraging statement about the importance of building fair AI.`;
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -59,27 +70,21 @@ const Lesson8_1: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: Identify Potential Bias
+          Case Study: Mitigating Bias in a Hiring AI
         </h2>
-        <p className="text-gray-300 mb-4">
-          Imagine you are building an AI to screen resumes for a software engineering job. The AI is trained on your company's hiring data from the last 10 years.
-        </p>
-        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <p className="text-gray-400 mb-3 text-sm">Identify at least two potential sources of bias in this system and suggest a mitigation strategy for each. Use the template below to structure your answer.</p>
-          <div className="relative p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
-            <CopyButton textToCopy={`**1. Potential Bias:**\n- Source: [e.g., Historical Bias]\n- Description: ...\n- Mitigation: ...\n\n**2. Potential Bias:**\n- Source: [e.g., Representation Bias]\n- Description: ...\n- Mitigation: ...`} />
-            <p className="text-white">
-              <strong>1. Potential Bias:</strong><br/>
-              - Source: [e.g., Historical Bias]<br/>
-              - Description: ...<br/>
-              - Mitigation: ...<br/><br/>
-              <strong>2. Potential Bias:</strong><br/>
-              - Source: [e.g., Representation Bias]<br/>
-              - Description: ...<br/>
-              - Mitigation: ...
-            </p>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 space-y-4">
+          <div>
+            <h3 className="font-semibold text-white">The Scenario</h3>
+            <p className="text-gray-300">An AI tool was built to screen resumes for a software engineering role, trained on your company's hiring data from the last 10 years. The data reflects a historical pattern of hiring predominantly from specific universities and demographic groups. As a result, the AI is unfairly penalizing qualified candidates from underrepresented backgrounds.</p>
           </div>
+          <div>
+            <h3 className="font-semibold text-white">Your Task</h3>
+            <p className="text-gray-300">Propose a comprehensive strategy to mitigate the bias in this system. Describe the steps you would take to identify, measure, and reduce the unfair impact on candidates. Use the chat window below to submit your strategy and receive expert feedback.</p>
+          </div>
+          <InlineChat 
+            placeholder="Describe your bias mitigation strategy here..."
+            systemPrompt={ethicsReviewerPrompt}
+          />
         </div>
       </section>
 

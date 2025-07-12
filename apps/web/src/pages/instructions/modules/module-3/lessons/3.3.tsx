@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Code, FileJson, Lightbulb } from 'lucide-react';
 import CopyButton from '../../../../../components/CopyButton';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson3_3: React.FC = () => {
   return (
@@ -44,21 +45,29 @@ const Lesson3_3: React.FC = () => {
           </p>
           <div className="relative mb-4">
             <CopyButton textToCopy={'Extract the name, age, and city from the following sentence. Provide the output as a JSON object with the keys "userName", "userAge", and "location".\n\nSentence: "John, a 42-year-old resident of Berlin, loves to code."'} />
-            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
-              <code>
+            <div className="bg-gray-700 p-3 rounded-md pr-10">
+              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
                 <span className="text-gray-400">// Prompt</span>
-                Extract the name, age, and city from the following sentence. Provide the output as a JSON object with the keys "userName", "userAge", and "location".
-                
-                Sentence: "John, a 42-year-old resident of Berlin, loves to code."
+                {`\nExtract the name, age, and city from the following sentence. Provide the output as a JSON object with the keys "userName", "userAge", and "location".\n\nSentence: "John, a 42-year-old resident of Berlin, loves to code." `}
               </code>
-            </pre>
+            </div>
           </div>
           <h4 className="font-semibold text-gray-200 mb-2">Expected AI Output:</h4>
-          <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-            <code>
-              {"{\n  \"userName\": \"John\",\n  \"userAge\": 42,\n  \"location\": \"Berlin\"\n}"}
+          <div className="bg-gray-800 p-3 rounded-md">
+            <code className="block whitespace-pre-wrap break-words font-mono text-sm text-green-400">
+              {`{
+  "userName": "John",
+  "userAge": 42,
+  "location": "Berlin"
+}`}
             </code>
-          </pre>
+          </div>
+        </div>
+
+        <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
+          <h3 className="font-semibold text-white mb-2">Your Turn: Requesting JSON</h3>
+          <p className="text-gray-400 mb-4">Try extracting structured data from a sentence. Ask for a JSON object with specific keys.</p>
+          <InlineChat placeholder={'Extract user info from a sentence into JSON...'} />
         </div>
       </section>
 
@@ -75,12 +84,18 @@ const Lesson3_3: React.FC = () => {
           <h3 className="font-semibold text-white mb-2">Example: Creating a Comparison Table</h3>
           <div className="relative">
             <CopyButton textToCopy={"Create a markdown table comparing Python and JavaScript for web development. Include rows for 'Primary Use', 'Typing', and 'Backend Frameworks'."} />
-            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
-              <code>
+            <div className="bg-gray-700 p-3 rounded-md pr-10">
+              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
                 <span className="text-gray-400">// Prompt</span>
-                Create a markdown table comparing Python and JavaScript for web development. Include rows for 'Primary Use', 'Typing', and 'Backend Frameworks'.
+                {`\nCreate a markdown table comparing Python and JavaScript for web development. Include rows for 'Primary Use', 'Typing', and 'Backend Frameworks'.`}
               </code>
-            </pre>
+            </div>
+          </div>
+
+          <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
+            <h3 className="font-semibold text-white mb-2">Your Turn: Requesting Markdown</h3>
+            <p className="text-gray-400 mb-4">Ask the AI to generate a response formatted in Markdown. Try asking for a bulleted list, a numbered list, or a table.</p>
+            <InlineChat placeholder={'Ask for a markdown table or list...'} />
           </div>
         </div>
       </section>
@@ -91,15 +106,8 @@ const Lesson3_3: React.FC = () => {
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
           Your Turn: Generate a Structured List
         </h2>
-        <p className="text-gray-300 mb-4">Try this in the chat. Ask the AI to generate a list of project ideas for a new web developer. Specify the output format clearly.</p>
-        <div className="relative">
-          <CopyButton textToCopy={"Generate a list of 3 project ideas for a beginner web developer. For each project, provide a 'title' and a 'description'. Return the list as a JSON array of objects."} />
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
-            <code>
-              Generate a list of 3 project ideas for a beginner web developer. For each project, provide a 'title' and a 'description'. Return the list as a JSON array of objects.
-            </code>
-          </pre>
-        </div>
+        <p className="text-gray-300 mb-4">Use the chat window below to ask the AI to generate a list of project ideas for a new web developer. Specify that the output should be a JSON array of objects, each with a 'title' and a 'description'.</p>
+        <InlineChat placeholder={`Generate a list of 3 project ideas for a beginner...`} />
         <p className="text-gray-400 mt-3">This kind of structured output can be directly used to populate a UI component in an application.</p>
       </section>
 

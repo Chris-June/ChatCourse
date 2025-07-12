@@ -2,6 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Repeat, Anchor, AlertTriangle } from 'lucide-react';
 import CopyButton from '../../../../../components/CopyButton';
+import InlineChat from '../../../../../components/InlineChat';
+
+const initialConversation = [
+  {
+    role: 'user' as const,
+    content: 'You are a marketing copywriter for a tech startup. Write an engaging \'About Us\' page for a new company called \'Innovate Inc.\' that builds AI-powered productivity tools. Focus on our mission to eliminate tedious tasks and unlock human creativity. Keep the tone inspiring and forward-looking.'
+  },
+  {
+    role: 'assistant' as const,
+    content: `At Innovate Inc., we believe your potential is limitless. But the reality is, tedious, repetitive tasks can stifle the very creativity that drives progress. That\'s why we\'re here.\n\nOur mission is to build intelligent tools that melt away the mundane. We create AI-powered productivity software that automates the boring, streamlines the complex, and liberates you to focus on what truly matters: the big ideas, the game-changing strategies, and the creative breakthroughs that only you can deliver.\n\nWe\'re not just building apps; we\'re crafting a future where technology serves as a true partner in your success, clearing the path for you to innovate, create, and achieve the extraordinary. Welcome to the future of productivity. Welcome to Innovate Inc.`
+  }
+];
 
 const Lesson2_2: React.FC = () => {
   return (
@@ -63,13 +75,13 @@ const Lesson2_2: React.FC = () => {
           Don't make the AI guess. Vague references like "that thing we talked about" or "the first idea" are unreliable. Instead, be specific.
         </p>
         <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-red-900/30 p-4 rounded-lg border border-red-700 relative">
-                <h4 className="font-semibold text-red-300 mb-2">Less Effective (Vague):</h4>
+            <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 relative">
+                <h4 className="font-semibold text-red-400 mb-2">Less Effective (Vague):</h4>
                 <CopyButton textToCopy="Let's go with the second option. Write the code for it." />
                 <p className="text-gray-300 font-mono text-sm pr-10">"Let's go with the second option. Write the code for it."</p>
             </div>
-            <div className="bg-green-900/30 p-4 rounded-lg border border-green-700 relative">
-                <h4 className="font-semibold text-green-300 mb-2">More Effective (Specific):</h4>
+            <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 relative">
+                <h4 className="font-semibold text-green-400 mb-2">More Effective (Specific):</h4>
                 <CopyButton textToCopy="Let's use the 'Scrambled Eggs with Spinach' idea. Please write a simple recipe for it." />
                 <p className="text-gray-300 font-mono text-sm pr-10">"Let's use the 'Scrambled Eggs with Spinach' idea. Please write a simple recipe for it."</p>
             </div>
@@ -85,12 +97,25 @@ const Lesson2_2: React.FC = () => {
         <p className="text-gray-300 mb-4">
             Sometimes the best way to manage context is to clear it completely. If you're switching to a completely unrelated task, don't just continue the same conversation.
         </p>
-        <div className="bg-gray-900 p-4 rounded-lg border-2 border-dashed border-yellow-600">
+        <div className="bg-blue-900/30 p-4 rounded-lg border border-blue-700">
             <h3 className="font-semibold text-white mb-2">Rule of Thumb:</h3>
-            <p className="text-yellow-200">If the new task doesn't benefit from the memory of the old task, <strong>start a new chat</strong>. This prevents "context contamination," where irrelevant old information confuses the AI.</p>
+            <p className="text-blue-200">If the new task doesn't benefit from the memory of the old task, <strong>start a new chat</strong>. This prevents "context contamination," where irrelevant old information confuses the AI.</p>
             <p className="text-gray-400 mt-2 text-sm"><strong>Example:</strong> You just finished brainstorming marketing slogans. Now you want to write a Python script. Start a new chat for the script to ensure a clean slate.</p>
         </div>
       </section>
+
+      {/* Try it yourself */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+          <Repeat className="w-7 h-7 mr-3 text-blue-400" />
+          Try It Yourself
+        </h2>
+        <p className="text-gray-300 mb-4">
+          Now it's your turn. Use the chat below to practice the techniques you've learned. Try summarizing a conversation, using explicit references, and see if you can get the AI to maintain context over several turns.
+        </p>
+        <InlineChat initialMessages={initialConversation} placeholder="Practice summarization or ask follow-up questions..." />
+      </section>
+
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

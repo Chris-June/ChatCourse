@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Zap, Terminal, Lightbulb } from 'lucide-react';
+import InlineChat from '../../../../../components/InlineChat';
 
 
 const Lesson4_1: React.FC = () => {
@@ -50,14 +51,17 @@ const Lesson4_1: React.FC = () => {
         
         <h4 className="font-semibold text-white mb-2">TypeScript Interface</h4>
         <p className="text-gray-300 mb-2">First, you might define the data structure in your application code:</p>
-        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap"><code>{`interface CreateReminder {
+        <div className="bg-gray-900 p-3 rounded-md">
+          <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">{`interface CreateReminder {
   task: string;
   due_date: string;
-}`}</code></pre>
+}`}</code>
+        </div>
 
         <h4 className="font-semibold text-white mt-4 mb-2">OpenAI-style Function Schema</h4>
         <p className="text-gray-300 mb-2">Then, you describe it to the model using a specific JSON format:</p>
-        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap"><code>{`{
+        <div className="bg-gray-900 p-3 rounded-md">
+          <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">{`{
   "name": "create_reminder",
   "description": "Creates a reminder for a task with a due date",
   "parameters": {
@@ -68,7 +72,8 @@ const Lesson4_1: React.FC = () => {
     },
     "required": ["task", "due_date"]
   }
-}`}</code></pre>
+}`}</code>
+        </div>
       </section>
 
       {/* Why is it a Game-Changer? */}
@@ -99,7 +104,8 @@ const Lesson4_1: React.FC = () => {
         <h2 className="text-2xl font-semibold mb-4 text-blue-300">Implementation Patterns</h2>
         <h3 className="text-xl font-semibold text-white mb-2">Function Router Pattern</h3>
         <p className="text-gray-300 mb-4">To handle multiple functions, create a dispatcher that maps the function name from the model to your actual backend logic.</p>
-        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap"><code>{`// Example of a simple function router
+        <div className="bg-gray-900 p-3 rounded-md">
+          <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">{`// Your app's function registry
 const availableFunctions = {
   create_reminder: createReminder, // your actual function
   get_weather: getWeather,       // your actual function
@@ -112,7 +118,8 @@ if (functionToCall) {
   const functionArgs = JSON.parse(modelResponse.function_call.arguments);
   const functionResult = await functionToCall(functionArgs);
   // ... send result back to model
-}`}</code></pre>
+}`}</code>
+        </div>
 
         <h3 className="text-xl font-semibold text-white mt-6 mb-4">Best Practices</h3>
         <ul className="list-disc pl-5 space-y-2 text-gray-300">
@@ -131,28 +138,30 @@ if (functionToCall) {
         
         <div className="mb-6">
           <h3 className="font-semibold text-white mb-2">Easy</h3>
-          <p className="text-gray-300 mb-2">Prompt: "Schedule a team check-in for next Monday at 10am"</p>
-          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-            <h4 className="font-semibold text-white mb-2">Expected JSON Output:</h4>
-            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap"><code>{`{
-  "name": "schedule_meeting",
-  "arguments": {
-    "topic": "Team check-in",
-    "datetime": "next Monday 10am"
-  }
-}`}</code></pre>
-          </div>
+          <p className="text-gray-300 mb-4">
+            Use the chat window below to ask the AI to perform an action. The AI has access to a function called `schedule_meeting(topic, datetime)`. Try asking it to schedule a meeting and see if it generates the correct JSON output.
+          </p>
+          <InlineChat 
+            placeholder='Try: "Schedule a team check-in for next Monday at 10am"' 
+            simulatedResponse={`{\n  "name": "schedule_meeting",\n  "arguments": {\n    "topic": "Team check-in",\n    "datetime": "next Monday at 10am"\n  }\n}`}
+          />
         </div>
 
         <div>
           <h3 className="font-semibold text-white mb-2">Reverse Challenge</h3>
-          <p className="text-gray-300 mb-2">What prompt do you think caused this JSON output?</p>
-          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap"><code>{`{
+          <p className="text-gray-300 mb-4">The AI has access to a `get_stock_price(ticker)` function and produced the JSON output below. What natural language prompt do you think would cause this? Try it in the chat window.</p>
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 mb-4">
+            <div className="bg-gray-700 p-3 rounded-md">
+              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">{`{
   "name": "get_stock_price",
   "arguments": { "ticker": "AAPL" }
-}`}</code></pre>
+}`}</code>
+            </div>
           </div>
+          <InlineChat 
+            placeholder='What prompt makes the AI call the get_stock_price function for Apple?'
+            simulatedResponse={`{\n  "name": "get_stock_price",\n  "arguments": { "ticker": "AAPL" }\n}`}
+          />
         </div>
       </section>
 

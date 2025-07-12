@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Lightbulb, ClipboardCheck, TrendingUp } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson6_1: React.FC = () => {
   return (
@@ -67,25 +67,12 @@ const Lesson6_1: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: From Idea to Prioritization
+          Your Turn: Brainstorm an AI Idea
         </h2>
         <p className="text-gray-300 mb-4">
-          Now, it's your turn. Pick a profession or a hobby you know well. Brainstorm one AI-powered feature for it, and then run it through the framework we just discussed.
+          Now, it's your turn. Use the chat window below as an AI brainstorming partner. Describe an idea for an AI product or feature. The AI will help you analyze it using the framework from this lesson: Job to be Done, Feasibility, and Prioritization.
         </p>
-        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <p className="text-gray-400 mb-3 text-sm">Copy the template below and fill it out in your favorite notes app or text editor. This will help solidify your understanding of the innovation framework.</p>
-          <div className="relative p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
-            <CopyButton textToCopy={`## AI Idea Analysis ##\n\n**1. The Idea:**\n   - [Briefly describe your AI feature]\n\n**2. Job to be Done (JTBD):**\n   - When I..., I want to..., so I can...\n\n**3. Feasibility Checklist:**\n   - Technical Feasibility: [High/Medium/Low - Why?]\n   - Data Availability: [High/Medium/Low - Why?]\n   - Model Reliability: [What's the required accuracy?]\n\n**4. Prioritization:**\n   - Impact: [High/Low]\n   - Effort: [High/Low]\n   - Category: [Quick Win / Major Project / Fill-in / Avoid]`} />
-            <p className="text-white">
-              ## AI Idea Analysis ##<br/><br/>
-              <strong>1. The Idea:</strong><br/>- [Briefly describe your AI feature]<br/><br/>
-              <strong>2. Job to be Done (JTBD):</strong><br/>- When I..., I want to..., so I can...<br/><br/>
-              <strong>3. Feasibility Checklist:</strong><br/>- Technical Feasibility: [High/Medium/Low - Why?]<br/>- Data Availability: [High/Medium/Low - Why?]<br/>- Model Reliability: [What's the required accuracy?]<br/><br/>
-              <strong>4. Prioritization:</strong><br/>- Impact: [High/Low]<br/>- Effort: [High/Low]<br/>- Category: [Quick Win / Major Project / Fill-in / Avoid]
-            </p>
-          </div>
-        </div>
+        <InlineChat placeholder='Try starting with: "I have an idea for an AI that helps with..."' />
       </section>
 
       {/* Navigation */}

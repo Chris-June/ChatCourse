@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Beaker, Zap } from 'lucide-react';
 import CopyButton from '../../../../../components/CopyButton';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson1_3: React.FC = () => {
   return (
@@ -39,23 +40,43 @@ const Lesson1_3: React.FC = () => {
         </p>
         <div className="bg-gray-900 p-4 rounded-lg border-2 border-dashed border-gray-600">
           <h3 className="font-semibold text-white mb-2">Exercise: The Iterative Loop</h3>
-          <p className="text-gray-400 mb-3">Open a new chat and follow these steps:</p>
-          <ol className="list-decimal list-inside text-gray-300 space-y-3">
-            <li className="relative">
-              <CopyButton textToCopy="write some code for a button." />
-              <strong>Initial Prompt (Vague):</strong> Ask the AI to <span className="font-mono text-cyan-300 pr-10">"write some code for a button."</span> Observe the generic output.
+          <p className="text-gray-400 mb-3">Use the chat sandbox below to follow these steps:</p>
+          <ol className="space-y-4">
+            <li className="flex items-start gap-4">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-600/20 text-blue-300 font-bold">1</div>
+              <div className="flex-1">
+                <p className="text-gray-300">
+                  <strong>Initial Prompt (Vague):</strong> Ask the AI to <span className="font-mono text-cyan-300 bg-gray-900/50 px-1 rounded">"write some code for a button."</span> Observe the generic output.
+                </p>
+              </div>
+              <CopyButton textToCopy='write some code for a button.' />
             </li>
-            <li className="relative">
+            <li className="flex items-start gap-4">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-600/20 text-blue-300 font-bold">2</div>
+              <div className="flex-1">
+                <p className="text-gray-300">
+                  <strong>Second Prompt (Add Context):</strong> Now, get more specific. <span className="font-mono text-cyan-300 bg-gray-900/50 px-1 rounded">"You are a React developer using Tailwind CSS. Write the code for a primary action button..."</span>
+                </p>
+              </div>
               <CopyButton textToCopy="You are a React developer using Tailwind CSS. Write the code for a primary action button. It should be blue, have white text, and rounded corners." />
-              <strong>Second Prompt (Add Context):</strong> Now, get more specific. <span className="font-mono text-cyan-300 pr-10">"You are a React developer using Tailwind CSS. Write the code for a primary action button. It should be blue, have white text, and rounded corners."</span> Note the improvement.
             </li>
-            <li className="relative">
+            <li className="flex items-start gap-4">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-600/20 text-blue-300 font-bold">3</div>
+              <div className="flex-1">
+                <p className="text-gray-300">
+                  <strong>Third Prompt (Refine with Constraints):</strong> Finally, add a constraint. <span className="font-mono text-cyan-300 bg-gray-900/50 px-1 rounded">"Make the button accessible by adding ARIA attributes and a focus style."</span>
+                </p>
+              </div>
               <CopyButton textToCopy="Building on the last response, add a hover effect that slightly lightens the blue background. Also, add a subtle box-shadow. Ensure the component accepts an 'onClick' prop and 'children' for the button text." />
-              <strong>Third Prompt (Refine and Constrain):</strong> Let's perfect it. <span className="font-mono text-cyan-300 pr-10">"Building on the last response, add a hover effect that slightly lightens the blue background. Also, add a subtle box-shadow. Ensure the component accepts an 'onClick' prop and 'children' for the button text."</span>
             </li>
           </ol>
-          <p className="text-yellow-300 mt-4 text-sm"><strong>Reflection:</strong> How did the AI's response change with each iteration? You guided it from a generic concept to a specific, functional component. This is the core loop of AI collaboration.</p>
         </div>
+        <div className="mt-6">
+          <h3 className="font-semibold text-white mb-2">Try The Iterative Loop</h3>
+          <p className="text-gray-400 mb-4">Use the chat below to practice. Start with a vague prompt and refine it over several turns based on the AI's feedback.</p>
+          <InlineChat placeholder="Start with a vague prompt like 'write code for a button' and then iterate..." />
+        </div>
+        <p className="text-yellow-300 mt-4 text-sm"><strong>Reflection:</strong> How did the AI's response change with each iteration? You guided it from a generic concept to a specific, functional component. This is the core loop of AI collaboration.</p>
       </section>
 
       {/* Sandbox */}
@@ -122,8 +143,8 @@ const Lesson1_3: React.FC = () => {
               Others recommend that you place instructions at the beginning of the prompt. Another recommendation is to use some clear separator like "###" to separate the instruction and context.
             </p>
             <p className="text-gray-400">For instance:</p>
-            <pre className="bg-gray-900 p-4 rounded-md text-sm text-white mt-2">
-              <code>
+            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4">
+              <code className="block whitespace-pre-wrap break-words font-mono">
                 Prompt:
                 <br />
                 ### Instruction ###
@@ -137,7 +158,7 @@ const Lesson1_3: React.FC = () => {
                 <br />
                 ¡Hola!
               </code>
-            </pre>
+            </div>
           </div>
 
           <div>
@@ -149,8 +170,8 @@ const Lesson1_3: React.FC = () => {
               When designing prompts, you should also keep in mind the length of the prompt as there are limitations regarding how long the prompt can be. Thinking about how specific and detailed you should be. Including too many unnecessary details is not necessarily a good approach. The details should be relevant and contribute to the task at hand. This is something you will need to experiment with a lot. We encourage a lot of experimentation and iteration to optimize prompts for your applications.
             </p>
             <p className="text-gray-400">As an example, let's try a simple prompt to extract specific information from a piece of text.</p>
-            <pre className="bg-gray-900 p-4 rounded-md text-sm text-white mt-2">
-              <code>
+            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4">
+              <code className="block whitespace-pre-wrap break-words font-mono">
                 Prompt:
                 <br />
                 Extract the name of places in the following text.
@@ -166,7 +187,7 @@ const Lesson1_3: React.FC = () => {
                 <br />
                 Place: Champalimaud Centre for the Unknown, Lisbon
               </code>
-            </pre>
+            </div>
           </div>
 
           <div>
@@ -177,15 +198,15 @@ const Lesson1_3: React.FC = () => {
             <p className="text-gray-400 mb-2">
               For example, you might be interested in learning the concept of prompt engineering. You might try something like:
             </p>
-            <pre className="bg-gray-900 p-2 rounded-md text-sm text-white italic mt-2">
-              Explain the concept prompt engineering. Keep the explanation short, only a few sentences, and don't be too descriptive.
-            </pre>
-            <p className="text-gray-400 my-2">
-              It's not clear from the prompt above how many sentences to use and what style. You might still somewhat get good responses with the above prompts but the better prompt would be one that is very specific, concise, and to the point. Something like:
-            </p>
-            <pre className="bg-gray-900 p-2 rounded-md text-sm text-white italic mt-2">
-              Use 2-3 sentences to explain the concept of prompt engineering to a high school student.
-            </pre>
+            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4">
+              <p className="text-red-400 font-bold">Bad Prompt:</p>
+              <code className="block whitespace-pre-wrap break-words font-mono">Explain the concept prompt engineering. Keep the explanation short, only a few sentences, and don't be too descriptive.</code>
+              <p className="text-gray-400 my-2">
+                It's not clear from the prompt above how many sentences to use and what style. You might still somewhat get good responses with the above prompts but the better prompt would be one that is very specific, concise, and to the point. Something like:
+              </p>
+              <p className="text-green-400 font-bold">Good Prompt:</p>
+              <code className="block whitespace-pre-wrap break-words font-mono">Use 2-3 sentences to explain the concept of prompt engineering to a high school student.</code>
+            </div>
           </div>
 
           <div>
@@ -194,41 +215,38 @@ const Lesson1_3: React.FC = () => {
               Another common tip when designing prompts is to avoid saying what not to do but say what to do instead. This encourages more specificity and focuses on the details that lead to good responses from the model.
             </p>
             <p className="text-gray-400 mb-2">
-              Here is an example of a movie recommendation chatbot failing at exactly what I don't want it to do because of how I wrote the instruction -- focusing on what not to do.
+              Below is an example of a movie recommendation chatbot failing because the prompt focused on negative constraints.
             </p>
-            <pre className="bg-gray-900 p-4 rounded-md text-sm text-white mt-2">
-              <code>
-              Prompt:
-              <br />
-              The following is an agent that recommends movies to a customer. DO NOT ASK FOR INTERESTS. DO NOT ASK FOR PERSONAL INFORMATION.
-              <br />
-              Customer: Please recommend a movie based on my interests.
-              <br />
-              Agent:
-              <br /><br />
-              Output:
-              <br />
-              Sure, I can recommend a movie based on your interests. What kind of movie would you like to watch? Do you prefer action, comedy, romance, or something else?
-              </code>
-            </pre>
-            <p className="text-gray-400 my-2">Here is a better prompt:</p>
-            <pre className="bg-gray-900 p-4 rounded-md text-sm text-white mt-2">
-              <code>
-              Prompt:
-              <br />
-              The following is an agent that recommends movies to a customer. The agent is responsible to recommend a movie from the top global trending movies. It should refrain from asking users for their preferences and avoid asking for personal information. If the agent doesn't have a movie to recommend, it should respond "Sorry, couldn't find a movie to recommend today.".
-              <br />
-              Customer: Please recommend a movie based on my interests.
-              <br />
-              Agent:
-              <br /><br />
-              Output:
-              <br />
-              Sorry, I don't have any information about your interests. However, here's a list of the top global trending movies right now: [list of movies]. I hope you find something you like!
-              </code>
-            </pre>
+            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4">
+              <p className="text-red-400 font-bold">Bad Prompt:</p>
+              <code className="block whitespace-pre-wrap break-words font-mono">The following is an agent that recommends movies to a customer. DO NOT ASK FOR INTERESTS. DO NOT ASK FOR PERSONAL INFORMATION.</code>
+              <hr className="border-gray-700 my-3" />
+              <p className="text-red-400 font-bold">Resulting Undesirable Output:</p>
+              <code className="block whitespace-pre-wrap break-words font-mono">Sure, I can recommend a movie based on your interests. What kind of movie would you like to watch?</code>
+            </div>
+
+            <p className="text-gray-400 my-4">Here is a better prompt that gives clear, positive instructions:</p>
+            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4">
+              <p className="text-green-400 font-bold">Good Prompt:</p>
+              <code className="block whitespace-pre-wrap break-words font-mono">You are an agent that recommends a movie from the top global trending list. Do not ask for user preferences or personal information. If you cannot find a movie, say so.</code>
+              <hr className="border-gray-700 my-3" />
+              <p className="text-green-400 font-bold">Resulting Correct Output:</p>
+              <code className="block whitespace-pre-wrap break-words font-mono">Sorry, I don't have any information about your interests. However, here's a list of the top global trending movies...</code>
+            </div>
           </div>
         </div>
+      </section>
+
+      {/* Prompt Sandbox */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+          <Zap className="w-7 h-7 mr-3 text-yellow-400" />
+          Prompt Sandbox
+        </h2>
+        <p className="text-gray-300 mb-4">
+          You've learned a lot! Use this space to experiment with any of the concepts from this module. Try different roles, tasks, contexts, and iteration techniques.
+        </p>
+        <InlineChat placeholder="Experiment with different prompt variations here..." />
       </section>
 
       {/* Module Wrap-up */}

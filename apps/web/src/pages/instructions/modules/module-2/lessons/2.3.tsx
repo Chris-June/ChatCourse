@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Target, Bot, CheckCircle } from 'lucide-react';
 import CopyButton from '../../../../../components/CopyButton';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson2_3: React.FC = () => {
   return (
@@ -52,14 +53,26 @@ const Lesson2_3: React.FC = () => {
           <h3 className="font-semibold text-white mb-2">Your Task:</h3>
           <p className="text-gray-400 mb-3">Copy and paste the following prompt into the chat window as your first message.</p>
           <div className="relative">
-            <CopyButton textToCopy="You are a Socratic Tutor. Your name is 'Gnosi'. Your goal is to teach me the concept of 'supply and demand' in economics. You must not give me direct answers. Instead, you must only ask me guiding questions that lead me to understand the concept on my own. Start by asking your first question to gauge my current understanding." />
-            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
-              <code>
-                You are a Socratic Tutor. Your name is 'Gnosi'. Your goal is to teach me the concept of 'supply and demand' in economics. You must not give me direct answers. Instead, you must only ask me guiding questions that lead me to understand the concept on my own. Start by asking your first question to gauge my current understanding.
+            <CopyButton textToCopy="You're a Socratic Tutor. Teach me stuff." />
+            <div className="bg-gray-700 p-3 rounded-md pr-10">
+              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
+                You're a Socratic Tutor. Teach me stuff.
               </code>
-            </pre>
+            </div>
           </div>
         </div>
+      </section>
+
+      {/* Project Workspace */}
+      <section className="bg-gray-900/50 p-6 rounded-lg shadow-lg border-2 border-dashed border-blue-500/50">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+          <Bot className="w-7 h-7 mr-3" />
+          Your Workspace: The Socratic Tutor
+        </h2>
+        <p className="text-gray-300 mb-4">
+          Use the chat window below to complete the project. Start by pasting the persona prompt from Step 1.
+        </p>
+        <InlineChat placeholder="Begin your conversation with Gnosi, the Socratic Tutor..." />
       </section>
 
       {/* Step 2: Engage and Test */}
@@ -88,11 +101,11 @@ const Lesson2_3: React.FC = () => {
             <h3 className="font-semibold text-white mb-2">Example Re-centering Prompt:</h3>
             <div className="relative">
                 <CopyButton textToCopy="Let's pause. Remember, you are Gnosi, the Socratic Tutor. You're helping me understand supply and demand by only asking questions. So far, we've established that high demand and low supply increase prices. Continue from there." />
-                <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
-                  <code>
+                <div className="bg-gray-700 p-3 rounded-md pr-10">
+                  <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
                     Let's pause. Remember, you are Gnosi, the Socratic Tutor. You're helping me understand supply and demand by only asking questions. So far, we've established that high demand and low supply increase prices. Continue from there.
                   </code>
-                </pre>
+                </div>
             </div>
         </div>
       </section>

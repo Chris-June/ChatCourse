@@ -2,8 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Lightbulb, Zap, GitMerge } from 'lucide-react';
 import CopyButton from '../../../../../components/CopyButton';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson7_1: React.FC = () => {
+  const toolReviewerPrompt = `You are an expert AI Tool Design Reviewer. Your task is to analyze a user's proposed tool suite design for a calendar assistant and provide feedback based on the principles of composability and clarity.
+
+When a user submits their tool designs, follow these steps:
+1.  **Acknowledge and Analyze**: Briefly acknowledge their submission.
+2.  **Provide a Corrected Version**: Offer a refined version of their tool suite that follows best practices. Ensure each tool has a single, clear responsibility. Use the following as a gold standard example:
+    - **Tool: Create Event**: 'create_calendar_event'. Description: Creates a new event. Params: title, date, time, duration, attendees.
+    - **Tool: Find Availability**: 'find_available_time_slots'. Description: Finds open time slots. Params: date, duration.
+    - **Tool: List Events**: 'list_upcoming_events'. Description: Lists events for a period. Params: start_date, end_date.
+3.  **Give Specific Feedback**: Provide 2-3 bullet points of constructive feedback. Focus on whether their tools are composable (small and focused) vs. monolithic (large and complex).
+4.  **Encourage**: End with an encouraging closing statement.`;
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -40,12 +52,12 @@ const Lesson7_1: React.FC = () => {
 
           <div>
             <h3 className="text-xl font-semibold text-white flex items-center"><GitMerge className="w-6 h-6 mr-2 text-cyan-400" />Tool Design: Composable vs. Monolithic</h3>
-            <p className="text-gray-400 mt-2">You often face a design choice: create one large, complex tool or several small, focused ones. For a calendar agent, instead of one `manage_calendar` tool with many options, it's often better to create smaller, composable tools like `create_event`, `find_availability`, and `list_upcoming_events`. This makes the model's reasoning simpler and more reliable.</p>
+            <p className="text-gray-400 mt-2">You often face a design choice: create one large, complex tool or several small, focused ones. For a calendar agent, instead of one 'manage_calendar' tool with many options, it's often better to create smaller, composable tools like 'create_event', 'find_availability', and 'list_upcoming_events'. This makes the model's reasoning simpler and more reliable.</p>
           </div>
 
           <div>
             <h3 className="text-xl font-semibold text-white flex items-center"><Lightbulb className="w-6 h-6 mr-2 text-purple-400" />Forced Tool Use</h3>
-            <p className="text-gray-400 mt-2">In some cases, you want to guarantee that a specific tool is used. Most APIs allow you to force a tool call. For example, in an app that lets users add items to a shopping cart, you can force the `add_to_cart` function call. This ensures the user's request is always translated into the correct action, making your app more predictable.</p>
+            <p className="text-gray-400 mt-2">In some cases, you want to guarantee that a specific tool is used. Most APIs allow you to force a tool call. For example, in an app that lets users add items to a shopping cart, you can force the 'add_to_cart' function call. This ensures the user's request is always translated into the correct action, making your app more predictable.</p>
           </div>
         </div>
       </section>
@@ -59,23 +71,33 @@ const Lesson7_1: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Let's apply the concept of composable tools. Your task is to design a suite of tools for an AI calendar assistant. Think about the different, specific actions a user might want to take.
         </p>
-        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <p className="text-gray-400 mb-3 text-sm">Define the function name and a brief description for at least three separate, composable tools for a calendar agent. Copy the template below to get started.</p>
+
+        {/* E-commerce Example */}
+        <div className="mb-6 bg-gray-900 p-4 rounded-lg border border-gray-700">
+          <h3 className="font-semibold text-white mb-2">Example: E-commerce Tools</h3>
+          <p className="text-gray-400 mb-3 text-sm">Here is an example of a well-designed, composable tool suite for an e-commerce assistant:</p>
           <div className="relative p-3 bg-gray-700 rounded-md font-mono text-xs text-gray-200 whitespace-pre-wrap">
-            <CopyButton textToCopy={`**Tool 1: Create Event**\n- name: create_calendar_event\n- description: Creates a new event on the user's calendar. Parameters should include title, date, time, duration, and attendees.\n\n**Tool 2: Find Availability**\n- name: find_available_time_slots\n- description: Finds open time slots on a given day for a specified duration. Parameters should include date and meeting_duration_minutes.\n\n**Tool 3: List Events**\n- name: list_upcoming_events\n- description: Lists the user's events for a given period. Parameters should include start_date and end_date.`} />
+            <CopyButton textToCopy={`**Tool 1: Search Products**\n- name: search_products\n- description: Searches for products by keyword. Parameters: query, category.\n\n**Tool 2: Get Product Details**\n- name: get_product_details\n- description: Retrieves details for a specific product ID. Parameters: product_id.\n\n**Tool 3: Add to Cart**\n- name: add_item_to_cart\n- description: Adds a specified quantity of a product to the user's cart. Parameters: product_id, quantity.`} />
             <p className="text-white">
-              <strong>Tool 1: Create Event</strong><br/>
-              - name: `create_calendar_event`<br/>
-              - description: Creates a new event on the user's calendar. Parameters should include title, date, time, duration, and attendees.<br/><br/>
-              <strong>Tool 2: Find Availability</strong><br/>
-              - name: `find_available_time_slots`<br/>
-              - description: Finds open time slots on a given day for a specified duration. Parameters should include date and meeting_duration_minutes.<br/><br/>
-              <strong>Tool 3: List Events</strong><br/>
-              - name: `list_upcoming_events`<br/>
-              - description: Lists the user's events for a given period. Parameters should include start_date and end_date.
+              <strong>Tool 1: Search Products</strong><br/>
+              - name: `search_products`<br/>
+              - description: Searches for products by keyword. Parameters: query, category.<br/><br/>
+              <strong>Tool 2: Get Product Details</strong><br/>
+              - name: `get_product_details`<br/>
+              - description: Retrieves details for a specific product ID. Parameters: product_id.<br/><br/>
+              <strong>Tool 3: Add to Cart</strong><br/>
+              - name: `add_item_to_cart`<br/>
+              - description: Adds a specified quantity of a product to the user's cart. Parameters: product_id, quantity.
             </p>
           </div>
+        </div>
+        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
+          <h3 className="font-semibold text-white mb-2">Your Task:</h3>
+          <p className="text-gray-400 mb-3 text-sm">Define the function name and a brief description for at least three separate, composable tools for a calendar agent. Use the chat window below to submit your design and get feedback.</p>
+          <InlineChat 
+            placeholder="Paste your tool designs here. For example: 'Tool 1: name: ..., description: ...'"
+            systemPrompt={toolReviewerPrompt}
+          />
         </div>
       </section>
 

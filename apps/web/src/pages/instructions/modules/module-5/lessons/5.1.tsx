@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, MessageSquare, BrainCircuit, Lightbulb } from 'lucide-react';
+import InlineChat from '../../../../../components/InlineChat';
 
 
 const Lesson5_1: React.FC = () => {
@@ -54,8 +55,8 @@ const Lesson5_1: React.FC = () => {
                 <p className="text-gray-300 mb-4">
           Behind the scenes, the conversation is just a list of message objects, each with a `role` and `content`. This entire list is sent to the model with every request.
         </p>
-        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-          <code>
+        <div className="bg-gray-900 p-3 rounded-md">
+          <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
 {`[
   {
     "role": "user",
@@ -71,7 +72,7 @@ const Lesson5_1: React.FC = () => {
   }
 ]`}
           </code>
-        </pre>
+        </div>
         <p className="text-gray-400 mt-4">
           When the model receives this array, it can see that the user's latest question about "its population" refers to Paris from the previous turn.
         </p>
@@ -104,14 +105,12 @@ const Lesson5_1: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Exercise: Predict the Response
+          Your Turn: Test the Context
         </h2>
         <p className="text-gray-300 mb-4">
-          In the main chat, ask the AI: "What are the two largest moons of Mars?" After it responds, ask a follow-up: "How big are they compared to Earth's moon?"
+          Use the chat window below to see conversation memory in action. First, ask the AI about a topic. Then, ask a follow-up question using a pronoun like "it" or "they" to see how it uses the previous turn as context.
         </p>
-        <p className="text-gray-300 mb-2">
-          Before you send the second message, predict how the AI will interpret "they." What specific information from the first turn allows it to understand your question?
-        </p>
+        <InlineChat placeholder='Try asking: "What are the two largest moons of Mars?"' />
       </section>
 
       {/* Navigation */}

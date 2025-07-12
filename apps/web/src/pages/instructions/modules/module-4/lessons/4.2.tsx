@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Server, Database, Share2 } from 'lucide-react';
+import InlineChat from '../../../../../components/InlineChat';
 
 const Lesson4_2: React.FC = () => {
   return (
@@ -86,7 +87,8 @@ const Lesson4_2: React.FC = () => {
         
         <h3 className="text-xl font-semibold text-white mt-6 mb-4">Resource Descriptor Example</h3>
         <p className="text-gray-300 mb-2">When the AI inspects a resource, it receives a JSON descriptor like this:</p>
-        <pre className="p-3 bg-gray-900 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap"><code>{`{
+        <div className="bg-gray-900 p-3 rounded-md">
+          <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">{`{
   "name": "get_employee_email",
   "description": "Retrieves the email for a given employee.",
   "parameters": {
@@ -96,29 +98,24 @@ const Lesson4_2: React.FC = () => {
     },
     "required": ["employee_name"]
   }
-}`}</code></pre>
+}`}</code>
+        </div>
       </section>
 
       {/* Interactive Prompt Example */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Database className="w-7 h-7 mr-3 text-yellow-400" />
-          AI Reasoning Trace
+          Your Turn: MCP Reasoning
         </h2>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <p className="font-mono text-green-400">Prompt: “What’s Jane Doe’s email?”</p>
-          <div className="mt-4 pl-4 border-l-2 border-gray-600 space-y-2 text-gray-300">
-            <p>1. <strong>Discovery:</strong> AI checks available MCP servers and finds `company_db`.</p>
-            <p>2. <strong>Inspection:</strong> AI calls <code className="text-purple-400">list_resources</code> on `company_db` and finds a promising tool: `get_employee_email`.</p>
-            <p>3. <strong>Preparation:</strong> AI prepares the tool call based on the resource's schema.</p>
-            <pre className="p-2 bg-gray-800 rounded-md text-sm"><code>{`{
-  "tool": "get_employee_email",
-  "arguments": { "employee_name": "Jane Doe" }
-}`}</code></pre>
-            <p>4. <strong>Execution & Response:</strong> The tool returns <code className="text-green-400">"jane.doe@example.com"</code>. The AI formulates the final answer.</p>
-          </div>
-          <p className="mt-4 font-mono text-green-400">Final Response: “Jane Doe’s email is jane.doe@example.com.”</p>
-        </div>
+        <p className="text-gray-300 mb-4">
+          Let's simulate the MCP flow. The AI has access to an MCP server called `company_db` which contains a tool: `get_employee_email(employee_name)`.
+          Use the chat window below to ask for an employee's email. The AI will not actually execute the tool, but it will show you the reasoning and the function call it would have made.
+        </p>
+        <InlineChat 
+          placeholder="Ask for an employee's email, e.g., 'What is John Smith's email?'" 
+          simulatedResponse={`Okay, I need to find an employee's email address. I will use the 'get_employee_email' tool from the 'company_db' MCP server.\n\n<tool_code>\n<mcp_server_request>\n  <server>company_db</server>\n  <tool_name>get_employee_email</tool_name>\n  <parameters>\n    <employee_name>the person you asked for</employee_name>\n  </parameters>\n</mcp_server_request>\n</tool_code>`}
+        />
       </section>
 
       {/* Best Practices */}
