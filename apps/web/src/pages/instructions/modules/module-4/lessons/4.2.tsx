@@ -113,11 +113,11 @@ const Lesson4_2: React.FC = () => {
         </h2>
         <p className="text-gray-300 mb-4">
           Let's simulate the MCP flow. The AI has access to an MCP server called `company_db` which contains a tool: `get_employee_email(employee_name)`.
-          Use the chat window below to ask for an employee's email. The AI will not actually execute the tool, but it will show you the reasoning and the function call it would have made.
+          Use the chat window below to ask for an employee's email. Our AI model will show you the reasoning and the function call it needs to make.
         </p>
         <InlineChat 
           placeholder="Ask for an employee's email, e.g., 'What is John Smith's email?'" 
-          simulatedResponse={`Okay, I need to find an employee's email address. I will use the 'get_employee_email' tool from the 'company_db' MCP server.\n\n<tool_code>\n<mcp_server_request>\n  <server>company_db</server>\n  <tool_name>get_employee_email</tool_name>\n  <parameters>\n    <employee_name>the person you asked for</employee_name>\n  </parameters>\n</mcp_server_request>\n</tool_code>`}
+          simulatedResponse={`Okay, I need to find an employee's email address. I will use the 'get_employee_email' tool from the 'company_db' MCP server.\n\n<tool_code>\n<mcp_server_request>\n  <server>company_db</server>\n  <tool_name>get_employee_email</tool_name>\n  <parameters>\n    <employee_name>the person you asked for</employee_name>\n  </parameters>\n</mcp_server_request>\n</tool_code>\n\nfirstName.lastName@email.ca`}
         />
       </section>
 
