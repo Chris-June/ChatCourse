@@ -11,6 +11,7 @@ import OpenAI from 'openai';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { get_encoding } from 'tiktoken';
+import { sanitizeInput, redactOutput } from './guardrails';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -132,6 +133,14 @@ app.post('/api/chat', async (req, res) => {
 
   const encoding = get_encoding('cl100k_base');
 
+  // Sanitize the last user message for potential prompt injection
+  if (messages.length > 0) {
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage.role === 'user') {
+      lastMessage.content = sanitizeInput(lastMessage.content);
+    }
+  }
+
   const BASE_SYSTEM_PROMPT = "You are Intelli-Chat, a helpful and friendly AI assistant. Your responses should be concise, informative, and aim to assist the user with their requests.";
   const combinedInstructions = [BASE_SYSTEM_PROMPT, customInstructions].filter(Boolean).join('\n\n');
   const systemMessage = combinedInstructions ? [{ role: 'system', content: combinedInstructions }] : [];
@@ -168,7 +177,8 @@ app.post('/api/chat', async (req, res) => {
       const delta = chunk.choices[0]?.delta?.content || '';
       if (delta) {
         completionText += delta;
-        res.write(`data: ${JSON.stringify({ delta })}\n\n`);
+        const redactedDelta = redactOutput(delta);
+        res.write(`data: ${JSON.stringify({ delta: redactedDelta })}\n\n`);
       }
     }
 
