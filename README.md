@@ -6,7 +6,7 @@ This is a monorepo for a chat application, consisting of a web-based frontend an
 
 - A **chat website** (like ChatGPT) that runs locally on your machine.  
 - A **private build space** where you can experiment without the whole internet watching.  
-- The freedom to **fork** (make your own copy) and share ideas with friends.
+- The freedom to **Clone** (make your own copy) and share ideas with friends.
 
 No complex maths, no mysterious jargon—just clear instructions.
 
@@ -176,9 +176,9 @@ Because these 2 Prompts *System Prompt and Custom Instructions* sit high in the 
 
 1. OpenAI policy / safety prompt  **Cannot be modified or changed**
 2. Default model persona / System Prompt **Can be modified or changed in the code `handler.ts`file**
-3. **Your Custom Instructions** Can be found in the User Interface **Settings > Custom Instructions** and Can be modified or changed in the User Interface **Settings > Custom Instructions**
+3. **Your Custom Instructions** Can be found in the User Interface **Settings > Custom Instructions** and Can be modified or changed.
 4. Any stored Memories  **Not yet implemented**
-5. Conversation history  **Conversation history uses local storage (your browser) if your clear your browser data the conversation history will be lost** Data persistence is not yet implemented and will be added in the future learning by integration with a database or cloud storage using Supabase (Free) or Firebase (Paid). Both versions have a VectorDB (Qdrant) integration for data persistence and semantic search. 
+5. Conversation history  **Conversation history uses local storage (your browser) if your clear your browser data the conversation history will be lost** Data persistence is not yet implemented and will be added in the future learning by integration with a database or cloud storage using Supabase (Free) or antoher Data Base and Vector DB (Qdrant). 
 6. Your latest user message  
 
 ### Practical Effects
@@ -203,7 +203,11 @@ Because these 2 Prompts *System Prompt and Custom Instructions* sit high in the 
 
 ### Changing Models
 
-Models can be changed in the UI by modifying the `DEFAULT_MODEL` environment variable in the `.env.local` file. The `ALLOWED_MODELS` environment variable in the `.env.local` file can be used to limit the models that are available in the UI. The `DEFAULT_MODEL` environment variable in the `.env.local` file can be used to set the default model.
+Models can be changed in the UI by modifying the selected model from the drop down list. 
+
+The `ALLOWED_MODELS` environment variable in the `.env.local` file can be used to limit the models that are available in the UI. 
+
+The `DEFAULT_MODEL` environment variable in the `.env.local` file can be used to set the default model.
 
 ## License
 
