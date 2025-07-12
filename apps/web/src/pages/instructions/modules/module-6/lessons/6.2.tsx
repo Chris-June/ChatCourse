@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Users, TestTube2, MessageSquare, Wand2 } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson6_2: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   const chefAssistantPrompt = "You are a helpful and friendly \"Chef Assistant\" AI. Your goal is to help users plan meals, find recipes, and answer cooking-related questions. Respond in a warm and encouraging tone.";
   return (
     <div className="space-y-8 p-4 md:p-6">
@@ -18,6 +20,7 @@ const Lesson6_2: React.FC = () => {
           </Link>
           <Link 
             to="/instructions/module-6/6.3" 
+            onClick={() => completeLesson(6, 2)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
@@ -75,6 +78,7 @@ const Lesson6_2: React.FC = () => {
         </Link>
         <Link 
           to="/instructions/module-6/6.3" 
+          onClick={() => completeLesson(6, 2)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next: Iterative Improvement <ChevronRight className="w-5 h-5 ml-2" />

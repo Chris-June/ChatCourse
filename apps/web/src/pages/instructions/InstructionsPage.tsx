@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, Routes, Route, Navigate } from 'react-router-dom';
-import { Menu, Home, Shield, BookOpen, PenSquare, DatabaseZap, Rocket } from 'lucide-react';
+import { Menu, Home, Shield, BookOpen, PenSquare, DatabaseZap, Rocket, Lock } from 'lucide-react';
 import InstructionsSidebar from '../../components/InstructionsSidebar';
+import { useProgressStore } from '../../store/progressStore';
 import { Button } from '@chat/ui';
 import Module1Routes from './modules/module-1';
 import Module2Routes from './modules/module-2';
@@ -18,218 +19,105 @@ import Conclusion from './conclusion';
 
 const InstructionsPage: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const { isLessonUnlocked } = useProgressStore();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const isModuleUnlocked = (moduleNumber: number) => {
+    // Module 1 is always unlocked.
+    // For other modules, check if the first lesson is unlocked.
+    return moduleNumber === 1 || isLessonUnlocked(moduleNumber, 1);
+  };
+
   // Default content for the instructions page
-  const DefaultContent = () => (
-    <div className="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div className="text-center">
-        <img 
-          src="/Logo.png" 
-          alt="IntelliSync Logo" 
-          className="mx-auto h-32 w-32 object-contain"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.onerror = null;
-            target.src = 'Logo.png';
-          }}
-        />
-        <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">AI Collaboration Course</h1>
-        <p className="mt-6 text-xl leading-8 text-gray-300">
-          Learn how to effectively collaborate with AI through practical lessons and hands-on exercises.
-        </p>
-        <div className="mt-10 flex items-center justify-center gap-x-6">
-          <Link
-            to="module-1/1.1" 
-            className="rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-          >
-            Start Learning
-          </Link>
-          <Link to="/" className="text-sm font-semibold leading-6 text-gray-300 hover:text-white">
-            <span className="flex items-center">
-              <Home className="mr-1 h-4 w-4" /> Back to Home
-            </span>
-          </Link>
+  const DefaultContent = () => {
+    const modules = [
+      { number: 1, title: 'The Heart of the Matter - Understanding AI Models', description: 'Learn the fundamentals of AI models and how to interact with them effectively.', icon: BookOpen },
+      { number: 2, title: 'Prompt Engineering Fundamentals', description: 'Craft effective prompts to get the best results from AI models.', icon: PenSquare },
+      { number: 3, title: 'Building Your First AI Chat App', description: 'A hands-on guide to creating a real-world AI application.', icon: Shield },
+      { number: 4, title: 'Thinking in Agents', description: 'Learn the agentic mindset and build autonomous AI systems.', icon: Rocket },
+      { number: 5, title: 'Working with Real-World Data', description: 'Connect your AI to external data sources and APIs.', icon: DatabaseZap },
+      { number: 6, title: 'Testing and Iteration', description: 'Learn how to test, evaluate, and improve your AI prompts and agents.', icon: PenSquare },
+      { number: 7, title: 'Advanced AI Techniques', description: 'Master function calling, RAG, and fine-tuning to build sophisticated AI applications.', icon: DatabaseZap },
+      { number: 8, title: 'Responsible AI', description: 'Learn to build fair, transparent, and secure AI systems.', icon: Rocket },
+    ];
+
+    return (
+      <div className="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <img 
+            src="/Logo.png" 
+            alt="IntelliSync Logo" 
+            className="mx-auto h-32 w-32 object-contain"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.onerror = null;
+              target.src = 'Logo.png';
+            }}
+          />
+          <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">AI Collaboration Course</h1>
+          <p className="mt-6 text-xl leading-8 text-gray-300">
+            Learn how to effectively collaborate with AI through practical lessons and hands-on exercises.
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            <Link
+              to="module-1/1.1" 
+              className="rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            >
+              Start Learning
+            </Link>
+            <Link to="/" className="text-sm font-semibold leading-6 text-gray-300 hover:text-white">
+              <span className="flex items-center">
+                <Home className="mr-1 h-4 w-4" /> Back to Home
+              </span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-16">
+          <h2 className="text-2xl font-bold text-white mb-6">Course Modules</h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            {modules.map(module => {
+              const unlocked = isModuleUnlocked(module.number);
+              const Icon = module.icon;
+              return (
+                <Link
+                  key={module.number}
+                  to={unlocked ? `module-${module.number}/${module.number}.1` : '#'}
+                  className={`group relative bg-gray-800 p-6 rounded-lg transition-colors duration-200 border border-gray-700 ${unlocked ? 'hover:bg-gray-700 hover:border-blue-500' : 'opacity-50 cursor-not-allowed'}`}
+                  onClick={(e) => !unlocked && e.preventDefault()}
+                  aria-disabled={!unlocked}
+                >
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
+                      <Icon className="h-6 w-6 text-blue-400" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-medium text-white flex items-center">
+                        {!unlocked && <Lock className="w-4 h-4 mr-2 flex-shrink-0" />}
+                        Module {module.number}: {module.title}
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-400">{module.description}</p>
+                    </div>
+                  </div>
+                  {unlocked && (
+                    <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
+                      <span>Start Module</span>
+                      <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
-
-      <div className="mt-16">
-        <h2 className="text-2xl font-bold text-white mb-6">Course Modules</h2>
-        <div className="grid gap-6 md:grid-cols-2">
-          <Link
-            to="module-1/1.1"
-            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
-          >
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
-                <BookOpen className="h-6 w-6 text-blue-400" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-white">Module 1: The Heart of the Matter - Understanding AI Models</h3>
-                <p className="mt-1 text-sm text-gray-400">Learn the fundamentals of AI models and how to interact with them effectively.</p>
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
-              <span>Start Module</span>
-              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-          
-          <Link
-            to="module-2/2.1"
-            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
-          >
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
-                <BookOpen className="h-6 w-6 text-blue-400" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-white">Module 2: Guiding the Conversation - Prompts & Instructions</h3>
-                <p className="mt-1 text-sm text-gray-400">Master the art of prompting and providing custom instructions.</p>
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
-              <span>Start Module</span>
-              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link
-            to="module-3/3.1"
-            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
-          >
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
-                <BookOpen className="h-6 w-6 text-blue-400" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-white">Module 3: AI in Action - Real-World Applications</h3>
-                <p className="mt-1 text-sm text-gray-400">See how AI can be applied to dynamic content, logic, and interactive features.</p>
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
-              <span>Start Module</span>
-              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link
-            to="module-4/4.1"
-            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
-          >
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
-                <BookOpen className="h-6 w-6 text-blue-400" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-white">Module 4: Advanced AI Collaboration</h3>
-                <p className="mt-1 text-sm text-gray-400">Plan, develop, and refine projects with an AI pair programmer.</p>
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
-              <span>Start Module</span>
-              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link
-            to="module-5/5.1"
-            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
-          >
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
-                <Shield className="h-6 w-6 text-blue-400" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-white">Module 5: Advanced Interaction Patterns</h3>
-                <p className="mt-1 text-sm text-gray-400">Explore multi-turn conversations, personalization, and performance optimization.</p>
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
-              <span>Start Module</span>
-              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link
-            to="module-6/6.1"
-            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
-          >
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
-                <PenSquare className="h-6 w-6 text-blue-400" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-white">Module 6: The Collaborative Development Process</h3>
-                <p className="mt-1 text-sm text-gray-400">Learn about idea generation, design thinking, and iterative improvement with AI.</p>
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
-              <span>Start Module</span>
-              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link
-            to="module-7/7.1"
-            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
-          >
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
-                <DatabaseZap className="h-6 w-6 text-blue-400" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-white">Module 7: Advanced AI Techniques</h3>
-                <p className="mt-1 text-sm text-gray-400">Master function calling, RAG, and fine-tuning to build sophisticated AI applications.</p>
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
-              <span>Start Module</span>
-              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link
-            to="module-8/8.1"
-            className="group relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700 hover:border-blue-500"
-          >
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-blue-500/10 p-3 rounded-lg">
-                <Rocket className="h-6 w-6 text-blue-400" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-white">Module 8: Responsible AI</h3>
-                <p className="mt-1 text-sm text-gray-400">Learn to build fair, transparent, and secure AI systems.</p>
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm text-blue-400 group-hover:text-blue-300">
-              <span>Start Module</span>
-              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="h-screen flex flex-col bg-zinc-950 text-zinc-50">

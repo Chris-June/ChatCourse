@@ -7,7 +7,8 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { BookOpen, ChevronDown, ChevronRight, Rocket, Lightbulb, Bot} from 'lucide-react';
+import { BookOpen, ChevronDown, ChevronRight, Rocket, Lightbulb, Bot, Lock } from 'lucide-react';
+import { useProgressStore } from '../store/progressStore';
 import { Button } from '@chat/ui';
 
 interface InstructionsSidebarProps {
@@ -93,6 +94,7 @@ const moduleData = [
 ];
 
 const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
+  const { isLessonUnlocked } = useProgressStore();
   const location = useLocation();
   const navigate = useNavigate();
   const [expandedModules, setExpandedModules] = useState<Record<string, boolean>>(() => {
@@ -169,16 +171,28 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
                   
                   {expandedModules[module.id] && (
                     <div className="ml-4 mt-1 space-y-1 border-l border-zinc-700 pl-2">
-                      {module.lessons.map((lesson) => (
-                        <Button
-                          key={lesson.id}
-                          variant={location.pathname === lesson.path ? 'secondary' : 'ghost'}
-                          className='w-full justify-start text-left h-auto whitespace-normal'
-                          onClick={() => navigate(lesson.path)}
-                        >
-                          <span>{lesson.id} {lesson.title}</span>
-                        </Button>
-                      ))}
+                      {module.lessons.map((lesson) => {
+                        const moduleNumber = parseInt(module.id.split('-')[1]);
+                        const lessonNumber = parseInt(lesson.id.split('.')[1]);
+                        const isLocked = !isLessonUnlocked(moduleNumber, lessonNumber);
+
+                        return (
+                          <Button
+                            key={lesson.id}
+                            variant={location.pathname === lesson.path ? 'secondary' : 'ghost'}
+                            className={`w-full justify-start text-left h-auto whitespace-normal flex items-center ${isLocked ? 'text-zinc-500' : ''}`}
+                            onClick={() => !isLocked && navigate(lesson.path)}
+                            disabled={isLocked}
+                          >
+                            {isLocked ? (
+                              <Lock className="w-3 h-3 mr-2 flex-shrink-0" />
+                            ) : (
+                              <div className="w-3 h-3 mr-2 flex-shrink-0" /> // Placeholder for alignment
+                            )}
+                            <span className="truncate">{lesson.id} {lesson.title}</span>
+                          </Button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>

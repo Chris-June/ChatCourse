@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, BarChart2, Beaker, RefreshCw } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson6_3: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   const hypothesisAssistantPrompt = `You are an expert AI Product Manager specializing in experimentation. Your goal is to help users improve an AI feature by creating a structured experiment. When a user describes a feature they want to improve, guide them through the following steps:
 1. **Hypothesis Formulation**: Help them state a clear, testable hypothesis (e.g., "By changing X, we will improve Y, because Z.").
 2. **Metric Definition**: Help them define a single, key metric to measure the change (e.g., "User satisfaction score," "Correction rate," "Task completion time").
@@ -22,6 +24,7 @@ Be encouraging and help them think critically about their ideas.`;
           </Link>
           <Link 
             to="/instructions/module-7/7.1" 
+            onClick={() => completeLesson(6, 3)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Module <ChevronRight className="w-5 h-5 ml-2" />
@@ -86,6 +89,7 @@ Be encouraging and help them think critically about their ideas.`;
         </Link>
         <Link 
           to="/instructions/module-7/7.1" 
+          onClick={() => completeLesson(6, 3)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next Module <ChevronRight className="w-5 h-5 ml-2" />

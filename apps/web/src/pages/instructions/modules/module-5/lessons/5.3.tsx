@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Zap, ChevronsRight, SlidersHorizontal } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson5_3: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   const classificationAgentPrompt = `You are an expert AI Classification Agent. Your task is to analyze a user's request and recommend the most appropriate model tier based on the following criteria:
 - **Tier 1: Fast & Light**: Best for simple classification, basic extraction, or tasks where speed is the absolute priority.
 - **Tier 2: Balanced**: Best for general purpose tasks like summarization, standard Q&A, or when a balance of performance and capability is needed.
@@ -22,6 +24,7 @@ Based on the user's query, state which tier is the best fit and briefly explain 
           </Link>
           <Link 
             to="/instructions/module-6/6.1" 
+            onClick={() => completeLesson(5, 3)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Module <ChevronRight className="w-5 h-5 ml-2" />
@@ -142,6 +145,7 @@ response.body.on('end', () => {
         </Link>
         <Link 
           to="/instructions/module-6/6.1" 
+          onClick={() => completeLesson(5, 3)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next Module <ChevronRight className="w-5 h-5 ml-2" />

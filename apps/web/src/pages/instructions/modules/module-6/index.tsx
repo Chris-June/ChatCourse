@@ -4,6 +4,7 @@ import Module6Page from './Module6Page';
 import Lesson6_1 from './lessons/6.1';
 import Lesson6_2 from './lessons/6.2';
 import Lesson6_3 from './lessons/6.3';
+import ProtectedRoute from '../../../../components/ProtectedRoute';
 
 const Module6Routes: React.FC = () => {
   const location = useLocation();
@@ -16,9 +17,9 @@ const Module6Routes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Module6Page />}>
-        <Route path="6.1" element={<Lesson6_1 />} />
-        <Route path="6.2" element={<Lesson6_2 />} />
-        <Route path="6.3" element={<Lesson6_3 />} />
+        <Route path="6.1" element={<ProtectedRoute module={6} lesson={1}><Lesson6_1 /></ProtectedRoute>} />
+        <Route path="6.2" element={<ProtectedRoute module={6} lesson={2}><Lesson6_2 /></ProtectedRoute>} />
+        <Route path="6.3" element={<ProtectedRoute module={6} lesson={3}><Lesson6_3 /></ProtectedRoute>} />
         <Route index element={<Navigate to="6.1" replace />} />
       </Route>
     </Routes>

@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import zeroCotImage from '../../../../../assets/images/zero-cot2.webp';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson3_1: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -18,6 +20,7 @@ const Lesson3_1: React.FC = () => {
           </Link>
           <Link 
             to="/instructions/module-3/3.2" 
+            onClick={() => completeLesson(3, 1)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
@@ -191,6 +194,7 @@ A:`}</code>
         </Link>
         <Link 
           to="/instructions/module-3/3.2" 
+          onClick={() => completeLesson(3, 1)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next: Chain-of-Thought <ChevronRight className="w-5 h-5 ml-2" />

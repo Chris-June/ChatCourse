@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, MessageSquare, BrainCircuit, Lightbulb } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 
 const Lesson5_1: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -18,6 +20,7 @@ const Lesson5_1: React.FC = () => {
           </Link>
           <Link 
             to="/instructions/module-5/5.2" 
+            onClick={() => completeLesson(5, 1)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
@@ -116,13 +119,14 @@ const Lesson5_1: React.FC = () => {
       {/* Navigation */}
       <div className="flex justify-between pt-4">
         <Link 
-          to="/instructions/module-4/4.5" 
+          to="/instructions/module-4/4.3" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Introduction to AI Agents
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Building Custom Tools
         </Link>
         <Link 
           to="/instructions/module-5/5.2" 
+          onClick={() => completeLesson(5, 1)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next: Personalization at Scale <ChevronRight className="w-5 h-5 ml-2" />

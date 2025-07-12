@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Eye, MessageSquareQuote, Lightbulb } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson8_2: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   const explainabilityExpertPrompt = `You are an AI Explainability and User Experience (UX) expert. Your task is to review a user-submitted explanation for a sensitive AI decision.
 
 **Case Study Context:** An AI-powered system has just denied a loan application. The model's internal reasons are: 'low_credit_score' and 'high_debt_to_income_ratio'. The user needs to write a customer-facing message that explains this decision clearly and empathetically.
@@ -31,6 +33,7 @@ When a user submits their explanation, follow these steps:
           </Link>
           <Link 
             to="/instructions/module-8/8.3" 
+            onClick={() => completeLesson(8, 2)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
@@ -98,6 +101,7 @@ When a user submits their explanation, follow these steps:
         </Link>
         <Link 
           to="/instructions/module-8/8.3" 
+          onClick={() => completeLesson(8, 2)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next: Security and Privacy <ChevronRight className="w-5 h-5 ml-2" />

@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, BrainCircuit, MessageSquare } from 'lucide-react';
 import CopyButton from '../../../../../components/CopyButton';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson2_1: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -17,6 +19,7 @@ const Lesson2_1: React.FC = () => {
           </Link>
           <Link 
             to="/instructions/module-2/2.2" 
+            onClick={() => completeLesson(2, 1)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
@@ -110,6 +113,7 @@ const Lesson2_1: React.FC = () => {
         </Link>
         <Link 
           to="/instructions/module-2/2.2" 
+          onClick={() => completeLesson(2, 1)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next: Keeping the Thread <ChevronRight className="w-5 h-5 ml-2" />

@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Lightbulb, Zap, GitMerge } from 'lucide-react';
 import CopyButton from '../../../../../components/CopyButton';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson7_1: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   const toolReviewerPrompt = `You are an expert AI Tool Design Reviewer. Your task is to analyze a user's proposed tool suite design for a calendar assistant and provide feedback based on the principles of composability and clarity.
 
 When a user submits their tool designs, follow these steps:
@@ -29,6 +31,7 @@ When a user submits their tool designs, follow these steps:
           </Link>
           <Link 
             to="/instructions/module-7/7.2" 
+            onClick={() => completeLesson(7, 1)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
@@ -111,6 +114,7 @@ When a user submits their tool designs, follow these steps:
         </Link>
         <Link 
           to="/instructions/module-7/7.2" 
+          onClick={() => completeLesson(7, 1)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next: Building RAG Systems <ChevronRight className="w-5 h-5 ml-2" />

@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Scale, ShieldCheck, Lightbulb } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson8_1: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   const ethicsReviewerPrompt = `You are an AI Ethics and Fairness expert. Your task is to review a user's proposed strategy for mitigating bias in an AI-powered resume screening tool.
 
 **Case Study Context:** An AI tool was built to screen resumes for a software engineering role, trained on the company's hiring data from the last 10 years. The data shows a historical pattern of hiring predominantly from specific universities and demographic groups, leading the AI to unfairly penalize qualified candidates from underrepresented backgrounds.
@@ -28,6 +30,7 @@ When a user submits their mitigation strategy, follow these steps:
           </Link>
           <Link 
             to="/instructions/module-8/8.2" 
+            onClick={() => completeLesson(8, 1)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
@@ -97,6 +100,7 @@ When a user submits their mitigation strategy, follow these steps:
         </Link>
         <Link 
           to="/instructions/module-8/8.2" 
+          onClick={() => completeLesson(8, 1)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next: Transparency and Explainability <ChevronRight className="w-5 h-5 ml-2" />

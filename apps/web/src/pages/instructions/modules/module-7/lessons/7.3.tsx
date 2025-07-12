@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, SlidersHorizontal, Lightbulb, GitCompareArrows, BookCopy } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson7_3: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   const jsonDataValidator = `You are an expert AI Data Formatter specializing in preparing data for fine-tuning. Your task is to review a user's submitted conversation and help them structure it correctly into a single JSON object with 'prompt' and 'completion' keys.
 
 When a user submits text, follow these steps:
@@ -29,6 +31,7 @@ When a user submits text, follow these steps:
           </Link>
           <Link 
             to="/instructions/module-8"
+            onClick={() => completeLesson(7, 3)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Module <ChevronRight className="w-5 h-5 ml-2" />
@@ -116,6 +119,7 @@ When a user submits text, follow these steps:
         </Link>
         <Link 
           to="/instructions/module-8"
+          onClick={() => completeLesson(7, 3)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next Module: Responsible AI <ChevronRight className="w-5 h-5 ml-2" />

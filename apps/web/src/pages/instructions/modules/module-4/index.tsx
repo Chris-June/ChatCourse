@@ -7,6 +7,7 @@ import Lesson4_3 from './lessons/4.3';
 import Lesson4_4 from './lessons/4.4';
 import Lesson4_5 from './lessons/4.5';
 import Lesson4_6 from './lessons/4.6';
+import ProtectedRoute from '../../../../components/ProtectedRoute';
 
 const Module4Routes: React.FC = () => {
   const location = useLocation();
@@ -19,12 +20,12 @@ const Module4Routes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Module4Page />}>
-        <Route path="4.1" element={<Lesson4_1 />} />
-        <Route path="4.2" element={<Lesson4_2 />} />
-        <Route path="4.3" element={<Lesson4_3 />} />
-        <Route path="4.4" element={<Lesson4_4 />} />
-        <Route path="4.5" element={<Lesson4_5 />} />
-        <Route path="4.6" element={<Lesson4_6 />} />
+        <Route path="4.1" element={<ProtectedRoute module={4} lesson={1}><Lesson4_1 /></ProtectedRoute>} />
+        <Route path="4.2" element={<ProtectedRoute module={4} lesson={2}><Lesson4_2 /></ProtectedRoute>} />
+        <Route path="4.3" element={<ProtectedRoute module={4} lesson={3}><Lesson4_3 /></ProtectedRoute>} />
+        <Route path="4.4" element={<ProtectedRoute module={4} lesson={4}><Lesson4_4 /></ProtectedRoute>} />
+        <Route path="4.5" element={<ProtectedRoute module={4} lesson={5}><Lesson4_5 /></ProtectedRoute>} />
+        <Route path="4.6" element={<ProtectedRoute module={4} lesson={6}><Lesson4_6 /></ProtectedRoute>} />
         <Route index element={<Navigate to="4.1" replace />} />
       </Route>
     </Routes>

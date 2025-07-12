@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Settings, Lightbulb, ShieldCheck } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 
 const Lesson5_2: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   const studentProfile = {
     name: "Maria",
     grade: 10,
@@ -27,6 +29,7 @@ const Lesson5_2: React.FC = () => {
           </Link>
           <Link
             to="/instructions/module-5/5.3"
+            onClick={() => completeLesson(5, 2)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
@@ -155,6 +158,7 @@ Provide technical, precise answers. When providing code, use Python.`}
         </Link>
         <Link
           to="/instructions/module-5/5.3"
+          onClick={() => completeLesson(5, 2)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next: Performance Optimization <ChevronRight className="w-5 h-5 ml-2" />

@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ShieldAlert, UserCheck, Lightbulb } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson8_3: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   const securityAuditorPrompt = `You are an AI Security & Privacy Auditor. Your task is to review a user's proposed security guardrails for a new AI feature.
 
 **Case Study Context:** A healthcare company is building an AI chatbot to answer patient questions about their recent lab results. The chatbot can access a patient's electronic health record (EHR) via a tool. The user needs to propose 2-3 security/privacy guardrails for this system.
@@ -28,6 +30,7 @@ When a user submits their proposed guardrails, follow these steps:
           </Link>
           <Link 
             to="/instructions/conclusion" 
+            onClick={() => completeLesson(8, 3)}
             className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors"
           >
             Finish Course & View Conclusion <ChevronRight className="w-5 h-5 ml-2" />
@@ -105,6 +108,7 @@ When a user submits their proposed guardrails, follow these steps:
         </Link>
         <Link 
           to="/instructions/conclusion" 
+          onClick={() => completeLesson(8, 3)}
           className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors"
         >
           Finish Course & View Conclusion <ChevronRight className="w-5 h-5 ml-2" />

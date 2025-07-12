@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Code, FileJson, Lightbulb } from 'lucide-react';
 import CopyButton from '../../../../../components/CopyButton';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson3_3: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -18,6 +20,7 @@ const Lesson3_3: React.FC = () => {
           </Link>
           <Link 
             to="/instructions/module-4/4.1" 
+            onClick={() => completeLesson(3, 3)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
@@ -121,6 +124,7 @@ const Lesson3_3: React.FC = () => {
         </Link>
         <Link 
           to="/instructions/module-4/4.1" 
+          onClick={() => completeLesson(3, 3)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next: Function Calling <ChevronRight className="w-5 h-5 ml-2" />

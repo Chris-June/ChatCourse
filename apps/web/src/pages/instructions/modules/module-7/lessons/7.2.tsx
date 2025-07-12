@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Database, FileText, Lightbulb, Layers } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson7_2: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   const ragPromptValidator = `You are an expert AI Prompt Engineer specializing in Retrieval-Augmented Generation (RAG). Your task is to review a user's generator prompt and provide constructive feedback.
 
 When a user submits a prompt, follow these steps:
@@ -32,6 +34,7 @@ When a user submits a prompt, follow these steps:
           </Link>
           <Link 
             to="/instructions/module-7/7.3" 
+            onClick={() => completeLesson(7, 2)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
@@ -119,6 +122,7 @@ When a user submits a prompt, follow these steps:
         </Link>
         <Link 
           to="/instructions/module-7/7.3" 
+          onClick={() => completeLesson(7, 2)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next: Fine-Tuning Models <ChevronRight className="w-5 h-5 ml-2" />

@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Wrench, FileCode, Lightbulb } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
+import { useProgressStore } from '../../../../../store/progressStore';
 
 const Lesson4_3: React.FC = () => {
+  const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -17,6 +19,7 @@ const Lesson4_3: React.FC = () => {
           </Link>
           <Link 
             to="/instructions/module-5/5.1" 
+            onClick={() => completeLesson(4, 3)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
@@ -178,6 +181,7 @@ const result = await functionToCall(functionArgs); // { ticket_id: 'TICKET-123' 
         </Link>
         <Link 
           to="/instructions/module-5/5.1" 
+          onClick={() => completeLesson(4, 3)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
           Next: Multi-Turn Conversations <ChevronRight className="w-5 h-5 ml-2" />
