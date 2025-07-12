@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Loader, Sparkles, Clipboard } from 'lucide-react';
+import { Send, Loader, Sparkles, Clipboard, X } from 'lucide-react';
 import { useChatStore } from '../store/chat';
 
 interface InlineChatProps {
@@ -18,6 +18,13 @@ const InlineChat: React.FC<InlineChatProps> = ({ className, initialMessages = []
   const [betterPrompt, setBetterPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingFeedback, setIsFetchingFeedback] = useState(false);
+
+  const handleClear = () => {
+    setPrompt('');
+    setMessages(initialMessages);
+    setFeedbackText('');
+    setBetterPrompt('');
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -172,6 +179,14 @@ const InlineChat: React.FC<InlineChatProps> = ({ className, initialMessages = []
           ) : (
             <><Send className="w-5 h-5 mr-2" /> Get Response</>
           )}
+        </button>
+        <button
+          type="button"
+          onClick={handleClear}
+          disabled={!prompt.trim() && messages.length === initialMessages.length}
+          className="w-full flex items-center justify-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors"
+        >
+          <X className="w-5 h-5 mr-2" /> Clear
         </button>
       </form>
       {messages.map((msg, index) => (
