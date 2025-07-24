@@ -21,7 +21,7 @@ const Lesson4_4: React.FC = () => {
             to="/instructions/module-4/4.5" 
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
-            Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
+            Next: AI Agents <ChevronRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>

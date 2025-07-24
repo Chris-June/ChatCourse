@@ -12,9 +12,9 @@ const Module7Page: React.FC = () => {
   const location = useLocation();
   
   const lessons: Lesson[] = [
-    { id: '7.1', title: 'Data Cleaning with AI', path: '/instructions/module-7/7.1' },
-    { id: '7.2', title: 'Exploratory Data Analysis', path: '/instructions/module-7/7.2' },
-    { id: '7.3', title: 'AI-Powered Visualization', path: '/instructions/module-7/7.3' },
+    { id: '7.1', title: 'Advanced Function Calling', path: '/instructions/module-7/7.1' },
+    { id: '7.2', title: 'R.A.G. Systems', path: '/instructions/module-7/7.2' },
+    { id: '7.3', title: 'Model Fine-Tuning', path: '/instructions/module-7/7.3' },
   ];
 
   const currentLessonIndex = lessons.findIndex(lesson => location.pathname.endsWith(lesson.id));

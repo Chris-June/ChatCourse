@@ -19,7 +19,7 @@ const Lesson4_5: React.FC = () => {
             to="/instructions/module-4/4.6" 
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
-            Module 5: Multi-Turn Conversations <ChevronRight className="w-5 h-5 ml-2" />
+           Understanding MCP Servers <ChevronRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>
@@ -167,7 +167,7 @@ My agent needs to generate and email a sales report. Step 1 (Think): I need to g
           to="/instructions/module-5/5.1" 
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Module 5: Multi-Turn Conversations <ChevronRight className="w-5 h-5 ml-2" />
+          Module 5: Understanding MCP Servers <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>

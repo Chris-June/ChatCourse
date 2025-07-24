@@ -24,20 +24,20 @@ When a user submits a prompt, follow these steps:
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">7.2: Building RAG Systems</h1>
+        <h1 className="text-3xl font-bold text-blue-400">7.2 Advanced Techniques</h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-7/7.1" 
             className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous
+            <ChevronLeft className="w-5 h-5 mr-2" /> R.A.G. Systems
           </Link>
           <Link 
             to="/instructions/module-7/7.3" 
             onClick={() => completeLesson(7, 2)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
-            Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
+            Next: Model Fine-Tuning <ChevronRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>

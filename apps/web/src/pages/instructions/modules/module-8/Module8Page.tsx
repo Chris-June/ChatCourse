@@ -12,9 +12,9 @@ const Module8Page: React.FC = () => {
   const location = useLocation();
   
   const lessons: Lesson[] = [
-    { id: '8.1', title: 'Project Planning', path: '/instructions/module-8/8.1' },
-    { id: '8.2', title: 'Implementation', path: '/instructions/module-8/8.2' },
-    { id: '8.3', title: 'Presentation and Review', path: '/instructions/module-8/8.3' },
+    { id: '8.1', title: 'Bias & Fairness', path: '/instructions/module-8/8.1' },
+    { id: '8.2', title: 'Explainability', path: '/instructions/module-8/8.2' },
+    { id: '8.3', title: 'Security & Privacy', path: '/instructions/module-8/8.3' },
   ];
 
   const currentLessonIndex = lessons.findIndex(lesson => location.pathname.endsWith(lesson.id));

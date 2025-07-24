@@ -18,68 +18,68 @@ interface InstructionsSidebarProps {
 const moduleData = [
   {
     id: 'module-1',
-    title: '1. The Heart of the Matter - Understanding AI Models',
+    title: '1. Prompt Engineering Fundamentals',
     lessons: [
-      { id: '1.1', title: 'Demystifying AI: What Exactly Are We Working With?', path: '/instructions/module-1/1.1' },
-      { id: '1.2', title: 'The Art of the Prompt', path: '/instructions/module-1/1.2' },
-      { id: '1.3', title: 'Hands-on Exploration', path: '/instructions/module-1/1.3' },
+      { id: '1.1', title: 'Introduction to AI and Prompts', path: '/instructions/module-1/1.1' },
+      { id: '1.2', title: 'Crafting Effective Prompts', path: '/instructions/module-1/1.2' },
+      { id: '1.3', title: 'Advanced Prompting Techniques', path: '/instructions/module-1/1.3' },
     ],
   },
   {
     id: 'module-2',
-    title: '2. Guiding the Conversation - Prompts & Instructions',
+    title: '2. Context Management',
     lessons: [
-      { id: '2.1', title: 'System Prompts: Setting the Stage', path: '/instructions/module-2/2.1' },
-      { id: '2.2', title: 'Custom Instructions: Personalization', path: '/instructions/module-2/2.2' },
-      { id: '2.3', title: 'Practical Application', path: '/instructions/module-2/2.3' },
+      { id: '2.1', title: 'The Power of Context in AI', path: '/instructions/module-2/2.1' },
+      { id: '2.2', title: 'Maintaining Coherent Conversations', path: '/instructions/module-2/2.2' },
+      { id: '2.3', title: 'Practical Context Exercises', path: '/instructions/module-2/2.3' },
     ],
   },
   {
     id: 'module-3',
-    title: '3. AI in Action - Real-World Applications',
+    title: '3. Prompting Techniques',
     lessons: [
-      { id: '3.1', title: 'Dynamic Content Generation', path: '/instructions/module-3/3.1' },
-      { id: '3.2', title: 'Logic and Problem Solving', path: '/instructions/module-3/3.2' },
-      { id: '3.3', title: 'Interactive Features', path: '/instructions/module-3/3.3' },
+      { id: '3.1', title: 'Zero-shot and Few-shot Prompting', path: '/instructions/module-3/3.1' },
+      { id: '3.2', title: 'Chain-of-Thought Prompting', path: '/instructions/module-3/3.2' },
+      { id: '3.3', title: 'Advanced Prompt Patterns', path: '/instructions/module-3/3.3' },
     ],
   },
   {
     id: 'module-4',
-    title: '4. Expanding Capabilities - Tools and Integrations',
+    title: '4. AI Capabilities & Tools',
     lessons: [
       { id: '4.1', title: 'Function Calling', path: '/instructions/module-4/4.1' },
       { id: '4.2', title: 'Model Context Protocol (MCP)', path: '/instructions/module-4/4.2' },
       { id: '4.3', title: 'Building Custom Tools', path: '/instructions/module-4/4.3' },
       { id: '4.4', title: 'Understanding GPTs', path: '/instructions/module-4/4.4' },
-      { id: '4.5', title: 'Introduction to AI Agents', path: '/instructions/module-4/4.5' },
-      { id: '4.6', title: 'Leveraging MCP Servers', path: '/instructions/module-4/4.6' },
+      { id: '4.5', title: 'AI Agents', path: '/instructions/module-4/4.5' },
+      { id: '4.6', title: 'MCP Servers', path: '/instructions/module-4/4.6' },
     ],
   },
   {
     id: 'module-5',
-    title: '5. Advanced Interaction Patterns',
+    title: '5. Advanced Interactions',
     lessons: [
       { id: '5.1', title: 'Multi-Turn Conversations', path: '/instructions/module-5/5.1' },
-      { id: '5.2', title: 'Personalization at Scale', path: '/instructions/module-5/5.2' },
+      { id: '5.2', title: 'Personalization', path: '/instructions/module-5/5.2' },
       { id: '5.3', title: 'Performance Optimization', path: '/instructions/module-5/5.3' },
     ],
   },
   {
     id: 'module-6',
-    title: '6. The Collaborative Development Process',
+    title: '6. Development with AI',
     lessons: [
       { id: '6.1', title: 'Idea Generation', path: '/instructions/module-6/6.1' },
-      { id: '6.2', title: 'Design Thinking with AI', path: '/instructions/module-6/6.2' },
-      { id: '6.3', title: 'Iterative Improvement', path: '/instructions/module-6/6.3' },
+      { id: '6.2', title: 'Design Thinking', path: '/instructions/module-6/6.2' },
+      { id: '6.3', title: 'Iterative Development', path: '/instructions/module-6/6.3' },
     ],
   },
   {
     id: 'module-7',
-    title: '7. Advanced AI Techniques',
+    title: '7. Advanced Techniques',
     lessons: [
-      { id: '7.1', title: 'Function Calling & Tool Use', path: '/instructions/module-7/7.1' },
-      { id: '7.2', title: 'Building RAG Systems', path: '/instructions/module-7/7.2' },
-      { id: '7.3', title: 'Fine-Tuning Models', path: '/instructions/module-7/7.3' },
+      { id: '7.1', title: 'Function Calling', path: '/instructions/module-7/7.1' },
+      { id: '7.2', title: 'RAG Systems', path: '/instructions/module-7/7.2' },
+      { id: '7.3', title: 'Model Fine-Tuning', path: '/instructions/module-7/7.3' },
     ],
   },
   {
@@ -87,8 +87,8 @@ const moduleData = [
     title: '8. Responsible AI',
     lessons: [
       { id: '8.1', title: 'Bias and Fairness', path: '/instructions/module-8/8.1' },
-      { id: '8.2', title: 'Transparency and Explainability', path: '/instructions/module-8/8.2' },
-      { id: '8.3', title: 'Security and Privacy', path: '/instructions/module-8/8.3' },
+      { id: '8.2', title: 'Explainability', path: '/instructions/module-8/8.2' },
+      { id: '8.3', title: 'Security & Privacy', path: '/instructions/module-8/8.3' },
     ],
   },
 ];

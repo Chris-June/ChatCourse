@@ -14,7 +14,7 @@ const Module6Page: React.FC = () => {
   const lessons: Lesson[] = [
     { id: '6.1', title: 'Idea Generation', path: '/instructions/module-6/6.1' },
     { id: '6.2', title: 'Design Thinking with AI', path: '/instructions/module-6/6.2' },
-    { id: '6.3', title: 'Iterative Improvement', path: '/instructions/module-6/6.3' },
+    { id: '6.3', title: 'Iterative Development', path: '/instructions/module-6/6.3' },
   ];
 
   const currentLessonIndex = lessons.findIndex(lesson => location.pathname.endsWith(lesson.id));

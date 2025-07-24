@@ -16,8 +16,8 @@ const Module4Page: React.FC = () => {
     { id: '4.2', title: 'Model Context Protocol (MCP)', path: '/instructions/module-4/4.2' },
     { id: '4.3', title: 'Building Custom Tools', path: '/instructions/module-4/4.3' },
     { id: '4.4', title: 'Understanding GPTs', path: '/instructions/module-4/4.4' },
-    { id: '4.5', title: 'Introduction to AI Agents', path: '/instructions/module-4/4.5' },
-    { id: '4.6', title: 'Leveraging MCP Servers', path: '/instructions/module-4/4.6' },
+    { id: '4.5', title: 'AI Agents', path: '/instructions/module-4/4.5' },
+    { id: '4.6', title: 'MCP Servers', path: '/instructions/module-4/4.6' },
   ];
 
   const currentLessonIndex = lessons.findIndex(lesson => location.pathname.endsWith(lesson.id));

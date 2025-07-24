@@ -21,20 +21,20 @@ const Lesson2_2: React.FC = () => {
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">2.2 Keeping the Thread: Techniques for Coherent Conversations</h1>
+        <h1 className="text-3xl font-bold text-blue-400">2.2 Maintaining Coherent Conversations</h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-2/2.1" 
             className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous
+            <ChevronLeft className="w-5 h-5 mr-2" /> Context in AI
           </Link>
           <Link 
             to="/instructions/module-2/2.3" 
             onClick={() => completeLesson(2, 2)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
-            Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
+            Next: Practical Exercises <ChevronRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>
@@ -114,7 +114,7 @@ const Lesson2_2: React.FC = () => {
           Try It Yourself
         </h2>
         <p className="text-gray-300 mb-4">
-          Now it's your turn. Use the chat below to practice the techniques you've learned. Try summarizing a conversation, using explicit references, and see if you can get the AI to maintain context over several turns.
+          Now it's your turn. Use the chat below to practice the techniques you've learned. Try summarizing a conversation, from exercises 1.2using explicit references, and see if you can get the AI to maintain context over several turns.
         </p>
         <InlineChat 
           moduleId="module-2.2"

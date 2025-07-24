@@ -12,9 +12,9 @@ const Module3Page: React.FC = () => {
   const location = useLocation();
   
   const lessons: Lesson[] = [
-    { id: '3.1', title: 'Dynamic Content Generation', path: '/instructions/module-3/3.1' },
-    { id: '3.2', title: 'Logic and Problem Solving', path: '/instructions/module-3/3.2' },
-    { id: '3.3', title: 'Interactive Features', path: '/instructions/module-3/3.3' },
+    { id: '3.1', title: 'Zero-shot Prompting', path: '/instructions/module-3/3.1' },
+    { id: '3.2', title: 'Chain-of-Thought', path: '/instructions/module-3/3.2' },
+    { id: '3.3', title: 'Advanced Prompting Techniques', path: '/instructions/module-3/3.3' },
   ];
 
   const currentLessonIndex = lessons.findIndex(lesson => location.pathname.endsWith(lesson.id));

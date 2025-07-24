@@ -13,8 +13,8 @@ const Module2Page: React.FC = () => {
   
   const lessons: Lesson[] = [
     { id: '2.1', title: 'The Power of Context Windows', path: '/instructions/module-2/2.1' },
-    { id: '2.2', title: 'Multi-turn Conversations', path: '/instructions/module-2/2.2' },
-    { id: '2.3', title: 'Project: Build a Context-Aware Chatbot', path: '/instructions/module-2/2.3' },
+    { id: '2.2', title: 'Maintaining Context', path: '/instructions/module-2/2.2' },
+    { id: '2.3', title: 'Practical Examples', path: '/instructions/module-2/2.3' },
   ];
 
   const currentLessonIndex = lessons.findIndex(lesson => location.pathname.endsWith(lesson.id));

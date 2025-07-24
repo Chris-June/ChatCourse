@@ -10,20 +10,20 @@ const Lesson1_3: React.FC = () => {
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">1.3 Hands-on Exploration: Putting Theory into Practice</h1>
+        <h1 className="text-3xl font-bold text-blue-400">1.3 Advanced Prompting Techniques</h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-1/1.2" 
             className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous
+            <ChevronLeft className="w-5 h-5 mr-2" /> Crafting Prompts
           </Link>
           <Link 
             to="/instructions/module-2" 
             onClick={() => completeLesson(1, 3)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
-            Next Module <ChevronRight className="w-5 h-5 ml-2" />
+            Next: Context Management <ChevronRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>
@@ -198,48 +198,84 @@ const Lesson1_3: React.FC = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-lg text-blue-400 mb-2">Avoid Impreciseness</h4>
-            <p className="text-gray-400 mb-2">
-              Given the tips above about being detailed and improving format, it's easy to fall into the trap of wanting to be too clever about prompts and potentially creating imprecise descriptions. It's often better to be specific and direct. The analogy here is very similar to effective communication -- the more direct, the more effective the message gets across.
+            <h4 className="font-semibold text-lg text-blue-400 mb-2">Avoid Impreciseness: Bad Prompt vs Good Prompt</h4>
+            <p className="text-gray-400 mb-4">
+              When designing prompts, it's tempting to be clever or use negative instructions (what not to do). But this often leads to confusion and poor results.
             </p>
-            <p className="text-gray-400 mb-2">
-              For example, you might be interested in learning the concept of prompt engineering. You might try something like:
-            </p>
-            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4">
-              <p className="text-red-400 font-bold">Bad Prompt:</p>
-              <code className="block whitespace-pre-wrap break-words font-mono">Explain the concept prompt engineering. Keep the explanation short, only a few sentences, and don't be too descriptive.</code>
-              <p className="text-gray-400 my-2">
-                It's not clear from the prompt above how many sentences to use and what style. You might still somewhat get good responses with the above prompts but the better prompt would be one that is very specific, concise, and to the point. Something like:
-              </p>
-              <p className="text-green-400 font-bold">Good Prompt:</p>
-              <code className="block whitespace-pre-wrap break-words font-mono">Use 2-3 sentences to explain the concept of prompt engineering to a high school student.</code>
+            
+            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4 space-y-4">
+              <div>
+                <p className="text-red-400 font-bold">❌ Bad Prompt:</p>
+                <code className="block whitespace-pre-wrap break-words font-mono bg-gray-800 p-2 rounded mt-1">Explain the concept of prompt engineering. Keep the explanation short, only a few sentences, and don't be too descriptive.</code>
+                <p className="text-gray-400 text-xs mt-1 italic">
+                  <span className="font-semibold">Why it fails:</span> The AI struggles with vague instructions like "a few sentences" and negative constraints like "don't be too descriptive." This leads to inconsistent or off-target responses.
+                </p>
+              </div>
+
+              <div>
+                <p className="text-green-400 font-bold">✅ Good Prompt:</p>
+                <code className="block whitespace-pre-wrap break-words font-mono bg-gray-800 p-2 rounded mt-1">Use 2-3 sentences to explain the concept of prompt engineering to a high school student.</code>
+                <p className="text-gray-400 text-xs mt-1 italic">
+                  <span className="font-semibold">Why it works:</span> This is clear, specific, and positive. It provides a target length, defines the audience, and focuses on what to do rather than what to avoid.
+                </p>
+              </div>
+              
+              <div className="bg-blue-900/20 p-3 rounded border border-blue-800">
+                <p className="text-blue-300 text-sm font-medium">💡 <span className="font-semibold">Pro Tip:</span> Think of prompts like giving directions. "Go right at the next intersection" is clearer than "Don't go left." Always tell the AI what you <span className="text-green-300">want it to do</span> rather than what to avoid.</p>
+              </div>
             </div>
           </div>
 
           <div>
-            <h4 className="font-semibold text-lg text-blue-400 mb-2">To do or not to do?</h4>
-            <p className="text-gray-400 mb-2">
-              Another common tip when designing prompts is to avoid saying what not to do but say what to do instead. This encourages more specificity and focuses on the details that lead to good responses from the model.
-            </p>
-            <p className="text-gray-400 mb-2">
-              Below is an example of a movie recommendation chatbot failing because the prompt focused on negative constraints.
-            </p>
-            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4">
-              <p className="text-red-400 font-bold">Bad Prompt:</p>
-              <code className="block whitespace-pre-wrap break-words font-mono">The following is an agent that recommends movies to a customer. DO NOT ASK FOR INTERESTS. DO NOT ASK FOR PERSONAL INFORMATION.</code>
-              <hr className="border-gray-700 my-3" />
-              <p className="text-red-400 font-bold">Resulting Undesirable Output:</p>
-              <code className="block whitespace-pre-wrap break-words font-mono">Sure, I can recommend a movie based on your interests. What kind of movie would you like to watch?</code>
-            </div>
-
-            <p className="text-gray-400 my-4">Here is a better prompt that gives clear, positive instructions:</p>
-            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4">
-              <p className="text-green-400 font-bold">Good Prompt:</p>
-              <code className="block whitespace-pre-wrap break-words font-mono">You are an agent that recommends a movie from the top global trending list. Do not ask for user preferences or personal information. If you cannot find a movie, say so.</code>
-              <hr className="border-gray-700 my-3" />
-              <p className="text-green-400 font-bold">Resulting Correct Output:</p>
-              <code className="block whitespace-pre-wrap break-words font-mono">Sorry, I don't have any information about your interests. However, here's a list of the top global trending movies...</code>
-            </div>
+            
+              <h4 className="font-semibold text-lg text-blue-400 mb-2">Specify What to Do, Not What Not to Do</h4>
+              <p className="text-gray-400 mb-2">
+                Instead of focusing on prohibitions, craft prompts that clearly state your desired outcome. Positive, specific instructions guide the AI more effectively than vague "don't" statements.
+              </p>
+              <p className="text-gray-400 mb-2">
+                Here’s a contrast: a prompt that stalls the conversation versus one that drives it forward with clear objectives.
+              </p>
+              <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4 space-y-4">
+                <div>
+                  <p className="text-red-400 font-bold">❌ Bad Prompt:</p>
+                  <code className="block whitespace-pre-wrap break-words font-mono">
+                    "Recommend a movie without asking any questions or personal details."
+                  </code>
+                  <p className="text-gray-400 text-xs mt-1 italic">
+                    <span className="font-semibold">Why it fails:</span> This negative framing leaves the AI unsure what to recommend, prompting it to ask follow-up questions.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-red-400 font-bold">Resulting Undesirable Output:</p>
+                  <code className="block whitespace-pre-wrap break-words font-mono">
+                    "Sure, I can recommend a movie based on your interests. What genre do you prefer?"
+                  </code>
+                </div>
+                <div>
+                  <p className="text-green-400 font-bold">✅ Good Prompt:</p>
+                  <code className="block whitespace-pre-wrap break-words font-mono">
+                    "You are an agent that recommends the top 5 global trending movies. Do not ask for personal preferences or details. If trending data is unavailable, say so."
+                  </code>
+                  <p className="text-gray-400 text-xs mt-1 italic">
+                    <span className="font-semibold">Why it works:</span> It sets clear goals (top 5 trending), avoids ambiguity, and defines fallback behavior.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-green-400 font-bold">Resulting Correct Output:</p>
+                  <code className="block whitespace-pre-wrap break-words font-mono">
+                    "Here are the top 5 global trending movies right now:
+1. Movie A
+2. Movie B
+3. Movie C
+4. Movie D
+5. Movie E"
+                  </code>
+                </div>
+                <div className="bg-blue-900/20 p-3 rounded border border-blue-800 mt-4">
+                  <p className="text-blue-300 text-sm font-medium">💡 <span className="font-semibold">Pro Tip:</span> Frame your prompt around what you want the AI to deliver. Positive, measurable instructions eliminate ambiguity.</p>
+                </div>
+              </div>
+            
           </div>
         </div>
       </section>
@@ -279,7 +315,7 @@ const Lesson1_3: React.FC = () => {
           to="/instructions/module-1/1.2" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Art of the Prompt
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous
         </Link>
         <Link 
           to="/instructions/module-2" 

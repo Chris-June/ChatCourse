@@ -8,13 +8,13 @@ const Lesson1_1: React.FC = () => {
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">1.1 Demystifying AI: What Exactly Are We Working With?</h1>
+        <h1 className="text-3xl font-bold text-blue-400">1.1 Introduction to AI and Prompts</h1>
         <Link 
           to="/instructions/module-1/1.2" 
           onClick={() => completeLesson(1, 1)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Next Lesson <ChevronRight className="w-5 h-5 ml-2" />
+          Next: Crafting Effective Prompts <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
 
@@ -101,7 +101,7 @@ const Lesson1_1: React.FC = () => {
           onClick={() => completeLesson(1, 1)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Next: The Art of the Prompt <ChevronRight className="w-5 h-5 ml-2" />
+          Next: Crafting Effective Prompts <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>
