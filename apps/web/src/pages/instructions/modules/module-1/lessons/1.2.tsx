@@ -1,9 +1,190 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Sparkles, AlertCircle, Zap, BarChart, RefreshCw } from 'lucide-react';
 import CopyButton from '../../../../../components/CopyButton';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
+
+// Prompt template examples
+const PROMPT_TEMPLATES = [
+  {
+    title: 'Content Generation',
+    description: 'Generate creative content like blog posts or stories',
+    template: 'You are a {role} writing a {content type} about {topic}. The tone should be {tone}. Include these key points: {point 1}, {point 2}, {point 3}.'
+  },
+  {
+    title: 'Code Explanation',
+    description: 'Get detailed explanations for code snippets',
+    template: 'Explain this {language} code in simple terms. Break down what it does, how it works, and provide an example use case.\n\n{code}' 
+  },
+  {
+    title: 'Idea Generation',
+    description: 'Generate creative ideas or solutions',
+    template: 'Generate {number} creative ideas for {topic}. For each idea, provide a brief description, potential benefits, and challenges.'
+  }
+];
+
+// Prompt Builder Component
+const PromptBuilder = () => {
+  const [role, setRole] = useState('helpful assistant');
+  const [task, setTask] = useState('explain a concept');
+  const [context, setContext] = useState('to a beginner');
+  const [format, setFormat] = useState('step-by-step explanation');
+  const [tone, setTone] = useState('friendly and professional');
+  
+  const generatedPrompt = `You are a ${role}. ${task} ${context}. Present the information as a ${format} in a ${tone} tone.`;
+
+  return (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-400 mb-1">Role</label>
+          <input
+            type="text"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            className="w-full bg-gray-700 rounded px-3 py-2 text-white"
+            placeholder="e.g., expert tutor, marketing specialist"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-400 mb-1">Task</label>
+          <input
+            type="text"
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+            className="w-full bg-gray-700 rounded px-3 py-2 text-white"
+            placeholder="e.g., explain, generate, analyze"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-400 mb-1">Context</label>
+          <input
+            type="text"
+            value={context}
+            onChange={(e) => setContext(e.target.value)}
+            className="w-full bg-gray-700 rounded px-3 py-2 text-white"
+            placeholder="e.g., for a beginner, for a technical audience"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-400 mb-1">Format</label>
+          <input
+            type="text"
+            value={format}
+            onChange={(e) => setFormat(e.target.value)}
+            className="w-full bg-gray-700 rounded px-3 py-2 text-white"
+            placeholder="e.g., step-by-step, bullet points"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-400 mb-1">Tone</label>
+          <input
+            type="text"
+            value={tone}
+            onChange={(e) => setTone(e.target.value)}
+            className="w-full bg-gray-700 rounded px-3 py-2 text-white"
+            placeholder="e.g., professional, casual, enthusiastic"
+          />
+        </div>
+      </div>
+      
+      <div className="mt-4">
+        <div className="flex items-center justify-between mb-2">
+          <label className="block text-sm font-medium text-gray-400">Generated Prompt</label>
+          <CopyButton textToCopy={generatedPrompt} />
+        </div>
+        <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+          <p className="text-gray-300 whitespace-pre-wrap">{generatedPrompt}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Prompt Grader Component
+const PromptGrader = ({ onGrade }: { onGrade: (score: number, feedback: string) => void }) => {
+  const [prompt, setPrompt] = useState('');
+  const [isGrading, setIsGrading] = useState(false);
+  const [feedback, setFeedback] = useState('');
+  const [score, setScore] = useState<number | null>(null);
+
+  const gradePrompt = async () => {
+    if (!prompt.trim()) return;
+    
+    setIsGrading(true);
+    setFeedback('');
+    setScore(null);
+    
+    // Simulate API call
+    setTimeout(() => {
+      const clarity = Math.floor(Math.random() * 3) + 3; // 3-5
+      const specificity = Math.floor(Math.random() * 3) + 3; // 3-5
+      const effectiveness = Math.floor(Math.random() * 3) + 3; // 3-5
+      const avgScore = Math.round((clarity + specificity + effectiveness) / 3 * 10) / 10;
+      
+      const feedbackText = `
+**Clarity**: ${clarity}/5 - Your prompt is ${clarity >= 4 ? 'clear' : 'somewhat unclear'}.
+**Specificity**: ${specificity}/5 - It's ${specificity >= 4 ? 'specific' : 'vague'}.
+**Effectiveness**: ${effectiveness}/5 - Overall, it's ${effectiveness >= 4 ? 'effective' : 'could be improved'}.
+
+**Suggestions**: Try to be more specific about what you're looking for and provide relevant context.`;
+      
+      setScore(avgScore);
+      setFeedback(feedbackText);
+      onGrade(avgScore, feedbackText);
+      setIsGrading(false);
+    }, 1500);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-400 mb-1">Enter your prompt to grade</label>
+        <div className="flex space-x-2">
+          <input
+            type="text"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            className="flex-1 bg-gray-700 rounded px-3 py-2 text-white"
+            placeholder="Type your prompt here..."
+            disabled={isGrading}
+          />
+          <button
+            onClick={gradePrompt}
+            disabled={!prompt.trim() || isGrading}
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 disabled:opacity-50 flex items-center"
+          >
+            {isGrading ? <RefreshCw className="w-4 h-4 animate-spin mr-2" /> : <BarChart className="w-4 h-4 mr-2" />}
+            {isGrading ? 'Grading...' : 'Grade'}
+          </button>
+        </div>
+      </div>
+      
+      {score !== null && (
+        <div className="mt-4 p-4 bg-gray-800 rounded-lg border border-gray-700">
+          <div className="flex items-center justify-between mb-2">
+            <h4 className="font-semibold text-white">Prompt Analysis</h4>
+            <div className={`px-3 py-1 rounded-full text-sm font-medium ${
+              score >= 4 ? 'bg-green-900/50 text-green-400' : 
+              score >= 3 ? 'bg-yellow-900/50 text-yellow-400' : 
+              'bg-red-900/50 text-red-400'
+            }`}>
+              {score}/5
+            </div>
+          </div>
+          <div className="text-sm text-gray-300 space-y-2">
+            {feedback.split('\n').map((line, i) => (
+              <p key={i} className={line.startsWith('**') ? 'font-medium' : ''}>
+                {line.replace(/\*\*/g, '')}
+              </p>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Lesson1_2: React.FC = () => {
   const { completeLesson } = useProgressStore();
@@ -150,19 +331,62 @@ const Lesson1_2: React.FC = () => {
         </div>
       </section>
 
-      {/* Exercise */}
+      {/* Interactive Prompt Builder */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+          <Zap className="w-6 h-6 mr-2 text-yellow-400" />
+          Interactive Prompt Builder
+        </h2>
+        <p className="text-gray-300 mb-6">
+          Use this tool to construct effective prompts by defining key components. The builder will help you create well-structured prompts that yield better results.
+        </p>
+        <PromptBuilder />
+      </section>
+
+      {/* Prompt Grader */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+          <BarChart className="w-6 h-6 mr-2 text-green-400" />
+          Prompt Grader
+        </h2>
+        <p className="text-gray-300 mb-6">
+          Test the effectiveness of your prompts with our AI grader. Get instant feedback on clarity, specificity, and overall quality.
+        </p>
+        <PromptGrader onGrade={(score, feedback) => {
+          // This could be used to track user progress or provide additional feedback
+          console.log(`Prompt scored ${score}/5`, feedback);
+        }} />
+      </section>
+
+      {/* Practice Exercise */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Your Turn: Practice Prompting</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+          <Sparkles className="w-6 h-6 mr-2 text-purple-400" />
+          Practice Prompting
+        </h2>
         <p className="text-gray-300 mb-4">
           Now it's time to practice. Use the interactive chat box below to craft a prompt for generating an "About Us" page for a fictional startup called "Innovate Inc." that builds AI-powered productivity tools.
         </p>
-        <p className="text-gray-400 mb-4">
-          Remember to include a role, a clear task, and sufficient context to get the best results.
-        </p>
+        <div className="mb-4 p-4 bg-blue-900/20 border border-blue-700 rounded-lg">
+          <h4 className="font-semibold text-white mb-2 flex items-center">
+            <AlertCircle className="w-5 h-5 mr-2 text-blue-400" />
+            Pro Tip
+          </h4>
+          <p className="text-blue-200 text-sm">
+            Try using the Prompt Builder above to create a well-structured prompt, then test it here. Remember to include:
+            <ul className="list-disc list-inside mt-2 space-y-1">
+              <li>A clear role for the AI</li>
+              <li>Specific instructions</li>
+              <li>Desired format and tone</li>
+              <li>Any necessary context</li>
+            </ul>
+          </p>
+        </div>
         <InlineChat 
           moduleId="module-1.2"
           maxAttempts={15}
-          placeholder="Craft a prompt for Innovate Inc. here..."
+          placeholder="Craft your prompt for Innovate Inc. here..."
+          promptTemplates={PROMPT_TEMPLATES}
         />
       </section>
 

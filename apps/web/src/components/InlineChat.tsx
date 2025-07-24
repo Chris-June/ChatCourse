@@ -15,6 +15,11 @@ interface InlineChatProps {
   systemPrompt?: string;
   moduleId?: string; // Unique identifier for rate limiting per module
   maxAttempts?: number; // Maximum number of attempts allowed
+  promptTemplates?: Array<{
+    title: string;
+    description: string;
+    template: string;
+  }>;
 }
 
 const RATE_LIMIT_RESET_HOURS = 24; // Reset rate limit every 24 hours

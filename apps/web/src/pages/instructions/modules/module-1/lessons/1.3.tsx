@@ -1,22 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Beaker, Zap } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
-import InlineChat from '../../../../../components/InlineChat';
+import { ChevronLeft, ChevronRight, Beaker, Code, BookOpen, BarChart3, Sparkles, Layers, Zap } from 'lucide-react';
 import { useProgressStore } from '../../../../../store/progressStore';
+
+// Import our advanced prompting components
+import {
+  PromptRefinementWorkbench,
+  PairProgrammingSimulator,
+  PromptChallenges,
+  PromptPatternLibrary,
+  PromptVisualizer
+} from '../../../../../components/prompting/advanced';
+
+// Tab component for the lesson navigation
+const TabButton: React.FC<{
+  active: boolean;
+  onClick: () => void;
+  icon: React.ReactNode;
+  label: string;
+}> = ({ active, onClick, icon, label }) => (
+  <button
+    onClick={onClick}
+    className={`flex items-center px-4 py-2 rounded-t-lg transition-colors ${
+      active 
+        ? 'bg-gray-800 text-blue-400 border-b-2 border-blue-500' 
+        : 'text-gray-400 hover:bg-gray-800/50 hover:text-gray-200'
+    }`}
+  >
+    <span className="mr-2">{icon}</span>
+    {label}
+  </button>
+);
+
+// Add fade-in animation styles
+const addAnimationStyles = () => {
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+  `;
+  document.head.appendChild(style);
+};
 
 const Lesson1_3: React.FC = () => {
   const { completeLesson } = useProgressStore();
+  const [activeTab, setActiveTab] = useState<'visualizer' | 'challenges' | 'patterns' | 'refinement' | 'pairing'>('visualizer');
+
+  useEffect(() => {
+    addAnimationStyles();
+  }, []);
+
   return (
     <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">1.3 Advanced Prompting Techniques</h1>
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+        <div>
+          <h1 className="text-3xl font-bold text-blue-400">1.3 Advanced Prompting Techniques</h1>
+          <p className="text-lg text-gray-300 mt-2">
+            Take your prompt engineering skills to the next level with these advanced techniques and tools.
+          </p>
+        </div>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-1/1.2" 
             className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Crafting Prompts
+            <ChevronLeft className="w-5 h-5 mr-2" /> Previous
           </Link>
           <Link 
             to="/instructions/module-2" 
@@ -28,286 +82,217 @@ const Lesson1_3: React.FC = () => {
         </div>
       </div>
 
-      <p className="text-lg text-gray-300">
-        Knowledge is powerful, but applied knowledge is transformative. This lesson is all about getting your hands dirty. You'll move from theory to practice, experimenting with prompts and seeing the direct impact of your choices.
-      </p>
-
-      {/* Pattern Recognition and Iteration */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Beaker className="w-7 h-7 mr-3 text-blue-400" />
-          Pattern Recognition and Iteration
-        </h2>
-        <p className="text-gray-300 mb-4">
-          The best way to learn is by doing. Your goal here is to develop an intuition for what makes a prompt work. This involves trying something, seeing the result, and refining your approach.
-        </p>
-        <div className="bg-gray-900 p-4 rounded-lg border-2 border-dashed border-gray-600">
-          <h3 className="font-semibold text-white mb-2">Exercise: The Iterative Loop</h3>
-          <p className="text-gray-400 mb-3">Use the chat sandbox below to follow these steps:</p>
-          <ol className="space-y-4">
-            <li className="flex items-start gap-4">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-600/20 text-blue-300 font-bold">1</div>
-              <div className="flex-1">
-                <p className="text-gray-300">
-                  <strong>Initial Prompt (Vague):</strong> Ask the AI to <span className="font-mono text-cyan-300 bg-gray-900/50 px-1 rounded">"write some code for a button."</span> Observe the generic output.
-                </p>
-              </div>
-              <CopyButton textToCopy='write some code for a button.' />
-            </li>
-            <li className="flex items-start gap-4">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-600/20 text-blue-300 font-bold">2</div>
-              <div className="flex-1">
-                <p className="text-gray-300">
-                  <strong>Second Prompt (Add Context):</strong> Now, get more specific. <span className="font-mono text-cyan-300 bg-gray-900/50 px-1 rounded">"You are a React developer using Tailwind CSS. Write the code for a primary action button..."</span>
-                </p>
-              </div>
-              <CopyButton textToCopy="You are a React developer using Tailwind CSS. Write the code for a primary action button. It should be blue, have white text, and rounded corners." />
-            </li>
-            <li className="flex items-start gap-4">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-600/20 text-blue-300 font-bold">3</div>
-              <div className="flex-1">
-                <p className="text-gray-300">
-                  <strong>Third Prompt (Refine with Constraints):</strong> Finally, add a constraint. <span className="font-mono text-cyan-300 bg-gray-900/50 px-1 rounded">"Make the button accessible by adding ARIA attributes and a focus style."</span>
-                </p>
-              </div>
-              <CopyButton textToCopy="Building on the last response, add a hover effect that slightly lightens the blue background. Also, add a subtle box-shadow. Ensure the component accepts an 'onClick' prop and 'children' for the button text." />
-            </li>
-          </ol>
-        </div>
-        <div className="mt-6">
-          <h3 className="font-semibold text-white mb-2">Try The Iterative Loop</h3>
-          <p className="text-gray-400 mb-4">Use the chat below to practice. Start with a vague prompt and refine it over several turns based on the AI's feedback.</p>
-          <InlineChat 
-            moduleId="module-1.3-iterative"
-            maxAttempts={15}
-            placeholder="Start with a vague prompt like 'write code for a button' and then iterate..." 
+      {/* Navigation Tabs */}
+      <div className="border-b border-gray-700">
+        <div className="flex flex-wrap -mb-px">
+          <TabButton
+            active={activeTab === 'visualizer'}
+            onClick={() => setActiveTab('visualizer')}
+            icon={<BarChart3 className="w-5 h-5" />}
+            label="Prompt Visualizer"
+          />
+          <TabButton
+            active={activeTab === 'challenges'}
+            onClick={() => setActiveTab('challenges')}
+            icon={<Sparkles className="w-5 h-5" />}
+            label="Prompt Challenges"
+          />
+          <TabButton
+            active={activeTab === 'patterns'}
+            onClick={() => setActiveTab('patterns')}
+            icon={<Layers className="w-5 h-5" />}
+            label="Pattern Library"
+          />
+          <TabButton
+            active={activeTab === 'refinement'}
+            onClick={() => setActiveTab('refinement')}
+            icon={<Beaker className="w-5 h-5" />}
+            label="Refinement Workbench"
+          />
+          <TabButton
+            active={activeTab === 'pairing'}
+            onClick={() => setActiveTab('pairing')}
+            icon={<Code className="w-5 h-5" />}
+            label="Pair Programming"
           />
         </div>
-        <p className="text-yellow-300 mt-4 text-sm"><strong>Reflection:</strong> How did the AI's response change with each iteration? You guided it from a generic concept to a specific, functional component. This is the core loop of AI collaboration.</p>
-      </section>
+      </div>
 
-      {/* Sandbox */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Zap className="w-7 h-7 mr-3 text-purple-400" />
-          Creative Sandbox: Go Wild!
-        </h2>
-        <p className="text-gray-300 mb-4">
-          Now it's time for free exploration. There are no right or wrong answers here. The goal is to experiment and build your confidence. Try to get the AI to do something interesting, useful, or funny.
-        </p>
-        <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-                <h4 className="font-semibold text-white mb-2">Challenge Ideas:</h4>
-                <ul className="list-disc list-inside text-gray-400 space-y-1">
-                    <li>Have it write a short story in the style of your favorite author.</li>
-                    <li>Ask it to create a recipe based on ingredients you have in your fridge.</li>
-                    <li>Get it to generate a workout plan or a travel itinerary.</li>
-                    <li>Have it explain a complex scientific topic (like quantum physics) to a five-year-old.</li>
-                    <li>Ask it to write a Python script to rename all files in a directory.</li>
-                </ul>
-            </div>
-            <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-                <h4 className="font-semibold text-white mb-2">Things to Try:</h4>
-                <ul className="list-disc list-inside text-gray-400 space-y-1">
-                    <li>Use different tones (formal, sarcastic, enthusiastic).</li>
-                    <li>Ask for different formats (a table, a JSON object, a poem).</li>
-                    <li>Give it a very specific, weird persona to adopt.</li>
-                    <li>Intentionally give it a bad prompt, then try to fix it.</li>
-                    <li>See if you can get it to refuse a request (ethically!).</li>
-                </ul>
-            </div>
-        </div>
-      </section>
-
-      {/* Prompt Design Tips */}
-      <section>
-        <h3 className="text-xl font-semibold text-white mb-4">Prompt Design Tips</h3>
-        <p className="text-gray-400 mb-4">Here are some tips to keep in mind while you are designing your prompts:</p>
-        
-        <div className="space-y-6">
-          <div>
-            <h4 className="font-semibold text-lg text-blue-400 mb-2">Start Simple</h4>
-            <p className="text-gray-400 mb-2">
-              As you get started with designing prompts, you should keep in mind that it is really an iterative process that requires a lot of experimentation to get optimal results. Using a simple playground from OpenAI or Cohere is a good starting point.
-            </p>
-            <p className="text-gray-400 mb-2">
-              You can start with simple prompts and keep adding more elements and context as you aim for better results. Iterating your prompt along the way is vital for this reason. As you read the guide, you will see many examples where specificity, simplicity, and conciseness will often give you better results.
-            </p>
-            <p className="text-gray-400">
-              When you have a big task that involves many different subtasks, you can try to break down the task into simpler subtasks and keep building up as you get better results. This avoids adding too much complexity to the prompt design process at the beginning.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-lg text-blue-400 mb-2">The Instruction</h4>
-            <p className="text-gray-400 mb-2">
-              You can design effective prompts for various simple tasks by using commands to instruct the model what you want to achieve, such as "Write", "Classify", "Summarize", "Translate", "Order", etc.
-            </p>
-            <p className="text-gray-400 mb-2">
-              Keep in mind that you also need to experiment a lot to see what works best. Try different instructions with different keywords, contexts, and data and see what works best for your particular use case and task. Usually, the more specific and relevant the context is to the task you are trying to perform, the better. We will touch on the importance of sampling and adding more context in the upcoming guides.
-            </p>
-            <p className="text-gray-400 mb-2">
-              Others recommend that you place instructions at the beginning of the prompt. Another recommendation is to use some clear separator like "###" to separate the instruction and context.
-            </p>
-            <p className="text-gray-400">For instance:</p>
-            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4">
-              <code className="block whitespace-pre-wrap break-words font-mono">
-                Prompt:
-                <br />
-                ### Instruction ###
-                <br />
-                Translate the text below to Spanish:
-                <br />
-                Text: "hello!"
-                <br />
-                <br />
-                Output:
-                <br />
-                ¡Hola!
-              </code>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-lg text-blue-400 mb-2">Specificity</h4>
-            <p className="text-gray-400 mb-2">
-              Be very specific about the instruction and task you want the model to perform. The more descriptive and detailed the prompt is, the better the results. This is particularly important when you have a desired outcome or style of generation you are seeking. There aren't specific tokens or keywords that lead to better results. It's more important to have a good format and descriptive prompt. In fact, providing examples in the prompt is very effective to get desired output in specific formats.
-            </p>
-            <p className="text-gray-400 mb-2">
-              When designing prompts, you should also keep in mind the length of the prompt as there are limitations regarding how long the prompt can be. Thinking about how specific and detailed you should be. Including too many unnecessary details is not necessarily a good approach. The details should be relevant and contribute to the task at hand. This is something you will need to experiment with a lot. We encourage a lot of experimentation and iteration to optimize prompts for your applications.
-            </p>
-            <p className="text-gray-400">As an example, let's try a simple prompt to extract specific information from a piece of text.</p>
-            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4">
-              <code className="block whitespace-pre-wrap break-words font-mono">
-                Prompt:
-                <br />
-                Extract the name of places in the following text.
-                <br />
-                Desired format:
-                <br />
-                Place: &lt;comma_separated_list_of_places&gt;
-                <br />
-                Input: "Although these developments are encouraging to researchers, much is still a mystery. “We often have a black box between the brain and the effect we see in the periphery,” says Henrique Veiga-Fernandes, a neuroimmunologist at the Champalimaud Centre for the Unknown in Lisbon. “If we want to use it in the therapeutic context, we actually need to understand the mechanism.“"
-                <br />
-                <br />
-                Output:
-                <br />
-                Place: Champalimaud Centre for the Unknown, Lisbon
-              </code>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-lg text-blue-400 mb-2">Avoid Impreciseness: Bad Prompt vs Good Prompt</h4>
-            <p className="text-gray-400 mb-4">
-              When designing prompts, it's tempting to be clever or use negative instructions (what not to do). But this often leads to confusion and poor results.
-            </p>
-            
-            <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4 space-y-4">
+      {/* Tab Content */}
+      <div className="bg-gray-800/50 rounded-b-lg rounded-tr-lg p-6 border border-t-0 border-gray-700 min-h-[60vh]">
+        {activeTab === 'visualizer' && (
+          <div className="animate-fade-in">
+            <div className="flex items-center mb-6">
+              <BarChart3 className="w-8 h-8 text-blue-400 mr-3" />
               <div>
-                <p className="text-red-400 font-bold">❌ Bad Prompt:</p>
-                <code className="block whitespace-pre-wrap break-words font-mono bg-gray-800 p-2 rounded mt-1">Explain the concept of prompt engineering. Keep the explanation short, only a few sentences, and don't be too descriptive.</code>
-                <p className="text-gray-400 text-xs mt-1 italic">
-                  <span className="font-semibold">Why it fails:</span> The AI struggles with vague instructions like "a few sentences" and negative constraints like "don't be too descriptive." This leads to inconsistent or off-target responses.
-                </p>
-              </div>
-
-              <div>
-                <p className="text-green-400 font-bold">✅ Good Prompt:</p>
-                <code className="block whitespace-pre-wrap break-words font-mono bg-gray-800 p-2 rounded mt-1">Use 2-3 sentences to explain the concept of prompt engineering to a high school student.</code>
-                <p className="text-gray-400 text-xs mt-1 italic">
-                  <span className="font-semibold">Why it works:</span> This is clear, specific, and positive. It provides a target length, defines the audience, and focuses on what to do rather than what to avoid.
-                </p>
-              </div>
-              
-              <div className="bg-blue-900/20 p-3 rounded border border-blue-800">
-                <p className="text-blue-300 text-sm font-medium">💡 <span className="font-semibold">Pro Tip:</span> Think of prompts like giving directions. "Go right at the next intersection" is clearer than "Don't go left." Always tell the AI what you <span className="text-green-300">want it to do</span> rather than what to avoid.</p>
+                <h2 className="text-2xl font-bold text-white">Prompt Visualizer</h2>
+                <p className="text-gray-400">See how different elements of your prompt affect the AI's response quality in real-time.</p>
               </div>
             </div>
+            <PromptVisualizer />
           </div>
-
-          <div>
-            
-              <h4 className="font-semibold text-lg text-blue-400 mb-2">Specify What to Do, Not What Not to Do</h4>
-              <p className="text-gray-400 mb-2">
-                Instead of focusing on prohibitions, craft prompts that clearly state your desired outcome. Positive, specific instructions guide the AI more effectively than vague "don't" statements.
-              </p>
-              <p className="text-gray-400 mb-2">
-                Here’s a contrast: a prompt that stalls the conversation versus one that drives it forward with clear objectives.
-              </p>
-              <div className="bg-gray-900 p-4 rounded-lg text-sm text-white mt-4 space-y-4">
-                <div>
-                  <p className="text-red-400 font-bold">❌ Bad Prompt:</p>
-                  <code className="block whitespace-pre-wrap break-words font-mono">
-                    "Recommend a movie without asking any questions or personal details."
-                  </code>
-                  <p className="text-gray-400 text-xs mt-1 italic">
-                    <span className="font-semibold">Why it fails:</span> This negative framing leaves the AI unsure what to recommend, prompting it to ask follow-up questions.
-                  </p>
-                </div>
-                <div>
-                  <p className="text-red-400 font-bold">Resulting Undesirable Output:</p>
-                  <code className="block whitespace-pre-wrap break-words font-mono">
-                    "Sure, I can recommend a movie based on your interests. What genre do you prefer?"
-                  </code>
-                </div>
-                <div>
-                  <p className="text-green-400 font-bold">✅ Good Prompt:</p>
-                  <code className="block whitespace-pre-wrap break-words font-mono">
-                    "You are an agent that recommends the top 5 global trending movies. Do not ask for personal preferences or details. If trending data is unavailable, say so."
-                  </code>
-                  <p className="text-gray-400 text-xs mt-1 italic">
-                    <span className="font-semibold">Why it works:</span> It sets clear goals (top 5 trending), avoids ambiguity, and defines fallback behavior.
-                  </p>
-                </div>
-                <div>
-                  <p className="text-green-400 font-bold">Resulting Correct Output:</p>
-                  <code className="block whitespace-pre-wrap break-words font-mono">
-                    "Here are the top 5 global trending movies right now:
-1. Movie A
-2. Movie B
-3. Movie C
-4. Movie D
-5. Movie E"
-                  </code>
-                </div>
-                <div className="bg-blue-900/20 p-3 rounded border border-blue-800 mt-4">
-                  <p className="text-blue-300 text-sm font-medium">💡 <span className="font-semibold">Pro Tip:</span> Frame your prompt around what you want the AI to deliver. Positive, measurable instructions eliminate ambiguity.</p>
-                </div>
+        )}
+        {activeTab === 'challenges' && (
+          <div className="animate-fade-in">
+            <div className="flex items-center mb-6">
+              <Sparkles className="w-8 h-8 text-purple-400 mr-3" />
+              <div>
+                <h2 className="text-2xl font-bold text-white">Prompt Engineering Challenges</h2>
+                <p className="text-gray-400">Test and improve your prompt engineering skills with these structured exercises.</p>
               </div>
-            
+            </div>
+            <PromptChallenges />
+          </div>
+        )}
+        {activeTab === 'patterns' && (
+          <div className="animate-fade-in">
+            <div className="flex items-center mb-6">
+              <Layers className="w-8 h-8 text-emerald-400 mr-3" />
+              <div>
+                <h2 className="text-2xl font-bold text-white">Prompt Pattern Library</h2>
+                <p className="text-gray-400">Explore a collection of effective prompt patterns you can use in your own work.</p>
+              </div>
+            </div>
+            <PromptPatternLibrary />
+          </div>
+        )}
+        {activeTab === 'refinement' && (
+          <div className="animate-fade-in">
+            <div className="flex items-center mb-6">
+              <Beaker className="w-8 h-8 text-amber-400 mr-3" />
+              <div>
+                <h2 className="text-2xl font-bold text-white">Prompt Refinement Workbench</h2>
+                <p className="text-gray-400">Iteratively improve your prompts with AI-powered feedback and version control.</p>
+              </div>
+            </div>
+            <PromptRefinementWorkbench />
+          </div>
+        )}
+        {activeTab === 'pairing' && (
+          <div className="animate-fade-in">
+            <div className="flex items-center mb-6">
+              <Code className="w-8 h-8 text-rose-400 mr-3" />
+              <div>
+                <h2 className="text-2xl font-bold text-white">AI Pair Programming</h2>
+                <p className="text-gray-400">Collaborate with an AI pair programmer, switching between driver and navigator roles.</p>
+              </div>
+            </div>
+            <PairProgrammingSimulator />
+          </div>
+        )}
+      </div>
+
+      {/* Key Concepts Section */}
+      <section className="bg-gray-800/30 p-6 rounded-lg border border-gray-700 mt-6">
+        <h2 className="text-xl font-semibold text-white mb-4">Key Concepts in Advanced Prompting</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
+            <div className="bg-blue-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-3">
+              <Sparkles className="w-5 h-5 text-blue-400" />
+            </div>
+            <h3 className="font-medium text-white mb-1">Prompt Engineering</h3>
+            <p className="text-sm text-gray-400">The art and science of crafting effective prompts to get the best results from AI models.</p>
+          </div>
+          <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
+            <div className="bg-purple-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-3">
+              <Layers className="w-5 h-5 text-purple-400" />
+            </div>
+            <h3 className="font-medium text-white mb-1">Pattern Recognition</h3>
+            <p className="text-sm text-gray-400">Identifying and applying successful prompt patterns for different use cases.</p>
+          </div>
+          <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
+            <div className="bg-emerald-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-3">
+              <BarChart3 className="w-5 h-5 text-emerald-400" />
+            </div>
+            <h3 className="font-medium text-white mb-1">Iterative Refinement</h3>
+            <p className="text-sm text-gray-400">The process of gradually improving prompts through testing and iteration.</p>
           </div>
         </div>
       </section>
 
-      {/* Prompt Sandbox */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Zap className="w-7 h-7 mr-3 text-yellow-400" />
-          Prompt Sandbox
-        </h2>
-        <p className="text-gray-300 mb-4">
-          You've learned a lot! Use this space to experiment with any of the concepts from this module. Try different roles, tasks, contexts, and iteration techniques.
-        </p>
-        <InlineChat 
-          moduleId="module-1.3-sandbox"
-          maxAttempts={15}
-          placeholder="Experiment with different prompt variations here..." 
-        />
+      {/* Learning Resources */}
+      <section className="bg-gradient-to-r from-indigo-900/20 to-blue-900/20 p-6 rounded-lg border border-gray-700 mt-6">
+        <h2 className="text-xl font-semibold text-white mb-4">Learning Resources</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-gray-800/50 p-5 rounded-lg border border-gray-700">
+            <h3 className="font-medium text-white mb-3 flex items-center">
+              <BookOpen className="w-5 h-5 mr-2 text-blue-400" />
+              Recommended Reading
+            </h3>
+            <ul className="space-y-3">
+              <li>
+                <a 
+                  href="https://platform.openai.com/docs/guides/prompt-engineering" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 hover:underline flex items-start"
+                >
+                  <span className="mr-2">•</span>
+                  <span>OpenAI's Prompt Engineering Guide</span>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://learnprompting.org/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 hover:underline flex items-start"
+                >
+                  <span className="mr-2">•</span>
+                  <span>Learn Prompting - Free Prompt Engineering Course</span>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://github.com/dair-ai/Prompt-Engineering-Guide" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 hover:underline flex items-start"
+                >
+                  <span className="mr-2">•</span>
+                  <span>Prompt Engineering Guide by DAIR.AI</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+          <div className="bg-gray-800/50 p-5 rounded-lg border border-gray-700">
+            <h3 className="font-medium text-white mb-3 flex items-center">
+              <Zap className="w-5 h-5 mr-2 text-yellow-400" />
+              Quick Tips
+            </h3>
+            <ul className="space-y-3">
+              <li className="flex items-start">
+                <span className="text-yellow-400 mr-2">•</span>
+                <span className="text-gray-300">Be specific about what you want, but avoid unnecessary complexity</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-yellow-400 mr-2">•</span>
+                <span className="text-gray-300">Use clear separators between instructions and examples</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-yellow-400 mr-2">•</span>
+                <span className="text-gray-300">Start with a simple prompt and iteratively add more details</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-yellow-400 mr-2">•</span>
+                <span className="text-gray-300">Experiment with different prompt structures to see what works best</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       {/* Module Wrap-up */}
-      <section className="bg-blue-900/30 p-6 rounded-lg shadow-lg border border-blue-700">
+      <section className="bg-blue-900/30 p-6 rounded-lg shadow-lg border border-blue-700 mt-6">
         <h2 className="text-2xl font-semibold mb-3 text-white">Module 1 Complete!</h2>
         <p className="text-blue-200 mb-4">
-          Congratulations! You've taken the first and most important step. You now understand what an LLM is, how to communicate with it effectively through prompting, and how to iterate on its responses to achieve your goals.
+          Congratulations! You've successfully navigated advanced prompting techniques.
         </p>
         <p className="text-blue-200 font-semibold">
-          The skills you've practiced here—assigning roles, defining tasks, providing context, and iterating—are the foundation for everything that comes next.
+          You are now equipped with the foundational skills for sophisticated AI interaction.
         </p>
       </section>
-
-
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">
@@ -328,5 +313,18 @@ const Lesson1_3: React.FC = () => {
     </div>
   );
 };
+
+// Add fade-in animation
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+`;
+document.head.appendChild(style);
 
 export default Lesson1_3;
