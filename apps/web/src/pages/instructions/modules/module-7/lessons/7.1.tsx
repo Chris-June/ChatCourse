@@ -98,6 +98,8 @@ When a user submits their tool designs, follow these steps:
           <h3 className="font-semibold text-white mb-2">Your Task:</h3>
           <p className="text-gray-400 mb-3 text-sm">Define the function name and a brief description for at least three separate, composable tools for a calendar agent. Use the chat window below to submit your design and get feedback.</p>
           <InlineChat 
+            moduleId="module-7.1-tool-design"
+            maxAttempts={10}
             placeholder="Paste your tool designs here. For example: 'Tool 1: name: ..., description: ...'"
             systemPrompt={toolReviewerPrompt}
           />

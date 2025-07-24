@@ -85,6 +85,8 @@ When a user submits their mitigation strategy, follow these steps:
             <p className="text-gray-300">Propose a comprehensive strategy to mitigate the bias in this system. Describe the steps you would take to identify, measure, and reduce the unfair impact on candidates. Use the chat window below to submit your strategy and receive expert feedback.</p>
           </div>
           <InlineChat 
+            moduleId="module-8.1-bias-mitigation"
+            maxAttempts={10}
             placeholder="Describe your bias mitigation strategy here..."
             systemPrompt={ethicsReviewerPrompt}
           />

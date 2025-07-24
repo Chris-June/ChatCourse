@@ -113,7 +113,11 @@ const Lesson5_1: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Use the chat window below to see conversation memory in action. First, ask the AI about a topic. Then, ask a follow-up question using a pronoun like "it" or "they" to see how it uses the previous turn as context.
         </p>
-        <InlineChat placeholder='Try asking: "What are the two largest moons of Mars?"' />
+        <InlineChat 
+          moduleId="module-5.1-multi-turn"
+          maxAttempts={10}
+          placeholder='Try asking: "What are the two largest moons of Mars?"' 
+        />
       </section>
 
       {/* Navigation */}

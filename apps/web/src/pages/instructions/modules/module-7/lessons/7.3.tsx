@@ -103,6 +103,8 @@ When a user submits text, follow these steps:
             Assistant: Of course. You can use this query: SELECT * FROM customers WHERE signup_date {'>='} NOW() - INTERVAL '30 days';
           </div>
           <InlineChat 
+            moduleId="module-7.3-json-formatter"
+            maxAttempts={10}
             placeholder='Paste your formatted JSON here... e.g., {"prompt": "...", "completion": "..."}'
             systemPrompt={jsonDataValidator}
           />

@@ -126,7 +126,7 @@ const SideMenu = ({
             onClick={() => navigate('/instructions/setup/project-setup')}
           >
             <BookOpen size={16} className="mr-2" />
-            Instructions
+            Course
           </Button>
           <Button
             variant="ghost"
@@ -137,7 +137,7 @@ const SideMenu = ({
             Settings
           </Button>
 
-          <p className="text-xs text-gray-500 px-3 pt-2">Intelli-Chat v1.0</p>
+          <p className="text-xs text-gray-500 px-3 pt-2">IntelliSync v0.5</p>
         </div>
       </div>
     </motion.div>

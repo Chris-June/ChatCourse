@@ -77,7 +77,11 @@ const Lesson1_3: React.FC = () => {
         <div className="mt-6">
           <h3 className="font-semibold text-white mb-2">Try The Iterative Loop</h3>
           <p className="text-gray-400 mb-4">Use the chat below to practice. Start with a vague prompt and refine it over several turns based on the AI's feedback.</p>
-          <InlineChat placeholder="Start with a vague prompt like 'write code for a button' and then iterate..." />
+          <InlineChat 
+            moduleId="module-1.3-iterative"
+            maxAttempts={15}
+            placeholder="Start with a vague prompt like 'write code for a button' and then iterate..." 
+          />
         </div>
         <p className="text-yellow-300 mt-4 text-sm"><strong>Reflection:</strong> How did the AI's response change with each iteration? You guided it from a generic concept to a specific, functional component. This is the core loop of AI collaboration.</p>
       </section>
@@ -249,7 +253,11 @@ const Lesson1_3: React.FC = () => {
         <p className="text-gray-300 mb-4">
           You've learned a lot! Use this space to experiment with any of the concepts from this module. Try different roles, tasks, contexts, and iteration techniques.
         </p>
-        <InlineChat placeholder="Experiment with different prompt variations here..." />
+        <InlineChat 
+          moduleId="module-1.3-sandbox"
+          maxAttempts={15}
+          placeholder="Experiment with different prompt variations here..." 
+        />
       </section>
 
       {/* Module Wrap-up */}

@@ -63,6 +63,8 @@ const Lesson6_2: React.FC = () => {
           The chat window below is a "Chef Assistant" AI. You are the user. Tell it what you need, and the 'wizard' (our AI) will respond as if it were a real, working application. This helps test the conversation flow.
         </p>
         <InlineChat 
+          moduleId="module-6.2-chef-assistant"
+          maxAttempts={10}
           placeholder='You are testing a Chef Assistant. Start by saying: "I need help planning my lunches..."' 
           systemPrompt={chefAssistantPrompt}
         />

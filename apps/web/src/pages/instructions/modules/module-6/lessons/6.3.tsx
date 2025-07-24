@@ -74,6 +74,8 @@ Be encouraging and help them think critically about their ideas.`;
           A good experiment starts with a clear hypothesis. Use the chat window below to improve an AI feature. Describe the feature, and the AI will help you formulate a testable hypothesis, define a key metric, and create an A/B test to see if your change works.
         </p>
         <InlineChat 
+          moduleId="module-6.3-hypothesis-testing"
+          maxAttempts={10}
           placeholder="Try: &quot;Let's improve an AI that summarizes articles.&quot;" 
           systemPrompt={hypothesisAssistantPrompt}
         />

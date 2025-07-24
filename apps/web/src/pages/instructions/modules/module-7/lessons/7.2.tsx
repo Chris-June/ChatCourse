@@ -106,6 +106,8 @@ When a user submits a prompt, follow these steps:
           <h3 className="font-semibold text-white mb-2">Your Task:</h3>
           <p className="text-gray-400 mb-3 text-sm">Engineer a generator prompt for a RAG system. Your prompt should instruct the model to answer a user's question based only on provided context. Use the chat window below to submit your prompt and get expert feedback.</p>
           <InlineChat 
+            moduleId="module-7.2-rag-prompt"
+            maxAttempts={10}
             placeholder="Enter your RAG generator prompt here..."
             systemPrompt={ragPromptValidator}
           />

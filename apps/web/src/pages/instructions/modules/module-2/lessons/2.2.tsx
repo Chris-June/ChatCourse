@@ -116,7 +116,12 @@ const Lesson2_2: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Now it's your turn. Use the chat below to practice the techniques you've learned. Try summarizing a conversation, using explicit references, and see if you can get the AI to maintain context over several turns.
         </p>
-        <InlineChat initialMessages={initialConversation} placeholder="Practice summarization or ask follow-up questions..." />
+        <InlineChat 
+          moduleId="module-2.2"
+          maxAttempts={10}
+          initialMessages={initialConversation} 
+          placeholder="Practice summarization or ask follow-up questions..." 
+        />
       </section>
 
 

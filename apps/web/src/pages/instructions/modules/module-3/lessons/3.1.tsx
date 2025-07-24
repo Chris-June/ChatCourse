@@ -65,7 +65,11 @@ Sentiment:`}</code>
         <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
           <h3 className="font-semibold text-white mb-2">Your Turn: Zero-Shot</h3>
           <p className="text-gray-400 mb-4">Try your own zero-shot prompt. Ask the model to perform a task without giving it any examples, like summarizing a paragraph or translating a sentence.</p>
-          <InlineChat placeholder="Try a zero-shot prompt here..." />
+          <InlineChat 
+            moduleId="module-3.1-zeroshot"
+            maxAttempts={10}
+            placeholder="Try a zero-shot prompt here..." 
+          />
         </div>
       </section>
 
@@ -122,7 +126,11 @@ What a horrible show! //`}</code>
         <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
           <h3 className="font-semibold text-white mb-2">Your Turn: Few-Shot</h3>
           <p className="text-gray-400 mb-4">Construct your own few-shot prompt. Provide the model with a few examples to guide its response for a simple classification or transformation task.</p>
-          <InlineChat placeholder="Construct a few-shot prompt with examples..." />
+          <InlineChat 
+            moduleId="module-3.1-fewshot"
+            maxAttempts={10}
+            placeholder="Construct a few-shot prompt with examples..." 
+          />
         </div>
       </section>
 
@@ -180,7 +188,11 @@ A:`}</code>
         <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
           <h3 className="font-semibold text-white mb-2">Your Turn: The Reasoning Challenge</h3>
           <p className="text-gray-400 mb-4">The model failed the reasoning task above. Can you get it to answer correctly using only few-shot prompting? Try different examples or rephrase the problem.</p>
-          <InlineChat placeholder="Try to solve the reasoning problem..." />
+          <InlineChat 
+            moduleId="module-3.1-reasoning"
+            maxAttempts={10}
+            placeholder="Try to solve the reasoning problem..." 
+          />
         </div>
       </section>
 

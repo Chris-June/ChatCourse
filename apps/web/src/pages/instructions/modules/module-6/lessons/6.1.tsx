@@ -75,7 +75,11 @@ const Lesson6_1: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Now, it's your turn. Use the chat window below as an AI brainstorming partner. Describe an idea for an AI product or feature. The AI will help you analyze it using the framework from this lesson: Job to be Done, Feasibility, and Prioritization.
         </p>
-        <InlineChat placeholder='Try starting with: "I have an idea for an AI that helps with..."' />
+        <InlineChat 
+          moduleId="module-6.1-idea-generation"
+          maxAttempts={10}
+          placeholder='Try starting with: "I have an idea for an AI that helps with..."' 
+        />
       </section>
 
       {/* Navigation */}

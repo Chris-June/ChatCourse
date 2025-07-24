@@ -75,7 +75,11 @@ const Lesson2_3: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Use the chat window below to complete the project. Start by pasting the persona prompt from Step 1.
         </p>
-        <InlineChat placeholder="Begin your conversation with Gnosi, the Socratic Tutor..." />
+        <InlineChat 
+          moduleId="module-2.3"
+          maxAttempts={10}
+          placeholder="Begin your conversation with Gnosi, the Socratic Tutor..." 
+        />
       </section>
 
       {/* Step 2: Engage and Test */}

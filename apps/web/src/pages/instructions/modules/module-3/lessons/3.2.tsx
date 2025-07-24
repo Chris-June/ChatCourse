@@ -83,7 +83,11 @@ A:`}</code>
         <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
           <h3 className="font-semibold text-white mb-2">Your Turn: Chain-of-Thought</h3>
           <p className="text-gray-400 mb-4">Try to solve a reasoning problem by providing the model with a chain-of-thought example. Remember to show the intermediate steps.</p>
-          <InlineChat placeholder="Provide a full CoT example here..." />
+          <InlineChat 
+            moduleId="module-3.2-cot-example"
+            maxAttempts={10}
+            placeholder="Provide a full CoT example here..." 
+          />
         </div>
       </section>
 
@@ -128,7 +132,11 @@ Finally, you ate 1 apple, so you would remain with 10 apples.`}</code>
         <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
           <h3 className="font-semibold text-white mb-2">Your Turn: Zero-Shot CoT</h3>
           <p className="text-gray-400 mb-4">Use the "Let's think step by step" technique on a new problem to see if you can elicit a reasoned response from the model without providing examples.</p>
-          <InlineChat placeholder="Ask a question and end with 'Let's think step by step.'" />
+          <InlineChat 
+            moduleId="module-3.2-zeroshot-cot"
+            maxAttempts={10}
+            placeholder="Ask a question and end with 'Let's think step by step.'" 
+          />
         </div>
       </section>
 

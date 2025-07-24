@@ -143,6 +143,8 @@ Provide technical, precise answers. When providing code, use Python.`}
           Pretend you are Maria. Ask for help with your biology homework and see how the AI responds. Notice if it mentions your learning style or tries to be encouraging.
         </p>
         <InlineChat 
+          moduleId="module-5.2-personalized-tutor"
+          maxAttempts={10}
           placeholder='Try asking: "Can you help me understand mitosis?"' 
           systemPrompt={systemPrompt}
         />

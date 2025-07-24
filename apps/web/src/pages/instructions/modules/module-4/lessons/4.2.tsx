@@ -116,7 +116,9 @@ const Lesson4_2: React.FC = () => {
           Use the chat window below to ask for an employee's email. Our AI model will show you the reasoning and the function call it needs to make.
         </p>
         <InlineChat 
-          placeholder="Ask for an employee's email, e.g., 'What is John Smith's email?'" 
+          moduleId="module-4.2-mcp-email"
+          maxAttempts={10}
+          placeholder="Ask for an employee's email, e.g., 'What is Chris June's email?'" 
           simulatedResponse={`Okay, I need to find an employee's email address. I will use the 'get_employee_email' tool from the 'company_db' MCP server.\n\n<tool_code>\n<mcp_server_request>\n  <server>company_db</server>\n  <tool_name>get_employee_email</tool_name>\n  <parameters>\n    <employee_name>the person you asked for</employee_name>\n  </parameters>\n</mcp_server_request>\n</tool_code>\n\nfirstName.lastName@email.ca`}
         />
       </section>

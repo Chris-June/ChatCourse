@@ -70,7 +70,11 @@ const Lesson3_3: React.FC = () => {
         <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
           <h3 className="font-semibold text-white mb-2">Your Turn: Requesting JSON</h3>
           <p className="text-gray-400 mb-4">Try extracting structured data from a sentence. Ask for a JSON object with specific keys.</p>
-          <InlineChat placeholder={'Extract user info from a sentence into JSON...'} />
+          <InlineChat 
+            moduleId="module-3.3-json-extraction"
+            maxAttempts={10}
+            placeholder="Extract user info from a sentence into JSON..." 
+          />
         </div>
       </section>
 
@@ -98,7 +102,11 @@ const Lesson3_3: React.FC = () => {
           <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
             <h3 className="font-semibold text-white mb-2">Your Turn: Requesting Markdown</h3>
             <p className="text-gray-400 mb-4">Ask the AI to generate a response formatted in Markdown. Try asking for a bulleted list, a numbered list, or a table.</p>
-            <InlineChat placeholder={'Ask for a markdown table or list...'} />
+            <InlineChat 
+              moduleId="module-3.3-markdown"
+              maxAttempts={10}
+              placeholder="Ask for a markdown table or list..." 
+            />
           </div>
         </div>
       </section>
@@ -110,7 +118,11 @@ const Lesson3_3: React.FC = () => {
           Your Turn: Generate a Structured List
         </h2>
         <p className="text-gray-300 mb-4">Use the chat window below to ask the AI to generate a list of project ideas for a new web developer. Specify that the output should be a JSON array of objects, each with a 'title' and a 'description'.</p>
-        <InlineChat placeholder={`Generate a list of 3 project ideas for a beginner...`} />
+        <InlineChat 
+          moduleId="module-3.3-structured-output"
+          maxAttempts={10}
+          placeholder="Generate a list of 3 project ideas for a beginner..." 
+        />
         <p className="text-gray-400 mt-3">This kind of structured output can be directly used to populate a UI component in an application.</p>
       </section>
 

@@ -93,6 +93,8 @@ When a user submits their proposed guardrails, follow these steps:
             <p className="text-gray-300">Propose 2-3 specific, actionable security/privacy guardrails to protect patient data. Use the chat window below to submit your ideas and receive an expert audit.</p>
           </div>
           <InlineChat 
+            moduleId="module-8.3-security-guardrails"
+            maxAttempts={10}
             placeholder="Propose your security and privacy guardrails here..."
             systemPrompt={securityAuditorPrompt}
           />

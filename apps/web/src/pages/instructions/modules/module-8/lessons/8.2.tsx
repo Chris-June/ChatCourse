@@ -86,6 +86,8 @@ When a user submits their explanation, follow these steps:
             <p className="text-gray-300">Write a customer-facing message that explains the AI's decision. Focus on building trust by being transparent without being overly technical. Use the chat window below to submit your explanation and receive expert feedback.</p>
           </div>
           <InlineChat 
+            moduleId="module-8.2-ai-explanation"
+            maxAttempts={10}
             placeholder="Write your user-facing explanation here..."
             systemPrompt={explainabilityExpertPrompt}
           />

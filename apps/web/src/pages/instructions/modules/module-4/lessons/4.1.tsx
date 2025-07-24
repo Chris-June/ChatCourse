@@ -145,6 +145,8 @@ if (functionToCall) {
             Use the chat window below to ask the AI to perform an action. The AI has access to a function called `schedule_meeting(topic, datetime)`. Try asking it to schedule a meeting and see if it generates the correct JSON output.
           </p>
           <InlineChat 
+            moduleId="module-4.1-schedule-meeting"
+            maxAttempts={10}
             placeholder='Try: "Schedule a team check-in for next Monday at 10am"' 
             simulatedResponse={`{\n  "name": "schedule_meeting",\n  "arguments": {\n    "topic": "Team check-in",\n    "datetime": "next Monday at 10am"\n  }\n}`}
           />
@@ -162,6 +164,8 @@ if (functionToCall) {
             </div>
           </div>
           <InlineChat 
+            moduleId="module-4.1-stock-price"
+            maxAttempts={10}
             placeholder='What prompt makes the AI call the get_stock_price function for Apple?'
             simulatedResponse={`{\n  "name": "get_stock_price",\n  "arguments": { "ticker": "AAPL" }\n}`}
           />

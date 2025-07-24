@@ -166,6 +166,8 @@ const result = await functionToCall(functionArgs); // { ticket_id: 'TICKET-123' 
           Use the chat window below to ask the AI to send an email. See if it generates the correct function call based on your request.
         </p>
         <InlineChat 
+          moduleId="module-4.3-send-email"
+          maxAttempts={10}
           placeholder='Try: "Send an email to my manager about the Q3 report..."' 
           simulatedResponse={`{\n  "name": "send_email",\n  "arguments": {\n    "recipient": "manager@example.com",\n    "subject": "Q3 Report",\n    "body": "Here is the Q3 report you requested.",\n  }\n}`}
         />

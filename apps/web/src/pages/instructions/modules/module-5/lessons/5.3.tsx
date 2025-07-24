@@ -130,6 +130,8 @@ response.body.on('end', () => {
           Use the chat window below to test your understanding of performance trade-offs. Describe a task, and ask the AI which model tier—fast, balanced, or powerful—would be the best fit. See if its reasoning matches what you've learned.
         </p>
         <InlineChat 
+          moduleId="module-5.3-model-selection"
+          maxAttempts={10}
           placeholder='Try asking: "What kind of model should I use for a simple email classifier?"' 
           systemPrompt={classificationAgentPrompt}
         />

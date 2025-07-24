@@ -159,7 +159,11 @@ const Lesson1_2: React.FC = () => {
         <p className="text-gray-400 mb-4">
           Remember to include a role, a clear task, and sufficient context to get the best results.
         </p>
-        <InlineChat placeholder="Craft a prompt for Innovate Inc. here..." />
+        <InlineChat 
+          moduleId="module-1.2"
+          maxAttempts={15}
+          placeholder="Craft a prompt for Innovate Inc. here..."
+        />
       </section>
 
       {/* Navigation */}
