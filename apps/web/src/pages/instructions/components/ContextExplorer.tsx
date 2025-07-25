@@ -14,12 +14,71 @@ const initialMessages: Message[] = [
   },
 ];
 
-const simulatedResponses = [
-  "That's a great question! The capital of Brazil is Brasília.",
-  "It's located in the central-western region of the country.",
-  "It was founded in 1960 to serve as the new national capital.",
-  "Interesting! I'm not sure about that, but I can tell you that the primary language is Portuguese.",
-];
+// Real API call function using streaming
+const generateRealResponse = async (messages: Message[], newMessage: string): Promise<string> => {
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messages: [...messages, { role: 'user', content: newMessage }],
+        model: 'gpt-4o-mini',
+        temperature: 0.7
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`API call failed: ${response.status}`);
+    }
+
+    // Read the streaming response
+    const reader = response.body?.getReader();
+    if (!reader) {
+      throw new Error('No response body');
+    }
+
+    let fullResponse = '';
+    const decoder = new TextDecoder();
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value);
+      const lines = chunk.split('\n');
+
+      for (const line of lines) {
+        if (line.startsWith('data: ')) {
+          const data = line.slice(6);
+          if (data === '[DONE]') continue;
+          
+          try {
+            const parsed = JSON.parse(data);
+            // Check for an error message from the backend
+            if (parsed.error) {
+              throw new Error(parsed.error.message || 'An unknown error occurred');
+            }
+            const content = parsed.choices?.[0]?.delta?.content;
+            if (content) {
+              fullResponse += content;
+            }
+          } catch (e) {
+            console.error('Error parsing stream data:', e);
+            // Re-throw the error to be caught by the outer catch block
+            throw e;
+          }
+        }
+      }
+    }
+
+    return fullResponse || "I'm having trouble connecting to the AI service. Please try again.";
+  } catch (error) {
+    console.error('API call error:', error);
+    return "I'm experiencing technical difficulties. Please try again in a moment.";
+  }
+};
 
 const ContextExplorer: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
@@ -33,7 +92,7 @@ const ContextExplorer: React.FC = () => {
     }
   }, [messages]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (input.trim() === '' || isLoading) return;
 
     const userMessage: Message = { role: 'user', content: input };
@@ -41,14 +100,22 @@ const ContextExplorer: React.FC = () => {
     setInput('');
     setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      const response = await generateRealResponse([...messages, userMessage], input);
       const botResponse: Message = {
         role: 'assistant',
-        content: simulatedResponses[Math.floor(Math.random() * simulatedResponses.length)],
+        content: response,
       };
       setMessages((prev) => [...prev, botResponse]);
-      setIsLoading(false);
-    }, 1200);
+    } catch (error) {
+      console.error('Error generating response:', error);
+      const errorResponse: Message = {
+        role: 'assistant',
+        content: 'Sorry, I encountered an error. Please try again.',
+      };
+      setMessages((prev) => [...prev, errorResponse]);
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -113,7 +180,7 @@ const ContextExplorer: React.FC = () => {
 ${messages.map(msg => 
 `  {
     "role": "${msg.role}",
-    "content": "${msg.content.replace(/"/g, '\"')}"
+    "content": "${msg.content.replace(/"/g, '\\"')}"
   }`
 ).join(',\n')}
 ]`

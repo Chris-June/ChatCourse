@@ -82,6 +82,7 @@ const app = express();
 app.use((req, res, next) => {
   const allowedOrigins = [
     'http://localhost:3000',
+    'http://localhost:3001',
     'https://*.vercel.app',
     'https://*.intellisync.chat'
   ];
