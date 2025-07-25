@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, BarChart2, Beaker, RefreshCw } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import MetricSorter from '@/pages/instructions/components/MetricSorter';
+import PromptABTester from '@/pages/instructions/components/PromptABTester';
 
 const Lesson6_3: React.FC = () => {
   const { completeLesson } = useProgressStore();
@@ -14,7 +17,7 @@ Be encouraging and help them think critically about their ideas.`;
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">6.3 Project Implementation</h1>
+        <h1 className="text-3xl font-bold text-blue-400">6.3 Iterative Improvement</h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-6/6.2" 
@@ -37,32 +40,53 @@ Be encouraging and help them think critically about their ideas.`;
       </p>
 
       {/* Core Concepts */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">The Cycle of AI Improvement</h2>
-        <p className="text-gray-300 mb-6">Great AI products evolve. The key is a tight feedback loop: measure what matters, test your assumptions, and learn from the results.</p>
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-xl font-semibold text-white flex items-center"><BarChart2 className="w-6 h-6 mr-2 text-green-400" />1. Measure What Matters</h3>
-            <p className="text-gray-400 mt-2">Don't just track clicks. For AI products, focus on metrics that signal quality and trust. First, define your product's "golden path"—the ideal journey for a user. Then, measure things like:</p>
-            <ul className="list-disc pl-5 mt-2 text-gray-300 space-y-1">
-              <li><strong>Correction Rate:</strong> How often do users have to edit the AI's output? A high rate might signal prompt or model issues.</li>
-              <li><strong>Tool Adoption:</strong> If your AI uses tools, which ones are users adopting? Which are being ignored?</li>
-              <li><strong>User Satisfaction:</strong> A simple thumbs up/down on an AI response is a powerful signal.</li>
-            </ul>
-          </div>
+      <Accordion type="multiple" defaultValue={['item-1', 'item-2']} className="w-full space-y-4">
+        <AccordionItem value="item-1" className="bg-gray-800/50 border-gray-700 border rounded-lg">
+          <AccordionTrigger className="hover:no-underline p-4 text-xl font-semibold">
+            <div className="flex items-center">
+              <BarChart2 className="w-6 h-6 mr-3 text-green-400" />
+              Step 1: Measure What Matters
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="p-4 pt-0">
+            <div className="space-y-4 text-gray-300 border-t border-gray-700 pt-4">
+              <p>Don't just track clicks. For AI products, you need to measure what truly signals quality and trust. A "High Signal" metric is directly tied to the user's success and the AI's performance. A "Low Signal" or "Vanity" metric might look good on a dashboard but doesn't tell you if the product is actually working well.</p>
+              <p>Try it yourself. Can you sort these common metrics into the right buckets?</p>
+              <MetricSorter />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
 
-          <div>
-            <h3 className="text-xl font-semibold text-white flex items-center"><Beaker className="w-6 h-6 mr-2 text-yellow-400" />2. A/B Test Your Prompts</h3>
-            <p className="text-gray-400 mt-2">The easiest thing to change in an AI product is the prompt. Use A/B testing to see which prompts yield better results against your key metrics.</p>
-            <p className="text-gray-400 mt-2"><strong>Example Test:</strong> For an email-writing AI, you could test Prompt A: "Write a professional email" vs. Prompt B: "Write a polite but firm follow-up email."</p>
-          </div>
+        <AccordionItem value="item-2" className="bg-gray-800/50 border-gray-700 border rounded-lg">
+          <AccordionTrigger className="hover:no-underline p-4 text-xl font-semibold">
+            <div className="flex items-center">
+              <Beaker className="w-6 h-6 mr-3 text-yellow-400" />
+              Step 2: A/B Test Your Prompts
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="p-4 pt-0">
+            <div className="space-y-4 text-gray-300 border-t border-gray-700 pt-4">
+              <p>The easiest and fastest thing to change in an AI product is the system prompt. Even small tweaks can lead to big differences in the AI's output. A/B testing is how you measure which changes are actually improvements.</p>
+              <p>Run the simulation below to see how a more specific prompt can lead to a better outcome.</p>
+              <PromptABTester />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
 
-          <div>
-            <h3 className="text-xl font-semibold text-white flex items-center"><RefreshCw className="w-6 h-6 mr-2 text-cyan-400" />3. Learn and Adapt</h3>
-            <p className="text-gray-400 mt-2">Use the data from your measurements and tests to make decisions. If users constantly correct the AI's tone, maybe your prompt needs to be more specific. If a feature isn't being used, maybe it's not as useful as you thought. This data is your guide to what to build or refine next.</p>
-          </div>
-        </div>
-      </section>
+        <AccordionItem value="item-3" className="bg-gray-800/50 border-gray-700 border rounded-lg">
+          <AccordionTrigger className="hover:no-underline p-4 text-xl font-semibold">
+            <div className="flex items-center">
+              <RefreshCw className="w-6 h-6 mr-3 text-cyan-400" />
+              Step 3: Learn and Adapt
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="p-4 pt-0">
+            <div className="space-y-4 text-gray-300 border-t border-gray-700 pt-4">
+              <p>Use the data from your measurements and tests to make decisions. If users constantly correct the AI's tone, your prompt needs to be more specific. If a feature isn't being used, maybe it's not as useful as you thought. This data-driven cycle is your guide to what to build or refine next.</p>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
 
       {/* Improvement Exercise */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
