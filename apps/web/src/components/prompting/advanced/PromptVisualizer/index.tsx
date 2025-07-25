@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-
 import CopyButton from '../../../CopyButton';
+import { api } from '@/lib/api';
 
 interface PromptElement {
   id: string;
@@ -93,10 +93,9 @@ const PromptVisualizer: React.FC = () => {
     e.preventDefault();
     setIsGenerating(true);
     try {
-      const response = await fetch('/api/chat/visualize-prompt', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ elements: promptElements, apiKey: localStorage.getItem('openai_api_key') }),
+      const response = await api.post('/api/chat/visualize-prompt', { 
+        elements: promptElements, 
+        apiKey: localStorage.getItem('openai_api_key') 
       });
 
       if (!response.ok) {

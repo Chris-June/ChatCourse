@@ -78,6 +78,40 @@ dotenv.config({ path: path.resolve(__dirname, '../.env.local') });
 
 const app = express();
 
+// Enable CORS for all routes
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    'http://localhost:3000',
+    'https://*.vercel.app',
+    'https://*.intellisync.chat'
+  ];
+  
+  const origin = req.headers.origin || '';
+  if (process.env.NODE_ENV === 'production') {
+    // In production, only allow requests from known origins
+    if (allowedOrigins.some(allowedOrigin => 
+      origin === allowedOrigin || 
+      origin.endsWith(allowedOrigin.replace('*.', '.'))
+    )) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+  } else {
+    // In development, allow all origins
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+  }
+  
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  
+  next();
+});
+
 
 // Middleware
 app.use(express.json());

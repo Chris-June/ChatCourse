@@ -26,10 +26,10 @@ const scheduleMeetingSchema = {
 };
 
 const stockPriceChecklist = [
-  { text: 'Analyze the provided JSON output' },
-  { text: 'Identify the function name: `get_stock_price`' },
-  { text: 'Identify the argument: `ticker` with value "AAPL"' },
-  { text: 'Formulate a natural language prompt that asks for the stock price of Apple' },
+  { text: 'Analyze the provided JSON output', completed: false },
+  { text: 'Identify the function name: `get_stock_price`', completed: false },
+  { text: 'Identify the argument: `ticker` with value "AAPL"', completed: false },
+  { text: 'Formulate a natural language prompt that asks for the stock price of Apple', completed: false },
 ];
 
 

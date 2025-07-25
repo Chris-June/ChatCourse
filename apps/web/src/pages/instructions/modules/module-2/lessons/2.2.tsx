@@ -24,9 +24,9 @@ const initialConversation = [
 ];
 
 const challengeChecklist = [
-  { text: 'Summarize the initial marketing copy in your own words.' },
-  { text: 'Ask for three alternative headlines based on the summary.' },
-  { text: 'Reference the mission to \'unlock human creativity\' in a follow-up question.' },
+  { text: 'Summarize the initial marketing copy in your own words.', completed: false },
+  { text: 'Ask for three alternative headlines based on the summary.', completed: false },
+  { text: 'Reference the mission to \'unlock human creativity\' in a follow-up question.', completed: false },
 ];
 
 const Lesson2_2: React.FC = () => {

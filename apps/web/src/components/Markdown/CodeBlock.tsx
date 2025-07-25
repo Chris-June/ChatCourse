@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Copy, CheckCheck, Play, Loader2 } from 'lucide-react';
+import { api } from '@/lib/api';
 
 interface CodeBlockProps {
   inline?: boolean;
@@ -36,18 +37,7 @@ const CodeBlock: FC<CodeBlockProps> = ({ inline, className, children }) => {
     setError(null);
 
     try {
-      const response = await fetch('/api/execute', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, language }),
-      });
-
-      if (!response.ok) {
-        const errorResult = await response.json();
-        throw new Error(errorResult.message || 'An unknown error occurred.');
-      }
-
-      const result = await response.json();
+      const result = await api.post('/api/execute', { code, language });
       setOutput(result.output);
     } catch (err: any) {
       setError(err.message);

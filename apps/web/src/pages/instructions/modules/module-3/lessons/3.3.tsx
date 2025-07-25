@@ -7,24 +7,24 @@ import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
 
 const jsonChallengeChecklist = [
-  { text: 'Ask the AI to extract specific pieces of information from a sentence' },
-  { text: 'Specify the output format as a JSON object' },
-  { text: 'Define the exact keys for the JSON object' },
-  { text: 'Verify the AI returns a valid JSON with the correct data' },
+  { text: 'Ask the AI to extract specific pieces of information from a sentence', completed: false },
+  { text: 'Specify the output format as a JSON object', completed: false },
+  { text: 'Define the exact keys for the JSON object', completed: false },
+  { text: 'Verify the AI returns a valid JSON with the correct data', completed: false },
 ];
 
 const markdownChallengeChecklist = [
-  { text: 'Ask the AI to generate content on a topic' },
-  { text: 'Specify the output format as Markdown' },
-  { text: 'Request a specific Markdown element (e.g., table, list)' },
-  { text: 'Verify the AI returns well-formatted Markdown' },
+  { text: 'Ask the AI to generate content on a topic', completed: false },
+  { text: 'Specify the output format as Markdown', completed: false },
+  { text: 'Request a specific Markdown element (e.g., table, list)', completed: false },
+  { text: 'Verify the AI returns well-formatted Markdown', completed: false },
 ];
 
 const structuredListChallengeChecklist = [
-  { text: 'Ask the AI to generate a list of items (e.g., project ideas)' },
-  { text: 'Specify the output as a JSON array of objects' },
-  { text: 'Define the schema for the objects (e.g., keys like "title", "description")' },
-  { text: 'Verify the AI returns a valid JSON array matching the schema' },
+  { text: 'Ask the AI to generate a list of items (e.g., project ideas)', completed: false },
+  { text: 'Specify the output as a JSON array of objects', completed: false },
+  { text: 'Define the schema for the objects (e.g., keys like "title", "description")', completed: false },
+  { text: 'Verify the AI returns a valid JSON array matching the schema', completed: false },
 ];
 
 const Lesson3_3: React.FC = () => {

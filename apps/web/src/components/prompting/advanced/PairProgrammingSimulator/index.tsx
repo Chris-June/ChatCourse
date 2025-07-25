@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Code, RefreshCw, MessageSquare } from 'lucide-react';
 import CopyButton from '../../../CopyButton';
+import { api } from '@/lib/api';
 
 type Role = 'driver' | 'navigator';
 
@@ -45,17 +46,11 @@ const PairProgrammingSimulator: React.FC = () => {
   const getAiResponse = async (currentMessages: Message[]) => {
     setIsAiTyping(true);
 
-    const response = await fetch('/api/chat/pair-programming', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        messages: currentMessages,
-        code,
-        role,
-        apiKey: localStorage.getItem('openai_api_key'),
-      }),
+    const response = await api.post('/api/chat/pair-programming', {
+      messages: currentMessages,
+      role,
+      code: role === 'driver' ? code : null,
+      apiKey: localStorage.getItem('openai_api_key'),
     });
 
     if (!response.body) {

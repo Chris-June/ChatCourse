@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { PlayIcon, Loader2 } from 'lucide-react';
+import { api } from '@/lib/api';
 
 interface InteractiveCodeBlockProps {
   code: string;
@@ -18,24 +19,10 @@ export const InteractiveCodeBlock: React.FC<InteractiveCodeBlockProps> = ({ code
     setError(null);
 
     try {
-      const response = await fetch('/api/execute', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ code, language }),
-      });
-
-      if (!response.ok) {
-        const errorResult = await response.json();
-        throw new Error(errorResult.message || 'An unknown error occurred.');
-      }
-
-      const result = await response.json();
+      const result = await api.post('/api/execute', { code, language });
       setOutput(result.output);
-
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || 'Failed to execute code');
     } finally {
       setIsRunning(false);
     }

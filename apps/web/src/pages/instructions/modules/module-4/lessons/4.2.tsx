@@ -6,10 +6,10 @@ import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
 
 const mcpReasoningChecklist = [
-  { text: 'My goal is to find an employee\'s email.' },
-  { text: 'I see a `company_db` tool server is available.' },
-  { text: 'I will ask it what tools it has... it has `get_employee_email`.' },
-  { text: 'Perfect. I will call that tool with the employee\'s name.' },
+  { text: 'My goal is to find an employee\'s email.', completed: false },
+  { text: 'I see a `company_db` tool server is available.', completed: false },
+  { text: 'I will ask it what tools it has... it has `get_employee_email`.', completed: false },
+  { text: 'Perfect. I will call that tool with the employee\'s name.', completed: false },
 ];
 
 const Lesson4_2: React.FC = () => {

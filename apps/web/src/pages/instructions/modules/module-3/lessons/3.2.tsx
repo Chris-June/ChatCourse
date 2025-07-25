@@ -8,10 +8,10 @@ import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
 
 const zeroShotCoTChallengeChecklist = [
-  { text: 'Pose a multi-step reasoning problem to the AI' },
-  { text: 'Append the phrase "Let\'s think step by step" to your prompt' },
-  { text: 'Confirm the AI outputs a step-by-step breakdown' },
-  { text: 'Verify the final answer is logical and correct' },
+  { text: 'Pose a multi-step reasoning problem to the AI', completed: false },
+  { text: 'Append the phrase "Let\'s think step by step" to your prompt', completed: false },
+  { text: 'Confirm the AI outputs a step-by-step breakdown', completed: false },
+  { text: 'Verify the final answer is logical and correct', completed: false },
 ];
 
 const Lesson3_2: React.FC = () => {

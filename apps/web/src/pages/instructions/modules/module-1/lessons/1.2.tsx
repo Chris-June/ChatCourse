@@ -5,25 +5,6 @@ import CopyButton from '../../../../../components/CopyButton';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
 
-// Prompt template examples
-const PROMPT_TEMPLATES = [
-  {
-    title: 'Content Generation',
-    description: 'Generate creative content like blog posts or stories',
-    template: 'You are a {role} writing a {content type} about {topic}. The tone should be {tone}. Include these key points: {point 1}, {point 2}, {point 3}.'
-  },
-  {
-    title: 'Code Explanation',
-    description: 'Get detailed explanations for code snippets',
-    template: 'Explain this {language} code in simple terms. Break down what it does, how it works, and provide an example use case.\n\n{code}' 
-  },
-  {
-    title: 'Idea Generation',
-    description: 'Generate creative ideas or solutions',
-    template: 'Generate {number} creative ideas for {topic}. For each idea, provide a brief description, potential benefits, and challenges.'
-  }
-];
-
 // Prompt Builder Component
 const PromptBuilder = () => {
   const [role, setRole] = useState('helpful assistant');
@@ -386,7 +367,6 @@ const Lesson1_2: React.FC = () => {
           moduleId="module-1.2"
           maxAttempts={15}
           placeholder="Craft your prompt for Innovate Inc. here..."
-          promptTemplates={PROMPT_TEMPLATES}
         />
       </section>
 

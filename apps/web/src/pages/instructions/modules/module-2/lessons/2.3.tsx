@@ -7,10 +7,10 @@ import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
 
 const challengeChecklist = [
-  { text: "AI maintains 'Gnosi' persona" },
-  { text: 'AI avoids giving direct answers' },
-  { text: 'AI asks logical, guiding questions' },
-  { text: 'Successfully re-center the AI if it fails' },
+  { text: "AI maintains 'Gnosi' persona", completed: false },
+  { text: 'AI avoids giving direct answers', completed: false },
+  { text: 'AI asks logical, guiding questions', completed: false },
+  { text: 'Successfully re-center the AI if it fails', completed: false },
 ];
 
 const Lesson2_3: React.FC = () => {

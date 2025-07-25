@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { RefreshCw, AlertCircle } from 'lucide-react';
 import CopyButton from '../../../CopyButton';
+import { api } from '@/lib/api';
 
 interface PromptVersion {
   id: number;
@@ -36,24 +37,18 @@ const PromptRefinementWorkbench: React.FC = () => {
     setIsAnalyzing(true);
 
     try {
-      const response = await fetch('/api/chat/refine-prompt', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          prompt: currentPrompt,
-          apiKey: localStorage.getItem('openai_api_key'),
-        }),
+      const result = await api.post('/api/chat/refine-prompt', { 
+        prompt: currentPrompt,
+        apiKey: localStorage.getItem('openai_api_key'),
       });
 
-      if (!response.ok) {
+      if (!result.ok) {
         // Handle error appropriately in a real app
         console.error('API call failed');
         return;
       }
 
-      const feedback = await response.json();
+      const feedback = await result.json();
 
       const newVersion: PromptVersion = {
         prompt: currentPrompt,

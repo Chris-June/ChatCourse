@@ -51,7 +51,7 @@ Based on the user's query, state which tier is the best fit and briefly explain 
           <div className="bg-gray-700 p-3 rounded-md">
             <code className="block whitespace-pre-wrap break-words font-mono text-xs text-gray-200">
 {`// Frontend pseudo-code
-const response = await fetch('/api/chat', { stream: true });
+const response = await api.get('/api/chat', { params: { stream: true } });
 
 response.body.on('data', (chunk) => {
   // chunk might be 'Hello'

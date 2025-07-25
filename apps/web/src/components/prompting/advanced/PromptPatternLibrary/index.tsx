@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Star, Filter, X, ArrowRight } from 'lucide-react';
 import CopyButton from '../../../CopyButton';
+import { api } from '@/lib/api';
 
 type PatternCategory = 'all' | 'structure' | 'creativity' | 'analysis' | 'productivity' | 'education';
 type PatternDifficulty = 'beginner' | 'intermediate' | 'advanced';
@@ -61,7 +62,7 @@ const PromptPatternLibrary: React.FC = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch('/api/chat/get-patterns');
+        const response = await api.get('/api/chat/get-patterns');
         if (!response.ok) {
           throw new Error('Failed to fetch prompt patterns.');
         }

@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
-import { CheckCircle, ChevronRight, AlertCircle, Star, Zap, Lightbulb } from 'lucide-react';
+import { CheckCircle, ChevronRight, Star, XCircle, Zap, AlertCircle } from 'lucide-react';
 import CopyButton from '../../../CopyButton';
+import { api } from '@/lib/api';
+
+interface EvaluationResult {
+  success: boolean;
+  feedback: string;
+  score: number;
+  criteriaEvaluation: Array<{
+    criteria: string;
+    met: boolean;
+    feedback: string;
+  }>;
+  criteriaMet?: boolean; // Add optional criteriaMet for backward compatibility
+}
 
 interface Challenge {
   id: number;
@@ -28,7 +41,7 @@ interface Challenge {
 const PromptChallenges: React.FC = () => {
   const [activeChallenge, setActiveChallenge] = useState<number | null>(1);
   const [userPrompts, setUserPrompts] = useState<{ [key: number]: string }>({});
-  const [evaluationResults, setEvaluationResults] = useState<{ [key: number]: { score: number; feedback: string; criteriaMet: boolean[] } | null }>({});
+  const [evaluationResults, setEvaluationResults] = useState<{ [key: number]: EvaluationResult | null }>({});
   const [isEvaluating, setIsEvaluating] = useState<{ [key: number]: boolean }>({});
   const [showTips, setShowTips] = useState<{ [key: number]: boolean }>({});
 
@@ -156,45 +169,34 @@ const PromptChallenges: React.FC = () => {
     setIsEvaluating(prev => ({ ...prev, [id]: true }));
 
     try {
-      const response = await fetch('/api/chat/evaluate-challenge', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userPrompt,
-          challenge: challenge.description,
-          successCriteria: challenge.successCriteria,
-          apiKey: localStorage.getItem('openai_api_key'),
-        }),
+      const result = await api.post('/api/chat/evaluate-challenge', {
+        userPrompt,
+        challenge: challenge.description,
+        successCriteria: challenge.successCriteria,
+        apiKey: localStorage.getItem('openai_api_key'),
       });
 
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
-
-      const result = await response.json();
       setEvaluationResults(prev => ({ ...prev, [id]: result }));
-
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to evaluate challenge:', error);
-      // Optionally set an error state to show in the UI
+      // Set error state to show in the UI
+setEvaluationResults(prev => ({
+        ...prev,
+        [id]: {
+          success: false,
+          feedback: error.message || 'Failed to evaluate challenge',
+          score: 0,
+          criteriaEvaluation: []
+        }
+      }));
     } finally {
       setIsEvaluating(prev => ({ ...prev, [id]: false }));
     }
   };
 
-  const getDifficultyBadge = (difficulty: string) => {
-    const styles = {
-      beginner: 'bg-green-900/30 text-green-400',
-      intermediate: 'bg-yellow-900/30 text-yellow-400',
-      advanced: 'bg-red-900/30 text-red-400'
-    };
-    
-    return (
-      <span className={`text-xs px-2 py-1 rounded-full ${styles[difficulty as keyof typeof styles]}`}>
-        {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
-      </span>
-    );
-  };
+
+
+
 
   const getCategoryIcon = (category: string) => {
     const icons = {
@@ -240,9 +242,21 @@ const PromptChallenges: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-white">{challenge.title}</h3>
-                  <div className="flex items-center space-x-2 mt-1">
-                    {getDifficultyBadge(challenge.difficulty)}
-                    <span className="text-xs text-gray-400">{challenge.category}</span>
+                  <div className="flex items-center space-x-2">
+                    {challenge.tips && challenge.tips.length > 0 && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleTips(challenge.id);
+                        }}
+                        className="text-xs px-2 py-1 rounded-full bg-blue-900/30 text-blue-400 hover:bg-blue-800/40 transition-colors"
+                      >
+                        {showTips[challenge.id] ? 'Hide Tips' : 'Show Tips'}
+                      </button>
+                    )}
+                    <ChevronRight 
+                      className={`w-4 h-4 text-gray-400 transition-transform ${activeChallenge === challenge.id ? 'transform rotate-90' : ''}`} 
+                    />
                   </div>
                 </div>
               </div>
@@ -252,61 +266,32 @@ const PromptChallenges: React.FC = () => {
                 }`} 
               />
             </button>
-
             {activeChallenge === challenge.id && (
-              <div className="p-4 pt-0 border-t border-gray-700 bg-gray-900/30">
-                <p className="text-gray-300 mb-4">{challenge.description}</p>
-                
-                <div className="mb-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <h4 className="text-sm font-medium text-gray-400">Success Criteria</h4>
-                    <button 
-                      onClick={() => toggleTips(challenge.id)}
-                      className="text-xs text-blue-400 hover:text-blue-300 flex items-center"
-                    >
-                      <Lightbulb className="w-3 h-3 mr-1" />
-                      {showTips[challenge.id] ? 'Hide tips' : 'Show tips'}
-                    </button>
-                  </div>
-                  
-                  <ul className="space-y-2 mb-4">
-                    {challenge.successCriteria.map((criterion, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                        <span className="text-sm text-gray-300">{criterion}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {showTips[challenge.id] && challenge.tips && (
-                    <div className="bg-blue-900/20 border border-blue-800/50 rounded-lg p-3 mb-4">
-                      <h5 className="text-xs font-semibold text-blue-300 mb-2 flex items-center">
-                        <Lightbulb className="w-3 h-3 mr-1" />
-                        Expert Tips
-                      </h5>
-                      <ul className="space-y-2">
-                        {challenge.tips.map((tip, idx) => (
-                          <li key={idx} className="flex">
-                            <span className="text-blue-400 mr-2">•</span>
-                            <span className="text-sm text-blue-100">{tip}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-medium text-gray-400">Starting Prompt</h4>
-                    <CopyButton textToCopy={challenge.startingPrompt} />
-                  </div>
-                  <div className="bg-gray-900 p-3 rounded text-sm text-gray-300 font-mono">
-                    {challenge.startingPrompt}
-                  </div>
-                </div>
-
-                <form onSubmit={(e) => handleSubmit(e, challenge.id)} className="mt-4 space-y-3">
+              <div className="p-4 bg-gray-800/80 border-t border-gray-700">
+                <h4 className="text-sm font-medium text-gray-400">Starting Prompt</h4>
+                <CopyButton textToCopy={challenge.startingPrompt} />
+              </div>
+            )}
+            {activeChallenge === challenge.id && (
+              <div className="bg-gray-900 p-3 rounded text-sm text-gray-300 font-mono">
+                {challenge.startingPrompt}
+              </div>
+            )}
+            {showTips[challenge.id] && challenge.tips && challenge.tips.length > 0 && (
+              <div className="p-4 bg-gray-800/80 border-t border-gray-700">
+                <h4 className="text-sm font-medium text-blue-400 mb-2 flex items-center">
+                  <span className="mr-2">💡</span> Tips for this challenge:
+                </h4>
+                <ul className="text-sm text-gray-300 space-y-1.5 pl-5 list-disc">
+                  {challenge.tips.map((tip, tipIndex) => (
+                    <li key={tipIndex}>{tip}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {activeChallenge === challenge.id && (
+              <div className="p-4 bg-gray-800/50 border-t border-gray-700">
+                <form onSubmit={(e) => handleSubmit(e, challenge.id)} className="space-y-4">
                   <div>
                     <label htmlFor={`prompt-${challenge.id}`} className="block text-sm font-medium text-gray-400 mb-1">
                       Your Improved Prompt
@@ -352,20 +337,28 @@ const PromptChallenges: React.FC = () => {
                       <p className="text-lg font-bold text-white mr-2">Score: {evaluationResults[challenge.id]?.score}/100</p>
                       <p className="text-sm text-gray-400">{evaluationResults[challenge.id]?.feedback}</p>
                     </div>
-                    <ul className="space-y-2">
-                      {challenge.successCriteria.map((criterion, index) => (
-                        <li key={index} className={`flex items-center text-sm transition-colors ${
-                          evaluationResults[challenge.id]?.criteriaMet[index] ? 'text-green-400' : 'text-gray-500'
-                        }`}>
-                          {evaluationResults[challenge.id]?.criteriaMet[index] ? (
-                            <CheckCircle className="w-4 h-4 mr-2 flex-shrink-0" />
-                          ) : (
-                            <AlertCircle className="w-4 h-4 mr-2 flex-shrink-0" />
-                          )}
-                          {criterion}
-                        </li>
-                      ))}
-                    </ul>
+                    {evaluationResults[challenge.id]?.criteriaEvaluation && (
+                      <div className="mt-4">
+                        <h5 className="text-sm font-medium text-gray-300 mb-2">Criteria Evaluation:</h5>
+                        <ul className="space-y-2">
+                          {evaluationResults[challenge.id]?.criteriaEvaluation.map((criteria, idx) => (
+                            <li key={idx} className="flex items-start">
+                              {criteria.met ? (
+                                <CheckCircle className="w-4 h-4 text-green-400 mt-0.5 mr-2 flex-shrink-0" />
+                              ) : (
+                                <XCircle className="w-4 h-4 text-red-400 mt-0.5 mr-2 flex-shrink-0" />
+                              )}
+                              <div>
+                                <span className="text-sm text-gray-200">{criteria.criteria}</span>
+                                {criteria.feedback && (
+                                  <p className="text-xs text-gray-400 mt-0.5">{criteria.feedback}</p>
+                                )}
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

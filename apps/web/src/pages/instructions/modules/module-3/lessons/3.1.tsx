@@ -7,10 +7,10 @@ import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
 
 const reasoningChallengeChecklist = [
-  { text: 'Get the AI to correctly identify the odd numbers' },
-  { text: 'Get the AI to sum the odd numbers correctly' },
-  { text: 'Get the AI to determine if the sum is even or odd' },
-  { text: 'Achieve the correct final answer: False' },
+  { text: 'Get the AI to correctly identify the odd numbers', completed: false },
+  { text: 'Get the AI to sum the odd numbers correctly', completed: false },
+  { text: 'Get the AI to determine if the sum is even or odd', completed: false },
+  { text: 'Achieve the correct final answer: False', completed: false },
 ];
 
 const Lesson3_1: React.FC = () => {

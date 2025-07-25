@@ -6,10 +6,10 @@ import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
 
 const weatherChecklist = [
-  { text: 'My goal is to find the weather in a specific city.' },
-  { text: 'I have a tool called `get_weather` that takes a `city`.' },
-  { text: 'I will call that tool with the city name provided.' },
-  { text: 'The tool will return the temperature, which I can give to the user.' },
+  { text: 'My goal is to find the weather in a specific city.', completed: false },
+  { text: 'I have a tool called `get_weather` that takes a `city`.', completed: false },
+  { text: 'I will call that tool with the city name provided.', completed: false },
+  { text: 'The tool will return the temperature, which I can give to the user.', completed: false },
 ];
 
 const Lesson4_3: React.FC = () => {
