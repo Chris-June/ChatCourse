@@ -16,13 +16,13 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         '/api': {
-          target: env.VITE_API_URL || 'http://localhost:3001',
+          target: env.VITE_API_URL || 'http://localhost:3000',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '/api'),
           secure: false,
         },
       },
-      port: 3000,
+      port: 3001,
       strictPort: true,
     },
     // Ensure Vite uses the correct base URL in production

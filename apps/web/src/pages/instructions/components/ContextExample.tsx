@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import CopyButton from '../../../components/CopyButton';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const ContextExample: React.FC = () => {
   const [showFailureCase, setShowFailureCase] = useState(false);
@@ -33,28 +32,33 @@ const ContextExample: React.FC = () => {
       <div className="bg-gray-900 p-4 rounded-lg">
           <p className="text-gray-400 mb-3">Imagine this conversation flow:</p>
           <div className="space-y-3">
-              <div className="relative">
-                  <CopyButton textToCopy={conversation.user1} />
-                  <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-cyan-400">You:</strong> {conversation.user1}</p>
-              </div>
-              <p className="p-2 bg-gray-600 rounded-md"><strong className="text-purple-400">AI:</strong> {conversation.ai1}</p>
+              {!showFailureCase && (
+                <div className="relative">
+                    <CopyButton textToCopy={conversation.user1} />
+                    <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-cyan-400">You:</strong> {conversation.user1}</p>
+                </div>
+              )}
+              {!showFailureCase && (
+                <div className="relative">
+                    <CopyButton textToCopy={conversation.ai1} />
+                    <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-green-400">AI:</strong> {conversation.ai1}</p>
+                </div>
+              )}
               <div className="relative">
                   <CopyButton textToCopy={conversation.user2} />
                   <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-cyan-400">You:</strong> {conversation.user2}</p>
               </div>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={showFailureCase ? 'failure' : 'success'}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <p className={`p-2 rounded-md ${showFailureCase ? 'bg-red-800/50' : 'bg-gray-600'}`}>
-                    <strong className="text-purple-400">AI:</strong> {showFailureCase ? conversation.failureResponse : conversation.successResponse}
+              <div className="relative">
+                  <CopyButton textToCopy={showFailureCase ? conversation.failureResponse : conversation.successResponse} />
+                  <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-green-400">AI:</strong> {showFailureCase ? conversation.failureResponse : conversation.successResponse}</p>
+              </div>
+              {showFailureCase && (
+                <div className="p-3 bg-red-900/30 border border-red-700 rounded-md">
+                  <p className="text-red-300 text-sm">
+                    <strong>AI:</strong> Sure I can help with that! What is the second one?
                   </p>
-                </motion.div>
-              </AnimatePresence>
+                </div>
+              )}
           </div>
           <div className={`mt-4 p-3 rounded-lg border ${showFailureCase ? 'bg-red-900/30 border-red-700' : 'bg-blue-900/30 border-blue-700'}`}>
             <p className={`${showFailureCase ? 'text-red-200' : 'text-blue-200'} text-sm`}>

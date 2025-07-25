@@ -232,9 +232,9 @@ setEvaluationResults(prev => ({
             key={challenge.id} 
             className="bg-gray-800/50 rounded-lg border border-gray-700 overflow-hidden transition-all duration-200"
           >
-            <button
+            <div
               onClick={() => toggleChallenge(challenge.id)}
-              className="w-full text-left p-4 hover:bg-gray-700/50 transition-colors flex justify-between items-center"
+              className="w-full text-left p-4 hover:bg-gray-700/50 transition-colors flex justify-between items-center cursor-pointer"
             >
               <div className="flex items-center space-x-3">
                 <div className="text-lg">
@@ -244,15 +244,15 @@ setEvaluationResults(prev => ({
                   <h3 className="font-semibold text-white">{challenge.title}</h3>
                   <div className="flex items-center space-x-2">
                     {challenge.tips && challenge.tips.length > 0 && (
-                      <button
+                      <span
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleTips(challenge.id);
                         }}
-                        className="text-xs px-2 py-1 rounded-full bg-blue-900/30 text-blue-400 hover:bg-blue-800/40 transition-colors"
+                        className="text-xs px-2 py-1 rounded-full bg-blue-900/30 text-blue-400 hover:bg-blue-800/40 transition-colors cursor-pointer"
                       >
                         {showTips[challenge.id] ? 'Hide Tips' : 'Show Tips'}
-                      </button>
+                      </span>
                     )}
                     <ChevronRight 
                       className={`w-4 h-4 text-gray-400 transition-transform ${activeChallenge === challenge.id ? 'transform rotate-90' : ''}`} 
@@ -265,7 +265,7 @@ setEvaluationResults(prev => ({
                   activeChallenge === challenge.id ? 'transform rotate-90' : ''
                 }`} 
               />
-            </button>
+            </div>
             {activeChallenge === challenge.id && (
               <div className="p-4 bg-gray-800/80 border-t border-gray-700">
                 <h4 className="text-sm font-medium text-gray-400">Starting Prompt</h4>

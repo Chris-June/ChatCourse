@@ -1,7 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { Search, Star, Filter, X, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Search, X, Star, Filter, ArrowRight } from 'lucide-react';
 import CopyButton from '../../../CopyButton';
-import { api } from '@/lib/api';
 
 type PatternCategory = 'all' | 'structure' | 'creativity' | 'analysis' | 'productivity' | 'education';
 type PatternDifficulty = 'beginner' | 'intermediate' | 'advanced';
@@ -62,14 +61,57 @@ const PromptPatternLibrary: React.FC = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await api.get('/api/chat/get-patterns');
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL === '/api' 
+          ? '' 
+          : import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+        const endpoint = apiBaseUrl 
+          ? `${apiBaseUrl}${apiBaseUrl.endsWith('/') ? '' : '/'}api/chat/get-patterns`
+          : '/api/chat/get-patterns';
+
+        const response = await fetch(endpoint);
         if (!response.ok) {
-          throw new Error('Failed to fetch prompt patterns.');
+          throw new Error(`Failed to fetch prompt patterns: ${response.status}`);
         }
         const data = await response.json();
         setAllPatterns(data);
       } catch (err) {
+        console.error('Error fetching patterns:', err);
         setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        
+        // Fallback to mock data if API fails
+        const mockPatterns: PromptPattern[] = [
+          {
+            id: '1',
+            name: 'Chain of Thought',
+            description: 'Encourage step-by-step reasoning by asking the AI to show its thinking process.',
+            category: ['structure', 'analysis'],
+            difficulty: 'beginner',
+            example: 'Let\'s think step by step: How would you solve this math problem? 2x + 5 = 15',
+            useCase: 'Detailed problem solving',
+            tags: ['reasoning', 'step-by-step', 'thinking']
+          },
+          {
+            id: '2',
+            name: 'Role-Based Prompting',
+            description: 'Assign a specific role or expertise to the AI to get more targeted responses.',
+            category: ['structure', 'creativity'],
+            difficulty: 'intermediate',
+            example: 'As a senior software architect, design a scalable microservices architecture for an e-commerce platform.',
+            useCase: 'Expert perspective',
+            tags: ['role-playing', 'expertise', 'perspective']
+          },
+          {
+            id: '3',
+            name: 'Few-Shot Learning',
+            description: 'Provide examples to guide the AI\'s response format and style.',
+            category: ['structure', 'education'],
+            difficulty: 'intermediate',
+            example: 'Here are some examples:\n\nExample 1: Input: "Hello" → Output: "Hi there!"\nExample 2: Input: "Goodbye" → Output: "See you later!"\n\nNow: Input: "How are you?" →',
+            useCase: 'Consistent formatting',
+            tags: ['examples', 'learning', 'format']
+          }
+        ];
+        setAllPatterns(mockPatterns);
       } finally {
         setIsLoading(false);
       }
@@ -236,10 +278,10 @@ const PromptPatternLibrary: React.FC = () => {
           </div>
           <div className="flex flex-wrap gap-2">
             {categories.map(({ id, label }) => (
-              <button
+              <div
                 key={id}
                 onClick={() => toggleCategory(id as PatternCategory)}
-                className={`px-3 py-1 text-sm rounded-full flex items-center ${
+                className={`px-3 py-1 text-sm rounded-full flex items-center cursor-pointer ${
                   selectedCategories.includes(id as PatternCategory) || 
                   (id === 'all' && selectedCategories.includes('all'))
                     ? 'bg-blue-600 text-white'
@@ -248,17 +290,17 @@ const PromptPatternLibrary: React.FC = () => {
               >
                 {label}
                 {selectedCategories.includes(id as PatternCategory) && selectedCategories.length > 1 && id !== 'all' && (
-                  <button 
+                  <span 
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleCategory(id as PatternCategory);
                     }}
-                    className="ml-1.5 -mr-0.5 p-0.5 rounded-full inline-flex items-center text-blue-200 hover:bg-blue-500"
+                    className="ml-1.5 -mr-0.5 p-0.5 rounded-full inline-flex items-center text-blue-200 hover:bg-blue-500 cursor-pointer"
                   >
                     <X className="w-3 h-3" />
-                  </button>
+                  </span>
                 )}
-              </button>
+              </div>
             ))}
           </div>
         </div>

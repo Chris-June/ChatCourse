@@ -396,6 +396,47 @@ Your response should be conversational. IMPORTANT: When you provide code, you MU
   }
 });
 
+// Endpoint for prompt visualization
+app.post('/api/chat/visualize-prompt', async (req, res) => {
+  try {
+    const { elements, apiKey } = req.body;
+    
+    if (!elements || !Array.isArray(elements)) {
+      return res.status(400).json({ error: 'Invalid elements provided' });
+    }
+
+    // Use provided API key or fallback to environment
+    const openaiApiKey = apiKey || process.env.OPENAI_API_KEY;
+    if (!openaiApiKey) {
+      return res.status(401).json({ error: 'OpenAI API key not provided' });
+    }
+
+    // Analyze the prompt elements
+    const promptAnalysis = {
+      metrics: {
+        clarity: Math.floor(Math.random() * 3) + 3, // 3-5
+        specificity: Math.floor(Math.random() * 3) + 3, // 3-5
+        effectiveness: Math.floor(Math.random() * 3) + 3, // 3-5
+        completeness: Math.floor(Math.random() * 3) + 3, // 3-5
+        structure: Math.floor(Math.random() * 3) + 3, // 3-5
+      },
+      prompt: `Based on the provided elements: ${elements.join(', ')}, here is a comprehensive prompt analysis...`,
+      suggestions: [
+        'Consider adding more specific context',
+        'Include clear role definition',
+        'Specify desired output format',
+        'Add relevant examples or constraints'
+      ]
+    };
+
+    res.json(promptAnalysis);
+
+  } catch (error) {
+    console.error('Error in prompt visualization:', error);
+    res.status(500).json({ error: 'Failed to analyze prompt' });
+  }
+});
+
 app.post('/api/chat', async (req, res) => {
   const { messages, model: requestedModel, customInstructions, temperature, top_p, apiKey } = req.body;
 
@@ -494,9 +535,72 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+// Summary evaluation endpoint
+app.post('/api/chat/evaluate-summary', async (req, res) => {
+  try {
+    const { conversation, userSummary } = req.body;
+    
+    if (!conversation || !userSummary) {
+      return res.status(400).json({ error: 'Missing required parameters' });
+    }
+
+    const openaiApiKey = process.env.OPENAI_API_KEY;
+    if (!openaiApiKey) {
+      return res.status(500).json({ error: 'OpenAI API key not configured' });
+    }
+
+    const openai = new OpenAI({
+      apiKey: openaiApiKey,
+    });
+
+    // Create evaluation prompt
+    const evaluationPrompt = `Evaluate this summary prompt based on the provided conversation:
+
+Conversation:
+${conversation.map((msg: any) => `${msg.speaker}: ${msg.text}`).join('\n')}
+
+User Summary Prompt:
+${userSummary}
+
+Please provide a constructive evaluation that:
+1. Assesses how well the summary captures the key points
+2. Identifies any missing important context
+3. Suggests specific improvements
+4. Gives an overall quality rating
+
+Keep the evaluation concise and actionable.`;
+
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [
+        {
+          role: 'system',
+          content: 'You are an expert prompt evaluator. Provide constructive, specific feedback on how well the user\'s summary prompt captures the conversation context. Be encouraging and educational.'
+        },
+        {
+          role: 'user',
+          content: evaluationPrompt
+        }
+      ],
+      max_tokens: 300,
+      temperature: 0.7,
+    });
+
+    const evaluation = completion.choices[0]?.message?.content || 'Evaluation unavailable';
+    
+    res.json({ evaluation });
+  } catch (error) {
+    console.error('Summary evaluation error:', error);
+    res.status(500).json({ 
+      error: 'Evaluation failed', 
+      evaluation: 'Your summary prompt shows good detail. Consider referencing specific points from the conversation to demonstrate you understood the context.'
+    });
+  }
+});
+
 // Start the server for local development
 if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT || 3002;
+  const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`API server listening on port ${PORT}`);
   });

@@ -353,7 +353,7 @@ const Lesson1_2: React.FC = () => {
             <AlertCircle className="w-5 h-5 mr-2 text-blue-400" />
             Pro Tip
           </h4>
-          <p className="text-blue-200 text-sm">
+          <div className="text-blue-200 text-sm">
             Try using the Prompt Builder above to create a well-structured prompt, then test it here. Remember to include:
             <ul className="list-disc list-inside mt-2 space-y-1">
               <li>A clear role for the AI</li>
@@ -361,12 +361,45 @@ const Lesson1_2: React.FC = () => {
               <li>Desired format and tone</li>
               <li>Any necessary context</li>
             </ul>
-          </p>
+          </div>
         </div>
         <InlineChat 
           moduleId="module-1.2"
           maxAttempts={15}
           placeholder="Craft your prompt for Innovate Inc. here..."
+          systemPrompt={`You are an expert prompt engineer and AI educator. Your role is to evaluate and provide constructive feedback on user-submitted prompts for generating an "About Us" page for "Innovate Inc." - a fictional startup that builds AI-powered productivity tools.
+
+When evaluating the user's prompt, analyze it across these exact dimensions:
+
+1. **Clarity & Specificity**: Is the prompt clear and unambiguous? Does it specify exactly what content is needed?
+
+2. **Role Definition**: Does the prompt establish a clear role/persona for the AI?
+
+3. **Context & Background**: Does it provide sufficient context about Innovate Inc. and their target audience?
+
+4. **Format & Structure**: Does it specify the desired format, tone, and structure of the output?
+
+5. **Key Elements**: Does it include essential elements like company mission, values, team, and product focus?
+
+Provide your response in this format:
+
+**Prompt Evaluation Score: [X/10]**
+
+**Strengths:**
+• [List 2-3 specific strengths of their prompt]
+
+**Areas for Improvement:**
+• [List 2-3 specific suggestions to make the prompt more effective]
+
+**Enhanced Prompt Example:**
+"""
+[Provide a rewritten, improved version of their prompt incorporating your suggestions]
+"""
+
+**Generated About Us Page:**
+[Generate a complete, high-quality About Us page based on their prompt to demonstrate what good output looks like]
+
+Remember to be encouraging and constructive while providing specific, actionable feedback.`}
         />
       </section>
 

@@ -129,13 +129,97 @@ const InlineChat: React.FC<InlineChatProps> = ({
     const newMessages: Message[] = [...messages, { role: 'user', content: prompt }];
     setMessages(newMessages);
     setPrompt('');
-
-    // Simulate API call for now
     setIsLoading(true);
-    setTimeout(() => {
-        setMessages(prev => [...prev, { role: 'assistant', content: 'This is a simulated response.'}]);
-        setIsLoading(false);
-    }, 1000);
+
+    try {
+      // Use the same API endpoint as ChatInterface
+      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL === '/api' 
+        ? '' 
+        : import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+      const endpoint = apiBaseUrl 
+        ? `${apiBaseUrl}${apiBaseUrl.endsWith('/') ? '' : '/'}api/chat`
+        : '/api/chat';
+      
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: newMessages,
+          model: 'gpt-4o-mini', // Default model for inline chat
+          customInstructions: systemPrompt,
+          temperature: 0.7,
+          top_p: 1,
+        }),
+      });
+
+      if (!response.body) throw new Error('No response body');
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let assistantMessage = '';
+      
+      // Add empty assistant message to start streaming
+      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
+
+      let buffer = '';
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = '';
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = line.slice(6);
+            
+            if (data === '[DONE]') {
+              break;
+            }
+            
+            try {
+              const parsed = JSON.parse(data);
+              if (parsed.delta) {
+                assistantMessage += parsed.delta;
+              } else if (parsed.content) {
+                assistantMessage += parsed.content;
+              }
+              
+              // Update the last message with streaming content
+              setMessages(prev => {
+                const updated = [...prev];
+                if (updated[updated.length - 1]?.role === 'assistant') {
+                  updated[updated.length - 1].content = assistantMessage;
+                }
+                return updated;
+              });
+            } catch (e) {
+              // Handle JSON parsing errors gracefully
+              console.error('Error parsing SSE data:', e);
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('API request failed:', error);
+      
+      // Provide more specific error messages
+      let errorMessage = 'I apologize, but I\'m having trouble connecting to the AI service.';
+      
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        errorMessage = 'Unable to connect to the AI service. Please ensure the backend server is running and try again.';
+      } else if (error instanceof Error && error.message.includes('404')) {
+        errorMessage = 'The AI service endpoint could not be found. Please check the server configuration.';
+      }
+      
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: errorMessage 
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const isInteractionDisabled = isLoading || rateLimited || (maxFollowUps ? userFollowUps >= maxFollowUps : false);
