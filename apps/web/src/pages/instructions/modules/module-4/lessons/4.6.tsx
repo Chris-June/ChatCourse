@@ -62,15 +62,88 @@ const Lesson4_6: React.FC = () => {
       </Accordion>
 
       <Accordion title="Real-World Use Cases" icon={<Briefcase />}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          {/* Existing Use Case 1 - Enhanced */}
           <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-            <h4 className="font-bold text-lg text-white mb-2">Internal Data Access</h4>
-            <p className="text-sm text-gray-400">An MCP server provides an agent with secure, read-only access to a company's internal product database, enabling it to answer complex inventory questions for employees without exposing the database directly.</p>
+            <h4 className="font-bold text-lg text-white mb-2">🏢 Internal Data Access</h4>
+            <p className="text-gray-400 mb-3">An agent uses an MCP server to safely query your company's internal database or CRM to answer questions like, "What was our Q3 revenue?" without exposing sensitive credentials.</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-sm text-blue-300"><strong>Server:</strong> <code>company-db-mcp</code></p>
+              <p className="text-sm text-gray-400"><strong>Tools:</strong> <code>query_sales_data</code>, <code>get_customer_info</code></p>
+            </div>
           </div>
+
+          {/* Existing Use Case 2 - Enhanced */}
           <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-            <h4 className="font-bold text-lg text-white mb-2">Open-Source Contribution</h4>
-            <p className="text-sm text-gray-400">An MCP server wraps the GitHub API. An agent could use it to find 'good first issues' in projects, analyze the codebase, and even draft a pull request to fix a bug, all through a standardized interface.</p>
+            <h4 className="font-bold text-lg text-white mb-2">🔗 Third-Party Integrations</h4>
+            <p className="text-gray-400 mb-3">An agent uses an MCP server to interact with external services like Stripe, Google Calendar, or GitHub, performing actions like creating invoices or scheduling meetings.</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-sm text-green-300"><strong>Server:</strong> <code>stripe-mcp</code></p>
+              <p className="text-sm text-gray-400"><strong>Tools:</strong> <code>create_invoice</code>, <code>get_payment_status</code></p>
+            </div>
           </div>
+
+          {/* New Use Case 3 - Development */}
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-bold text-lg text-white mb-2">🚀 Code Repository Management</h4>
+            <p className="text-gray-400 mb-3">An agent uses MCP servers to manage development workflows: creating issues, reviewing PRs, and deploying code across multiple repositories.</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-sm text-purple-300"><strong>Server:</strong> <code>github-mcp</code></p>
+              <p className="text-sm text-gray-400"><strong>Tools:</strong> <code>create_issue</code>, <code>review_pr</code>, <code>deploy_branch</code></p>
+            </div>
+          </div>
+
+          {/* New Use Case 4 - Customer Support */}
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-bold text-lg text-white mb-2">💬 Customer Support Automation</h4>
+            <p className="text-gray-400 mb-3">An agent uses MCP servers to handle customer inquiries: checking ticket status, updating CRM records, and sending personalized responses.</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-sm text-yellow-300"><strong>Server:</strong> <code>zendesk-mcp</code></p>
+              <p className="text-sm text-gray-400"><strong>Tools:</strong> <code>get_ticket</code>, <code>update_customer</code>, <code>send_response</code></p>
+            </div>
+          </div>
+
+          {/* New Use Case 5 - Financial Operations */}
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-bold text-lg text-white mb-2">💰 Financial Operations</h4>
+            <p className="text-gray-400 mb-3">An agent uses MCP servers to manage financial workflows: processing invoices, monitoring transactions, and generating financial reports.</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-sm text-red-300"><strong>Server:</strong> <code>finance-mcp</code></p>
+              <p className="text-sm text-gray-400"><strong>Tools:</strong> <code>process_invoice</code>, <code>get_transactions</code>, <code>generate_report</code></p>
+            </div>
+          </div>
+
+          {/* New Use Case 6 - Healthcare Management */}
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-bold text-lg text-white mb-2">🏥 Healthcare Management</h4>
+            <p className="text-gray-400 mb-3">An agent uses MCP servers to manage healthcare workflows: scheduling appointments, accessing patient records, and coordinating care teams.</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-sm text-teal-300"><strong>Server:</strong> <code>healthcare-mcp</code></p>
+              <p className="text-sm text-gray-400"><strong>Tools:</strong> <code>schedule_appointment</code>, <code>access_records</code>, <code>coordinate_care</code></p>
+            </div>
+          </div>
+
+          {/* New Use Case 7 - E-commerce Operations */}
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-bold text-lg text-white mb-2">🛒 E-commerce Operations</h4>
+            <p className="text-gray-400 mb-3">An agent uses MCP servers to manage e-commerce operations: tracking orders, updating inventory, and processing returns.</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-sm text-pink-300"><strong>Server:</strong> <code>shopify-mcp</code></p>
+              <p className="text-sm text-gray-400"><strong>Tools:</strong> <code>track_order</code>, <code>update_inventory</code>, <code>process_return</code></p>
+            </div>
+          </div>
+
+          {/* New Use Case 8 - Educational Administration */}
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-bold text-lg text-white mb-2">📚 Educational Administration</h4>
+            <p className="text-gray-400 mb-3">An agent uses MCP servers to manage educational workflows: enrolling students, grading assignments, and scheduling classes.</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-sm text-indigo-300"><strong>Server:</strong> <code>education-mcp</code></p>
+              <p className="text-sm text-gray-400"><strong>Tools:</strong> <code>enroll_student</code>, <code>grade_assignment</code>, <code>schedule_class</code></p>
+            </div>
+          </div>
+
         </div>
       </Accordion>
 

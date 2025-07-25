@@ -30,7 +30,7 @@ const Lesson4_5: React.FC = () => {
             to="/instructions/module-5/5.1" 
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
-           Next: Capstone <ChevronRight className="w-5 h-5 ml-2" />
+           Next: MCP Servers <ChevronRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>
@@ -250,6 +250,203 @@ function master_agent(goal):
         />
       </Accordion>
 
+      <Accordion title="Building Your Own Agents: Frameworks & Tools" icon={<Wrench />}>
+        <div className="space-y-6">
+          <p className="text-gray-300 mb-4">
+            Now that you understand agent concepts, let's explore the practical tools and frameworks that make building real agents possible. You don't have to start from scratch.
+          </p>
+          
+          {/* IntelliSync Framework */}
+          <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-700 rounded-lg p-4">
+            <h3 className="font-semibold text-blue-300 mb-2 flex items-center">
+              <div className="w-3 h-3 bg-blue-400 rounded-full mr-2"></div>
+              IntelliSync (Proprietary)
+            </h3>
+            <p className="text-gray-300 text-sm mb-3">
+              Our enterprise-grade framework purpose-built for business applications. Provides built-in security, compliance, and enterprise integrations.
+            </p>
+            <div className="space-y-1">
+              <p className="text-xs text-blue-200">• Enterprise security & compliance</p>
+              <p className="text-xs text-blue-200">• Built-in monitoring & observability</p>
+              <p className="text-xs text-blue-200">• Pre-built business integrations</p>
+              <p className="text-xs text-blue-200">• Managed deployment & scaling</p>
+            </div>
+          </div>
+
+          {/* Open Source Frameworks */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            
+            {/* LangChain */}
+            <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+              <h3 className="font-semibold text-yellow-300 mb-2 flex items-center">
+                <div className="w-3 h-3 bg-yellow-400 rounded-full mr-2"></div>
+                LangChain
+              </h3>
+              <p className="text-gray-300 text-sm mb-3">
+                The most popular framework for building LLM applications. Provides chains, agents, and memory management.
+              </p>
+              <div className="space-y-1">
+                <p className="text-xs text-gray-400">• LangChain Expression Language (LCEL)</p>
+                <p className="text-xs text-gray-400">• 100+ pre-built chains</p>
+                <p className="text-xs text-gray-400">• Multi-language support</p>
+                <p className="text-xs text-gray-400">• Rich ecosystem</p>
+              </div>
+              <div className="mt-3">
+                <a href="https://python.langchain.com" className="text-xs text-blue-400 hover:underline">langchain.com →</a>
+              </div>
+            </div>
+
+            {/* LlamaIndex */}
+            <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+              <h3 className="font-semibold text-orange-300 mb-2 flex items-center">
+                <div className="w-3 h-3 bg-orange-400 rounded-full mr-2"></div>
+                LlamaIndex
+              </h3>
+              <p className="text-gray-300 text-sm mb-3">
+                Specialized framework for building RAG (Retrieval-Augmented Generation) applications and document indexing.
+              </p>
+              <div className="space-y-1">
+                <p className="text-xs text-gray-400">• Advanced RAG capabilities</p>
+                <p className="text-xs text-gray-400">• Document indexing & retrieval</p>
+                <p className="text-xs text-gray-400">• Vector database integrations</p>
+                <p className="text-xs text-gray-400">• Query optimization</p>
+              </div>
+              <div className="mt-3">
+                <a href="https://docs.llamaindex.ai" className="text-xs text-blue-400 hover:underline">llamaindex.ai →</a>
+              </div>
+            </div>
+
+            {/* Microsoft AutoGen */}
+            <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+              <h3 className="font-semibold text-cyan-300 mb-2 flex items-center">
+                <div className="w-3 h-3 bg-cyan-400 rounded-full mr-2"></div>
+                Microsoft AutoGen
+              </h3>
+              <p className="text-gray-300 text-sm mb-3">
+                Microsoft's framework for building multi-agent conversational systems with customizable agents.
+              </p>
+              <div className="space-y-1">
+                <p className="text-xs text-gray-400">• Multi-agent conversations</p>
+                <p className="text-xs text-gray-400">• Customizable agents</p>
+                <p className="text-xs text-gray-400">• Group chat management</p>
+                <p className="text-xs text-gray-400">• Code execution environment</p>
+              </div>
+              <div className="mt-3">
+                <a href="https://microsoft.github.io/autogen/" className="text-xs text-blue-400 hover:underline">microsoft.github.io →</a>
+              </div>
+            </div>
+
+            {/* N8N */}
+            <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+              <h3 className="font-semibold text-green-300 mb-2 flex items-center">
+                <div className="w-3 h-3 bg-green-400 rounded-full mr-2"></div>
+                N8N (Open Source)
+              </h3>
+              <p className="text-gray-300 text-sm mb-3">
+                Visual workflow automation with 400+ integrations. Perfect for no-code/low-code agent building.
+              </p>
+              <div className="space-y-1">
+                <p className="text-xs text-gray-400">• Visual node-based editor</p>
+                <p className="text-xs text-gray-400">• 400+ pre-built integrations</p>
+                <p className="text-xs text-gray-400">• Self-hosted or cloud</p>
+                <p className="text-xs text-gray-400">• JavaScript/Python nodes</p>
+              </div>
+              <div className="mt-3">
+                <a href="https://n8n.io" className="text-xs text-blue-400 hover:underline">n8n.io →</a>
+              </div>
+            </div>
+
+            {/* Argon */}
+            <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+              <h3 className="font-semibold text-purple-300 mb-2 flex items-center">
+                <div className="w-3 h-3 bg-purple-400 rounded-full mr-2"></div>
+                Argon (Open Source)
+              </h3>
+              <p className="text-gray-300 text-sm mb-3">
+                Lightweight framework for building conversational AI agents with built-in memory and tool management.
+              </p>
+              <div className="space-y-1">
+                <p className="text-xs text-gray-400">• Conversational memory</p>
+                <p className="text-xs text-gray-400">• Built-in tool management</p>
+                <p className="text-xs text-gray-400">• Lightweight & fast</p>
+                <p className="text-xs text-gray-400">• Easy deployment</p>
+              </div>
+              <div className="mt-3">
+                <span className="text-xs text-gray-500">GitHub: argon-framework</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Comparison Table */}
+          <div className="bg-gray-800 rounded-lg p-4">
+            <h4 className="font-semibold text-white mb-3">Framework Comparison</h4>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="border-b border-gray-700">
+                    <th className="text-left py-2 text-gray-300">Feature</th>
+                    <th className="text-left py-2 text-yellow-300">LangChain</th>
+                    <th className="text-left py-2 text-orange-300">LlamaIndex</th>
+                    <th className="text-left py-2 text-cyan-300">AutoGen</th>
+                    <th className="text-left py-2 text-green-300">N8N</th>
+                    <th className="text-left py-2 text-purple-300">Argon</th>
+                    <th className="text-left py-2 text-blue-300">IntelliSync</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-gray-700">
+                    <td className="py-2 text-gray-400">Learning Curve</td>
+                    <td className="py-2 text-gray-300">Low</td>
+                    <td className="py-2 text-gray-300">Medium</td>
+                    <td className="py-2 text-gray-300">Low</td>
+                  </tr>
+                  <tr className="border-b border-gray-700">
+                    <td className="py-2 text-gray-400">Integrations</td>
+                    <td className="py-2 text-gray-300">400+</td>
+                    <td className="py-2 text-gray-300">Custom</td>
+                    <td className="py-2 text-gray-300">Enterprise</td>
+                  </tr>
+                  <tr className="border-b border-gray-700">
+                    <td className="py-2 text-gray-400">Deployment</td>
+                    <td className="py-2 text-gray-300">Self/Cloud</td>
+                    <td className="py-2 text-gray-300">Self-hosted</td>
+                    <td className="py-2 text-gray-300">Managed</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 text-gray-400">Best For</td>
+                    <td className="py-2 text-gray-300">LLM Apps</td>
+                    <td className="py-2 text-gray-300">RAG Systems</td>
+                    <td className="py-2 text-gray-300">Multi-Agent</td>
+                    <td className="py-2 text-gray-300">Workflows</td>
+                    <td className="py-2 text-gray-300">Conversational</td>
+                    <td className="py-2 text-gray-300">Enterprise</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Getting Started Guide */}
+          <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+            <h4 className="font-semibold text-white mb-2">Getting Started Guide</h4>
+            <div className="space-y-3">
+              <div className="border-l-2 border-green-500 pl-3">
+                <p className="text-sm font-semibold text-green-300">Beginner: N8N</p>
+                <p className="text-xs text-gray-400">Start with visual workflows, then add AI nodes</p>
+              </div>
+              <div className="border-l-2 border-purple-500 pl-3">
+                <p className="text-sm font-semibold text-purple-300">Developer: Argon</p>
+                <p className="text-xs text-gray-400">Build custom agents with full code control</p>
+              </div>
+              <div className="border-l-2 border-blue-500 pl-3">
+                <p className="text-sm font-semibold text-blue-300">Enterprise: IntelliSync</p>
+                <p className="text-xs text-gray-400">Production-ready with enterprise features</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Accordion>
+
       <Accordion title="Hands-On Mini-Project: 'Ticket-Bot' (Coming Soon)" icon={<GitCommit />} isDisabled>
         <p className="text-gray-400">
           This upcoming lab will guide you through building a simple support ticket agent from scratch. You'll fork a GitHub repo, implement the Observe-Think-Act loop, and deploy it to the cloud. Stay tuned!
@@ -309,7 +506,7 @@ function master_agent(goal):
           to="/instructions/module-5/5.1" 
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Module 5: Capstone Project <ChevronRight className="w-5 h-5 ml-2" />
+          MCP Servers <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>

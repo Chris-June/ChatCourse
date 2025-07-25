@@ -13,6 +13,7 @@ import TransformerArchitectureDiagram from '../../../components/TransformerArchi
 import ParameterSliders from '../../../components/ParameterSliders';
 import ResponsibleAI from '../../../components/ResponsibleAI';
 import InteractivePromptExercise from '../../../components/InteractivePromptExercise';
+import RagChunkingDiagram from '../../../components/RagChunkingDiagram';
 
 const Lesson4_4: React.FC = () => {
   return (
@@ -36,17 +37,17 @@ const Lesson4_4: React.FC = () => {
       </div>
 
       <Accordion title="The Big Idea: Packaging AI Superpowers" icon={<Rocket />} isInitiallyOpen>
-        <p className="text-gray-300">
+        <div className="text-gray-300">
           We've learned how to give an AI new skills with tools. Now, let's learn how to package those skills into a complete, specialized assistant called a <GlossaryTerm term="GPT" definition="A custom version of ChatGPT that combines instructions, extra knowledge, and capabilities for a specific purpose." />. Think of it as creating a custom superhero, complete with a unique personality, special knowledge, and a utility belt of custom tools.
-        </p>
+        </div>
       </Accordion>
 
       <GptPipelineDiagram />
 
       <Accordion title="Under the Hood: The Transformer Architecture" icon={<Layers />}>
-        <p className="text-gray-300 mb-4">
+        <div className="text-gray-300 mb-4">
           GPTs are powered by a revolutionary model architecture called the Transformer. While the math is complex, the core ideas are intuitive. This diagram breaks down the key steps that allow a model to understand language contextually.
-        </p>
+        </div>
         <TransformerArchitectureDiagram />
       </Accordion>
 
@@ -54,15 +55,15 @@ const Lesson4_4: React.FC = () => {
         <div className="space-y-4">
           <div className="bg-gray-900 p-4 rounded-lg">
             <h3 className="font-semibold text-white">1. Custom Instructions (The Persona)</h3>
-            <p className="text-gray-400">This is the GPT's 'constitution.' It's a detailed prompt defining its personality, goals, and constraints. Example: `You are a helpful assistant who speaks only in pirate slang.`</p>
+            <div className="text-gray-400">This is the GPT's 'constitution.' It's a detailed prompt defining its personality, goals, and constraints. Example: `You are a helpful assistant who speaks only in pirate slang.`</div>
           </div>
           <div className="bg-gray-900 p-4 rounded-lg">
             <h3 className="font-semibold text-white">2. Expanded Knowledge (The Brains)</h3>
-            <p className="text-gray-400">You can upload files (like PDFs) to give the GPT specific expertise. This uses a technique called <GlossaryTerm term="Retrieval-Augmented Generation (RAG)" definition="The process of providing an AI with external knowledge to retrieve information from, reducing hallucinations and keeping it up-to-date." />, where the AI reads your documents to find answers.</p>
+            <div className="text-gray-400">You can upload files (like PDFs) to give the GPT specific expertise. This uses a technique called <GlossaryTerm term="Retrieval-Augmented Generation (RAG)" definition="The process of providing an AI with external knowledge to retrieve information from, reducing hallucinations and keeping it up-to-date." />, where the AI reads your documents to find answers.</div>
           </div>
           <div className="bg-gray-900 p-4 rounded-lg">
             <h3 className="font-semibold text-white">3. Custom Actions (The Utility Belt)</h3>
-            <p className="text-gray-400 mb-2">This is where our tools come in. You give a GPT its superpowers by providing an <GlossaryTerm term="OpenAPI schema" definition="A standardized specification for describing APIs. It allows both humans and computers to discover and understand the capabilities of a service without access to source code." />, which is the universal language for describing tools to an AI.</p>
+            <div className="text-gray-400 mb-2">This is where our tools come in. You give a GPT its superpowers by providing an <GlossaryTerm term="OpenAPI schema" definition="A standardized specification for describing APIs. It allows both humans and computers to discover and understand the capabilities of a service without access to source code." />, which is the universal language for describing tools to an AI.</div>
           </div>
         </div>
       </Accordion>
@@ -146,16 +147,64 @@ const Lesson4_4: React.FC = () => {
       </Accordion>
 
       <Accordion title="Pro Tips for Power Users" icon={<Star />}>
-        <ul className="list-disc pl-5 space-y-2 text-gray-300">
-          <li><strong>Tool Chaining:</strong> A single user prompt can trigger a sequence of multiple tool calls. For example, 'Book a flight to New York and a hotel near Central Park' could call a flight tool first, then a hotel tool.</li>
-          <li><strong>Optimizing RAG:</strong> For knowledge-heavy GPTs, pre-process your documents. Break large PDFs into smaller, clearly-labeled chunks to improve the AI's retrieval accuracy.</li>
-        </ul>
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold text-white mb-2">1. Tool Chaining</h4>
+            <p className="text-gray-300 mb-3">A single user prompt can trigger a sequence of multiple tool calls. The AI decides the order based on dependencies.</p>
+            <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+              <h5 className="font-semibold text-blue-400 mb-2">Example: Trip Planning</h5>
+              <p className="text-gray-400 mb-2"><strong>User Prompt:</strong> "Book a flight to New York and find a hotel near Central Park for next weekend."</p>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span className="text-gray-300">Tool 1: <code className="text-blue-300">search_flights</code> - Finds flights NYC for specified dates</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-gray-300">Tool 2: <code className="text-green-300">book_flight</code> - Books the selected flight</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <span className="text-gray-300">Tool 3: <code className="text-purple-300">search_hotels</code> - Finds hotels near Central Park</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                  <span className="text-gray-300">Tool 4: <code className="text-orange-300">book_hotel</code> - Books the selected hotel</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold text-white mb-2">2. Real-World Chains</h4>
+            <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+              <h5 className="font-semibold text-blue-400 mb-2">Example: Meeting Summary + Calendar</h5>
+              <p className="text-gray-400 mb-2"><strong>User Prompt:</strong> "Summarize today's meeting and add the action items to my calendar."</p>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span className="text-gray-300">Tool 1: <code className="text-blue-300">read_meeting_notes</code> - Extracts key points</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-gray-300">Tool 2: <code className="text-green-300">create_calendar_events</code> - Adds action items</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold text-white mb-2">3. Optimizing RAG</h4>
+            <p className="text-gray-300 mb-4">For knowledge-heavy GPTs, pre-process your documents. Break large PDFs into smaller, clearly-labeled chunks to improve the AI's retrieval accuracy.</p>
+            <RagChunkingDiagram />
+          </div>
+        </div>
       </Accordion>
 
       <Accordion title="A Developer's Guide to Responsible AI" icon={<ShieldCheck />}>
-        <p className="text-gray-300 mb-4">
+        <div className="text-gray-300 mb-4">
           With great power comes great responsibility. Building with LLMs requires an awareness of their limitations and potential for harm. Keeping these points in mind is crucial for creating safe, fair, and reliable applications.
-        </p>
+        </div>
         <ResponsibleAI />
       </Accordion>
 

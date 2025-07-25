@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import zeroCotImage from '../../../../../assets/images/zero-cot2.webp';
+import ZeroCotDiagram from '../../../components/ZeroCotDiagram';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
@@ -37,9 +37,7 @@ const Lesson3_1: React.FC = () => {
       </div>
 
       <Accordion title="Zero-shot Prompting" isInitiallyOpen>
-        <div className="my-4">
-          <img src={zeroCotImage} alt="Zero-shot COT diagram" className="rounded-lg mx-auto" />
-        </div>
+        <ZeroCotDiagram />
         <p className="text-gray-300 mb-4">
           Large language models (LLMs) today, such as GPT-3.5 Turbo, GPT-4, and Claude 3, are tuned to follow instructions and are trained on large amounts of data. Large-scale training makes these models capable of performing some tasks in a "zero-shot" manner. Zero-shot prompting means that the prompt used to interact with the model won't contain examples or demonstrations. The zero-shot prompt directly instructs the model to perform a task without any additional examples to steer it.
         </p>

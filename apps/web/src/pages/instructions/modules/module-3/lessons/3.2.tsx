@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import zeroShotCotImage from '../../../../../assets/images/cot1.webp';
-import autoCotImage from '../../../../../assets/images/auto-cot3.webp';
+import CotDiagram from '../../../components/CotDiagram';
+import AutoDemosDiagram from '../../../components/AutoDemosDiagram';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
@@ -62,7 +62,7 @@ const Lesson3_2: React.FC = () => {
           One of the more recent and exciting prompting techniques is zero-shot CoT (Kojima et al. 2022) that essentially involves adding "Let's think step by step" to the original prompt. Let's try a simple problem to see how this works in practice.
         </p>
         <div className="my-4">
-          <img src={zeroShotCotImage} alt="Zero-shot COT diagram" className="rounded-lg mx-auto" />
+          <CotDiagram />
           <p className="text-center text-sm text-gray-500 mt-2">Image Source: Kojima et al. (2022)</p>
         </div>
         <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
@@ -94,20 +94,8 @@ const Lesson3_2: React.FC = () => {
         <p className="text-gray-300 mb-4">
           When applying chain-of-thought prompting with demonstrations, the process involves hand-crafting effective and diverse examples. This manual effort could lead to suboptimal solutions. Zhang et al. (2022) propose an approach to eliminate manual efforts by leveraging LLMs with "Let's think step by step" prompt to generate reasoning chains for demonstrations one by one. This automatic process can still end up with mistakes in generated chains. To mitigate the effects of the mistakes, the diversity of demonstrations matter. This work proposes Auto-CoT, which samples questions with diversity and generates reasoning chains to construct the demonstrations.
         </p>
-        <p className="text-gray-300 mb-4">
-          Auto-CoT consists of two main stages:
-        </p>
-        <ol className="list-decimal list-inside text-gray-400 space-y-2 mb-4">
-          <li><strong>Question Clustering:</strong> partition questions of a given dataset into a few clusters</li>
-          <li><strong>Demonstration Sampling:</strong> select a representative question from each cluster and generate its reasoning chain using Zero-Shot-CoT with simple heuristics</li>
-        </ol>
-        <p className="text-gray-300 mb-4">
-          The simple heuristics could be length of questions (e.g., 60 tokens) and number of steps in rationale (e.g., 5 reasoning steps). This encourages the model to use simple and accurate demonstrations.
-        </p>
-        <div className="my-4">
-          <img src={autoCotImage} alt="Auto-CoT diagram" className="rounded-lg mx-auto" />
-          <p className="text-center text-sm text-gray-500 mt-2">Image Source: Zhang et al. (2022)</p>
-        </div>
+        <AutoDemosDiagram />
+        <p className="text-center text-sm text-gray-500 mt-2">Image Source: Zhang et al. (2022)</p>
       </Accordion>
 
       {/* Navigation */}

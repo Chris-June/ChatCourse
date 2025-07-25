@@ -54,7 +54,50 @@ const Lesson3_3: React.FC = () => {
         To use an AI's output in an application, you often need the data in a specific, machine-readable format. Simply asking for a format like JSON or Markdown is a powerful way to get structured data you can immediately work with.
       </p>
 
-      <Accordion title="Requesting JSON" icon={<FileJson />} isInitiallyOpen>
+      <Accordion title="Why Use Structured Outputs?" icon={<Lightbulb />} isInitiallyOpen>
+        <p className="text-gray-300 mb-4">
+          Asking an AI for raw text is like asking a human to write an essay. Asking for structured output is like giving them a form to fill out. It gives you <strong>predictability</strong>, <strong>reliability</strong>, and <strong>data you can actually use</strong> in your applications.
+        </p>
+        <div className="grid md:grid-cols-2 gap-4 text-sm">
+          <div className="bg-gray-800/60 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-semibold text-blue-400 mb-2">1. Restaurant Reviews</h4>
+            <p className="text-gray-300 mb-2"><strong>Scenario:</strong> A food blog needs to summarize customer reviews for a new pizza place.</p>
+            <p className="text-gray-400"><strong>Rationale:</strong> A paragraph saying "The pizza was amazing and the service was slow" is hard to compare. A structured summary like <code>{'{"food_rating": 5, "service_rating": 2, "review_summary": "Great pizza, slow service"}'}</code> allows for easy comparison and trend analysis.</p>
+          </div>
+          <div className="bg-gray-800/60 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-semibold text-blue-400 mb-2">2. Real Estate Listings</h4>
+            <p className="text-gray-300 mb-2"><strong>Scenario:</strong> A property website needs details from a house description.</p>
+            <p className="text-gray-400"><strong>Rationale:</strong> A long description like "charming 3-bed, 2-bath home with a big yard" is vague. A structured listing like <code>{'{"bedrooms": 3, "bathrooms": 2, "lot_size": "large", "price": 450000}'}</code> allows for precise filtering and search.</p>
+          </div>
+          <div className="bg-gray-800/60 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-semibold text-blue-400 mb-2">3. Travel Planning</h4>
+            <p className="text-gray-300 mb-2"><strong>Scenario:</strong> A travel app needs to extract flight details from a confirmation email.</p>
+            <p className="text-gray-400"><strong>Rationale:</strong> A sentence like "Your flight leaves at 3 PM" is ambiguous. A structured record like <code>{'{"airline": "Delta", "flight_number": "DL123", "departure_time": "15:00", "gate": "A12"}'}</code> allows for automatic itinerary updates.</p>
+          </div>
+          <div className="bg-gray-800/60 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-semibold text-blue-400 mb-2">4. Medical Records</h4>
+            <p className="text-gray-300 mb-2"><strong>Scenario:</strong> A clinic needs to summarize a patient's visit notes.</p>
+            <p className="text-gray-400"><strong>Rationale:</strong> A doctor's notes like "patient is feeling better" are subjective. A structured summary like <code>{'{"diagnosis": "flu", "prescribed_medication": "Tamiflu", "follow_up": "1 week"}'}</code> ensures consistent and actionable records.</p>
+          </div>
+          <div className="bg-gray-800/60 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-semibold text-blue-400 mb-2">5. E-commerce Orders</h4>
+            <p className="text-gray-300 mb-2"><strong>Scenario:</strong> An online store needs to process order confirmations.</p>
+            <p className="text-gray-400"><strong>Rationale:</strong> An email saying "Your order is on its way" is vague. A structured update like <code>{'{"order_id": "ORD-789", "status": "shipped", "tracking_number": "1Z999AA10123456784", "estimated_delivery": "2024-08-10"}'}</code> allows for automatic tracking and customer notifications.</p>
+          </div>
+          <div className="bg-gray-800/60 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-semibold text-blue-400 mb-2">6. Job Applications</h4>
+            <p className="text-gray-300 mb-2"><strong>Scenario:</strong> A recruiter needs to extract key details from a resume.</p>
+            <p className="text-gray-400"><strong>Rationale:</strong> A paragraph like "experienced software engineer with a passion for AI" is hard to filter. A structured summary like <code>{'{"name": "John Doe", "experience_years": 8, "skills": ["Python", "AI", "Leadership"], "desired_salary": 120000}'}</code> allows for quick candidate screening.</p>
+          </div>
+          <div className="bg-gray-800/60 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-semibold text-blue-400 mb-2">7. Financial Reports</h4>
+            <p className="text-gray-300 mb-2"><strong>Scenario:</strong> An investor needs to understand a company's quarterly earnings.</p>
+            <p className="text-gray-400"><strong>Rationale:</strong> A long earnings report is hard to digest. A structured summary like <code>{'{"company": "Acme Inc", "quarter": "Q2 2024", "revenue": 5000000, "profit": 1000000, "key_highlight": "launched new product line"}'}</code> allows for quick comparison and decision-making.</p>
+          </div>
+        </div>
+      </Accordion>
+
+      <Accordion title="Requesting JSON" icon={<FileJson />}>
         <p className="text-gray-300 mb-4">
           JSON (JavaScript Object Notation) is the standard for data exchange on the web. You can ask the AI to format its response as a JSON object, which is incredibly useful for APIs, databases, or dynamic frontend components.
         </p>
@@ -92,6 +135,51 @@ const Lesson3_3: React.FC = () => {
             placeholder="Extract user info from a sentence into JSON..." 
             challengeChecklist={jsonChallengeChecklist}
           />
+        </div>
+      </Accordion>
+
+      <Accordion title="JSON Schemas & Best Practices" icon={<FileJson />}>
+        <p className="text-gray-300 mb-4">
+          To ensure the AI returns data in a predictable format, you can define a JSON schema. This acts as a blueprint for the model, specifying the exact structure, data types, and required fields.
+        </p>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+          <h3 className="font-semibold text-white mb-2">Example: Defining a Schema</h3>
+          <p className="text-gray-400 mb-3">
+            Instead of just asking for a JSON object, you can provide the schema itself.
+          </p>
+          <div className="relative mb-4">
+            <CopyButton textToCopy={'Extract the following details from the user\'s bio into a JSON object. The object should have the keys: "name" (string), "age" (number), "skills" (array of strings), and "location" (object with keys "city" and "country").\n\nBio: "Sarah, a 28-year-old software engineer from Toronto, Canada, is skilled in Python, React, and Node.js."'} />
+            <div className="bg-gray-700 p-3 rounded-md pr-10">
+              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
+                <span className="text-gray-400">// Prompt</span>
+                {`Extract the following details from the user's bio into a JSON object. The object should have the keys: "name" (string), "age" (number), "skills" (array of strings), and "location" (object with keys "city" and "country").
+
+Bio: "Sarah, a 28-year-old software engineer from Toronto, Canada, is skilled in Python, React, and Node.js."`}
+              </code>
+            </div>
+          </div>
+          <div className="bg-gray-800 p-3 rounded-md">
+            <code className="block whitespace-pre-wrap break-words font-mono text-sm text-green-400">
+              {`{
+  "name": "Sarah",
+  "age": 28,
+  "skills": ["Python", "React", "Node.js"],
+  "location": {
+    "city": "Toronto",
+    "country": "Canada"
+  }
+}`}
+            </code>
+          </div>
+        </div>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 mt-4">
+          <h3 className="font-semibold text-white mb-2">Best Practices</h3>
+          <ul className="list-disc list-inside text-gray-400 space-y-2">
+            <li><strong>Be Explicit:</strong> Clearly state the desired format and keys.</li>
+            <li><strong>Provide Examples:</strong> Include a sample JSON object when possible.</li>
+            <li><strong>Validate Output:</strong> Always check the returned JSON for validity and completeness.</li>
+            <li><strong>Iterate:</strong> Refine your prompt based on the AI's output.</li>
+          </ul>
         </div>
       </Accordion>
 

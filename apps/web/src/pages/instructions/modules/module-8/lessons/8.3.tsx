@@ -33,7 +33,7 @@ When a user submits their proposed guardrails, follow these steps:
             onClick={() => completeLesson(8, 3)}
             className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors"
           >
-            View Course Completion <ChevronRight className="w-5 h-5 ml-2" />
+            Next: View Course Completion <ChevronRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>
@@ -113,7 +113,7 @@ When a user submits their proposed guardrails, follow these steps:
           onClick={() => completeLesson(8, 3)}
           className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors"
         >
-          Finish Course & View Conclusion <ChevronRight className="w-5 h-5 ml-2" />
+Next: View Course Completion <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>

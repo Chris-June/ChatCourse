@@ -47,7 +47,7 @@ const Lesson2_2: React.FC = () => {
             onClick={() => completeLesson(2, 2)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
-            Next: Practical Exercises <ChevronRight className="w-5 h-5 ml-2" />
+            Next: Coherent Conversations Exercises <ChevronRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>
@@ -111,7 +111,7 @@ const Lesson2_2: React.FC = () => {
           onClick={() => completeLesson(2, 2)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Next: Your First Project <ChevronRight className="w-5 h-5 ml-2" />
+          Next: Context Management Exercises <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>
