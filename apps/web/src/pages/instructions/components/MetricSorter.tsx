@@ -67,36 +67,56 @@ const MetricSorter: React.FC = () => {
     const { active, over } = event;
     if (!over) return;
 
-    const activeContainerKey = findContainer(active.id as string);
-    const overContainerKey = findContainer(over.id as string);
+    const activeId = active.id as string;
+    const overId = over.id as string;
+
+    const activeContainerKey = findContainer(activeId);
+    const overContainerKey = findContainer(overId);
 
     if (!activeContainerKey || !overContainerKey) return;
 
-    if (activeContainerKey !== overContainerKey) {
+    // Handle reordering within the same container
+    if (activeContainerKey === overContainerKey) {
+      if (activeId === overId) return; // Dropped on itself
       setContainers(prev => {
-        const activeItems = prev[activeContainerKey];
-        const overItems = prev[overContainerKey];
-        const activeIndex = activeItems.findIndex(item => item.id === active.id);
-        const [movedItem] = activeItems.splice(activeIndex, 1);
-
+        const containerItems = prev[activeContainerKey];
+        const oldIndex = containerItems.findIndex(item => item.id === activeId);
+        const newIndex = containerItems.findIndex(item => item.id === overId);
+        if (oldIndex === -1 || newIndex === -1) return prev; // item not found
         return {
           ...prev,
-          [activeContainerKey]: [...activeItems],
-          [overContainerKey]: [...overItems, movedItem],
+          [activeContainerKey]: arrayMove(containerItems, oldIndex, newIndex),
         };
       });
-    } else {
-      // Handle reordering within the same list
-      const containerItems = containers[activeContainerKey];
-      const oldIndex = containerItems.findIndex(item => item.id === active.id);
-      const newIndex = containerItems.findIndex(item => item.id === over.id);
+    } 
+    // Handle moving to a different container
+    else {
+      setContainers(prev => {
+        const sourceItems = prev[activeContainerKey];
+        const destinationItems = prev[overContainerKey];
+        
+        const sourceIndex = sourceItems.findIndex(item => item.id === activeId);
+        if (sourceIndex === -1) return prev; // item not found
 
-      if (oldIndex !== newIndex) {
-        setContainers(prev => ({
+        const itemToMove = sourceItems[sourceIndex];
+
+        // Find where to insert in the destination
+        const destinationIndex = overId in prev 
+            ? destinationItems.length 
+            : destinationItems.findIndex(item => item.id === overId);
+
+        const newSourceItems = sourceItems.filter(item => item.id !== activeId);
+        const newDestinationItems = [...destinationItems];
+        // If overId is an item, insert before it. Otherwise, append.
+        const finalDestinationIndex = destinationIndex >= 0 ? destinationIndex : newDestinationItems.length;
+        newDestinationItems.splice(finalDestinationIndex, 0, itemToMove);
+        
+        return {
           ...prev,
-          [activeContainerKey]: arrayMove(prev[activeContainerKey], oldIndex, newIndex),
-        }));
-      }
+          [activeContainerKey]: newSourceItems,
+          [overContainerKey]: newDestinationItems,
+        };
+      });
     }
   };
 
