@@ -4,6 +4,14 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import zeroCotImage from '../../../../../assets/images/zero-cot2.webp';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
+import Accordion from '../../../components/Accordion';
+
+const reasoningChallengeChecklist = [
+  { text: 'Get the AI to correctly identify the odd numbers' },
+  { text: 'Get the AI to sum the odd numbers correctly' },
+  { text: 'Get the AI to determine if the sum is even or odd' },
+  { text: 'Achieve the correct final answer: False' },
+];
 
 const Lesson3_1: React.FC = () => {
   const { completeLesson } = useProgressStore();
@@ -28,9 +36,7 @@ const Lesson3_1: React.FC = () => {
         </div>
       </div>
 
-      {/* Zero-shot Prompting */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Zero-shot Prompting</h2>
+      <Accordion title="Zero-shot Prompting" isInitiallyOpen>
         <div className="my-4">
           <img src={zeroCotImage} alt="Zero-shot COT diagram" className="rounded-lg mx-auto" />
         </div>
@@ -71,11 +77,9 @@ Sentiment:`}</code>
             placeholder="Try a zero-shot prompt here..." 
           />
         </div>
-      </section>
+      </Accordion>
 
-      {/* Few-shot Prompting */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Few-shot Prompting</h2>
+      <Accordion title="Few-shot Prompting">
         <p className="text-gray-300 mb-4">
           While large-language models demonstrate remarkable zero-shot capabilities, they still fall short on more complex tasks when using the zero-shot setting. Few-shot prompting can be used as a technique to enable in-context learning where we provide demonstrations in the prompt to steer the model to better performance. The demonstrations serve as conditioning for subsequent examples where we would like the model to generate a response.
         </p>
@@ -132,12 +136,9 @@ What a horrible show! //`}</code>
             placeholder="Construct a few-shot prompt with examples..." 
           />
         </div>
-      </section>
+      </Accordion>
 
-      {/* Limitations of Few-shot Prompting */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Limitations of Few-shot Prompting</h2>
-
+      <Accordion title="Limitations of Few-shot Prompting">
         <p className="text-gray-300 mb-4">
           Standard few-shot prompting works well for many tasks but is still not a perfect technique, especially when dealing with more complex reasoning tasks. Let's demonstrate why this is the case. Do you recall the previous example where we provided the following task:
         </p>
@@ -187,14 +188,14 @@ A:`}</code>
 
         <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
           <h3 className="font-semibold text-white mb-2">Your Turn: The Reasoning Challenge</h3>
-          <p className="text-gray-400 mb-4">The model failed the reasoning task above. Can you get it to answer correctly using only few-shot prompting? Try different examples or rephrase the problem.</p>
+          <p className="text-gray-400 mb-4">The model failed the reasoning task above. Can you get it to answer correctly using only few-shot prompting? Try different examples or rephrase the problem. Your progress will be tracked in the checklist below.</p>
           <InlineChat 
             moduleId="module-3.1-reasoning"
-            maxAttempts={10}
             placeholder="Try to solve the reasoning problem..." 
+            challengeChecklist={reasoningChallengeChecklist}
           />
         </div>
-      </section>
+      </Accordion>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

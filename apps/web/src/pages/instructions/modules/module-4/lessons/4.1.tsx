@@ -3,6 +3,21 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Zap, Terminal, Lightbulb } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
+import Accordion from '../../../components/Accordion';
+
+const scheduleMeetingChecklist = [
+  { text: 'Use natural language to ask the AI to schedule a meeting' },
+  { text: 'Include a clear topic for the meeting (e.g., "team check-in")' },
+  { text: 'Provide a specific date and time (e.g., "next Monday at 10am")' },
+  { text: 'Check if the AI generates the correct function call JSON' },
+];
+
+const stockPriceChecklist = [
+  { text: 'Analyze the provided JSON output' },
+  { text: 'Identify the function name: `get_stock_price`' },
+  { text: 'Identify the argument: `ticker` with value "AAPL"' },
+  { text: 'Formulate a natural language prompt that asks for the stock price of Apple' },
+];
 
 
 const Lesson4_1: React.FC = () => {
@@ -32,12 +47,7 @@ const Lesson4_1: React.FC = () => {
         Function calling bridges the gap between conversational AI and the real world. It allows the AI to use external tools, databases, and APIs to answer questions and perform actions, moving beyond its training data.
       </p>
 
-      {/* What is Function Calling? */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Zap className="w-7 h-7 mr-3 text-yellow-400" />
-          What is Function Calling?
-        </h2>
+      <Accordion title="What is Function Calling?" icon={<Zap />} isInitiallyOpen>
         <p className="text-gray-300 mb-4">
           Function calling is a mechanism that allows a large language model (LLM) to request the execution of a specific function you've defined in your code. The AI doesn't run the function itself; instead, it generates a structured JSON object telling your application which function to run and with what arguments.
         </p>
@@ -77,14 +87,10 @@ const Lesson4_1: React.FC = () => {
   }
 }`}</code>
         </div>
-      </section>
+      </Accordion>
 
-      {/* Why is it a Game-Changer? */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Terminal className="w-7 h-7 mr-3 text-green-400" />
-          Why is it a Game-Changer?
-        </h2>
+      <Accordion title="How it Works" icon={<Terminal />}>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Why is it a Game-Changer?</h2>
         
         <h3 className="text-xl font-semibold text-white mt-6 mb-4">Real-World Examples by Industry</h3>
         <ul className="list-disc pl-5 space-y-2 text-gray-300">
@@ -100,10 +106,9 @@ const Lesson4_1: React.FC = () => {
           <li><strong>Validate Arguments:</strong> Ensure the arguments provided by the model are of the correct type and within expected ranges.</li>
           <li><strong>Confirm Actions:</strong> For sensitive operations (e.g., sending an email, deleting data), ask the user for confirmation before executing the function.</li>
         </ul>
-      </section>
+      </Accordion>
 
-      {/* NEW SECTION: Implementation Patterns */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+      <Accordion title="Implementation Patterns">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300">Implementation Patterns</h2>
         <h3 className="text-xl font-semibold text-white mb-2">Function Router Pattern</h3>
         <p className="text-gray-300 mb-4">To handle multiple functions, create a dispatcher that maps the function name from the model to your actual backend logic.</p>
@@ -128,16 +133,11 @@ if (functionToCall) {
         <ul className="list-disc pl-5 space-y-2 text-gray-300">
           <li><strong>Always Validate Input:</strong> Sanitize and validate all arguments from the model before execution.</li>
           <li><strong>Keep Functions Atomic:</strong> Each function should have a single, well-defined purpose.</li>
-          <li><strong>Use Semantic Naming:</strong> Use short, descriptive names for functions and arguments to help the model understand their purpose.</li>
+          <li>Use Semantic Naming: Use short, descriptive names for functions and arguments to help the model understand their purpose.</li>
         </ul>
-      </section>
+      </Accordion>
 
-      {/* Exercise */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Conceptual Exercise: Guess the Call
-        </h2>
+      <Accordion title="Conceptual Exercise: Guess the Call" icon={<Lightbulb />}>
         
         <div className="mb-6">
           <h3 className="font-semibold text-white mb-2">Easy</h3>
@@ -146,9 +146,9 @@ if (functionToCall) {
           </p>
           <InlineChat 
             moduleId="module-4.1-schedule-meeting"
-            maxAttempts={10}
             placeholder='Try: "Schedule a team check-in for next Monday at 10am"' 
             simulatedResponse={`{\n  "name": "schedule_meeting",\n  "arguments": {\n    "topic": "Team check-in",\n    "datetime": "next Monday at 10am"\n  }\n}`}
+            challengeChecklist={scheduleMeetingChecklist}
           />
         </div>
 
@@ -165,24 +165,23 @@ if (functionToCall) {
           </div>
           <InlineChat 
             moduleId="module-4.1-stock-price"
-            maxAttempts={10}
             placeholder='What prompt makes the AI call the get_stock_price function for Apple?'
             simulatedResponse={`{\n  "name": "get_stock_price",\n  "arguments": { "ticker": "AAPL" }\n}`}
+            challengeChecklist={stockPriceChecklist}
           />
         </div>
-      </section>
+      </Accordion>
 
       <div className="bg-blue-900/20 text-center p-6 rounded-lg shadow-lg border border-blue-700">
           <p className="text-2xl font-bold text-blue-300 italic">“Function calling is where AI stops just talking and starts doing.”</p>
       </div>
 
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Coming Soon</h2>
+      <Accordion title="Coming Soon">
           <ul className="list-disc pl-5 space-y-2 text-gray-300">
               <li>A 2-minute walkthrough video explaining function calling in practice.</li>
               <li>A mini-project to build your own “Weather Bot” or “Task Scheduler”.</li>
           </ul>
-      </section>
+      </Accordion>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">
