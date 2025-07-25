@@ -1,8 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Server, Database, Share2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Database, Share2, CheckSquare, BrainCircuit, Zap } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
+import Accordion from '../../../components/Accordion';
+
+const mcpReasoningChecklist = [
+  { text: 'My goal is to find an employee\'s email.' },
+  { text: 'I see a `company_db` tool server is available.' },
+  { text: 'I will ask it what tools it has... it has `get_employee_email`.' },
+  { text: 'Perfect. I will call that tool with the employee\'s name.' },
+];
 
 const Lesson4_2: React.FC = () => {
   const { completeLesson } = useProgressStore();
@@ -27,117 +35,92 @@ const Lesson4_2: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-gray-800 p-4 rounded-lg shadow-inner">
-        <p className="text-gray-400">
-          In the previous lesson, we learned how AI models can use <strong>Function Calling</strong> to execute predefined tools with specific inputs. 
-          Now, we’re scaling that idea with <strong>MCP</strong>, which acts like a toolchain protocol — allowing AI to dynamically discover and interact with entire libraries of tools through a consistent interface.
+      <Accordion title="The Big Idea: An AI with Superpowers" icon={<Zap />} isInitiallyOpen>
+        <p className="text-gray-300 mb-4">
+          Imagine an AI like a smart assistant (e.g., Siri or Alexa). By itself, it knows a lot, but it can't interact with the outside world. MCP gives it superpowers by letting it use external "skills" or "apps."
         </p>
-      </div>
+        <ul className="list-disc pl-5 space-y-2 text-gray-300">
+          <li>An <strong>MCP Server</strong> is like a skill store (e.g., the Spotify app).</li>
+          <li>A <strong>Tool (or Resource)</strong> is a specific action within that skill (e.g., the "Play Song" button).</li>
+        </ul>
+        <p className="text-gray-300 mt-4">
+          The AI doesn't need to know *how* the Spotify code works. It just needs to know the skill exists and how to ask it to play a song. MCP is the standard language it uses to make that request.
+        </p>
+      </Accordion>
 
-      {/* MCP vs Function Calling */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Share2 className="w-7 h-7 mr-3 text-cyan-400" />
-          MCP vs. Function Calling
-        </h2>
+      <Accordion title="MCP vs. Function Calling: The Analogy" icon={<Share2 />}>
         <div className="overflow-x-auto">
           <table className="min-w-full bg-gray-900 border border-gray-700 rounded-lg">
             <thead>
               <tr className="bg-gray-700">
-                <th className="p-3 text-left font-semibold text-white">Concept</th>
-                <th className="p-3 text-left font-semibold text-white">Function Calling</th>
-                <th className="p-3 text-left font-semibold text-white">MCP</th>
+                <th className="p-3 text-left font-semibold text-white">Question</th>
+                <th className="p-3 text-left font-semibold text-white">Function Calling (Basic)</th>
+                <th className="p-3 text-left font-semibold text-white">MCP (Superpowered)</th>
               </tr>
             </thead>
             <tbody className="text-gray-300">
               <tr>
-                <td className="p-3 border-t border-gray-700">Tools Defined By</td>
-                <td className="p-3 border-t border-gray-700">Developer inside the app</td>
-                <td className="p-3 border-t border-gray-700">External MCP Server</td>
+                <td className="p-3 border-t border-gray-700 font-semibold">Who makes the tools?</td>
+                <td className="p-3 border-t border-gray-700">A developer builds a few tools directly into the AI assistant.</td>
+                <td className="p-3 border-t border-gray-700">Anyone can build a "skill" (MCP server) and the AI can use it.</td>
               </tr>
               <tr>
-                <td className="p-3 border-t border-gray-700">Discovery Method</td>
-                <td className="p-3 border-t border-gray-700">Predefined in code</td>
-                <td className="p-3 border-t border-gray-700">Dynamic via <code className="text-purple-400">list_resources</code></td>
+                <td className="p-3 border-t border-gray-700 font-semibold">How does it find tools?</td>
+                <td className="p-3 border-t border-gray-700">The tools are hard-coded; it already knows them.</td>
+                <td className="p-3 border-t border-gray-700">It asks a server, "What skills do you have?"</td>
               </tr>
               <tr>
-                <td className="p-3 border-t border-gray-700">Tool Scope</td>
-                <td className="p-3 border-t border-gray-700">Static / per session</td>
-                <td className="p-3 border-t border-gray-700">Modular, server-managed</td>
-              </tr>
-              <tr>
-                <td className="p-3 border-t border-gray-700">Execution</td>
-                <td className="p-3 border-t border-gray-700">Direct function call</td>
-                <td className="p-3 border-t border-gray-700">HTTP-style RPC over MCP</td>
+                <td className="p-3 border-t border-gray-700 font-semibold">How many tools can it use?</td>
+                <td className="p-3 border-t border-gray-700">Only the few it was built with.</td>
+                <td className="p-3 border-t border-gray-700">A whole library of skills from many different servers.</td>
               </tr>
             </tbody>
           </table>
         </div>
-      </section>
+      </Accordion>
 
-      {/* How it Works */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Server className="w-7 h-7 mr-3 text-green-400" />
-          The MCP Interaction Flow
-        </h2>
-        <p className="text-gray-300 mb-4">The AI follows a clear, three-step process to use an MCP resource:</p>
-        <ol className="list-decimal pl-5 space-y-2 text-gray-300">
-            <li><strong>Discovery:</strong> The AI asks an MCP server what resources it has using <code className="text-purple-400">list_resources</code>.</li>
-            <li><strong>Inspection:</strong> To understand a tool's purpose and parameters, the AI reads its schema with <code className="text-purple-400">read_resource</code>.</li>
-            <li><strong>Execution:</strong> The AI calls the resource with the required arguments, which triggers the tool on the server.</li>
-        </ol>
-        
-        <h3 className="text-xl font-semibold text-white mt-6 mb-4">Resource Descriptor Example</h3>
-        <p className="text-gray-300 mb-2">When the AI inspects a resource, it receives a JSON descriptor like this:</p>
-        <div className="bg-gray-900 p-3 rounded-md">
-          <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">{`{
-  "name": "get_employee_email",
-  "description": "Retrieves the email for a given employee.",
-  "parameters": {
-    "type": "object",
-    "properties": {
-      "employee_name": { "type": "string" }
-    },
-    "required": ["employee_name"]
-  }
-}`}</code>
-        </div>
-      </section>
-
-      {/* Interactive Prompt Example */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Database className="w-7 h-7 mr-3 text-yellow-400" />
-          Your Turn: MCP Reasoning
-        </h2>
+      <Accordion title="Why This is a Game-Changer" icon={<BrainCircuit />}>
         <p className="text-gray-300 mb-4">
-          Let's simulate the MCP flow. The AI has access to an MCP server called `company_db` which contains a tool: `get_employee_email(employee_name)`.
-          Use the chat window below to ask for an employee's email. Our AI model will show you the reasoning and the function call it needs to make.
+          Because MCP allows an AI to combine tools from different servers, it can handle complex, multi-step tasks. 
         </p>
+        <p className="text-gray-300">
+          Imagine a <strong>Travel Agent AI</strong>. You say, "Plan my trip to Hawaii." The AI can:
+        </p>
+        <ol className="list-decimal pl-5 space-y-2 text-gray-300 mt-4">
+          <li>Use the `Airline` MCP server to find flights.</li>
+          <li>Use the `Hotel` MCP server to book a room.</li>
+          <li>Use the `Weather` MCP server to check the forecast and suggest what to pack.</li>
+        </ol>
+        <p className="text-gray-300 mt-4">This seamless combination of independent tools is the power of MCP.
+        </p>
+      </Accordion>
+
+      <Accordion title="Your Turn: The AI's Thought Process" icon={<Database />}>
+        <p className="text-gray-300 mb-4">
+          Let's peek inside the AI's brain. You want to find an employee's email. The AI has access to a `company_db` server with a `get_employee_email` tool. Here’s how it thinks:
+        </p>
+        <ol className="list-decimal pl-5 space-y-2 text-gray-300 mb-6 bg-gray-900 p-4 rounded-lg border border-gray-700">
+          <li><strong>Goal:</strong> "I need to find an email address."</li>
+          <li><strong>Discovery:</strong> "I see a `company_db` server. I'll check what tools it has."</li>
+          <li><strong>Inspection:</strong> "It has a tool called `get_employee_email`. The description says it finds an email for an employee. Perfect!"</li>
+          <li><strong>Execution:</strong> "Now I'll call that tool with the name I was given."</li>
+        </ol>
+        <p className="text-gray-300 mb-4">Now, you try it. Ask for an employee's email and see the final tool call the AI makes. Follow the checklist to track the AI's reasoning.</p>
         <InlineChat 
           moduleId="module-4.2-mcp-email"
-          maxAttempts={10}
           placeholder="Ask for an employee's email, e.g., 'What is Chris June's email?'" 
           simulatedResponse={`Okay, I need to find an employee's email address. I will use the 'get_employee_email' tool from the 'company_db' MCP server.\n\n<tool_code>\n<mcp_server_request>\n  <server>company_db</server>\n  <tool_name>get_employee_email</tool_name>\n  <parameters>\n    <employee_name>the person you asked for</employee_name>\n  </parameters>\n</mcp_server_request>\n</tool_code>\n\nfirstName.lastName@email.ca`}
+          challengeChecklist={mcpReasoningChecklist}
         />
-      </section>
+      </Accordion>
 
-      {/* Best Practices */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Best Practices</h2>
+      <Accordion title="Key Takeaways" icon={<CheckSquare />}>
           <ul className="list-disc pl-5 space-y-2 text-gray-300">
-              <li><strong>Clear Naming:</strong> Use descriptive, unambiguous names for resources and parameters.</li>
-              <li><strong>Structured Responses:</strong> Return predictable JSON objects from your tools, not just raw strings.</li>
-              <li><strong>Handle Errors:</strong> Implement robust error handling for failed calls or invalid arguments.</li>
-              <li><strong>Rich Descriptions:</strong> The better your resource descriptions, the better the model can reason about when to use them.</li>
+              <li>MCP lets an AI use external tools, like a smart assistant using skills or apps.</li>
+              <li>The AI can automatically discover what tools are available on a server.</li>
+              <li>This makes the AI far more powerful and adaptable, allowing it to combine tools to solve complex problems.</li>
           </ul>
-      </section>
-
-      <details className="mt-4 text-sm text-gray-400 bg-gray-800 p-4 rounded-lg">
-        <summary className="cursor-pointer font-semibold text-blue-300">Advanced: Chaining Resources</summary>
-        <p className="mt-2">MCP also supports workflows where the output of one resource feeds into another. For example, a model might retrieve a user's email, then use it to fetch their calendar availability — all via separate resources on one or more MCP servers.</p>
-      </details>
+      </Accordion>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">
@@ -145,7 +128,7 @@ const Lesson4_2: React.FC = () => {
           to="/instructions/module-4/4.1" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous:
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous
         </Link>
         <Link 
           to="/instructions/module-4/4.3" 

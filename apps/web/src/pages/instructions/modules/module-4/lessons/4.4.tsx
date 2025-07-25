@@ -1,9 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, BrainCircuit, Building, GraduationCap, HeartHandshake } from 'lucide-react';
+import { ChevronLeft, ChevronRight, BrainCircuit, Rocket, Lightbulb, BookOpen, Star, Zap, GraduationCap, Layers, SlidersHorizontal, ShieldCheck } from 'lucide-react';
 
-
-import CopyButton from '../../../../../components/CopyButton';
+import Accordion from '../../../components/Accordion';
+import ComparisonCard from '../../../components/ComparisonCard';
+import RealWorldSpotlight from '../../../components/RealWorldSpotlight';
+import DidYouKnow from '../../../components/DidYouKnow';
+import GlossaryTerm from '../../../components/GlossaryTerm';
+import GptPipelineDiagram from '../../../components/GptPipelineDiagram';
+import CheckpointQuiz from '../../../components/CheckpointQuiz';
+import TransformerArchitectureDiagram from '../../../components/TransformerArchitectureDiagram';
+import ParameterSliders from '../../../components/ParameterSliders';
+import ResponsibleAI from '../../../components/ResponsibleAI';
+import InteractivePromptExercise from '../../../components/InteractivePromptExercise';
 
 const Lesson4_4: React.FC = () => {
   return (
@@ -26,171 +35,137 @@ const Lesson4_4: React.FC = () => {
         </div>
       </div>
 
-            <div className="bg-gray-800 p-4 rounded-lg shadow-inner mb-6">
+      <Accordion title="The Big Idea: Packaging AI Superpowers" icon={<Rocket />} isInitiallyOpen>
         <p className="text-gray-300">
-          In the last lesson, we built a custom tool from scratch. Now, let's explore <strong>GPTs</strong>—a powerful way to package our tools, knowledge, and instructions into a shareable, specialized AI assistant.
+          We've learned how to give an AI new skills with tools. Now, let's learn how to package those skills into a complete, specialized assistant called a <GlossaryTerm term="GPT" definition="A custom version of ChatGPT that combines instructions, extra knowledge, and capabilities for a specific purpose." />. Think of it as creating a custom superhero, complete with a unique personality, special knowledge, and a utility belt of custom tools.
         </p>
-      </div>
+      </Accordion>
 
-      <p className="text-lg text-gray-300">
-        GPTs are custom versions of ChatGPT that you can create for a specific purpose. They combine a base model's power with your unique instructions, extra knowledge, and—most importantly—the ability to call custom tools and APIs.
-      </p>
+      <GptPipelineDiagram />
 
-      {/* Core Concepts */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">What Makes a GPT?</h2>
+      <Accordion title="Under the Hood: The Transformer Architecture" icon={<Layers />}>
         <p className="text-gray-300 mb-4">
-          A GPT combines a powerful base model (like GPT-4) with three key ingredients:
+          GPTs are powered by a revolutionary model architecture called the Transformer. While the math is complex, the core ideas are intuitive. This diagram breaks down the key steps that allow a model to understand language contextually.
         </p>
-                <div className="space-y-4">
+        <TransformerArchitectureDiagram />
+      </Accordion>
+
+      <Accordion title="What Makes a GPT? The Three Key Ingredients" icon={<BrainCircuit />}>
+        <div className="space-y-4">
           <div className="bg-gray-900 p-4 rounded-lg">
-            <h3 className="font-semibold text-white">1. Custom Instructions</h3>
-            <p className="text-gray-400">This is the GPT's 'constitution.' It's a detailed prompt defining its persona, goals, and constraints. For example: `You are a helpful assistant who speaks only in pirate slang.`</p>
+            <h3 className="font-semibold text-white">1. Custom Instructions (The Persona)</h3>
+            <p className="text-gray-400">This is the GPT's 'constitution.' It's a detailed prompt defining its personality, goals, and constraints. Example: `You are a helpful assistant who speaks only in pirate slang.`</p>
           </div>
           <div className="bg-gray-900 p-4 rounded-lg">
-            <h3 className="font-semibold text-white">2. Expanded Knowledge</h3>
-            <p className="text-gray-400">You can upload files (like PDFs or text documents) to give the GPT specific expertise. This uses a technique called Retrieval-Augmented Generation (RAG), where the AI retrieves relevant information from your documents to answer questions.</p>
+            <h3 className="font-semibold text-white">2. Expanded Knowledge (The Brains)</h3>
+            <p className="text-gray-400">You can upload files (like PDFs) to give the GPT specific expertise. This uses a technique called <GlossaryTerm term="Retrieval-Augmented Generation (RAG)" definition="The process of providing an AI with external knowledge to retrieve information from, reducing hallucinations and keeping it up-to-date." />, where the AI reads your documents to find answers.</p>
           </div>
           <div className="bg-gray-900 p-4 rounded-lg">
-            <h3 className="font-semibold text-white">3. Custom Actions (Tools)</h3>
-            <p className="text-gray-400 mb-2">This is where our previous lessons come together. You can give a GPT the ability to use external tools by providing an OpenAPI schema. This is just a standardized way of writing the tool schemas we learned about in lesson 4.3.</p>
-            <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap">
-              <code>
-{`// Example OpenAPI schema for our 'create_ticket' tool
-{
-  "openapi": "3.1.0",
-  "info": {
-    "title": "Support Ticket API",
-    "version": "v1.0.0"
-  },
-  "paths": {
-    "/create_ticket": {
-      "post": {
-        "description": "Creates a new support ticket.",
-        "operationId": "createTicket",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/createTicketPayload"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "createTicketPayload": {
-        "type": "object",
-        "properties": {
-          "title": { "type": "string" },
-          "description": { "type": "string" }
-        }
-      }
-    }
-  }
-}`}
-              </code>
-            </pre>
+            <h3 className="font-semibold text-white">3. Custom Actions (The Utility Belt)</h3>
+            <p className="text-gray-400 mb-2">This is where our tools come in. You give a GPT its superpowers by providing an <GlossaryTerm term="OpenAPI schema" definition="A standardized specification for describing APIs. It allows both humans and computers to discover and understand the capabilities of a service without access to source code." />, which is the universal language for describing tools to an AI.</p>
           </div>
         </div>
-      </section>
+      </Accordion>
 
-      {/* Use Cases */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Use Cases Across Different Domains</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Personal Use Case */}
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <div className="flex items-center mb-3">
-              <BrainCircuit className="w-8 h-8 mr-3 text-green-400" />
-              <h4 className="font-bold text-lg text-white">Personal Productivity</h4>
-            </div>
-            <p className="text-sm text-gray-400">A 'Meeting Master' GPT that can take your raw meeting notes, identify action items, and draft follow-up emails in your personal style.</p>
-          </div>
+      <CheckpointQuiz 
+        question="What is the primary advantage of using RAG in a custom GPT?"
+        options={[
+          "To change the AI's core personality.",
+          "To provide the AI with specific, up-to-date knowledge.",
+          "To make the AI run faster."
+        ]}
+        correctAnswerIndex={1}
+        explanation="RAG allows a GPT to access external documents for answers, ensuring its knowledge is current and specific to the domain, rather than just relying on its training data."
+      />
 
-          {/* Business Use Case */}
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <div className="flex items-center mb-3">
-              <Building className="w-8 h-8 mr-3 text-yellow-400" />
-              <h4 className="font-bold text-lg text-white">Business Operations</h4>
-            </div>
-            <p className="text-sm text-gray-400">A 'Support Sentinel' GPT trained on company documentation to provide instant, accurate answers to customer support queries, reducing response times.</p>
-          </div>
-
-          {/* Education Use Case */}
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <div className="flex items-center mb-3">
-              <GraduationCap className="w-8 h-8 mr-3 text-cyan-400" />
-              <h4 className="font-bold text-lg text-white">Education</h4>
-            </div>
-            <p className="text-sm text-gray-400">A 'History Helper' GPT that acts as a specific historical figure, allowing students to ask questions and receive answers in character, making learning more interactive.</p>
-          </div>
-
-          {/* Social Improvement Use Case */}
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <div className="flex items-center mb-3">
-              <HeartHandshake className="w-8 h-8 mr-3 text-pink-400" />
-              <h4 className="font-bold text-lg text-white">Social Improvement</h4>
-            </div>
-            <p className="text-sm text-gray-400">A 'Grant Writer' GPT trained on successful grant proposals to help non-profits draft compelling applications for funding, leveling the playing field for smaller organizations.</p>
-          </div>
+      <Accordion title="Real-World Spotlight: GPTs in Action" icon={<Star />}>
+        <div className="space-y-4">
+          <RealWorldSpotlight 
+            icon={<Zap className="w-6 h-6" />} 
+            title="Support Sentinel GPT"
+            description="A support team slashed response times by 50% with a GPT that can instantly look up customer history, analyze support tickets, and draft replies using company-approved language."
+          />
+          <RealWorldSpotlight 
+            icon={<GraduationCap className="w-6 h-6" />} 
+            title="History Helper GPT"
+            description="A teacher created a GPT for their class, uploading the course textbook and primary source documents. Students can now ask the GPT complex questions and get answers grounded in their specific curriculum."
+          />
         </div>
-      </section>
+      </Accordion>
 
-      {/* When to Use GPTs */}
-            {/* GPTs vs. Fine-Tuning */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">GPTs vs. Fine-Tuning</h2>
+      <Accordion title="Controlling Creativity: Temperature & Top-P" icon={<SlidersHorizontal />}>
         <p className="text-gray-300 mb-4">
-          Creating a GPT is different from fine-tuning a model. GPTs are easier and faster to create, relying on prompting and RAG. Fine-tuning involves retraining the model's weights, which is more complex and expensive.
+          When you use a GPT, you can often tweak parameters to control its output. These act like creative controls, balancing between predictable, factual answers and novel, diverse ideas. Play with the sliders below to see how they work.
         </p>
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr>
-              <th className="border-b-2 border-gray-600 p-2 text-white">Feature</th>
-              <th className="border-b-2 border-gray-600 p-2 text-white">Custom GPT</th>
-              <th className="border-b-2 border-gray-600 p-2 text-white">Fine-Tuned Model</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border-b border-gray-700 p-2">Method</td>
-              <td className="border-b border-gray-700 p-2">Prompting, RAG</td>
-              <td className="border-b border-gray-700 p-2">Retraining model weights</td>
-            </tr>
-            <tr>
-              <td className="border-b border-gray-700 p-2">Complexity</td>
-              <td className="border-b border-gray-700 p-2">Low (No code needed for basic GPTs)</td>
-              <td className="border-b border-gray-700 p-2">High (Requires data prep & training)</td>
-            </tr>
-            <tr>
-              <td className="p-2">Best For</td>
-              <td className="p-2">Specific tasks, workflows, and knowledge bases</td>
-              <td className="p-2">Teaching the model a new style, tone, or format</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+        <ParameterSliders />
+      </Accordion>
 
-      {/* Exercise */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Exercise: Design a GPT</h2>
+      <Accordion title="Training Deep Dive: GPTs vs. Fine-Tuning" icon={<Zap />}>
         <p className="text-gray-300 mb-4">
-          Let's design the 'Meeting Master' GPT mentioned earlier. Its goal is to take raw meeting notes and produce a structured summary.
+          How a model learns can be broken into two main approaches. Creating a <strong>Custom GPT</strong> is about adding knowledge and skills on top of an existing model. <strong>Fine-Tuning</strong> is about fundamentally changing the model's internal wiring. 
         </p>
-        <p className="text-gray-300 mb-2">In the chat, write the <strong>Custom Instructions</strong> for this GPT. Think about its persona, what it should do, and what output format it should follow. Here's a prompt to get you started:</p>
-        <div className="relative mt-2">
-          <CopyButton textToCopy={'Write the custom instructions for a GPT called Meeting Master. It should always identify the meeting topic, list attendees, summarize key discussion points, and extract action items with assigned owners. The final output must be in Markdown format.'} />
-          <pre className="p-3 bg-gray-700 rounded-md font-mono text-sm text-gray-200 whitespace-pre-wrap pr-10">
-            <code>
-Write the custom instructions for a GPT called Meeting Master. It should always identify the meeting topic, list attendees, summarize key discussion points, and extract action items with assigned owners. The final output must be in Markdown format.
-            </code>
-          </pre>
+        <div className="flex flex-col md:flex-row gap-4">
+          <ComparisonCard 
+            icon={<Rocket className="w-8 h-8 text-blue-300" />} 
+            title="Custom GPT (using RAG)"
+            bgColorClass="bg-blue-900/50"
+            points={[
+              "<strong>Method:</strong> Adds knowledge externally (like an open-book exam).",
+              "<strong>Cost:</strong> Cheap and fast.",
+              "<strong>Use Case:</strong> Answering questions about specific documents (e.g., a support bot for your product)."
+            ]}
+          />
+          <ComparisonCard 
+            icon={<BrainCircuit className="w-8 h-8 text-green-300" />} 
+            title="Fine-Tuned Model"
+            bgColorClass="bg-green-900/50"
+            points={[
+              "<strong>Method:</strong> Retrains the model's internal weights (like studying for a closed-book exam).",
+              "<strong>Cost:</strong> Expensive and slow.",
+              "<strong>Use Case:</strong> Teaching the model a new, consistent style or format (e.g., always respond in haikus)."
+            ]}
+          />
         </div>
-      </section>
+      </Accordion>
+
+      <DidYouKnow>
+        70% of enterprises are now actively exploring or using Retrieval-Augmented Generation (RAG) to power their internal knowledge bases and customer support bots.
+      </DidYouKnow>
+
+      <Accordion title="Exercise: Design a 'Meeting Master' GPT" icon={<Lightbulb />}>
+        <p className="text-gray-300 mb-4">
+          Let's design the 'Meeting Master' GPT. Its goal is to take raw meeting notes and produce a structured summary. Try editing the prompt below to refine its instructions, then get instant feedback from a simulated AI peer.
+        </p>
+        <InteractivePromptExercise 
+          initialPrompt={`You are 'Meeting Master', a helpful assistant. Your task is to take raw meeting notes and generate a structured summary.\n\nYour output MUST include:\n1. A meeting title.\n2. A list of attendees.\n3. A bulleted list of key discussion points.\n4. A table of action items with assigned owners and due dates.\n\nThe final output must be in Markdown format.`}
+          aiFeedback={{
+            suggestion: "Consider adding instructions for edge cases. For example, what should the GPT do if no action items are mentioned or if a due date is missing?",
+            reasoning: "Explicitly handling edge cases makes your GPT more robust and reliable. It prevents unexpected or unhelpful outputs when the input data isn't perfect."
+          }}
+        />
+      </Accordion>
+
+      <Accordion title="Pro Tips for Power Users" icon={<Star />}>
+        <ul className="list-disc pl-5 space-y-2 text-gray-300">
+          <li><strong>Tool Chaining:</strong> A single user prompt can trigger a sequence of multiple tool calls. For example, 'Book a flight to New York and a hotel near Central Park' could call a flight tool first, then a hotel tool.</li>
+          <li><strong>Optimizing RAG:</strong> For knowledge-heavy GPTs, pre-process your documents. Break large PDFs into smaller, clearly-labeled chunks to improve the AI's retrieval accuracy.</li>
+        </ul>
+      </Accordion>
+
+      <Accordion title="A Developer's Guide to Responsible AI" icon={<ShieldCheck />}>
+        <p className="text-gray-300 mb-4">
+          With great power comes great responsibility. Building with LLMs requires an awareness of their limitations and potential for harm. Keeping these points in mind is crucial for creating safe, fair, and reliable applications.
+        </p>
+        <ResponsibleAI />
+      </Accordion>
+
+      <Accordion title="Further Reading & Resources" icon={<BookOpen />}>
+        <ul className="list-disc pl-5 space-y-2 text-blue-300">
+          <li><a href="#" className="hover:underline">Official OpenAI Documentation on GPTs</a></li>
+          <li><a href="#" className="hover:underline">Best Practices for Retrieval-Augmented Generation (RAG)</a></li>
+          <li><a href="#" className="hover:underline">Building a GPT from Scratch: A Video Tutorial</a></li>
+        </ul>
+      </Accordion>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

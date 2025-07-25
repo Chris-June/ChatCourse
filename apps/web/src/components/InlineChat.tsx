@@ -11,14 +11,19 @@ interface ChallengeChecklistItem {
   completed: boolean;
 }
 
+interface Message {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+}
+
 interface InlineChatProps {
-  className?: string;
-  initialMessages?: { role: 'user' | 'assistant'; content: string }[];
+  moduleId: string;
+  initialMessages?: Message[];
+  maxAttempts?: number;
   placeholder?: string;
   simulatedResponse?: string;
-  moduleId?: string; 
-  maxAttempts?: number; 
-  challengeChecklist?: { text: string }[];
+  systemPrompt?: string;
+  challengeChecklist?: ChallengeChecklistItem[];
   maxFollowUps?: number;
 }
 
@@ -26,17 +31,22 @@ const RATE_LIMIT_RESET_HOURS = 24;
 const DEFAULT_MAX_ATTEMPTS = 10;
 
 const InlineChat: React.FC<InlineChatProps> = ({
-  className,
+  moduleId,
   initialMessages = [],
-  placeholder,
-  simulatedResponse,
-  moduleId = 'default',
   maxAttempts = DEFAULT_MAX_ATTEMPTS,
+  placeholder,
+  systemPrompt,
   challengeChecklist,
   maxFollowUps
 }) => {
   const [prompt, setPrompt] = useState('');
-  const [messages, setMessages] = useState<any[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>(() => {
+    const baseMessages: Message[] = [...initialMessages];
+    if (systemPrompt) {
+      baseMessages.unshift({ role: 'system', content: systemPrompt });
+    }
+    return baseMessages;
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   const [rateLimited, setRateLimited] = useState<boolean>(false);
@@ -54,10 +64,8 @@ const InlineChat: React.FC<InlineChatProps> = ({
         
         if (hoursSinceReset >= RATE_LIMIT_RESET_HOURS) {
           localStorage.removeItem(rateLimitKey);
-
           setRateLimited(false);
         } else {
-
           setRateLimited(count >= maxAttempts);
         }
       }
@@ -75,7 +83,11 @@ const InlineChat: React.FC<InlineChatProps> = ({
 
   const handleClear = () => {
     setPrompt('');
-    setMessages(initialMessages);
+    const baseMessages: Message[] = [...initialMessages];
+    if (systemPrompt) {
+      baseMessages.unshift({ role: 'system', content: systemPrompt });
+    }
+    setMessages(baseMessages);
     if (challengeChecklist) {
       setChecklist(challengeChecklist.map(item => ({ ...item, completed: false })));
     }
@@ -102,35 +114,34 @@ const InlineChat: React.FC<InlineChatProps> = ({
     }
   };
 
+  const userFollowUps = messages.filter(m => m.role === 'user').length - initialMessages.filter(m => m.role === 'user').length;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!prompt.trim() || isLoading || rateLimited) return;
 
-    const userFollowUps = messages.slice(initialMessages.length).filter(msg => msg.role === 'user').length;
     if (maxFollowUps && userFollowUps >= maxFollowUps) {
       return; 
     }
 
     checkChecklistCompletion(prompt);
 
-    const newMessages = [...messages, { role: 'user', content: prompt }];
+    const newMessages: Message[] = [...messages, { role: 'user', content: prompt }];
     setMessages(newMessages);
     setPrompt('');
 
-    if (simulatedResponse) {
-      setIsLoading(true);
-      setTimeout(() => {
-        setMessages(prev => [...prev, { role: 'assistant', content: simulatedResponse }]);
+    // Simulate API call for now
+    setIsLoading(true);
+    setTimeout(() => {
+        setMessages(prev => [...prev, { role: 'assistant', content: 'This is a simulated response.'}]);
         setIsLoading(false);
-      }, 1000);
-    }
+    }, 1000);
   };
 
-  const userFollowUps = messages.slice(initialMessages.length).filter(msg => msg.role === 'user').length;
   const isInteractionDisabled = isLoading || rateLimited || (maxFollowUps ? userFollowUps >= maxFollowUps : false);
 
   return (
-    <div className={`bg-gray-800/50 p-4 rounded-lg border border-gray-700 ${className}`}>
+    <div className={`bg-gray-800/50 p-4 rounded-lg border border-gray-700`}>
       {checklist && checklist.length > 0 && (
         <div className="mb-4 p-3 bg-gray-900/50 rounded-lg border border-gray-700">
           <h4 className="font-semibold text-white mb-2">Challenge Checklist</h4>
@@ -147,9 +158,11 @@ const InlineChat: React.FC<InlineChatProps> = ({
 
       <div className="space-y-4 mb-4">
         {messages.map((msg, index) => (
-          <div key={index} className={`p-3 rounded-lg ${msg.role === 'user' ? 'bg-blue-900/50' : 'bg-gray-700/50'}`}>
-            <p className="text-white whitespace-pre-wrap">{msg.content}</p>
-          </div>
+          msg.role !== 'system' && (
+            <div key={index} className={`p-3 rounded-lg ${msg.role === 'user' ? 'bg-blue-900/50' : 'bg-gray-700/50'}`}>
+              <p className="text-white whitespace-pre-wrap">{msg.content}</p>
+            </div>
+          )
         ))}
       </div>
 

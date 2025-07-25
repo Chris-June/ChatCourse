@@ -1,16 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Zap, Terminal, Lightbulb } from 'lucide-react';
-import InlineChat from '../../../../../components/InlineChat';
+import LivePromptGrader from '../../../components/LivePromptGrader';
 import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
+import InlineChat from '../../../../../components/InlineChat';
 
-const scheduleMeetingChecklist = [
-  { text: 'Use natural language to ask the AI to schedule a meeting' },
-  { text: 'Include a clear topic for the meeting (e.g., "team check-in")' },
-  { text: 'Provide a specific date and time (e.g., "next Monday at 10am")' },
-  { text: 'Check if the AI generates the correct function call JSON' },
-];
+const scheduleMeetingSchema = {
+  name: 'schedule_meeting',
+  description: 'Schedules a meeting with a specific topic and datetime.',
+  parameters: {
+    type: 'object',
+    properties: {
+      topic: {
+        type: 'string',
+        description: 'The subject or title of the meeting.'
+      },
+      datetime: {
+        type: 'string',
+        description: 'The date and time for the meeting, e.g., \"2024-08-15T14:30:00\"'
+      }
+    },
+    required: ['topic', 'datetime']
+  }
+};
 
 const stockPriceChecklist = [
   { text: 'Analyze the provided JSON output' },
@@ -142,13 +155,11 @@ if (functionToCall) {
         <div className="mb-6">
           <h3 className="font-semibold text-white mb-2">Easy</h3>
           <p className="text-gray-300 mb-4">
-            Use the chat window below to ask the AI to perform an action. The AI has access to a function called `schedule_meeting(topic, datetime)`. Try asking it to schedule a meeting and see if it generates the correct JSON output.
+            The AI has access to a function called `schedule_meeting(topic, datetime)`. Use the grader below to write a prompt that successfully calls this function. Try to get a score of 100!
           </p>
-          <InlineChat 
-            moduleId="module-4.1-schedule-meeting"
-            placeholder='Try: "Schedule a team check-in for next Monday at 10am"' 
-            simulatedResponse={`{\n  "name": "schedule_meeting",\n  "arguments": {\n    "topic": "Team check-in",\n    "datetime": "next Monday at 10am"\n  }\n}`}
-            challengeChecklist={scheduleMeetingChecklist}
+          <LivePromptGrader 
+            functionSchema={scheduleMeetingSchema}
+            initialPrompt="Schedule a team check-in for next Monday at 10am"
           />
         </div>
 
