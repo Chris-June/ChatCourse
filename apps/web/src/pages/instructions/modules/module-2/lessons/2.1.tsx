@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, BrainCircuit, MessageSquare } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
 import { useProgressStore } from '../../../../../store/progressStore';
+import ContextExample from '../../../components/ContextExample';
+import KeyTakeaways from '../../../components/KeyTakeaways';
+import RollingWhiteboard from '../../../components/RollingWhiteboard';
 
 const Lesson2_1: React.FC = () => {
   const { completeLesson } = useProgressStore();
@@ -27,7 +29,7 @@ const Lesson2_1: React.FC = () => {
         </div>
       </div>
 
-      <p className="text-lg text-gray-300">
+      <p className="text-lg text-gray-300 max-w-prose">
         Have you ever had a conversation where you had to keep repeating yourself? It's frustrating. The same is true when talking to an AI. The key to a smooth, intelligent conversation is understanding and managing its 'memory'—what we call the <strong>context window</strong>.
       </p>
 
@@ -37,15 +39,10 @@ const Lesson2_1: React.FC = () => {
           <BrainCircuit className="w-7 h-7 mr-3 text-blue-400" />
           What is a Context Window?
         </h2>
-        <p className="text-gray-300 mb-4">
-          Think of the context window as the AI's short-term memory. It's a finite space that holds the recent back-and-forth of your conversation. Every new message you send, and every response the AI gives, gets added to this window. When the window gets full, the oldest messages are 'forgotten' to make room for new ones.
+        <p className="text-gray-300 mb-4 max-w-prose">
+          Think of the context window as the AI's short-term memory. It's a finite space that holds the recent back-and-forth of your conversation, measured in <strong>tokens</strong> (pieces of words). Every new message you send, and every response the AI gives, gets added to this window. When the window gets full, the oldest messages are 'forgotten' to make room for new ones.
         </p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Analogy: A Rolling Whiteboard</h3>
-          <p className="text-gray-400">
-            Imagine you're collaborating with someone using a whiteboard. You write down notes from your conversation. As you run out of space, you have to erase the oldest notes at the top to write new ones at the bottom. The context window works just like that whiteboard. Information outside that visible space is lost.
-          </p>
-        </div>
+        <RollingWhiteboard />
       </section>
 
       {/* Why It's Your Most Powerful Tool */}
@@ -54,7 +51,7 @@ const Lesson2_1: React.FC = () => {
           <MessageSquare className="w-7 h-7 mr-3 text-purple-400" />
           Why It's Your Most Powerful Tool
         </h2>
-        <p className="text-gray-300 mb-4">
+        <p className="text-gray-300 mb-4 max-w-prose">
           Mastering the context window is the single most important skill for moving beyond simple, one-off questions. It's how you can have deep, multi-step conversations and guide the AI through complex tasks.
         </p>
         <div className="grid md:grid-cols-2 gap-4">
@@ -81,27 +78,14 @@ const Lesson2_1: React.FC = () => {
         </div>
       </section>
 
-      {/* Practical Example */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">A Practical Example</h2>
-          <div className="bg-gray-900 p-4 rounded-lg">
-              <p className="text-gray-400 mb-3">Imagine this conversation flow:</p>
-              <div className="space-y-3">
-                  <div className="relative">
-                      <CopyButton textToCopy="Give me three ideas for a healthy breakfast." />
-                      <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-cyan-400">You:</strong> "Give me three ideas for a healthy breakfast."</p>
-                  </div>
-                  <p className="p-2 bg-gray-600 rounded-md"><strong className="text-purple-400">AI:</strong> "1. Oatmeal with berries. 2. Scrambled eggs with spinach. 3. Greek yogurt with nuts."</p>
-                  <div className="relative">
-                      <CopyButton textToCopy="I like the second one. Can you give me a simple recipe?" />
-                      <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-cyan-400">You:</strong> "I like the second one. Can you give me a simple recipe?"</p>
-                  </div>
-              </div>
-              <div className="mt-4 p-3 bg-blue-900/30 rounded-lg border border-blue-700">
-                <p className="text-blue-200 text-sm"><span className="font-bold">Key Insight:</span> The AI knows "the second one" refers to scrambled eggs with spinach <strong>only because the previous turn is still in the context window.</strong> If the conversation were too long, it would have forgotten the list and asked for clarification.</p>
-              </div>
-          </div>
-      </section>
+      <ContextExample />
+
+      <KeyTakeaways points={[
+        'The context window is the AI\'s short-term memory, measured in tokens.',
+        'When the window is full, the oldest messages are forgotten.',
+        'Effective context management is crucial for coherent, multi-step conversations.',
+        'Losing context forces the AI to ask for clarification, breaking the conversation flow.'
+      ]} />
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">
@@ -116,7 +100,7 @@ const Lesson2_1: React.FC = () => {
           onClick={() => completeLesson(2, 1)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Next:<ChevronRight className="w-5 h-5 ml-2" />
+          Next: Coherent Conversations <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>
