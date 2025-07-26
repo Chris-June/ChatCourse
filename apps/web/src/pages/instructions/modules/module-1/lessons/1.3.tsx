@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Beaker, Code, BookOpen, BarChart3, Sparkles, Layers, Zap } from 'lucide-react';
 import { useProgressStore } from '../../../../../store/progressStore';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 // Import our advanced prompting components
 import {
@@ -48,6 +49,64 @@ const addAnimationStyles = () => {
 };
 
 const Lesson1_3: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the primary benefit of iteratively refining a prompt?',
+      options: [
+        'It makes the prompt longer, which is always better.',
+        'It allows you to make small, controlled changes to systematically improve the AI\'s output.',
+        'It guarantees the AI will respond faster.',
+        'It helps you find more spelling errors in your prompt.'
+      ],
+      correctAnswer: 'It allows you to make small, controlled changes to systematically improve the AI\'s output.',
+      explanation: 'Iterative refinement is the process of making small, deliberate adjustments to a prompt and observing the effect, which is key to achieving a precise and high-quality result.'
+    },
+    {
+      questionText: 'In advanced prompting, what is the main advantage of using a \'pattern\' (e.g., the Persona Pattern)?',
+      options: [
+        'It provides a single, perfect prompt that works for every situation.',
+        'It offers a proven, reusable structure for solving a common type of problem reliably.',
+        'It forces the AI to use a specific vocabulary.',
+        'It is the only way to get the AI to generate creative content.'
+      ],
+      correctAnswer: 'It offers a proven, reusable structure for solving a common type of problem reliably.',
+      explanation: 'Prompt patterns are like strategic blueprints. They provide a reliable framework that can be adapted to many different tasks to produce consistent, high-quality outcomes.'
+    },
+    {
+      questionText: 'When using an AI as a collaborative partner (e.g., for pair programming), what is a crucial skill humans require?',
+      options: [
+        'Accepting the AI\'s first answer without question.',
+        'Using very short, one-word commands.',
+        'Clearly articulating your goal and providing specific feedback to guide the AI.',
+        'Letting the AI do all the work independently.'
+      ],
+      correctAnswer: 'Clearly articulating your goal and providing specific feedback to guide the AI.',
+      explanation: 'Effective collaboration with an AI requires clear communication. You must define the goal and then guide the AI with feedback, just as you would with a human partner.'
+    },
+    {
+      questionText: 'Why is it helpful to deconstruct a complex prompt into its core components (e.g., role, task, context)?',
+      options: [
+        'It makes the prompt harder for the AI to understand.',
+        'It is a required step by all AI models.',
+        'It helps you analyze each part of your instruction to identify areas for improvement.',
+        'It only matters for prompts written in English.'
+      ],
+      correctAnswer: 'It helps you analyze each part of your instruction to identify areas for improvement.',
+      explanation: 'By breaking a prompt down, you can examine each element—like the role, task, or constraints—to see how it contributes to the final output and refine it with precision.'
+    },
+    {
+      questionText: 'What is a core principle of moving from basic to advanced prompt engineering?',
+      options: [
+        'Using more complex and obscure words.',
+        'Writing the longest prompt possible.',
+        'Applying structured techniques and iterative testing to gain more precise control over the AI.',
+        'Memorizing a list of magic keywords.'
+      ],
+      correctAnswer: 'Applying structured techniques and iterative testing to gain more precise control over the AI.',
+      explanation: 'Advanced prompting is about being deliberate and systematic. It involves using proven structures (patterns) and continuously refining your instructions to achieve a specific goal.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   const [activeTab, setActiveTab] = useState<'visualizer' | 'challenges' | 'patterns' | 'refinement' | 'pairing'>('visualizer');
 
@@ -281,6 +340,11 @@ const Lesson1_3: React.FC = () => {
             </ul>
           </div>
         </div>
+      </section>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       {/* Module Wrap-up */}

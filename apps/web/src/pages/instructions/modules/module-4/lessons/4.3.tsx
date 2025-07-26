@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Wrench, FileCode, Lightbulb, ChefHat, CheckS
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const weatherChecklist = [
   { text: 'My goal is to find the weather in a specific city.', completed: false },
@@ -13,6 +14,64 @@ const weatherChecklist = [
 ];
 
 const Lesson4_3: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'In the lesson\'s analogy, what does the \'recipe card\' represent when building an AI tool?',
+      options: [
+        'The AI model itself.',
+        'The final output of the tool.',
+        'The tool\'s schema (its name, description, and parameters).',
+        'The server where the tool is hosted.'
+      ],
+      correctAnswer: 'The tool\'s schema (its name, description, and parameters).',
+      explanation: 'The schema is the detailed instruction set, or \'recipe\', that tells the AI exactly what the tool does, what it needs, and when to use it.'
+    },
+    {
+      questionText: 'What is the most important reason to write very clear and detailed descriptions in your tool schema?',
+      options: [
+        'To make the code run faster.',
+        'The AI relies entirely on these descriptions to understand the tool\'s purpose and how to use it correctly.',
+        'To make the schema file larger.',
+        'To hide the tool from other users.'
+      ],
+      correctAnswer: 'The AI relies entirely on these descriptions to understand the tool\'s purpose and how to use it correctly.',
+      explanation: 'The AI doesn\'t understand code; it understands language. Your descriptions are the only guide it has to make smart decisions about your tool.'
+    },
+    {
+      questionText: 'What is a key principle of good tool design?',
+      options: [
+        'The tool should perform as many different tasks as possible.',
+        'The tool should have a very short name.',
+        'The tool should do one thing well (be specific and atomic).',
+        'The tool should not have any parameters.'
+      ],
+      correctAnswer: 'The tool should do one thing well (be specific and atomic).',
+      explanation: 'Single-purpose tools are less ambiguous and more reliable, making it easier for the AI to choose the right tool for the job.'
+    },
+    {
+      questionText: 'In the `order_pizza` tool example, what are the \'ingredients\' (inputs) the AI needs?',
+      options: [
+        'The oven temperature.',
+        'A `confirmation_number`.',
+        'The `size` and a list of `toppings`.',
+        'The delivery driver\'s name.'
+      ],
+      correctAnswer: 'The `size` and a list of `toppings`.',
+      explanation: 'These are the parameters defined in the schema that the AI must gather to successfully call the tool, just like a chef needs ingredients for a recipe.'
+    },
+    {
+      questionText: 'Why don\'t you need to provide the actual code for your function in the schema?',
+      options: [
+        'The AI will write the code for you.',
+        'The AI only needs to know *what* the tool does and *what arguments* to provide, not *how* it works.',
+        'The code is sent in a separate file.',
+        'You do need to provide the code.'
+      ],
+      correctAnswer: 'The AI only needs to know *what* the tool does and *what arguments* to provide, not *how* it works.',
+      explanation: 'The schema is for the AI\'s decision-making process. The actual execution of the code happens in your application after the AI tells you which tool to run.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
@@ -104,6 +163,11 @@ const Lesson4_3: React.FC = () => {
               <li><strong>Think Inputs & Outputs:</strong> Every tool needs ingredients (parameters) and produces a result (output). Define them clearly.</li>
           </ul>
       </Accordion>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

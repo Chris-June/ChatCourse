@@ -3,8 +3,67 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ShieldAlert, UserCheck, Lightbulb } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson8_3: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is a \'Prompt Injection\' attack?',
+      options: [
+        'An attack that poisons the training data.',
+        'An attack where the user tries to get the model to ignore its original instructions and perform an unintended action.',
+        'An attack that steals the model\'s weights.',
+        'An attack that makes the model run very slowly.'
+      ],
+      correctAnswer: 'An attack where the user tries to get the model to ignore its original instructions and perform an unintended action.',
+      explanation: 'Prompt injection is a primary security vulnerability where attackers manipulate the input to hijack the model\'s behavior, bypassing its safety guardrails.'
+    },
+    {
+      questionText: 'Which technique is most effective for preventing an AI from leaking a user\'s Social Security Number in its response?',
+      options: [
+        'Input Sanitization',
+        'Output Filtering & Redaction',
+        'The Principle of Least Privilege',
+        'Data Anonymization'
+      ],
+      correctAnswer: 'Output Filtering & Redaction',
+      explanation: 'While other methods are important, Output Filtering specifically scans the model\'s response *before* it is shown to the user to find and remove sensitive data patterns like SSNs.'
+    },
+    {
+      questionText: 'The \'Principle of Least Privilege\' (PoLP) is best described as:',
+      options: [
+        'Giving the AI agent access to all data so it can be helpful.',
+        'Ensuring an AI tool has the absolute minimum permissions necessary to perform its task.',
+        'Letting the user have the least amount of privilege.',
+        'A principle for making the model use as little memory as possible.'
+      ],
+      correctAnswer: 'Ensuring an AI tool has the absolute minimum permissions necessary to perform its task.',
+      explanation: 'PoLP is a core security concept. For AI agents, it means restricting the power of its tools to prevent them from being abused if the agent is compromised (e.g., read-only access instead of delete access).'
+    },
+    {
+      questionText: 'What is the primary risk of \'Data Poisoning\'?',
+      options: [
+        'The model becomes too slow.',
+        'An attacker secretly inserts biased or malicious examples into the training data to corrupt the model.',
+        'The model reveals its system prompt.',
+        'The model uses a tool it shouldn\'t.'
+      ],
+      correctAnswer: 'An attacker secretly inserts biased or malicious examples into the training data to corrupt the model.',
+      explanation: 'Data poisoning attacks the model at its source by corrupting the training data, which can introduce backdoors, biases, or vulnerabilities that are very difficult to detect.'
+    },
+    {
+      questionText: 'A good first step to prevent prompt injection is to...',
+      options: [
+        'Trust all user input completely.',
+        'Use a larger model.',
+        'Sanitize user input by checking it against known attack patterns before sending it to the LLM.',
+        'Give the model admin access to the database.'
+      ],
+      correctAnswer: 'Sanitize user input by checking it against known attack patterns before sending it to the LLM.',
+      explanation: 'Input sanitization, such as checking for and blocking keywords like \'ignore your instructions\', is a fundamental defense-in-depth technique to protect against prompt injection.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   const securityAuditorPrompt = `You are an AI Security & Privacy Auditor. Your task is to review a user's proposed security guardrails for a new AI feature.
 
@@ -20,13 +79,13 @@ When a user submits their proposed guardrails, follow these steps:
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">8.3 Project Review</h1>
+        <h1 className="text-3xl font-bold text-blue-400">8.3 Security & Privacy</h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-8/8.2" 
             className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Explainability
+            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Transparency & Explainability
           </Link>
           <Link 
             to="/instructions/conclusion" 
@@ -99,6 +158,12 @@ When a user submits their proposed guardrails, follow these steps:
             systemPrompt={securityAuditorPrompt}
           />
         </div>
+      </section>
+
+      {/* Validation Quiz */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       <div className="flex justify-between pt-4">

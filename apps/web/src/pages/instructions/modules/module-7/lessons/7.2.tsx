@@ -6,8 +6,67 @@ import { useProgressStore } from '../../../../../store/progressStore';
 import RagFlowVisualizer from '../../../components/RagFlowVisualizer';
 import RagUseCases from '../../../components/RagUseCases';
 import RagPlayground from '../../../components/RagPlayground';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson7_2: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the primary goal of Retrieval-Augmented Generation (RAG)?',
+      options: [
+        'To make the LLM generate more creative and fictional stories.',
+        'To allow an LLM to consult a specific knowledge base before answering, ensuring fact-based responses.',
+        'To make the LLM run faster on any computer.',
+        'To translate text from one language to another.'
+      ],
+      correctAnswer: 'To allow an LLM to consult a specific knowledge base before answering, ensuring fact-based responses.',
+      explanation: 'RAG is designed to ground LLM responses in a specific, reliable set of data, preventing it from making things up (hallucinating).'
+    },
+    {
+      questionText: 'What are the three core steps of the RAG process, in the correct order?',
+      options: [
+        'Generate, Augment, Retrieve',
+        'Retrieve, Augment, Generate',
+        'Augment, Retrieve, Generate',
+        'Generate, Retrieve, Augment'
+      ],
+      correctAnswer: 'Retrieve, Augment, Generate',
+      explanation: 'The process always starts by retrieving relevant documents, augmenting the prompt with them, and then generating the final answer.'
+    },
+    {
+      questionText: 'In the \'Augment\' step of RAG, what exactly is being augmented?',
+      options: [
+        'The LLM\'s training data.',
+        'The user\'s original question is combined with the retrieved context to create a new, more detailed prompt.',
+        'The vector database.',
+        'The final answer that the user sees.'
+      ],
+      correctAnswer: 'The user\'s original question is combined with the retrieved context to create a new, more detailed prompt.',
+      explanation: 'The augmentation step creates a rich prompt that gives the LLM all the information it needs: the user\'s query and the factual context to answer it.'
+    },
+    {
+      questionText: 'What is the most important instruction to include in a RAG system\'s final generator prompt?',
+      options: [
+        '\'Be as creative as possible.\'',
+        '\'Answer the question based only on the provided context.\'',
+        '\'Feel free to use your general knowledge.\'',
+        '\'Make the answer as long as possible.\''
+      ],
+      correctAnswer: '\'Answer the question based only on the provided context.\'',
+      explanation: 'This instruction is critical to prevent the LLM from ignoring the retrieved facts and falling back on its internal, potentially outdated or incorrect, knowledge.'
+    },
+    {
+      questionText: 'Which of these is a common and powerful use case for RAG?',
+      options: [
+        'Generating random numbers.',
+        'Creating abstract art.',
+        'Building a customer support bot that answers questions based on a company\'s official help documents.',
+        'Calculating complex mathematical equations.'
+      ],
+      correctAnswer: 'Building a customer support bot that answers questions based on a company\'s official help documents.',
+      explanation: 'RAG is ideal for this because it ensures the bot gives answers that are consistent with a specific, trusted set of information, like help docs or product manuals.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   const ragPromptValidator = `You are an expert AI Prompt Engineer specializing in Retrieval-Augmented Generation (RAG). Your task is to review a user's generator prompt and provide constructive feedback.
 
@@ -40,7 +99,7 @@ When a user submits a prompt, follow these steps:
             onClick={() => completeLesson(7, 2)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
-            Next: Model Fine-Tuning <ChevronRight className="w-5 h-5 ml-2" />
+            Next: Fine-Tuning Models <ChevronRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>
@@ -87,6 +146,12 @@ When a user submits a prompt, follow these steps:
             systemPrompt={ragPromptValidator}
           />
         </div>
+      </section>
+
+      {/* Validation Quiz */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       <div className="flex justify-between pt-4">

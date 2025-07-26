@@ -5,6 +5,7 @@ import LivePromptGrader from '../../../components/LivePromptGrader';
 import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
 import InlineChat from '../../../../../components/InlineChat';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const scheduleMeetingSchema = {
   name: 'schedule_meeting',
@@ -34,6 +35,64 @@ const stockPriceChecklist = [
 
 
 const Lesson4_1: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What does it mean when an AI performs \'function calling\'?',
+      options: [
+        'The AI executes external code directly on its own servers.',
+        'The AI generates a JSON object telling your application which function to run and with what arguments.',
+        'The AI is calling you on the telephone.',
+        'The AI is rewriting its own source code.'
+      ],
+      correctAnswer: 'The AI generates a JSON object telling your application which function to run and with what arguments.',
+      explanation: 'The key concept is that the AI does not execute the function. It only provides the structured data your application needs to execute it on your behalf.'
+    },
+    {
+      questionText: 'What is the purpose of providing a function schema to the model?',
+      options: [
+        'To confuse the AI.',
+        'To describe the function\'s name, purpose, and parameters, so the AI knows when and how to use it.',
+        'To provide the actual code for the function.',
+        'To set a password for the function.'
+      ],
+      correctAnswer: 'To describe the function\'s name, purpose, and parameters, so the AI knows when and how to use it.',
+      explanation: 'The schema is like a user manual for the function. It gives the AI the metadata it needs to understand what the function does and what inputs it requires.'
+    },
+    {
+      questionText: 'If you give the AI a function to get the weather, and you ask, \'What\'s the weather like in Paris?\', what would you expect the AI to output?',
+      options: [
+        'A weather forecast for London.',
+        'A JSON object like `{"name": "get_weather", "arguments": {"location": "Paris"}}`',
+        'A long essay about the history of Paris.',
+        'The actual code for the `get_weather` function.'
+      ],
+      correctAnswer: 'A JSON object like `{"name": "get_weather", "arguments": {"location": "Paris"}}`',
+      explanation: 'The AI identifies the correct function (`get_weather`) and extracts the necessary argument (`location: \'Paris\'`) from your prompt, returning it in a structured JSON format.'
+    },
+    {
+      questionText: 'What is a critical security best practice when implementing function calling?',
+      options: [
+        'Trust all inputs from the model completely.',
+        'Only use functions that have very short names.',
+        'Always validate and sanitize the arguments provided by the model before executing any function.',
+        'Run the function calls on a public, unsecured server.'
+      ],
+      correctAnswer: 'Always validate and sanitize the arguments provided by the model before executing any function.',
+      explanation: 'Never trust the model\'s output implicitly. Treat its function arguments as user input that must be validated to prevent security vulnerabilities like injection attacks.'
+    },
+    {
+      questionText: 'Why is it a good practice to keep functions \'atomic\' (having a single, well-defined purpose)?',
+      options: [
+        'It makes the AI\'s JSON output much larger.',
+        'It makes the functions harder for the AI to understand.',
+        'It makes your code more flexible, easier to debug, and gives the AI clearer, more reliable tools to choose from.',
+        'It is not a good practice; functions should do as many things as possible.'
+      ],
+      correctAnswer: 'It makes your code more flexible, easier to debug, and gives the AI clearer, more reliable tools to choose from.',
+      explanation: 'Single-purpose functions are like sharp, specialized tools. They are less ambiguous for the AI and make your overall system more robust and maintainable.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
@@ -193,6 +252,11 @@ if (functionToCall) {
               <li>A mini-project to build your own “Weather Bot” or “Task Scheduler”.</li>
           </ul>
       </Accordion>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

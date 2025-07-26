@@ -14,8 +14,67 @@ import ParameterSliders from '../../../components/ParameterSliders';
 import ResponsibleAI from '../../../components/ResponsibleAI';
 import InteractivePromptExercise from '../../../components/InteractivePromptExercise';
 import RagChunkingDiagram from '../../../components/RagChunkingDiagram';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson4_4: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the best definition of a \'GPT\'?',
+      options: [
+        'A generic, un-customized chatbot.',
+        'A custom version of an AI model packaged with specific instructions, knowledge, and tools for a specialized purpose.',
+        'A type of computer hardware for running AI.',
+        'A programming language for artificial intelligence.'
+      ],
+      correctAnswer: 'A custom version of an AI model packaged with specific instructions, knowledge, and tools for a specialized purpose.',
+      explanation: 'A GPT is a tailored solution that combines a persona (instructions), specialized data (knowledge), and a set of skills (tools) to create a specialized assistant.'
+    },
+    {
+      questionText: 'What are the three key ingredients that make up a GPT?',
+      options: [
+        'Speed, Memory, and Power.',
+        'Hardware, Software, and Internet.',
+        'Custom Instructions, Expanded Knowledge, and Capabilities (Tools).',
+        'Text, Images, and Audio.'
+      ],
+      correctAnswer: 'Custom Instructions, Expanded Knowledge, and Capabilities (Tools).',
+      explanation: 'These three components—persona, knowledge, and skills—are the fundamental building blocks for creating a specialized GPT.'
+    },
+    {
+      questionText: 'What is the primary purpose of the \'Expanded Knowledge\' component, often implemented with RAG?',
+      options: [
+        'To make the AI\'s personality more interesting.',
+        'To allow the AI to access and retrieve information from documents or databases it wasn\'t originally trained on.',
+        'To let the AI write code.',
+        'To change the AI\'s core architecture.'
+      ],
+      correctAnswer: 'To allow the AI to access and retrieve information from documents or databases it wasn\'t originally trained on.',
+      explanation: 'Retrieval-Augmented Generation (RAG) gives the GPT a \'memory\' by connecting it to external data sources, allowing it to provide information beyond its training data.'
+    },
+    {
+      questionText: 'What does \'chaining tools\' as a powerful technique mean?',
+      options: [
+        'Linking multiple AI models together.',
+        'Using the output of one tool as the input for another to solve multi-step problems.',
+        'Running the same tool multiple times in a row.',
+        'A security method for protecting tools.'
+      ],
+      correctAnswer: 'Using the output of one tool as the input for another to solve multi-step problems.',
+      explanation: 'Chaining allows the AI to perform complex workflows, like finding a flight and then booking it, by passing information from one step to the next.'
+    },
+    {
+      questionText: 'What is the main function of the \'Custom Instructions\' in a GPT?',
+      options: [
+        'To provide the tool\'s source code.',
+        'To define the GPT\'s personality, goals, rules, and constraints.',
+        'To list the files the GPT can access.',
+        'To set the model\'s temperature and other parameters.'
+      ],
+      correctAnswer: 'To define the GPT\'s personality, goals, rules, and constraints.',
+      explanation: 'The custom instructions act as the GPT\'s constitution or character sheet, guiding its behavior, tone, and how it should respond to users.'
+    }
+  ];
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -215,6 +274,11 @@ const Lesson4_4: React.FC = () => {
           <li><a href="#" className="hover:underline">Building a GPT from Scratch: A Video Tutorial</a></li>
         </ul>
       </Accordion>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

@@ -6,8 +6,67 @@ import { useProgressStore } from '../../../../../store/progressStore';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import MetricSorter from '@/pages/instructions/components/MetricSorter';
 import PromptABTester from '@/pages/instructions/components/PromptABTester';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson6_3: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'Which of the following is considered a \'high-signal\' metric for an AI summarization tool?',
+      options: [
+        'Number of daily active users.',
+        'Number of summaries generated.',
+        'The rate at which users accept or copy the generated summary.',
+        'The color of the summarize button.'
+      ],
+      correctAnswer: 'The rate at which users accept or copy the generated summary.',
+      explanation: 'This is a high-signal metric because it directly indicates that the user found the AI\'s output valuable and useful for their task, unlike vanity metrics like usage counts.'
+    },
+    {
+      questionText: 'What is the primary reason for A/B testing system prompts?',
+      options: [
+        'To make the code more complicated.',
+        'To scientifically measure whether a change to a prompt leads to a better, more desirable AI output.',
+        'To randomly change the user experience.',
+        'To increase the number of daily active users.'
+      ],
+      correctAnswer: 'To scientifically measure whether a change to a prompt leads to a better, more desirable AI output.',
+      explanation: 'A/B testing provides data-driven evidence, allowing you to move beyond guessing and know for sure if a prompt change is a genuine improvement.'
+    },
+    {
+      questionText: 'A well-formed hypothesis for an AI experiment should ideally follow what structure?',
+      options: [
+        '\'If we build it, they will come.\'',
+        '\'By changing X, we will improve Y, because Z.\'',
+        '\'Let\'s try changing the prompt and see what happens.\'',
+        '\'We need to get more users next month.\''
+      ],
+      correctAnswer: '\'By changing X, we will improve Y, because Z.\'',
+      explanation: 'This structure creates a clear, testable statement that identifies the change (X), the expected outcome (Y), and the reasoning behind it (Z).'
+    },
+    {
+      questionText: 'The iterative improvement cycle described in the lesson is best summarized as:',
+      options: [
+        'Build, launch, and forget.',
+        'Guess, change, and hope for the best.',
+        'Measure, test, learn, and adapt.',
+        'Design, build, and ship.'
+      ],
+      correctAnswer: 'Measure, test, learn, and adapt.',
+      explanation: 'This cycle emphasizes a continuous process of gathering data (measure), running experiments (test), gaining insights (learn), and using those insights to make the product better (adapt).'
+    },
+    {
+      questionText: 'Why is it often effective to start with A/B testing the system prompt?',
+      options: [
+        'Because it requires rewriting the entire application.',
+        'Because it is often the slowest and most expensive change to make.',
+        'Because it is a fast, low-cost way to significantly influence the AI\'s behavior and user experience.',
+        'Because system prompts have no effect on the AI\'s output.'
+      ],
+      correctAnswer: 'Because it is a fast, low-cost way to significantly influence the AI\'s behavior and user experience.',
+      explanation: 'Changing the prompt is a high-leverage activity; small text changes can produce dramatic improvements without requiring complex code changes.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   const hypothesisAssistantPrompt = `You are an expert AI Product Manager specializing in experimentation. Your goal is to help users improve an AI feature by creating a structured experiment. When a user describes a feature they want to improve, guide them through the following steps:
 1. **Hypothesis Formulation**: Help them state a clear, testable hypothesis (e.g., "By changing X, we will improve Y, because Z.").
@@ -103,6 +162,12 @@ Be encouraging and help them think critically about their ideas.`;
           placeholder="Try: &quot;Let's improve an AI that summarizes articles.&quot;" 
           systemPrompt={hypothesisAssistantPrompt}
         />
+      </section>
+
+      {/* Validation Quiz */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       {/* Navigation */}

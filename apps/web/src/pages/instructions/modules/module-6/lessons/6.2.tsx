@@ -7,8 +7,67 @@ import Accordion from '../../../components/Accordion';
 import AiTrustMeter from '../../../components/AiTrustMeter';
 import UncertaintyVisualizer from '../../../components/UncertaintyVisualizer';
 import BiasExplorer from '../../../components/BiasExplorer';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson6_2: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'The principle of \'designing for collaboration, not command\' encourages us to...',      
+      options: [
+        'Make the AI give orders to the user.',
+        'Create a partnership where the user feels in control and the AI acts as a helpful assistant.',
+        'Hide the AI\'s capabilities from the user.',
+        'Ensure the AI always makes the final decision.'
+      ],
+      correctAnswer: 'Create a partnership where the user feels in control and the AI acts as a helpful assistant.',
+      explanation: 'This principle is about shifting the dynamic from a simple tool to a collaborative partner, which involves setting clear expectations and empowering the user.'
+    },
+    {
+      questionText: 'Which of the following best builds user trust through transparency and control?',
+      options: [
+        'Hiding all of the AI\'s reasoning.',
+        'Providing an explanation for *why* the AI made a suggestion and allowing the user to correct it.',
+        'Never allowing the user to disagree with the AI.',
+        'Making the AI\'s responses as mysterious as possible.'
+      ],
+      correctAnswer: 'Providing an explanation for *why* the AI made a suggestion and allowing the user to correct it.',
+      explanation: 'Trust is built when users understand how the AI works and feel empowered to influence its behavior, turning it from a black box into a transparent tool.'
+    },
+    {
+      questionText: 'Why is it important to design for uncertainty in AI?',
+      options: [
+        'To make the AI seem more human by being unsure.',
+        'Because AI is probabilistic, and communicating its confidence level helps users decide how much to rely on its output.',
+        'To make the user interface more complex.',
+        'Because all AIs are always 100% certain about their answers.'
+      ],
+      correctAnswer: 'Because AI is probabilistic, and communicating its confidence level helps users decide how much to rely on its output.',
+      explanation: 'AI is not deterministic. Clearly showing when an AI is making a high-confidence suggestion versus a low-confidence guess is crucial for responsible design.'
+    },
+    {
+      questionText: 'What is the primary danger of using biased data to train an AI system?',
+      options: [
+        'The AI will run slower.',
+        'The AI can perpetuate or even amplify harmful societal biases, leading to unfair outcomes.',
+        'The AI will be more expensive to operate.',
+        'The AI will refuse to answer questions.'
+      ],
+      correctAnswer: 'The AI can perpetuate or even amplify harmful societal biases, leading to unfair outcomes.',
+      explanation: 'If an AI learns from biased data, its decisions will reflect those biases, which can have serious real-world consequences. Actively designing for fairness is an ethical necessity.'
+    },
+    {
+      questionText: 'An AI that says, \'Based on similar users, I think you\'ll like this movie, but I\'m only 70% sure,\' is demonstrating which two design principles?',
+      options: [
+        'Collaboration and Fairness',
+        'Uncertainty and Trust (through Transparency)',
+        'Control and Bias',
+        'Collaboration and Command'
+      ],
+      correctAnswer: 'Uncertainty and Trust (through Transparency)',
+      explanation: 'It clearly communicates its level of confidence (Uncertainty) and explains the basis for its suggestion (Transparency), which helps the user build trust.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   const designCritiquePrompt = `
     You are an expert AI UX Design Critic. I am going to propose a design for an AI feature. Your goal is to help me improve it by asking critical questions based on the design principles from this lesson.
@@ -94,6 +153,12 @@ const Lesson6_2: React.FC = () => {
           placeholder='Start by describing your AI feature, for example: "I’m designing an AI that helps you pick a movie to watch..."' 
           systemPrompt={designCritiquePrompt}
         />
+      </section>
+
+      {/* Validation Quiz */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       <div className="flex justify-between pt-4">

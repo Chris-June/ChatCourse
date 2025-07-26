@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Sparkles, Check, X, AlertTriangle, Info, Clock, Zap, Cpu, Brain, AlertCircle, ThumbsUp, ThumbsDown, CheckCircle, XCircle } from 'lucide-react';
 import { useProgressStore } from '../../../../../store/progressStore';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 // Simple tokenizer function for demonstration
 const tokenizeText = (text: string): string[] => {
@@ -86,6 +87,64 @@ const InteractiveTokenizer = () => {
 };
 
 const Lesson1_1: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the fundamental way Large Language Models (LLMs) work?',
+      options: [
+        'By searching a database of facts',
+        'By predicting the next most likely word (or token) in a sequence',
+        'By executing a pre-written script',
+        'By understanding human emotions'
+      ],
+      correctAnswer: 'By predicting the next most likely word (or token) in a sequence',
+      explanation: 'LLMs are probabilistic models that generate text by predicting the next token based on the patterns they learned from vast amounts of training data.'
+    },
+    {
+      questionText: 'What is a \"token\" in the context of an LLM?',
+      options: [
+        'A special password for accessing the AI',
+        'A complete sentence or paragraph',
+        'A common piece of a word or a whole word',
+        'A unit of memory the AI uses'
+      ],
+      correctAnswer: 'A common piece of a word or a whole word',
+      explanation: 'Tokenization breaks text down into smaller units (tokens), which can be words or parts of words, that the model can process.'
+    },
+    {
+      questionText: 'Which of the following is a common limitation of AI, as discussed in the lesson?',
+      options: [
+        'It cannot perform calculations',
+        'It can \"hallucinate\" or make up incorrect information',
+        'It cannot write code',
+        'It is always 100% objective and free of bias'
+      ],
+      correctAnswer: 'It can \"hallucinate\" or make up incorrect information',
+      explanation: 'AI can confidently present false or nonsensical information as if it were factual. This is a key limitation to be aware of.'
+    },
+    {
+      questionText: 'What is a good strategy for identifying AI-generated text?',
+      options: [
+        'It always contains spelling mistakes',
+        'It is always very short and concise',
+        'Looking for overly formal, generic, or repetitive language',
+        'It never uses complex vocabulary'
+      ],
+      correctAnswer: 'Looking for overly formal, generic, or repetitive language',
+      explanation: 'While not foolproof, AI-generated text can sometimes lack the specific details, personal voice, and nuance of human writing.'
+    },
+    {
+      questionText: 'According to the lesson, what is the most likely impact of AI on jobs?',
+      options: [
+        'AI will replace all human jobs within 5 years',
+        'AI will have no impact on the job market',
+        'AI will augment human capabilities, changing jobs rather than eliminating them',
+        'AI will only create jobs, not displace any'
+      ],
+      correctAnswer: 'AI will augment human capabilities, changing jobs rather than eliminating them',
+      explanation: 'The lesson emphasizes that AI is a tool that will likely change how we work, making the combination of human skills and AI tools highly valuable.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   // AI vs Human comparison data
   const comparisonExamples = [
@@ -648,6 +707,11 @@ const Lesson1_1: React.FC = () => {
             <span className="font-semibold">Remember:</span> This lesson is just the beginning. In the next lesson, you'll learn how to craft effective prompts to get the most out of AI systems.
           </p>
         </div>
+      </section>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       {/* Navigation */}

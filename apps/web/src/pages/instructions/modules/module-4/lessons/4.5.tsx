@@ -13,8 +13,67 @@ import DiscussionPrompts from '../../../components/DiscussionPrompts';
 import EdgeCaseExplorer from '../../../components/EdgeCaseExplorer';
 import GlossarySection from '../../../components/GlossarySection';
 import AgentPlannerExercise from '../../../components/AgentPlannerExercise';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson4_5: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the key characteristic that defines an AI Agent?',
+      options: [
+        'Its ability to understand human language.',
+        'Its autonomy to use tools to proactively achieve a goal.',
+        'The specific programming language it\'s written in.',
+        'The size of its core model.'
+      ],
+      correctAnswer: 'Its autonomy to use tools to proactively achieve a goal.',
+      explanation: 'While other aspects are important, an agent\'s defining feature is its ability to operate independently in a loop to solve problems without step-by-step human commands.'
+    },
+    {
+      questionText: 'According to the \'Agent Anatomy\' diagram, which component is responsible for the agent\'s long-term and short-term recall?',
+      options: [
+        'Core Model',
+        'Tools',
+        'Memory',
+        'Planning'
+      ],
+      correctAnswer: 'Memory',
+      explanation: 'The Memory component, often using vector databases or other storage, allows the agent to remember past interactions and information, giving it context for its decisions.'
+    },
+    {
+      questionText: 'What are the three steps in the agent\'s primary operational cycle?',
+      options: [
+        'Input-Process-Output',
+        'Read-Write-Execute',
+        'Observe-Think-Act',
+        'Plan-Delegate-Review'
+      ],
+      correctAnswer: 'Observe-Think-Act',
+      explanation: 'This loop is the fundamental engine of an agent. It continuously observes the state, thinks about the next best action, and then acts by using a tool or responding.'
+    },
+    {
+      questionText: 'In a hierarchical agent system, what is the primary role of the \'Manager\' agent?',
+      options: [
+        'To execute the final task.',
+        'To directly interact with the user.',
+        'To break down a complex goal into smaller sub-tasks and delegate them to \'Worker\' agents.',
+        'To monitor the system for security threats.'
+      ],
+      correctAnswer: 'To break down a complex goal into smaller sub-tasks and delegate them to \'Worker\' agents.',
+      explanation: 'The Manager agent acts as an orchestrator or a project manager, decomposing large problems and coordinating the specialized worker agents who handle the individual steps.'
+    },
+    {
+      questionText: 'Why is it a critical security best practice to follow the \'Principle of Least Privilege\' when giving tools to an agent?',
+      options: [
+        'To make the agent run faster.',
+        'To ensure the agent only has the minimum permissions necessary to do its job, reducing potential damage if compromised.',
+        'To allow the agent to access all data freely.',
+        'To make the agent\'s code easier to read.'
+      ],
+      correctAnswer: 'To ensure the agent only has the minimum permissions necessary to do its job, reducing potential damage if compromised.',
+      explanation: 'Giving an autonomous agent overly broad permissions (like database write access when it only needs to read) is a major security risk. This principle is crucial for building safe and reliable agents.'
+    }
+  ];
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -493,6 +552,11 @@ function master_agent(goal):
           }}
         />
       </Accordion>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

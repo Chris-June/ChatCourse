@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Database, Share2, CheckSquare, BrainCircuit,
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const mcpReasoningChecklist = [
   { text: 'My goal is to find an employee\'s email.', completed: false },
@@ -13,6 +14,64 @@ const mcpReasoningChecklist = [
 ];
 
 const Lesson4_2: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the main purpose of the Model Context Protocol (MCP)?',
+      options: [
+        'To make the AI run faster.',
+        'To give the AI a standard way to discover and use external tools and APIs.',
+        'To teach the AI new languages.',
+        'To let the AI browse the web freely.'
+      ],
+      correctAnswer: 'To give the AI a standard way to discover and use external tools and APIs.',
+      explanation: 'MCP provides a standardized interface, like a universal remote, allowing the AI to interact with many different tools without needing to know their internal workings.'
+    },
+    {
+      questionText: 'What is the key difference between basic function calling and MCP?',
+      options: [
+        'There is no difference.',
+        'With MCP, the AI can discover tools dynamically, whereas basic function calling uses hard-coded tools.',
+        'MCP only works for weather tools.',
+        'Basic function calling is more secure than MCP.'
+      ],
+      correctAnswer: 'With MCP, the AI can discover tools dynamically, whereas basic function calling uses hard-coded tools.',
+      explanation: 'The ability to discover tools on-the-fly is a major advantage of MCP, making the AI more adaptable and scalable.'
+    },
+    {
+      questionText: 'How does an MCP-enabled AI figure out what tools are available on a server?',
+      options: [
+        'It guesses randomly.',
+        'It reads the server\'s source code.',
+        'It asks the server, \'What skills do you have?\' (i.e., it makes a discovery request).',
+        'The user has to tell it manually every time.'
+      ],
+      correctAnswer: 'It asks the server, \'What skills do you have?\' (i.e., it makes a discovery request).',
+      explanation: 'This process of discovery is fundamental to MCP. The AI can query an MCP server to get a list of available tools and their descriptions.'
+    },
+    {
+      questionText: 'The \'Travel Agent AI\' example shows that MCP\'s real power comes from its ability to...',
+      options: [
+        '...book a flight.',
+        '...combine tools from different, independent servers to complete a complex task.',
+        '...tell you the weather.',
+        '...speak like a travel agent.'
+      ],
+      correctAnswer: '...combine tools from different, independent servers to complete a complex task.',
+      explanation: 'The example highlights that the AI can orchestrate multiple tools (flights, hotels, weather) from separate sources to achieve a high-level goal.'
+    },
+    {
+      questionText: 'In the AI\'s reasoning process for finding an employee\'s email, what is the first step?',
+      options: [
+        'Executing the tool.',
+        'Identifying the goal.',
+        'Inspecting the tool\'s parameters.',
+        'Checking for other servers.'
+      ],
+      correctAnswer: 'Identifying the goal.',
+      explanation: 'Before it can do anything else, the AI must first understand the user\'s intent. Identifying the goal (e.g., \'I need to find an email address\') is the crucial first step in its problem-solving process.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
@@ -121,6 +180,11 @@ const Lesson4_2: React.FC = () => {
               <li>This makes the AI far more powerful and adaptable, allowing it to combine tools to solve complex problems.</li>
           </ul>
       </Accordion>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

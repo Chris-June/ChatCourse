@@ -11,6 +11,7 @@ import ContextContaminationDemo from '../../../components/ContextContaminationDe
 import InstructionPriming from '../../../components/InstructionPriming';
 import CommonPitfalls from '../../../components/CommonPitfalls';
 import InlineChat from '../../../../../components/InlineChat';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const initialConversation = [
   {
@@ -30,6 +31,64 @@ const challengeChecklist = [
 ];
 
 const Lesson2_2: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the main purpose of the \'Summarize and Re-center\' technique?',
+      options: [
+        'To make the conversation longer.',
+        'To test the AI\'s reading comprehension.',
+        'To reinforce the most important context and guide the AI\'s next response.',
+        'To get a written record of the chat.'
+      ],
+      correctAnswer: 'To reinforce the most important context and guide the AI\'s next response.',
+      explanation: 'Summarizing helps you re-focus the AI on the key details, especially in a long conversation where earlier context might be lost.'
+    },
+    {
+      questionText: 'Using an \'explicit reference\' like \'Based on the second headline you suggested...\' is effective because it:',
+      options: [
+        'Is more polite than just giving a command.',
+        'Directs the AI\'s attention to a specific piece of information in the context window.',
+        'Makes your prompt sound more professional.',
+        'Confuses the AI with too much detail.'
+      ],
+      correctAnswer: 'Directs the AI\'s attention to a specific piece of information in the context window.',
+      explanation: 'Explicit references act like anchors, helping the AI pinpoint the exact information you want it to use from the previous conversation.'
+    },
+    {
+      questionText: 'When is it a good idea to start a fresh conversation?',
+      options: [
+        'After every three messages.',
+        'When the AI makes a minor spelling mistake.',
+        'When the conversation has become confused or \'contaminated\' with irrelevant details.',
+        'Only when you are starting a completely different topic.'
+      ],
+      correctAnswer: 'When the conversation has become confused or \'contaminated\' with irrelevant details.',
+      explanation: 'If the AI is consistently misunderstanding you, the context may be polluted. Starting fresh provides a clean slate and is often faster than trying to fix a confused conversation.'
+    },
+    {
+      questionText: 'What is \'Instruction Priming\'?',
+      options: [
+        'Giving the AI one instruction at a time.',
+        'A method for warming up the AI before a difficult task.',
+        'Setting up the AI\'s role, goal, and constraints at the very beginning of a conversation.',
+        'Asking the AI to summarize your instructions.'
+      ],
+      correctAnswer: 'Setting up the AI\'s role, goal, and constraints at the very beginning of a conversation.',
+      explanation: 'Priming sets the stage for the entire conversation, ensuring the AI has the foundational context it needs to perform its role effectively from the start.'
+    },
+    {
+      questionText: 'A common pitfall in long conversations is assuming the AI remembers everything. What technique directly helps prevent this?',
+      options: [
+        'Using shorter sentences.',
+        'Typing in all caps.',
+        'Periodically summarizing key points to keep them in the active context window.',
+        'Asking the AI if it is tired.'
+      ],
+      correctAnswer: 'Periodically summarizing key points to keep them in the active context window.',
+      explanation: 'Because the context window is finite, you can\'t assume early details are still remembered. Summarizing brings important information back into the AI\'s short-term memory.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
@@ -97,6 +156,10 @@ const Lesson2_2: React.FC = () => {
         />
       </div>
 
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

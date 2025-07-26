@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Sparkles, AlertCircle, Zap, BarChart, Refres
 import CopyButton from '../../../../../components/CopyButton';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 // Prompt Builder Component
 const PromptBuilder = () => {
@@ -168,6 +169,64 @@ const PromptGrader = ({ onGrade }: { onGrade: (score: number, feedback: string) 
 };
 
 const Lesson1_2: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the primary goal of effective prompt engineering?',
+      options: [
+        'To make the AI\'s response as long as possible',
+        'To guide the AI to produce a desired, specific, and high-quality output',
+        'To test the AI\'s knowledge of random facts',
+        'To confuse the AI with complex language'
+      ],
+      correctAnswer: 'To guide the AI to produce a desired, specific, and high-quality output',
+      explanation: 'Prompt engineering is about crafting precise instructions to control the AI\'s output and ensure it meets your requirements for quality and relevance.'
+    },
+    {
+      questionText: 'Which of the following is NOT a key component of a well-structured prompt, as shown in the Prompt Builder?',
+      options: [
+        'Role',
+        'Task',
+        'Ambiguity',
+        'Tone'
+      ],
+      correctAnswer: 'Ambiguity',
+      explanation: 'A good prompt aims for clarity and specificity, not ambiguity. The key components help structure the prompt to be as clear as possible.'
+    },
+    {
+      questionText: 'Why is providing \'Context\' important in a prompt?',
+      options: [
+        'It makes the prompt look more professional',
+        'It is a required field that doesn\'t affect the output',
+        'It helps the AI understand the target audience and the situation for the response',
+        'It tells the AI which programming language to use'
+      ],
+      correctAnswer: 'It helps the AI understand the target audience and the situation for the response',
+      explanation: 'Context gives the AI crucial background information, helping it tailor the response to be more relevant and appropriate for the intended purpose.'
+    },
+    {
+      questionText: 'In the \'Prompt Grader\' exercise, what does a high score for \'Specificity\' indicate?',
+      options: [
+        'The prompt is very vague and open-ended',
+        'The prompt includes clear, detailed instructions and constraints',
+        'The prompt uses a lot of technical jargon',
+        'The prompt is written in a friendly tone'
+      ],
+      correctAnswer: 'The prompt includes clear, detailed instructions and constraints',
+      explanation: 'Specificity is about providing precise details that leave little room for misinterpretation, leading to a more accurate and relevant AI response.'
+    },
+    {
+      questionText: 'What is the purpose of defining a \'Role\' for the AI in a prompt (e.g., \'You are an expert tutor\')?',
+      options: [
+        'It\'s just a fun greeting for the AI',
+        'It primes the AI to adopt a specific persona, knowledge base, and communication style',
+        'It limits the AI\'s creativity',
+        'It is only used for generating code'
+      ],
+      correctAnswer: 'It primes the AI to adopt a specific persona, knowledge base, and communication style',
+      explanation: 'Assigning a role helps focus the AI\'s response, making it more consistent and aligned with the desired style and expertise for the task.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
@@ -401,6 +460,11 @@ Provide your response in this format:
 
 Remember to be encouraging and constructive while providing specific, actionable feedback.`}
         />
+      </section>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       {/* Navigation */}

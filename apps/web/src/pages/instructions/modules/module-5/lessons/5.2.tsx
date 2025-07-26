@@ -4,8 +4,67 @@ import { ChevronLeft, ChevronRight, Settings, Lightbulb, ShieldCheck } from 'luc
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
 
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson5_2: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the most common technical method for personalizing an AI\'s responses?',
+      options: [
+        'Using a larger AI model.',
+        'Dynamically constructing a `system` prompt using user data.',
+        'Speaking to the AI in a different language.',
+        'Hard-coding responses for every possible user.'
+      ],
+      correctAnswer: 'Dynamically constructing a `system` prompt using user data.',
+      explanation: 'The lesson explains that injecting user profile information into a system prompt template is the primary way to tailor the AI\'s behavior at scale.'
+    },
+    {
+      questionText: 'What is the key difference between `static` and `dynamic` context in personalization?',
+      options: [
+        'Static context changes with every message, while dynamic context does not.',
+        'Static context is general and user-defined (e.g., tone preference), while dynamic context is task-specific and injected by the application (e.g., current item being viewed).',
+        'Static context is for the user, and dynamic context is for the assistant.',
+        'There is no difference; the terms are interchangeable.'
+      ],
+      correctAnswer: 'Static context is general and user-defined (e.g., tone preference), while dynamic context is task-specific and injected by the application (e.g., current item being viewed).',
+      explanation: 'Static context provides broad, reusable instructions based on user preferences, whereas dynamic context provides immediate, situational information for the current task.'
+    },
+    {
+      questionText: 'Why is data privacy a critical ethical consideration for personalization?',
+      options: [
+        'Because it makes the AI more expensive to run.',
+        'Because personalization requires handling user data, which must be done responsibly.',
+        'Because it can make the AI\'s responses less accurate.',
+        'Because it limits the number of users who can use the AI.'
+      ],
+      correctAnswer: 'Because personalization requires handling user data, which must be done responsibly.',
+      explanation: 'Using personal data to tailor experiences is powerful but requires transparency and giving users control over their information to protect their privacy.'
+    },
+    {
+      questionText: 'In the AI Tutor example, what piece of information is used to personalize the interaction?',
+      options: [
+        'The student\'s name, grade, and learning style.',
+        'The current time of day.',
+        'The AI\'s own name.',
+        'The user\'s IP address.'
+      ],
+      correctAnswer: 'The student\'s name, grade, and learning style.',
+      explanation: 'The system prompt for the tutor is dynamically created using the student\'s profile to make the learning experience more personal and effective.'
+    },
+    {
+      questionText: 'What is the main benefit of personalizing an AI assistant?',
+      options: [
+        'It guarantees the AI will never make a mistake.',
+        'It makes the AI\'s responses feel more personal, relevant, and useful to the individual user.',
+        'It reduces the cost of running the AI model.',
+        'It allows the AI to work offline.'
+      ],
+      correctAnswer: 'It makes the AI\'s responses feel more personal, relevant, and useful to the individual user.',
+      explanation: 'The goal of personalization is to move from a one-size-fits-all assistant to one that understands and adapts to the specific needs and context of each user.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   const studentProfile = {
     name: "Maria",
@@ -19,7 +78,7 @@ const Lesson5_2: React.FC = () => {
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">5.2 Performance Optimization</h1>
+        <h1 className="text-3xl font-bold text-blue-400">5.2: Personalization at Scale</h1>
         <div className="flex items-center space-x-4">
           <Link
             to="/instructions/module-5/5.1"
@@ -148,6 +207,12 @@ Provide technical, precise answers. When providing code, use Python.`}
           placeholder='Try asking: "Can you help me understand mitosis?"' 
           systemPrompt={systemPrompt}
         />
+      </section>
+
+      {/* Validation Quiz */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       {/* Navigation */}

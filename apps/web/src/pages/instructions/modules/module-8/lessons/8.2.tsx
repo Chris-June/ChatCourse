@@ -3,8 +3,67 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Eye, MessageSquareQuote, Lightbulb } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson8_2: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the key difference between Transparency and Explainability in AI?',
+      options: [
+        'They are the same thing.',
+        'Transparency shows WHAT the system did, while Explainability shows WHY it did it.',
+        'Transparency is for users, and Explainability is for developers.',
+        'Explainability shows the code, while Transparency shows the output.'
+      ],
+      correctAnswer: 'Transparency shows WHAT the system did, while Explainability shows WHY it did it.',
+      explanation: 'Transparency is about seeing the process (e.g., which tools were called), while Explainability is about understanding the reasoning behind a decision (e.g., why a loan was denied).'
+    },
+    {
+      questionText: 'In a RAG application that answers questions based on a set of documents, which feature best demonstrates transparency?',
+      options: [
+        'Making the user interface dark mode.',
+        'Providing links or references to the source documents used for an answer.',
+        'Answering the question very quickly.',
+        'Using a very large language model.'
+      ],
+      correctAnswer: 'Providing links or references to the source documents used for an answer.',
+      explanation: 'Citing sources is a core transparency technique. It allows users to see the evidence the AI used, verify the information, and build trust in the system.'
+    },
+    {
+      questionText: 'When communicating a sensitive AI decision to a user, which principle is NOT considered a key part of a good explanation?',
+      options: [
+        'Clarity (being easy to understand)',
+        'Empathy (acknowledging the user\'s feelings)',
+        'Technicality (using complex jargon)',
+        'Actionability (providing next steps)'
+      ],
+      correctAnswer: 'Technicality (using complex jargon)',
+      explanation: 'Good explanations should be simple and free of jargon. The goal is to build trust and understanding, not to confuse the user with technical details.'
+    },
+    {
+      questionText: 'What is the primary goal of XAI (Explainable AI) techniques like LIME and SHAP?',
+      options: [
+        'To make the model bigger.',
+        'To identify which features most influenced a model\'s specific decision.',
+        'To hide the model\'s decisions from the user.',
+        'To speed up the model\'s response time.'
+      ],
+      correctAnswer: 'To identify which features most influenced a model\'s specific decision.',
+      explanation: 'These techniques help us peek inside the \'black box\' to understand what parts of the input (e.g., specific words, pixels) led to the output, which is key to debugging and trusting the model.'
+    },
+    {
+      questionText: 'Showing a user the model\'s confidence score alongside its prediction is a practical technique for...',
+      options: [
+        'Hiding the model\'s uncertainty.',
+        'Making the output more reliable.',
+        'Helping the user gauge the reliability of the output.',
+        'Making the system more complex.'
+      ],
+      correctAnswer: 'Helping the user gauge the reliability of the output.',
+      explanation: 'A confidence score gives the user important context. A prediction with 99% confidence is treated differently than one with 60% confidence, allowing the user to make a more informed judgment.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   const explainabilityExpertPrompt = `You are an AI Explainability and User Experience (UX) expert. Your task is to review a user-submitted explanation for a sensitive AI decision.
 
@@ -23,13 +82,13 @@ When a user submits their explanation, follow these steps:
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">8.2 Project Implementation</h1>
+        <h1 className="text-3xl font-bold text-blue-400">8.2 Transparency & Explainability</h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-8/8.1" 
             className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Bias & Fairness
+            <ChevronLeft className="w-5 h-5 mr-2" /> Fairness & Bias in AI
           </Link>
           <Link 
             to="/instructions/module-8/8.3" 
@@ -94,19 +153,25 @@ When a user submits their explanation, follow these steps:
         </div>
       </section>
 
+      {/* Validation Quiz */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
+
       <div className="flex justify-between pt-4">
         <Link 
           to="/instructions/module-8/8.1" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Bias and Fairness
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Fairness & Bias in AI
         </Link>
         <Link 
           to="/instructions/module-8/8.3" 
           onClick={() => completeLesson(8, 2)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Next: Security and Privacy <ChevronRight className="w-5 h-5 ml-2" />
+          Next: Security & Privacy <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>

@@ -5,8 +5,67 @@ import { useProgressStore } from '../../../../../store/progressStore';
 import FineTuningDataFormatter from '../../../components/FineTuningDataFormatter';
 import FineTuningCostCalculator from '../../../components/FineTuningCostCalculator';
 import StrategyQuiz from '../../../components/StrategyQuiz';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson7_3: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the primary purpose of fine-tuning a Large Language Model?',
+      options: [
+        'To give it access to real-time information from the internet.',
+        'To teach it a new skill, style, or personality by training it on a specialized dataset.',
+        'To make the model smaller so it runs on a phone.',
+        'To check for bugs in the model\'s code.'
+      ],
+      correctAnswer: 'To teach it a new skill, style, or personality by training it on a specialized dataset.',
+      explanation: 'Fine-tuning fundamentally alters the model\'s behavior based on new examples, unlike RAG which provides knowledge for a single query.'
+    },
+    {
+      questionText: 'What is the standard data format required for preparing a fine-tuning dataset?',
+      options: [
+        'A plain text file with a long story.',
+        'A CSV file with two columns.',
+        'A JSONL file where each line is a JSON object containing a prompt/completion pair.',
+        'A Word document with questions and answers.'
+      ],
+      correctAnswer: 'A JSONL file where each line is a JSON object containing a prompt/completion pair.',
+      explanation: 'This structured format (JSON Lines) is the standard way to provide high-quality training examples that the model can learn from.'
+    },
+    {
+      questionText: 'You want to build an AI assistant that can answer questions about your company\'s internal documents from the last month. Which approach is most suitable?',
+      options: [
+        'Fine-tuning',
+        'Retrieval-Augmented Generation (RAG)',
+        'Prompt engineering alone',
+        'Building a new model from scratch'
+      ],
+      correctAnswer: 'Retrieval-Augmented Generation (RAG)',
+      explanation: 'RAG is perfect for providing the model with specific, up-to-date knowledge. Fine-tuning is not ideal for simply injecting new facts.'
+    },
+    {
+      questionText: 'You want to build an AI assistant that always responds in the persona of a sarcastic, witty robot. Which approach is most suitable?',
+      options: [
+        'Retrieval-Augmented Generation (RAG)',
+        'Fine-tuning',
+        'Using a larger model',
+        'Giving it access to the internet'
+      ],
+      correctAnswer: 'Fine-tuning',
+      explanation: 'Fine-tuning is the best way to teach a model a specific style, personality, or behavior, as it learns the new response pattern from your examples.'
+    },
+    {
+      questionText: 'What is a significant trade-off to consider before deciding to fine-tune a model?',
+      options: [
+        'It might make the model too friendly.',
+        'It is always fast and free.',
+        'It requires a high-quality dataset and incurs both time and monetary costs for training.',
+        'It can only be done once per model.'
+      ],
+      correctAnswer: 'It requires a high-quality dataset and incurs both time and monetary costs for training.',
+      explanation: 'Fine-tuning is a powerful but resource-intensive process. The quality of your data and the cost of training are critical factors to consider.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
 
   return (
@@ -52,6 +111,12 @@ const Lesson7_3: React.FC = () => {
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center"><GitCompareArrows className="w-7 h-7 mr-3" />Step 3: Making the Strategic Choice</h2>
         <p className="text-gray-300 mb-4">Knowing *when* to fine-tune is as important as knowing how. It's a powerful tool, but not always the right one. RAG is better for knowledge retrieval, while fine-tuning is better for teaching behavior. Test your understanding with the scenarios below.</p>
         <StrategyQuiz />
+      </section>
+
+      {/* Validation Quiz */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       {/* Navigation */}

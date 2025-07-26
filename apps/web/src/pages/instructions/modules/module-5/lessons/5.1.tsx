@@ -6,9 +6,68 @@ import ContextExplorer from '../../../components/ContextExplorer';
 import DebuggingChallenge from '../../../components/DebuggingChallenge';
 import SystemPromptLab from '../../../components/SystemPromptLab';
 import { useProgressStore } from '../../../../../store/progressStore';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 
 const Lesson5_1: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the primary purpose of sending the conversation history with each new user message?',
+      options: [
+        'To make the AI\'s response slower.',
+        'To provide the AI with \'context\' or short-term memory.',
+        'To log the user\'s data for advertising.',
+        'To check for spelling errors.'
+      ],
+      correctAnswer: 'To provide the AI with \'context\' or short-term memory.',
+      explanation: 'The history allows the AI to understand follow-up questions and maintain a coherent dialogue, acting as its memory for the current conversation.'
+    },
+    {
+      questionText: 'In the standard conversation structure, what are the three main `role` types?',
+      options: [
+        '`human`, `robot`, `observer`',
+        '`input`, `output`, `error`',
+        '`user`, `assistant`, `system`',
+        '`client`, `server`, `database`'
+      ],
+      correctAnswer: '`user`, `assistant`, `system`',
+      explanation: 'These three roles define who is speaking: the end-user, the AI itself, and a high-level instruction that guides the AI\'s behavior.'
+    },
+    {
+      questionText: 'What is the function of the `system` role in a conversation?',
+      options: [
+        'It represents the last message sent by the user.',
+        'It provides a high-level instruction to set the AI\'s persona and rules for the entire conversation.',
+        'It indicates an error message from the server.',
+        'It is the AI\'s final response.'
+      ],
+      correctAnswer: 'It provides a high-level instruction to set the AI\'s persona and rules for the entire conversation.',
+      explanation: 'The system prompt is a powerful tool for guiding the AI\'s tone, personality, and constraints throughout the dialogue (e.g., \'You are a pirate\').'
+    },
+    {
+      questionText: 'What does the term \'context window\' refer to?',
+      options: [
+        'The pop-up window where the chat appears.',
+        'The maximum amount of text (history + new prompt) that a model can process at one time.',
+        'The time limit for a user to respond.',
+        'The physical size of the monitor.'
+      ],
+      correctAnswer: 'The maximum amount of text (history + new prompt) that a model can process at one time.',
+      explanation: 'All models have a finite limit to their short-term memory. If a conversation becomes too long, older messages must be dropped, which can lead to the AI \'forgetting\' earlier parts of the dialogue.'
+    },
+    {
+      questionText: 'The principle of \'Garbage In, Garbage Out\' means that...',
+      options: [
+        'The AI will always give a bad response.',
+        'The quality of the AI\'s response is directly impacted by the quality and accuracy of the conversation history provided.',
+        'The AI can fix any errors in the conversation history.',
+        'You should not use a system prompt.'
+      ],
+      correctAnswer: 'The quality of the AI\'s response is directly impacted by the quality and accuracy of the conversation history provided.',
+      explanation: 'If the context sent to the model is messy, incomplete, or contains errors, the model\'s subsequent response will likely be flawed as well.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
@@ -109,6 +168,11 @@ const Lesson5_1: React.FC = () => {
           <li><strong>Garbage In, Garbage Out:</strong> The quality of your conversation history directly impacts the quality of the AI's responses. Errors in the history will lead to errors in the output.</li>
         </ul>
       </Accordion>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

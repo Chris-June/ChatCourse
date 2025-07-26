@@ -7,8 +7,67 @@ import Accordion from '../../../components/Accordion';
 import JtbdBuilder from '../../../components/JtbdBuilder';
 import FeasibilityCalculator from '../../../components/FeasibilityCalculator';
 import ImpactEffortMatrix from '../../../components/ImpactEffortMatrix';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson6_1: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the primary goal of the \'Jobs to be Done\' (JTBD) framework?',
+      options: [
+        'To focus on technology features first.',
+        'To focus on solving a specific user problem or \'job\'.',
+        'To choose the cheapest AI model available.',
+        'To build a prototype as quickly as possible.'
+      ],
+      correctAnswer: 'To focus on solving a specific user problem or \'job\'.',
+      explanation: 'JTBD forces you to start with the user\'s need, not the technology, leading to more valuable and successful products.'
+    },
+    {
+      questionText: 'Which of the following is NOT one of the key feasibility dimensions discussed in the lesson?',
+      options: [
+        'Technical Feasibility (Can we build it?)',
+        'Data Requirements (Do we have the right data?)',
+        'Marketing Strategy (How will we advertise it?)',
+        'Reliability Needs (How perfect does it need to be?)'
+      ],
+      correctAnswer: 'Marketing Strategy (How will we advertise it?)',
+      explanation: 'While marketing is important for a product, the feasibility assessment in this context focuses on the technical and ethical viability of building the AI itself.'
+    },
+    {
+      questionText: 'What is the main purpose of an Impact/Effort matrix?',
+      options: [
+        'To calculate the exact cost of a project.',
+        'To help prioritize ideas by identifying quick wins and planning for major projects.',
+        'To test the user interface of an application.',
+        'To choose which programming language to use.'
+      ],
+      correctAnswer: 'To help prioritize ideas by identifying quick wins and planning for major projects.',
+      explanation: 'The matrix provides a visual way to categorize ideas, helping teams make strategic decisions on what to work on next based on potential value versus required effort.'
+    },
+    {
+      questionText: 'The \'Wizard of Oz\' prototyping method involves...',
+      options: [
+        'Building a fully functional AI model for testing.',
+        'Manually faking the AI\'s responses to test a product idea with users before building the technology.',
+        'Hiring an intern to write the code for you.',
+        'Using a magical AI that can build any product instantly.'
+      ],
+      correctAnswer: 'Manually faking the AI\'s responses to test a product idea with users before building the technology.',
+      explanation: 'This technique allows you to get valuable user feedback on an idea\'s usefulness and user experience with minimal upfront investment in engineering.'
+    },
+    {
+      questionText: 'According to the lesson, what is the best starting point for brainstorming a new AI product?',
+      options: [
+        'Finding the biggest available dataset.',
+        'Starting with the user\'s problem (Jobs to be Done).',
+        'Listing all the features of the latest AI model.',
+        'Copying a competitor\'s product.'
+      ],
+      correctAnswer: 'Starting with the user\'s problem (Jobs to be Done).',
+      explanation: 'The core principle of the lesson is that successful products are built to solve real user needs, not just to showcase technology.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
 
   const ideaGenerationSystemPrompt = `
@@ -96,6 +155,12 @@ const Lesson6_1: React.FC = () => {
           placeholder='Try starting with: "I have an idea for an AI that helps with..."' 
           systemPrompt={ideaGenerationSystemPrompt}
         />
+      </section>
+
+      {/* Validation Quiz */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       <div className="flex justify-between pt-4">

@@ -5,6 +5,7 @@ import ZeroCotDiagram from '../../../components/ZeroCotDiagram';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const reasoningChallengeChecklist = [
   { text: 'Get the AI to correctly identify the odd numbers', completed: false },
@@ -14,6 +15,64 @@ const reasoningChallengeChecklist = [
 ];
 
 const Lesson3_1: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the defining characteristic of \'zero-shot\' prompting?',
+      options: [
+        'The prompt must contain at least one example.',
+        'The prompt provides no examples and relies on the model\'s pre-existing knowledge.',
+        'The prompt is guaranteed to get a perfect answer on the first try.',
+        'The prompt must be a question.'
+      ],
+      correctAnswer: 'The prompt provides no examples and relies on the model\'s pre-existing knowledge.',
+      explanation: 'Zero-shot prompting leverages the model\'s vast training to follow instructions for a task it hasn\'t been specifically shown examples of in the prompt.'
+    },
+    {
+      questionText: 'What is \'few-shot\' prompting?',
+      options: [
+        'A technique where you shoot down the AI\'s bad ideas.',
+        'Providing the AI with a few examples of the task within the prompt to guide its response.',
+        'Only asking the AI a few questions at a time.',
+        'A prompt that is very short.'
+      ],
+      correctAnswer: 'Providing the AI with a few examples of the task within the prompt to guide its response.',
+      explanation: 'Few-shot prompting gives the model a small number of demonstrations of the task, which helps it understand the desired output format and logic.'
+    },
+    {
+      questionText: 'When would you typically move from a zero-shot to a few-shot prompt?',
+      options: [
+        'When the AI is performing perfectly.',
+        'When the zero-shot prompt fails or produces unreliable results for your specific task.',
+        'When you want to make the prompt shorter.',
+        'When the AI asks you to.'
+      ],
+      correctAnswer: 'When the zero-shot prompt fails or produces unreliable results for your specific task.',
+      explanation: 'If the model struggles with a zero-shot instruction, providing a few examples is the logical next step to give it more guidance.'
+    },
+    {
+      questionText: 'As demonstrated in this lesson, what kind of task can be difficult for both zero-shot and few-shot prompting?',
+      options: [
+        'Simple text classification.',
+        'Translating a word from English to French.',
+        'Multi-step reasoning problems.',
+        'Writing a single sentence.'
+      ],
+      correctAnswer: 'Multi-step reasoning problems.',
+      explanation: 'The lesson shows that tasks requiring a logical sequence of steps (like the odd number problem) can fail even with examples, indicating the need for more advanced techniques.'
+    },
+    {
+      questionText: 'What is the main advantage of a model having strong zero-shot capabilities?',
+      options: [
+        'It can perform a wide variety of tasks without needing specific examples in the prompt.',
+        'It will never make a mistake.',
+        'It can read your mind.',
+        'It responds much faster than other models.'
+      ],
+      correctAnswer: 'It can perform a wide variety of tasks without needing specific examples in the prompt.',
+      explanation: 'Strong zero-shot performance means the model is highly generalized and can follow instructions for new tasks effectively, making it more versatile and easier to use.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
@@ -194,6 +253,11 @@ A:`}</code>
           />
         </div>
       </Accordion>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

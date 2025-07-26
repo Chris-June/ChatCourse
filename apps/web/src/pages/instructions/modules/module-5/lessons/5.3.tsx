@@ -3,8 +3,67 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Zap, ChevronsRight, SlidersHorizontal } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson5_3: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the main benefit of streaming an AI\'s response token by token?',
+      options: [
+        'It makes the model generate the full response faster.',
+        'It improves the user\'s *perception* of speed by showing activity immediately.',
+        'It reduces the overall cost of the API call.',
+        'It allows the model to use a larger context window.'
+      ],
+      correctAnswer: 'It improves the user\'s *perception* of speed by showing activity immediately.',
+      explanation: 'Streaming doesn\'t change the total generation time, but it dramatically improves user experience by providing immediate feedback instead of a long wait for the full response.'
+    },
+    {
+      questionText: 'According to the lesson, when is it most appropriate to use a \'Tier 1: Fast & Light\' model?',
+      options: [
+        'For writing a complex legal document.',
+        'For simple classification or basic data extraction tasks.',
+        'For multi-step agentic workflows.',
+        'When you need the most creative and nuanced response possible.'
+      ],
+      correctAnswer: 'For simple classification or basic data extraction tasks.',
+      explanation: 'The smallest, fastest models are ideal for tasks that don\'t require deep reasoning, where speed and low cost are the highest priorities.'
+    },
+    {
+      questionText: 'Which of the following is a primary benefit of caching AI responses?',
+      options: [
+        'It ensures the AI provides a different answer every time.',
+        'It dramatically reduces latency and cost for common or repeated questions.',
+        'It helps the AI learn from user interactions.',
+        'It increases the security of the application.'
+      ],
+      correctAnswer: 'It dramatically reduces latency and cost for common or repeated questions.',
+      explanation: 'By storing the answer to a question that has been asked before, caching avoids the need to perform the expensive generation process again, saving both time and money.'
+    },
+    {
+      questionText: 'For which of these tasks would a \'Tier 3: Max Power\' model be the best choice?',
+      options: [
+        'Checking if an email is spam.',
+        'Extracting a date from a sentence.',
+        'Powering a complex agent that needs to plan and execute multi-step tasks.',
+        'Answering a simple FAQ.'
+      ],
+      correctAnswer: 'Powering a complex agent that needs to plan and execute multi-step tasks.',
+      explanation: 'The most powerful (and expensive) models are reserved for tasks that require deep reasoning, planning, and a nuanced understanding of complex goals.'
+    },
+    {
+      questionText: 'Which of these is NOT a performance optimization strategy discussed in this lesson?',
+      options: [
+        'Response Streaming',
+        'Choosing the right model for the task',
+        'Fine-tuning the model with new data',
+        'Caching common responses'
+      ],
+      correctAnswer: 'Fine-tuning the model with new data',
+      explanation: 'While fine-tuning is a powerful technique for improving a model\'s *quality* on specific tasks, this lesson focused on performance strategies like streaming, model selection, and caching.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   const classificationAgentPrompt = `You are an expert AI Classification Agent. Your task is to analyze a user's request and recommend the most appropriate model tier based on the following criteria:
 - **Tier 1: Fast & Light**: Best for simple classification, basic extraction, or tasks where speed is the absolute priority.
@@ -14,7 +73,7 @@ Based on the user's query, state which tier is the best fit and briefly explain 
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">5.3 Debugging Exercises</h1>
+        <h1 className="text-3xl font-bold text-blue-400">5.3: Performance Optimization</h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-5/5.2" 
@@ -135,6 +194,12 @@ response.body.on('end', () => {
           placeholder='Try asking: "What kind of model should I use for a simple email classifier?"' 
           systemPrompt={classificationAgentPrompt}
         />
+      </section>
+
+      {/* Validation Quiz */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       {/* Navigation */}

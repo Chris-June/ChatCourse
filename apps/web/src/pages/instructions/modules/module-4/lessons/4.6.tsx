@@ -5,8 +5,67 @@ import Accordion from '../../../components/Accordion';
 import MCPArchitectureDiagram from '../../../components/MCPArchitectureDiagram';
 import MCPServerExplorer from '../../../components/MCPServerExplorer';
 import AgentPlannerExercise from '../../../components/AgentPlannerExercise';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson4_6: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the primary role of an MCP Server, using the \'App Store for Agents\' analogy?',
+      options: [
+        'To run the core AI model itself.',
+        'To provide a standardized and secure gateway for an agent to discover and use external tools.',
+        'To store the agent\'s long-term memory.',
+        'To create the user interface for the chat application.'
+      ],
+      correctAnswer: 'To provide a standardized and secure gateway for an agent to discover and use external tools.',
+      explanation: 'The MCP server acts as a secure middleman, abstracting away API complexities and providing a clean, discoverable \'store\' of tools for the agent.'
+    },
+    {
+      questionText: 'Which of the following is a key SECURITY benefit of using an MCP server?',
+      options: [
+        'It makes the agent\'s responses faster.',
+        'It allows the agent to use more tools.',
+        'It isolates sensitive API keys on the server, so they are never exposed to the model or client.',
+        'It makes the tool descriptions easier for the model to read.'
+      ],
+      correctAnswer: 'It isolates sensitive API keys on the server, so they are never exposed to the model or client.',
+      explanation: 'Credential isolation is a critical security feature. The agent asks the MCP server to use a tool, and the server uses the stored API key, preventing leaks.'
+    },
+    {
+      questionText: 'What does the principle of \'discoverability\' allow an agent to do?',
+      options: [
+        'Guess which tools might be available.',
+        'Dynamically query a server to get a list of available tools and their usage instructions.',
+        'Discover new AI models on the internet.',
+        'Read the server\'s source code to find tools.'
+      ],
+      correctAnswer: 'Dynamically query a server to get a list of available tools and their usage instructions.',
+      explanation: 'Discoverability enables agents to be flexible and powerful, as they can learn about and use new tools without being explicitly reprogrammed.'
+    },
+    {
+      questionText: 'Why is it a best practice to design tools to be \'idempotent\'',
+      options: [
+        'So they run faster.',
+        'So they can only be called one time.',
+        'So that calling them multiple times with the same input produces the same result without causing issues.',
+        'So they are easier for the agent to discover.'
+      ],
+      correctAnswer: 'So that calling them multiple times with the same input produces the same result without causing issues.',
+      explanation: 'Idempotency makes an agent more reliable. If an operation is interrupted, the agent can safely retry it without causing duplicate actions or errors.'
+    },
+    {
+      questionText: 'In the GitHub example, before creating an issue, a more advanced agent might first check for duplicates. This is an example of what?',
+      options: [
+        'Making a tool less idempotent.',
+        'Ignoring the user\'s request.',
+        'Building in pre-condition checks to make the agent more reliable and efficient.',
+        'Violating the principle of least privilege.'
+      ],
+      correctAnswer: 'Building in pre-condition checks to make the agent more reliable and efficient.',
+      explanation: 'Production-ready agents don\'t just follow the \'happy path.\' They perform validation steps to handle edge cases and prevent errors, making them more robust.'
+    }
+  ];
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -181,6 +240,11 @@ const Lesson4_6: React.FC = () => {
           }}
         />
       </Accordion>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

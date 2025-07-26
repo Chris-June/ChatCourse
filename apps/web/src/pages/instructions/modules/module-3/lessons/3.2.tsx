@@ -6,6 +6,7 @@ import AutoDemosDiagram from '../../../components/AutoDemosDiagram';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const zeroShotCoTChallengeChecklist = [
   { text: 'Pose a multi-step reasoning problem to the AI', completed: false },
@@ -15,6 +16,64 @@ const zeroShotCoTChallengeChecklist = [
 ];
 
 const Lesson3_2: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'What is the core principle of Chain-of-Thought (CoT) prompting?',
+      options: [
+        'To chain multiple prompts together in a single API call.',
+        'To provide examples that include intermediate reasoning steps, showing the model \'how\' to think.',
+        'To ask the AI a long chain of questions.',
+        'To use the shortest prompt possible.'
+      ],
+      correctAnswer: 'To provide examples that include intermediate reasoning steps, showing the model \'how\' to think.',
+      explanation: 'CoT works by explicitly showing the model the process of reasoning, which helps it tackle complex, multi-step problems more reliably.'
+    },
+    {
+      questionText: 'In the lesson, how did CoT prompting succeed where few-shot prompting failed?',
+      options: [
+        'It used more examples.',
+        'It used a bigger AI model.',
+        'It broke down the problem by first adding the odd numbers and then stating the answer.',
+        'It told the AI it was wrong.'
+      ],
+      correctAnswer: 'It broke down the problem by first adding the odd numbers and then stating the answer.',
+      explanation: 'By demonstrating the reasoning path (summing the numbers first), the model could replicate the logic and arrive at the correct final answer.'
+    },
+    {
+      questionText: 'What simple phrase is the key to enabling Zero-Shot CoT?',
+      options: [
+        '\'Please be smart.\'',
+        '\'Give me the answer now.\'',
+        '\'Let\'s think step by step.\'',
+        '\'Show your work.\''
+      ],
+      correctAnswer: '`Let\'s think step by step.`',
+      explanation: 'This specific phrase is remarkably effective at triggering a model to output its reasoning process before giving a final answer, even without prior examples.'
+    },
+    {
+      questionText: 'When is Zero-Shot CoT most useful?',
+      options: [
+        'For simple tasks that don\'t require reasoning.',
+        'When you have many examples to include in your prompt.',
+        'When you need to solve a reasoning task but don\'t have examples to use for few-shot prompting.',
+        'When you want the shortest possible answer from the AI.'
+      ],
+      correctAnswer: 'When you need to solve a reasoning task but don\'t have examples to use for few-shot prompting.',
+      explanation: 'Its main advantage is enabling reasoning without the need to craft detailed examples, making it a powerful and efficient technique.'
+    },
+    {
+      questionText: 'What problem does Automatic Chain-of-Thought (Auto-CoT) aim to solve?',
+      options: [
+        'It makes the AI write the initial question for you.',
+        'It eliminates the need for prompts entirely.',
+        'It automates the manual, time-consuming process of creating diverse and effective examples for CoT prompting.',
+        'It automatically corrects your spelling.'
+      ],
+      correctAnswer: 'It automates the manual, time-consuming process of creating diverse and effective examples for CoT prompting.',
+      explanation: 'Auto-CoT helps scale the creation of high-quality CoT demonstrations by using the LLM itself to generate the reasoning chains for a diverse set of questions.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
@@ -97,6 +156,11 @@ const Lesson3_2: React.FC = () => {
         <AutoDemosDiagram />
         <p className="text-center text-sm text-gray-500 mt-2">Image Source: Zhang et al. (2022)</p>
       </Accordion>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

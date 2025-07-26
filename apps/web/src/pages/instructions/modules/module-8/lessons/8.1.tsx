@@ -3,8 +3,67 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Scale, ShieldCheck, Lightbulb } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const Lesson8_1: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'An AI model trained on 10 years of hiring data from a company that historically hired men for engineering roles is most likely to suffer from which type of bias?',
+      options: [
+        'Measurement Bias',
+        'Representation Bias',
+        'Historical Bias',
+        'No bias at all'
+      ],
+      correctAnswer: 'Historical Bias',
+      explanation: 'Historical bias occurs when the data reflects past prejudices or societal imbalances, even if the world has changed. The model learns and perpetuates these old patterns.'
+    },
+    {
+      questionText: 'What is the main problem with \'Representation Bias\'?',
+      options: [
+        'The model represents the data too perfectly.',
+        'The training data under-represents certain groups, leading to poor performance for those groups.',
+        'The data is measured incorrectly.',
+        'The model is too large.'
+      ],
+      correctAnswer: 'The training data under-represents certain groups, leading to poor performance for those groups.',
+      explanation: 'If a group is not well-represented in the training data, the model will not learn its features effectively and will fail to perform accurately for that group.'
+    },
+    {
+      questionText: 'Which of the following is a proactive strategy to mitigate AI bias?',
+      options: [
+        'Hoping the model figures it out on its own.',
+        'Auditing the training data for skews and implementing fairness metrics to monitor performance.',
+        'Using a smaller dataset.',
+        'Ignoring user complaints about fairness.'
+      ],
+      correctAnswer: 'Auditing the training data for skews and implementing fairness metrics to monitor performance.',
+      explanation: 'Responsible AI development requires proactive, intentional steps. Auditing data and monitoring with fairness metrics are key strategies to identify and reduce bias.'
+    },
+    {
+      questionText: 'The goal of \'Adversarial Debiasing\' is to...',
+      options: [
+        'Make the model more biased.',
+        'Make the model worse at its primary task.',
+        'Train the model to be unable to predict a sensitive attribute (like gender or race), forcing it to learn less biased representations.',
+        'Make the model an adversary to the user.'
+      ],
+      correctAnswer: 'Train the model to be unable to predict a sensitive attribute (like gender or race), forcing it to learn less biased representations.',
+      explanation: 'This technique essentially penalizes the model for learning correlations related to sensitive attributes, pushing it to focus on more relevant, unbiased features.'
+    },
+    {
+      questionText: 'Why is fairness in AI not just a technical problem, but an ethical imperative?',
+      options: [
+        'Because biased AI systems can cause real-world harm and reinforce societal inequities.',
+        'Because fair models are always cheaper to build.',
+        'Because it is an easy problem to solve.',
+        'Because fairness is not actually important.'
+      ],
+      correctAnswer: 'Because biased AI systems can cause real-world harm and reinforce societal inequities.',
+      explanation: 'AI systems make decisions that can significantly impact people\'s lives (e.g., hiring, loans). Ensuring they are fair is a fundamental ethical responsibility.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   const ethicsReviewerPrompt = `You are an AI Ethics and Fairness expert. Your task is to review a user's proposed strategy for mitigating bias in an AI-powered resume screening tool.
 
@@ -20,7 +79,7 @@ When a user submits their mitigation strategy, follow these steps:
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">8.1 Capstone Project</h1>
+        <h1 className="text-3xl font-bold text-blue-400">8.1 Fairness & Bias in AI</h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-7/7.3" 
@@ -93,6 +152,12 @@ When a user submits their mitigation strategy, follow these steps:
         </div>
       </section>
 
+      {/* Validation Quiz */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
+
       <div className="flex justify-between pt-4">
         <Link 
           to="/instructions/module-7/7.3" 
@@ -105,7 +170,7 @@ When a user submits their mitigation strategy, follow these steps:
           onClick={() => completeLesson(8, 1)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Next:Explainability <ChevronRight className="w-5 h-5 ml-2" />
+          Next: Explainability <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>

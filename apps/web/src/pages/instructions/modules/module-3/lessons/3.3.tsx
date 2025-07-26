@@ -5,6 +5,7 @@ import CopyButton from '../../../../../components/CopyButton';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
+import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const jsonChallengeChecklist = [
   { text: 'Ask the AI to extract specific pieces of information from a sentence', completed: false },
@@ -28,6 +29,64 @@ const structuredListChallengeChecklist = [
 ];
 
 const Lesson3_3: React.FC = () => {
+  const quizQuestions = [
+    {
+      questionText: 'Why is requesting structured output (like JSON) from an AI useful for applications?',
+      options: [
+        'It makes the AI\'s response longer and more detailed.',
+        'It provides predictable, machine-readable data that can be easily used in code.',
+        'It\'s the only way to get a correct answer from the AI.',
+        'It makes the AI\'s response look nicer.'
+      ],
+      correctAnswer: 'It provides predictable, machine-readable data that can be easily used in code.',
+      explanation: 'Structured data has a consistent format, which allows your application to reliably parse and use the information, for example, to populate a UI component or store in a database.'
+    },
+    {
+      questionText: 'If you want the AI to return a list of items as a JSON array, what should you specify in your prompt?',
+      options: [
+        'Just ask for a list and hope for the best.',
+        'Ask for a \'computer list\'.',
+        'Explicitly ask for a JSON array and define the schema for the objects inside (e.g., keys like \'title\', \'description\').',
+        'Tell the AI to write JavaScript code.'
+      ],
+      correctAnswer: 'Explicitly ask for a JSON array and define the schema for the objects inside (e.g., keys like \'title\', \'description\').',
+      explanation: 'Being explicit is key. The more specific you are about the format (JSON array) and the structure of each item (the object keys), the more likely you are to get the exact output you need.'
+    },
+    {
+      questionText: 'What is a good use case for asking an AI to generate Markdown?',
+      options: [
+        'Calculating a complex math problem.',
+        'Generating a user\'s authentication token.',
+        'Creating a formatted report with tables, headings, and lists that can be rendered directly in a UI.',
+        'Storing secret API keys.'
+      ],
+      correctAnswer: 'Creating a formatted report with tables, headings, and lists that can be rendered directly in a UI.',
+      explanation: 'Markdown is a lightweight markup language perfect for creating rich text content like documentation, blog posts, or formatted messages.'
+    },
+    {
+      questionText: 'What is a key best practice when prompting for JSON output?',
+      options: [
+        'Using vague and ambiguous key names.',
+        'Hoping the AI guesses the format you want.',
+        'Being explicit about the desired format, defining the keys, and providing an example if possible.',
+        'Writing the prompt in all capital letters.'
+      ],
+      correctAnswer: 'Being explicit about the desired format, defining the keys, and providing an example if possible.',
+      explanation: 'Clarity and specificity are crucial. Telling the AI exactly what you want (including an example) dramatically increases the reliability of the structured output.'
+    },
+    {
+      questionText: 'Asking for structured output is like giving the AI a form to fill out, while asking for raw text is like...',
+      options: [
+        '...asking it to solve a math equation.',
+        '...asking it to write an essay.',
+        '...asking it to shut down.',
+        '...asking it to draw a picture.'
+      ],
+      correctAnswer: '...asking it to write an essay.',
+      explanation: 'This analogy highlights the difference between unstructured, free-form responses (an essay) and predictable, structured responses (a filled-out form), which are much easier for an application to process.'
+    }
+  ];
+
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
@@ -220,6 +279,11 @@ Bio: "Sarah, a 28-year-old software engineer from Toronto, Canada, is skilled in
         />
         <p className="text-gray-400 mt-3">This kind of structured output can be directly used to populate a UI component in an application.</p>
       </Accordion>
+
+      {/* Validation Quiz */}
+      <section className="mt-8">
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">
