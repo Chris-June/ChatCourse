@@ -160,7 +160,7 @@ const SettingsModal = () => {
                   <Input
                     id="api-key"
                     type="password"
-                    placeholder="sk-..."
+                    placeholder="sk-... This Feature is Coming Soon"
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
                     className="bg-zinc-800 border-zinc-700 text-white flex-1"
