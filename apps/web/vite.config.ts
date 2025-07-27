@@ -16,14 +16,14 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      proxy: {
+      proxy: process.env.NODE_ENV === 'development' ? {
         '/api': {
           target: env.VITE_API_URL || 'http://localhost:3000',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '/api'),
           secure: false,
         },
-      },
+      } : undefined,
       port: 3001,
       strictPort: true,
     },

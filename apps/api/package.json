@@ -1,11 +1,13 @@
 {
-  "name": "api",
+  "name": "@chat/api",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "main": "handler.ts",
   "scripts": {
-    "dev": "NODE_ENV=development tsx watch handler.ts"
+    "dev": "NODE_ENV=development tsx watch handler.ts",
+    "start": "node handler.js",
+    "build": "tsc --build"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
@@ -14,7 +16,8 @@
     "tiktoken": "^1.0.21"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
+    "@types/express": "^4.17.23",
+    "@types/node": "^24.1.0",
     "tsx": "^4.10.2",
     "typescript": "^5.4.5"
   }

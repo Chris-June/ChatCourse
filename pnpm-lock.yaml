@@ -52,7 +52,7 @@ importers:
         specifier: ^7.0.2
         version: 7.0.6(@types/node@16.18.11)(jiti@1.21.7)(tsx@4.20.3)(yaml@2.8.0)
 
-  api:
+  apps/api:
     dependencies:
       dotenv:
         specifier: ^16.4.5
@@ -68,8 +68,11 @@ importers:
         version: 1.0.21
     devDependencies:
       '@types/express':
-        specifier: ^4.17.21
+        specifier: ^4.17.23
         version: 4.17.23
+      '@types/node':
+        specifier: ^24.1.0
+        version: 24.1.0
       tsx:
         specifier: ^4.10.2
         version: 4.20.3
@@ -4722,7 +4725,7 @@ snapshots:
 
   '@types/node-fetch@2.6.12':
     dependencies:
-      '@types/node': 18.19.120
+      '@types/node': 24.1.0
       form-data: 4.0.4
 
   '@types/node@16.18.11': {}

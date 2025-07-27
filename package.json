@@ -6,14 +6,15 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently \"pnpm --filter web dev\" \"pnpm --filter api dev\"",
-    "build": "pnpm --filter web build && pnpm --filter api install",
-    "start": "pnpm --filter api start",
+    "dev": "concurrently \"pnpm --filter web dev\" \"pnpm --filter @chat/api dev\"",
+    "build": "pnpm --filter web build && pnpm --filter @chat/api install",
+    "start": "pnpm --filter @chat/api start",
     "lint": "eslint . --ext .ts,.tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write ."
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
   },
   "devDependencies": {
     "@vercel/node": "^5.3.4",
