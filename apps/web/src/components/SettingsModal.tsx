@@ -3,6 +3,8 @@
  * @description A modal component for displaying and managing user settings.
  */
 
+import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 import {
   Dialog,
   DialogContent,
@@ -22,7 +24,7 @@ import {
   Input,
   Button,
 } from '@chat/ui';
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, Save } from 'lucide-react';
 import { useChatStore } from '../store/chat';
 import { models, modelFamilies } from '@/lib/models';
 
@@ -45,6 +47,32 @@ const SettingsModal = () => {
     theme,
     toggleTheme,
   } = useChatStore();
+  
+  const [localApiKey, setLocalApiKey] = useState(apiKey);
+  const [isSaving, setIsSaving] = useState(false);
+  
+  // Update local state when apiKey changes
+  useEffect(() => {
+    setLocalApiKey(apiKey);
+  }, [apiKey]);
+  
+  const handleSave = () => {
+    setIsSaving(true);
+    // Update the API key in the store
+    setApiKey(localApiKey);
+    
+    // Show success toast
+    toast.success('Settings saved successfully!', {
+      description: 'Your API key and preferences have been saved.',
+      duration: 3000,
+    });
+    
+    // Close the settings after a short delay
+    setTimeout(() => {
+      setIsSaving(false);
+      toggleSettings();
+    }, 1000);
+  };
 
     return (
     <Dialog open={isSettingsOpen} onOpenChange={toggleSettings}>
@@ -156,25 +184,40 @@ const SettingsModal = () => {
                     Get your API key
                   </a>
                 </div>
-                <div className="flex gap-2">
+                <div className="space-y-2">
+                  <Label htmlFor="apiKey">OpenAI API Key</Label>
                   <Input
-                    id="api-key"
+                    id="apiKey"
                     type="password"
                     placeholder="sk-..."
-                    value={apiKey}
-                    onChange={(e) => setApiKey(e.target.value)}
-                    className="bg-zinc-800 border-zinc-700 text-white flex-1"
+                    value={localApiKey || ''}
+                    onChange={(e) => setLocalApiKey(e.target.value)}
+                    className="w-full"
                   />
-                  <Button
-                    type="button"
+                  <p className="text-xs text-muted-foreground">
+                    Your API key is stored locally in your browser.
+                  </p>
+                </div>
+
+                <div className="flex justify-end gap-2 pt-4">
+                  <Button 
                     variant="outline"
-                    onClick={() => setApiKey('')}
-                    className="whitespace-nowrap"
-                    disabled={!apiKey}
+                    size="sm"
+                    onClick={() => setLocalApiKey('')}
+                    disabled={!localApiKey}
                   >
-                    Clear API Key
+                    Clear
+                  </Button>
+                  <Button 
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className="gap-2"
+                  >
+                    <Save className="h-4 w-4" />
+                    {isSaving ? 'Saving...' : 'Save Settings'}
                   </Button>
                 </div>
+
                 <p className="text-xs text-gray-400">
                   Your API key is stored locally in your browser and never sent to our servers. For testing purposes, you will need to add a payment option to your OpenAI account. We find that most testers spend less than $10.00 in API Credits for this project.
                 </p>
