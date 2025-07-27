@@ -15,11 +15,7 @@
   ],
   "routes": [
     {
-      "src": "/chat/(.*)",
-      "dest": "apps/api/vercel.ts"
-    },
-    {
-      "src": "/chat",
+      "src": "/api/(.*)",
       "dest": "apps/api/vercel.ts"
     },
     {

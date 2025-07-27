@@ -104,8 +104,8 @@ const ChatInterface = () => {
       
       // In production, use relative URL, in development use localhost
       const endpoint = isProduction 
-        ? '/chat'  // Correct relative URL for production
-        : 'http://localhost:3000/chat'; // Use consistent path for development
+        ? '/api/chat'  // Revert to standard /api prefix for production
+        : 'http://localhost:3000/api/chat'; // Revert for development consistency
       
       console.log('API Endpoint:', endpoint); // For debugging
       
