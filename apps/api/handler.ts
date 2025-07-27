@@ -84,19 +84,33 @@ app.use((req, res, next) => {
     'http://localhost:3000',
     'http://localhost:3001',
     'https://*.vercel.app',
-    'https://*.intellisync.chat'
+    'https://*.intellisync.chat',
+    'https://chat-dlvm2mvuz-chris-junes-projects-c32d49c9.vercel.app' // Add your production URL
   ];
   
   const origin = req.headers.origin || '';
   
   // Set CORS headers
   if (process.env.NODE_ENV === 'production') {
-    // In production, only allow requests from known origins
-    if (allowedOrigins.some(allowedOrigin => 
-      origin === allowedOrigin || 
-      origin.endsWith(allowedOrigin.replace('*.', '.'))
-    )) {
+    // In production, check against allowed origins
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      // Handle wildcard domains
+      if (allowedOrigin.includes('*')) {
+        const domain = allowedOrigin.replace('*', '');
+        return origin.endsWith(domain) || origin === domain;
+      }
+      return origin === allowedOrigin;
+    });
+    
+    if (isAllowed) {
       res.setHeader('Access-Control-Allow-Origin', origin);
+    } else if (origin) {
+      // For debugging - log blocked origins
+      console.log('Blocked origin:', origin);
+      // Consider being more permissive in development
+      if (process.env.NODE_ENV !== 'production') {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+      }
     }
   } else {
     // In development, allow all origins
@@ -107,6 +121,9 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  // Expose headers if needed
+  res.setHeader('Access-Control-Expose-Headers', 'Content-Length,Content-Range');
 
   // Handle preflight requests
   if (req.method === 'OPTIONS') {
