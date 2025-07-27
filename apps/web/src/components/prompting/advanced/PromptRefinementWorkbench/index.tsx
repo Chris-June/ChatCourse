@@ -42,17 +42,25 @@ const PromptRefinementWorkbench: React.FC = () => {
         apiKey: localStorage.getItem('openai_api_key'),
       });
 
-      if (!result.ok) {
-        // Handle error appropriately in a real app
-        console.error('API call failed');
+      if (!result) {
+        console.error('API call failed: No response received');
         return;
       }
 
-      const feedback = await result.json();
+      const feedback = result;
+
+      // Ensure the feedback has the expected structure
+      const formattedFeedback = {
+        clarity: feedback.clarity || 0,
+        specificity: feedback.specificity || 0,
+        improvements: Array.isArray(feedback.improvements) 
+          ? feedback.improvements 
+          : ['No specific suggestions available']
+      };
 
       const newVersion: PromptVersion = {
         prompt: currentPrompt,
-        feedback,
+        feedback: formattedFeedback,
         id: versions.length + 1,
         timestamp: new Date(),
       };

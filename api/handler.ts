@@ -193,9 +193,18 @@ app.post('/api/chat/visualize-prompt', async (req, res) => {
 
 // Handler for PromptChallenges
 app.post('/api/chat/evaluate-challenge', async (req, res) => {
-  const { userPrompt, challenge, successCriteria, apiKey } = req.body;
+  const { userPrompt, challenge, successCriteria } = req.body;
   if (!userPrompt || !challenge || !successCriteria) {
     return res.status(400).json({ error: 'User prompt, challenge description, and success criteria are required.' });
+  }
+  
+  // Use environment variable for API key, with fallback to request body for backward compatibility
+  const apiKey = process.env.OPENAI_API_KEY || req.body.apiKey;
+  
+  if (!apiKey) {
+    return res.status(401).json({ 
+      error: 'API key is required. Please set the OPENAI_API_KEY environment variable on the server.' 
+    });
   }
 
   const openai = new OpenAI({
@@ -300,9 +309,18 @@ app.get('/api/chat/get-patterns', (_req, res) => {
 
 // Handler for PromptRefinementWorkbench
 app.post('/api/chat/refine-prompt', async (req, res) => {
-  const { prompt, apiKey } = req.body;
+  const { prompt } = req.body;
   if (!prompt) {
     return res.status(400).json({ error: 'A prompt is required for analysis.' });
+  }
+  
+  // Use environment variable for API key, with fallback to request body for backward compatibility
+  const apiKey = process.env.OPENAI_API_KEY || req.body.apiKey;
+  
+  if (!apiKey) {
+    return res.status(401).json({ 
+      error: 'API key is required. Please set the OPENAI_API_KEY environment variable on the server.' 
+    });
   }
 
   const openai = new OpenAI({
@@ -448,10 +466,16 @@ const getApiKey = (req: express.Request): string | null => {
 
 app.post('/api/chat', async (req, res) => {
   const { messages, model: requestedModel, customInstructions, temperature, top_p } = req.body;
-  const apiKey = getApiKey(req) || req.body.apiKey; // Fallback to body for backward compatibility
+  
+  // Use environment variable for API key, with fallback to request header/body for backward compatibility
+  const apiKey = process.env.OPENAI_API_KEY || getApiKey(req) || req.body.apiKey;
   
   if (!apiKey) {
-    return res.status(401).json({ error: { message: 'API key is required. Please provide it in the Authorization header.' } });
+    return res.status(401).json({ 
+      error: { 
+        message: 'API key is required. Please set the OPENAI_API_KEY environment variable on the server.' 
+      } 
+    });
   }
 
   if (!messages) {

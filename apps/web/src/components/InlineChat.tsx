@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Send, Loader, X, AlertCircle, CheckCircle, Circle } from 'lucide-react';
+import { Send, Loader, X, AlertCircle, CheckCircle, Circle as CircleIcon } from 'lucide-react';
 
 type RateLimitStatus = {
   count: number;
@@ -48,9 +48,9 @@ const InlineChat: React.FC<InlineChatProps> = ({
     return baseMessages;
   });
   const [isLoading, setIsLoading] = useState(false);
-
   const [rateLimited, setRateLimited] = useState<boolean>(false);
   const [checklist, setChecklist] = useState<ChallengeChecklistItem[]>([]);
+  const userFollowUps = messages.filter(m => m.role === 'user').length - initialMessages.filter(m => m.role === 'user').length;
 
   const loadRateLimitState = useCallback(() => {
     try {
@@ -114,8 +114,6 @@ const InlineChat: React.FC<InlineChatProps> = ({
     }
   };
 
-  const userFollowUps = messages.filter(m => m.role === 'user').length - initialMessages.filter(m => m.role === 'user').length;
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!prompt.trim() || isLoading || rateLimited) return;
@@ -132,6 +130,7 @@ const InlineChat: React.FC<InlineChatProps> = ({
     setIsLoading(true);
 
     try {
+
       // Use the same API endpoint as ChatInterface
       const apiBaseUrl = import.meta.env.VITE_API_BASE_URL === '/api' 
         ? '' 
@@ -140,17 +139,27 @@ const InlineChat: React.FC<InlineChatProps> = ({
         ? `${apiBaseUrl}${apiBaseUrl.endsWith('/') ? '' : '/'}api/chat`
         : '/api/chat';
       
+      const headers: HeadersInit = { 
+        'Content-Type': 'application/json'
+      };
+
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({
           messages: newMessages,
           model: 'gpt-4o-mini', // Default model for inline chat
           customInstructions: systemPrompt,
           temperature: 0.7,
-          top_p: 1,
+          top_p: 1
+          // API key will be handled by the server using environment variables
         }),
       });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to get a response from the server');
+      }
 
       if (!response.body) throw new Error('No response body');
 
@@ -202,20 +211,22 @@ const InlineChat: React.FC<InlineChatProps> = ({
         }
       }
     } catch (error) {
-      console.error('API request failed:', error);
-      
-      // Provide more specific error messages
+      console.error('Error:', error);
       let errorMessage = 'I apologize, but I\'m having trouble connecting to the AI service.';
       
-      if (error instanceof TypeError && error.message.includes('fetch')) {
-        errorMessage = 'Unable to connect to the AI service. Please ensure the backend server is running and try again.';
-      } else if (error instanceof Error && error.message.includes('404')) {
-        errorMessage = 'The AI service endpoint could not be found. Please check the server configuration.';
+      if (error instanceof Error) {
+        if (error.message.includes('API key')) {
+          errorMessage = 'API key error: ' + error.message;
+        } else if (error.message.includes('network')) {
+          errorMessage = 'Network error: Unable to connect to the server. Please check your internet connection.';
+        } else {
+          errorMessage = error.message || errorMessage;
+        }
       }
       
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: errorMessage 
+        content: `Error: ${errorMessage}` 
       }]);
     } finally {
       setIsLoading(false);
@@ -232,7 +243,7 @@ const InlineChat: React.FC<InlineChatProps> = ({
           <ul className="space-y-2">
             {checklist.map((item, index) => (
               <li key={index} className={`flex items-center text-sm transition-colors ${item.completed ? 'text-green-400' : 'text-gray-400'}`}>
-                {item.completed ? <CheckCircle className="w-4 h-4 mr-2 flex-shrink-0" /> : <Circle className="w-4 h-4 mr-2 flex-shrink-0" />}
+                {item.completed ? <CheckCircle className="w-4 h-4 mr-2 flex-shrink-0" /> : <CircleIcon className="w-4 h-4 mr-2 flex-shrink-0" />}
                 <span className={item.completed ? 'line-through' : ''}>{item.text}</span>
               </li>
             ))}
