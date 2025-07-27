@@ -191,7 +191,10 @@ const Lesson3_3: React.FC = () => {
           <p className="text-gray-400 mb-4">Try extracting structured data from a sentence. Ask for a JSON object with specific keys.</p>
           <InlineChat 
             moduleId="module-3.3-json-extraction"
-            placeholder="Extract user info from a sentence into JSON..." 
+            maxAttempts={5}
+            maxFollowUps={2}
+            placeholder="Request user info from a sentence into JSON format..."
+            systemPrompt="You are a helpful AI assistant. The user is learning about structured data extraction. When they provide a sentence, extract the relevant information into a well-formatted JSON object. If they don't specify the keys, suggest a structure. Always validate the JSON before returning it. If the input is ambiguous, ask for clarification."
             challengeChecklist={jsonChallengeChecklist}
           />
         </div>
@@ -263,7 +266,10 @@ Bio: "Sarah, a 28-year-old software engineer from Toronto, Canada, is skilled in
             <p className="text-gray-400 mb-4">Ask the AI to generate a response formatted in Markdown. Try asking for a bulleted list, a numbered list, or a table.</p>
             <InlineChat 
               moduleId="module-3.3-markdown"
-              placeholder="Ask for a markdown table or list..." 
+              maxAttempts={5}
+              maxFollowUps={2}
+              placeholder="Ask for a markdown table or list..."
+              systemPrompt="You are a helpful AI assistant. The user is learning about Markdown formatting. When they ask for content, respond with properly formatted Markdown. Include various elements like headers, lists, tables, and code blocks as appropriate. If they don't specify the format, use your best judgment to create a well-structured response."
               challengeChecklist={markdownChallengeChecklist}
             />
           </div>
@@ -274,7 +280,10 @@ Bio: "Sarah, a 28-year-old software engineer from Toronto, Canada, is skilled in
         <p className="text-gray-300 mb-4">Use the chat window below to ask the AI to generate a list of project ideas for a new web developer. Specify that the output should be a JSON array of objects, each with a 'title' and a 'description'.</p>
         <InlineChat 
           moduleId="module-3.3-structured-output"
-          placeholder="Generate a list of 3 project ideas for a beginner..." 
+          maxAttempts={5}
+          maxFollowUps={2}
+          placeholder="Generate a list of 3 project ideas for a beginner..."
+          systemPrompt="You are a helpful AI assistant. The user is learning about generating structured data. When they ask for a list, respond with a properly formatted JSON array of objects. Each object should have 'title' and 'description' keys. If they don't specify the structure, use this format by default. Always validate the JSON before returning it."
           challengeChecklist={structuredListChallengeChecklist}
         />
         <p className="text-gray-400 mt-3">This kind of structured output can be directly used to populate a UI component in an application.</p>

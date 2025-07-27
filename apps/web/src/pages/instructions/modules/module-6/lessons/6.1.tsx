@@ -84,6 +84,14 @@ const Lesson6_1: React.FC = () => {
     Keep your responses encouraging, concise, and focused on coaching. End each response with a question to keep the conversation moving.
   `;
 
+  const ideaGenerationChecklist = [
+    { text: 'I have a clear Jobs to be Done statement that follows the "When... I want to... so I can..." format', completed: false },
+    { text: 'I have considered the technical feasibility of my idea', completed: false },
+    { text: 'I have thought about the data requirements and ethical considerations', completed: false },
+    { text: 'I have evaluated where my idea falls on the Impact/Effort matrix', completed: false },
+    { text: 'I have received feedback on how to improve my idea', completed: false }
+  ];
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -149,11 +157,20 @@ const Lesson6_1: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Now, it's your turn. Use the chat window below to brainstorm with your AI Product Coach. Describe an idea for an AI product or feature, and the coach will guide you through the frameworks from this lesson.
         </p>
+        {/* InlineChat for AI-powered product idea coaching */}
         <InlineChat 
           moduleId="module-6.1-idea-generation"
-          maxAttempts={10}
-          placeholder='Try starting with: "I have an idea for an AI that helps with..."' 
+          maxAttempts={5}
+          maxFollowUps={4}
+          placeholder='Try starting with: "I have an idea for an AI that helps with..."'
           systemPrompt={ideaGenerationSystemPrompt}
+          initialMessages={[
+            {
+              role: 'assistant',
+              content: 'Welcome to your AI Product Coaching session! I\'m here to help you develop your AI product idea using the frameworks from this lesson.\n\nTo get started, tell me about your idea. You can start with something like: "I have an idea for an AI that helps with..."\n\nI\'ll guide you through refining your idea using the Jobs to be Done framework, assessing its feasibility, and helping you prioritize it.'
+            }
+          ]}
+          challengeChecklist={ideaGenerationChecklist}
         />
       </section>
 

@@ -95,14 +95,29 @@ const InlineChat: React.FC<InlineChatProps> = ({
 
   const checkChecklistCompletion = (text: string) => {
     if (!challengeChecklist) return;
-    const lowercasedText = text.toLowerCase();
+    
     const newChecklist = [...checklist];
     let itemCompleted = false;
 
+    // Check all messages, not just the current one
+    const allMessages = [...messages, { role: 'user', content: text }];
+    const conversationText = allMessages.map(m => m.content).join('\n').toLowerCase();
+
     newChecklist.forEach((item, index) => {
       if (!item.completed) {
-        const keywords = item.text.toLowerCase().match(/\b(\w+)\b/g)?.slice(0, 2) || [];
-        if (keywords.length > 0 && keywords.every(keyword => lowercasedText.includes(keyword))) {
+        // Look for key phrases that might indicate completion
+        const itemText = item.text.toLowerCase();
+        const keyPhrases = [
+          itemText,
+          ...itemText.split(/[,.]?\s+/).filter(phrase => phrase.length >= 3) // Split into meaningful words
+        ];
+        
+        // Check if any key phrase is present in the conversation
+        const isCompleted = keyPhrases.some(phrase => 
+          phrase.length >= 3 && conversationText.includes(phrase)
+        );
+
+        if (isCompleted) {
           newChecklist[index].completed = true;
           itemCompleted = true;
         }
@@ -148,7 +163,7 @@ const InlineChat: React.FC<InlineChatProps> = ({
         headers,
         body: JSON.stringify({
           messages: newMessages,
-          model: 'gpt-4o-mini', // Default model for inline chat
+          model: 'gpt-4.1-nano', // Default model for inline chat
           customInstructions: systemPrompt,
           temperature: 0.7,
           top_p: 1

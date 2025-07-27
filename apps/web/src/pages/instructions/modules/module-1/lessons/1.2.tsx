@@ -98,7 +98,7 @@ const PromptGrader = ({ onGrade }: { onGrade: (score: number, feedback: string) 
     setFeedback('');
     setScore(null);
     
-    // Simulate API call
+    // Simulate API call - currently for demo purpose. We willl need to connect to actual api in future.
     setTimeout(() => {
       const clarity = Math.floor(Math.random() * 3) + 3; // 3-5
       const specificity = Math.floor(Math.random() * 3) + 3; // 3-5

@@ -233,11 +233,21 @@ if (functionToCall) {
 }`}</code>
             </div>
           </div>
+          {/* InlineChat for reverse engineering function calls with a focus on stock price queries */}
           <InlineChat 
             moduleId="module-4.1-stock-price"
             placeholder='What prompt makes the AI call the get_stock_price function for Apple?'
+            systemPrompt="You are a helpful assistant that helps users understand how to properly structure prompts to trigger specific function calls. When the user provides a prompt, analyze whether it would correctly trigger the 'get_stock_price' function with the appropriate ticker symbol. Provide guidance on how to improve the prompt if needed."
+            initialMessages={[
+              {
+                role: 'assistant',
+                content: 'I can help you craft a prompt that will trigger the get_stock_price function. Try asking me something like: "What is the current stock price of Apple?" or "Can you get me the latest AAPL stock price?"'
+              }
+            ]}
             simulatedResponse={`{\n  "name": "get_stock_price",\n  "arguments": { "ticker": "AAPL" }\n}`}
             challengeChecklist={stockPriceChecklist}
+            maxAttempts={3}
+            maxFollowUps={2}
           />
         </div>
       </Accordion>

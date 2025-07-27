@@ -83,6 +83,14 @@ const Lesson6_2: React.FC = () => {
     Keep your tone constructive and inquisitive. Your goal is to make me think more deeply about the user experience, not to give me the answers directly.
   `;
 
+  const designCritiqueChecklist: Array<{text: string, completed: boolean}> = [
+    { text: 'I have described my AI feature design in detail', completed: false },
+    { text: 'I have considered how my design handles user corrections and feedback', completed: false },
+    { text: 'I have thought about how to communicate the AI\'s confidence levels', completed: false },
+    { text: 'I have considered potential biases in my design and how to mitigate them', completed: false },
+    { text: 'I have received feedback on how to improve my design', completed: false }
+  ];
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -149,9 +157,17 @@ const Lesson6_2: React.FC = () => {
         </p>
         <InlineChat 
           moduleId="module-6.2-design-critique"
-          maxAttempts={10}
-          placeholder='Start by describing your AI feature, for example: "I’m designing an AI that helps you pick a movie to watch..."' 
+          maxAttempts={5}
+          maxFollowUps={4}
+          placeholder="Start by describing your AI feature, for example: I'm designing an AI that helps you pick a movie to watch..."
           systemPrompt={designCritiquePrompt}
+          initialMessages={[
+            {
+              role: 'assistant' as const,
+              content: 'Welcome to your AI Design Critique session! I\'m here to help you evaluate and improve your AI feature design using the principles from this lesson.\n\nTo get started, describe your AI feature in detail. For example: "I\'m designing an AI that helps users pick a movie to watch based on their mood and preferences."\n\nI\'ll ask you questions to help you think through the user experience, trust factors, and potential biases in your design.'
+            }
+          ]}
+          challengeChecklist={designCritiqueChecklist}
         />
       </section>
 

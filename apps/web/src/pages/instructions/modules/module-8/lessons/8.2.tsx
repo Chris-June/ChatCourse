@@ -79,6 +79,14 @@ When a user submits their explanation, follow these steps:
 4.  **Suggest a Gold-Standard Example**: Provide a concise, expert-level explanation for comparison. Example: 'We understand this isn't the news you were hoping for. After reviewing your application, we couldn't approve your loan at this time because the information provided didn't meet our current lending requirements, which include credit history and debt-to-income ratio. We encourage you to review your credit report for any inaccuracies and you are welcome to re-apply in the future.'
 5.  **Encourage**: End with a positive, encouraging statement about the importance of building trust through transparency.`;
 
+  const explanationChecklist: Array<{text: string, completed: boolean}> = [
+    { text: 'I have written an explanation that is clear and free of technical jargon', completed: false },
+    { text: 'I have shown empathy in my explanation', completed: false },
+    { text: 'I have included actionable next steps for the user', completed: false },
+    { text: 'I have received feedback on my explanation', completed: false },
+    { text: 'I have refined my explanation based on the feedback', completed: false }
+  ];
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -144,11 +152,20 @@ When a user submits their explanation, follow these steps:
             <h3 className="font-semibold text-white">Your Task</h3>
             <p className="text-gray-300">Write a customer-facing message that explains the AI's decision. Focus on building trust by being transparent without being overly technical. Use the chat window below to submit your explanation and receive expert feedback.</p>
           </div>
+          {/* InlineChat for AI explanation exercise */}
           <InlineChat 
             moduleId="module-8.2-ai-explanation"
-            maxAttempts={10}
+            maxAttempts={5}
+            maxFollowUps={4}
             placeholder="Write your user-facing explanation here..."
             systemPrompt={explainabilityExpertPrompt}
+            initialMessages={[
+              {
+                role: 'assistant' as const,
+                content: 'Welcome to the AI Explanation Workshop! I\'m here to help you craft a clear, empathetic explanation for a loan denial decision.\n\nIn this scenario, the AI denied the application due to a low credit score and high debt-to-income ratio. Your task is to explain this to the applicant in a way that is transparent, understandable, and constructive.\n\nConsider these questions as you write your explanation:\n1. How can you explain the decision without using technical terms?\n2. How can you show empathy for the user\'s situation?\n3. What clear next steps can you offer?\n\nI\'ll provide feedback on your explanation and suggest improvements.'
+              }
+            ]}
+            challengeChecklist={explanationChecklist}
           />
         </div>
       </section>

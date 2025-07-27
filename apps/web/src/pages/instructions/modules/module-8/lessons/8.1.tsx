@@ -76,6 +76,14 @@ When a user submits their mitigation strategy, follow these steps:
 4.  **Suggest a Gold-Standard Example**: Provide a concise, expert-level mitigation strategy for comparison. Example: 'A robust strategy would involve: 1) Augmenting the training data with diverse, synthetic resumes. 2) Implementing adversarial debiasing to prevent the model from learning proxies for protected attributes. 3) Auditing the model's decisions for equal opportunity across demographic groups before and after deployment.'
 5.  **Encourage**: End with a positive, encouraging statement about the importance of building fair AI.`;
 
+  const biasMitigationChecklist: Array<{text: string, completed: boolean}> = [
+    { text: 'I have identified the type of bias in the scenario', completed: false },
+    { text: 'I have proposed specific techniques to address the bias', completed: false },
+    { text: 'I have considered both technical and organizational solutions', completed: false },
+    { text: 'I have received feedback on my bias mitigation strategy', completed: false },
+    { text: 'I have refined my approach based on the feedback', completed: false }
+  ];
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -143,11 +151,20 @@ When a user submits their mitigation strategy, follow these steps:
             <h3 className="font-semibold text-white">Your Task</h3>
             <p className="text-gray-300">Propose a comprehensive strategy to mitigate the bias in this system. Describe the steps you would take to identify, measure, and reduce the unfair impact on candidates. Use the chat window below to submit your strategy and receive expert feedback.</p>
           </div>
+          {/* InlineChat for bias mitigation strategy exercise */}
           <InlineChat 
             moduleId="module-8.1-bias-mitigation"
-            maxAttempts={10}
+            maxAttempts={5}
+            maxFollowUps={4}
             placeholder="Describe your bias mitigation strategy here..."
             systemPrompt={ethicsReviewerPrompt}
+            initialMessages={[
+              {
+                role: 'assistant' as const,
+                content: 'Welcome to the Bias Mitigation Workshop! I\'m here to help you develop a strategy to address bias in an AI hiring system.\n\nIn this scenario, the AI is unfairly penalizing candidates from underrepresented groups due to historical hiring patterns in the training data.\n\nTo get started, describe your approach to mitigating this bias. Consider: What type of bias is this? What technical and process changes would you implement? How would you measure success?\n\nI\'ll provide feedback on your strategy and suggest improvements.'
+              }
+            ]}
+            challengeChecklist={biasMitigationChecklist}
           />
         </div>
       </section>

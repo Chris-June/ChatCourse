@@ -143,7 +143,10 @@ const Lesson3_2: React.FC = () => {
           <p className="text-gray-400 mb-4">Use the "Let's think step by step" technique on a new problem to see if you can elicit a reasoned response from the model without providing examples.</p>
           <InlineChat 
             moduleId="module-3.2-zeroshot-cot"
-            placeholder="Ask a question and end with 'Let's think step by step.'" 
+            maxAttempts={5}
+            maxFollowUps={3}
+            placeholder="Enter your query here based on what we have learned in this section..."
+            systemPrompt="You are a helpful AI assistant. When the user asks a question followed by 'Let's think step by step', break down your response into clear, logical steps. Show your reasoning process before arriving at the final answer. If the user doesn't include the trigger phrase, you may suggest they try adding it to see your step-by-step reasoning."
             challengeChecklist={zeroShotCoTChallengeChecklist}
           />
         </div>

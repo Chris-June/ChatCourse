@@ -83,6 +83,14 @@ When a user submits a prompt, follow these steps:
 
 4.  **Encourage**: End with a positive and encouraging closing statement.`;
 
+  const ragPromptChecklist: Array<{text: string, completed: boolean}> = [
+    { text: 'I have included a clear instruction to use only the provided context', completed: false },
+    { text: 'I have specified what to do when the answer is not in the context', completed: false },
+    { text: 'I have included placeholders for context and question', completed: false },
+    { text: 'I have received feedback on my RAG prompt', completed: false },
+    { text: 'I have implemented improvements based on the feedback', completed: false }
+  ];
+
   return (
     <div className="space-y-12 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -139,11 +147,20 @@ When a user submits a prompt, follow these steps:
         <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">Your Task:</h3>
           <p className="text-gray-400 mb-3 text-sm">Engineer a generator prompt for a RAG system. Your prompt should instruct the model to answer a user's question based only on provided context. Use the chat window below to submit your prompt and get expert feedback.</p>
+          {/* InlineChat for RAG prompt engineering exercise */}
           <InlineChat 
             moduleId="module-7.2-rag-prompt"
-            maxAttempts={10}
+            maxAttempts={5}
+            maxFollowUps={4}
             placeholder="Enter your RAG generator prompt here..."
             systemPrompt={ragPromptValidator}
+            initialMessages={[
+              {
+                role: 'assistant' as const,
+                content: 'Welcome to the RAG Prompt Engineering Challenge! I\'ll help you craft an effective prompt for a Retrieval-Augmented Generation system.\n\nYour prompt should instruct the model to answer questions using ONLY the provided context. Include placeholders like {context} and {question} where the actual content should go.\n\nTry writing your first version, and I\'ll provide feedback on how to improve it.'
+              }
+            ]}
+            challengeChecklist={ragPromptChecklist}
           />
         </div>
       </section>

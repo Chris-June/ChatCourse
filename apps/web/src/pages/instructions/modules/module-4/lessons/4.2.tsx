@@ -165,11 +165,21 @@ const Lesson4_2: React.FC = () => {
           <li><strong>Execution:</strong> "Now I'll call that tool with the name I was given."</li>
         </ol>
         <p className="text-gray-300 mb-4">Now, you try it. Ask for an employee's email and see the final tool call the AI makes. Follow the checklist to track the AI's reasoning.</p>
+        {/* InlineChat for demonstrating MCP email lookup with guided discovery */}
         <InlineChat 
           moduleId="module-4.2-mcp-email"
-          placeholder="Ask for an employee's email, e.g., 'What is Chris June's email?'" 
+          placeholder="Ask for an employee's email, e.g., 'What is Chris June's email?'"
+          systemPrompt="You are a helpful assistant that demonstrates Model Context Protocol (MCP) by helping users find employee email addresses. When asked for an email, you should use the 'get_employee_email' tool from the 'company_db' MCP server. Guide users through the process of discovering and using MCP tools."
+          initialMessages={[
+            {
+              role: 'assistant',
+              content: 'I can help you find an employee\'s email address. Try asking something like: "What is the email address for Chris June?" or "Can you get me the email for Alex Chen?"'
+            }
+          ]}
           simulatedResponse={`Okay, I need to find an employee's email address. I will use the 'get_employee_email' tool from the 'company_db' MCP server.\n\n<tool_code>\n<mcp_server_request>\n  <server>company_db</server>\n  <tool_name>get_employee_email</tool_name>\n  <parameters>\n    <employee_name>the person you asked for</employee_name>\n  </parameters>\n</mcp_server_request>\n</tool_code>\n\nfirstName.lastName@email.ca`}
           challengeChecklist={mcpReasoningChecklist}
+          maxAttempts={3}
+          maxFollowUps={2}
         />
       </Accordion>
 
