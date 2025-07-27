@@ -6,6 +6,8 @@ export default defineConfig(({ mode }) => {
   // Load env file based on `mode` in the current directory and parent directories
   const env = loadEnv(mode, process.cwd(), '')
   
+  const isProduction = env.NODE_ENV === 'production';
+  
   return {
     plugins: [react()],
     resolve: {
@@ -26,7 +28,7 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
     },
     // Ensure Vite uses the correct base URL in production
-    base: './',
+    base: isProduction ? '/' : './',
     define: {
       'process.env': {
         VITE_API_URL: JSON.stringify(process.env.VITE_API_URL || '')
@@ -36,6 +38,14 @@ export default defineConfig(({ mode }) => {
       outDir: 'dist',
       emptyOutDir: true,
       sourcemap: true,
+      // Ensure the build includes a fallback for SPA routing
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            react: ['react', 'react-dom', 'react-router-dom'],
+          },
+        },
+      },
     },
     preview: {
       port: 3000,
