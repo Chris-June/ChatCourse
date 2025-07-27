@@ -19,8 +19,9 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/handler.ts"
+      "src": "/api/chat",
+      "dest": "/api/handler.ts",
+      "methods": ["POST", "OPTIONS"]
     },
     {
       "src": "/assets/(.*)",
@@ -34,8 +35,7 @@
     }
   ],
   "env": {
-    "NODE_ENV": "production",
-    "VITE_API_URL": "/api"
+    "NODE_ENV": "production"
   },
   "installCommand": "pnpm install --frozen-lockfile"
 }

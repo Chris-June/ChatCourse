@@ -99,16 +99,14 @@ const ChatInterface = () => {
         return;
       }
 
-      // In production, use relative URL if VITE_API_BASE_URL is not set
+      // In production, use relative URL
       const isProduction = import.meta.env.PROD;
-      let apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
       
-      if (!apiBaseUrl) {
-        apiBaseUrl = isProduction ? '' : 'http://localhost:3000';
-      }
+      // In production, use relative URL, in development use localhost
+      const endpoint = isProduction 
+        ? '/api/chat'  // Relative URL for production
+        : 'http://localhost:3000/api/chat';  // Full URL for development
       
-      // Ensure we don't have double slashes or missing slashes
-      const endpoint = `${apiBaseUrl}${apiBaseUrl && !apiBaseUrl.endsWith('/') ? '/' : ''}api/chat`;
       console.log('API Endpoint:', endpoint); // For debugging
       
       const response = await fetch(endpoint, {
