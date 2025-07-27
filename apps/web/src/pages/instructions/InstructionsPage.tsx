@@ -34,14 +34,14 @@ const InstructionsPage: React.FC = () => {
   // Default content for the instructions page
   const DefaultContent = () => {
     const modules = [
-      { number: 1, title: 'The Heart of the Matter - Understanding AI Models', description: 'Learn the fundamentals of AI models and how to interact with them effectively.', icon: BookOpen },
-      { number: 2, title: 'Prompt Engineering Fundamentals', description: 'Craft effective prompts to get the best results from AI models.', icon: PenSquare },
-      { number: 3, title: 'Building Your First AI Chat App', description: 'A hands-on guide to creating a real-world AI application.', icon: Shield },
-      { number: 4, title: 'Thinking in Agents', description: 'Learn the agentic mindset and build autonomous AI systems.', icon: Rocket },
-      { number: 5, title: 'Working with Real-World Data', description: 'Connect your AI to external data sources and APIs.', icon: DatabaseZap },
-      { number: 6, title: 'Testing and Iteration', description: 'Learn how to test, evaluate, and improve your AI prompts and agents.', icon: PenSquare },
-      { number: 7, title: 'Advanced AI Techniques', description: 'Master function calling, RAG, and fine-tuning to build sophisticated AI applications.', icon: DatabaseZap },
-      { number: 8, title: 'Responsible AI', description: 'Learn to build fair, transparent, and secure AI systems.', icon: Rocket },
+      { number: 1, title: 'Prompt Engineering Fundamentals', description: 'Master the art of crafting effective prompts to optimize AI model outputs.', icon: BookOpen },
+      { number: 2, title: 'Context Management', description: 'Learn how to effectively manage and utilize context in AI conversations.', icon: PenSquare },
+      { number: 3, title: 'Prompting Techniques', description: 'Explore various advanced techniques for creating effective prompts.', icon: Shield },
+      { number: 4, title: 'AI Capabilities & Tools', description: 'Discover the full range of AI capabilities and tools available for your projects.', icon: Rocket },
+      { number: 5, title: 'Advanced Interactions', description: 'Learn to create sophisticated AI interactions and workflows.', icon: DatabaseZap },
+      { number: 6, title: 'Development with AI', description: 'Integrate AI into your development workflow and applications.', icon: PenSquare },
+      { number: 7, title: 'Advanced Techniques', description: 'Master advanced techniques for working with AI systems.', icon: DatabaseZap },
+      { number: 8, title: 'Responsible AI', description: 'Understand and implement responsible AI practices and considerations.', icon: Rocket },
     ];
 
     return (
@@ -57,7 +57,7 @@ const InstructionsPage: React.FC = () => {
               target.src = 'Logo.png';
             }}
           />
-          <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">AI Collaboration Course</h1>
+          <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">All About A.I.</h1>
           <p className="mt-6 text-xl leading-8 text-gray-300">
             Learn how to effectively collaborate with AI through practical lessons and hands-on exercises.
           </p>
@@ -125,7 +125,7 @@ const InstructionsPage: React.FC = () => {
         <Button onClick={toggleSidebar} variant="ghost" size="icon" className="mr-4">
           <Menu />
         </Button>
-        <h1 className="text-xl font-semibold">AI Collaboration Course</h1>
+        <h1 className="text-xl font-semibold">All About A.I.</h1>
       </header>
       <div className="flex flex-1 overflow-hidden">
         <InstructionsSidebar isOpen={isSidebarOpen} />
