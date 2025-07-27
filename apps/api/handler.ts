@@ -162,7 +162,7 @@ const ALLOWED_MODELS = [
 ];
 
 // Handler for PromptVisualizer
-app.post('/api/chat/visualize-prompt', async (req, res) => {
+app.post('/chat/visualize-prompt', async (req, res) => {
   const { elements, apiKey } = req.body;
   if (!elements || !Array.isArray(elements)) {
     return res.status(400).json({ error: 'Prompt elements are required.' });
@@ -209,7 +209,7 @@ app.post('/api/chat/visualize-prompt', async (req, res) => {
 });
 
 // Handler for PromptChallenges
-app.post('/api/chat/evaluate-challenge', async (req, res) => {
+app.post('/chat/evaluate-challenge', async (req, res) => {
   const { userPrompt, challenge, successCriteria, apiKey } = req.body;
   if (!userPrompt || !challenge || !successCriteria) {
     return res.status(400).json({ error: 'User prompt, challenge description, and success criteria are required.' });
@@ -258,7 +258,7 @@ app.post('/api/chat/evaluate-challenge', async (req, res) => {
 });
 
 // Handler for PromptPatternLibrary
-app.get('/api/chat/get-patterns', (_req, res) => {
+app.get('/chat/get-patterns', (_req, res) => {
   // Mock data: a static list of patterns that matches the frontend interface
   const patterns = [
     {
@@ -316,7 +316,7 @@ app.get('/api/chat/get-patterns', (_req, res) => {
 });
 
 // Handler for PromptRefinementWorkbench
-app.post('/api/chat/refine-prompt', async (req, res) => {
+app.post('/chat/refine-prompt', async (req, res) => {
   const { prompt, apiKey } = req.body;
   if (!prompt) {
     return res.status(400).json({ error: 'A prompt is required for analysis.' });
@@ -358,7 +358,7 @@ app.post('/api/chat/refine-prompt', async (req, res) => {
 });
 
 // Handler for PairProgrammingSimulator
-app.post('/api/chat/pair-programming', async (req, res) => {
+app.post('/chat/pair-programming', async (req, res) => {
   const { messages, code, role, apiKey } = req.body;
 
   if (!messages) {
@@ -463,7 +463,7 @@ const getApiKey = (req: express.Request): string | null => {
   return token;
 };
 
-app.post('/api/chat', async (req, res) => {
+app.post('/chat', async (req, res) => {
   const { messages, model: requestedModel, customInstructions, temperature, top_p } = req.body;
   const apiKey = getApiKey(req) || req.body.apiKey; // Fallback to body for backward compatibility
   
@@ -567,7 +567,7 @@ app.post('/api/chat', async (req, res) => {
 });
 
 // Summary evaluation endpoint
-app.post('/api/chat/evaluate-summary', async (req, res) => {
+app.post('/chat/evaluate-summary', async (req, res) => {
   try {
     const { conversation, userSummary } = req.body;
     
