@@ -88,6 +88,8 @@ app.use((req, res, next) => {
   ];
   
   const origin = req.headers.origin || '';
+  
+  // Set CORS headers
   if (process.env.NODE_ENV === 'production') {
     // In production, only allow requests from known origins
     if (allowedOrigins.some(allowedOrigin => 
@@ -100,11 +102,12 @@ app.use((req, res, next) => {
     // In development, allow all origins
     res.setHeader('Access-Control-Allow-Origin', origin || '*');
   }
-  
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  
+
+  // Allow credentials and required headers
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
   // Handle preflight requests
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -113,14 +116,8 @@ app.use((req, res, next) => {
   next();
 });
 
-
-// Middleware
+// Middleware for JSON parsing
 app.use(express.json());
-app.use((_req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
 
 const ALLOWED_MODELS = [
   'gpt-4.1',
@@ -438,8 +435,24 @@ app.post('/api/chat/visualize-prompt', async (req, res) => {
   }
 });
 
+// Helper function to extract API key from Authorization header
+const getApiKey = (req: express.Request): string | null => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) return null;
+  
+  const [scheme, token] = authHeader.split(' ');
+  if (scheme.toLowerCase() !== 'bearer' || !token) return null;
+  
+  return token;
+};
+
 app.post('/api/chat', async (req, res) => {
-  const { messages, model: requestedModel, customInstructions, temperature, top_p, apiKey } = req.body;
+  const { messages, model: requestedModel, customInstructions, temperature, top_p } = req.body;
+  const apiKey = getApiKey(req) || req.body.apiKey; // Fallback to body for backward compatibility
+  
+  if (!apiKey) {
+    return res.status(401).json({ error: { message: 'API key is required. Please provide it in the Authorization header.' } });
+  }
 
   if (!messages) {
     return res.status(400).json({ error: { message: 'Messages are required.' } });

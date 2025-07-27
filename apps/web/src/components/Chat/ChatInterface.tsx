@@ -88,14 +88,29 @@ const ChatInterface = () => {
     abortControllerRef.current = new AbortController();
 
     try {
+      // Check if API key is provided
+      if (!apiKey) {
+        addMessage({
+          role: 'assistant',
+          content: '❌ Error: No API key provided. Please add your OpenAI API key in the settings.'
+        });
+        setStreaming(false);
+        toggleSettings(); // Open settings to prompt user to add API key
+        return;
+      }
+
       // Use empty string as base URL if VITE_API_BASE_URL is '/api' to prevent double /api
       const apiBaseUrl = import.meta.env.VITE_API_BASE_URL === '/api' 
         ? '' 
         : import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
       const endpoint = `${apiBaseUrl}${apiBaseUrl && !apiBaseUrl.endsWith('/') ? '/' : ''}api/chat`;
+      
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
         signal: abortControllerRef.current.signal,
         body: JSON.stringify({
           messages,
@@ -103,7 +118,7 @@ const ChatInterface = () => {
           customInstructions,
           temperature,
           top_p,
-          apiKey,
+          // Removed apiKey from body
         }),
       });
 
