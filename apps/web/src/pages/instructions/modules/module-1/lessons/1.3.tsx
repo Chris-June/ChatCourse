@@ -10,7 +10,7 @@ import {
   PairProgrammingSimulator,
   PromptChallenges,
   PromptPatternLibrary,
-  PromptVisualizer
+  PromptVisualizer,
 } from '../../../../../components/prompting/advanced';
 
 // Tab component for the lesson navigation
@@ -107,6 +107,8 @@ const Lesson1_3: React.FC = () => {
     }
   ];
 
+
+
   const { completeLesson } = useProgressStore();
   const [activeTab, setActiveTab] = useState<'visualizer' | 'challenges' | 'patterns' | 'refinement' | 'pairing'>('visualizer');
 
@@ -121,7 +123,7 @@ const Lesson1_3: React.FC = () => {
         <div>
           <h1 className="text-3xl font-bold text-blue-400">1.3 Advanced Prompting Techniques</h1>
           <p className="text-lg text-gray-300 mt-2">
-            Take your prompt engineering skills to the next level with these advanced techniques and tools.
+            Elevate your prompt engineering expertise through this hands-on, multi-faceted module. Across five interactive tabs—Prompt Visualizer, Prompt Challenge, Pattern Library, Refinement Workbench, and Pair Programming—you'll engage with powerful techniques designed to sharpen precision and creativity. Once you've explored each area, reinforce your learning with a comprehensive quiz covering the full scope of Module 1.3.
           </p>
         </div>
         <div className="flex items-center space-x-4">

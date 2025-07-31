@@ -70,6 +70,13 @@ const Lesson5_3: React.FC = () => {
 - **Tier 2: Balanced**: Best for general purpose tasks like summarization, standard Q&A, or when a balance of performance and capability is needed.
 - **Tier 3: Max Power**: Best for complex reasoning, multi-step agentic workflows, or tasks requiring deep understanding and generation.
 Based on the user's query, state which tier is the best fit and briefly explain why.`;
+
+  const modelSelectionChecklist = [
+    { text: 'The AI identified the complexity of the task', completed: false },
+    { text: 'The recommendation includes a specific model tier (1, 2, or 3)', completed: false },
+    { text: 'The explanation justifies the chosen tier', completed: false },
+    { text: 'The response considers both speed and capability trade-offs', completed: false }
+  ];
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -188,11 +195,28 @@ response.body.on('end', () => {
         <p className="text-gray-300 mb-4">
           Use the chat window below to test your understanding of performance trade-offs. Describe a task, and ask the AI which model tier—fast, balanced, or powerful—would be the best fit. See if its reasoning matches what you've learned.
         </p>
+        {/* InlineChat for demonstrating model selection based on task requirements */}
         <InlineChat 
           moduleId="module-5.3-model-selection"
-          maxAttempts={10}
-          placeholder='Try asking: "What kind of model should I use for a simple email classifier?"' 
+          maxAttempts={5}
+          maxFollowUps={3}
+          placeholder='Try asking: "What kind of model should I use for a simple email classifier?"'
           systemPrompt={classificationAgentPrompt}
+          initialMessages={[
+            {
+              role: 'assistant',
+              content: 'I can help you choose the best AI model for your task! Try describing what you want to build, and I\'ll recommend the most suitable model tier based on complexity, speed, and cost considerations.'
+            },
+            {
+              role: 'user',
+              content: 'What kind of model should I use for a simple email classifier?'
+            },
+            {
+              role: 'assistant',
+              content: 'For a simple email classifier, I recommend **Tier 1: Fast & Light**. This task is a straightforward classification problem where speed and low cost are typically more important than advanced reasoning capabilities. The model only needs to categorize emails into predefined labels, which doesn\'t require deep understanding or complex reasoning.'
+            }
+          ]}
+          challengeChecklist={modelSelectionChecklist}
         />
       </section>
 

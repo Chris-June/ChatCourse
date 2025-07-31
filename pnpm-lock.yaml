@@ -21,6 +21,9 @@ importers:
         specifier: ^1.0.21
         version: 1.0.21
     devDependencies:
+      '@types/express':
+        specifier: ^4.17.23
+        version: 4.17.23
       '@vercel/node':
         specifier: ^5.3.4
         version: 5.3.7(rollup@4.45.3)

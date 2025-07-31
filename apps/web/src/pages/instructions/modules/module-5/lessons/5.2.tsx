@@ -75,6 +75,13 @@ const Lesson5_2: React.FC = () => {
   };
 
   const systemPrompt = `You are an expert AI tutor specializing in biology and history. You are speaking to a student named ${studentProfile.name}, who is in grade ${studentProfile.grade}. Their learning style is ${studentProfile.learning_style}, so try to use visual descriptions or analogies. Their current goal is: "${studentProfile.goal}". Be encouraging and tailor your explanation to their needs.`;
+  
+  const personalizationChecklist = [
+    { text: 'The AI addresses me by name (Maria)', completed: false },
+    { text: 'The response considers my grade level (10th grade)', completed: false },
+    { text: 'The explanation uses visual elements (my learning style)', completed: false },
+    { text: 'The response relates to my goal (Biology exam on cell division)', completed: false }
+  ];
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -201,11 +208,20 @@ Provide technical, precise answers. When providing code, use Python.`}
         <p className="text-gray-300 mb-4">
           Pretend you are Maria. Ask for help with your biology homework and see how the AI responds. Notice if it mentions your learning style or tries to be encouraging.
         </p>
+        {/* InlineChat for demonstrating personalized tutoring with dynamic context */}
         <InlineChat 
           moduleId="module-5.2-personalized-tutor"
-          maxAttempts={10}
-          placeholder='Try asking: "Can you help me understand mitosis?"' 
+          maxAttempts={5}
+          maxFollowUps={3}
+          placeholder='Try asking: "Can you help me understand mitosis?"'
           systemPrompt={systemPrompt}
+          initialMessages={[
+            {
+              role: 'assistant',
+              content: `Hi Maria! I'm here to help you with your Biology exam on cell division. Since you're a visual learner, I'll include diagrams and analogies to help you understand better. What specific topic would you like to review first?`
+            }
+          ]}
+          challengeChecklist={personalizationChecklist}
         />
       </section>
 

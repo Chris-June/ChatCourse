@@ -148,11 +148,21 @@ const Lesson4_3: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Use the chat window below to ask for the weather in any city. Watch how the AI uses the tool you designed. Follow the checklist to track the AI's reasoning.
         </p>
+        {/* InlineChat for demonstrating weather tool usage with guided discovery */}
         <InlineChat 
           moduleId="module-4.3-get-weather"
-          placeholder='Try: "What is the weather like in London?"' 
+          placeholder='Try: "What is the weather like in London?"'
+          systemPrompt="You are a helpful weather assistant that demonstrates tool usage. When asked about the weather, you should use the 'get_weather' tool to provide accurate information. Guide users through the process of making tool calls and explain the JSON structure being used."
+          initialMessages={[
+            {
+              role: 'assistant',
+              content: 'I can help you check the weather in any city. Try asking me something like: "What\'s the weather like in New York?" or "Is it going to rain in Tokyo tomorrow?"'
+            }
+          ]}
           simulatedResponse={`Okay, you want the weather. I will use the 'get_weather' tool.\n\n<tool_code>\n{\n  "name": "get_weather",\n  "arguments": {\n    "city": "the city you asked for"\n  }\n}\n</tool_code>\n\nIt is 75°F and sunny.`}
           challengeChecklist={weatherChecklist}
+          maxAttempts={3}
+          maxFollowUps={2}
         />
       </Accordion>
       

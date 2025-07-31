@@ -189,10 +189,17 @@ const SettingsModal = () => {
                   <Input
                     id="apiKey"
                     type="password"
+<<<<<<< HEAD
                     placeholder="sk-..."
                     value={localApiKey || ''}
                     onChange={(e) => setLocalApiKey(e.target.value)}
                     className="w-full"
+=======
+                    placeholder="sk-... This Feature is Coming Soon"
+                    value={apiKey}
+                    onChange={(e) => setApiKey(e.target.value)}
+                    className="bg-zinc-800 border-zinc-700 text-white flex-1"
+>>>>>>> module-2
                   />
                   <p className="text-xs text-muted-foreground">
                     Your API key is stored locally in your browser.

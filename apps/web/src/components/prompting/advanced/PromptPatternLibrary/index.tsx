@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, X, Star, Filter, ArrowRight } from 'lucide-react';
+import { Search, Star, ArrowRight } from 'lucide-react';
 import CopyButton from '../../../CopyButton';
+import FormattedInsyncExample from './FormattedInsyncExample';
 
-type PatternCategory = 'all' | 'structure' | 'creativity' | 'analysis' | 'productivity' | 'education';
-type PatternDifficulty = 'beginner' | 'intermediate' | 'advanced';
+export type PatternCategory = 'all' | 'insync' | 'structure' | 'creativity' | 'analysis' | 'productivity' | 'education';
+export type PatternDifficulty = 'beginner' | 'intermediate' | 'advanced';
 
-interface PromptPattern {
+export interface PromptPattern {
   id: string;
   name: string;
   description: string;
@@ -17,19 +18,11 @@ interface PromptPattern {
   isFavorite?: boolean;
 }
 
-/**
- * PromptPatternLibrary
- * 
- * A searchable library of effective prompt patterns that users can explore and adapt.
- * Includes filtering by category, difficulty, and search functionality.
- * 
- * @component
- * @example
- * return (
- *   <PromptPatternLibrary />
- * )
- */
-const PromptPatternLibrary: React.FC = () => {
+interface PromptPatternLibraryProps {
+  patterns?: PromptPattern[];
+}
+
+const PromptPatternLibrary: React.FC<PromptPatternLibraryProps> = ({ patterns }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<PatternCategory[]>(['all']);
   const [selectedDifficulty, setSelectedDifficulty] = useState<PatternDifficulty | 'all'>('all');
@@ -42,6 +35,7 @@ const PromptPatternLibrary: React.FC = () => {
 
   const categories: { id: PatternCategory; label: string }[] = [
     { id: 'all', label: 'All Categories' },
+    { id: 'insync', label: 'INSYNC Framework' },
     { id: 'structure', label: 'Structure' },
     { id: 'creativity', label: 'Creativity' },
     { id: 'analysis', label: 'Analysis' },
@@ -77,263 +71,198 @@ const PromptPatternLibrary: React.FC = () => {
       } catch (err) {
         console.error('Error fetching patterns:', err);
         setError(err instanceof Error ? err.message : 'An unknown error occurred');
-        
-        // Fallback to mock data if API fails
-        const mockPatterns: PromptPattern[] = [
-          {
-            id: '1',
-            name: 'Chain of Thought',
-            description: 'Encourage step-by-step reasoning by asking the AI to show its thinking process.',
-            category: ['structure', 'analysis'],
-            difficulty: 'beginner',
-            example: 'Let\'s think step by step: How would you solve this math problem? 2x + 5 = 15',
-            useCase: 'Detailed problem solving',
-            tags: ['reasoning', 'step-by-step', 'thinking']
-          },
-          {
-            id: '2',
-            name: 'Role-Based Prompting',
-            description: 'Assign a specific role or expertise to the AI to get more targeted responses.',
-            category: ['structure', 'creativity'],
-            difficulty: 'intermediate',
-            example: 'As a senior software architect, design a scalable microservices architecture for an e-commerce platform.',
-            useCase: 'Expert perspective',
-            tags: ['role-playing', 'expertise', 'perspective']
-          },
-          {
-            id: '3',
-            name: 'Few-Shot Learning',
-            description: 'Provide examples to guide the AI\'s response format and style.',
-            category: ['structure', 'education'],
-            difficulty: 'intermediate',
-            example: 'Here are some examples:\n\nExample 1: Input: "Hello" → Output: "Hi there!"\nExample 2: Input: "Goodbye" → Output: "See you later!"\n\nNow: Input: "How are you?" →',
-            useCase: 'Consistent formatting',
-            tags: ['examples', 'learning', 'format']
-          }
-        ];
-        setAllPatterns(mockPatterns);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchPatterns();
-  }, []);
+    if (patterns) {
+      setAllPatterns(patterns);
+      setIsLoading(false);
+    } else {
+      fetchPatterns();
+    }
+  }, [patterns]);
 
   const toggleCategory = (category: PatternCategory) => {
     if (category === 'all') {
       setSelectedCategories(['all']);
-    } else if (selectedCategories.includes('all')) {
-      setSelectedCategories([category]);
-    } else if (selectedCategories.includes(category)) {
-      if (selectedCategories.length === 1) {
-        setSelectedCategories(['all']);
-      } else {
-        setSelectedCategories(selectedCategories.filter(c => c !== category));
-      }
     } else {
-      setSelectedCategories([...selectedCategories.filter(c => c !== 'all'), category]);
+      setSelectedCategories(prev => {
+        const newCategories = prev.filter(c => c !== 'all');
+        if (newCategories.includes(category)) {
+          const updated = newCategories.filter(c => c !== category);
+          // If no categories are left, default to 'all'
+          return updated.length === 0 ? ['all'] : updated;
+        } else {
+          return [...newCategories, category];
+        }
+      });
     }
   };
 
   const toggleFavorite = (id: string) => {
-    const newFavorites = new Set(favorites);
-    if (favorites.has(id)) {
-      newFavorites.delete(id);
-    } else {
-      newFavorites.add(id);
-    }
-    setFavorites(newFavorites);
+    setFavorites(prev => {
+      const newFavorites = new Set(prev);
+      if (newFavorites.has(id)) {
+        newFavorites.delete(id);
+      } else {
+        newFavorites.add(id);
+      }
+      return newFavorites;
+    });
   };
 
   const filteredPatterns = useMemo(() => {
-    return allPatterns.filter(pattern => {
-      const matchesSearch = 
-        pattern.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        pattern.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        pattern.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-      
-      const matchesCategory = 
-        selectedCategories.includes('all') || 
-        pattern.category.some(cat => selectedCategories.includes(cat));
-
-      const matchesDifficulty = 
-        selectedDifficulty === 'all' || 
-        pattern.difficulty === selectedDifficulty;
-
-      const matchesFavorites = !favoritesOnly || favorites.has(pattern.id);
-      
-      return matchesSearch && matchesCategory && matchesDifficulty && matchesFavorites;
-    });
-  }, [searchQuery, selectedCategories, selectedDifficulty, favoritesOnly, favorites, allPatterns]);
+    return allPatterns
+      .map(p => ({ ...p, isFavorite: favorites.has(p.id) }))
+      .filter(pattern => {
+        if (favoritesOnly && !pattern.isFavorite) {
+          return false;
+        }
+        if (selectedDifficulty !== 'all' && pattern.difficulty !== selectedDifficulty) {
+          return false;
+        }
+        const categoryMatch =
+          selectedCategories.includes('all') ||
+          selectedCategories.length === 0 ||
+          selectedCategories.some(cat => pattern.category.includes(cat));
+        if (!categoryMatch) {
+          return false;
+        }
+        if (searchQuery && !pattern.name.toLowerCase().includes(searchQuery.toLowerCase()) && !pattern.description.toLowerCase().includes(searchQuery.toLowerCase()) && !pattern.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()))) {
+          return false;
+        }
+        return true;
+      });
+  }, [allPatterns, searchQuery, selectedCategories, selectedDifficulty, favoritesOnly, favorites]);
 
   const getDifficultyColor = (difficulty: PatternDifficulty) => {
     switch (difficulty) {
-      case 'beginner': return 'bg-green-900/30 text-green-400';
-      case 'intermediate': return 'bg-yellow-900/30 text-yellow-400';
-      case 'advanced': return 'bg-red-900/30 text-red-400';
-      default: return 'bg-gray-700/50 text-gray-300';
+      case 'beginner': return 'bg-green-900/50 text-green-300 border-green-700/50';
+      case 'intermediate': return 'bg-yellow-900/50 text-yellow-300 border-yellow-700/50';
+      case 'advanced': return 'bg-red-900/50 text-red-300 border-red-700/50';
     }
   };
 
   const getCategoryColor = (category: PatternCategory) => {
-    const colors: Record<PatternCategory, string> = {
-      'all': 'bg-gray-100 text-gray-800',
-      'structure': 'bg-blue-100 text-blue-800',
-      'creativity': 'bg-purple-100 text-purple-800',
-      'analysis': 'bg-amber-100 text-amber-800',
-      'productivity': 'bg-emerald-100 text-emerald-800',
-      'education': 'bg-indigo-100 text-indigo-800'
-    };
-    return colors[category] || 'bg-gray-100 text-gray-800';
+    switch (category) {
+      case 'insync': return 'bg-blue-900/50 text-blue-300';
+      case 'structure': return 'bg-indigo-900/50 text-indigo-300';
+      case 'creativity': return 'bg-purple-900/50 text-purple-300';
+      case 'analysis': return 'bg-pink-900/50 text-pink-300';
+      case 'productivity': return 'bg-teal-900/50 text-teal-300';
+      case 'education': return 'bg-gray-700 text-gray-300';
+      default: return 'bg-gray-700 text-gray-300';
+    }
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-900/20 border border-red-700/50 text-red-300 px-4 py-3 rounded-lg relative" role="alert">
+        <strong className="font-bold">Error:</strong>
+        <span className="block sm:inline ml-2">{error}</span>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-900/30 to-blue-900/30 p-6 rounded-lg border border-gray-700">
-        <div className="flex flex-col md:flex-row md:items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-white mb-2">Prompt Pattern Library</h2>
-            <p className="text-gray-300 max-w-3xl">
-              Discover and learn effective prompt patterns to improve your interactions with AI. 
-              Each pattern includes examples and use cases to help you apply them effectively.
-            </p>
-          </div>
-          <button 
-            onClick={() => setFavoritesOnly(!favoritesOnly)}
-            className={`mt-4 md:mt-0 px-4 py-2 rounded-lg flex items-center space-x-2 ${
-              favoritesOnly 
-                ? 'bg-yellow-600/20 text-yellow-400 border border-yellow-500/50' 
-                : 'bg-gray-700/50 text-gray-300 hover:bg-gray-700/70'
-            }`}
-          >
-            <Star className={`w-4 h-4 ${favoritesOnly ? 'fill-yellow-400' : ''}`} />
-            <span>{favoritesOnly ? 'Showing Favorites' : 'Show Favorites'}</span>
-            {favoritesOnly && favorites.size > 0 && (
-              <span className="bg-yellow-500/20 text-yellow-300 text-xs px-2 py-0.5 rounded-full">
-                {favorites.size}
-              </span>
-            )}
-          </button>
-        </div>
+    <div className="bg-gray-900 text-white p-4 sm:p-6 rounded-xl border border-gray-700/50 font-sans">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-100">Prompt Pattern Library</h2>
+        <p className="text-gray-400 mt-1">Explore and adapt powerful prompt engineering patterns.</p>
       </div>
 
-      {/* Filters */}
-      <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="search" className="block text-sm font-medium text-gray-400 mb-1">
-              Search Patterns
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-gray-500" />
-              </div>
-              <input
-                type="text"
-                id="search"
-                className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg bg-gray-900 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Search by name, description, or tags..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                >
-                  <X className="h-4 w-4 text-gray-400 hover:text-white" />
-                </button>
-              )}
-            </div>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-400 mb-1">
-              Filter by Difficulty
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {difficulties.map(({ id, label }) => (
-                <button
-                  key={id}
-                  onClick={() => setSelectedDifficulty(id as PatternDifficulty | 'all')}
-                  className={`px-3 py-1 text-sm rounded-full ${
-                    selectedDifficulty === id
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
+      {/* Search and Filter Controls */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+        {/* Search Input */}
+        <div className="lg:col-span-2">
+          <label htmlFor="search-patterns" className="block text-sm font-medium text-gray-400 mb-1.5">Search</label>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+            <input
+              id="search-patterns"
+              type="text"
+              placeholder="Search by name, tag, or description..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-gray-900 border border-gray-600 rounded-md pl-10 pr-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+            />
           </div>
         </div>
-        
-        <div className="mt-4">
-          <div className="flex items-center text-sm text-gray-400 mb-2">
-            <Filter className="w-4 h-4 mr-2" />
-            <span>Categories</span>
-          </div>
+
+        {/* Difficulty Filter */}
+        <div>
+          <label htmlFor="difficulty-filter" className="block text-sm font-medium text-gray-400 mb-1.5">Difficulty</label>
+          <select
+            id="difficulty-filter"
+            value={selectedDifficulty}
+            onChange={(e) => setSelectedDifficulty(e.target.value as PatternDifficulty | 'all')}
+            className="w-full bg-gray-900 border border-gray-600 rounded-md pl-3 pr-8 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none"
+          >
+            {difficulties.map(d => (
+              <option key={d.id} value={d.id}>{d.label}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Favorites Toggle */}
+        <div className="flex items-end">
+          <button
+            onClick={() => setFavoritesOnly(!favoritesOnly)}
+            className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-md transition border ${favoritesOnly ? 'bg-yellow-900/50 border-yellow-700 text-yellow-300' : 'bg-gray-700/50 border-gray-600 hover:bg-gray-700'}`}
+          >
+            <Star className={`w-5 h-5 ${favoritesOnly ? 'fill-current' : ''}`} />
+            Favorites
+          </button>
+        </div>
+
+        {/* Category Filters */}
+        <div className="lg:col-span-4">
+          <label className="block text-sm font-medium text-gray-400 mb-1.5">Categories</label>
           <div className="flex flex-wrap gap-2">
-            {categories.map(({ id, label }) => (
-              <div
-                key={id}
-                onClick={() => toggleCategory(id as PatternCategory)}
-                className={`px-3 py-1 text-sm rounded-full flex items-center cursor-pointer ${
-                  selectedCategories.includes(id as PatternCategory) || 
-                  (id === 'all' && selectedCategories.includes('all'))
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
+            {categories.map(category => (
+              <button
+                key={category.id}
+                onClick={() => toggleCategory(category.id)}
+                className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-200 border ${selectedCategories.includes(category.id) ? 'bg-blue-500 text-white border-blue-500' : 'bg-gray-700/50 text-gray-300 border-gray-600 hover:bg-gray-700 hover:border-gray-500'}`}
               >
-                {label}
-                {selectedCategories.includes(id as PatternCategory) && selectedCategories.length > 1 && id !== 'all' && (
-                  <span 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleCategory(id as PatternCategory);
-                    }}
-                    className="ml-1.5 -mr-0.5 p-0.5 rounded-full inline-flex items-center text-blue-200 hover:bg-blue-500 cursor-pointer"
-                  >
-                    <X className="w-3 h-3" />
-                  </span>
-                )}
-              </div>
+                {category.label}
+              </button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Patterns Grid */}
-      {isLoading ? (
-        <div className="text-center py-20 text-gray-500">
-          <p>Loading prompt patterns...</p>
-        </div>
-      ) : error ? (
-        <div className="text-center py-20 text-red-400">
-          <p>Error: {error}</p>
-        </div>
-      ) : filteredPatterns.length > 0 ? (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Pattern Grid */}
+      {filteredPatterns.length > 0 ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredPatterns.map(pattern => (
-            <div key={pattern.id} className="bg-gray-800/50 rounded-lg overflow-hidden border border-gray-700 flex flex-col">
-              <div className="p-4 flex-grow">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-lg font-bold text-white mb-1">{pattern.name}</h3>
-                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${getDifficultyColor(pattern.difficulty)}`}>
-                    {pattern.difficulty.charAt(0).toUpperCase() + pattern.difficulty.slice(1)}
+            <div key={pattern.id} className="bg-gray-800/50 rounded-lg overflow-hidden border border-gray-700 flex flex-col justify-between hover:border-blue-500/50 transition-colors duration-300">
+              <div className="p-5">
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="text-lg font-bold text-gray-100 flex-1 pr-2">{pattern.name}</h3>
+                  <span className={`px-2.5 py-1 text-xs font-semibold rounded-full border ${getDifficultyColor(pattern.difficulty)}`}>
+                    {pattern.difficulty}
                   </span>
                 </div>
-                <p className="text-sm text-gray-400 mb-3 h-10 overflow-hidden">{pattern.description}</p>
-
-                <div className="flex items-center justify-between">
+                
+                <p className="text-sm text-gray-400 mb-4 h-10 overflow-hidden">{pattern.description}</p>
+                
+                <div className="flex justify-between items-center mb-2">
                   <div className="flex flex-wrap gap-1.5">
                     {pattern.category.map(cat => (
                       <span 
                         key={cat} 
-                        className={`text-xs px-2 py-0.5 rounded-full ${getCategoryColor(cat)}`}
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(cat)}`}
                       >
                         {categories.find(c => c.id === cat)?.label}
                       </span>
@@ -355,7 +284,7 @@ const PromptPatternLibrary: React.FC = () => {
                     <div>
                       <h4 className="text-sm font-medium text-gray-400 mb-1">Example</h4>
                       <div className="relative bg-gray-900/50 p-3 rounded-lg border border-gray-700">
-                        <pre className="text-sm text-gray-300 whitespace-pre-wrap">{pattern.example}</pre>
+                        <FormattedInsyncExample example={pattern.example} />    
                         <div className="absolute top-2 right-2">
                           <CopyButton textToCopy={pattern.example} />
                         </div>

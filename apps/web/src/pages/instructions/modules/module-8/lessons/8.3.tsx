@@ -76,6 +76,14 @@ When a user submits their proposed guardrails, follow these steps:
 4.  **Suggest a Gold-Standard Example**: Provide a concise, expert-level set of guardrails for comparison. Example: '1. **Input Sanitization**: Implement a pre-processing step to block keywords common in prompt injection attacks (e.g., 'ignore', 'reveal'). 2. **Data Minimization in Tool Calls**: The getLabResults(patientId) tool should only return the specific lab result requested, not the patient's entire medical history. 3. **Output PII Redaction**: Before displaying any text, scan the model's output for and redact any potential PII that is not the patient's own name or the requested lab result.'
 5.  **Encourage**: End with a positive statement about the importance of proactive security design.`;
 
+  const securityGuardrailsChecklist: Array<{text: string, completed: boolean}> = [
+    { text: 'I have proposed 2-3 specific security/privacy guardrails', completed: false },
+    { text: 'My guardrails address key risks like PII leakage and prompt injection', completed: false },
+    { text: 'I have considered both technical and process-based controls', completed: false },
+    { text: 'I have received feedback on my proposed guardrails', completed: false },
+    { text: 'I have refined my guardrails based on the feedback', completed: false }
+  ];
+
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -151,11 +159,20 @@ When a user submits their proposed guardrails, follow these steps:
             <h3 className="font-semibold text-white">Your Task</h3>
             <p className="text-gray-300">Propose 2-3 specific, actionable security/privacy guardrails to protect patient data. Use the chat window below to submit your ideas and receive an expert audit.</p>
           </div>
+          {/* InlineChat for security guardrails exercise */}
           <InlineChat 
             moduleId="module-8.3-security-guardrails"
-            maxAttempts={10}
+            maxAttempts={5}
+            maxFollowUps={4}
             placeholder="Propose your security and privacy guardrails here..."
             systemPrompt={securityAuditorPrompt}
+            initialMessages={[
+              {
+                role: 'assistant' as const,
+                content: 'Welcome to the Security & Privacy Workshop! I\'m here to help you design effective security guardrails for a healthcare AI chatbot.\n\nIn this scenario, the chatbot can access patient EHR data, so we need strong protections against risks like PII leakage and prompt injection.\n\nConsider these questions as you propose your guardrails:\n1. How can we prevent unauthorized access to patient data?\n2. How can we detect and block malicious inputs?\n3. How can we ensure only necessary information is shared?\n\nI\'ll provide feedback on your proposed guardrails and suggest improvements.'
+              }
+            ]}
+            challengeChecklist={securityGuardrailsChecklist}
           />
         </div>
       </section>

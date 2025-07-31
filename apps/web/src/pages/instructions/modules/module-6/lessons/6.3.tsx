@@ -73,6 +73,14 @@ const Lesson6_3: React.FC = () => {
 2. **Metric Definition**: Help them define a single, key metric to measure the change (e.g., "User satisfaction score," "Correction rate," "Task completion time").
 3. **A/B Test Design**: Help them outline a simple A/B test (e.g., "Group A gets the old prompt, Group B gets the new prompt. We will compare the key metric between the two groups after 1,000 interactions.").
 Be encouraging and help them think critically about their ideas.`;
+
+  const hypothesisChecklist: Array<{text: string, completed: boolean}> = [
+    { text: 'I have described an AI feature I want to improve', completed: false },
+    { text: 'I have formulated a clear, testable hypothesis', completed: false },
+    { text: 'I have defined a key metric to measure success', completed: false },
+    { text: 'I have outlined a simple A/B test design', completed: false },
+    { text: 'I have received feedback on my experimental design', completed: false }
+  ];
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
@@ -156,11 +164,20 @@ Be encouraging and help them think critically about their ideas.`;
         <p className="text-gray-300 mb-4">
           A good experiment starts with a clear hypothesis. Use the chat window below to improve an AI feature. Describe the feature, and the AI will help you formulate a testable hypothesis, define a key metric, and create an A/B test to see if your change works.
         </p>
+        {/* InlineChat for hypothesis testing exercise */}
         <InlineChat 
           moduleId="module-6.3-hypothesis-testing"
-          maxAttempts={10}
-          placeholder="Try: &quot;Let's improve an AI that summarizes articles.&quot;" 
+          maxAttempts={5}
+          maxFollowUps={4}
+          placeholder="Try: Let's improve an AI that summarizes articles." 
           systemPrompt={hypothesisAssistantPrompt}
+          initialMessages={[
+            {
+              role: 'assistant' as const,
+              content: 'Welcome to the Hypothesis Testing Workshop! I\'ll help you design an experiment to improve an AI feature.\n\nTo get started, describe an AI feature you\'d like to improve. For example: "I want to improve an AI that generates code documentation."\n\nI\'ll guide you through creating a testable hypothesis, defining success metrics, and designing an A/B test.'
+            }
+          ]}
+          challengeChecklist={hypothesisChecklist}
         />
       </section>
 
