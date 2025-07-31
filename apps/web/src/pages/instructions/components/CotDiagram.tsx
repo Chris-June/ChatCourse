@@ -28,8 +28,9 @@ const Card = ({ title, titleColor, children }: { title: string; titleColor: stri
 const CotDiagram: React.FC = () => {
   return (
     <div className="my-6 grid md:grid-cols-2 gap-6">
-      {/* Standard Prompting */}
-      <PromptingColumn title="Standard Prompting">
+      {/* Standard Prompting - Like a calculator */}
+      <PromptingColumn title="Standard Prompting (Calculator Mode)">
+        <div className="text-xs text-gray-400 mb-2 text-center">Like using a calculator - you get the answer without seeing the process</div>
         <Card title="Model Input" titleColor="bg-blue-500/20 text-blue-300">
           <p><span className="font-bold">Q:</span> Roger has 5 tennis balls. He buys 2 more cans of tennis balls. Each can has 3 tennis balls. How many tennis balls does he have now?</p>
           <p><span className="font-bold">A:</span> The answer is 11.</p>
@@ -41,11 +42,13 @@ const CotDiagram: React.FC = () => {
             <p className="flex-grow"><span className="font-bold">A:</span> The answer is 27.</p>
             <X className="w-6 h-6 text-red-500 ml-2" />
           </div>
+          <div className="text-xs text-red-400 mt-2">❌ Wrong: 27 (should be 9)</div>
         </Card>
       </PromptingColumn>
 
-      {/* Chain-of-Thought Prompting */}
-      <PromptingColumn title="Chain-of-Thought Prompting">
+      {/* Chain-of-Thought Prompting - Like a teacher */}
+      <PromptingColumn title="Chain-of-Thought Prompting (Teacher Mode)">
+        <div className="text-xs text-gray-400 mb-2 text-center">Like having a teacher who shows every step of the solution</div>
         <Card title="Model Input" titleColor="bg-blue-500/20 text-blue-300">
             <p><span className="font-bold">Q:</span> Roger has 5 tennis balls. He buys 2 more cans of tennis balls. Each can has 3 tennis balls. How many tennis balls does he have now? Think Step-by-step</p>
             <p><span className="font-bold">A:</span> <Highlight>Roger started with 5 balls. 2 cans of 3 tennis balls each is 6 tennis balls. 5 + 6 = 11.</Highlight> The answer is 11.</p>
@@ -54,9 +57,10 @@ const CotDiagram: React.FC = () => {
         </Card>
         <Card title="Model Output" titleColor="bg-green-500/20 text-green-300">
             <div className="flex items-center">
-                <p className="flex-grow"><span className="font-bold">A:</span> <HighlightGreen>The cafeteria had 23 apples originally. They used 20 to make lunch. So they had 23 - 20 = 3. They bought 6 more apples, so they have 3 + 6 = 9.</HighlightGreen> The answer is 9.</p>
+                <p className="flex-grow"><span className="font-bold">A:</span> <HighlightGreen>The cafeteria had 23 apples originally. They used 20 to make lunch. So they had 23 - 20 = 3. They bought 6 more apples, so now they have 3 + 6 = 9.</HighlightGreen> The answer is 9.</p>
                 <Check className="w-6 h-6 text-green-400 ml-2" />
             </div>
+            <div className="text-xs text-green-400 mt-2">✅ Success: Correct reasoning and answer</div>
         </Card>
       </PromptingColumn>
     </div>
