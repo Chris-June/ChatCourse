@@ -13,7 +13,7 @@ interface PromptPattern {
 }
 
 // Store our INSYNC patterns
-const insyncPatterns: PromptPattern[] = [
+export const patterns: PromptPattern[] = [
   {
     id: '1',
     name: 'INSYNC Framework',
@@ -314,13 +314,16 @@ const insyncPatterns: PromptPattern[] = [
     useCase: 'International business and cross-cultural communication',
     tags: ['insync', 'cross-cultural', 'international', 'business']
   }
-  
 ];
 
-// Handler function to return the patterns
-export const handleGetPromptPatterns = (_req: Request, res: Response) => {
+/**
+ * Handler for PromptPatternLibrary
+ * @param _req Express request object
+ * @param res Express response object
+ */
+export const handleGetPatterns = (_req: Request, res: Response): void => {
   try {
-    res.status(200).json(insyncPatterns);
+    res.status(200).json(patterns);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching prompt patterns', error });
   }

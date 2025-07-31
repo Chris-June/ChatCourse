@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
-import { RefreshCw, AlertCircle } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import CopyButton from '../../../CopyButton';
 import { api } from '@/lib/api';
+
+interface INSYNCElement {
+  score: number;
+  feedback: string;
+  example: string;
+}
 
 interface PromptVersion {
   id: number;
   prompt: string;
   feedback: {
-    clarity: number;
-    specificity: number;
-    improvements: string[];
+    intent: INSYNCElement;
+    nuance: INSYNCElement;
+    style: INSYNCElement;
+    youAs: INSYNCElement;
+    narrativeFormat: INSYNCElement;
+    context: INSYNCElement;
+    totalScore: number;
+    overallFeedback: string;
+    improvedPrompt: string;
   };
   timestamp: Date;
 }
@@ -49,13 +61,17 @@ const PromptRefinementWorkbench: React.FC = () => {
 
       const feedback = result;
 
-      // Ensure the feedback has the expected structure
+      // Ensure the feedback has the expected INSYNC structure
       const formattedFeedback = {
-        clarity: feedback.clarity || 0,
-        specificity: feedback.specificity || 0,
-        improvements: Array.isArray(feedback.improvements) 
-          ? feedback.improvements 
-          : ['No specific suggestions available']
+        intent: feedback.intent || { score: 0, feedback: 'No evaluation available', example: '' },
+        nuance: feedback.nuance || { score: 0, feedback: 'No evaluation available', example: '' },
+        style: feedback.style || { score: 0, feedback: 'No evaluation available', example: '' },
+        youAs: feedback.youAs || { score: 0, feedback: 'No evaluation available', example: '' },
+        narrativeFormat: feedback.narrativeFormat || { score: 0, feedback: 'No evaluation available', example: '' },
+        context: feedback.context || { score: 0, feedback: 'No evaluation available', example: '' },
+        totalScore: feedback.totalScore || 0,
+        overallFeedback: feedback.overallFeedback || 'No feedback available',
+        improvedPrompt: feedback.improvedPrompt || ''
       };
 
       const newVersion: PromptVersion = {
@@ -91,7 +107,7 @@ const PromptRefinementWorkbench: React.FC = () => {
                 placeholder="Enter your prompt here..."
                 disabled={isAnalyzing}
               />
-              <div className="absolute bottom-2 right-2 flex space-x-2">
+              <div className="absolute top-1 right-1 flex space-x-2">
                 <CopyButton textToCopy={currentPrompt} />
               </div>
             </div>
@@ -118,31 +134,120 @@ const PromptRefinementWorkbench: React.FC = () => {
           
           {versions.length > 0 ? (
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-900/50 p-3 rounded">
-                  <div className="text-sm text-gray-400 mb-1">Clarity</div>
+              <div className="grid grid-cols-3 gap-4 mb-4">
+                <div className="bg-gray-900/50 p-3 rounded text-center">
+                  <div className="text-sm text-gray-400 mb-1">Total Score</div>
                   <div className="text-2xl font-bold text-blue-400">
-                    {versions[0].feedback.clarity}/5
+                    {versions[0].feedback.totalScore}/30
                   </div>
                 </div>
-                <div className="bg-gray-900/50 p-3 rounded">
-                  <div className="text-sm text-gray-400 mb-1">Specificity</div>
+                <div className="bg-gray-900/50 p-3 rounded text-center">
+                  <div className="text-sm text-gray-400 mb-1">Grade</div>
+                  <div className="text-2xl font-bold text-emerald-400">
+                    {Math.round((versions[0].feedback.totalScore / 30) * 100)}%
+                  </div>
+                </div>
+                <div className="bg-gray-900/50 p-3 rounded text-center">
+                  <div className="text-sm text-gray-400 mb-1">Level</div>
                   <div className="text-2xl font-bold text-purple-400">
-                    {versions[0].feedback.specificity}/5
+                    {versions[0].feedback.totalScore >= 25 ? 'Expert' : 
+                     versions[0].feedback.totalScore >= 20 ? 'Advanced' : 
+                     versions[0].feedback.totalScore >= 15 ? 'Intermediate' : 'Beginner'}
                   </div>
                 </div>
               </div>
 
-              <div>
-                <h4 className="font-medium text-white text-sm mb-2">Suggested Improvements</h4>
-                <ul className="space-y-2">
-                  {versions[0].feedback.improvements.map((improvement, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <AlertCircle className="w-4 h-4 text-yellow-400 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-300">{improvement}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-gray-900/50 p-4 rounded-lg">
+                  <h4 className="font-medium text-white text-sm mb-3">I.N.S.Y.N.C. Elements</h4>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-blue-400">Intent</span>
+                      <span className={`text-sm ${versions[0].feedback.intent.score >= 4 ? 'text-green-400' : versions[0].feedback.intent.score >= 3 ? 'text-yellow-400' : 'text-red-400'}`}>
+                        {versions[0].feedback.intent.score}/5
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-green-400">Nuance</span>
+                      <span className={`text-sm ${versions[0].feedback.nuance.score >= 4 ? 'text-green-400' : versions[0].feedback.nuance.score >= 3 ? 'text-yellow-400' : 'text-red-400'}`}>
+                        {versions[0].feedback.nuance.score}/5
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-purple-400">Style</span>
+                      <span className={`text-sm ${versions[0].feedback.style.score >= 4 ? 'text-green-400' : versions[0].feedback.style.score >= 3 ? 'text-yellow-400' : 'text-red-400'}`}>
+                        {versions[0].feedback.style.score}/5
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-orange-400">You as...</span>
+                      <span className={`text-sm ${versions[0].feedback.youAs.score >= 4 ? 'text-green-400' : versions[0].feedback.youAs.score >= 3 ? 'text-yellow-400' : 'text-red-400'}`}>
+                        {versions[0].feedback.youAs.score}/5
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-pink-400">Narrative Format</span>
+                      <span className={`text-sm ${versions[0].feedback.narrativeFormat.score >= 4 ? 'text-green-400' : versions[0].feedback.narrativeFormat.score >= 3 ? 'text-yellow-400' : 'text-red-400'}`}>
+                        {versions[0].feedback.narrativeFormat.score}/5
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-yellow-400">Context</span>
+                      <span className={`text-sm ${versions[0].feedback.context.score >= 4 ? 'text-green-400' : versions[0].feedback.context.score >= 3 ? 'text-yellow-400' : 'text-red-400'}`}>
+                        {versions[0].feedback.context.score}/5
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-900/50 p-4 rounded-lg">
+                  <h4 className="font-medium text-white text-sm mb-3">Detailed Feedback</h4>
+                  <div className="space-y-3 text-sm text-gray-300">
+                    <div className="border-l-2 border-gray-600 pl-3">
+                      <div className="font-medium">Intent</div>
+                      <div className="text-gray-400">{versions[0].feedback.intent.feedback}</div>
+                    </div>
+                    <div className="border-l-2 border-gray-600 pl-3">
+                      <div className="font-medium">Nuance</div>
+                      <div className="text-gray-400">{versions[0].feedback.nuance.feedback}</div>
+                    </div>
+                    <div className="border-l-2 border-gray-600 pl-3">
+                      <div className="font-medium">Style</div>
+                      <div className="text-gray-400">{versions[0].feedback.style.feedback}</div>
+                    </div>
+                    <div className="border-l-2 border-gray-600 pl-3">
+                      <div className="font-medium">You as...</div>
+                      <div className="text-gray-400">{versions[0].feedback.youAs.feedback}</div>
+                    </div>
+                    <div className="border-l-2 border-gray-600 pl-3">
+                      <div className="font-medium">Narrative Format</div>
+                      <div className="text-gray-400">{versions[0].feedback.narrativeFormat.feedback}</div>
+                    </div>
+                    <div className="border-l-2 border-gray-600 pl-3">
+                      <div className="font-medium">Context</div>
+                      <div className="text-gray-400">{versions[0].feedback.context.feedback}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4">
+                <h4 className="font-medium text-white text-sm mb-2">Improved Prompt</h4>
+                <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-600">
+                  <div className="text-sm text-gray-300 whitespace-pre-wrap">
+                    {versions[0].feedback.improvedPrompt}
+                  </div>
+                  <div className="mt-2">
+                    <CopyButton textToCopy={versions[0].feedback.improvedPrompt} />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4">
+                <h4 className="font-medium text-white text-sm mb-2">Overall Feedback</h4>
+                <div className="text-sm text-gray-300">
+                  {versions[0].feedback.overallFeedback}
+                </div>
               </div>
             </div>
           ) : (
