@@ -95,7 +95,10 @@ const Lesson6_1: React.FC = () => {
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">6.1 From Idea to Impact</h1>
+        <h1 className="text-4xl font-bold text-white flex items-center">
+          <Lightbulb className="w-10 h-10 mr-4 text-yellow-400" />
+          Lesson 6.1: Blueprint to Skyscraper
+        </h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-5/5.1" 
@@ -114,7 +117,7 @@ const Lesson6_1: React.FC = () => {
       </div>
 
       <p className="text-lg text-gray-300">
-        The journey of building a great AI-powered product begins with a great idea. In this lesson, we'll explore a practical framework to brainstorm innovative concepts, assess their feasibility, and prioritize what to build first.
+        You don't build a skyscraper by just stacking bricks. You start with a blueprint. This lesson is your architectural guide to building AI products, taking you from a foundational idea to a validated prototype. We'll cover the essential stages: defining the building's purpose (Jobs to be Done), checking the ground conditions (Feasibility), planning the construction phases (Prioritization), and building a scale model (Prototyping).
       </p>
 
       <Accordion title="1. Brainstorming with 'Jobs to be Done'" icon={<Lightbulb className="w-6 h-6 mr-2 text-yellow-400" />} isInitiallyOpen>
@@ -125,23 +128,30 @@ const Lesson6_1: React.FC = () => {
         </div>
       </Accordion>
 
-      <Accordion title="2. Assessing Feasibility" icon={<ClipboardCheck className="w-6 h-6 mr-2 text-green-400" />} isInitiallyOpen>
+      <Accordion title="The Blueprint: What 'Job' is Your Skyscraper For?" icon={<ClipboardCheck className="w-6 h-6 mr-2 text-green-400" />} isInitiallyOpen>
         <div className="space-y-4 text-gray-300">
-          <p>Once you have an idea framed as a JTBD, you need to perform a quick reality check. Not all ideas are technically or ethically viable. Use this calculator to get a feel for the key feasibility dimensions.</p>
+          <p>Before laying a foundation, an architect must know if they're designing a hospital, an office, or a home. The 'Jobs to be Done' framework is about defining that purpose. What 'job' are users 'hiring' your AI product to do? This interactive tool will help you craft a clear JTBD statement.</p>
+          <JtbdBuilder />
+        </div>
+      </Accordion>
+
+      <Accordion title="The Ground Conditions: Assessing Feasibility" icon={<ClipboardCheck className="w-6 h-6 mr-2 text-orange-400" />} isInitiallyOpen>
+        <div className="space-y-4 text-gray-300">
+          <p>You can't build a skyscraper on a swamp. A feasibility check is your geological survey. Do you have the right materials (data)? Is the technology strong enough (technical feasibility)? How safe does it need to be (reliability)? Use this calculator to assess the viability of your idea.</p>
           <FeasibilityCalculator />
         </div>
       </Accordion>
 
-      <Accordion title="3. Prioritizing with an Impact/Effort Matrix" icon={<TrendingUp className="w-6 h-6 mr-2 text-cyan-400" />} isInitiallyOpen>
+      <Accordion title="Construction Phases: What to Build First?" icon={<TrendingUp className="w-6 h-6 mr-2 text-cyan-400" />} isInitiallyOpen>
         <div className="space-y-4 text-gray-300">
-          <p>You'll likely have many feasible ideas. How do you choose? An Impact/Effort matrix is a simple but powerful tool for prioritizing. Categorize your ideas to find the quick wins and plan for major projects.</p>
+          <p>A skyscraper isn't built all at once. You prioritize the foundation, then the frame, then the floors. An Impact/Effort matrix helps you plan this construction. Identify the 'quick wins' (high impact, low effort) to build momentum and plan for the 'major projects' that will form your core structure.</p>
           <ImpactEffortMatrix />
         </div>
       </Accordion>
 
-      <Accordion title="4. Prototyping with the 'Wizard of Oz' Method" icon={<TestTube2 className="w-6 h-6 mr-2 text-purple-400" />} isInitiallyOpen>
+      <Accordion title="The Scale Model: 'Wizard of Oz' Prototyping" icon={<TestTube2 className="w-6 h-6 mr-2 text-purple-400" />} isInitiallyOpen>
         <div className="space-y-4 text-gray-300">
-          <p>Before you write a single line of AI code, you can test your idea using the "Wizard of Oz" technique. This involves faking the AI's response manually to see how users interact with your proposed solution. It's a fast, cheap way to validate if your idea truly solves the user's job.</p>
+          <p>Architects build scale models before ordering steel. The 'Wizard of Oz' method is your scale model. You can test your entire product concept by having a human manually 'power' the AI behind the scenes. This is the fastest, cheapest way to see if people actually want to live or work in your building before you break ground.</p>
           <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
             <h4 className="font-semibold text-white mb-2">Case Study: "AI Meeting Summarizer"</h4>
             <p className="text-sm text-gray-400">A startup wanted to build an AI that summarizes meeting notes. Instead of building a complex model, they had an intern listen to meeting recordings and manually write summaries. They used this to test different summary formats and see if users actually found the service valuable. The feedback they gathered was crucial for building the real product.</p>
@@ -182,10 +192,10 @@ const Lesson6_1: React.FC = () => {
 
       <div className="flex justify-between pt-4">
         <Link 
-          to="/instructions/module-5/5.1" 
+          to="/instructions/module-5/5.3" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Debugging & Iteration
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Race Car Engineering
         </Link>
         <Link 
           to="/instructions/module-6/6.2" 

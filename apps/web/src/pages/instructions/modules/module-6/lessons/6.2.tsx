@@ -20,7 +20,7 @@ const Lesson6_2: React.FC = () => {
         'Ensure the AI always makes the final decision.'
       ],
       correctAnswer: 'Create a partnership where the user feels in control and the AI acts as a helpful assistant.',
-      explanation: 'This principle is about shifting the dynamic from a simple tool to a collaborative partner, which involves setting clear expectations and empowering the user.'
+      explanation: 'A well-trained guide dog doesn\'t just follow orders; it collaborates with its owner to navigate the world safely. Your AI should do the same. The goal is a partnership where the user feels in control, and the AI provides helpful guidance. It\'s about teamwork, not a one-way command structure.'
     },
     {
       questionText: 'Which of the following best builds user trust through transparency and control?',
@@ -31,7 +31,7 @@ const Lesson6_2: React.FC = () => {
         'Making the AI\'s responses as mysterious as possible.'
       ],
       correctAnswer: 'Providing an explanation for *why* the AI made a suggestion and allowing the user to correct it.',
-      explanation: 'Trust is built when users understand how the AI works and feel empowered to influence its behavior, turning it from a black box into a transparent tool.'
+      explanation: 'You trust a service animal because you understand its training and can guide it. The same goes for AI. Build trust by being transparent—show users *why* the AI made a suggestion. Give them control to offer corrections, like giving a \'treat\' for a job well done. This turns a mysterious \'black box\' into a reliable partner.'
     },
     {
       questionText: 'Why is it important to design for uncertainty in AI?',
@@ -42,7 +42,7 @@ const Lesson6_2: React.FC = () => {
         'Because all AIs are always 100% certain about their answers.'
       ],
       correctAnswer: 'Because AI is probabilistic, and communicating its confidence level helps users decide how much to rely on its output.',
-      explanation: 'AI is not deterministic. Clearly showing when an AI is making a high-confidence suggestion versus a low-confidence guess is crucial for responsible design.'
+      explanation: 'A good trainer knows the difference between a confident bark and a nervous whimper. Your AI needs to communicate its own uncertainty. Is it 95% sure or 55% sure? Clearly showing the AI\'s confidence level (its \'tail wag\') helps users decide how much to trust a specific suggestion.'
     },
     {
       questionText: 'What is the primary danger of using biased data to train an AI system?',
@@ -53,7 +53,7 @@ const Lesson6_2: React.FC = () => {
         'The AI will refuse to answer questions.'
       ],
       correctAnswer: 'The AI can perpetuate or even amplify harmful societal biases, leading to unfair outcomes.',
-      explanation: 'If an AI learns from biased data, its decisions will reflect those biases, which can have serious real-world consequences. Actively designing for fairness is an ethical necessity.'
+      explanation: 'You would never train a service animal to be aggressive towards certain types of people. Similarly, an AI trained on biased data can produce unfair or harmful outcomes. Designing for fairness is the ethical responsibility to ensure your AI \'animal\' is helpful and equitable to everyone, regardless of their background.'
     },
     {
       questionText: 'An AI that says, \'Based on similar users, I think you\'ll like this movie, but I\'m only 70% sure,\' is demonstrating which two design principles?',
@@ -94,7 +94,10 @@ const Lesson6_2: React.FC = () => {
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">6.2 Designing for People</h1>
+        <h1 className="text-4xl font-bold text-white flex items-center">
+          <Users className="w-10 h-10 mr-4 text-teal-300" />
+          Lesson 6.2: Training a Super-Powered Service Animal
+        </h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-6/6.1" 
@@ -113,10 +116,10 @@ const Lesson6_2: React.FC = () => {
       </div>
 
       <p className="text-lg text-gray-300">
-        Great AI products aren't just technologically powerful—they're intuitive, trustworthy, and genuinely helpful. This requires a human-centered approach to design, where we focus on the interaction between the user and the AI.
+        Designing an AI is like training a highly intelligent service animal. You don't just want it to obey commands; you want it to be a reliable partner. This lesson covers the core principles of training this 'animal': fostering teamwork, building a strong bond of trust, understanding its signals, and ensuring it's fair and friendly to everyone it interacts with.
       </p>
 
-      <Accordion title="Principle 1: Design for Collaboration, Not Command" icon={<Users className="w-6 h-6 mr-2 text-green-400" />} isInitiallyOpen>
+      <Accordion title="Working as a Team, Not Master-Pet" icon={<Users className="w-6 h-6 mr-2 text-teal-400" />} isInitiallyOpen>
         <div className="space-y-4 text-gray-300">
           <p>Shift the mental model from a user commanding a tool to a user collaborating with a partner. This means setting clear expectations about the AI's capabilities and limitations right from the start. The user should always feel in control.</p>
           <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
@@ -126,23 +129,23 @@ const Lesson6_2: React.FC = () => {
         </div>
       </Accordion>
 
-      <Accordion title="Principle 2: Build Trust Through Transparency & Control" icon={<ShieldCheck className="w-6 h-6 mr-2 text-blue-400" />} isInitiallyOpen>
+      <Accordion title="Building the Bond: Transparency and a 'Treat' for Good Behavior" icon={<ShieldCheck className="w-6 h-6 mr-2 text-green-400" />} isInitiallyOpen>
         <div className="space-y-4 text-gray-300">
-          <p>Trust is the foundation of any good human-AI relationship. Users are more likely to trust a system they understand and can influence. This involves providing transparency into the AI's reasoning and giving users control to correct its mistakes.</p>
+          <p>You trust a service animal because you understand its training and can guide it. The same goes for AI. Build trust by being transparent—show users *why* the AI made a suggestion. Give them control to offer corrections, like giving a 'treat' for a job well done. This turns a mysterious 'black box' into a reliable partner.</p>
           <AiTrustMeter />
         </div>
       </Accordion>
 
-      <Accordion title="Principle 3: Design for Uncertainty" icon={<Percent className="w-6 h-6 mr-2 text-purple-400" />} isInitiallyOpen>
+      <Accordion title="Reading the Cues: Is Its Tail Wagging or Tucked?" icon={<Percent className="w-6 h-6 mr-2 text-purple-400" />} isInitiallyOpen>
         <div className="space-y-4 text-gray-300">
-          <p>AI is probabilistic, not deterministic. It's crucial to communicate the AI's level of confidence in its outputs. A good UI makes it clear when the AI is making a high-confidence suggestion versus a low-confidence guess. This helps users decide how much to rely on the information.</p>
+          <p>A good trainer knows the difference between a confident bark and a nervous whimper. Your AI needs to communicate its own uncertainty. Is it 95% sure or 55% sure? Clearly showing the AI's confidence level (its 'tail wag') helps users decide how much to trust a specific suggestion.</p>
           <UncertaintyVisualizer />
         </div>
       </Accordion>
 
-      <Accordion title="Principle 4: Design for Fairness & Mitigating Bias" icon={<Scale className="w-6 h-6 mr-2 text-yellow-400" />} isInitiallyOpen>
+      <Accordion title="Ensuring the Animal is Friendly to Everyone" icon={<Scale className="w-6 h-6 mr-2 text-yellow-400" />} isInitiallyOpen>
         <div className="space-y-4 text-gray-300">
-          <p>AI systems learn from data, and if that data reflects existing societal biases, the AI can perpetuate or even amplify them. Designing for fairness means actively identifying, measuring, and mitigating these biases to ensure your AI treats all users equitably.</p>
+          <p>You would never train a service animal to be aggressive towards certain types of people. Similarly, an AI trained on biased data can produce unfair or harmful outcomes. Designing for fairness is the ethical responsibility to ensure your AI 'animal' is helpful and equitable to everyone, regardless of their background.</p>
           <BiasExplorer />
         </div>
       </Accordion>
@@ -182,7 +185,7 @@ const Lesson6_2: React.FC = () => {
           to="/instructions/module-6/6.1" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: From Idea to Impact
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Blueprint to Skyscraper
         </Link>
         <Link 
           to="/instructions/module-6/6.3" 
