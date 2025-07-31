@@ -211,6 +211,24 @@ const SettingsModal = () => {
           </div>
         </div>
 
+        <div className="flex justify-end gap-2 pt-4">
+          <Button 
+            variant="outline"
+            size="sm"
+            onClick={() => setLocalApiKey('')}
+            disabled={!localApiKey}
+          >
+            Clear
+          </Button>
+          <Button 
+            onClick={handleSave}
+            disabled={isSaving}
+            className="gap-2"
+          >
+            <Save className="h-4 w-4" />
+            {isSaving ? 'Saving...' : 'Save Settings'}
+          </Button>
+        </div>
 
       </DialogContent>
     </Dialog>
