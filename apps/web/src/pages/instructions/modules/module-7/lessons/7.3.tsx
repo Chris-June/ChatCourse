@@ -71,45 +71,33 @@ const Lesson7_3: React.FC = () => {
   return (
     <div className="space-y-12 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">7.3 An Intro to Fine-Tuning</h1>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/instructions/module-7/7.2" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: RAG Systems
-          </Link>
-          <Link 
-            to="/instructions/module-8"
-            onClick={() => completeLesson(7, 3)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next Module: Responsible AI <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
+        <h1 className="text-4xl font-bold text-white flex items-center">
+          <GitCompareArrows className="w-10 h-10 mr-4 text-rose-400" />
+          Lesson 7.3: Training a Method Actor
+        </h1>
       </div>
 
       <section>
         <p className="text-lg text-gray-300">
-          If RAG is like giving a model an "open-book exam," then **Fine-Tuning** is like sending it to a specialized school. You're not just giving it documents to read; you're fundamentally changing its behavior by training it on a new dataset of examples. This is how you teach a model a new skill, style, or personality.
+          RAG gives an LLM a script. Fine-tuning trains it to become a method actor. You're not just giving it lines to read; you're teaching it to embody a new personality, style, or skill by having it rehearse hundreds of specific scenes. This is how you create an AI with a truly unique and consistent character.
         </p>
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Step 1: Preparing the Data</h2>
-        <p className="text-gray-300 mb-4">The most critical step in fine-tuning is preparing a high-quality dataset. This data must be structured in a specific format, usually prompt-completion pairs in JSONL. Use the interactive formatter below to see how a conversation is converted into a single training example.</p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">1. Writing the Script (Preparing Data)</h2>
+        <p className="text-gray-300 mb-4">A method actor needs a script. Your fine-tuning dataset is that script, composed of many 'scenes' (prompt/completion pairs). The quality of this script determines the quality of the final performance. Use the formatter below to see how a conversation is turned into a scene for the actor to rehearse.</p>
         <FineTuningDataFormatter />
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Step 2: Considering the Trade-Offs</h2>
-        <p className="text-gray-300 mb-4">Fine-tuning isn't free. It costs time and money, and the benefits depend heavily on your dataset size and training duration (epochs). The calculator below provides a simplified estimate of these trade-offs.</p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">2. The Cost of Immersive Training</h2>
+        <p className="text-gray-300 mb-4">Hiring a method actor for a lead role is expensive. Fine-tuning is too. It costs time and money, and the results depend on the quality of the script and the length of the rehearsal (epochs). This calculator gives you a sense of the investment required.</p>
         <FineTuningCostCalculator />
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center"><GitCompareArrows className="w-7 h-7 mr-3" />Step 3: Making the Strategic Choice</h2>
-        <p className="text-gray-300 mb-4">Knowing *when* to fine-tune is as important as knowing how. It's a powerful tool, but not always the right one. RAG is better for knowledge retrieval, while fine-tuning is better for teaching behavior. Test your understanding with the scenarios below.</p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center"><GitCompareArrows className="w-7 h-7 mr-3" />3. Casting Call: RAG vs. Fine-Tuning</h2>
+        <p className="text-gray-300 mb-4">Do you need an actor who can read any script you hand them (RAG for knowledge)? Or one who deeply embodies a specific character (Fine-Tuning for behavior)? Knowing which to choose is a critical skill. Test your casting instincts with the scenarios below.</p>
         <StrategyQuiz />
       </section>
 
@@ -125,14 +113,14 @@ const Lesson7_3: React.FC = () => {
           to="/instructions/module-7/7.2" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: RAG Systems
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Diligent Research Assistant
         </Link>
         <Link 
-          to="/instructions/module-8"
+          to="/instructions"
           onClick={() => completeLesson(7, 3)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
+          className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors"
         >
-          Next Module: Responsible AI <ChevronRight className="w-5 h-5 ml-2" />
+          Finish Course & Review Progress <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>

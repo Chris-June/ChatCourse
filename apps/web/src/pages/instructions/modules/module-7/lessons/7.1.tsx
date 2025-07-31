@@ -93,15 +93,18 @@ const Lesson7_1: React.FC = () => {
   };
 
   return (
-    <div className="space-y-12 p-4 md:p-6">
+    <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">7.1 Hands-On with Advanced Function Calling</h1>
+        <h1 className="text-4xl font-bold text-white flex items-center">
+          <GitMerge className="w-10 h-10 mr-4 text-indigo-400" />
+          Lesson 7.1: The Master Dispatcher
+        </h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-6/6.3" 
             className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Iterative Development
+            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Iterative Development
           </Link>
           <Link 
             to="/instructions/module-7/7.2" 
@@ -114,17 +117,17 @@ const Lesson7_1: React.FC = () => {
       </div>
 
       <p className="text-lg text-gray-300">
-        Welcome to the deep end of function calling. In this lesson, we'll move beyond theory and get our hands dirty with five interactive exercises. You'll visualize the entire lifecycle, design a schema from scratch, craft the perfect prompt, choose the right tool for the job, and debug a broken call. Let's begin.
+        Function calling transforms an LLM from a simple chatbot into an agent that acts. Think of it as a master dispatcher in a logistics company. The dispatcher (LLM) takes a request, consults its directory of services (tools), calls the right department with the right information, and relays the result. This lesson teaches you how to be that dispatcher.
       </p>
 
       {/* 1. Function Call Flow Visualizer */}
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <GitMerge className="w-7 h-7 mr-3 text-cyan-400" />
-          1. Visualizing the Full Lifecycle
+          <GitMerge className="w-7 h-7 mr-3 text-indigo-400" />
+          1. The Dispatch Flow
         </h2>
         <p className="text-gray-300 mb-4">
-          Before we write any code, let's watch a successful function call from start to finish. This animation breaks down the multi-step conversation between the user, the LLM, and your code. Click "Run Flow" to see it in action.
+          A successful dispatch is a multi-step dance: the driver makes a request, the dispatcher identifies the right department, calls them with the correct info, gets a result, and relays it back. This visualizer breaks down that flow.
         </p>
         <FunctionCallFlowVisualizer />
       </section>
@@ -133,10 +136,10 @@ const Lesson7_1: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Code className="w-7 h-7 mr-3 text-green-400" />
-          2. Exercise: Design a Function Schema
+          2. The Dispatcher's Directory (The Schema)
         </h2>
         <p className="text-gray-300 mb-4">
-          The foundation of any tool is its schema—the JSON object that tells the LLM what the tool does, what parameters it needs, and which are required. A well-designed schema is critical for reliable function calls. Use the designer below to build a schema for a `send_email` function.
+          The dispatcher's most critical tool is their directory (the JSON schema). It lists every department, what they do (`description`), and what info they need (`parameters`). A clear, accurate directory is essential for reliable dispatching. Use the designer below to create a directory entry for a `send_email` department.
         </p>
         <FunctionSchemaDesigner />
       </section>
@@ -145,10 +148,10 @@ const Lesson7_1: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Bot className="w-7 h-7 mr-3 text-purple-400" />
-          3. Exercise: Triggering the Tool
+          3. Making the Call (Triggering the Tool)
         </h2>
         <p className="text-gray-300 mb-4">
-          Now that you've seen a schema, let's practice writing prompts that trigger it. Your prompt needs to be clear enough for the LLM to understand the intent and extract the necessary arguments. Try to write a prompt that gets a score of 100.
+          The dispatcher can only act on a clear request. Your prompt must contain enough information for the dispatcher to understand the intent and find all the required info for the directory entry. Try to write a driver request that gets a perfect dispatch score.
         </p>
         <FunctionCallGrader 
           functionSchema={weatherFunctionSchema}
@@ -161,10 +164,10 @@ const Lesson7_1: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Puzzle className="w-7 h-7 mr-3 text-yellow-400" />
-          4. Challenge: Choosing the Right Tool
+          4. Routing the Call (Choosing the Right Department)
         </h2>
         <p className="text-gray-300 mb-4">
-          In a real application, an LLM might have dozens of tools to choose from. The clarity of your function descriptions is what allows the model to pick the right one. Given the user prompt below, which tool should the LLM choose?
+          If a driver just says "I have a problem," the dispatcher needs to figure out who to call. The quality of the `description` in your directory is what enables this. Given the driver's request below, which department is the right call?
         </p>
         <ToolChoiceChallenge />
       </section>
@@ -173,10 +176,10 @@ const Lesson7_1: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Wrench className="w-7 h-7 mr-3 text-red-400" />
-          5. Challenge: Debugging a Broken Call
+          5. Dropped Calls (Debugging)
         </h2>
         <p className="text-gray-300 mb-4">
-          Things don't always go to plan. Debugging is a critical skill. In this final exercise, a function call has failed. Analyze the user prompt, the faulty schema, and the error message to figure out what went wrong.
+          Sometimes the dispatcher dials a wrong number or the department line is busy. Dropped calls happen. In this final exercise, a dispatch has failed. Analyze the request, the faulty directory entry, and the error message to diagnose the problem.
         </p>
         <FunctionCallDebugger />
       </section>
@@ -193,7 +196,7 @@ const Lesson7_1: React.FC = () => {
           to="/instructions/module-6/6.3" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Iterative Improvement
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Chef Refining the Recipe
         </Link>
         <Link 
           to="/instructions/module-7/7.2" 
