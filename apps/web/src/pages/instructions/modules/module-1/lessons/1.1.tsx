@@ -80,7 +80,7 @@ const InteractiveTokenizer = () => {
       </div>
       
       <p className="mt-3 text-xs text-gray-500">
-        <strong>Note:</strong> This is a simplified demonstration. Actual tokenization in LLMs is more complex.
+        <strong>Note:</strong> This is a simplified demonstration. Actual tokenization in LLMs is more complex. For example, a real AI tokenizer might group a word like `don't` into two tokens (`do` and `n't`) to better understand its meaning.
       </p>
     </div>
   );
@@ -276,8 +276,7 @@ const Lesson1_1: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
             <h3 className="font-bold text-lg text-white mb-2">Traditional Programming</h3>
-            <p className="text-gray-400">You write <span className="text-green-400 font-mono">explicit, step-by-step instructions</span> (code). The computer follows these rules precisely. If you want to sort a list, you write or use a sorting algorithm.</p>
-            <p className="mt-2 text-sm text-gray-500"><strong>Analogy:</strong> A detailed recipe. Follow it exactly, and you get the same cake every time.</p>
+            <p className="text-gray-400">A traditional computer program follows instructions perfectly, like a robot on an assembly line. It does exactly what it's told, in the exact same way, every single time. It can't guess or handle surprises.</p>
           </div>
           <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
             <h3 className="font-bold text-lg text-white mb-2">AI Development</h3>
@@ -430,7 +429,7 @@ const Lesson1_1: React.FC = () => {
             </div>
             
             <div className="space-y-3">
-              <p className="text-gray-300">Is this statement a hallucination?</p>
+              <p className="text-gray-300">In this game, you'll be the fact-checker. Read the statement and decide if it's a hallucination.</p>
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={() => handleHallucinationAnswer(true)}
@@ -702,9 +701,16 @@ const Lesson1_1: React.FC = () => {
           </div>
         </div>
         
+        <div className="mt-8">
+            <h3 className="text-lg font-semibold text-white flex items-center"><Info className="w-5 h-5 mr-2 text-blue-400"/>Why This Matters</h3>
+            <p className="text-gray-300 mt-2 pl-7">
+              Understanding these basics helps you use AI tools more effectively and spot potential errors in AI-generated content you encounter online, at work, or in the news.
+            </p>
+          </div>
+
         <div className="mt-6 p-4 bg-blue-900/20 rounded-lg border border-blue-800/50">
           <p className="text-blue-200">
-            <span className="font-semibold">Remember:</span> This lesson is just the beginning. In the next lesson, you'll learn how to craft effective prompts to get the most out of AI systems.
+            <span className="font-semibold">Next Up:</span> In the next lesson, you'll learn how to craft effective prompts to get the most out of AI systems.
           </p>
         </div>
       </section>

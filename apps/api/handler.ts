@@ -101,66 +101,48 @@ app.use((req, res, next) => {
   const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:3001',
-<<<<<<< HEAD:apps/api/handler.ts
-    'https://*.vercel.app',
-    'https://*.intellisync.chat',
-    'https://chat-dlvm2mvuz-chris-junes-projects-c32d49c9.vercel.app' // Add your production URL
-  ];
-  
-  const origin = req.headers.origin || '';
-  
-  // Set CORS headers
-  if (process.env.NODE_ENV === 'production') {
-    // In production, check against allowed origins
-    const isAllowed = allowedOrigins.some(allowedOrigin => {
-      // Handle wildcard domains
-      if (allowedOrigin.includes('*')) {
-        const domain = allowedOrigin.replace('*', '');
-        return origin.endsWith(domain) || origin === domain;
-      }
-      return origin === allowedOrigin;
-    });
-    
-    if (isAllowed) {
-      res.setHeader('Access-Control-Allow-Origin', origin);
-    } else if (origin) {
-      // For debugging - log blocked origins
-      console.log('Blocked origin:', origin);
-      // Consider being more permissive in development
-      if (process.env.NODE_ENV !== 'production') {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-      }
-    }
-  } else {
-    // In development, allow all origins
-    res.setHeader('Access-Control-Allow-Origin', origin || '*');
-=======
     'http://localhost:5173',
     'https://prompt-foundry.vercel.app',
     'https://intelli-sync.vercel.app',
     'https://intelli-sync-dev.vercel.app',
     'https://intelli-sync-git-main-intellisync.vercel.app/',
-    'https://www.intellisync.academy'
+    'https://www.intellisync.academy',
+    'https://chat-dlvm2mvuz-chris-junes-projects-c32d49c9.vercel.app',
+    'https://*.vercel.app',
+    'https://*.intellisync.chat',
   ];
+
   const origin = req.headers.origin;
-  if (origin && allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
->>>>>>> module-2:api/handler.ts
+
+  if (process.env.NODE_ENV !== 'production') {
+    // In development, allow any origin
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+  } else if (origin) {
+    // In production, validate against the allowed list
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (allowedOrigin.startsWith('*.')) {
+        // Handle wildcard domain *.example.com
+        return origin.endsWith(allowedOrigin.substring(1));
+      }
+      // Handle exact domain match
+      return origin === allowedOrigin;
+    });
+
+    if (isAllowed) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+    }
   }
+
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
-<<<<<<< HEAD:apps/api/handler.ts
-  
-  // Expose headers if needed
   res.setHeader('Access-Control-Expose-Headers', 'Content-Length,Content-Range');
 
   // Handle preflight requests
-=======
->>>>>>> module-2:api/handler.ts
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
+
   next();
 });
 
