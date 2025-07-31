@@ -172,63 +172,28 @@ const SettingsModal = () => {
           </div>
 
           <div className="space-y-2">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="api-key">OpenAI API Key</Label>
-                  <a 
-                    href="https://platform.openai.com/api-keys" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-sm text-blue-400 hover:text-blue-300 underline"
-                  >
-                    Get your API key
-                  </a>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="apiKey">OpenAI API Key</Label>
-                  <Input
-                    id="apiKey"
-                    type="password"
-<<<<<<< HEAD
-                    placeholder="sk-..."
-                    value={localApiKey || ''}
-                    onChange={(e) => setLocalApiKey(e.target.value)}
-                    className="w-full"
-=======
-                    placeholder="sk-... This Feature is Coming Soon"
-                    value={apiKey}
-                    onChange={(e) => setApiKey(e.target.value)}
-                    className="bg-zinc-800 border-zinc-700 text-white flex-1"
->>>>>>> module-2
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Your API key is stored locally in your browser.
-                  </p>
-                </div>
-
-                <div className="flex justify-end gap-2 pt-4">
-                  <Button 
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setLocalApiKey('')}
-                    disabled={!localApiKey}
-                  >
-                    Clear
-                  </Button>
-                  <Button 
-                    onClick={handleSave}
-                    disabled={isSaving}
-                    className="gap-2"
-                  >
-                    <Save className="h-4 w-4" />
-                    {isSaving ? 'Saving...' : 'Save Settings'}
-                  </Button>
-                </div>
-
-                <p className="text-xs text-gray-400">
-                  Your API key is stored locally in your browser and never sent to our servers. For testing purposes, you will need to add a payment option to your OpenAI account. We find that most testers spend less than $10.00 in API Credits for this project.
-                </p>
-              </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="apiKey">OpenAI API Key</Label>
+              <a 
+                href="https://platform.openai.com/api-keys" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm text-blue-400 hover:text-blue-300 underline"
+              >
+                Get your API key
+              </a>
+            </div>
+            <Input
+              id="apiKey"
+              type="password"
+              placeholder="sk-..."
+              value={localApiKey || ''}
+              onChange={(e) => setLocalApiKey(e.target.value)}
+              className="bg-zinc-800 border-zinc-700 text-white flex-1"
+            />
+            <p className="text-xs text-gray-400">
+              Your API key is stored locally in your browser and never sent to our servers. For testing purposes, you will need to add a payment option to your OpenAI account. We find that most testers spend less than $10.00 in API Credits for this project.
+            </p>
           </div>
 
           <div className="flex items-center justify-between">
