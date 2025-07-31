@@ -112,7 +112,7 @@ const Lesson2_2: React.FC = () => {
       </div>
 
       <p className="text-lg text-gray-300">
-        Now that you understand the AI's "memory" is a finite context window, let's learn how to actively manage it. These techniques will help you keep your conversations on track, even when tackling complex, multi-step problems.
+        Now that you understand the AI's "memory" is a finite context window, let's learn how to actively manage it. Context contamination happens when irrelevant or conflicting details from earlier in the conversation start to confuse the AI, leading to off-topic or incorrect responses. These techniques will help you keep your conversations on track, even when tackling complex, multi-step problems.
       </p>
 
       <InstructionPriming />
@@ -144,7 +144,7 @@ const Lesson2_2: React.FC = () => {
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300">Putting It All Together: Final Challenge</h2>
         <p className="text-gray-300 mb-4">
-          Now, apply all the techniques you've learned. Use the chat below to guide the AI through a multi-step task. Remember to summarize, use explicit references, and maintain a coherent conversation.
+          Now, apply all the techniques you've learned. Start by summarizing the goal regularly to keep the AI focused on your objective. Use explicit references to direct the AI to specific details, like saying 'Make the second headline you suggested more inspiring by focusing on the mission to unlock human creativity' instead of 'Make it better.' Build on previous ideas by referencing them explicitly, and start fresh when the conversation becomes confused or off-track.
         </p>
         <InlineChat 
           moduleId="module-2.2-final-challenge"

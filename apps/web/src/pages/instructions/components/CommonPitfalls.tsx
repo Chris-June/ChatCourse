@@ -4,15 +4,15 @@ import { AlertTriangle } from 'lucide-react';
 const pitfalls = [
   {
     title: 'Implicit Persona Change',
-    description: 'You start a chat with a \'Marketing Guru\' persona, then later ask it to act as a \'Python Developer\' without restating the new persona. The AI may still carry over the marketing tone.'
+    description: 'You start with a "Marketing Guru" persona, then later ask it to act as a "Python Developer" without restating the new role. The AI may still use the marketing tone. Instead, explicitly state: "Now act as a Python Developer" to reset the context.'
   },
   {
     title: 'Burying the Lead',
-    description: 'Writing a long paragraph of context and putting the main question or instruction somewhere in the middle. The AI might miss it or give it less weight.'
+    description: 'Writing a long paragraph with the main question in the middle. The AI might miss it. Instead, put your main instruction at the beginning or end, or use clear formatting like "Main task: [your instruction]."'
   },
   {
     title: 'Compound Questions',
-    description: 'Asking multiple, unrelated questions in a single prompt. This often confuses the AI, leading to incomplete or merged answers. Ask one thing at a time.'
+    description: 'Asking multiple unrelated questions at once. This often leads to incomplete answers. Instead, break complex requests into separate messages, or use clear numbering: "Question 1:... Question 2:..."'
   }
 ];
 

@@ -64,8 +64,8 @@ const ContextExample: React.FC = () => {
             <p className={`${showFailureCase ? 'text-red-200' : 'text-blue-200'} text-sm`}>
               <span className="font-bold">Key Insight:</span> 
               {showFailureCase 
-                ? 'Because the first message was \'forgotten\' (out of context), the AI has no idea what "the second one" refers to and must ask for clarification.'
-                : 'The AI knows "the second one" refers to scrambled eggs with spinach <strong>only because the previous turn is still in the context window.</strong>'
+                ? 'The AI has forgotten your earlier conversation because its "working memory" (the context window) became full. Just like a whiteboard that gets erased when full, the AI can no longer see your first message asking for breakfast ideas.'
+                : 'The AI remembers your breakfast ideas because this conversation is short enough to fit in its working memory. All the important context is still "visible" to the AI.'
               }
             </p>
           </div>

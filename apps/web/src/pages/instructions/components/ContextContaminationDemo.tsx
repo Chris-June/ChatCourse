@@ -5,8 +5,11 @@ const ContaminatedChat = () => (
   <div className="bg-gray-900 p-4 rounded-lg border border-red-700 h-full">
     <h4 className="font-semibold text-red-400 mb-2 flex items-center">
       <XCircle className="w-5 h-5 mr-2" />
-      With Contaminated Context
+      When Context Gets Confused
     </h4>
+    <p className="text-gray-400 text-xs mb-3">
+      The AI is mixing up details from different topics because the conversation context has become cluttered.
+    </p>
     <div className="space-y-2 text-sm">
       <p className="p-2 rounded-md bg-gray-700"><strong className="text-cyan-400">You:</strong> ...and that's why our new marketing slogan should be 'Innovate, Integrate, Inspire'.</p>
       <p className="p-2 rounded-md bg-gray-600"><strong className="text-purple-400">AI:</strong> That's a strong, memorable slogan. I like it.
@@ -21,8 +24,11 @@ const CleanChat = () => (
   <div className="bg-gray-900 p-4 rounded-lg border border-green-700 h-full">
     <h4 className="font-semibold text-green-400 mb-2 flex items-center">
       <CheckCircle className="w-5 h-5 mr-2" />
-      With a Fresh Context
+      With a Fresh Start
     </h4>
+    <p className="text-gray-400 text-xs mb-3">
+      Starting fresh gives the AI a clean slate to focus only on your new request.
+    </p>
     <div className="space-y-2 text-sm">
       <p className="p-2 rounded-md bg-gray-700 italic text-gray-400">[New Chat Started]</p>
       <p className="p-2 rounded-md bg-gray-700"><strong className="text-cyan-400">You:</strong> Write a python script to parse a CSV file.</p>
