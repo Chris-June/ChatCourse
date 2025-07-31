@@ -349,12 +349,114 @@ app.post('/api/chat/refine-prompt', async (req, res) => {
       temperature: 0.4,
     });
 
-    const feedback = JSON.parse(response.choices[0].message.content || '{}');
-    res.json(feedback);
-
+    const analysis = JSON.parse(response.choices[0]?.message?.content || '{}');
+    res.json(analysis);
   } catch (error) {
     console.error('Error in refine-prompt handler:', error);
-    res.status(500).json({ error: 'Failed to refine prompt.' });
+    res.status(500).json({ error: 'Failed to analyze prompt.' });
+  }
+});
+
+// Handler for I.N.S.Y.N.C. prompt grading
+app.post('/api/chat/grade-prompt', async (req, res) => {
+  const { prompt, framework } = req.body;
+  
+  if (!prompt || framework !== 'INSYNC') {
+    return res.status(400).json({ 
+      error: 'Invalid request. Prompt and INSYNC framework required.' 
+    });
+  }
+
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    return res.status(401).json({ 
+      error: 'API key is required. Please set the OPENAI_API_KEY environment variable.' 
+    });
+  }
+
+  const openai = new OpenAI({
+    apiKey: apiKey,
+  });
+
+  try {
+    const gradingPrompt = `You are an expert prompt engineering evaluator specializing in the I.N.S.Y.N.C. framework.
+
+Analyze the following prompt using the I.N.S.Y.N.C. framework (Intent, Nuance, Style, You as..., Narrative Format, Context):
+
+PROMPT: "${prompt}"
+
+Provide your analysis in the following JSON format:
+{
+  "totalScore": <number between 0-30>,
+  "intent": <number between 0-5>,
+  "nuance": <number between 0-5>,
+  "style": <number between 0-5>,
+  "youAs": <number between 0-5>,
+  "narrativeFormat": <number between 0-5>,
+  "context": <number between 0-5>,
+  "feedback": "Detailed markdown feedback including strengths and improvement suggestions",
+  "revisedPrompt": "An improved version of the prompt using the full I.N.S.Y.N.C. framework",
+  "generatedOutput": "A sample output demonstrating what the improved prompt would produce"
+}
+
+Scoring criteria:
+- Intent (0-5): How clearly the core goal is defined
+- Nuance (0-5): How well specific details, constraints, and preferences are included
+- Style (0-5): How clearly the desired tone or voice is specified
+- You as... (0-5): How well the AI's role or persona is defined
+- Narrative Format (0-5): How clearly the desired output format or structure is specified
+- Context (0-5): How well relevant background information is provided
+
+Be constructive and educational in your feedback.`;
+
+    const response = await openai.chat.completions.create({
+      model: getApiName('gpt-4o-mini'),
+      messages: [
+        {
+          role: 'system',
+          content: 'You are an expert prompt engineering evaluator. Provide detailed, constructive feedback using the I.N.S.Y.N.C. framework. Always return valid JSON.'
+        },
+        {
+          role: 'user',
+          content: gradingPrompt
+        }
+      ],
+      response_format: { type: 'json_object' },
+      temperature: 0.3,
+    });
+
+    const analysis = JSON.parse(response.choices[0]?.message?.content || '{}');
+    
+    // Ensure all required fields are present
+    const result = {
+      totalScore: analysis.totalScore || 0,
+      intent: analysis.intent || 0,
+      nuance: analysis.nuance || 0,
+      style: analysis.style || 0,
+      youAs: analysis.youAs || 0,
+      narrativeFormat: analysis.narrativeFormat || 0,
+      context: analysis.context || 0,
+      feedback: analysis.feedback || 'Analysis unavailable',
+      revisedPrompt: analysis.revisedPrompt || prompt,
+      generatedOutput: analysis.generatedOutput || 'Example output unavailable'
+    };
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error in grade-prompt handler:', error);
+    res.status(500).json({ 
+      error: 'Failed to grade prompt',
+      totalScore: 0,
+      intent: 0,
+      nuance: 0,
+      style: 0,
+      youAs: 0,
+      narrativeFormat: 0,
+      context: 0,
+      feedback: 'Error processing prompt. Please try again.',
+      revisedPrompt: prompt,
+      generatedOutput: 'Error generating example'
+    });
   }
 });
 
@@ -412,46 +514,21 @@ Your response should be conversational. IMPORTANT: When you provide code, you MU
   }
 });
 
+// Import I.N.S.Y.N.C. handlers
+import { handlePromptVisualization, handlePromptEvaluation, handleChallengeEvaluation } from './handlers/promptEvaluation.js';
+import { handleGetPromptPatterns } from './handlers/promptPatterns.js';
+
 // Endpoint for prompt visualization
-app.post('/api/chat/visualize-prompt', async (req, res) => {
-  try {
-    const { elements, apiKey } = req.body;
-    
-    if (!elements || !Array.isArray(elements)) {
-      return res.status(400).json({ error: 'Invalid elements provided' });
-    }
+app.post('/api/chat/visualize-prompt', handlePromptVisualization);
 
-    // Use provided API key or fallback to environment
-    const openaiApiKey = apiKey || process.env.OPENAI_API_KEY;
-    if (!openaiApiKey) {
-      return res.status(401).json({ error: 'OpenAI API key not provided' });
-    }
+// Endpoint for I.N.S.Y.N.C. prompt grading
+app.post('/api/chat/grade-prompt', handlePromptEvaluation);
 
-    // Analyze the prompt elements
-    const promptAnalysis = {
-      metrics: {
-        clarity: Math.floor(Math.random() * 3) + 3, // 3-5
-        specificity: Math.floor(Math.random() * 3) + 3, // 3-5
-        effectiveness: Math.floor(Math.random() * 3) + 3, // 3-5
-        completeness: Math.floor(Math.random() * 3) + 3, // 3-5
-        structure: Math.floor(Math.random() * 3) + 3, // 3-5
-      },
-      prompt: `Based on the provided elements: ${elements.join(', ')}, here is a comprehensive prompt analysis...`,
-      suggestions: [
-        'Consider adding more specific context',
-        'Include clear role definition',
-        'Specify desired output format',
-        'Add relevant examples or constraints'
-      ]
-    };
+// Endpoint for challenge evaluation
+app.post('/api/chat/evaluate-challenge', handleChallengeEvaluation);
 
-    res.json(promptAnalysis);
-
-  } catch (error) {
-    console.error('Error in prompt visualization:', error);
-    res.status(500).json({ error: 'Failed to analyze prompt' });
-  }
-});
+// Serves the prompt patterns for the library
+app.get('/api/prompt-patterns', handleGetPromptPatterns);
 
 // Helper function to extract API key from Authorization header
 const getApiKey = (req: express.Request): string | null => {

@@ -3,7 +3,7 @@ import CopyButton from '../../../CopyButton';
 
 interface PromptElement {
   id: string;
-  type: 'role' | 'task' | 'context' | 'constraints' | 'format' | 'examples' | 'tone';
+  type: 'intent' | 'nuance' | 'style' | 'youAs' | 'narrativeFormat' | 'context';
   label: string;
   description: string;
   value: string;
@@ -31,49 +31,58 @@ interface PromptElement {
 const PromptVisualizer: React.FC = () => {
   const [promptElements, setPromptElements] = useState<PromptElement[]>([
     {
-      id: 'role',
-      type: 'role',
-      label: 'Role',
-      description: 'The persona or expertise the AI should adopt',
-      value: 'helpful assistant',
-      weight: 0.3,
-      impact: { clarity: 8, specificity: 7, creativity: 3, conciseness: 2 }
+      id: 'intent',
+      type: 'intent',
+      label: 'Intent',
+      description: 'The core goal or objective you want to achieve',
+      value: 'explain JavaScript closures',
+      weight: 0.25,
+      impact: { clarity: 9, specificity: 8, creativity: 3, conciseness: 6 }
     },
     {
-      id: 'task',
-      type: 'task',
-      label: 'Task',
-      description: 'The main action you want the AI to perform',
-      value: 'explain a concept',
-      weight: 0.4,
-      impact: { clarity: 9, specificity: 8, creativity: 2, conciseness: 5 }
+      id: 'nuance',
+      type: 'nuance',
+      label: 'Nuance',
+      description: 'Specific details, constraints, and preferences',
+      value: 'using simple analogies and step-by-step examples',
+      weight: 0.2,
+      impact: { clarity: 7, specificity: 9, creativity: 5, conciseness: 4 }
+    },
+    {
+      id: 'style',
+      type: 'style',
+      label: 'Style',
+      description: 'The desired tone, voice, or approach',
+      value: 'friendly, patient, and encouraging',
+      weight: 0.15,
+      impact: { clarity: 6, specificity: 5, creativity: 7, conciseness: 4 }
+    },
+    {
+      id: 'youAs',
+      type: 'youAs',
+      label: 'You as...',
+      description: 'The specific role or expertise the AI should embody',
+      value: 'experienced JavaScript tutor',
+      weight: 0.2,
+      impact: { clarity: 8, specificity: 8, creativity: 4, conciseness: 3 }
+    },
+    {
+      id: 'narrativeFormat',
+      type: 'narrativeFormat',
+      label: 'Narrative Format',
+      description: 'How the response should be structured and presented',
+      value: 'structured explanation with code examples',
+      weight: 0.15,
+      impact: { clarity: 8, specificity: 7, creativity: 4, conciseness: 8 }
     },
     {
       id: 'context',
       type: 'context',
       label: 'Context',
-      description: 'Background information or constraints',
-      value: 'to a beginner',
-      weight: 0.2,
-      impact: { clarity: 6, specificity: 7, creativity: 5, conciseness: 3 }
-    },
-    {
-      id: 'format',
-      type: 'format',
-      label: 'Format',
-      description: 'How the response should be structured',
-      value: 'step-by-step explanation',
+      description: 'Relevant background information and constraints',
+      value: 'for a beginner programmer with basic JS knowledge',
       weight: 0.15,
-      impact: { clarity: 7, specificity: 6, creativity: 4, conciseness: 7 }
-    },
-    {
-      id: 'tone',
-      type: 'tone',
-      label: 'Tone',
-      description: 'The style or voice of the response',
-      value: 'friendly and professional',
-      weight: 0.1,
-      impact: { clarity: 5, specificity: 4, creativity: 6, conciseness: 3 }
+      impact: { clarity: 7, specificity: 8, creativity: 5, conciseness: 5 }
     }
   ]);
 
@@ -81,8 +90,9 @@ const PromptVisualizer: React.FC = () => {
   const [metrics, setMetrics] = useState({
     clarity: 0,
     specificity: 0,
-    creativity: 0,
-    conciseness: 0
+    effectiveness: 0,
+    completeness: 0,
+    structure: 0
   });
 
   const [isGenerating, setIsGenerating] = useState(false);
@@ -118,19 +128,15 @@ const PromptVisualizer: React.FC = () => {
 
     } catch (error) {
       console.error('Failed to visualize prompt:', error);
-      // Fallback to simulated response if API fails
-      const mockData = {
-        metrics: {
-          clarity: Math.floor(Math.random() * 3) + 3,
-          specificity: Math.floor(Math.random() * 3) + 3,
-          creativity: Math.floor(Math.random() * 3) + 3,
-          conciseness: Math.floor(Math.random() * 3) + 3,
-        },
-        prompt: 'Generated prompt based on elements...',
-        suggestions: ['Add more specific context', 'Include clear role definition']
-      };
-      setMetrics(mockData.metrics);
-      setGeneratedPrompt(mockData.prompt);
+      // Display error to user instead of mock data
+      setMetrics({
+        clarity: 0,
+        specificity: 0,
+        effectiveness: 0,
+        completeness: 0,
+        structure: 0
+      });
+      setGeneratedPrompt(`Error: ${error instanceof Error ? error.message : 'Failed to analyze prompt'}`);
     } finally {
       setIsGenerating(false);
     }

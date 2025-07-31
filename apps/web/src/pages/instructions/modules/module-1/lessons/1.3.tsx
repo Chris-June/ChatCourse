@@ -10,7 +10,7 @@ import {
   PairProgrammingSimulator,
   PromptChallenges,
   PromptPatternLibrary,
-  PromptVisualizer
+  PromptVisualizer,
 } from '../../../../../components/prompting/advanced';
 
 // Tab component for the lesson navigation
@@ -106,6 +106,8 @@ const Lesson1_3: React.FC = () => {
       explanation: 'Advanced prompting is about being deliberate and systematic. It involves using proven structures (patterns) and continuously refining your instructions to achieve a specific goal.'
     }
   ];
+
+
 
   const { completeLesson } = useProgressStore();
   const [activeTab, setActiveTab] = useState<'visualizer' | 'challenges' | 'patterns' | 'refinement' | 'pairing'>('visualizer');

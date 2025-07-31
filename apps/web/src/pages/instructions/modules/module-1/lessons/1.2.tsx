@@ -8,35 +8,76 @@ import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes
 
 // Prompt Builder Component
 const PromptBuilder = () => {
-  const [role, setRole] = useState('helpful assistant');
-  const [task, setTask] = useState('explain a concept');
-  const [context, setContext] = useState('to a beginner');
-  const [format, setFormat] = useState('step-by-step explanation');
-  const [tone, setTone] = useState('friendly and professional');
+  const [intent, setIntent] = useState('explain JavaScript closures');
+  const [nuance, setNuance] = useState('using simple analogies and step-by-step examples');
+  const [style, setStyle] = useState('friendly, patient, and encouraging');
+  const [youAs, setYouAs] = useState('experienced JavaScript tutor');
+  const [narrativeFormat, setNarrativeFormat] = useState('structured explanation with code examples');
+  const [context, setContext] = useState('for a beginner programmer with basic JS knowledge');
   
-  const generatedPrompt = `You are a ${role}. ${task} ${context}. Present the information as a ${format} in a ${tone} tone.`;
+  const generatedPrompt = `**Intent**: ${intent}
+
+**Nuance**: ${nuance}
+
+**Style**: ${style}
+
+**You as...**: ${youAs}
+
+**Narrative Format**: ${narrativeFormat}
+
+**Context**: ${context}`;
 
   return (
     <div className="space-y-6">
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-400 mb-1">Role</label>
+          <label className="block text-sm font-medium text-gray-400 mb-1">Intent</label>
           <input
             type="text"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
+            value={intent}
+            onChange={(e) => setIntent(e.target.value)}
             className="w-full bg-gray-700 rounded px-3 py-2 text-white"
-            placeholder="e.g., expert tutor, marketing specialist"
+            placeholder="What you want to achieve"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-400 mb-1">Task</label>
+          <label className="block text-sm font-medium text-gray-400 mb-1">Nuance</label>
           <input
             type="text"
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
+            value={nuance}
+            onChange={(e) => setNuance(e.target.value)}
             className="w-full bg-gray-700 rounded px-3 py-2 text-white"
-            placeholder="e.g., explain, generate, analyze"
+            placeholder="Specific details and constraints"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-400 mb-1">Style</label>
+          <input
+            type="text"
+            value={style}
+            onChange={(e) => setStyle(e.target.value)}
+            className="w-full bg-gray-700 rounded px-3 py-2 text-white"
+            placeholder="Desired tone and voice"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-400 mb-1">You as...</label>
+          <input
+            type="text"
+            value={youAs}
+            onChange={(e) => setYouAs(e.target.value)}
+            className="w-full bg-gray-700 rounded px-3 py-2 text-white"
+            placeholder="AI's role or persona"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-400 mb-1">Narrative Format</label>
+          <input
+            type="text"
+            value={narrativeFormat}
+            onChange={(e) => setNarrativeFormat(e.target.value)}
+            className="w-full bg-gray-700 rounded px-3 py-2 text-white"
+            placeholder="Desired output structure"
           />
         </div>
         <div>
@@ -46,27 +87,7 @@ const PromptBuilder = () => {
             value={context}
             onChange={(e) => setContext(e.target.value)}
             className="w-full bg-gray-700 rounded px-3 py-2 text-white"
-            placeholder="e.g., for a beginner, for a technical audience"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-400 mb-1">Format</label>
-          <input
-            type="text"
-            value={format}
-            onChange={(e) => setFormat(e.target.value)}
-            className="w-full bg-gray-700 rounded px-3 py-2 text-white"
-            placeholder="e.g., step-by-step, bullet points"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-400 mb-1">Tone</label>
-          <input
-            type="text"
-            value={tone}
-            onChange={(e) => setTone(e.target.value)}
-            className="w-full bg-gray-700 rounded px-3 py-2 text-white"
-            placeholder="e.g., professional, casual, enthusiastic"
+            placeholder="Background information"
           />
         </div>
       </div>
@@ -98,25 +119,36 @@ const PromptGrader = ({ onGrade }: { onGrade: (score: number, feedback: string) 
     setFeedback('');
     setScore(null);
     
-    // Simulate API call - currently for demo purpose. We willl need to connect to actual api in future.
-    setTimeout(() => {
-      const clarity = Math.floor(Math.random() * 3) + 3; // 3-5
-      const specificity = Math.floor(Math.random() * 3) + 3; // 3-5
-      const effectiveness = Math.floor(Math.random() * 3) + 3; // 3-5
-      const avgScore = Math.round((clarity + specificity + effectiveness) / 3 * 10) / 10;
-      
-      const feedbackText = `
-**Clarity**: ${clarity}/5 - Your prompt is ${clarity >= 4 ? 'clear' : 'somewhat unclear'}.
-**Specificity**: ${specificity}/5 - It's ${specificity >= 4 ? 'specific' : 'vague'}.
-**Effectiveness**: ${effectiveness}/5 - Overall, it's ${effectiveness >= 4 ? 'effective' : 'could be improved'}.
+    try {
+      const response = await fetch('http://localhost:3000/api/chat/grade-prompt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: prompt.trim(),
+          framework: 'INSYNC',
+          moduleId: 'module-1.2'
+        }),
+      });
 
-**Suggestions**: Try to be more specific about what you're looking for and provide relevant context.`;
+      if (!response.ok) {
+        throw new Error('Failed to grade prompt');
+      }
+
+      const data = await response.json();
       
-      setScore(avgScore);
-      setFeedback(feedbackText);
-      onGrade(avgScore, feedbackText);
+      setScore(data.totalScore / 6 * 10); // Convert to 10-point scale
+      setFeedback(data.feedback);
+      onGrade(data.totalScore / 6 * 10, data.feedback);
+    } catch (error) {
+      console.error('Error grading prompt:', error);
+      setScore(0);
+      setFeedback(`**Error**: Unable to grade prompt. Please try again.`);
+      onGrade(0, 'Error grading prompt');
+    } finally {
       setIsGrading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -257,7 +289,7 @@ const Lesson1_2: React.FC = () => {
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300">The Basics of Prompting</h2>
         <p className="text-gray-300 mb-4">
-          You can achieve a lot with simple prompts, but the quality of results depends on how much information you provide and how well-crafted the prompt is. A prompt can include instructions, context, inputs, or examples to guide the model more effectively.
+          You can achieve a lot with simple prompts, but the quality of results depends on how much information or "context" you provide and how well-crafted the prompt is. A prompt can include instructions, context, inputs, or examples to guide the model more effectively.
         </p>
         
         <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 mb-6">
@@ -273,7 +305,7 @@ const Lesson1_2: React.FC = () => {
 
         <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-bold text-lg text-white mb-2">Structured Prompt Example</h3>
-          <p className="text-gray-400 mb-3">With chat models like GPT-3.5 or GPT-4, you can structure prompts using different roles:</p>
+          <p className="text-gray-400 mb-3">With chat models like GPT-4 and other AI models, you can structure prompts using different roles:</p>
           <div className="space-y-2">
             <div className="flex items-start">
               <span className="text-green-400 font-mono mr-2">System:</span>
@@ -325,6 +357,122 @@ const Lesson1_2: React.FC = () => {
           </div>
           <p className="text-gray-500 text-sm mt-3">This QA format is particularly effective for teaching the model specific patterns or tasks.</p>
         </div>
+
+        <div className="mt-8 space-y-6">
+          <h3 className="text-xl font-bold text-white mb-4">Advanced Prompt Techniques</h3>
+          
+          <div className="bg-gray-900 p-4 rounded-lg border border-orange-700">
+            <h4 className="font-bold text-lg text-orange-300 mb-2">1. ROLE Framework</h4>
+            <p className="text-gray-400 mb-2"><strong>R</strong>ole, <strong>O</strong>bjective, <strong>L</strong>anguage, <strong>E</strong>xpectations</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-gray-300 font-mono text-sm">You are a friendly barista (Role) who helps customers choose drinks (Objective). Use casual, warm language (Language) and always recommend a popular seasonal option (Expectations).</p>
+            </div>
+          </div>
+
+          <div className="bg-gray-900 p-4 rounded-lg border border-indigo-700">
+            <h4 className="font-bold text-lg text-indigo-300 mb-2">2. C.R.A.F.T.</h4>
+            <p className="text-gray-400 mb-2"><strong>C</strong>ontext, <strong>R</strong>ole, <strong>A</strong>ction, <strong>F</strong>ormat, <strong>T</strong>one</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-gray-300 font-mono text-sm">Context: For a corporate blog post<br/>
+              Role: Act as a professional content writer<br/>
+              Action: Write a 500-word article about AI in HR<br/>
+              Format: Use intro/body/conclusion<br/>
+              Tone: Informative and optimistic</p>
+            </div>
+          </div>
+
+          <div className="bg-gray-900 p-4 rounded-lg border border-pink-700">
+            <h4 className="font-bold text-lg text-pink-300 mb-2">3. T.A.P.E.</h4>
+            <p className="text-gray-400 mb-2"><strong>T</strong>ask, <strong>A</strong>ssumptions, <strong>P</strong>ersona, <strong>E</strong>xamples</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-gray-300 font-mono text-sm">Task: Summarize a legal document<br/>
+              Assumptions: Audience is a non-lawyer<br/>
+              Persona: A legal educator<br/>
+              Examples: Provide a bulleted summary with definitions of legal jargon</p>
+            </div>
+          </div>
+
+          <div className="bg-gray-900 p-4 rounded-lg border border-teal-700">
+            <h4 className="font-bold text-lg text-teal-300 mb-2">4. M.A.R.K.</h4>
+            <p className="text-gray-400 mb-2"><strong>M</strong>odel, <strong>A</strong>udience, <strong>R</strong>esponse, <strong>K</strong>nowledge</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-gray-300 font-mono text-sm">Use GPT-4 (Model) to write a guide for new parents (Audience) that explains the basics of infant sleep cycles (Response), using insights from pediatric sleep studies (Knowledge).</p>
+            </div>
+          </div>
+
+          <div className="bg-gray-900 p-4 rounded-lg border border-red-700">
+            <h4 className="font-bold text-lg text-red-300 mb-2">5. R.I.D.E.</h4>
+            <p className="text-gray-400 mb-2"><strong>R</strong>ole, <strong>I</strong>nstruction, <strong>D</strong>etails, <strong>E</strong>xamples</p>
+            <div className="bg-gray-800 p-3 rounded">
+              <p className="text-gray-300 font-mono text-sm">Role: You are a tax accountant<br/>
+              Instruction: Help a user understand RRSP vs. TFSA<br/>
+              Details: User is 35, single, self-employed<br/>
+              Examples: Include financial scenarios for each option</p>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-purple-900 to-pink-900 p-6 rounded-lg border-2 border-purple-400 shadow-xl">
+            <h4 className="font-bold text-2xl text-purple-300 mb-3">🧠 I.N.S.Y.N.C. Prompt Framework</h4>
+            <p className="text-gray-300 mb-4 text-sm">The IntelliSync-approved way to craft elite prompts.</p>
+            <p className="text-purple-300 mb-4 italic text-sm">Pronounced: "in-sync" — because when your prompt is in sync, your AI delivers the goods.</p>
+            
+            <div className="space-y-4 mb-6">
+              <div className="bg-gray-800 p-3 rounded border-l-4 border-purple-400">
+                <h5 className="font-bold text-purple-300">🔹 Intent</h5>
+                <p className="text-gray-300 text-sm">What is the core goal of this prompt?</p>
+                <p className="text-gray-400 text-xs mt-1">E.g., "Summarize this policy," "Generate a business plan," "Draft an email"</p>
+              </div>
+
+              <div className="bg-gray-800 p-3 rounded border-l-4 border-purple-400">
+                <h5 className="font-bold text-purple-300">🔹 Nuance</h5>
+                <p className="text-gray-300 text-sm">Add critical details the AI should consider</p>
+                <p className="text-gray-400 text-xs mt-1">E.g., "Targeted at beginners," "Use Canadian tax law," "Keep it under 500 words"</p>
+              </div>
+
+              <div className="bg-gray-800 p-3 rounded border-l-4 border-purple-400">
+                <h5 className="font-bold text-purple-300">🔹 Style</h5>
+                <p className="text-gray-300 text-sm">What tone or voice should the response have?</p>
+                <p className="text-gray-400 text-xs mt-1">E.g., Friendly, professional, persuasive, witty</p>
+              </div>
+
+              <div className="bg-gray-800 p-3 rounded border-l-4 border-purple-400">
+                <h5 className="font-bold text-purple-300">🔹 You as… (Role Assignment)</h5>
+                <p className="text-gray-300 text-sm">Define the AI's role to shape its mindset</p>
+                <p className="text-gray-400 text-xs mt-1">E.g., "You are a senior marketing strategist," "You are a helpful customer service agent"</p>
+              </div>
+
+              <div className="bg-gray-800 p-3 rounded border-l-4 border-purple-400">
+                <h5 className="font-bold text-purple-300">🔹 Narrative Format</h5>
+                <p className="text-gray-300 text-sm">What format should the response follow?</p>
+                <p className="text-gray-400 text-xs mt-1">E.g., Bullet points, step-by-step guide, blog article, JSON schema</p>
+              </div>
+
+              <div className="bg-gray-800 p-3 rounded border-l-4 border-purple-400">
+                <h5 className="font-bold text-purple-300">🔹 Context</h5>
+                <p className="text-gray-300 text-sm">Provide additional background info</p>
+                <p className="text-gray-400 text-xs mt-1">E.g., "The company is a Canadian startup," "The user is 65 and new to online banking"</p>
+              </div>
+            </div>
+
+            <div className="bg-gray-800 p-4 rounded-lg">
+              <h5 className="font-bold text-purple-300 mb-2">🧪 Example Prompt using I.N.S.Y.N.C.</h5>
+              <div className="space-y-2 text-sm">
+                <p className="text-gray-300"><strong>Intent:</strong> Create a homepage headline</p>
+                <p className="text-gray-300"><strong>Nuance:</strong> Focus on automation benefits for small businesses</p>
+                <p className="text-gray-300"><strong>Style:</strong> Bold and inspiring</p>
+                <p className="text-gray-300"><strong>You as…:</strong> A conversion-optimized copywriter</p>
+                <p className="text-gray-300"><strong>Narrative Format:</strong> Short headline + subheading</p>
+                <p className="text-gray-300"><strong>Context:</strong> The product is IntelliSync — a no-code AI platform for automating workflows</p>
+              </div>
+              
+              <div className="mt-4 p-3 bg-gray-900 rounded">
+                <p className="text-gray-300 font-mono text-sm">
+                  You are a conversion-optimized copywriter. Write a bold homepage headline and subheading for IntelliSync — a no-code AI platform that helps small business owners automate workflows. Focus on the benefits of saving time and scaling smarter. Keep the tone inspiring and confident.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Core Principles of Prompting */}
@@ -360,12 +508,19 @@ const Lesson1_2: React.FC = () => {
             <p className="text-gray-400 mt-2">This might give you a correct but generic, academic definition. Not very practical.</p>
           </div>
           <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 relative">
-            <h3 className="font-bold text-lg text-green-400 mb-2">Good Prompt</h3>
-            <CopyButton textToCopy="You are a patient programming tutor who excels at explaining complex concepts with simple analogies. Explain the concept of closures in JavaScript. My audience is a beginner developer who understands functions and scope. Provide a simple code example and then explain it line-by-line using a real-world analogy, like a backpack or a toolbox." />
+            <h3 className="font-bold text-lg text-green-400 mb-2">I.N.S.Y.N.C. Prompt</h3>
+            <CopyButton textToCopy={`You are a patient programming tutor with a gift for turning complex technical concepts into beginner-friendly explanations using simple analogies.
+
+Your task is to explain the concept of closures in JavaScript to an audience that understands functions and scope but struggles with abstract ideas.
+
+Use a clear step-by-step breakdown, include a simple code example, and walk through it line-by-line using a relatable real-world analogy (like a backpack or toolbox). The tone should be friendly, slow-paced, and confidence-building.
+
+Context: This is for a beginner developer taking an online JavaScript course who is currently feeling overwhelmed by inner function access patterns.`} />
             <div className="font-mono text-gray-300 space-y-1 pr-10">
-                <p><span className="text-yellow-400">You are a patient programming tutor</span> who excels at explaining complex concepts with simple analogies.</p>
-                <p><span className="text-cyan-400">Explain the concept of closures in JavaScript.</span></p>
-                <p><span className="text-green-400">My audience is a beginner developer who understands functions and scope. Provide a simple code example and then explain it line-by-line using a real-world analogy, like a backpack or a toolbox.</span></p>
+              <p><span className="text-yellow-400">You are a patient programming tutor</span> with a gift for turning complex technical concepts into beginner-friendly explanations using simple analogies.</p>
+              <p><span className="text-cyan-400">Your task is to explain the concept of closures in JavaScript</span> to an audience that understands functions and scope but struggles with abstract ideas.</p>
+              <p><span className="text-green-400">Use a clear step-by-step breakdown, include a simple code example, and walk through it line-by-line using a relatable real-world analogy (like a backpack or toolbox). The tone should be friendly, slow-paced, and confidence-building.</span></p>
+              <p><span className="text-purple-400">Context: This is for a beginner developer taking an online JavaScript course who is currently feeling overwhelmed by inner function access patterns.</span></p>
             </div>
           </div>
         </div>
@@ -406,6 +561,7 @@ const Lesson1_2: React.FC = () => {
         </h2>
         <p className="text-gray-300 mb-4">
           Now it's time to practice. Use the interactive chat box below to craft a prompt for generating an "About Us" page for a fictional startup called "Innovate Inc." that builds AI-powered productivity tools.
+          Try using the <strong className="text-purple-300">I.N.S.Y.N.C.</strong> framework to guide your structure:
         </p>
         <div className="mb-4 p-4 bg-blue-900/20 border border-blue-700 rounded-lg">
           <h4 className="font-semibold text-white mb-2 flex items-center">
@@ -413,52 +569,59 @@ const Lesson1_2: React.FC = () => {
             Pro Tip
           </h4>
           <div className="text-blue-200 text-sm">
-            Try using the Prompt Builder above to create a well-structured prompt, then test it here. Remember to include:
+            Try using the Prompt Builder above to create a well-structured prompt, then test it here. Remember the <strong className="text-purple-300">I.N.S.Y.N.C.</strong> fields:
             <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>A clear role for the AI</li>
-              <li>Specific instructions</li>
-              <li>Desired format and tone</li>
-              <li>Any necessary context</li>
+              <li><strong>Intent</strong> – What is the goal of the About Us page?</li>
+              <li><strong>Nuance</strong> – What details matter? Audience, tone, constraints?</li>
+              <li><strong>Style</strong> – Should the voice be casual, inspiring, technical?</li>
+              <li><strong>You as...</strong> – What role should the AI take? (e.g., copywriter)</li>
+              <li><strong>Narrative Format</strong> – Paragraphs, bullet points, slogan + mission?</li>
+              <li><strong>Context</strong> – Who is Innovate Inc.? What’s their product & story?</li>
             </ul>
           </div>
         </div>
-        <InlineChat 
+       <InlineChat 
           moduleId="module-1.2"
           maxAttempts={15}
           placeholder="Craft your prompt for Innovate Inc. here..."
-          systemPrompt={`You are an expert prompt engineer and AI educator. Your role is to evaluate and provide constructive feedback on user-submitted prompts for generating an "About Us" page for "Innovate Inc." - a fictional startup that builds AI-powered productivity tools.
+          systemPrompt={`You are an expert prompt engineer and AI educator. Your job is to help users master the I.N.S.Y.N.C. prompt framework, which includes:
 
-When evaluating the user's prompt, analyze it across these exact dimensions:
+1. **Intent** – What is the goal of the prompt?
+2. **Nuance** – Are key details, preferences, and constraints included?
+3. **Style** – Is the desired tone or voice clear?
+4. **You as...** – Has the AI’s role been clearly defined?
+5. **Narrative Format** – Is the output structure specified?
+6. **Context** – Is relevant background information provided?
 
-1. **Clarity & Specificity**: Is the prompt clear and unambiguous? Does it specify exactly what content is needed?
+Your task is to score and provide feedback on each element of I.N.S.Y.N.C., then offer a total score and an improved version of the prompt.
 
-2. **Role Definition**: Does the prompt establish a clear role/persona for the AI?
+Return your evaluation in this exact format:
 
-3. **Context & Background**: Does it provide sufficient context about Innovate Inc. and their target audience?
+**I.N.S.Y.N.C. Prompt Evaluation**
+- Intent: [Score]/5 – [Brief explanation]
+- Nuance: [Score]/5 – [Brief explanation]
+- Style: [Score]/5 – [Brief explanation]
+- You as...: [Score]/5 – [Brief explanation]
+- Narrative Format: [Score]/5 – [Brief explanation]
+- Context: [Score]/5 – [Brief explanation]
 
-4. **Format & Structure**: Does it specify the desired format, tone, and structure of the output?
-
-5. **Key Elements**: Does it include essential elements like company mission, values, team, and product focus?
-
-Provide your response in this format:
-
-**Prompt Evaluation Score: [X/10]**
+**Total Score: [XX/30]**
 
 **Strengths:**
-• [List 2-3 specific strengths of their prompt]
+• [List strengths]
 
-**Areas for Improvement:**
-• [List 2-3 specific suggestions to make the prompt more effective]
+**Suggestions for Improvement:**
+• [List improvements]
 
-**Enhanced Prompt Example:**
+**Revised Prompt Example:**
 """
-[Provide a rewritten, improved version of their prompt incorporating your suggestions]
+[Provide an improved version of the user’s prompt using the full I.N.S.Y.N.C. structure]
 """
 
-**Generated About Us Page:**
-[Generate a complete, high-quality About Us page based on their prompt to demonstrate what good output looks like]
+**Generated Output Example:**
+[Generate a sample “About Us” page using the revised prompt]
 
-Remember to be encouraging and constructive while providing specific, actionable feedback.`}
+Be constructive, specific, and encouraging.`}
         />
       </section>
 

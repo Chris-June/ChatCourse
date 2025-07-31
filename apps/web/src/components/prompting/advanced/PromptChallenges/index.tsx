@@ -49,96 +49,107 @@ const PromptChallenges: React.FC = () => {
     {
       id: 1,
       title: "The Vague to Specific Challenge",
-      description: "Transform a vague prompt into a highly specific one that produces better results.",
+      description: "Transform a vague prompt into a highly specific one using I.N.S.Y.N.C. framework.",
       startingPrompt: "Write about AI",
       successCriteria: [
-        "Includes target audience",
-        "Specifies format/length",
-        "Defines tone/style",
-        "Provides context/constraints"
+        "Clear Intent: Specific goal and purpose",
+        "Detailed Nuance: Specific constraints and requirements",
+        "Defined Style: Appropriate tone and voice",
+        "You as...: Clear AI role/persona",
+        "Structured Narrative Format: Output format specified",
+        "Relevant Context: Background information provided"
       ],
       difficulty: 'beginner',
       category: 'writing',
       tips: [
-        "Think about who would read this content",
-        "Consider what action you want the reader to take",
-        "Specify the format (blog post, tweet, essay, etc.)"
+        "Use the I.N.S.Y.N.C. framework: Intent-Nuance-Style-You as-Narrative Format-Context",
+        "Be specific about your goal (Intent)",
+        "Include relevant constraints and details (Nuance)",
+        "Define the AI's role and expertise (You as...)"
       ]
     },
     {
       id: 2,
       title: "The Role-Playing Challenge",
-      description: "Create a prompt that makes the AI adopt a specific role or expertise.",
+      description: "Create a prompt using I.N.S.Y.N.C. that makes the AI adopt a specific role or expertise.",
       startingPrompt: "Explain quantum computing",
       successCriteria: [
-        "Clearly defines the AI's role",
-        "Specifies the audience's knowledge level",
-        "Includes context about why the role matters",
-        "Asks for appropriate format"
+        "Intent: Clear goal for quantum computing explanation",
+        "Nuance: Specific details about complexity level",
+        "Style: Appropriate tone for target audience",
+        "You as...: Specific expert role (e.g., physics professor)",
+        "Narrative Format: Structured explanation with examples",
+        "Context: Audience's background knowledge specified"
       ],
       difficulty: 'intermediate',
       category: 'analysis',
       tips: [
-        "Be specific about the role (e.g., 'as a physics professor' vs 'as a science journalist')",
-        "Mention the audience's background",
-        "Specify the depth of explanation needed"
+        "Use 'You as...' to specify the AI's role clearly",
+        "Define the audience's background in Context",
+        "Specify the complexity level in Nuance"
       ]
     },
     {
       id: 3,
       title: "The Constrained Output Challenge",
-      description: "Craft a prompt that produces output with specific constraints.",
+      description: "Craft a prompt using I.N.S.Y.N.C. that produces output with specific constraints.",
       startingPrompt: "Write a product description",
       successCriteria: [
-        "Specifies exact word/sentence count",
-        "Includes required elements or keywords",
-        "Defines tone and style constraints",
-        "Sets structural requirements"
+        "Intent: Clear goal for product description",
+        "Nuance: Specific constraints (word count, keywords)",
+        "Style: Defined tone and voice constraints",
+        "You as...: Role as product marketer/copywriter",
+        "Narrative Format: Structured format requirements",
+        "Context: Product type and target market"
       ],
       difficulty: 'advanced',
       category: 'writing',
       tips: [
-        "Be explicit about word/sentence limits",
-        "Use clear delimiters for structured output",
-        "Provide examples of the desired format"
+        "Use Nuance for specific constraints like word count",
+        "Define format requirements in Narrative Format",
+        "Include target audience in Context"
       ]
     },
     {
       id: 4,
       title: "The Multi-Step Task Challenge",
-      description: "Design a prompt that guides the AI through a complex, multi-step process.",
+      description: "Design a prompt using I.N.S.Y.N.C. that guides the AI through a complex, multi-step process.",
       startingPrompt: "Help me plan a project",
       successCriteria: [
-        "Breaks down the task into clear steps",
-        "Specifies output format for each step",
-        "Includes decision points or branches",
-        "Provides context for the overall goal"
+        "Intent: Clear goal for project planning",
+        "Nuance: Specific steps and decision points",
+        "Style: Appropriate guidance tone",
+        "You as...: Role as project management expert",
+        "Narrative Format: Structured multi-step output",
+        "Context: Project type and constraints"
       ],
       difficulty: 'intermediate',
       category: 'analysis',
       tips: [
-        "Use numbered steps or bullet points",
-        "Be clear about what information you need at each step",
-        "Consider using a structured format like markdown tables"
+        "Use Narrative Format to specify step-by-step structure",
+        "Include decision points in Nuance",
+        "Define the AI's role in You as..."
       ]
     },
     {
       id: 5,
       title: "The Creative Constraint Challenge",
-      description: "Create a prompt with creative constraints to guide the AI's output.",
+      description: "Create a prompt using I.N.S.Y.N.C. with creative constraints to guide the AI's output.",
       startingPrompt: "Write a story",
       successCriteria: [
-        "Includes specific genre/tone requirements",
-        "Sets constraints on characters/setting",
-        "Defines narrative structure",
-        "Specifies creative boundaries"
+        "Intent: Clear creative goal and genre",
+        "Nuance: Specific creative constraints and boundaries",
+        "Style: Defined genre/tone requirements",
+        "You as...: Role as creative writer/storyteller",
+        "Narrative Format: Structured creative format",
+        "Context: Setting and character constraints"
       ],
       difficulty: 'advanced',
       category: 'creative',
       tips: [
-        "Be specific about what you want to avoid",
-        "Provide examples of the style you're looking for",
-        "Consider using reference works or authors"
+        "Use Nuance to define creative boundaries",
+        "Specify genre requirements in Style",
+        "Include setting/character constraints in Context"
       ]
     }
   ];
