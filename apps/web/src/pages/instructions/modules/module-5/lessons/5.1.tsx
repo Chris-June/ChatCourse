@@ -72,13 +72,16 @@ const Lesson5_1: React.FC = () => {
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">5.1: Multi-Turn Conversations & Context</h1>
+        <h1 className="text-4xl font-bold text-white flex items-center">
+          <MessageSquare className="w-10 h-10 mr-4 text-blue-400" />
+          Lesson 5.1: The Director's Script: Mastering AI Conversation
+        </h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-4/4.6" 
             className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous
+            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: MCP Servers
           </Link>
           <Link 
             to="/instructions/module-5/5.2" 
@@ -91,7 +94,7 @@ const Lesson5_1: React.FC = () => {
       </div>
 
       <p className="text-lg text-gray-300">
-        A multi-turn conversation is a dialogue that spans multiple exchanges between a user and an AI. This is the foundation of building truly interactive and intelligent systems, as it allows the AI to remember previous parts of the conversation and use that information as context for future responses.
+        Think of every AI conversation as a movie scene. For the scene to make sense, the actors need a script to follow. In the world of AI, this "script" is the **conversation history**. It's the single most important element for creating a coherent, context-aware dialogue. In this lesson, we'll learn how to be the director, shaping the AI's performance by mastering the script.
       </p>
 
       <Accordion title="The Power of Context" icon={<BrainCircuit />} isInitiallyOpen>
@@ -106,20 +109,31 @@ const Lesson5_1: React.FC = () => {
         </div>
       </Accordion>
 
-      <Accordion title="The Structure of a Conversation" icon={<MessageSquare />}>
+      <Accordion title="The Director's Script: Anatomy of a Conversation" icon={<MessageSquare />}>
         <p className="text-gray-300 mb-4">
-          Behind the scenes, the conversation is just a list of message objects, each with a `role` and `content`. This entire list is sent to the model with every request.
+          The conversation history is a structured script—an array of message objects. Each object has a `role` (who is speaking) and `content` (what was said). This script provides the full context for the AI's next line.
         </p>
-        <div className="bg-gray-900 p-3 rounded-md">
-          <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
+        <p className="text-gray-300 mb-2">The cast of characters in our script includes:</p>
+        <ul className="list-disc pl-5 space-y-2 text-gray-300 mb-4">
+          <li><strong>`user` (The Protagonist):</strong> The person driving the story forward.</li>
+          <li><strong>`assistant` (The Co-Star):</strong> The AI's previous lines, essential for continuity.</li>
+          <li><strong>`system` (The Director's Note):</strong> A powerful, high-level instruction that sets the scene. It tells the AI its motivation, personality, and the rules it must follow. For example: `"You are a cynical film noir detective from the 1940s."`</li>
+        </ul>
+        <p className="text-gray-300 mb-2">A well-structured script ensures the AI actor never forgets its lines or motivation:</p>
+        <div className="bg-gray-900 p-4 rounded-md font-mono text-sm text-gray-200">
+          <code className="block whitespace-pre-wrap break-words">
 {`[
+  {
+    "role": "system",
+    "content": "You are a helpful assistant who loves history."
+  },
   {
     "role": "user",
     "content": "What is the capital of France?"
   },
   {
     "role": "assistant",
-    "content": "The capital of France is Paris."
+    "content": "Ah, Paris! A city rich with history. It's the capital of France."
   },
   {
     "role": "user",
@@ -128,44 +142,35 @@ const Lesson5_1: React.FC = () => {
 ]`}
           </code>
         </div>
-        <p className="text-gray-400 mt-4">
-          When the model receives this array, it can see that the user's latest question about "its population" refers to Paris from the previous turn.
-        </p>
-        <p className="text-gray-300 mt-4 mb-2">The `role` is crucial for helping the model understand the flow of dialogue:</p>
-        <ul className="list-disc pl-5 space-y-2 text-gray-300">
-          <li><strong>`user`</strong>: Represents messages from the person interacting with the AI.</li>
-          <li><strong>`assistant`</strong>: Represents the AI's own previous responses.</li>
-          <li><strong>`system`</strong>: (Optional) A high-level instruction that sets the persona and rules for the AI throughout the conversation (e.g., "You are a helpful assistant who always responds in rhyme.").</li>
-        </ul>
       </Accordion>
 
-      <Accordion title="Interactive Exercise: The Debugging Challenge" icon={<AlertTriangle />}>
+      <Accordion title="The Cutting Room Floor: A Debugging Challenge" icon={<AlertTriangle />}>
         <p className="text-gray-300 mb-4">
-          Reading about pitfalls is one thing; fixing them is another. In this challenge, you'll be presented with broken conversation histories. Your task is to identify the bug.
+          Even the best directors make mistakes. Sometimes, the script gets corrupted—roles are mislabeled, or lines are out of order. This is the "bad take." In this challenge, you're the editor. Find the continuity errors in these broken scripts and fix them.
         </p>
         <DebuggingChallenge />
       </Accordion>
 
-      <Accordion title="Interactive Demo: The Context Explorer" icon={<Lightbulb />}>
+      <Accordion title="Live Rehearsal: The Context Explorer" icon={<Lightbulb />}>
         <p className="text-gray-300 mb-4">
-          This interactive demo visualizes the concept of conversation history. On the left, you have a standard chat interface. On the right, you can see the actual array of message objects that gets sent to the model with every turn. Watch how it grows as you interact with the bot!
+          Watch the script get written in real-time! As you chat on the left, you'll see the raw message array—our script—being built on the right. This reveals exactly what the AI "sees" at every moment of the conversation. Notice how the script grows, and how every new line depends on the ones before it.
         </p>
         <ContextExplorer />
       </Accordion>
 
-      <Accordion title="Hands-on: The System Prompt Lab" icon={<TestTube2 />}>
+      <Accordion title="Director's Chair: The System Prompt Lab" icon={<TestTube2 />}>
         <p className="text-gray-300 mb-4">
-          The <code className='bg-gray-700 p-1 rounded'>system</code> prompt is the most powerful tool for guiding an AI. This lab lets you experiment with different system prompts to see their effect on the AI's personality and responses. Try one of the presets or write your own!
+          You are the director. The <code className='bg-gray-700 p-1 rounded'>system</code> prompt is your chance to give powerful, scene-setting instructions to your AI actor. Use this lab to experiment. Direct the AI to be a pirate, a scientist, or a poet. See how a single, well-crafted sentence can completely change the tone and direction of the entire performance.
         </p>
         <SystemPromptLab />
       </Accordion>
 
-      <Accordion title="Key Takeaways" icon={<Star />}>
+      <Accordion title="The Director's Golden Rules" icon={<Star />}>
         <ul className="list-disc pl-5 space-y-2 text-gray-300">
-          <li><strong>Context is King:</strong> A conversation's history is sent with every new message, acting as the AI's short-term memory.</li>
-          <li><strong>Roles Define the Flow:</strong> The `user`, `assistant`, and `system` roles are essential for the model to understand the dialogue structure.</li>
-          <li><strong>Manage the Window:</strong> All models have a finite context window. You must have a strategy to handle long conversations to prevent information loss.</li>
-          <li><strong>Garbage In, Garbage Out:</strong> The quality of your conversation history directly impacts the quality of the AI's responses. Errors in the history will lead to errors in the output.</li>
+          <li><strong>The Script is Sacred:</strong> The conversation history is the AI's only source of truth. A clean, well-structured script leads to a great performance.</li>
+          <li><strong>Every Role Matters:</strong> Use the `user`, `assistant`, and `system` roles correctly to build a coherent narrative for the AI.</li>
+          <li><strong>Respect the Scroll's Length:</strong> Every model has a finite context window (the length of the script it can read). For long scenes, you'll need a strategy to summarize or trim the script to avoid the AI forgetting its opening lines.</li>
+          <li><strong>Bad Takes Lead to Bad Scenes:</strong> The principle of "Garbage In, Garbage Out" is paramount. A corrupted script (e.g., with incorrect roles or content) will ruin the performance.</li>
         </ul>
       </Accordion>
 
@@ -180,7 +185,7 @@ const Lesson5_1: React.FC = () => {
           to="/instructions/module-4/4.6" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: MCP Servers
         </Link>
         <Link 
           to="/instructions/module-5/5.2" 

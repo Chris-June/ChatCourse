@@ -18,13 +18,13 @@ const Lesson4_3: React.FC = () => {
     {
       questionText: 'In the lesson\'s analogy, what does the \'recipe card\' represent when building an AI tool?',
       options: [
+        'The tool\'s schema (its name, description, and parameters).',
         'The AI model itself.',
         'The final output of the tool.',
-        'The tool\'s schema (its name, description, and parameters).',
         'The server where the tool is hosted.'
       ],
       correctAnswer: 'The tool\'s schema (its name, description, and parameters).',
-      explanation: 'The schema is the detailed instruction set, or \'recipe\', that tells the AI exactly what the tool does, what it needs, and when to use it.'
+      explanation: 'The schema is the detailed instruction set, or \'recipe\', that tells the AI exactly what the tool does, what it needs, and when to use it. Think of it as the detailed recipe card for your AI chef.'
     },
     {
       questionText: 'What is the most important reason to write very clear and detailed descriptions in your tool schema?',
@@ -119,7 +119,7 @@ const Lesson4_3: React.FC = () => {
 
       <Accordion title="Step 2: Write the Recipe Card (Provide a Schema)" icon={<FileCode />}>
         <p className="text-gray-300 mb-4">
-          This is the most important step. The schema is the recipe card that tells the AI exactly what ingredients (`parameters`) it needs and what to expect. The more detailed your descriptions, the better the AI can follow them.
+          Think of the schema as a detailed recipe card for your AI chef. Just like a recipe needs precise instructions ("add 2 cups of flour"), your tool schema needs crystal-clear descriptions for each parameter. The AI chef can't guess what "some flour" means - it needs exact measurements and specific instructions.
         </p>
         <div className="bg-gray-900 p-3 rounded-md">
           <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
@@ -143,7 +143,7 @@ const Lesson4_3: React.FC = () => {
 
       <Accordion title="Your Turn: Use a Custom Weather Tool" icon={<Lightbulb />}>
         <p className="text-gray-300 mb-4">
-          Let's apply this. Imagine we've built a simple `get_weather` tool. Its "recipe card" tells the AI it needs one ingredient: a `city`.
+          Let's test your new tool-building skills. Imagine you've created a weather-checking robot that needs one piece of information: which city to investigate. This robot (our `get_weather` tool) has been trained to understand your exact instructions and deliver precise weather reports.
         </p>
         <p className="text-gray-300 mb-4">
           Use the chat window below to ask for the weather in any city. Watch how the AI uses the tool you designed. Follow the checklist to track the AI's reasoning.
@@ -168,9 +168,9 @@ const Lesson4_3: React.FC = () => {
       
       <Accordion title="Key Takeaways for Tool Building" icon={<CheckSquare />}>
           <ul className="list-disc pl-5 space-y-2 text-gray-300">
-              <li><strong>Be Specific:</strong> Your tool should do one thing well. This makes it easy for the AI to understand.</li>
-              <li><strong>Describe Everything:</strong> The AI relies entirely on your text descriptions to work. The clearer your "recipe card," the better the result.</li>
-              <li><strong>Think Inputs & Outputs:</strong> Every tool needs ingredients (parameters) and produces a result (output). Define them clearly.</li>
+              <li><strong>Master Chef's Rule:</strong> Like a specialized kitchen tool (a garlic press vs a multi-tool), your AI tool should excel at one specific task rather than trying to do everything</li>
+              <li><strong>Recipe Card Clarity:</strong> Your descriptions are the AI's only cookbook - make them so detailed that even someone who's never cooked could follow them perfectly</li>
+              <li><strong>Ingredients & Results:</strong> Every tool needs precise ingredients (parameters) and clear expected results (outputs) - just like a recipe needs both ingredients and the final dish description</li>
           </ul>
       </Accordion>
 
@@ -182,13 +182,13 @@ const Lesson4_3: React.FC = () => {
       {/* Navigation */}
       <div className="flex justify-between pt-4">
         <Link 
-          to="/instructions/module-4/4.2" 
+          to="/instructions/module-4/4.1" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Real-world Apps
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Function Calling
         </Link>
         <Link 
-          to="/instructions/module-5/5.1" 
+          to="/instructions/module-4/4.4" 
           onClick={() => completeLesson(4, 3)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >

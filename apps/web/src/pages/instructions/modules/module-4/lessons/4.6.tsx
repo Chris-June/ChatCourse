@@ -1,68 +1,76 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Globe, Server, Lightbulb, ShieldCheck, ListChecks, Briefcase } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Globe, Server, Lightbulb, ShieldCheck, Briefcase, Search, Zap, CheckSquare } from 'lucide-react';
 import Accordion from '../../../components/Accordion';
 import MCPArchitectureDiagram from '../../../components/MCPArchitectureDiagram';
+import InlineChat from '../../../../../components/InlineChat';
 import MCPServerExplorer from '../../../components/MCPServerExplorer';
 import AgentPlannerExercise from '../../../components/AgentPlannerExercise';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
+const mcpReasoningChecklist = [
+  { text: 'My goal is to find an employee\'s email.', completed: false },
+  { text: 'I see a `company_db` tool server is available.', completed: false },
+  { text: 'I will ask it what tools it has... it has `get_employee_email`.', completed: false },
+  { text: 'Perfect. I will call that tool with the employee\'s name.', completed: false },
+];
+
 const Lesson4_6: React.FC = () => {
   const quizQuestions = [
     {
-      questionText: 'What is the primary role of an MCP Server, using the \'App Store for Agents\' analogy?',
+      questionText: 'What is the main purpose of the Model Context Protocol (MCP), using the \'App Store for Agents\' analogy?',
       options: [
-        'To run the core AI model itself.',
-        'To provide a standardized and secure gateway for an agent to discover and use external tools.',
-        'To store the agent\'s long-term memory.',
-        'To create the user interface for the chat application.'
+        'To give the AI a standard way to discover and use external tools.',
+        'To make the AI run faster.',
+        'To teach the AI new languages.',
+        'To let the AI browse the web freely.'
       ],
-      correctAnswer: 'To provide a standardized and secure gateway for an agent to discover and use external tools.',
-      explanation: 'The MCP server acts as a secure middleman, abstracting away API complexities and providing a clean, discoverable \'store\' of tools for the agent.'
+      correctAnswer: 'To give the AI a standard way to discover and use external tools.',
+      explanation: 'MCP provides a standardized interface, like a universal remote, allowing the AI to interact with many different tools without needing to know their internal workings.'
     },
     {
-      questionText: 'Which of the following is a key SECURITY benefit of using an MCP server?',
+      questionText: 'What is a key difference between basic function calling and MCP?',
+      options: [
+        'There is no difference.',
+        'With MCP, the AI can discover tools dynamically; basic function calling uses hard-coded tools.',
+        'MCP only works for weather tools.',
+        'Basic function calling is more secure than MCP.'
+      ],
+      correctAnswer: 'With MCP, the AI can discover tools dynamically; basic function calling uses hard-coded tools.',
+      explanation: 'The ability to discover tools on-the-fly is a major advantage of MCP, making the AI more adaptable and scalable.'
+    },
+    {
+      questionText: 'Which is a critical SECURITY benefit of using an MCP server?',
       options: [
         'It makes the agent\'s responses faster.',
+        'It isolates sensitive API keys on the server, never exposing them to the model or client.',
         'It allows the agent to use more tools.',
-        'It isolates sensitive API keys on the server, so they are never exposed to the model or client.',
-        'It makes the tool descriptions easier for the model to read.'
+        'It makes tool descriptions easier to read.'
       ],
-      correctAnswer: 'It isolates sensitive API keys on the server, so they are never exposed to the model or client.',
+      correctAnswer: 'It isolates sensitive API keys on the server, never exposing them to the model or client.',
       explanation: 'Credential isolation is a critical security feature. The agent asks the MCP server to use a tool, and the server uses the stored API key, preventing leaks.'
     },
     {
-      questionText: 'What does the principle of \'discoverability\' allow an agent to do?',
+      questionText: 'The ability to combine tools from different, independent servers (like flights, hotels, weather) to complete a complex task is known as what?',
       options: [
-        'Guess which tools might be available.',
-        'Dynamically query a server to get a list of available tools and their usage instructions.',
-        'Discover new AI models on the internet.',
-        'Read the server\'s source code to find tools.'
+        'Tool Redundancy',
+        'Service Orchestration',
+        'API Chaining',
+        'Function Calling'
       ],
-      correctAnswer: 'Dynamically query a server to get a list of available tools and their usage instructions.',
-      explanation: 'Discoverability enables agents to be flexible and powerful, as they can learn about and use new tools without being explicitly reprogrammed.'
+      correctAnswer: 'Service Orchestration',
+      explanation: 'MCP\'s real power comes from orchestration—the ability to act as a conductor, leading a symphony of different services to achieve a high-level goal.'
     },
     {
-      questionText: 'Why is it a best practice to design tools to be \'idempotent\'',
+      questionText: 'Why is designing tools to be \'idempotent\' a best practice?',
       options: [
         'So they run faster.',
+        'So that calling them multiple times with the same input produces the same result without issues.',
         'So they can only be called one time.',
-        'So that calling them multiple times with the same input produces the same result without causing issues.',
         'So they are easier for the agent to discover.'
       ],
-      correctAnswer: 'So that calling them multiple times with the same input produces the same result without causing issues.',
+      correctAnswer: 'So that calling them multiple times with the same input produces the same result without issues.',
       explanation: 'Idempotency makes an agent more reliable. If an operation is interrupted, the agent can safely retry it without causing duplicate actions or errors.'
-    },
-    {
-      questionText: 'In the GitHub example, before creating an issue, a more advanced agent might first check for duplicates. This is an example of what?',
-      options: [
-        'Making a tool less idempotent.',
-        'Ignoring the user\'s request.',
-        'Building in pre-condition checks to make the agent more reliable and efficient.',
-        'Violating the principle of least privilege.'
-      ],
-      correctAnswer: 'Building in pre-condition checks to make the agent more reliable and efficient.',
-      explanation: 'Production-ready agents don\'t just follow the \'happy path.\' They perform validation steps to handle edge cases and prevent errors, making them more robust.'
     }
   ];
 
@@ -96,7 +104,28 @@ const Lesson4_6: React.FC = () => {
         </p>
       </Accordion>
 
-      <Accordion title="Why MCP? The Three Pillars" icon={<Server />}>
+      <Accordion title="Your First MCP Interaction: The AI Detective" icon={<Search />}>
+        <p className="text-gray-300 mb-4">
+          Let's see MCP in action. Imagine an AI detective whose mission is to find an employee's email. It needs to discover and use the right tool from a secure server. Follow the detective's thought process in the checklist as you interact with the chat below.
+        </p>
+        <InlineChat 
+          moduleId="module-4.6-mcp-email"
+          placeholder="Ask for an employee's email, e.g., 'What is Chris June's email?'"
+          systemPrompt="You are a helpful assistant that demonstrates Model Context Protocol (MCP) by helping users find employee email addresses. When asked for an email, you should use the 'get_employee_email' tool from the 'company_db' MCP server. Guide users through the process of discovering and using MCP tools."
+          initialMessages={[
+            {
+              role: 'assistant',
+              content: 'I can help you find an employee\'s email address. Try asking something like: "What is the email address for Chris June?" or "Can you get me the email for Alex Chen?"'
+            }
+          ]}
+          simulatedResponse={`Okay, I need to find an employee's email address. I will use the 'get_employee_email' tool from the 'company_db' MCP server.\n\n<tool_code>\n<mcp_server_request>\n  <server>company_db</server>\n  <tool_name>get_employee_email</tool_name>\n  <parameters>\n    <employee_name>the person you asked for</employee_name>\n  </parameters>\n</mcp_server_request>\n</tool_code>\n\nfirstName.lastName@email.ca`}
+          challengeChecklist={mcpReasoningChecklist}
+          maxAttempts={3}
+          maxFollowUps={2}
+        />
+      </Accordion>
+
+      <Accordion title="The MCP Architecture" icon={<Server />}>
         <div className="grid md:grid-cols-3 gap-4 text-center">
           <div className="bg-gray-800 p-4 rounded-lg">
             <h4 className="font-bold text-blue-300">Standardization</h4>
@@ -206,26 +235,29 @@ const Lesson4_6: React.FC = () => {
         </div>
       </Accordion>
 
-      <Accordion title="Security Spotlight: The Protective Layer" icon={<ShieldCheck />}>
+      <Accordion title="Key Takeaways & Best Practices" icon={<CheckSquare />}>
         <p className="text-gray-300 mb-4">
-          Security is not just a feature; it's the primary reason MCP servers are essential for production-grade agents. By acting as a middleman, the server creates a protective barrier.
+          MCP transforms agents from static encyclopedias into dynamic problem-solvers. Here are the core concepts and best practices:
         </p>
-        <ul className="list-disc pl-5 space-y-2 text-gray-300">
-          <li><strong>Credential Isolation:</strong> Your sensitive API keys (e.g., for Stripe, AWS, Google) are stored securely on the server, never touching the client-side or the model itself.</li>
-          <li><strong>Access Control:</strong> You can define granular permissions on the server, ensuring an agent can only perform approved actions (e.g., read-only access to a database).</li>
-          <li><strong>Mitigating Prompt Injection:</strong> If a malicious user tries to trick the model into calling a dangerous function, the MCP server acts as a final checkpoint, validating the request and rejecting anything that violates its rules.</li>
-        </ul>
-      </Accordion>
-
-      <Accordion title="Best Practices for Tool Design" icon={<ListChecks />}>
-        <p className="text-gray-300 mb-4">
-          When you expose tools through an MCP server, their design matters. A well-designed tool is easy for an agent to understand and use correctly.
-        </p>
-        <ul className="list-disc pl-5 space-y-2 text-gray-300">
-          <li><strong>Be Descriptive:</strong> Use clear, unambiguous names and descriptions for your tools and their parameters. The model relies on this text to decide which tool to use.</li>
-          <li><strong>Aim for Idempotency:</strong> An idempotent tool can be called multiple times with the same input and will produce the same result without causing issues. This makes your agent more reliable.</li>
-          <li><strong>Handle Errors Gracefully:</strong> Your tool should return clear, informative error messages. Instead of just `Error`, return `Error: API key invalid` or `Error: User not found`. The agent can use this feedback to self-correct.</li>
-        </ul>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-semibold text-blue-300 mb-2 flex items-center"><Zap size={18} className="mr-2"/>Core Pillars of MCP</h4>
+            <ul className="list-disc pl-5 space-y-2 text-gray-300 text-sm">
+              <li><strong>Standardization:</strong> A universal language for agents to talk to any tool.</li>
+              <li><strong>Discoverability:</strong> Agents can ask a server what tools it has, enabling them to adapt dynamically.</li>
+              <li><strong>Orchestration:</strong> Enables agents to combine tools from different servers to complete complex tasks.</li>
+            </ul>
+          </div>
+          <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+            <h4 className="font-semibold text-blue-300 mb-2 flex items-center"><ShieldCheck size={18} className="mr-2"/>Security & Design Best Practices</h4>
+            <ul className="list-disc pl-5 space-y-2 text-gray-300 text-sm">
+              <li><strong>Isolate Credentials:</strong> Keep API keys on the server, never expose them to the model or client.</li>
+              <li><strong>Be Descriptive:</strong> Use clear names and descriptions for tools so the agent can make smart choices.</li>
+              <li><strong>Aim for Idempotency:</strong> Ensure calling a tool multiple times with the same input doesn't cause errors.</li>
+              <li><strong>Handle Errors Gracefully:</strong> Return specific error messages the agent can use to self-correct.</li>
+            </ul>
+          </div>
+        </div>
       </Accordion>
 
       <Accordion title="Exercise: Plan an Agent's MCP Interaction" icon={<Lightbulb />}>
@@ -252,7 +284,7 @@ const Lesson4_6: React.FC = () => {
           to="/instructions/module-4/4.5" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: MCP Servers
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: AI Agents
         </Link>
         <Link 
           to="/instructions/module-5/5.1" 

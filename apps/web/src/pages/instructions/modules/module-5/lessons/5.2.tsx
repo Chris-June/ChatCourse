@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Settings, Lightbulb, ShieldCheck } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Settings, Lightbulb, ShieldCheck, User, Briefcase } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
-
+import ComparisonCard from '../../../components/ComparisonCard';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+
+import Accordion from '../../../components/Accordion';
 
 const Lesson5_2: React.FC = () => {
   const quizQuestions = [
@@ -85,13 +87,16 @@ const Lesson5_2: React.FC = () => {
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">5.2: Personalization at Scale</h1>
+        <h1 className="text-4xl font-bold text-white flex items-center">
+          <Settings className="w-10 h-10 mr-4 text-blue-400" />
+          Lesson 5.2: The Personal Concierge
+        </h1>
         <div className="flex items-center space-x-4">
           <Link
             to="/instructions/module-5/5.1"
             className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Multi-Turn Conversations
+            <ChevronLeft className="w-5 h-5 mr-2" /> The Director's Script
           </Link>
           <Link
             to="/instructions/module-5/5.3"
@@ -104,7 +109,7 @@ const Lesson5_2: React.FC = () => {
       </div>
 
       <p className="text-lg text-gray-300">
-        Personalization at scale means tailoring an AI's behavior and responses to individual users. This is achieved by giving the AI specific context about the user it's interacting with, making the conversation feel more personal, relevant, and useful.
+        A generic AI is like a hotel receptionist—helpful, but formal. A *personalized* AI is like a personal concierge who knows your preferences, remembers your past requests, and anticipates your needs. This lesson is about transforming your AI from a receptionist into a world-class concierge by mastering **static** and **dynamic context**.
       </p>
 
       {/* How it Works */}
@@ -142,49 +147,50 @@ Provide technical, precise answers. When providing code, use Python.`}
       </section>
 
       {/* Static vs Dynamic */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Static vs. Dynamic Personalization</h2>
-        <p className="text-gray-300 mb-4">
-          It's helpful to distinguish between two approaches to personalization:
+      <Accordion title="The Concierge's Knowledge: Static vs. Dynamic Context" icon={<Settings />} isInitiallyOpen>
+        <p className="text-gray-300 mb-6">
+          Our concierge's expertise comes from two sources: a long-term preference card and in-the-moment briefings. 
         </p>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr>
-                <th className="border-b-2 border-blue-400 p-2 text-blue-300">Type</th>
-                <th className="border-b-2 border-blue-400 p-2 text-blue-300">Description</th>
-                <th className="border-b-2 border-blue-400 p-2 text-blue-300">Example</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-gray-900/50">
-                <td className="border-b border-gray-700 p-2 align-top"><strong>Static</strong></td>
-                <td className="border-b border-gray-700 p-2 align-top">User-provided, general instructions that apply to all conversations.</td>
-                <td className="border-b border-gray-700 p-2 align-top">A user setting "Always respond in a friendly, informal tone" in their profile.</td>
-              </tr>
-              <tr>
-                <td className="border-b border-gray-700 p-2 align-top"><strong>Dynamic</strong></td>
-                <td className="border-b border-gray-700 p-2 align-top">Application-driven context injected based on the current task or data.</td>
-                <td className="border-b border-gray-700 p-2 align-top">An e-commerce bot being told "The user is currently viewing a size 10 red shoe."</td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="flex flex-col md:flex-row gap-6">
+          <ComparisonCard 
+            icon={<User size={24} className="text-blue-300" />} 
+            title="The Preference Card (Static Context)" 
+            bgColorClass="bg-blue-900/50 border border-blue-700"
+            points={[
+              '<strong>Who the user is:</strong> Stored user profile data.',
+              '<strong>What they like:</strong> General preferences (e.g., `tone: formal`).',
+              '<strong>How they work:</strong> Custom instructions (e.g., `Always summarize in bullet points`).',
+              '<strong>Changes rarely.</strong>',
+            ]}
+          />
+          <ComparisonCard 
+            icon={<Briefcase size={24} className="text-green-300" />} 
+            title="The In-the-Moment Briefing (Dynamic Context)" 
+            bgColorClass="bg-green-900/50 border border-green-700"
+            points={[
+              '<strong>What the user is doing now:</strong> Real-time application state.',
+              '<strong>Example:</strong> `The user is viewing a product named \'X-12 Sneaker\'.`',
+              '<strong>Why it matters:</strong> Provides immediate, situational relevance.',
+              '<strong>Changes constantly.</strong>',
+            ]}
+          />
         </div>
-      </section>
+      </Accordion>
 
       {/* Ethical Considerations */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <ShieldCheck className="w-7 h-7 mr-3 text-red-400" />
-          Ethical Considerations: Data Privacy
-        </h2>
+      <Accordion title="The Concierge's Code of Ethics" icon={<ShieldCheck />}>
         <p className="text-gray-300 mb-4">
-          Personalization is powerful, but it requires handling user data, which carries significant ethical responsibilities. Always prioritize user privacy by being transparent about what data you collect and how you use it. Provide users with clear control over their information.
+          A great concierge is trustworthy. Personalization is built on user data, and handling that data responsibly is non-negotiable.
         </p>
-      </section>
+        <ul className="list-disc pl-5 space-y-2 text-gray-300">
+          <li><strong>Transparency is Key:</strong> Be upfront about what data you collect and why.</li>
+          <li><strong>Give Users Control:</strong> Provide clear, accessible settings for users to manage their data and personalization preferences.</li>
+          <li><strong>Security First:</strong> Protect user data as if it were your own.</li>
+        </ul>
+      </Accordion>
 
       {/* Conceptual Exercise */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+      <Accordion title="Meet Your Personal Tutor" icon={<Lightbulb />}>
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
           Your Turn: Interact with a Personalized Tutor
@@ -223,13 +229,12 @@ Provide technical, precise answers. When providing code, use Python.`}
           ]}
           challengeChecklist={personalizationChecklist}
         />
-      </section>
+      </Accordion>
 
       {/* Validation Quiz */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+      <div className="mt-8">
         <ModuleQuizzes questions={quizQuestions} />
-      </section>
+      </div>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">
@@ -237,7 +242,7 @@ Provide technical, precise answers. When providing code, use Python.`}
           to="/instructions/module-5/5.1"
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Multi-Turn Conversations
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Director's Script
         </Link>
         <Link
           to="/instructions/module-5/5.3"

@@ -1,46 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { User, FileText, Database, Cpu, Wrench, MessageSquare, ArrowRight } from 'lucide-react';
+import { User, FileText, Database, BrainCircuit, Zap, MessageSquare } from 'lucide-react';
 
 const pipelineSteps = [
-  { icon: <User />, label: 'User Prompt' },
-  { icon: <FileText />, label: 'Custom Instructions' },
-  { icon: <Database />, label: 'RAG Knowledge' },
-  { icon: <Cpu />, label: 'Model Call' },
-  { icon: <Wrench />, label: 'Tool Action' },
-  { icon: <MessageSquare />, label: 'Final Response' },
+  { 
+    icon: User,
+    label: '1. User Prompt',
+    description: 'Everything begins here. The user provides an instruction, question, or task, setting the entire process in motion. This is the raw input that the AI needs to interpret.'
+  },
+  { 
+    icon: FileText,
+    label: '2. Custom Instructions',
+    description: "The AI first consults its 'Origin Story'—the custom instructions that define its persona, tone, and core directives. This ensures every response is in character and follows its guiding principles."
+  },
+  { 
+    icon: Database,
+    label: '3. Knowledge Retrieval (RAG)',
+    description: "If the query requires specific information not in its core training, the AI accesses its 'Superpowers'—external documents or databases—to fetch relevant facts and context, like consulting a specialized encyclopedia."
+  },
+  { 
+    icon: BrainCircuit,
+    label: '4. Core Model Reasoning',
+    description: 'This is the thinking step. The core LLM synthesizes the user prompt, custom instructions, and any retrieved knowledge. It analyzes the combined information to decide on the best course of action.'
+  },
+  { 
+    icon: Zap,
+    label: '5. Tool Execution',
+    description: "If the plan requires interacting with the outside world, the AI uses its 'Utility Belt' of tools. It might call an API to get weather data, search for flights, or create a calendar event, turning decisions into actions."
+  },
+  { 
+    icon: MessageSquare,
+    label: '6. Final Response',
+    description: 'Finally, the AI assembles all the information—the reasoning, the tool outputs, and its persona—into a single, coherent, and helpful response, delivering it to the user in a natural language format.'
+  },
 ];
 
 const GptPipelineDiagram: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   return (
-    <div className="bg-gray-900 p-6 rounded-lg my-6">
-      <h4 className="text-xl font-bold text-center text-white mb-6">The Journey of a Prompt</h4>
-      <div className="flex items-center justify-center flex-wrap">
+    <div className="bg-gray-900 p-6 rounded-lg my-6 border border-dashed border-gray-700">
+      <h4 className="text-xl font-bold text-center text-white">Anatomy of a GPT Response</h4>
+      <p className="text-center text-gray-400 text-sm mb-6">Click on each step to see how your prompt travels through the AI's mind.</p>
+      <div className="flex justify-between items-center mb-6 p-4 bg-gray-800/50 rounded-lg flex-wrap">
         {pipelineSteps.map((step, index) => (
           <React.Fragment key={index}>
             <motion.div
-              className="flex flex-col items-center text-center mx-2 md:mx-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
+              className="flex flex-col items-center text-center cursor-pointer w-24 mx-1 my-2"
+              onClick={() => setActiveIndex(index)}
+              animate={{ scale: activeIndex === index ? 1.1 : 1, y: activeIndex === index ? -5 : 0 }}
+              transition={{ type: 'spring', stiffness: 300 }}
             >
-              <div className="bg-gray-800 border border-gray-700 rounded-full w-16 h-16 flex items-center justify-center text-blue-400">
-                {React.cloneElement(step.icon, { size: 32 })}
-              </div>
-              <span className="mt-2 text-xs md:text-sm text-gray-300 w-20">{step.label}</span>
+              <motion.div
+                className={`p-3 rounded-full transition-colors duration-300 ${activeIndex === index ? 'bg-blue-500 shadow-lg shadow-blue-500/50' : 'bg-gray-700'}`}
+                whileHover={{ scale: 1.15 }}
+              >
+                <step.icon className="w-7 h-7 text-white" />
+              </motion.div>
+              <p className={`mt-2 text-xs font-semibold transition-colors duration-300 ${activeIndex === index ? 'text-blue-300' : 'text-gray-400'}`}>
+                {step.label}
+              </p>
             </motion.div>
             {index < pipelineSteps.length - 1 && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: index * 0.2 + 0.1 }}
-                className="hidden md:block text-gray-500 mx-2"
-              >
-                <ArrowRight size={24} />
-              </motion.div>
+              <div className="flex-1 h-0.5 bg-gray-600 mx-2 hidden md:block"></div>
             )}
           </React.Fragment>
         ))}
+      </div>
+      <div className="text-center bg-gray-800/50 p-4 rounded-lg min-h-[110px] flex items-center justify-center">
+        <p className="text-gray-300 max-w-2xl mx-auto text-sm">{pipelineSteps[activeIndex].description}</p>
       </div>
     </div>
   );
