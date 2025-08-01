@@ -4,28 +4,28 @@ import { Layers, Puzzle, LocateFixed, ArrowRight, BrainCircuit } from 'lucide-re
 
 const steps = [
   {
-    title: 'Input Tokens',
-    description: 'First, your input text (e.g., "Hello world") is broken down into smaller pieces called tokens.',
+    title: '1. Tokenization',
+    description: 'Your sentence is shattered into LEGO bricks of meaning called tokens. This is the raw material the AI works with.',
     icon: Puzzle,
   },
   {
-    title: 'Embeddings',
-    description: 'Each token is converted into a high-dimensional numerical vector (an embedding) that captures its semantic meaning.',
+    title: '2. Embeddings',
+    description: "Each token \'brick\' is given a unique GPS coordinate in a vast \'meaning space\'. Words with similar meanings get placed closer together. 'King' is near 'Queen', but far from 'Taco'.",
     icon: Layers,
   },
   {
-    title: 'Positional Encoding',
-    description: 'To understand word order, a positional vector is added to each token\'s embedding. Now the model knows *what* each word means and *where* it is.',
+    title: '3. Positional Encoding',
+    description: "The AI needs to know the order of the words. Positional encoding is like stamping each \'brick\' with its sequence number. Now 'The cat sat on the mat' is different from 'The mat sat on the cat'.",
     icon: LocateFixed,
   },
   {
-    title: 'Transformer Blocks',
-    description: 'The data flows through multiple layers where Self-Attention calculates how important each word is to every other word, creating a rich contextual understanding.',
+    title: '4. Transformer Blocks (Self-Attention)',
+    description: "This is the heart of the machine. Imagine a series of boardroom meetings (layers). In each meeting, every word-token looks at every other word-token and decides how relevant it is. 'It' in 'The robot picked it up' pays close attention to 'robot'.",
     icon: BrainCircuit,
   },
   {
-    title: 'Final Output',
-    description: 'After processing, the model generates a probability distribution over its vocabulary and picks the most likely next token, which is then converted back to text.',
+    title: '5. Final Output',
+    description: 'After all the meetings, the AI has a deep understanding. It predicts the most probable next \'brick\' from its entire vocabulary, adds it to the sequence, and then converts the final chain of bricks back into human-readable text.',
     icon: ArrowRight,
   },
 ];
@@ -35,7 +35,8 @@ const TransformerArchitectureDiagram: React.FC = () => {
 
   return (
     <div className="bg-gray-800/50 p-6 rounded-lg border border-dashed border-gray-700 my-6">
-      <h3 className="text-xl font-bold text-center text-white mb-6">Under the Hood: A Simplified Transformer</h3>
+      <h3 className="text-xl font-bold text-center text-white">Under the Hood: How an LLM 'Thinks'</h3>
+      <p className="text-center text-gray-400 text-sm mb-6">A simplified look at the Transformer Architecture</p>
       <div className="flex justify-between items-center mb-6 p-4 bg-gray-900 rounded-lg">
         {steps.map((step, index) => (
           <React.Fragment key={index}>
@@ -46,12 +47,12 @@ const TransformerArchitectureDiagram: React.FC = () => {
               transition={{ type: 'spring', stiffness: 300 }}
             >
               <motion.div
-                className={`p-3 rounded-full ${activeIndex === index ? 'bg-blue-500 shadow-lg shadow-blue-500/50' : 'bg-gray-600'}`}
+                className={`p-3 rounded-full transition-colors duration-300 ${activeIndex === index ? 'bg-blue-500 shadow-lg shadow-blue-500/50' : 'bg-gray-600'}`}
                 whileHover={{ scale: 1.15 }}
               >
                 <step.icon className="w-6 h-6 text-white" />
               </motion.div>
-              <p className={`mt-2 text-xs font-semibold ${activeIndex === index ? 'text-blue-300' : 'text-gray-400'}`}>
+              <p className={`mt-2 text-xs font-semibold transition-colors duration-300 ${activeIndex === index ? 'text-blue-300' : 'text-gray-400'}`}>
                 {step.title}
               </p>
             </motion.div>
@@ -61,9 +62,10 @@ const TransformerArchitectureDiagram: React.FC = () => {
           </React.Fragment>
         ))}
       </div>
-      <div className="text-center bg-gray-900/50 p-4 rounded-lg min-h-[80px] flex items-center justify-center">
-        <p className="text-gray-300 max-w-2xl mx-auto">{steps[activeIndex].description}</p>
+      <div className="text-center bg-gray-900/50 p-4 rounded-lg min-h-[100px] flex items-center justify-center">
+        <p className="text-gray-300 max-w-2xl mx-auto text-sm">{steps[activeIndex].description}</p>
       </div>
+      <p className="text-center text-xs text-gray-500 mt-4 italic">Key Takeaway: Transformers are powerful because they weigh the importance of every word against every other word, creating deep contextual understanding.</p>
     </div>
   );
 };

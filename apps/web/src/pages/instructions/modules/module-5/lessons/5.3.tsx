@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Zap, ChevronsRight, SlidersHorizontal } from
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import Accordion from '../../../components/Accordion';
 
 const Lesson5_3: React.FC = () => {
   const quizQuestions = [
@@ -80,36 +81,23 @@ Based on the user's query, state which tier is the best fit and briefly explain 
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">5.3: Performance Optimization</h1>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/instructions/module-5/5.2" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Personalization
-          </Link>
-          <Link 
-            to="/instructions/module-6/6.1" 
-            onClick={() => completeLesson(5, 3)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Idea-Generation <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
+        <h1 className="text-4xl font-bold text-white flex items-center">
+          <Zap className="w-10 h-10 mr-4 text-yellow-400" />
+          Lesson 5.3: Race Car Engineering for AI
+        </h1>
       </div>
 
       <p className="text-lg text-gray-300">
-        In interactive applications, performance is critical. A slow, lagging AI feels frustrating to use. Optimizing performance involves improving both the actual response time (latency) and the user's perception of speed.
+        Building a high-performance AI is like engineering a race car. It's not just about raw power; it's about efficiency, responsiveness, and choosing the right engine for the track. In this lesson, we'll become race engineers, learning three critical techniques to make our AI faster, smarter, and more cost-effective: **streaming**, **engine selection**, and **pit stop shortcuts (caching)**.
       </p>
 
       {/* Response Streaming */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <ChevronsRight className="w-7 h-7 mr-3 text-cyan-400" />
-          Improving Perceived Performance with Streaming
-        </h2>
+      <Accordion title="Live Telemetry: The Power of Streaming" icon={<ChevronsRight />} isInitiallyOpen>
         <p className="text-gray-300 mb-4">
-          Instead of waiting for the entire AI response to be generated, you can stream it to the user token by token. This is what you see in action in this chat application. The text appears gradually, as it's being generated.
+          Imagine a race car driver who only gets feedback at the end of a lap. It's slow and inefficient. Streaming is like giving your user **live telemetry**. Instead of waiting for the full response, they see the AI "thinking" in real-time as tokens appear one by one.
+        </p>
+        <p className="text-gray-300 font-semibold">
+          This doesn't change the total generation time, but it's the single most powerful way to improve the *perception* of speed and make your app feel alive.
         </p>
         <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">How Streaming Works (Conceptual)</h3>
@@ -130,70 +118,61 @@ response.body.on('end', () => {
             </code>
           </div>
         </div>
-      </section>
+      </Accordion>
 
       {/* Model Trade-offs */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <SlidersHorizontal className="w-7 h-7 mr-3 text-green-400" />
-          Choosing the Right Model: Speed vs. Power
-        </h2>
+      <Accordion title="Choosing Your Engine: Model Tiers" icon={<SlidersHorizontal />}>
         <p className="text-gray-300 mb-4">
-          Not all tasks require the most powerful (and often slowest) AI model. There is a constant trade-off between a model's capability, its speed, and its cost.
+          You wouldn't use an F1 engine for a go-kart race. It's overkill, expensive, and inefficient. Choosing the right model (your "engine") is critical for balancing performance and cost.
         </p>
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
+          <table className="min-w-full text-left text-sm text-gray-300">
+            <thead className="bg-gray-900 text-gray-100 uppercase tracking-wider">
               <tr>
-                <th className="border-b-2 border-blue-400 p-2 text-blue-300">Model Tier</th>
-                <th className="border-b-2 border-blue-400 p-2 text-blue-300">Best For</th>
-                <th className="border-b-2 border-blue-400 p-2 text-blue-300">Avg. Latency</th>
-                <th className="border-b-2 border-blue-400 p-2 text-blue-300">Relative Cost</th>
+                <th className="p-2">Engine Tier</th>
+                <th className="p-2">Best For</th>
+                <th className="p-2">Performance</th>
+                <th className="p-2">Cost</th>
               </tr>
             </thead>
-            <tbody>
-              <tr className="bg-gray-900/50">
-                <td className="border-b border-gray-700 p-2"><strong>Tier 1: Fast & Light</strong></td>
-                <td className="border-b border-gray-700 p-2">Classification, simple extraction</td>
-                <td className="border-b border-gray-700 p-2">&lt; 500ms</td>
+            <tbody className="bg-gray-800">
+              <tr>
+                <td className="border-b border-gray-700 p-2 font-semibold">🏎️ Go-Kart (Fast & Light)</td>
+                <td className="border-b border-gray-700 p-2">Simple classification, extraction</td>
+                <td className="border-b border-gray-700 p-2">Sub-second</td>
                 <td className="border-b border-gray-700 p-2">$</td>
               </tr>
               <tr>
-                <td className="border-b border-gray-700 p-2"><strong>Tier 2: Balanced</strong></td>
-                <td className="border-b border-gray-700 p-2">Summarization, standard Q&A</td>
-                <td className="border-b border-gray-700 p-2">1-2s</td>
+                <td className="border-b border-gray-700 p-2 font-semibold">🚗 Sports Car (Balanced)</td>
+                <td className="border-b border-gray-700 p-2">Most chat, summarization</td>
+                <td className="border-b border-gray-700 p-2">1-3 seconds</td>
                 <td className="border-b border-gray-700 p-2">$$</td>
               </tr>
-              <tr className="bg-gray-900/50">
-                <td className="border-b border-gray-700 p-2"><strong>Tier 3: Max Power</strong></td>
-                <td className="border-b border-gray-700 p-2">Complex reasoning, agentic tasks</td>
-                <td className="border-b border-gray-700 p-2">3-5s+</td>
+              <tr>
+                <td className="border-b border-gray-700 p-2 font-semibold">🚀 F1 Engine (Max Power)</td>
+                <td className="border-b border-gray-700 p-2">Complex reasoning, agentic workflows</td>
+                <td className="border-b border-gray-700 p-2">3-5+ seconds</td>
                 <td className="border-b border-gray-700 p-2">$$$$</td>
               </tr>
             </tbody>
           </table>
         </div>
-      </section>
+      </Accordion>
 
       {/* Caching Strategies */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Reducing Latency with Caching</h2>
+      <Accordion title="The Pit Stop Shortcut: Caching" icon={<Zap />}>
         <p className="text-gray-300 mb-4">
-          If multiple users ask the same question, why generate the answer more than once? Caching involves storing the results of expensive operations and returning the cached result when the same input occurs again. For an AI application, you can cache the full response for common or identical prompts.
+          Why complete a full lap if you already know the fastest route? Caching is the ultimate pit stop shortcut. If a user asks a common question (e.g., "What are your hours?"), you can serve a pre-generated, stored response instantly.
         </p>
-        <p className="text-gray-400">
-          This dramatically reduces latency for subsequent requests and can also lead to significant cost savings.
+        <p className="text-gray-300 font-semibold">
+          This technique dramatically reduces latency and cost for high-frequency requests, saving both time and money.
         </p>
-      </section>
+      </Accordion>
 
       {/* Conceptual Exercise */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Zap className="w-7 h-7 mr-3 text-yellow-400" />
-          Your Turn: Pick the Right Tool for the Job
-        </h2>
+      <Accordion title="Qualifying Lap: Pick the Right Engine" icon={<Zap />}>
         <p className="text-gray-300 mb-4">
-          Use the chat window below to test your understanding of performance trade-offs. Describe a task, and ask the AI which model tier—fast, balanced, or powerful—would be the best fit. See if its reasoning matches what you've learned.
+          You're the race engineer now. Use the chat window below to consult your AI assistant on engine selection. Describe a task, and ask it to recommend the best model tier. See if its reasoning matches the trade-offs between speed, power, and cost that you've just learned.
         </p>
         {/* InlineChat for demonstrating model selection based on task requirements */}
         <InlineChat 
@@ -218,13 +197,12 @@ response.body.on('end', () => {
           ]}
           challengeChecklist={modelSelectionChecklist}
         />
-      </section>
+      </Accordion>
 
       {/* Validation Quiz */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+      <div className="mt-8">
         <ModuleQuizzes questions={quizQuestions} />
-      </section>
+      </div>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">
@@ -232,7 +210,7 @@ response.body.on('end', () => {
           to="/instructions/module-5/5.2" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Personalization 
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Personal Concierge
         </Link>
         <Link 
           to="/instructions/module-6/6.1" 

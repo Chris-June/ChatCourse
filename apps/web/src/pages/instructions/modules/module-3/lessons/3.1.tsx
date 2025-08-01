@@ -98,7 +98,10 @@ const Lesson3_1: React.FC = () => {
       <Accordion title="Zero-shot Prompting" isInitiallyOpen>
         <ZeroCotDiagram />
         <p className="text-gray-300 mb-4">
-          Large language models (LLMs) today, such as GPT-3.5 Turbo, GPT-4, and Claude 3, are tuned to follow instructions and are trained on large amounts of data. Large-scale training makes these models capable of performing some tasks in a "zero-shot" manner. Zero-shot prompting means that the prompt used to interact with the model won't contain examples or demonstrations. The zero-shot prompt directly instructs the model to perform a task without any additional examples to steer it.
+          Think of zero-shot prompting like asking a skilled chef to make a dish they've never cooked before, but you describe exactly what you want. The chef (AI) uses their extensive training and experience to figure it out without you providing a recipe. Similarly, large language models like GPT-4 have been "trained" on vast amounts of text, giving them the ability to understand and execute new tasks based solely on your clear instructions.
+        </p>
+        <p className="text-gray-300 mb-4">
+          Zero-shot prompting is when you give the AI a task without showing it any examples of how to complete that task. It's like giving someone driving directions to a new restaurant without showing them a map - they use their existing knowledge to navigate successfully.
         </p>
         <p className="text-gray-300 mb-4">
           We tried a few zero-shot examples in the previous section. Here is one of the examples (i.e., text classification) we used:
@@ -126,8 +129,11 @@ Sentiment:`}</code>
         </p>
 
         <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
-          <h3 className="font-semibold text-white mb-2">Your Turn: Zero-Shot</h3>
-          <p className="text-gray-400 mb-4">Try your own zero-shot prompt. Ask the model to perform a task without giving it any examples, like summarizing a paragraph or translating a sentence.</p>
+          <h3 className="font-semibold text-white mb-2">Your Turn: Zero-Shot Challenge</h3>
+          <p className="text-gray-400 mb-4">Practice zero-shot prompting by asking the AI to perform tasks without examples. Think of it as giving clear instructions to a new employee - be specific about what you want without showing them how others have done it.</p>
+          <p className="text-gray-400 mb-4">
+            <strong>Pro tip:</strong> Start with simple tasks like "Summarize this paragraph in 2 sentences" or "Translate this sentence to Spanish." The key is being specific about your desired outcome without providing examples.
+          </p>
           <InlineChat 
             moduleId="module-3.1-zeroshot"
             maxAttempts={10}
@@ -145,7 +151,10 @@ Sentiment:`}</code>
 
       <Accordion title="Few-shot Prompting">
         <p className="text-gray-300 mb-4">
-          While large-language models demonstrate remarkable zero-shot capabilities, they still fall short on more complex tasks when using the zero-shot setting. Few-shot prompting can be used as a technique to enable in-context learning where we provide demonstrations in the prompt to steer the model to better performance. The demonstrations serve as conditioning for subsequent examples where we would like the model to generate a response.
+          While zero-shot prompting works well for straightforward tasks, complex problems can be like asking someone to solve a puzzle without showing them the pieces. Few-shot prompting is like giving someone a few completed puzzle pieces as examples - it helps them understand the pattern and complete the rest more accurately.
+        </p>
+        <p className="text-gray-300 mb-4">
+          Few-shot prompting provides the AI with concrete examples of what you want, similar to how a teacher might show students a few solved math problems before asking them to solve new ones. These examples act as "training wheels" that guide the AI toward the desired response format and reasoning approach.
         </p>
         <p className="text-gray-300 mb-4">
           According to Touvron et al. 2023 few shot properties first appeared when models were scaled to a sufficient size (Kaplan et al., 2020).
@@ -259,7 +268,14 @@ A:`}</code>
 
         <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
           <h3 className="font-semibold text-white mb-2">Your Turn: The Reasoning Challenge</h3>
-          <p className="text-gray-400 mb-4">The model failed the reasoning task above. Can you get it to answer correctly using only few-shot prompting? Try different examples or rephrase the problem. Your progress will be tracked in the checklist below.</p>
+          <p className="text-gray-400 mb-4">The model failed the reasoning task above. This is like trying to teach someone to solve a complex puzzle - sometimes showing them a few examples isn't enough. Your challenge is to experiment with different few-shot approaches.</p>
+          <p className="text-gray-400 mb-4">
+            <strong>Strategy tips:</strong>
+            <br />• Try varying the number of examples (1-5 shots)
+            <br />• Experiment with different example types
+            <br />• Consider rephrasing the problem statement
+            <br />• Test if breaking the problem into smaller steps helps
+          </p>
           <InlineChat 
             moduleId="module-3.1-reasoning"
             maxAttempts={5}

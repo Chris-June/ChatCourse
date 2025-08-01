@@ -10,7 +10,7 @@ import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes
 const Lesson2_1: React.FC = () => {
   const quizQuestions = [
     {
-      questionText: 'What is the best definition of an AI\'s \'context window\'?',
+      questionText: 'What does the AI\'s \'context window\' primarily represent?',
       options: [
         'The total knowledge the AI has about the world.',
         'The AI\'s short-term memory for the current conversation.',
@@ -99,7 +99,7 @@ const Lesson2_1: React.FC = () => {
           What is a Context Window?
         </h2>
         <p className="text-gray-300 mb-4 max-w-prose">
-          Think of the context window as the AI's short-term memory. It's a finite space that holds the recent back-and-forth of your conversation, measured in <strong>tokens</strong> (pieces of words). Every new message you send, and every response the AI gives, gets added to this window. When the window gets full, the oldest messages are 'forgotten' to make room for new ones.
+          Think of the context window as the AI's short-term memory. It's a finite space that holds the recent back-and-forth of your conversation, measured in <strong>tokens</strong>, which are the basic units of text that the AI processes. A token can be a single word, part of a word, or even a single character. Every new message you send, and every response the AI gives, gets added to this window. When the window gets full, the oldest messages are 'forgotten' to make room for new ones.
         </p>
         <RollingWhiteboard />
       </section>
@@ -111,7 +111,7 @@ const Lesson2_1: React.FC = () => {
           Why It's Your Most Powerful Tool
         </h2>
         <p className="text-gray-300 mb-4 max-w-prose">
-          Mastering the context window is the single most important skill for moving beyond simple, one-off questions. It's how you can have deep, multi-step conversations and guide the AI through complex tasks.
+          Mastering the context window is the single most important skill for moving beyond simple, one-off questions. It's how you can have deep, multi-step conversations and guide the AI through complex tasks. For example, if you're building a marketing campaign, you can give the AI your brand guidelines in one message, your target audience in another, and your product details in a third. Without context, the AI would lose track of these details. With good context management, it uses all of this information to create a cohesive campaign.
         </p>
         <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
@@ -140,10 +140,11 @@ const Lesson2_1: React.FC = () => {
       <ContextExample />
 
       <KeyTakeaways points={[
-        'The context window is the AI\'s short-term memory, measured in tokens.',
-        'When the window is full, the oldest messages are forgotten.',
-        'Effective context management is crucial for coherent, multi-step conversations.',
-        'Losing context forces the AI to ask for clarification, breaking the conversation flow.'
+        'The AI has a limited "working memory" (context window) that fills up like a whiteboard',
+        'When memory is full, the oldest parts of your conversation are "forgotten"',
+        'You can manage this by summarizing important details in long conversations',
+        'Short conversations (under ~10 messages) rarely have memory issues',
+        'If the AI seems confused, gently remind it of key details from earlier'
       ]} />
 
       {/* Validation Quiz */}

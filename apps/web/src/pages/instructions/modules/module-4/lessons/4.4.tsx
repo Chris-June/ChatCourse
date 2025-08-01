@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, BrainCircuit, Rocket, Lightbulb, BookOpen, Star, Zap, GraduationCap, Layers, SlidersHorizontal, ShieldCheck } from 'lucide-react';
+import { ChevronLeft, ChevronRight, BrainCircuit, Rocket, Lightbulb, BookOpen, Star, Zap, Code, Layers, SlidersHorizontal, ShieldCheck } from 'lucide-react';
 
 import Accordion from '../../../components/Accordion';
 import ComparisonCard from '../../../components/ComparisonCard';
@@ -11,7 +11,6 @@ import GptPipelineDiagram from '../../../components/GptPipelineDiagram';
 import CheckpointQuiz from '../../../components/CheckpointQuiz';
 import TransformerArchitectureDiagram from '../../../components/TransformerArchitectureDiagram';
 import ParameterSliders from '../../../components/ParameterSliders';
-import ResponsibleAI from '../../../components/ResponsibleAI';
 import InteractivePromptExercise from '../../../components/InteractivePromptExercise';
 import RagChunkingDiagram from '../../../components/RagChunkingDiagram';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
@@ -21,13 +20,13 @@ const Lesson4_4: React.FC = () => {
     {
       questionText: 'What is the best definition of a \'GPT\'?',
       options: [
-        'A generic, un-customized chatbot.',
         'A custom version of an AI model packaged with specific instructions, knowledge, and tools for a specialized purpose.',
+        'A generic, un-customized chatbot.',
         'A type of computer hardware for running AI.',
         'A programming language for artificial intelligence.'
       ],
       correctAnswer: 'A custom version of an AI model packaged with specific instructions, knowledge, and tools for a specialized purpose.',
-      explanation: 'A GPT is a tailored solution that combines a persona (instructions), specialized data (knowledge), and a set of skills (tools) to create a specialized assistant.'
+      explanation: 'A GPT is a tailored solution that combines a persona (instructions), specialized data (knowledge), and a set of skills (tools) to create a specialized assistant. Think of it as creating a custom superhero with unique origin story, superpowers, and utility belt.'
     },
     {
       questionText: 'What are the three key ingredients that make up a GPT?',
@@ -141,15 +140,19 @@ const Lesson4_4: React.FC = () => {
       <Accordion title="Real-World Spotlight: GPTs in Action" icon={<Star />}>
         <div className="space-y-4">
           <RealWorldSpotlight 
-            icon={<Zap className="w-6 h-6" />} 
+            icon={<Zap size={24}/>}
             title="Support Sentinel GPT"
-            description="A support team slashed response times by 50% with a GPT that can instantly look up customer history, analyze support tickets, and draft replies using company-approved language."
-          />
+            takeaway="By acting as an instant-knowledge expert, a custom GPT can dramatically improve support efficiency and consistency."
+          >
+            <p>A support team slashed response times by 50% with a GPT that can instantly look up customer history, analyze support tickets, and draft replies using company-approved language.</p>
+          </RealWorldSpotlight>
           <RealWorldSpotlight 
-            icon={<GraduationCap className="w-6 h-6" />} 
-            title="History Helper GPT"
-            description="A teacher created a GPT for their class, uploading the course textbook and primary source documents. Students can now ask the GPT complex questions and get answers grounded in their specific curriculum."
-          />
+            icon={<Code size={24}/>}
+            title="Codebase Co-Pilot"
+            takeaway="A codebase-aware GPT acts as a tireless pair programmer, accelerating development and reducing bugs by understanding the project's unique context."
+          >
+            <p>Developers can build a GPT that understands their specific codebase, coding standards, and common bugs. It can help write boilerplate code, suggest fixes for errors, explain complex functions, and even help onboard new team members by answering questions about the architecture.</p>
+          </RealWorldSpotlight>  
         </div>
       </Accordion>
 
@@ -208,53 +211,67 @@ const Lesson4_4: React.FC = () => {
       <Accordion title="Pro Tips for Power Users" icon={<Star />}>
         <div className="space-y-4">
           <div>
-            <h4 className="font-semibold text-white mb-2">1. Tool Chaining</h4>
-            <p className="text-gray-300 mb-3">A single user prompt can trigger a sequence of multiple tool calls. The AI decides the order based on dependencies.</p>
+            <h4 className="font-semibold text-white mb-2">1. Travel Planning Orchestra</h4>
             <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-              <h5 className="font-semibold text-blue-400 mb-2">Example: Trip Planning</h5>
-              <p className="text-gray-400 mb-2"><strong>User Prompt:</strong> "Book a flight to New York and find a hotel near Central Park for next weekend."</p>
+              <h5 className="font-semibold text-blue-400 mb-2">Example: Your AI Travel Concierge</h5>
+              <p className="text-gray-400 mb-2"><strong>User Prompt:</strong> "Plan a magical weekend in New York City"</p>
+              <p className="text-gray-300 mb-3 text-sm">Think of this like having a personal travel concierge who coordinates an entire orchestra of services:</p>
               <div className="space-y-2 text-sm">
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span className="text-gray-300">Tool 1: <code className="text-blue-300">search_flights</code> - Finds flights NYC for specified dates</span>
+                  <span className="text-gray-300"><code className="text-blue-300">search_flights</code> - Like your flight expert finding the perfect route</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-gray-300">Tool 2: <code className="text-green-300">book_flight</code> - Books the selected flight</span>
+                  <span className="text-gray-300"><code className="text-green-300">get_weather</code> - Your weather advisor ensuring you pack appropriately</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                  <span className="text-gray-300">Tool 3: <code className="text-purple-300">search_hotels</code> - Finds hotels near Central Park</span>
+                  <span className="text-gray-300"><code className="text-purple-300">search_hotels</code> - Your accommodation specialist finding the ideal location</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  <span className="text-gray-300">Tool 4: <code className="text-orange-300">book_hotel</code> - Books the selected hotel</span>
+                  <span className="text-gray-300"><code className="text-orange-300">book_hotel</code> - Your booking agent securing your perfect stay</span>
                 </div>
               </div>
+              <p className="text-gray-400 mt-3 text-sm italic">Each tool passes information to the next like a relay race, creating a seamless experience from dream to reality.</p>
             </div>
           </div>
           
           <div>
-            <h4 className="font-semibold text-white mb-2">2. Real-World Chains</h4>
+            <h4 className="font-semibold text-white mb-2">2. Executive Assistant Workflow</h4>
             <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-              <h5 className="font-semibold text-blue-400 mb-2">Example: Meeting Summary + Calendar</h5>
-              <p className="text-gray-400 mb-2"><strong>User Prompt:</strong> "Summarize today's meeting and add the action items to my calendar."</p>
+              <h5 className="font-semibold text-blue-400 mb-2">Example: Your AI Executive Assistant</h5>
+              <p className="text-gray-400 mb-2"><strong>User Prompt:</strong> "Process today's meeting and schedule follow-ups"</p>
+              <p className="text-gray-300 mb-3 text-sm">Imagine having a hyper-efficient executive assistant who never misses a detail:</p>
               <div className="space-y-2 text-sm">
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span className="text-gray-300">Tool 1: <code className="text-blue-300">read_meeting_notes</code> - Extracts key points</span>
+                  <span className="text-gray-300"><code className="text-blue-300">read_meeting_notes</code> - Your note-taker who captures every important decision</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-gray-300">Tool 2: <code className="text-green-300">create_calendar_events</code> - Adds action items</span>
+                  <span className="text-gray-300"><code className="text-green-300">create_calendar_events</code> - Your scheduler who turns decisions into scheduled actions</span>
                 </div>
               </div>
+              <p className="text-gray-400 mt-3 text-sm italic">Like a skilled assistant who reads your notes and immediately turns them into your calendar, ensuring nothing falls through the cracks.</p>
             </div>
           </div>
           
           <div>
-            <h4 className="font-semibold text-white mb-2">3. Optimizing RAG</h4>
-            <p className="text-gray-300 mb-4">For knowledge-heavy GPTs, pre-process your documents. Break large PDFs into smaller, clearly-labeled chunks to improve the AI's retrieval accuracy.</p>
+            <h4 className="font-semibold text-white mb-2">3. Building Your AI's Memory Palace</h4>
+            <p className="text-gray-300 mb-4">
+              For knowledge-heavy GPTs, think of document preparation like creating a memory palace for your AI assistant. Instead of dumping all books in a pile, you're building a sophisticated filing system where each piece of information has a specific address and context.
+            </p>
+            <p className="text-gray-300 mb-3">
+              <strong>Practical analogy:</strong> Imagine you're helping a brilliant but forgetful librarian. Instead of giving them a pile of books, you create:
+            </p>
+            <ul className="list-disc pl-5 space-y-1 text-gray-300 mb-3 text-sm">
+              <li>Clearly labeled sections (like "Travel Tips 2024")</li>
+              <li>Executive summaries for quick reference</li>
+              <li>Cross-references between related topics</li>
+              <li>Context clues that help the AI understand relationships</li>
+            </ul>
             <RagChunkingDiagram />
           </div>
         </div>
@@ -262,9 +279,29 @@ const Lesson4_4: React.FC = () => {
 
       <Accordion title="A Developer's Guide to Responsible AI" icon={<ShieldCheck />}>
         <div className="text-gray-300 mb-4">
-          With great power comes great responsibility. Building with LLMs requires an awareness of their limitations and potential for harm. Keeping these points in mind is crucial for creating safe, fair, and reliable applications.
+          Like any powerful tool, AI assistants need careful handling and ethical guidelines. Think of responsible AI development like being a master chef who ensures every dish is not only delicious but also safe and nutritious for every diner.
         </div>
-        <ResponsibleAI />
+        <p className="text-gray-300 mb-4">
+          <strong>Your AI Creation Checklist:</strong> Think of building a GPT like creating a custom superhero. Instead of a generic hero with basic powers, you're crafting a specialist with:
+        </p>
+        <ul className="list-disc pl-5 space-y-2 text-gray-300 mb-4">
+          <li><strong>Origin Story (Instructions):</strong> A unique personality and mission that guides every action - like giving your AI a moral compass</li>
+          <li><strong>Superpowers (Knowledge):</strong> Access to specialized information and databases beyond basic training - ensuring your AI has accurate, up-to-date knowledge</li>
+          <li><strong>Utility Belt (Tools):</strong> Specific gadgets and abilities to accomplish complex tasks - but with safety locks and ethical guidelines</li>
+        </ul>
+        <p className="text-gray-300 mb-4">
+          <strong>Real-World Application:</strong> These three elements combine to create your perfect AI sidekick, ready for any mission, but always operating within ethical boundaries.
+        </p>
+        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 mt-4">
+          <h5 className="font-semibold text-blue-400 mb-2">Ethical AI Development Framework</h5>
+          <ul className="list-disc pl-5 space-y-1 text-gray-300 text-sm">
+            <li><strong>Transparency:</strong> Always disclose when users are interacting with AI</li>
+            <li><strong>Privacy:</strong> Handle user data with the care of a trusted confidant</li>
+            <li><strong>Fairness:</strong> Ensure your AI serves all users equitably</li>
+            <li><strong>Accountability:</strong> Build systems that can explain their decisions</li>
+            <li><strong>Safety:</strong> Create fail-safes that prevent harmful outputs</li>
+          </ul>
+        </div>
       </Accordion>
 
       <Accordion title="Further Reading & Resources" icon={<BookOpen />}>

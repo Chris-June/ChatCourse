@@ -84,13 +84,16 @@ Be encouraging and help them think critically about their ideas.`;
   return (
     <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">6.3 Iterative Improvement</h1>
+        <h1 className="text-4xl font-bold text-white flex items-center">
+          <Beaker className="w-10 h-10 mr-4 text-lime-400" />
+          Lesson 6.3: The Chef Refining the Recipe
+        </h1>
         <div className="flex items-center space-x-4">
           <Link 
             to="/instructions/module-6/6.2" 
             className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Design Thinking
+            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Design Thinking
           </Link>
           <Link 
             to="/instructions/module-7/7.1" 
@@ -103,7 +106,7 @@ Be encouraging and help them think critically about their ideas.`;
       </div>
 
       <p className="text-lg text-gray-300">
-        Building an AI product isn't a one-time event; it's a continuous cycle of learning and refinement. Iterative improvement is the process of using data and user feedback to make your product better over time.
+        A great chef doesn't just create a recipe and walk away; they constantly taste, tweak, and perfect it. Improving an AI is the same. This lesson teaches you the art of culinary iteration for AI: how to 'taste' your AI's performance with the right metrics, run 'taste tests' with A/B experiments, and use the feedback to refine your 'recipe' (the system prompt) for a five-star result.
       </p>
 
       {/* Core Concepts */}
@@ -112,13 +115,12 @@ Be encouraging and help them think critically about their ideas.`;
           <AccordionTrigger className="hover:no-underline p-4 text-xl font-semibold">
             <div className="flex items-center">
               <BarChart2 className="w-6 h-6 mr-3 text-green-400" />
-              Step 1: Measure What Matters
+              Tasting the Dish: Finding the Right Flavors
             </div>
           </AccordionTrigger>
           <AccordionContent className="p-4 pt-0">
             <div className="space-y-4 text-gray-300 border-t border-gray-700 pt-4">
-              <p>Don't just track clicks. For AI products, you need to measure what truly signals quality and trust. A "High Signal" metric is directly tied to the user's success and the AI's performance. A "Low Signal" or "Vanity" metric might look good on a dashboard but doesn't tell you if the product is actually working well.</p>
-              <p>Try it yourself. Can you sort these common metrics into the right buckets?</p>
+              <p>A chef doesn't just count how many people order a dish; they watch to see if plates come back empty. That's a high-signal metric. For your AI, this means focusing on actions that prove value (e.g., user accepts suggestion) over vanity metrics (e.g., feature is used). This tool will help you distinguish between the two.</p>
               <MetricSorter />
             </div>
           </AccordionContent>
@@ -128,13 +130,12 @@ Be encouraging and help them think critically about their ideas.`;
           <AccordionTrigger className="hover:no-underline p-4 text-xl font-semibold">
             <div className="flex items-center">
               <Beaker className="w-6 h-6 mr-3 text-yellow-400" />
-              Step 2: A/B Test Your Prompts
+              The Taste Test: Does a New Ingredient Work?
             </div>
           </AccordionTrigger>
           <AccordionContent className="p-4 pt-0">
             <div className="space-y-4 text-gray-300 border-t border-gray-700 pt-4">
-              <p>The easiest and fastest thing to change in an AI product is the system prompt. Even small tweaks can lead to big differences in the AI's output. A/B testing is how you measure which changes are actually improvements.</p>
-              <p>Run the simulation below to see how a more specific prompt can lead to a better outcome.</p>
+              <p>How does a chef know if adding saffron will improve a dish? They do a taste test. A/B testing is your taste test for AI. The easiest 'ingredient' to change is the system prompt. This simulation shows how a small prompt tweak—your new ingredient—can be scientifically tested to see if it truly improves the final dish.</p>
               <PromptABTester />
             </div>
           </AccordionContent>
@@ -144,12 +145,12 @@ Be encouraging and help them think critically about their ideas.`;
           <AccordionTrigger className="hover:no-underline p-4 text-xl font-semibold">
             <div className="flex items-center">
               <RefreshCw className="w-6 h-6 mr-3 text-cyan-400" />
-              Step 3: Learn and Adapt
+              Refining the Recipe Based on Feedback
             </div>
           </AccordionTrigger>
           <AccordionContent className="p-4 pt-0">
             <div className="space-y-4 text-gray-300 border-t border-gray-700 pt-4">
-              <p>Use the data from your measurements and tests to make decisions. If users constantly correct the AI's tone, your prompt needs to be more specific. If a feature isn't being used, maybe it's not as useful as you thought. This data-driven cycle is your guide to what to build or refine next.</p>
+              <p>If diners consistently leave the garnish, the chef removes it. If they ask for more spice, the chef adds it. The data from your metrics and A/B tests is your customer feedback. Use it to refine your recipe. This continuous cycle of tasting, testing, and adapting is what turns a good product into a great one.</p>
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -193,7 +194,7 @@ Be encouraging and help them think critically about their ideas.`;
           to="/instructions/module-6/6.2" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Design Thinking with AI
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Training a Super-Powered Service Animal
         </Link>
         <Link 
           to="/instructions/module-7/7.1" 

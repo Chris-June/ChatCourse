@@ -184,7 +184,7 @@ const Lesson1_3: React.FC = () => {
       <div className="flex justify-between mt-8">
         <Link to="/instructions/module-1/1.2" className="flex items-center px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
           <ChevronLeft className="w-5 h-5 mr-2" />
-          <span>1.2: The AI's Language (Tokens)</span>
+          <span>1.2: The I.N.S.Y.N.C. Framework</span>
         </Link>
         <Link to="/instructions/module-1/1.4" onClick={() => completeLesson(1, 3)} className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors">
           <span>Next: 1.4: Intro to Prompting</span>

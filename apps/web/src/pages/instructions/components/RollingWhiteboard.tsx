@@ -34,7 +34,7 @@ const RollingWhiteboard: React.FC = () => {
     <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
       <h3 className="font-semibold text-white mb-2">Analogy: A Rolling Whiteboard</h3>
       <p className="text-gray-400 mb-4">
-        Add messages to the board. When more than {MAX_MESSAGES} messages are on the board, the oldest one gets erased to make room. This is how a context window works.
+        This interactive whiteboard demonstrates how AI memory works. Each message you type is like writing on a whiteboard with limited space. When the board is full (typically 4,000-8,000 words), the oldest messages get erased to make room for new ones. This is why the AI might "forget" details from earlier in a long conversation.
       </p>
       <div className="bg-gray-800 p-4 rounded-lg h-64 flex flex-col">
         <div ref={listRef} className="flex-grow overflow-y-auto space-y-2 pr-2">
@@ -65,6 +65,9 @@ const RollingWhiteboard: React.FC = () => {
             <Send className="w-5 h-5" />
           </button>
         </form>
+        <p className="text-gray-400 mt-2 text-sm">
+          <strong>Practical tip:</strong> In real conversations, you can "refresh" the whiteboard by summarizing important details when the conversation gets long.
+        </p>
       </div>
     </div>
   );

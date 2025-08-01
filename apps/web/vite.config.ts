@@ -16,14 +16,14 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      proxy: {
+      proxy: process.env.NODE_ENV === 'development' ? {
         '/api': {
           target: env.VITE_API_URL || 'http://localhost:3000',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '/api'),
           secure: false,
         },
-      },
+      } : undefined,
       port: 3001,
       strictPort: true,
     },
@@ -31,8 +31,9 @@ export default defineConfig(({ mode }) => {
     base: isProduction ? '/' : './',
     define: {
       'process.env': {
-        VITE_API_URL: JSON.stringify(process.env.VITE_API_URL || '')
-      }
+        VITE_API_URL: JSON.stringify(process.env.VITE_API_URL)
+      },
+      'import.meta.env.VITE_API_BASE_URL': JSON.stringify(process.env.VITE_API_BASE_URL || '/api')
     },
     build: {
       outDir: 'dist',

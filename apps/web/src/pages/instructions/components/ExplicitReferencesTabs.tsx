@@ -8,6 +8,7 @@ const VagueTab: React.FC = () => (
     <CopyButton textToCopy="Let's go with the second option. Write the code for it." />
     <p className="text-gray-300 font-mono text-sm pr-10 mb-2">"Let's go with the second option. Write the code for it."</p>
     <p className="text-red-300 text-xs italic">AI might ask: "Which second option are you referring to?"</p>
+    <p className="text-gray-400 text-xs mt-2">Think of it like giving directions: "turn left at the second house" is less clear than "turn left at the red house."</p>
   </div>
 );
 
@@ -17,6 +18,7 @@ const SpecificTab: React.FC = () => (
     <CopyButton textToCopy="Let's use the 'Scrambled Eggs with Spinach' idea. Please write a simple recipe for it." />
     <p className="text-gray-300 font-mono text-sm pr-10 mb-2">"Let's use the 'Scrambled Eggs with Spinach' idea. Please write a simple recipe for it."</p>
     <p className="text-green-300 text-xs italic">AI will proceed with the correct information.</p>
+    <p className="text-gray-400 text-xs mt-2">Explicit references act like anchors, helping the AI pinpoint exactly which information to use.</p>
   </div>
 );
 

@@ -1,8 +1,75 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Check, X, Info, Cpu, Brain, AlertCircle } from 'lucide-react';
+import { ChevronRight, Lightbulb, BrainCircuit, Puzzle } from 'lucide-react';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+
+const tokenizeText = (text: string): string[] => {
+  // This is a simplified tokenizer for demonstration.
+  // It splits by word boundaries or grabs any non-whitespace character.
+  return text.match(/\b\w+\b|\S/g) || [];
+};
+
+const InteractiveTokenizer = () => {
+  const [inputText, setInputText] = useState('Hello world! This is a test.');
+  const [tokens, setTokens] = useState<string[]>([]);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    setTokens(tokenizeText(inputText));
+  }, [inputText]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputText(e.target.value);
+  };
+
+  const animateTokens = () => {
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 1000); // Animation duration
+  };
+
+  return (
+    <div className="bg-gray-900 p-6 rounded-lg border border-gray-700 mt-4">
+      <h4 className="text-lg font-semibold text-white mb-4">Interactive Tokenizer Demo</h4>
+      <p className="text-gray-400 mb-4 text-sm">
+        Type in the box below to see how your text gets broken down into tokens. This is a fundamental step in how LLMs process language.
+      </p>
+      <textarea
+        value={inputText}
+        onChange={handleInputChange}
+        className="w-full h-24 bg-gray-800 border border-gray-600 rounded-md p-3 text-white focus:ring-2 focus:ring-blue-500 transition"
+        placeholder="Enter text to tokenize..."
+      />
+      <div className="flex justify-end mt-3">
+        <button
+          onClick={animateTokens}
+          className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-500 transition-colors"
+        >
+          Visualize Tokenization
+        </button>
+      </div>
+      <div className="mt-4 pt-4 border-t border-gray-700">
+        <h5 className="text-base font-medium text-white mb-3">Tokens:</h5>
+        <div className="flex flex-wrap gap-2">
+          {tokens.map((token, index) => (
+            <span
+              key={index}
+              className={`px-2 py-1 rounded-md text-sm ${isAnimating ? 'animate-pulse' : ''}`}
+              style={{
+                backgroundColor: isAnimating ? '#4F46E5' : '#374151', // Indigo-600 for animation, Gray-700 otherwise
+                color: 'white',
+                animationDelay: isAnimating ? `${index * 50}ms` : '0ms',
+              }}
+            >
+              {token}
+            </span>
+          ))}
+        </div>
+        <p className="text-xs text-gray-500 mt-3">Token Count: {tokens.length}</p>
+      </div>
+    </div>
+  );
+};
 
 const Lesson1_1: React.FC = () => {
   const { completeLesson } = useProgressStore();
@@ -11,227 +78,87 @@ const Lesson1_1: React.FC = () => {
     {
       questionText: 'What is the most fundamental job of a Large Language Model (LLM)?',
       options: [
-        'To understand human feelings',
-        'To search the internet like a search engine',
+        'To understand human emotions',
+        'To browse the internet and find facts',
         'To predict the next most likely word in a sentence',
-        'To follow a strict set of programmed rules'
+        'To translate languages with perfect accuracy',
       ],
       correctAnswer: 'To predict the next most likely word in a sentence',
-      explanation: 'Correct! At their core, LLMs are powerful prediction engines that calculate the most probable next word based on patterns from their training data.'
+      explanation: 'Correct! LLMs are sophisticated pattern-matching systems designed to predict the next token (word or part of a word) based on the input they receive.',
+      link: 'https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/',
+      linkText: 'Learn more about LLM basics'
     },
     {
-      questionText: 'The lesson compares an LLM to a \'Master Pattern-Matcher\' rather than a \'Master Chef\'. What does this analogy highlight?',
+      questionText: 'What does it mean to \'tokenize\' text for an AI?',
       options: [
-        'That AIs are not creative at all',
-        'That AIs generate responses based on learned patterns, not true understanding',
-        'That AIs can only follow one recipe at a time',
-        'That AIs taste-test their own creations'
+        'To check for spelling and grammar errors',
+        'To break the text down into smaller units (words or sub-words)',
+        'To encrypt the text for security',
+        'To summarize the text into key points',
       ],
-      correctAnswer: 'That AIs generate responses based on learned patterns, not true understanding',
-      explanation: 'Exactly. The AI knows what a recipe should look like based on seeing millions of examples, but it doesn\'t understand the chemistry of cooking. It\'s all about matching patterns.'
-    },
-    {
-      questionText: 'What is the best way to think about AI in the workplace, according to the lesson?',
-      options: [
-        'As a tool that will replace all human jobs',
-        'As a tool that has no real impact on work',
-        'As a tool that can augment human skills, making people more effective',
-        'As a tool that only works for programmers'
-      ],
-      correctAnswer: 'As a tool that can augment human skills, making people more effective',
-      explanation: 'That\'s the key takeaway. AI is a powerful tool. The most valuable skill is learning how to use that tool effectively in combination with your own human judgment and creativity.'
-    }
-  ];
-
-  const comparisonExamples = [
-    {
-      id: 1,
-      text: "The cat sat on the mat, its tail flicking lazily in the afternoon sun.",
-      source: 'human',
-      explanation: 'Vivid sensory details and specific observations are often hallmarks of human writing.'
-    },
-    {
-      id: 2,
-      text: "Based on the available information, the feline domesticus positioned itself in a resting posture upon the textile floor covering.",
-      source: 'ai',
-      explanation: 'Overly formal language and unnecessary technical terms are common AI giveaways.'
-    },
-    {
-      id: 3,
-      text: "I remember when my grandmother taught me to bake her famous apple pie. The kitchen would fill with the scent of cinnamon and butter.",
-      source: 'human',
-      explanation: 'Personal anecdotes and emotional connections are typically human traits.'
-    },
-    {
-      id: 4,
-      text: "To bake an apple pie, one must first procure apples, flour, sugar, and butter. The process involves several steps that must be followed precisely.",
-      source: 'ai',
-      explanation: 'Generic, instructional tone without personal connection suggests AI generation.'
+      correctAnswer: 'To break the text down into smaller units (words or sub-words)',
+      explanation: 'Exactly! Tokenization is the process of converting a sequence of text into a sequence of tokens, which are the basic building blocks the model works with.',
+      link: 'https://platform.openai.com/tokenizer',
+      linkText: 'Try OpenAI\'s official tokenizer'
     },
   ];
-
-  const [showAnswer, setShowAnswer] = useState<number | null>(null);
-  const handleSelectAnswer = (id: number) => setShowAnswer(id);
-  const resetExercise = () => setShowAnswer(null);
 
   useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      .animate-fade-in {
-        animation: fadeIn 0.5s ease-out forwards;
-      }
-    `;
-    document.head.appendChild(style);
-  }, []);
+    completeLesson(1, 1);
+  }, [completeLesson]);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-900 text-white font-sans">
-      
-      <header className="mb-8 text-center">
-        <h1 className="text-4xl font-bold text-blue-400">Module 1: The Art of the Prompt</h1>
-        <p className="text-lg text-gray-400 mt-2">Lesson 1.1: What is an AI, Really?</p>
+    <div className="space-y-8 p-6 bg-gray-900 text-white">
+      <header>
+        <h1 className="text-4xl font-bold text-white mb-2">1.1 What is an AI, Really?</h1>
+        <p className="text-lg text-gray-400">Beyond the hype, let's build a real foundation.</p>
       </header>
 
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8 animate-fade-in">
-        <h2 className="text-2xl font-semibold mb-4 text-cyan-300">
-          <Brain className="inline-block w-6 h-6 mr-2 -mt-1" />
-          The Big Secret: AI is a Super-Predictor
-        </h2>
-        <p className="text-gray-300 mb-4">
-          Forget the sci-fi movies for a moment. The most important thing to understand about the AI you'll be using is simple: at its core, it's a giant prediction machine. It doesn't 'think' or 'understand' like a human. Instead, it has been trained on a massive amount of text from the internet, books, and more. From that data, it learns patterns.
-        </p>
-        <p className="text-gray-300 font-semibold text-lg text-center py-4 px-6 bg-gray-900 rounded-lg">
-          Its main job is to answer the question: <strong className="text-yellow-300">"Based on everything I've read, what word most likely comes next?"</strong>
-        </p>
-        <div className="mt-4 p-4 bg-blue-900/20 rounded-lg border border-blue-800/50">
-          <p className="text-blue-200 text-sm">
-            <span className="font-semibold">Real-World Analogy:</span> It's like the autocomplete on your phone's keyboard, but on a massive, super-powered scale. Your phone suggests the next word in your text; an LLM suggests the next word, then the next, and the next, to form entire paragraphs.
+      <section className="space-y-6">
+        <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
+          <h2 className="text-2xl font-semibold text-white mb-4 flex items-center">
+            <Lightbulb className="w-6 h-6 mr-3 text-yellow-400" />
+            The Core Idea: It's All About Prediction
+          </h2>
+          <p className="text-gray-300 mb-4">
+            Forget robots taking over the world for a moment. At its core, a Large Language Model (LLM) like the one powering this course has a surprisingly simple primary job:
+          </p>
+          <blockquote className="border-l-4 border-blue-500 pl-4 py-2 bg-blue-900/20 text-blue-200">
+            <p className="font-medium">
+              Given a sequence of text, an LLM is trained to predict the next most likely word (or token).
+            </p>
+          </blockquote>
+          <p className="text-gray-300 mt-4">
+            That's it. All the amazing things they can do—write stories, answer questions, generate code—emerge from this single, powerful capability. They are masters of recognizing and recreating patterns from the vast amount of text data they were trained on.
           </p>
         </div>
-      </section>
 
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-        <h2 className="text-2xl font-semibold mb-4 text-cyan-300">
-          <Cpu className="inline-block w-6 h-6 mr-2 -mt-1" />
-          Analogy: A Recipe Follower vs. a Master Pattern-Matcher
-        </h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-            <h3 className="text-lg font-semibold text-green-400 mb-2">Traditional Programming (The Recipe Follower)</h3>
-            <p className="text-gray-400">
-              Imagine a cook who can only follow a recipe exactly as written. If you tell them to add 1 teaspoon of salt, they will do it perfectly. But they can't invent a new dish or substitute an ingredient. They have no creativity; they just follow instructions.
-            </p>
-          </div>
-          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-            <h3 className="text-lg font-semibold text-purple-400 mb-2">AI / LLMs (The Master Pattern-Matcher)</h3>
-            <p className="text-gray-400">
-              Now, imagine someone who has read every recipe book in the world. They don't understand the chemistry of cooking, but they know that 'flour, sugar, eggs' is often followed by 'mix until smooth'. They can generate a recipe for a chocolate cake that sounds perfect because they've seen thousands of them. They are masters of pattern, not masters of understanding.
-            </p>
-          </div>
+        <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
+          <h2 className="text-2xl font-semibold text-white mb-4 flex items-center">
+            <BrainCircuit className="w-6 h-6 mr-3 text-purple-400" />
+            How Do They 'Think'? Tokens and Probability
+          </h2>
+          <p className="text-gray-300 mb-4">
+            AI doesn't understand text like a human does. Instead, it breaks everything down into smaller pieces called <strong>tokens</strong>. A token can be a whole word, a part of a word, or even just a punctuation mark.
+          </p>
+          <p className="text-gray-300 mb-4">
+            For example, the phrase <code className="bg-gray-700 px-1 py-0.5 rounded">"Prompt engineering is cool"</code> might be tokenized into:
+            <code className="bg-gray-700 px-1 py-0.5 rounded">[Prompt]</code>, <code className="bg-gray-700 px-1 py-0.5 rounded">[ engineering]</code>, <code className="bg-gray-700 px-1 py-0.5 rounded">[ is]</code>, <code className="bg-gray-700 px-1 py-0.5 rounded">[ cool]</code>.
+          </p>
+          <p className="text-gray-300">
+            The model then uses complex mathematical calculations (think of it as a giant probability map) to determine the most likely token to come next. When you give it a prompt, you're giving it a starting point on this map.
+          </p>
         </div>
-      </section>
 
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-        <h2 className="text-2xl font-semibold mb-4 text-cyan-300">
-          <Info className="inline-block w-6 h-6 mr-2 -mt-1" />
-          Can You Tell the Difference?
-        </h2>
-        <p className="text-gray-300 mb-4">
-          Sometimes, AI-generated text can feel a bit... off. It might be too formal, too generic, or lack a personal touch. See if you can guess which of these snippets were written by a human and which by an AI.
-        </p>
-        <div className="space-y-4">
-          {comparisonExamples.map(ex => (
-            <div key={ex.id} className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-              <p className="text-gray-300 italic">"{ex.text}"</p>
-              {showAnswer === ex.id ? (
-                <div className={`mt-3 p-3 rounded-lg ${ex.source === 'human' ? 'bg-green-900/30' : 'bg-purple-900/30'}`}>
-                  <p className="font-bold text-lg mb-1">This was written by a <span className={`${ex.source === 'human' ? 'text-green-400' : 'text-purple-400'}`}>{ex.source.toUpperCase()}</span>.</p>
-                  <p className="text-sm text-gray-400">{ex.explanation}</p>
-                </div>
-              ) : (
-                <div className="mt-3 flex gap-3">
-                  <button onClick={() => handleSelectAnswer(ex.id)} className="text-sm text-blue-400 hover:underline">Show Answer</button>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-4">
-          <button onClick={resetExercise} className="text-sm text-gray-500 hover:text-gray-400">Reset</button>
-        </div>
-      </section>
+        <InteractiveTokenizer />
 
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-        <h2 className="text-2xl font-semibold mb-4 text-cyan-300">
-          <AlertCircle className="inline-block w-6 h-6 mr-2 -mt-1" />
-          Myths vs. Reality
-        </h2>
-        <div className="space-y-4">
-          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-            <div className="flex items-start">
-              <X className="w-8 h-8 text-red-400 mr-3 flex-shrink-0" />
-              <div>
-                <h3 className="text-lg font-semibold text-red-400 mb-2">Myth: AI understands what it's saying</h3>
-                <p className="text-gray-400">
-                  <span className="text-green-400 font-medium">Reality:</span> As we've learned, AI is a pattern-matcher, not a thinker. It doesn't have beliefs, consciousness, or intent. It's just calculating the next most probable word.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-            <div className="flex items-start">
-              <X className="w-8 h-8 text-red-400 mr-3 flex-shrink-0" />
-              <div>
-                <h3 className="text-lg font-semibold text-red-400 mb-2">Myth: AI will replace all human jobs</h3>
-                <p className="text-gray-400">
-                  <span className="text-green-400 font-medium">Reality:</span> While AI will change the job market, it's more likely to augment human capabilities than replace them entirely. The most valuable skills will be those that combine AI tools with human judgment, creativity, and emotional intelligence.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-6 text-blue-300">
-          <Info className="inline-block w-6 h-6 mr-2 -mt-1" />
-          Lesson Summary
-        </h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Key Concepts</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                LLMs work by predicting the next most likely word.
-              </li>
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                They are pattern-matchers, not conscious thinkers.
-              </li>
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Key Skills</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                Distinguishing between AI and human-like understanding.
-              </li>
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                Identifying common traits of AI-generated text.
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="mt-6 p-4 bg-blue-900/20 rounded-lg border border-blue-800/50">
-          <p className="text-blue-200">
-            <span className="font-semibold">Next Up:</span> Now that you know what an AI is, let's look at how it 'reads' your words. 
+        <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
+          <h2 className="text-2xl font-semibold text-white mb-4 flex items-center">
+            <Puzzle className="w-6 h-6 mr-3 text-green-400" />
+            Why This Matters for Prompting
+          </h2>
+          <p className="text-gray-300">
+            Understanding this core mechanic is your secret weapon in prompt engineering. Your job is to provide the AI with a starting sequence of tokens (your prompt) that makes your desired output the most probable next sequence. You are essentially guiding the AI through its probability map to the exact destination you want.
           </p>
         </div>
       </section>
@@ -243,10 +170,10 @@ const Lesson1_1: React.FC = () => {
       <div className="flex justify-end pt-4">
         <Link 
           to="/instructions/module-1/1.2" 
-          onClick={() => completeLesson(1, 1)}
+          onClick={() => completeLesson(1, 1)} // Mark lesson 1.1 as complete
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Next: The AI's Language (Tokens) <ChevronRight className="w-5 h-5 ml-2" />
+          Next: The I.N.S.Y.N.C. Framework <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>

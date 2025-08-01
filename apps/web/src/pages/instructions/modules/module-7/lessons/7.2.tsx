@@ -92,57 +92,43 @@ When a user submits a prompt, follow these steps:
   ];
 
   return (
-    <div className="space-y-12 p-4 md:p-6">
+    <div className="space-y-8 p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">7.2 Understanding RAG</h1>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/instructions/module-7/7.1" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Advanced Function Calling
-          </Link>
-          <Link 
-            to="/instructions/module-7/7.3" 
-            onClick={() => completeLesson(7, 2)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Fine-Tuning Models <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
+        <h1 className="text-4xl font-bold text-white flex items-center">
+          <Lightbulb className="w-10 h-10 mr-4 text-yellow-400" />
+          Lesson 7.2: The Diligent Research Assistant
+        </h1>
       </div>
 
-      <section>
-        <p className="text-lg text-gray-300">
-          Imagine giving an AI an "open-book exam" instead of a closed-book one. That's the core idea behind **Retrieval-Augmented Generation (RAG)**. It's a powerful technique that allows a Large Language Model (LLM) to consult a specific, up-to-date knowledge base *before* answering a question. This prevents the model from making things up ("hallucinating") and ensures its answers are grounded in facts, not just its training data.
-        </p>
-      </section>
+      <p className="text-lg text-gray-300">
+        An LLM is like a brilliant professor who knows a lot, but can't possibly remember everything. RAG gives your professor a diligent research assistant. Before answering a question, the assistant runs to the library (your knowledge base), finds the right facts, and puts them on the professor's desk. This ensures the final answer is accurate and based on specific, trusted information.
+      </p>
 
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">How RAG Works: An Animated Guide</h2>
-        <p className="text-gray-300 mb-4">The RAG process has three core steps: Retrieve, Augment, and Generate. Use the visualizer below to see how a user's query is transformed into a fact-based answer.</p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">The Research Process: Retrieve, Augment, Generate</h2>
+        <p className="text-gray-300 mb-4">The research assistant's job has three steps: find the right books (Retrieve), place them on the desk with key passages marked (Augment), so the professor can write the answer (Generate). This visualizer shows that process in action.</p>
         <RagFlowVisualizer />
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Common Use Cases for RAG</h2>
-        <p className="text-gray-300 mb-4">RAG is incredibly versatile. It's used to build everything from customer support bots to personal assistants. Explore some of the common applications below.</p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Where a Research Assistant Shines</h2>
+        <p className="text-gray-300 mb-4">This technique is perfect for any task requiring fact-based answers from a specific set of documents, like a customer support bot that only uses official help docs, or an internal tool for querying company policies.</p>
         <RagUseCases />
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Hands-On: The RAG Playground</h2>
-        <p className="text-gray-300 mb-4">Now it's your turn. We've set up a mini-RAG system with a small knowledge base about a fictional company. Ask it questions to see the retrieval and generation process for yourself.</p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Your First Day as a Research Assistant</h2>
+        <p className="text-gray-300 mb-4">Time to get hands-on. We've set up a small library for a fictional company. Your job is to ask the professor questions and watch your assistant retrieve the right documents to help them answer.</p>
         <RagPlayground />
       </section>
 
       <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Final Challenge: Engineer the Generator Prompt
+          Writing the Professor's Briefing Notes
         </h2>
         <p className="text-gray-300 mb-4">
-          The final prompt sent to the LLM is the most important part of a RAG system. It must clearly instruct the model to use the provided context and nothing else. Your task is to design this prompt.
+          The final, most critical step is writing the briefing note for the professor. This note (the generator prompt) must instruct them to answer the user's question using *only* the research you've provided. This prevents them from guessing. Your task is to write that perfect briefing note.
         </p>
         <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
           <h3 className="font-semibold text-white mb-2">Your Task:</h3>
@@ -176,14 +162,13 @@ When a user submits a prompt, follow these steps:
           to="/instructions/module-7/7.1" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Advanced Function Calling
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Master Dispatcher
         </Link>
         <Link 
           to="/instructions/module-7/7.3" 
           onClick={() => completeLesson(7, 2)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          Next: Model Fine-Tuning <ChevronRight className="w-5 h-5 ml-2" />
           Next: Fine-Tuning Models <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>

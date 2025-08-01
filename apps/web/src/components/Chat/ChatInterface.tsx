@@ -99,11 +99,15 @@ const ChatInterface = () => {
         return;
       }
 
-      // Use empty string as base URL if VITE_API_BASE_URL is '/api' to prevent double /api
-      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL === '/api' 
-        ? '' 
-        : import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
-      const endpoint = `${apiBaseUrl}${apiBaseUrl && !apiBaseUrl.endsWith('/') ? '/' : ''}api/chat`;
+      // In production, use relative URL
+      const isProduction = import.meta.env.PROD;
+      
+      // In production, use relative URL, in development use localhost
+      const endpoint = isProduction 
+        ? '/api/chat'  // Revert to standard /api prefix for production
+        : 'http://localhost:3000/api/chat'; // Revert for development consistency
+      
+      console.log('API Endpoint:', endpoint); // For debugging
       
       const response = await fetch(endpoint, {
         method: 'POST',

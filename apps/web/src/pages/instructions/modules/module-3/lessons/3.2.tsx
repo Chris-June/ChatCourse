@@ -97,7 +97,10 @@ const Lesson3_2: React.FC = () => {
       </div>
 
       <p className="text-lg text-gray-300">
-        Introduced in Wei et al. (2022), chain-of-thought (CoT) prompting enables complex reasoning capabilities through intermediate reasoning steps. You can combine it with few-shot prompting to get better results on more complex tasks that require reasoning before responding.
+        Chain-of-thought prompting is like having a conversation with someone who thinks out loud - instead of just giving you the answer, they walk you through their reasoning process. This technique transforms AI responses from mysterious "black box" answers into transparent, step-by-step solutions you can follow and verify.
+      </p>
+      <p className="text-lg text-gray-300 mt-4">
+        Think of it as the difference between a math teacher who just writes "42" on the board versus one who shows every step of the calculation. The second approach not only gives you the answer but teaches you how to solve similar problems yourself.
       </p>
 
       <Accordion title="Chain-of-Thought Prompting" isInitiallyOpen>
@@ -112,13 +115,19 @@ const Lesson3_2: React.FC = () => {
           </div>
         </div>
         <p className="text-gray-300 my-4">
-          Wow! We can see a perfect result when we provided the reasoning step. In fact, we can solve this task by providing even fewer examples, i.e., just one example seems enough.
+          Notice how the AI transformed from a calculator that just outputs numbers into a tutor that explains their thinking. This is the power of chain-of-thought prompting - it doesn't just give answers, it reveals the reasoning path.
+        </p>
+        <p className="text-gray-300 my-4">
+          <strong>Key insight:</strong> By showing the AI how to break down problems step-by-step, you're essentially teaching it a problem-solving strategy that it can then apply to new challenges.
         </p>
       </Accordion>
 
       <Accordion title="Zero-Shot CoT">
         <p className="text-gray-300 mb-4">
-          One of the more recent and exciting prompting techniques is zero-shot CoT (Kojima et al. 2022) that essentially involves adding "Let's think step by step" to the original prompt. Let's try a simple problem to see how this works in practice.
+          Zero-shot CoT is like having a magic phrase that unlocks the AI's inner monologue. By simply adding "Let's think step by step," you're asking the AI to show its work - similar to how a teacher might say "explain your thinking" to a student.
+        </p>
+        <p className="text-gray-300 mb-4">
+          This technique is particularly powerful because it works without any examples - it's like having a universal key that works on any reasoning lock.
         </p>
         <div className="my-4">
           <CotDiagram />
@@ -135,12 +144,22 @@ const Lesson3_2: React.FC = () => {
           </div>
         </div>
         <p className="text-gray-300 mt-4">
-          It's impressive that this simple prompt is effective at this task. This is particularly useful where you don't have too many examples to use in the prompt.
+          The beauty of this approach lies in its simplicity - one phrase transforms any prompt into a reasoning tutorial. It's like discovering that saying "show your work" works across languages, subjects, and complexity levels.
+        </p>
+        <p className="text-gray-300 mt-2">
+          This technique shines when you're exploring new territory - when you don't have examples to guide the AI, you can still guide its thinking process.
         </p>
 
         <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
-          <h3 className="font-semibold text-white mb-2">Your Turn: Zero-Shot CoT</h3>
-          <p className="text-gray-400 mb-4">Use the "Let's think step by step" technique on a new problem to see if you can elicit a reasoned response from the model without providing examples.</p>
+          <h3 className="font-semibold text-white mb-2">Your Turn: Zero-Shot CoT Challenge</h3>
+          <p className="text-gray-400 mb-4">Experiment with the magic phrase "Let's think step by step." Try it on different types of problems - from simple arithmetic to complex logic puzzles. Notice how the AI's response changes when you include this trigger.</p>
+          <p className="text-gray-400 mb-4">
+            <strong>Pro tips for experimentation:</strong>
+            <br />• Try the same problem with and without the phrase to see the difference
+            <br />• Test it on various problem types (math, logic, decision-making)
+            <br />• Observe how the AI structures its step-by-step reasoning
+            <br />• Notice when this technique works best vs. when it falls short
+          </p>
           <InlineChat 
             moduleId="module-3.2-zeroshot-cot"
             maxAttempts={5}
@@ -154,7 +173,13 @@ const Lesson3_2: React.FC = () => {
 
       <Accordion title="Automatic Chain-of-Thought (Auto-CoT)">
         <p className="text-gray-300 mb-4">
-          When applying chain-of-thought prompting with demonstrations, the process involves hand-crafting effective and diverse examples. This manual effort could lead to suboptimal solutions. Zhang et al. (2022) propose an approach to eliminate manual efforts by leveraging LLMs with "Let's think step by step" prompt to generate reasoning chains for demonstrations one by one. This automatic process can still end up with mistakes in generated chains. To mitigate the effects of the mistakes, the diversity of demonstrations matter. This work proposes Auto-CoT, which samples questions with diversity and generates reasoning chains to construct the demonstrations.
+          Creating effective CoT examples manually is like being a teacher who has to prepare detailed lesson plans for every possible question - it's time-consuming and you might miss important variations. Auto-CoT is like having an AI teaching assistant that automatically generates diverse, step-by-step solutions for you.
+        </p>
+        <p className="text-gray-300 mb-4">
+          Think of it as the difference between manually writing 50 different math problems with solutions versus having an AI generate 50 varied problems, each with clear step-by-step explanations. The AI approach ensures diversity and saves massive amounts of time.
+        </p>
+        <p className="text-gray-300 mb-4">
+          The key insight: by automatically generating reasoning chains across diverse problem types, Auto-CoT creates a comprehensive "reasoning toolkit" that the AI can draw from when tackling new challenges.
         </p>
         <AutoDemosDiagram />
         <p className="text-center text-sm text-gray-500 mt-2">Image Source: Zhang et al. (2022)</p>

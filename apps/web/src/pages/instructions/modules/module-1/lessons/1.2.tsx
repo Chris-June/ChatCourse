@@ -1,179 +1,152 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Check, Info, Puzzle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Send } from 'lucide-react';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
-// A simple, client-side tokenizer for demonstration purposes.
-const simpleTokenize = (text: string): string[] => {
-  if (!text) return [];
-  // This is a simplified tokenizer. It splits by spaces and punctuation.
-  // It's not how real tokenizers work, but illustrates the concept.
-  const tokens = text.match(/\w+|[.,!?;:]|\s/g) || [];
-  return tokens.map(token => token.replace(/ /g, ' ')); // Make spaces visible
+// Mock API call for chat response
+const getMockResponse = (prompt: string): Promise<string> => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(`This is a mock response to your prompt: "${prompt.substring(0, 50)}..." It demonstrates how the AI would reply based on the I.N.S.Y.N.C. framework you provided.`);
+    }, 1000);
+  });
 };
 
-const InteractiveTokenizer: React.FC = () => {
-  const [text, setText] = useState('Hello world! This is a test.');
-  const [tokens, setTokens] = useState<string[]>([]);
+const PromptBuilder: React.FC<{ onPromptSubmit: (prompt: string) => void }> = ({ onPromptSubmit }) => {
+  const [intent, setIntent] = useState('');
+  const [nuance, setNuance] = useState('');
+  const [style, setStyle] = useState('');
+  const [youAsNarrative, setYouAsNarrative] = useState('');
+  const [context, setContext] = useState('');
 
-  useEffect(() => {
-    setTokens(simpleTokenize(text));
-  }, [text]);
+  const constructPrompt = () => {
+    // A real implementation would be more sophisticated
+    return `Intent: ${intent}\nNuance: ${nuance}\nStyle: ${style}\nYou-as-Narrative: ${youAsNarrative}\nContext: ${context}`;
+  };
 
-  const tokenColors = [
-    'bg-blue-500/20 text-blue-300',
-    'bg-green-500/20 text-green-300',
-    'bg-yellow-500/20 text-yellow-300',
-    'bg-purple-500/20 text-purple-300',
-    'bg-pink-500/20 text-pink-300',
-  ];
+  const handleSubmit = () => {
+    onPromptSubmit(constructPrompt());
+  };
 
   return (
-    <div className="bg-gray-900 p-6 rounded-lg border border-gray-700 my-6">
-      <h3 className="text-lg font-semibold text-cyan-300 mb-2">Try It Yourself</h3>
-      <p className="text-gray-400 mb-4 text-sm">Type in the box below to see how your words are broken down into tokens. Notice how words, punctuation, and even spaces can be separate tokens.</p>
-      <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        className="w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-        rows={3}
-      />
-      <div className="mt-4 p-4 bg-gray-800 rounded-md">
-        <h4 className="text-sm font-semibold text-gray-300 mb-2">Tokens ({tokens.length}):</h4>
-        <div className="flex flex-wrap gap-1">
-          {tokens.map((token, index) => (
-            <span key={index} className={`px-2 py-1 rounded-md text-sm font-mono ${tokenColors[index % tokenColors.length]}`}>
-              {token === ' ' ? '[space]' : token}
-            </span>
-          ))}
-        </div>
+    <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 space-y-4">
+      <h3 className="text-xl font-semibold text-white">I.N.S.Y.N.C. Prompt Builder</h3>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-1">I - Intent (What do you want?)</label>
+        <input type="text" value={intent} onChange={e => setIntent(e.target.value)} className="w-full bg-gray-700 rounded p-2 text-white" placeholder="e.g., Write an email to my team" />
       </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-1">N - Nuance (Add specific constraints or details)</label>
+        <input type="text" value={nuance} onChange={e => setNuance(e.target.value)} className="w-full bg-gray-700 rounded p-2 text-white" placeholder="e.g., Announce the project deadline is Friday" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-1">S - Style (Define the tone or format)</label>
+        <input type="text" value={style} onChange={e => setStyle(e.target.value)} className="w-full bg-gray-700 rounded p-2 text-white" placeholder="e.g., Formal and encouraging tone" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-1">Y - You-as-Narrative (Define the AI's persona)</label>
+        <input type="text" value={youAsNarrative} onChange={e => setYouAsNarrative(e.target.value)} className="w-full bg-gray-700 rounded p-2 text-white" placeholder="e.g., You are a project manager" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-1">C - Context (Provide background information)</label>
+        <textarea value={context} onChange={e => setContext(e.target.value)} className="w-full bg-gray-700 rounded p-2 text-white" placeholder="e.g., The project is codenamed 'Phoenix'..."></textarea>
+      </div>
+      <button onClick={handleSubmit} className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded flex items-center justify-center">
+        <Send className="w-4 h-4 mr-2" /> Test This Prompt
+      </button>
+    </div>
+  );
+};
+
+const InlineChat: React.FC<{ prompt: string }> = ({ prompt }) => {
+  const [response, setResponse] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (prompt) {
+      setIsLoading(true);
+      getMockResponse(prompt).then(res => {
+        setResponse(res);
+        setIsLoading(false);
+      });
+    }
+  }, [prompt]);
+
+  if (!prompt) return null;
+
+  return (
+    <div className="mt-6 bg-gray-900 p-4 rounded-lg border border-gray-700">
+      <h4 className="text-lg font-semibold text-gray-300 mb-2">AI Response</h4>
+      {isLoading ? (
+        <p className="text-gray-400">Generating response...</p>
+      ) : (
+        <p className="text-white whitespace-pre-wrap">{response}</p>
+      )}
     </div>
   );
 };
 
 const Lesson1_2: React.FC = () => {
   const { completeLesson } = useProgressStore();
+  const [submittedPrompt, setSubmittedPrompt] = useState('');
+
+  useEffect(() => {
+    completeLesson(1, 2);
+  }, [completeLesson]);
 
   const quizQuestions = [
     {
-      questionText: 'What is a \'token\' in the context of an LLM?',
+      questionText: 'What does \'Intent\' in the I.N.S.Y.N.C. framework refer to?',
       options: [
-        'A special password to use the AI',
-        'A piece of a word, a whole word, or punctuation that the AI processes',
-        'A type of cryptocurrency',
-        'A command to the AI'
+        'The AI\'s hidden agenda',
+        'The core goal or task you want the AI to accomplish',
+        'The emotional tone of the prompt',
+        'The background information for the prompt'
       ],
-      correctAnswer: 'A piece of a word, a whole word, or punctuation that the AI processes',
-      explanation: 'Correct! Tokens are the basic building blocks of text that an AI uses to read, understand, and generate language.'
+      correctAnswer: 'The core goal or task you want the AI to accomplish',
+      explanation: 'Correct! Intent is the primary verb—the action you want the AI to take.'
     },
     {
-      questionText: 'Why is understanding tokens important for prompting?',
-      options: [
-        'It helps you write shorter prompts.',
-        'It explains why AI responses can sometimes feel unnatural or have strange errors.',
-        'It allows you to bypass the AI\'s safety filters.',
-        'It is not important at all.'
-      ],
-      correctAnswer: 'It explains why AI responses can sometimes feel unnatural or have strange errors.',
-      explanation: 'Exactly. Knowing that the AI thinks in tokens helps you understand its limitations and quirks, like misspelling words or getting confused by complex punctuation.'
-    },
+      questionText: 'Which part of I.N.S.Y.N.C. would you use to tell the AI to act as a specific character?',
+      options: ['Style', 'Nuance', 'You-as-Narrative', 'Context'],
+      correctAnswer: 'You-as-Narrative',
+      explanation: 'Exactly! You-as-Narrative sets the persona for the AI, like \'You are a helpful assistant\' or \'You are a skeptical pirate.\''
+    }
   ];
 
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      .animate-fade-in {
-        animation: fadeIn 0.5s ease-out forwards;
-      }
-    `;
-    document.head.appendChild(style);
-  }, []);
-
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-900 text-white font-sans">
-      
-      <header className="mb-8 text-center">
-        <h1 className="text-4xl font-bold text-blue-400">Module 1: The Art of the Prompt</h1>
-        <p className="text-lg text-gray-400 mt-2">Lesson 1.2: The AI's Language (Tokens)</p>
+    <div className="space-y-8 p-6 bg-gray-900 text-white">
+      <header>
+        <h1 className="text-4xl font-bold text-white mb-2">1.2 The I.N.S.Y.N.C. Framework</h1>
+        <p className="text-lg text-gray-400">A structured approach to predictable results.</p>
       </header>
 
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8 animate-fade-in">
-        <h2 className="text-2xl font-semibold mb-4 text-cyan-300">
-          <Puzzle className="inline-block w-6 h-6 mr-2 -mt-1" />
-          Breaking It Down: Thinking in Tokens
-        </h2>
+      <section>
         <p className="text-gray-300 mb-4">
-          You and I see words and sentences. An AI sees something different: <strong className='text-yellow-300'>tokens</strong>. A token is a chunk of text, which could be a whole word, part of a word, a punctuation mark, or even a space.
+          Vague prompts lead to vague answers. To get high-quality, predictable results from an AI, you need to provide high-quality, structured input. The I.N.S.Y.N.C. framework is a mental model for building better prompts.
         </p>
-        <p className="text-gray-300 mb-4">
-          For example, the phrase "prompt engineering is fun!" might be broken down into these tokens:
-        </p>
-        <div className="flex flex-wrap gap-2 justify-center bg-gray-900 p-4 rounded-lg">
-          <span className='px-3 py-1 rounded-md text-sm font-mono bg-blue-500/20 text-blue-300'>prompt</span>
-          <span className='px-3 py-1 rounded-md text-sm font-mono bg-green-500/20 text-green-300'>engineering</span>
-          <span className='px-3 py-1 rounded-md text-sm font-mono bg-yellow-500/20 text-yellow-300'>is</span>
-          <span className='px-3 py-1 rounded-md text-sm font-mono bg-purple-500/20 text-purple-300'>fun</span>
-          <span className='px-3 py-1 rounded-md text-sm font-mono bg-pink-500/20 text-pink-300'>!</span>
-        </div>
-        <div className="mt-4 p-4 bg-blue-900/20 rounded-lg border border-blue-800/50">
-          <p className="text-blue-200 text-sm">
-            <span className="font-semibold">Why this matters:</span> The AI doesn't predict the next 'word'; it predicts the next 'token'. This is why AIs sometimes misspell complex words or create new, non-existent ones—it's just stringing together the most probable tokens it knows.
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+          <div className="bg-gray-800 p-4 rounded-lg"><b>I</b>ntent</div>
+          <div className="bg-gray-800 p-4 rounded-lg"><b>N</b>uance</div>
+          <div className="bg-gray-800 p-4 rounded-lg"><b>S</b>tyle</div>
+          <div className="bg-gray-800 p-4 rounded-lg"><b>Y</b>ou-as-Narrative</div>
+          <div className="bg-gray-800 p-4 rounded-lg col-span-1 md:col-span-2"><b>C</b>ontext</div>
         </div>
       </section>
 
-      <section className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-        <InteractiveTokenizer />
-      </section>
+      <PromptBuilder onPromptSubmit={setSubmittedPrompt} />
+      <InlineChat prompt={submittedPrompt} />
 
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-        <h2 className="text-2xl font-semibold mb-4 text-cyan-300">
-          <Info className="inline-block w-6 h-6 mr-2 -mt-1" />
-          Lesson Summary
-        </h2>
-        <ul className="space-y-2 text-gray-300">
-          <li className="flex items-start">
-            <Check className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-            AI models read and write using 'tokens', not words.
-          </li>
-          <li className="flex items-start">
-            <Check className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-            Tokens can be words, parts of words, or punctuation.
-          </li>
-           <li className="flex items-start">
-            <Check className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-            Understanding tokens helps explain some of the AI's strange behaviors and limitations.
-          </li>
-        </ul>
-        <div className="mt-6 p-4 bg-blue-900/20 rounded-lg border border-blue-800/50">
-          <p className="text-blue-200">
-            <span className="font-semibold">Next Up:</span> What happens when the AI's pattern-matching goes wrong? Let's talk about hallucinations.
-          </p>
-        </div>
-      </section>
-
-      <section className="mt-8">
+      <section>
         <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-1/1.1" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
+        <Link to="/instructions/module-1/1.1" className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
           <ChevronLeft className="w-5 h-5 mr-2" /> Previous: What is an AI?
         </Link>
-        <Link 
-          to="/instructions/module-1/1.3" 
-          onClick={() => completeLesson(1, 2)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
+        <Link to="/instructions/module-1/1.3" className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors">
           Next: When AI Gets It Wrong <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>

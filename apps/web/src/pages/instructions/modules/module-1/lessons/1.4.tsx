@@ -40,8 +40,8 @@ const Lesson1_4: React.FC = () => {
           <Link to="/instructions/module-1/1.3" className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
             <ChevronLeft className="w-5 h-5 mr-2" /> Previous
           </Link>
-          <Link to="/instructions/module-1/1.5" onClick={() => completeLesson(1, 4)} className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors">
-            Next <ChevronRight className="w-5 h-5 ml-2" />
+          <Link to="/instructions/module-1/completion" onClick={() => completeLesson(1, 4)} className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors">
+            Finish Module <ChevronRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>

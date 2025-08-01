@@ -1,26 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "apps/web/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist",
-        "buildCommand": "cd apps/web && pnpm install && pnpm build"
-      }
-    },
-    {
-      "src": "api/handler.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["api/**"]
-      }
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/handler.ts"
+      "dest": "/apps/api/vercel.ts"
     },
     {
       "src": "/assets/(.*)",
@@ -34,12 +17,7 @@
     }
   ],
   "env": {
-    "NODE_ENV": "production",
-    "VITE_API_URL": "/api"
-  },
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "cd apps/web && pnpm install && pnpm build"
+    "NODE_ENV": "production"
+  }
+
 }

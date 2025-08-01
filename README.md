@@ -16,18 +16,18 @@ This project is a monorepo managed with pnpm workspaces. The structure is as fol
 
 ```
 .
-├── api
-├── apps
-│   └── web
-├── packages
-├── .env.example
-├── package.json
-└── pnpm-workspace.yaml
+├── apps/
+│   ├── api/         # Backend API service
+│   └── web/         # Frontend web application
+├── packages/        # Shared code between applications
+├── .env.example     # Example environment variables
+├── package.json     # Root package.json with workspace scripts
+└── pnpm-workspace.yaml  # pnpm workspace configuration
 ```
 
--   `api`: Contains the backend API service.
--   `apps/web`: Contains the frontend web application.
--   `packages`: Intended for shared code between the applications (currently empty).
+- `apps/api`: Contains the backend API service.
+- `apps/web`: Contains the frontend web application.
+- `packages/`: For shared code between applications.
 
 ## 2. Before You Begin: Tools You’ll Need
 
@@ -73,9 +73,26 @@ Either way, remember where you put the folder—you’ll need it soon.
 pnpm install
 ```
 
-Wait until the scrolling stops (≈1 minute).
+6. **Open the app** in your browser:
+   - Frontend: http://localhost:3001
+   - API: http://localhost:3000
 
----
+## 4. Open the Project in VS Code
+
+1. Launch VS Code.  
+2. Select **File → Open Folder…** and pick the **`chat-app-monorepo`** folder.  
+3. VS Code will ask “**Do you trust the authors?**” Click **Yes**.
+
+## 5. Install the Project’s Libraries
+
+1. In VS Code choose **Terminal → New Terminal**.  
+2. A panel appears at the bottom. Copy‑paste this and press **Enter**:
+
+```bash
+pnpm install
+```
+
+Wait until the scrolling stops (≈1 minute).
 
 ## 6. Add Your AI Key
 
