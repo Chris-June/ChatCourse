@@ -349,31 +349,22 @@ const Lesson1_7: React.FC = () => {
         <ModuleQuizzes questions={quizQuestions} />
       </section>
 
-      {/* Module Wrap-up */}
-      <section className="bg-blue-900/30 p-6 rounded-lg shadow-lg border border-blue-700 mt-6">
-        <h2 className="text-2xl font-semibold mb-3 text-white">Module 1 Complete!</h2>
-        <p className="text-blue-200 mb-4">
-          Congratulations! You've successfully navigated advanced prompting techniques.
-        </p>
-        <p className="text-blue-200 font-semibold">
-          You are now equipped with the foundational skills for sophisticated AI interaction.
-        </p>
-      </section>
+
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">
         <Link 
-          to="/instructions/module-1/1.2" 
+          to="/instructions/module-1/1.6" 
           className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
         >
           <ChevronLeft className="w-5 h-5 mr-2" /> Previous
         </Link>
         <Link 
-          to="/instructions/module-2" 
-          onClick={() => completeLesson(1, 3)}
+          to="/instructions/module-1/1.8" 
+          onClick={() => completeLesson(1, 7)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
         >
-          On to Module 2! <ChevronRight className="w-5 h-5 ml-2" />
+          Next: Module 1 Challenge <ChevronRight className="w-5 h-5 ml-2" />
         </Link>
       </div>
     </div>
