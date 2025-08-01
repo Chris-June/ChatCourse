@@ -119,18 +119,35 @@ const Lesson1_2: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Vague prompts lead to vague answers. To get high-quality, predictable results from an AI, you need to provide high-quality, structured input. The I.N.S.Y.N.C. framework is a mental model for building better prompts.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-          <div className="bg-gray-800 p-4 rounded-lg"><b>I</b>ntent</div>
-          <div className="bg-gray-800 p-4 rounded-lg"><b>N</b>uance</div>
-          <div className="bg-gray-800 p-4 rounded-lg"><b>S</b>tyle</div>
-          <div className="bg-gray-800 p-4 rounded-lg"><b>Y</b>ou-as-Narrative</div>
-          <div className="bg-gray-800 p-4 rounded-lg col-span-1 md:col-span-2"><b>C</b>ontext</div>
+        <div className="space-y-2">
+          <Accordion title="I - Intent">The core goal or task. What, specifically, do you want the AI to do? (e.g., 'Write', 'Summarize', 'Translate', 'Generate code').</Accordion>
+          <Accordion title="N - Nuance">The specific constraints, details, or rules. This is where you add negative constraints ('do not mention X') or specific details ('the deadline is Friday at 5 PM').</Accordion>
+          <Accordion title="S - Style">The tone, format, or voice of the output. (e.g., 'Use a formal and encouraging tone', 'Format the output as a JSON object', 'Write in the style of a pirate').</Accordion>
+          <Accordion title="Y - You-as-Narrative (Persona)">Define the AI's role or character. This is one of the most powerful ways to shape the output. (e.g., 'You are a senior software engineer', 'You are a helpful tutor').</Accordion>
+          <Accordion title="C - Context">Provide relevant background information, examples, or data that the AI needs to complete the task successfully. (e.g., 'Here is the article to summarize: ...', 'My company's brand guidelines are...').</Accordion>
         </div>
       </section>
 
+<<<<<<< HEAD
       <PromptBuilder onPromptSubmit={setSubmittedPrompt} />
       <InlineChat prompt={submittedPrompt} />
     </LessonTemplate>
+=======
+      <InteractiveInsync />
+
+      <section>
+        <ModuleQuizzes questions={quizQuestions} />
+      </section>
+
+      <LessonFooter 
+        prevLessonPath="/instructions/module-1/1.1"
+        prevLessonTitle="1.1: What is an AI, Really?"
+        nextLessonPath="/instructions/module-1/1.3"
+        nextLessonTitle="1.3: When AI Gets It Wrong (Hallucinations)"
+        onNextClick={() => completeLesson(1, 2)}
+      />
+    </div>
+>>>>>>> origin/main
   );
 };
 

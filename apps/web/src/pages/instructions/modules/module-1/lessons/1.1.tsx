@@ -108,10 +108,10 @@ const Lesson1_1: React.FC = () => {
         <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
           <h2 className="text-2xl font-semibold text-white mb-4 flex items-center">
             <Lightbulb className="w-6 h-6 mr-3 text-yellow-400" />
-            The Core Idea: It's All About Prediction
+            The Core Idea: A Super-Powered Autocomplete
           </h2>
           <p className="text-gray-300 mb-4">
-            Forget robots taking over the world for a moment. At its core, a Large Language Model (LLM) like the one powering this course has a surprisingly simple primary job:
+            Forget robots taking over the world. At its core, an LLM has a surprisingly simple primary job. Think of it like the autocomplete on your phone, but infinitely more powerful.
           </p>
           <blockquote className="border-l-4 border-blue-500 pl-4 py-2 bg-blue-900/20 text-blue-200">
             <p className="font-medium">
@@ -119,7 +119,7 @@ const Lesson1_1: React.FC = () => {
             </p>
           </blockquote>
           <p className="text-gray-300 mt-4">
-            That's it. All the amazing things they can do—write stories, answer questions, generate code—emerge from this single, powerful capability. They are masters of recognizing and recreating patterns from the vast amount of text data they were trained on.
+            That's it. All the amazing things they can do—write stories, answer questions, generate code—emerge from this single, powerful capability. They are masters of recognizing and recreating patterns from the vast amount of text they were trained on. A good prompt makes the desired answer the most probable next sequence of words.
           </p>
         </div>
 
@@ -139,6 +139,8 @@ const Lesson1_1: React.FC = () => {
             The model then uses complex mathematical calculations (think of it as a giant probability map) to determine the most likely token to come next. When you give it a prompt, you're giving it a starting point on this map.
           </p>
         </div>
+
+  
 
         <InteractiveTokenizer />
 
