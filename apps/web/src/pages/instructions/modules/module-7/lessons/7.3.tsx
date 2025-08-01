@@ -1,13 +1,13 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, GitCompareArrows } from 'lucide-react';
-import { useProgressStore } from '../../../../../store/progressStore';
-import FineTuningDataFormatter from '../../../components/FineTuningDataFormatter';
-import FineTuningCostCalculator from '../../../components/FineTuningCostCalculator';
-import StrategyQuiz from '../../../components/StrategyQuiz';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import { useProgressStore } from '@/store/progressStore';
+import FineTuningDataFormatter from '@/pages/instructions/components/FineTuningDataFormatter';
+import FineTuningCostCalculator from '@/pages/instructions/components/FineTuningCostCalculator';
+import StrategyQuiz from '@/pages/instructions/components/StrategyQuiz';
+import ModuleQuizzes from '@/components/ModuleQuizzes/ModuleQuizzes';
+import LessonTemplate from '@/components/layouts/LessonTemplate';
 
-const Lesson7_3: React.FC = () => {
+export default function Lesson7_3() {
   const quizQuestions = [
     {
       questionText: 'What is the primary purpose of fine-tuning a Large Language Model?',
@@ -69,62 +69,68 @@ const Lesson7_3: React.FC = () => {
   const { completeLesson } = useProgressStore();
 
   return (
-    <div className="space-y-12 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-bold text-white flex items-center">
-          <GitCompareArrows className="w-10 h-10 mr-4 text-rose-400" />
-          Lesson 7.3: Training a Method Actor
-        </h1>
+    <LessonTemplate
+      moduleNumber={7}
+      lessonNumber={3}
+      title="Training a Method Actor"
+      subtitle="Teaching your LLM a new personality, style, or skill."
+      quizQuestions={quizQuestions}
+    >
+      <div className="space-y-12 p-4 md:p-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-4xl font-bold text-white flex items-center">
+            <GitCompareArrows className="w-10 h-10 mr-4 text-rose-400" />
+            Lesson 7.3: Training a Method Actor
+          </h1>
+        </div>
+
+        <section>
+          <p className="text-lg text-gray-300">
+            RAG gives an LLM a script. Fine-tuning trains it to become a method actor. You're not just giving it lines to read; you're teaching it to embody a new personality, style, or skill by having it rehearse hundreds of specific scenes. This is how you create an AI with a truly unique and consistent character.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300">1. Writing the Script (Preparing Data)</h2>
+          <p className="text-gray-300 mb-4">A method actor needs a script. Your fine-tuning dataset is that script, composed of many 'scenes' (prompt/completion pairs). The quality of this script determines the quality of the final performance. Use the formatter below to see how a conversation is turned into a scene for the actor to rehearse.</p>
+          <FineTuningDataFormatter />
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300">2. The Cost of Immersive Training</h2>
+          <p className="text-gray-300 mb-4">Hiring a method actor for a lead role is expensive. Fine-tuning is too. It costs time and money, and the results depend on the quality of the script and the length of the rehearsal (epochs). This calculator gives you a sense of the investment required.</p>
+          <FineTuningCostCalculator />
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center"><GitCompareArrows className="w-7 h-7 mr-3" />3. Casting Call: RAG vs. Fine-Tuning</h2>
+          <p className="text-gray-300 mb-4">Do you need an actor who can read any script you hand them (RAG for knowledge)? Or one who deeply embodies a specific character (Fine-Tuning for behavior)? Knowing which to choose is a critical skill. Test your casting instincts with the scenarios below.</p>
+          <StrategyQuiz />
+        </section>
+
+        {/* Validation Quiz */}
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+          <ModuleQuizzes questions={quizQuestions} />
+        </section>
+
+        {/* Navigation */}
+        <div className="flex justify-between pt-4">
+          <Link 
+            to="/instructions/module-7/7.2" 
+            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+          >
+            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Diligent Research Assistant
+          </Link>
+          <Link 
+            to="/instructions"
+            onClick={() => completeLesson(7, 3)}
+            className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors"
+          >
+            Finish Course & Review Progress <ChevronRight className="w-5 h-5 ml-2" />
+          </Link>
+        </div>
       </div>
-
-      <section>
-        <p className="text-lg text-gray-300">
-          RAG gives an LLM a script. Fine-tuning trains it to become a method actor. You're not just giving it lines to read; you're teaching it to embody a new personality, style, or skill by having it rehearse hundreds of specific scenes. This is how you create an AI with a truly unique and consistent character.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">1. Writing the Script (Preparing Data)</h2>
-        <p className="text-gray-300 mb-4">A method actor needs a script. Your fine-tuning dataset is that script, composed of many 'scenes' (prompt/completion pairs). The quality of this script determines the quality of the final performance. Use the formatter below to see how a conversation is turned into a scene for the actor to rehearse.</p>
-        <FineTuningDataFormatter />
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">2. The Cost of Immersive Training</h2>
-        <p className="text-gray-300 mb-4">Hiring a method actor for a lead role is expensive. Fine-tuning is too. It costs time and money, and the results depend on the quality of the script and the length of the rehearsal (epochs). This calculator gives you a sense of the investment required.</p>
-        <FineTuningCostCalculator />
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center"><GitCompareArrows className="w-7 h-7 mr-3" />3. Casting Call: RAG vs. Fine-Tuning</h2>
-        <p className="text-gray-300 mb-4">Do you need an actor who can read any script you hand them (RAG for knowledge)? Or one who deeply embodies a specific character (Fine-Tuning for behavior)? Knowing which to choose is a critical skill. Test your casting instincts with the scenarios below.</p>
-        <StrategyQuiz />
-      </section>
-
-      {/* Validation Quiz */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
-
-      {/* Navigation */}
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-7/7.2" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Diligent Research Assistant
-        </Link>
-        <Link 
-          to="/instructions"
-          onClick={() => completeLesson(7, 3)}
-          className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors"
-        >
-          Finish Course & Review Progress <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
-    </div>
+    </LessonTemplate>
   );
-};
-
-export default Lesson7_3;
+}

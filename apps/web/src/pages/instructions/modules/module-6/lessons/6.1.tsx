@@ -1,15 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Lightbulb, ClipboardCheck, TrendingUp, TestTube2, UserCheck } from 'lucide-react';
-import InlineChat from '../../../../../components/InlineChat';
-import { useProgressStore } from '../../../../../store/progressStore';
-import Accordion from '../../../components/Accordion';
-import JtbdBuilder from '../../../components/JtbdBuilder';
-import FeasibilityCalculator from '../../../components/FeasibilityCalculator';
-import ImpactEffortMatrix from '../../../components/ImpactEffortMatrix';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import { ClipboardCheck, TrendingUp, TestTube2, UserCheck } from 'lucide-react';
+import LessonTemplate from '@/components/layouts/LessonTemplate';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import InlineChat from '@/components/InlineChat';
+import JtbdBuilder from '@/pages/instructions/components/JtbdBuilder';
+import FeasibilityCalculator from '@/pages/instructions/components/FeasibilityCalculator';
+import ImpactEffortMatrix from '@/pages/instructions/components/ImpactEffortMatrix';
 
-const Lesson6_1: React.FC = () => {
+export interface ChallengeChecklistItem {
+  text: string;
+  completed: boolean;
+}
+
+export default function Lesson6_1() {
   const quizQuestions = [
     {
       questionText: 'What is the primary goal of the \'Jobs to be Done\' (JTBD) framework?',
@@ -68,145 +70,136 @@ const Lesson6_1: React.FC = () => {
     }
   ];
 
-  const { completeLesson } = useProgressStore();
-
   const ideaGenerationSystemPrompt = `
-    You are an AI Product Coach. Your goal is to help me, a student, think through a new AI product idea using the frameworks from this lesson. 
+You are an expert AI Product Coach. Your goal is to guide the user through the initial stages of product discovery for their AI idea. Use the following frameworks:
 
-    When I propose an idea, guide me through the following three steps:
+1.  **Jobs to be Done (JTBD):** Start here. Help the user clearly define the 'job' their customers are trying to accomplish. Ask clarifying questions to understand the user's situation, motivation, and desired outcome.
+    -   *Initial Question:* "That sounds interesting! Let's start with the 'Job to be Done'. When someone uses your product, what specific task are they trying to accomplish? What's the real problem they're hoping to solve?"
 
-    1.  **Jobs to be Done (JTBD):** Ask me to frame the idea as a JTBD statement. Help me refine it by asking clarifying questions about the user's situation, motivation, and desired outcome. Nudge me to be specific.
+2.  **Feasibility Assessment:** Once the JTBD is clear, guide them through the key feasibility questions. Don't just list them; ask them conversationally.
+    -   *Transition:* "Great, that's a very clear job to be done. Now let's think about feasibility. First, on the technical side, what kind of data would your AI need to do this job well?"
+    -   *Follow-ups:* Ask about reliability needs and potential ethical concerns.
 
-    2.  **Feasibility:** Ask me to consider the technical feasibility, data requirements, and necessary reliability. Prompt me with questions like, "What existing AI models could power this?", "Where would you get the data for this, and is it ethical to use?", and "How critical is it that the AI is 100% correct? What's the cost of a mistake?"
+3.  **Impact/Effort:** Finally, help them think about prioritization.
+    -   *Transition:* "Okay, it seems feasible. Now let's think about the value this could bring. On a scale of 1 to 10, how much impact would solving this problem have for your users? And what do you estimate the effort would be to build a first version?"
 
-    3.  **Prioritization:** Once we've fleshed out the idea, ask me where I think it would fall on an Impact/Effort matrix and why. Encourage me to think about both user impact and business impact.
+Maintain a coaching tone: be encouraging, ask open-ended questions, and guide, don't prescribe.`;
 
-    Keep your responses encouraging, concise, and focused on coaching. End each response with a question to keep the conversation moving.
-  `;
-
-  const ideaGenerationChecklist = [
-    { text: 'I have a clear Jobs to be Done statement that follows the "When... I want to... so I can..." format', completed: false },
-    { text: 'I have considered the technical feasibility of my idea', completed: false },
-    { text: 'I have thought about the data requirements and ethical considerations', completed: false },
-    { text: 'I have evaluated where my idea falls on the Impact/Effort matrix', completed: false },
-    { text: 'I have received feedback on how to improve my idea', completed: false }
+  const ideaGenerationChecklist: ChallengeChecklistItem[] = [
+    { text: 'Did the AI coach ask me about the \'Job to be Done\' first?', completed: false },
+    { text: 'Did the coach guide me through technical feasibility and data requirements?', completed: false },
+    { text: 'Did the coach ask about the potential impact and effort of my idea?', completed: false },
+    { text: 'Was the tone of the AI helpful and conversational, like a real coach?', completed: false }
   ];
 
   return (
-    <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-bold text-white flex items-center">
-          <Lightbulb className="w-10 h-10 mr-4 text-yellow-400" />
-          Lesson 6.1: Blueprint to Skyscraper
-        </h1>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/instructions/module-5/5.1" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Debugging & Iteration
-          </Link>
-          <Link 
-            to="/instructions/module-6/6.2" 
-            onClick={() => completeLesson(6, 1)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Design Thinking <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
-
-      <p className="text-lg text-gray-300">
-        You don't build a skyscraper by just stacking bricks. You start with a blueprint. This lesson is your architectural guide to building AI products, taking you from a foundational idea to a validated prototype. We'll cover the essential stages: defining the building's purpose (Jobs to be Done), checking the ground conditions (Feasibility), planning the construction phases (Prioritization), and building a scale model (Prototyping).
-      </p>
-
-      <Accordion title="1. Brainstorming with 'Jobs to be Done'" icon={<Lightbulb className="w-6 h-6 mr-2 text-yellow-400" />} isInitiallyOpen>
-        <div className="space-y-4 text-gray-300">
-          <p>Instead of starting with "What cool thing can AI do?", the best products start by asking, "What job does my user need to get done?" This is the core of the "Jobs to be Done" (JTBD) framework. It forces you to focus on user problems, not just technology features. A successful AI product is a 'hireable' solution for a specific, painful job.</p>
-          <p>A good JTBD statement has a clear structure: <strong>When... I want to... so I can...</strong></p>
-          <JtbdBuilder />
-        </div>
-      </Accordion>
-
-      <Accordion title="The Blueprint: What 'Job' is Your Skyscraper For?" icon={<ClipboardCheck className="w-6 h-6 mr-2 text-green-400" />} isInitiallyOpen>
-        <div className="space-y-4 text-gray-300">
-          <p>Before laying a foundation, an architect must know if they're designing a hospital, an office, or a home. The 'Jobs to be Done' framework is about defining that purpose. What 'job' are users 'hiring' your AI product to do? This interactive tool will help you craft a clear JTBD statement.</p>
-          <JtbdBuilder />
-        </div>
-      </Accordion>
-
-      <Accordion title="The Ground Conditions: Assessing Feasibility" icon={<ClipboardCheck className="w-6 h-6 mr-2 text-orange-400" />} isInitiallyOpen>
-        <div className="space-y-4 text-gray-300">
-          <p>You can't build a skyscraper on a swamp. A feasibility check is your geological survey. Do you have the right materials (data)? Is the technology strong enough (technical feasibility)? How safe does it need to be (reliability)? Use this calculator to assess the viability of your idea.</p>
-          <FeasibilityCalculator />
-        </div>
-      </Accordion>
-
-      <Accordion title="Construction Phases: What to Build First?" icon={<TrendingUp className="w-6 h-6 mr-2 text-cyan-400" />} isInitiallyOpen>
-        <div className="space-y-4 text-gray-300">
-          <p>A skyscraper isn't built all at once. You prioritize the foundation, then the frame, then the floors. An Impact/Effort matrix helps you plan this construction. Identify the 'quick wins' (high impact, low effort) to build momentum and plan for the 'major projects' that will form your core structure.</p>
-          <ImpactEffortMatrix />
-        </div>
-      </Accordion>
-
-      <Accordion title="The Scale Model: 'Wizard of Oz' Prototyping" icon={<TestTube2 className="w-6 h-6 mr-2 text-purple-400" />} isInitiallyOpen>
-        <div className="space-y-4 text-gray-300">
-          <p>Architects build scale models before ordering steel. The 'Wizard of Oz' method is your scale model. You can test your entire product concept by having a human manually 'power' the AI behind the scenes. This is the fastest, cheapest way to see if people actually want to live or work in your building before you break ground.</p>
-          <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
-            <h4 className="font-semibold text-white mb-2">Case Study: "AI Meeting Summarizer"</h4>
-            <p className="text-sm text-gray-400">A startup wanted to build an AI that summarizes meeting notes. Instead of building a complex model, they had an intern listen to meeting recordings and manually write summaries. They used this to test different summary formats and see if users actually found the service valuable. The feedback they gathered was crucial for building the real product.</p>
-          </div>
-        </div>
-      </Accordion>
-
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <UserCheck className="w-7 h-7 mr-3 text-green-400" />
-          Your Turn: Get Coached on Your AI Idea
-        </h2>
-        <p className="text-gray-300 mb-4">
-          Now, it's your turn. Use the chat window below to brainstorm with your AI Product Coach. Describe an idea for an AI product or feature, and the coach will guide you through the frameworks from this lesson.
+    <LessonTemplate
+      moduleNumber={6}
+      lessonNumber={1}
+      title="From Idea to Blueprint"
+      subtitle="A structured framework for turning a raw idea into a viable product."
+      quizQuestions={quizQuestions}
+    >
+      <div className="space-y-6">
+        <p className="text-lg text-gray-300">
+          Every great AI product starts not with a model, but with a problem. This lesson introduces a structured framework for turning a raw idea into a viable product blueprint. We'll cover how to define the user's need, assess feasibility, prioritize effectively, and test your concept before writing a single line of AI code.
         </p>
-        {/* InlineChat for AI-powered product idea coaching */}
-        <InlineChat 
-          moduleId="module-6.1-idea-generation"
-          maxAttempts={5}
-          maxFollowUps={4}
-          placeholder='Try starting with: "I have an idea for an AI that helps with..."'
-          systemPrompt={ideaGenerationSystemPrompt}
-          initialMessages={[
-            {
-              role: 'assistant',
-              content: 'Welcome to your AI Product Coaching session! I\'m here to help you develop your AI product idea using the frameworks from this lesson.\n\nTo get started, tell me about your idea. You can start with something like: "I have an idea for an AI that helps with..."\n\nI\'ll guide you through refining your idea using the Jobs to be Done framework, assessing its feasibility, and helping you prioritize it.'
-            }
-          ]}
-          challengeChecklist={ideaGenerationChecklist}
-        />
-      </section>
 
-      {/* Validation Quiz */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <ClipboardCheck className="w-6 h-6 mr-2 text-blue-400" />
+                The Foundation: 'Jobs to be Done'
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4 text-gray-300">
+                <p>People don't buy products; they 'hire' them to do a 'job'. The 'Jobs to be Done' (JTBD) framework forces you to focus on the user's goal, not your features. What progress is the user trying to make? What problem are they trying to solve? Start here, always.</p>
+                <JtbdBuilder />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-5/5.3" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Race Car Engineering
-        </Link>
-        <Link 
-          to="/instructions/module-6/6.2" 
-          onClick={() => completeLesson(6, 1)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next: Design Thinking <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-2">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <TrendingUp className="w-6 h-6 mr-2 text-green-400" />
+                The Reality Check: Feasibility Assessment
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4 text-gray-300">
+                <p>Once you know the 'job', you need to determine if you can actually build a solution. This isn't just about code; it's about data, reliability, and ethics. A quick feasibility check now can save you months of wasted effort later.</p>
+                <FeasibilityCalculator />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-3">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <TrendingUp className="w-6 h-6 mr-2 text-red-400" />
+                The Blueprint: Impact/Effort Matrix
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4 text-gray-300">
+                <p>A skyscraper isn't built all at once. You prioritize the foundation, then the frame, then the floors. An Impact/Effort matrix helps you plan this construction. Identify the 'quick wins' (high impact, low effort) to build momentum and plan for the 'major projects' that will form your core structure.</p>
+                <ImpactEffortMatrix />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-4">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <TestTube2 className="w-6 h-6 mr-2 text-purple-400" />
+                The Scale Model: 'Wizard of Oz' Prototyping
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4 text-gray-300">
+                <p>Architects build scale models before ordering steel. The 'Wizard of Oz' method is your scale model. You can test your entire product concept by having a human manually 'power' the AI behind the scenes. This is the fastest, cheapest way to see if people actually want to live or work in your building before you break ground.</p>
+                <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
+                  <h4 className="font-semibold text-white mb-2">Case Study: "AI Meeting Summarizer"</h4>
+                  <p className="text-sm text-gray-400">A startup wanted to build an AI that summarizes meeting notes. Instead of building a complex model, they had an intern listen to meeting recordings and manually write summaries. They used this to test different summary formats and see if users actually found the service valuable. The feedback they gathered was crucial for building the real product.</p>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+            <UserCheck className="w-7 h-7 mr-3 text-green-400" />
+            Your Turn: Get Coached on Your AI Idea
+          </h2>
+          <p className="text-gray-300 mb-4">
+            Now, it's your turn. Use the chat window below to brainstorm with your AI Product Coach. Describe an idea for an AI product or feature, and the coach will guide you through the frameworks from this lesson.
+          </p>
+          <InlineChat 
+            moduleId="module-6.1-idea-generation"
+            maxAttempts={5}
+            maxFollowUps={4}
+            placeholder='Try starting with: "I have an idea for an AI that helps with..."'
+            systemPrompt={ideaGenerationSystemPrompt}
+            initialMessages={[
+              {
+                role: 'assistant',
+                content: 'Welcome to your AI Product Coaching session! I\'m here to help you develop your AI product idea using the frameworks from this lesson.\n\nTo get started, tell me about your idea. You can start with something like: "I have an idea for an AI that helps with..."\n\nI\'ll guide you through refining your idea using the Jobs to be Done framework, assessing its feasibility, and helping you prioritize it.'
+              }
+            ]}
+            challengeChecklist={ideaGenerationChecklist}
+          />
+        </section>
       </div>
-    </div>
+    </LessonTemplate>
   );
-};
-
-export default Lesson6_1;
+}

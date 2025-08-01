@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Wrench, FileCode, Lightbulb, ChefHat, CheckSquare } from 'lucide-react';
+import { Wrench, FileCode, Lightbulb, CheckSquare } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
-import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 
 const weatherChecklist = [
   { text: 'My goal is to find the weather in a specific city.', completed: false },
@@ -72,57 +70,39 @@ const Lesson4_3: React.FC = () => {
     }
   ];
 
-  const { completeLesson } = useProgressStore();
   return (
-    <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">4.3 Building Your First AI Tool</h1>
-        <div className="flex items-center space-x-4">
-          <Link
-            to="/instructions/module-4/4.2"
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Real-world Apps
-          </Link>
-          <Link
-            to="/instructions/module-5/5.1"
-            onClick={() => completeLesson(4, 3)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Understanding GPTs <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
+    <LessonTemplate
+      moduleNumber={4}
+      lessonNumber={3}
+      title="Building Your First AI Tool"
+      subtitle="From Idea to Actionable Function"
+      quizQuestions={quizQuestions}
+    >
+      <div className="space-y-8 text-gray-300">
+        <p className="text-lg">
+          Building a tool for an AI is like creating a new appliance for a smart kitchen. The AI (the chef) needs to know what the appliance does, what ingredients it needs, and what it produces. Let's walk through the process of designing a tool from scratch.
+        </p>
 
-      <Accordion title="The Big Idea: Writing a Recipe for the AI" icon={<ChefHat />} isInitiallyOpen>
-        <p className="text-gray-300 mb-4">
-          Giving an AI a new tool is like teaching it a new recipe. You are the chef, the tool is the dish, and the schema is the recipe card.
-        </p>
-        <p className="text-gray-300">
-          The AI doesn't know how to cook, but it's an expert at following instructions. Your job is to write a recipe card that is so clear, the AI can't get it wrong.
-        </p>
-      </Accordion>
+        <Accordion title="Step 1: Define the Job (The Concept)" icon={<Wrench />} isInitiallyOpen>
+          <p className="text-gray-300 mb-4">
+            Before you write any code, clearly define what your tool will do. Be specific. A tool to "handle food" is too vague. A tool to "order a pizza" is much better. It should have a single, well-defined purpose.
+          </p>
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <h3 className="font-semibold text-white mb-2">Our Goal: The Pizza-Ordering Tool</h3>
+            <ul className="list-disc pl-5 space-y-2 text-gray-300">
+              <li><strong>Purpose:</strong> Order a pizza for delivery.</li>
+              <li><strong>Ingredients (Inputs):</strong> It needs to know the `size` and `toppings`.</li>
+              <li><strong>Result (Output):</strong> It should return a `confirmation_number`.</li>
+            </ul>
+          </div>
+        </Accordion>
 
-      <Accordion title="Step 1: Decide What to Cook (Define the Purpose)" icon={<Wrench />}>
-        <p className="text-gray-300 mb-4">
-          First, decide on a single, clear task for your tool. A good tool does one thing well.
-        </p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Example: An `order_pizza` Tool</h3>
-          <ul className="list-disc pl-5 space-y-2 text-gray-300">
-            <li><strong>Purpose:</strong> To order a pizza from a delivery service.</li>
-            <li><strong>Ingredients (Inputs):</strong> It needs a `size` (e.g., "large") and a list of `toppings` (e.g., ["pepperoni", "mushrooms"]).</li>
-            <li><strong>Result (Output):</strong> It should return a `confirmation_number`.</li>
-          </ul>
-        </div>
-      </Accordion>
-
-      <Accordion title="Step 2: Write the Recipe Card (Provide a Schema)" icon={<FileCode />}>
-        <p className="text-gray-300 mb-4">
-          Think of the schema as a detailed recipe card for your AI chef. Just like a recipe needs precise instructions ("add 2 cups of flour"), your tool schema needs crystal-clear descriptions for each parameter. The AI chef can't guess what "some flour" means - it needs exact measurements and specific instructions.
-        </p>
-        <div className="bg-gray-900 p-3 rounded-md">
-          <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
+        <Accordion title="Step 2: Write the Recipe Card (Provide a Schema)" icon={<FileCode />}>
+          <p className="text-gray-300 mb-4">
+            Think of the schema as a detailed recipe card for your AI chef. Just like a recipe needs precise instructions ("add 2 cups of flour"), your tool schema needs crystal-clear descriptions for each parameter. The AI chef can't guess what "some flour" means - it needs exact measurements and specific instructions.
+          </p>
+          <div className="bg-gray-900 p-3 rounded-md">
+            <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
 {`{
   "name": "order_pizza",
   "description": "Orders a pizza for delivery.",
@@ -137,65 +117,43 @@ const Lesson4_3: React.FC = () => {
     }
   }
 }`}
-          </code>
-        </div>
-      </Accordion>
+            </code>
+          </div>
+        </Accordion>
 
-      <Accordion title="Your Turn: Use a Custom Weather Tool" icon={<Lightbulb />}>
-        <p className="text-gray-300 mb-4">
-          Let's test your new tool-building skills. Imagine you've created a weather-checking robot that needs one piece of information: which city to investigate. This robot (our `get_weather` tool) has been trained to understand your exact instructions and deliver precise weather reports.
-        </p>
-        <p className="text-gray-300 mb-4">
-          Use the chat window below to ask for the weather in any city. Watch how the AI uses the tool you designed. Follow the checklist to track the AI's reasoning.
-        </p>
-        {/* InlineChat for demonstrating weather tool usage with guided discovery */}
-        <InlineChat 
-          moduleId="module-4.3-get-weather"
-          placeholder='Try: "What is the weather like in London?"'
-          systemPrompt="You are a helpful weather assistant that demonstrates tool usage. When asked about the weather, you should use the 'get_weather' tool to provide accurate information. Guide users through the process of making tool calls and explain the JSON structure being used."
-          initialMessages={[
-            {
-              role: 'assistant',
-              content: 'I can help you check the weather in any city. Try asking me something like: "What\'s the weather like in New York?" or "Is it going to rain in Tokyo tomorrow?"'
-            }
-          ]}
-          simulatedResponse={`Okay, you want the weather. I will use the 'get_weather' tool.\n\n<tool_code>\n{\n  "name": "get_weather",\n  "arguments": {\n    "city": "the city you asked for"\n  }\n}\n</tool_code>\n\nIt is 75°F and sunny.`}
-          challengeChecklist={weatherChecklist}
-          maxAttempts={3}
-          maxFollowUps={2}
-        />
-      </Accordion>
-      
-      <Accordion title="Key Takeaways for Tool Building" icon={<CheckSquare />}>
-          <ul className="list-disc pl-5 space-y-2 text-gray-300">
-              <li><strong>Master Chef's Rule:</strong> Like a specialized kitchen tool (a garlic press vs a multi-tool), your AI tool should excel at one specific task rather than trying to do everything</li>
-              <li><strong>Recipe Card Clarity:</strong> Your descriptions are the AI's only cookbook - make them so detailed that even someone who's never cooked could follow them perfectly</li>
-              <li><strong>Ingredients & Results:</strong> Every tool needs precise ingredients (parameters) and clear expected results (outputs) - just like a recipe needs both ingredients and the final dish description</li>
-          </ul>
-      </Accordion>
-
-      {/* Validation Quiz */}
-      <section className="mt-8">
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
-
-      {/* Navigation */}
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-4/4.1" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Function Calling
-        </Link>
-        <Link 
-          to="/instructions/module-4/4.4" 
-          onClick={() => completeLesson(4, 3)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next: Understanding GPTs <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
+        <Accordion title="Your Turn: Use a Custom Weather Tool" icon={<Lightbulb />}>
+          <p className="text-gray-300 mb-4">
+            Let's test your new tool-building skills. Imagine you've created a weather-checking robot that needs one piece of information: which city to investigate. This robot (our `get_weather` tool) has been trained to understand your exact instructions and deliver precise weather reports.
+          </p>
+          <p className="text-gray-300 mb-4">
+            Use the chat window below to ask for the weather in any city. Watch how the AI uses the tool you designed. Follow the checklist to track the AI's reasoning.
+          </p>
+          <InlineChat 
+            moduleId="module-4.3-get-weather"
+            placeholder='Try: "What is the weather like in London?"'
+            systemPrompt="You are a helpful weather assistant that demonstrates tool usage. When asked about the weather, you should use the 'get_weather' tool to provide accurate information. Guide users through the process of making tool calls and explain the JSON structure being used."
+            initialMessages={[
+              {
+                role: 'assistant',
+                content: 'I can help you check the weather in any city. Try asking me something like: "What\'s the weather like in New York?" or "Is it going to rain in Tokyo tomorrow?"'
+              }
+            ]}
+            simulatedResponse={`Okay, you want the weather. I will use the 'get_weather' tool.\n\n<tool_code>\n{\n  "name": "get_weather",\n  "arguments": {\n    "city": "the city you asked for"\n  }\n}\n</tool_code>\n\nIt is 75°F and sunny.`}
+            challengeChecklist={weatherChecklist}
+            maxAttempts={3}
+            maxFollowUps={2}
+          />
+        </Accordion>
+        
+        <Accordion title="Key Takeaways for Tool Building" icon={<CheckSquare />}>
+            <ul className="list-disc pl-5 space-y-2 text-gray-300">
+                <li><strong>Master Chef's Rule:</strong> Like a specialized kitchen tool (a garlic press vs a multi-tool), your AI tool should excel at one specific task rather than trying to do everything</li>
+                <li><strong>Recipe Card Clarity:</strong> Your descriptions are the AI's only cookbook - make them so detailed that even someone who's never cooked could follow them perfectly</li>
+                <li><strong>Ingredients & Results:</strong> Every tool needs precise ingredients (parameters) and clear expected results (outputs) - just like a recipe needs both ingredients and the final dish description</li>
+            </ul>
+        </Accordion>
       </div>
-    </div>
+    </LessonTemplate>
   );
 };
 

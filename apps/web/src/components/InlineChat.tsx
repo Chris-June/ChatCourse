@@ -6,7 +6,8 @@ type RateLimitStatus = {
   lastReset: number;
 };
 
-interface ChallengeChecklistItem {
+export interface ChallengeChecklistItem {
+  id: string;
   text: string;
   completed: boolean;
 }

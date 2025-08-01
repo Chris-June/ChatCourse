@@ -1,14 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, BarChart2, Beaker, RefreshCw } from 'lucide-react';
-import InlineChat from '../../../../../components/InlineChat';
-import { useProgressStore } from '../../../../../store/progressStore';
+import { BarChart2, Beaker, RefreshCw } from 'lucide-react';
+import LessonTemplate from '@/components/layouts/LessonTemplate';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import InlineChat from '@/components/InlineChat';
 import MetricSorter from '@/pages/instructions/components/MetricSorter';
 import PromptABTester from '@/pages/instructions/components/PromptABTester';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
-const Lesson6_3: React.FC = () => {
+export interface ChallengeChecklistItem {
+  text: string;
+  completed: boolean;
+}
+
+export default function Lesson6_3() {
   const quizQuestions = [
     {
       questionText: 'Which of the following is considered a \'high-signal\' metric for an AI summarization tool?',
@@ -67,145 +69,115 @@ const Lesson6_3: React.FC = () => {
     }
   ];
 
-  const { completeLesson } = useProgressStore();
-  const hypothesisAssistantPrompt = `You are an expert AI Product Manager specializing in experimentation. Your goal is to help users improve an AI feature by creating a structured experiment. When a user describes a feature they want to improve, guide them through the following steps:
-1. **Hypothesis Formulation**: Help them state a clear, testable hypothesis (e.g., "By changing X, we will improve Y, because Z.").
-2. **Metric Definition**: Help them define a single, key metric to measure the change (e.g., "User satisfaction score," "Correction rate," "Task completion time").
-3. **A/B Test Design**: Help them outline a simple A/B test (e.g., "Group A gets the old prompt, Group B gets the new prompt. We will compare the key metric between the two groups after 1,000 interactions.").
-Be encouraging and help them think critically about their ideas.`;
+  const hypothesisAssistantPrompt = `
+    You are an expert AI Experimentation Coach. Your goal is to help me, a student, formulate a strong, testable hypothesis to improve an AI feature.
 
-  const hypothesisChecklist: Array<{text: string, completed: boolean}> = [
-    { text: 'I have described an AI feature I want to improve', completed: false },
-    { text: 'I have formulated a clear, testable hypothesis', completed: false },
-    { text: 'I have defined a key metric to measure success', completed: false },
-    { text: 'I have outlined a simple A/B test design', completed: false },
-    { text: 'I have received feedback on my experimental design', completed: false }
+    When I describe a feature, guide me through these steps:
+    1.  **Identify the Goal:** First, ask me what I want to improve. Is it user satisfaction? Engagement? Task success rate? Help me define a clear goal.
+    2.  **Define a Metric:** Next, help me choose a *single, high-signal metric* that represents that goal. For an article summarizer, a good metric might be 'the percentage of times a user copies the summary to their clipboard.' A bad metric would be 'number of summaries generated.'
+    3.  **Formulate the Hypothesis:** Guide me to create a hypothesis in the format: "By making [CHANGE X], we will improve [METRIC Y], because [REASON Z]."
+        -   *Example:* "By adding the sentence 'Summarize this in three bullet points for a busy executive' to the system prompt, we will increase the summary copy rate, because it will produce more concise and scannable outputs."
+    4.  **Design the A/B Test:** Finally, ask me how I would set up the A/B test.
+        -   Prompt me to define the 'control' (the current prompt) and the 'variant' (the new prompt).
+        -   Ask what I would measure to determine a winner.
+
+    Keep your tone encouraging and Socratic. Ask questions to lead me to the answers rather than just giving them to me.
+  `;
+
+  const hypothesisChecklist: ChallengeChecklistItem[] = [
+    { text: 'I have identified a clear goal for my improvement.', completed: false },
+    { text: 'I have chosen a single, high-signal metric to measure success.', completed: false },
+    { text: 'I have formulated a testable hypothesis in the correct format.', completed: false },
+    { text: 'I have described the control and variant for my A/B test.', completed: false }
   ];
+
   return (
-    <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-bold text-white flex items-center">
-          <Beaker className="w-10 h-10 mr-4 text-lime-400" />
-          Lesson 6.3: The Chef Refining the Recipe
-        </h1>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/instructions/module-6/6.2" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Design Thinking
-          </Link>
-          <Link 
-            to="/instructions/module-7/7.1" 
-            onClick={() => completeLesson(6, 3)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Function Calling <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
-
-      <p className="text-lg text-gray-300">
-        A great chef doesn't just create a recipe and walk away; they constantly taste, tweak, and perfect it. Improving an AI is the same. This lesson teaches you the art of culinary iteration for AI: how to 'taste' your AI's performance with the right metrics, run 'taste tests' with A/B experiments, and use the feedback to refine your 'recipe' (the system prompt) for a five-star result.
-      </p>
-
-      {/* Core Concepts */}
-      <Accordion type="multiple" defaultValue={['item-1', 'item-2']} className="w-full space-y-4">
-        <AccordionItem value="item-1" className="bg-gray-800/50 border-gray-700 border rounded-lg">
-          <AccordionTrigger className="hover:no-underline p-4 text-xl font-semibold">
-            <div className="flex items-center">
-              <BarChart2 className="w-6 h-6 mr-3 text-green-400" />
-              Tasting the Dish: Finding the Right Flavors
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="p-4 pt-0">
-            <div className="space-y-4 text-gray-300 border-t border-gray-700 pt-4">
-              <p>A chef doesn't just count how many people order a dish; they watch to see if plates come back empty. That's a high-signal metric. For your AI, this means focusing on actions that prove value (e.g., user accepts suggestion) over vanity metrics (e.g., feature is used). This tool will help you distinguish between the two.</p>
-              <MetricSorter />
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-2" className="bg-gray-800/50 border-gray-700 border rounded-lg">
-          <AccordionTrigger className="hover:no-underline p-4 text-xl font-semibold">
-            <div className="flex items-center">
-              <Beaker className="w-6 h-6 mr-3 text-yellow-400" />
-              The Taste Test: Does a New Ingredient Work?
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="p-4 pt-0">
-            <div className="space-y-4 text-gray-300 border-t border-gray-700 pt-4">
-              <p>How does a chef know if adding saffron will improve a dish? They do a taste test. A/B testing is your taste test for AI. The easiest 'ingredient' to change is the system prompt. This simulation shows how a small prompt tweak—your new ingredient—can be scientifically tested to see if it truly improves the final dish.</p>
-              <PromptABTester />
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-3" className="bg-gray-800/50 border-gray-700 border rounded-lg">
-          <AccordionTrigger className="hover:no-underline p-4 text-xl font-semibold">
-            <div className="flex items-center">
-              <RefreshCw className="w-6 h-6 mr-3 text-cyan-400" />
-              Refining the Recipe Based on Feedback
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="p-4 pt-0">
-            <div className="space-y-4 text-gray-300 border-t border-gray-700 pt-4">
-              <p>If diners consistently leave the garnish, the chef removes it. If they ask for more spice, the chef adds it. The data from your metrics and A/B tests is your customer feedback. Use it to refine your recipe. This continuous cycle of tasting, testing, and adapting is what turns a good product into a great one.</p>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-
-      {/* Improvement Exercise */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Beaker className="w-7 h-7 mr-3 text-yellow-400" />
-          Your Turn: Form an Improvement Hypothesis
-        </h2>
-        <p className="text-gray-300 mb-4">
-          A good experiment starts with a clear hypothesis. Use the chat window below to improve an AI feature. Describe the feature, and the AI will help you formulate a testable hypothesis, define a key metric, and create an A/B test to see if your change works.
+    <LessonTemplate
+      moduleNumber={6}
+      lessonNumber={3}
+      title="The Chef's Secret: Iterative Improvement"
+      subtitle="How to measure, test, and refine your AI to turn a good product into a great one."
+      quizQuestions={quizQuestions}
+    >
+      <div className="space-y-6">
+        <p className="text-lg text-gray-300">
+          A Michelin-star chef doesn't perfect a dish on the first try. They taste, tweak, and test relentlessly. Building a great AI product follows the same principle. It's an iterative cycle of measuring, testing, and refining your 'recipe' based on real-world feedback.
         </p>
-        {/* InlineChat for hypothesis testing exercise */}
-        <InlineChat 
-          moduleId="module-6.3-hypothesis-testing"
-          maxAttempts={5}
-          maxFollowUps={4}
-          placeholder="Try: Let's improve an AI that summarizes articles." 
-          systemPrompt={hypothesisAssistantPrompt}
-          initialMessages={[
-            {
-              role: 'assistant' as const,
-              content: 'Welcome to the Hypothesis Testing Workshop! I\'ll help you design an experiment to improve an AI feature.\n\nTo get started, describe an AI feature you\'d like to improve. For example: "I want to improve an AI that generates code documentation."\n\nI\'ll guide you through creating a testable hypothesis, defining success metrics, and designing an A/B test.'
-            }
-          ]}
-          challengeChecklist={hypothesisChecklist}
-        />
-      </section>
 
-      {/* Validation Quiz */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <BarChart2 className="w-6 h-6 mr-3 text-green-400" />
+                Choosing the Right Ingredients to Measure
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4 text-gray-300">
+                <p>A chef doesn't measure success by how many plates they serve (a 'vanity metric'). They measure what matters: Are the plates clean? Are customers smiling? For your AI, you need 'high-signal' metrics that prove users are getting real value. This interactive exercise will help you learn to spot them.</p>
+                <MetricSorter />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
-      {/* Navigation */}
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-6/6.2" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Training a Super-Powered Service Animal
-        </Link>
-        <Link 
-          to="/instructions/module-7/7.1" 
-          onClick={() => completeLesson(6, 3)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next Module <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-2">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <Beaker className="w-6 h-6 mr-3 text-orange-400" />
+                The A/B Taste Test
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4 text-gray-300">
+                <p>How does a chef know if adding saffron will improve a dish? They do a taste test. A/B testing is your taste test for AI. The easiest 'ingredient' to change is the system prompt. This simulation shows how a small prompt tweak—your new ingredient—can be scientifically tested to see if it truly improves the final dish.</p>
+                <PromptABTester />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-3">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <RefreshCw className="w-6 h-6 mr-3 text-cyan-400" />
+                Refining the Recipe Based on Feedback
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4 text-gray-300">
+                <p>If diners consistently leave the garnish, the chef removes it. If they ask for more spice, the chef adds it. The data from your metrics and A/B tests is your customer feedback. Use it to refine your recipe. This continuous cycle of tasting, testing, and adapting is what turns a good product into a great one.</p>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+            <Beaker className="w-7 h-7 mr-3 text-yellow-400" />
+            Your Turn: Form an Improvement Hypothesis
+          </h2>
+          <p className="text-gray-300 mb-4">
+            A good experiment starts with a clear hypothesis. Use the chat window below to improve an AI feature. Describe the feature, and the AI will help you formulate a testable hypothesis, define a key metric, and create an A/B test to see if your change works.
+          </p>
+          <InlineChat 
+            moduleId="module-6.3-hypothesis-testing"
+            maxAttempts={5}
+            maxFollowUps={4}
+            placeholder="Try: Let's improve an AI that summarizes articles." 
+            systemPrompt={hypothesisAssistantPrompt}
+            initialMessages={[
+              {
+                role: 'assistant' as const,
+                content: 'Welcome to the Hypothesis Testing Workshop! I\'ll help you design an experiment to improve an AI feature.\n\nTo get started, describe an AI feature you\'d like to improve. For example: "I want to improve an AI that generates code documentation."\n\nI\'ll guide you through creating a testable hypothesis, defining success metrics, and designing an A/B test.'
+              }
+            ]}
+            challengeChecklist={hypothesisChecklist}
+          />
+        </section>
       </div>
-    </div>
+    </LessonTemplate>
   );
-};
-
-export default Lesson6_3;
+}

@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Beaker, Code, BookOpen, BarChart3, Sparkles, Layers, Zap, Info } from 'lucide-react';
-import { useProgressStore } from '../../../../../store/progressStore';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
-import LessonHeader from '../../../../../components/layouts/LessonHeader';
-import LessonFooter from '../../../../../components/layouts/LessonFooter';
+import { Beaker, Code, BookOpen, BarChart3, Sparkles, Layers, Zap } from 'lucide-react';
+import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 
 // Import our advanced prompting components
 import {
@@ -24,8 +21,8 @@ const TabButton: React.FC<{
   <button
     onClick={onClick}
     className={`flex items-center px-4 py-2 rounded-t-lg transition-colors ${
-      active 
-        ? 'bg-gray-800 text-blue-400 border-b-2 border-blue-500' 
+      active
+        ? 'bg-gray-800 text-blue-400 border-b-2 border-blue-500'
         : 'text-gray-400 hover:bg-gray-800/50 hover:text-gray-200'
     }`}
   >
@@ -57,10 +54,10 @@ const Lesson1_7: React.FC = () => {
         'It makes the prompt longer, which is always better.',
         'It allows you to make small, controlled changes to systematically improve the AI\'s output.',
         'It guarantees the AI will respond faster.',
-        'It helps you find more spelling errors in your prompt.'
+        'It helps you find more spelling errors in your prompt.',
       ],
       correctAnswer: 'It allows you to make small, controlled changes to systematically improve the AI\'s output.',
-      explanation: 'Iterative refinement is the process of making small, deliberate adjustments to a prompt and observing the effect, which is key to achieving a precise and high-quality result.'
+      explanation: 'Iterative refinement is the process of making small, deliberate adjustments to a prompt and observing the effect, which is key to achieving a precise and high-quality result.',
     },
     {
       questionText: 'In advanced prompting, what is the main advantage of using a \'pattern\' (e.g., the Persona Pattern)?',
@@ -68,10 +65,10 @@ const Lesson1_7: React.FC = () => {
         'It provides a single, perfect prompt that works for every situation.',
         'It offers a proven, reusable structure for solving a common type of problem reliably.',
         'It forces the AI to use a specific vocabulary.',
-        'It is the only way to get the AI to generate creative content.'
+        'It is the only way to get the AI to generate creative content.',
       ],
       correctAnswer: 'It offers a proven, reusable structure for solving a common type of problem reliably.',
-      explanation: 'Prompt patterns are like strategic blueprints. They provide a reliable framework that can be adapted to many different tasks to produce consistent, high-quality outcomes.'
+      explanation: 'Prompt patterns are like strategic blueprints. They provide a reliable framework that can be adapted to many different tasks to produce consistent, high-quality outcomes.',
     },
     {
       questionText: 'When using an AI as a collaborative partner (e.g., for pair programming), what is a crucial skill humans require?',
@@ -79,21 +76,21 @@ const Lesson1_7: React.FC = () => {
         'Accepting the AI\'s first answer without question.',
         'Using very short, one-word commands.',
         'Clearly articulating your goal and providing specific feedback to guide the AI.',
-        'Letting the AI do all the work independently.'
+        'Letting the AI do all the work independently.',
       ],
       correctAnswer: 'Clearly articulating your goal and providing specific feedback to guide the AI.',
-      explanation: 'Effective collaboration with an AI requires clear communication. You must define the goal and then guide the AI with feedback, just as you would with a human partner.'
+      explanation: 'Effective collaboration with an AI requires clear communication. You must define the goal and then guide the AI with feedback, just as you would with a human partner.',
     },
     {
       questionText: 'Why is it helpful to deconstruct a complex prompt into its core components (e.g., role, task, context)?',
       options: [
         'It makes the prompt harder for the AI to understand.',
         'It is a required step by all AI models.',
-        'It helps you analyze each part of your instruction to identify areas for improvement.',
-        'It only matters for prompts written in English.'
+        'It helps you identify which part of the prompt needs adjustment to improve the output.',
+        'It only works for generating code.',
       ],
-      correctAnswer: 'It helps you analyze each part of your instruction to identify areas for improvement.',
-      explanation: 'By breaking a prompt down, you can examine each element—like the role, task, or constraints—to see how it contributes to the final output and refine it with precision.'
+      correctAnswer: 'It helps you identify which part of the prompt needs adjustment to improve the output.',
+      explanation: 'Deconstruction allows you to diagnose problems. If the AI\'s tone is wrong, you adjust the \'Style\' or \'You as...\' part. If the output is inaccurate, you might need to improve the \'Context\'.',
     },
     {
       questionText: 'What is a core principle of moving from basic to advanced prompt engineering?',
@@ -101,291 +98,194 @@ const Lesson1_7: React.FC = () => {
         'Using more complex and obscure words.',
         'Writing the longest prompt possible.',
         'Applying structured techniques and iterative testing to gain more precise control over the AI.',
-        'Memorizing a list of magic keywords.'
+        'Memorizing a list of magic keywords.',
       ],
       correctAnswer: 'Applying structured techniques and iterative testing to gain more precise control over the AI.',
-      explanation: 'Advanced prompting is about being deliberate and systematic. It involves using proven structures (patterns) and continuously refining your instructions to achieve a specific goal.'
-    }
+      explanation: 'Advanced prompting is about being deliberate and systematic. It involves using proven structures (patterns) and continuously refining your instructions to achieve a specific goal.',
+    },
   ];
 
-
-
-  const { completeLesson } = useProgressStore();
-  const [activeTab, setActiveTab] = useState<'visualizer' | 'challenges' | 'patterns' | 'refinement' | 'pairing'>('visualizer');
+  const [activeTab, setActiveTab] = useState('workbench');
 
   useEffect(() => {
     addAnimationStyles();
   }, []);
 
+  const renderContent = () => {
+    const components: { [key: string]: React.ReactNode } = {
+    visualizer: <PromptVisualizer />,   
+    challenges: <PromptChallenges />,
+    library: <PromptPatternLibrary />,
+    workbench: <PromptRefinementWorkbench />,
+    simulator: <PairProgrammingSimulator />,
+    };
+    return <div className="animate-fade-in p-4 md:p-6 bg-gray-800 rounded-b-lg">{components[activeTab]}</div>;
+  };
+
   return (
-    <div className="space-y-6 p-4 md:p-6 text-gray-200">
-      <LessonHeader 
-        title="1.7: Advanced Prompting Techniques"
-        subtitle="Take your prompt engineering skills to the next level with these powerful strategies."
-      />
+    <LessonTemplate
+      moduleNumber={1}
+      lessonNumber={7}
+      title="1.7: Advanced Prompting Techniques"
+      subtitle="Unlock the full potential of AI with sophisticated strategies."
+      quizQuestions={quizQuestions}
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* Intro Section */}
+        <section className="text-center my-8">
+          <h2 className="text-3xl font-bold text-white">Beyond the Basics</h2>
+          <p className="text-lg text-gray-400 mt-2 max-w-3xl mx-auto">
+            You've mastered the I.N.S.Y.N.C. framework. Now, it's time to explore the techniques that separate casual users from professional prompt engineers. These tools and methods will help you tackle complex tasks, achieve greater precision, and collaborate with AI more effectively.
+          </p>
+        </section>
 
-      {/* Introduction */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Sparkles className="w-7 h-7 mr-3 text-blue-400" />
-          From Apprentice to Artisan
-        </h2>
-        <p className="text-gray-300">
-          If the I.N.S.Y.N.C. framework gave you the essential tools, these advanced techniques are the master-level skills that will turn you into a true prompt artisan. They are strategies for tackling complex problems with precision, creativity, and efficiency, allowing you to unlock the AI's full potential.
-        </p>
-      </section>
+        {/* Interactive Tabs */}
+        <div className="bg-gray-900/70 backdrop-blur-sm rounded-lg border border-gray-700/50 shadow-2xl">
+          <div className="flex border-b border-gray-700 overflow-x-auto">
 
-      {/* Navigation Tabs */}
-      <div className="border-b border-gray-700">
-        <div className="flex flex-wrap -mb-px">
-          <TabButton
-            active={activeTab === 'visualizer'}
-            onClick={() => setActiveTab('visualizer')}
-            icon={<BarChart3 className="w-5 h-5" />}
-            label="Prompt Visualizer"
-          />
-          <TabButton
-            active={activeTab === 'challenges'}
-            onClick={() => setActiveTab('challenges')}
-            icon={<Sparkles className="w-5 h-5" />}
-            label="Prompt Challenges"
-          />
-          <TabButton
-            active={activeTab === 'patterns'}
-            onClick={() => setActiveTab('patterns')}
-            icon={<Layers className="w-5 h-5" />}
-            label="Pattern Library"
-          />
-          <TabButton
-            active={activeTab === 'refinement'}
-            onClick={() => setActiveTab('refinement')}
-            icon={<Beaker className="w-5 h-5" />}
-            label="Refinement Workbench"
-          />
-          <TabButton
-            active={activeTab === 'pairing'}
-            onClick={() => setActiveTab('pairing')}
-            icon={<Code className="w-5 h-5" />}
-            label="Pair Programming"
-          />
+            <TabButton
+              active={activeTab === 'visualizer'}
+              onClick={() => setActiveTab('visualizer')}
+              icon={<Layers className="w-5 h-5" />}
+              label="Prompt Visualizer"
+            />  
+            
+            <TabButton
+              active={activeTab === 'challenges'}
+              onClick={() => setActiveTab('challenges')}
+              icon={<Zap className="w-5 h-5" />}
+              label="Challenges"
+            />
+
+             <TabButton
+              active={activeTab === 'library'}
+              onClick={() => setActiveTab('library')}
+              icon={<BookOpen className="w-5 h-5" />}
+              label="Pattern Library"
+            /> 
+            
+            <TabButton
+              active={activeTab === 'workbench'}
+              onClick={() => setActiveTab('workbench')}
+              icon={<Beaker className="w-5 h-5" />}
+              label="Refinement Workbench"
+            /> 
+            <TabButton
+              active={activeTab === 'simulator'}
+              onClick={() => setActiveTab('simulator')}
+              icon={<Code className="w-5 h-5" />}
+              label="Pair Programming"
+            />
+           
+          </div>
+          {renderContent()}
         </div>
+
+        {/* Core Concepts Section */}
+        <section className="max-w-7xl mx-auto mt-12">
+          <h2 className="text-2xl font-semibold text-white mb-6 text-center">Core Advanced Concepts</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Concept Card 1 */}
+            <div className="bg-purple-500/10 border border-purple-500/30 p-5 rounded-lg text-center">
+              <div className="bg-purple-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-3">
+                <Sparkles className="w-5 h-5 text-purple-400" />
+              </div>
+              <h3 className="font-medium text-white mb-1">Prompt Chaining</h3>
+              <p className="text-sm text-gray-400">Breaking a complex task into smaller sub-prompts and feeding the output of one into the next.</p>
+            </div>
+            {/* Concept Card 2 */}
+            <div className="bg-blue-500/10 border border-blue-500/30 p-5 rounded-lg text-center">
+              <div className="bg-blue-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-3">
+                <Layers className="w-5 h-5 text-blue-400" />
+              </div>
+              <h3 className="font-medium text-white mb-1">Instructional Priming</h3>
+              <p className="text-sm text-gray-400">Providing clear, high-level instructions and examples before the main prompt to guide the AI's behavior.</p>
+            </div>
+            {/* Concept Card 3 */}
+            <div className="bg-emerald-500/10 border border-emerald-500/30 p-5 rounded-lg text-center">
+              <div className="bg-emerald-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-3">
+                <BarChart3 className="w-5 h-5 text-emerald-400" />
+              </div>
+              <h3 className="font-medium text-white mb-1">Iterative Refinement</h3>
+              <p className="text-sm text-gray-400">The process of gradually improving prompts through testing and iteration.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Learning Resources */}
+        <section className="bg-gradient-to-r from-indigo-900/20 to-blue-900/20 p-6 rounded-lg border border-gray-700 mt-6">
+          <h2 className="text-xl font-semibold text-white mb-4">Learning Resources</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-gray-800/50 p-5 rounded-lg border border-gray-700">
+              <h3 className="font-medium text-white mb-3 flex items-center">
+                <BookOpen className="w-5 h-5 mr-2 text-blue-400" />
+                Recommended Reading
+              </h3>
+              <ul className="space-y-3">
+                <li>
+                  <a
+                    href="https://platform.openai.com/docs/guides/prompt-engineering"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 hover:underline flex items-start"
+                  >
+                    <span className="mr-2">•</span>
+                    <span>OpenAI's Prompt Engineering Guide</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://learnprompting.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 hover:underline flex items-start"
+                  >
+                    <span className="mr-2">•</span>
+                    <span>Learn Prompting - Free Prompt Engineering Course</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/dair-ai/Prompt-Engineering-Guide"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 hover:underline flex items-start"
+                  >
+                    <span className="mr-2">•</span>
+                    <span>Prompt Engineering Guide by DAIR.AI</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-800/50 p-5 rounded-lg border border-gray-700">
+              <h3 className="font-medium text-white mb-3 flex items-center">
+                <Zap className="w-5 h-5 mr-2 text-yellow-400" />
+                Quick Tips
+              </h3>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <span className="text-yellow-400 mr-2">•</span>
+                  <span className="text-gray-300">Be specific about what you want, but avoid unnecessary complexity</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-yellow-400 mr-2">•</span>
+                  <span className="text-gray-300">Use clear separators between instructions and examples</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-yellow-400 mr-2">•</span>
+                  <span className="text-gray-300">Start with a simple prompt and iteratively add more details</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-yellow-400 mr-2">•</span>
+                  <span className="text-gray-300">Experiment with different prompt structures to see what works best</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
       </div>
-
-      {/* Tab Content */}
-      <div className="bg-gray-800/50 rounded-b-lg rounded-tr-lg p-6 border border-t-0 border-gray-700 min-h-[60vh]">
-        {activeTab === 'visualizer' && (
-          <div className="animate-fade-in">
-            <div className="flex items-center mb-6">
-              <BarChart3 className="w-8 h-8 text-blue-400 mr-3" />
-              <div>
-                <h2 className="text-2xl font-bold text-white">Prompt Visualizer</h2>
-                <p className="text-gray-400">See how different elements of your prompt affect the AI's response quality in real-time.</p>
-              </div>
-            </div>
-            <p className="text-gray-300 mb-4">
-              The <strong>Prompt Visualizer</strong> helps you see the 'engine' inside a complex prompt. By breaking a prompt down into its core components (like Role, Task, and Context), you can understand how it works, debug it when it fails, and borrow techniques from prompts written by others. It's like looking at the blueprints of a finished building.
-            </p>
-            <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg mt-4">
-              <h4 className="font-semibold text-blue-300 flex items-center mb-2"><Info className="w-5 h-5 mr-2"/>Why This Matters</h4>
-              <p className="text-blue-200/80 text-sm">Deconstruction is a powerful learning and debugging tool. When a prompt isn't working, breaking it down helps you pinpoint the weak component. It also allows you to analyze expert-level prompts and incorporate their techniques into your own work.</p>
-            </div>
-            <PromptVisualizer />
-          </div>
-        )}
-        {activeTab === 'challenges' && (
-          <div className="animate-fade-in">
-            <div className="flex items-center mb-6">
-              <Sparkles className="w-8 h-8 text-purple-400 mr-3" />
-              <div>
-                <h2 className="text-2xl font-bold text-white">Prompt Engineering Challenges</h2>
-                <p className="text-gray-400">Test and improve your prompt engineering skills with these structured exercises.</p>
-              </div>
-            </div>
-            <p className="text-gray-300 mb-4">
-              The best way to build muscle is to lift weights. These <strong>Prompt Challenges</strong> are the gym for your prompt engineering skills. Each challenge presents a targeted exercise designed to test your abilities under specific constraints, pushing you to apply what you've learned in a practical, hands-on context.
-            </p>
-            <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg mt-4">
-              <h4 className="font-semibold text-blue-300 flex items-center mb-2"><Info className="w-5 h-5 mr-2"/>Why This Matters</h4>
-              <p className="text-blue-200/80 text-sm">Deliberate practice is the fastest way to improve. These challenges provide a safe, structured environment to experiment, fail, and learn without real-world consequences. Completing them will rapidly accelerate your journey to becoming a skilled prompt engineer.</p>
-            </div>
-            <PromptChallenges />
-          </div>
-        )}
-        {activeTab === 'patterns' && (
-          <div className="animate-fade-in">
-            <div className="flex items-center mb-6">
-              <Layers className="w-8 h-8 text-emerald-400 mr-3" />
-              <div>
-                <h2 className="text-2xl font-bold text-white">Prompt Pattern Library</h2>
-                <p className="text-gray-400">Explore a collection of effective prompt patterns you can use in your own work.</p>
-              </div>
-            </div>
-            <p className="text-gray-300 mb-4">
-              Prompt patterns are like recipes from a master chef. Instead of starting from scratch, you use a proven, reusable structure to solve a common problem reliably. The <strong>Persona Pattern</strong>, for example, assigns the AI a specific role (like 'expert copywriter' or 'seasoned historian'), which dramatically improves the relevance and tone of its output.
-            </p>
-            <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg mt-4">
-              <h4 className="font-semibold text-blue-300 flex items-center mb-2"><Info className="w-5 h-5 mr-2"/>Why This Matters</h4>
-              <p className="text-blue-200/80 text-sm">Patterns save you time and prevent errors. By using a tested structure, you can consistently achieve high-quality results for common tasks (like summarizing text, changing tone, or extracting data) without reinventing the wheel every time.</p>
-            </div>
-            <PromptPatternLibrary />
-          </div>
-        )}
-        {activeTab === 'refinement' && (
-          <div className="animate-fade-in">
-            <div className="flex items-center mb-6">
-              <Beaker className="w-8 h-8 text-amber-400 mr-3" />
-              <div>
-                <h2 className="text-2xl font-bold text-white">Prompt Refinement Workbench</h2>
-                <p className="text-gray-400">Iteratively improve your prompts with AI-powered feedback and version control.</p>
-              </div>
-            </div>
-            <p className="text-gray-300 mb-4">
-              Think of prompt refinement as a sculptor working with marble. You start with a rough block (your first prompt) and make small, deliberate chips and adjustments until a masterpiece emerges. This workbench allows you to do just that: systematically tweak your prompt and see the immediate impact of each change.
-            </p>
-            <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg mt-4">
-              <h4 className="font-semibold text-blue-300 flex items-center mb-2"><Info className="w-5 h-5 mr-2"/>Why This Matters</h4>
-              <p className="text-blue-200/80 text-sm">Complex tasks are rarely solved on the first try. Iterative refinement is the single most important skill for moving from a 'good enough' output to a precise, high-quality result that perfectly matches your vision.</p>
-            </div>
-            <PromptRefinementWorkbench />
-          </div>
-        )}
-        {activeTab === 'pairing' && (
-          <div className="animate-fade-in">
-            <div className="flex items-center mb-6">
-              <Code className="w-8 h-8 text-rose-400 mr-3" />
-              <div>
-                <h2 className="text-2xl font-bold text-white">AI Pair Programming</h2>
-                <p className="text-gray-400">Collaborate with an AI pair programmer, switching between driver and navigator roles.</p>
-              </div>
-            </div>
-            <p className="text-gray-300 mb-4">
-              Treat the AI less like a tool and more like a hyper-competent intern. In this <strong>Pair Programming Simulator</strong>, you'll work with an AI to write code. You are the senior developer—providing the vision, requirements, and crucial feedback. The AI is your partner, handling the boilerplate and suggesting solutions, but relying on your guidance to get it right.
-            </p>
-            <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg mt-4">
-              <h4 className="font-semibold text-blue-300 flex items-center mb-2"><Info className="w-5 h-5 mr-2"/>Why This Matters</h4>
-              <p className="text-blue-200/80 text-sm">This collaborative approach can supercharge your productivity. It's not just for coding; you can use it for writing, brainstorming, and problem-solving. Learning to guide an AI partner effectively is a key skill for the future.</p>
-            </div>
-            <PairProgrammingSimulator />
-          </div>
-        )}
-      </div>
-
-      {/* Key Concepts Section */}
-      <section className="bg-gray-800/30 p-6 rounded-lg border border-gray-700 mt-6">
-        <h2 className="text-xl font-semibold text-white mb-4">Key Concepts in Advanced Prompting</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
-            <div className="bg-blue-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-3">
-              <Sparkles className="w-5 h-5 text-blue-400" />
-            </div>
-            <h3 className="font-medium text-white mb-1">Prompt Engineering</h3>
-            <p className="text-sm text-gray-400">The art and science of crafting effective prompts to get the best results from AI models.</p>
-          </div>
-          <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
-            <div className="bg-purple-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-3">
-              <Layers className="w-5 h-5 text-purple-400" />
-            </div>
-            <h3 className="font-medium text-white mb-1">Pattern Recognition</h3>
-            <p className="text-sm text-gray-400">Identifying and applying successful prompt patterns for different use cases.</p>
-          </div>
-          <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
-            <div className="bg-emerald-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-3">
-              <BarChart3 className="w-5 h-5 text-emerald-400" />
-            </div>
-            <h3 className="font-medium text-white mb-1">Iterative Refinement</h3>
-            <p className="text-sm text-gray-400">The process of gradually improving prompts through testing and iteration.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Learning Resources */}
-      <section className="bg-gradient-to-r from-indigo-900/20 to-blue-900/20 p-6 rounded-lg border border-gray-700 mt-6">
-        <h2 className="text-xl font-semibold text-white mb-4">Learning Resources</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-gray-800/50 p-5 rounded-lg border border-gray-700">
-            <h3 className="font-medium text-white mb-3 flex items-center">
-              <BookOpen className="w-5 h-5 mr-2 text-blue-400" />
-              Recommended Reading
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <a 
-                  href="https://platform.openai.com/docs/guides/prompt-engineering" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300 hover:underline flex items-start"
-                >
-                  <span className="mr-2">•</span>
-                  <span>OpenAI's Prompt Engineering Guide</span>
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://learnprompting.org/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300 hover:underline flex items-start"
-                >
-                  <span className="mr-2">•</span>
-                  <span>Learn Prompting - Free Prompt Engineering Course</span>
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://github.com/dair-ai/Prompt-Engineering-Guide" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300 hover:underline flex items-start"
-                >
-                  <span className="mr-2">•</span>
-                  <span>Prompt Engineering Guide by DAIR.AI</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          
-          <div className="bg-gray-800/50 p-5 rounded-lg border border-gray-700">
-            <h3 className="font-medium text-white mb-3 flex items-center">
-              <Zap className="w-5 h-5 mr-2 text-yellow-400" />
-              Quick Tips
-            </h3>
-            <ul className="space-y-3">
-              <li className="flex items-start">
-                <span className="text-yellow-400 mr-2">•</span>
-                <span className="text-gray-300">Be specific about what you want, but avoid unnecessary complexity</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-yellow-400 mr-2">•</span>
-                <span className="text-gray-300">Use clear separators between instructions and examples</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-yellow-400 mr-2">•</span>
-                <span className="text-gray-300">Start with a simple prompt and iteratively add more details</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-yellow-400 mr-2">•</span>
-                <span className="text-gray-300">Experiment with different prompt structures to see what works best</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Validation Quiz */}
-      <section className="mt-8">
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
-
-
-
-      <LessonFooter 
-        prevLessonPath="/instructions/module-1/1.6"
-        prevLessonTitle="1.6: Workshop: Building with I.N.S.Y.N.C."
-        nextLessonPath="/instructions/module-1/1.8"
-        nextLessonTitle="1.8: Module 1 Challenge"
-        onNextClick={() => completeLesson(1, 7)}
-      />
-    </div>
+    </LessonTemplate>
   );
 };
 

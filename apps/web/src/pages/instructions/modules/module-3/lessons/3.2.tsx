@@ -1,12 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import CotDiagram from '../../../components/CotDiagram';
 import AutoDemosDiagram from '../../../components/AutoDemosDiagram';
 import InlineChat from '../../../../../components/InlineChat';
-import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 
 const zeroShotCoTChallengeChecklist = [
   { text: 'Pose a multi-step reasoning problem to the AI', completed: false },
@@ -74,139 +71,102 @@ const Lesson3_2: React.FC = () => {
     }
   ];
 
-  const { completeLesson } = useProgressStore();
   return (
-    <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">3.2 Chain of Thought Prompting</h1>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/instructions/module-3/3.1" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Advanced Techniques
-          </Link>
-          <Link 
-            to="/instructions/module-3/3.3" 
-            onClick={() => completeLesson(3, 2)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Prompting Exercises <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
+    <LessonTemplate
+      moduleNumber={3}
+      lessonNumber={2}
+      title="3.2: Chain-of-Thought Prompting"
+      subtitle="Teaching AI to 'think' step by step."
+      quizQuestions={quizQuestions}
+    >
+      <div className="space-y-8 text-gray-300">
+        <CotDiagram />
 
-      <p className="text-lg text-gray-300">
-        Chain-of-thought prompting is like having a conversation with someone who thinks out loud - instead of just giving you the answer, they walk you through their reasoning process. This technique transforms AI responses from mysterious "black box" answers into transparent, step-by-step solutions you can follow and verify.
-      </p>
-      <p className="text-lg text-gray-300 mt-4">
-        Think of it as the difference between a math teacher who just writes "42" on the board versus one who shows every step of the calculation. The second approach not only gives you the answer but teaches you how to solve similar problems yourself.
-      </p>
-
-      <Accordion title="Chain-of-Thought Prompting" isInitiallyOpen>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
-          <p className="font-mono text-gray-200">Prompt:</p>
-          <div className="bg-gray-800 p-2 rounded mt-1">
-            <code className="block whitespace-pre-wrap break-words font-mono text-gray-300">{`The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.\nA: Adding all the odd numbers (9, 15, 1) gives 25. The answer is False.\n\nThe odd numbers in this group add up to an even number: 17,  10, 19, 4, 8, 12, 24.\nA: Adding all the odd numbers (17, 19) gives 36. The answer is True.\n\nThe odd numbers in this group add up to an even number: 16,  11, 14, 4, 8, 13, 24.\nA: Adding all the odd numbers (11, 13) gives 24. The answer is True.\n\nThe odd numbers in this group add up to an even number: 17,  9, 10, 12, 13, 4, 2.\nA: Adding all the odd numbers (17, 9, 13) gives 39. The answer is False.\n\nThe odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.\nA:`}</code>
-          </div>
-          <p className="font-mono text-gray-200 mt-3">Output:</p>
-          <div className="bg-gray-800 p-2 rounded mt-1">
-            <code className="block whitespace-pre-wrap break-words font-mono text-green-400">Adding all the odd numbers (15, 5, 13, 7, 1) gives 41. The answer is False.</code>
-          </div>
-        </div>
-        <p className="text-gray-300 my-4">
-          Notice how the AI transformed from a calculator that just outputs numbers into a tutor that explains their thinking. This is the power of chain-of-thought prompting - it doesn't just give answers, it reveals the reasoning path.
-        </p>
-        <p className="text-gray-300 my-4">
-          <strong>Key insight:</strong> By showing the AI how to break down problems step-by-step, you're essentially teaching it a problem-solving strategy that it can then apply to new challenges.
-        </p>
-      </Accordion>
-
-      <Accordion title="Zero-Shot CoT">
-        <p className="text-gray-300 mb-4">
-          Zero-shot CoT is like having a magic phrase that unlocks the AI's inner monologue. By simply adding "Let's think step by step," you're asking the AI to show its work - similar to how a teacher might say "explain your thinking" to a student.
-        </p>
-        <p className="text-gray-300 mb-4">
-          This technique is particularly powerful because it works without any examples - it's like having a universal key that works on any reasoning lock.
-        </p>
-        <div className="my-4">
-          <CotDiagram />
-          <p className="text-center text-sm text-gray-500 mt-2">Image Source: Kojima et al. (2022)</p>
-        </div>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
-          <p className="font-mono text-gray-200">Prompt:</p>
-          <div className="bg-gray-800 p-2 rounded mt-1">
-            <code className="block whitespace-pre-wrap break-words font-mono text-gray-300">{`I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then bought 5 more apples and ate 1. How many apples did I remain with?\n\nLet's think step by step.`}</code>
-          </div>
-          <p className="font-mono text-gray-200 mt-3">Output:</p>
-          <div className="bg-gray-800 p-2 rounded mt-1">
-            <code className="block whitespace-pre-wrap break-words font-mono text-green-400">{`First, you started with 10 apples.\nYou gave away 2 apples to the neighbor and 2 to the repairman, so you had 6 apples left.\nThen you bought 5 more apples, so now you had 11 apples.\nFinally, you ate 1 apple, so you would remain with 10 apples.`}</code>
-          </div>
-        </div>
-        <p className="text-gray-300 mt-4">
-          The beauty of this approach lies in its simplicity - one phrase transforms any prompt into a reasoning tutorial. It's like discovering that saying "show your work" works across languages, subjects, and complexity levels.
-        </p>
-        <p className="text-gray-300 mt-2">
-          This technique shines when you're exploring new territory - when you don't have examples to guide the AI, you can still guide its thinking process.
-        </p>
-
-        <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
-          <h3 className="font-semibold text-white mb-2">Your Turn: Zero-Shot CoT Challenge</h3>
-          <p className="text-gray-400 mb-4">Experiment with the magic phrase "Let's think step by step." Try it on different types of problems - from simple arithmetic to complex logic puzzles. Notice how the AI's response changes when you include this trigger.</p>
-          <p className="text-gray-400 mb-4">
-            <strong>Pro tips for experimentation:</strong>
-            <br />• Try the same problem with and without the phrase to see the difference
-            <br />• Test it on various problem types (math, logic, decision-making)
-            <br />• Observe how the AI structures its step-by-step reasoning
-            <br />• Notice when this technique works best vs. when it falls short
+        <Accordion 
+          title="Chain-of-Thought (CoT) Prompting"
+          isInitiallyOpen
+        >
+          <p className="text-gray-300 mb-4">
+            Chain-of-Thought (CoT) prompting is like showing a student how to solve a math problem by writing out every step, instead of just giving them the final answer. By demonstrating the reasoning process, you teach the AI not just *what* to answer, but *how* to think. This is especially powerful for complex problems that require multiple logical steps.
           </p>
-          <InlineChat 
-            moduleId="module-3.2-zeroshot-cot"
-            maxAttempts={5}
-            maxFollowUps={3}
-            placeholder="Enter your query here based on what we have learned in this section..."
-            systemPrompt="You are a helpful AI assistant. When the user asks a question followed by 'Let's think step by step', break down your response into clear, logical steps. Show your reasoning process before arriving at the final answer. If the user doesn't include the trigger phrase, you may suggest they try adding it to see your step-by-step reasoning."
-            challengeChecklist={zeroShotCoTChallengeChecklist}
-          />
-        </div>
-      </Accordion>
+          <p className="text-gray-300 mb-4">
+            Let's revisit the reasoning problem from the previous lesson that few-shot prompting failed to solve. By simply adding the intermediate reasoning steps to our example, we can guide the model to the correct answer:
+          </p>
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
+            <p className="font-mono text-gray-200">Prompt:</p>
+            <div className="bg-gray-800 p-2 rounded mt-1">
+              <code className="block whitespace-pre-wrap break-words font-mono text-gray-300">{`The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.\nA: The odd numbers are 15, 5, 13, 7, 1. The sum is 41. 41 is an odd number. The answer is False.`}</code>
+            </div>
+            <p className="font-mono text-gray-200 mt-3">Output:</p>
+            <div className="bg-gray-800 p-2 rounded mt-1">
+              <code className="block whitespace-pre-wrap break-words font-mono text-green-400">The odd numbers in this group are 15, 5, 13, 7, 1. Adding them up is 41. 41 is an odd number. The answer is False.</code>
+            </div>
+          </div>
+          <p className="text-gray-300 my-4">
+            Success! By explicitly showing the model the *chain of thought* (identifying odd numbers, summing them, checking if the sum is odd/even), it successfully replicated the reasoning process.
+          </p>
+        </Accordion>
 
-      <Accordion title="Automatic Chain-of-Thought (Auto-CoT)">
-        <p className="text-gray-300 mb-4">
-          Creating effective CoT examples manually is like being a teacher who has to prepare detailed lesson plans for every possible question - it's time-consuming and you might miss important variations. Auto-CoT is like having an AI teaching assistant that automatically generates diverse, step-by-step solutions for you.
-        </p>
-        <p className="text-gray-300 mb-4">
-          Think of it as the difference between manually writing 50 different math problems with solutions versus having an AI generate 50 varied problems, each with clear step-by-step explanations. The AI approach ensures diversity and saves massive amounts of time.
-        </p>
-        <p className="text-gray-300 mb-4">
-          The key insight: by automatically generating reasoning chains across diverse problem types, Auto-CoT creates a comprehensive "reasoning toolkit" that the AI can draw from when tackling new challenges.
-        </p>
-        <AutoDemosDiagram />
-        <p className="text-center text-sm text-gray-500 mt-2">Image Source: Zhang et al. (2022)</p>
-      </Accordion>
+        <Accordion title="Zero-Shot CoT">
+          <p className="text-gray-300 mb-4">
+            What if you don't have examples to show? Zero-Shot CoT is a remarkable discovery where you can trigger the same step-by-step reasoning by simply adding a specific phrase to your prompt: "Let's think step by step."
+          </p>
+          <p className="text-gray-300 mb-4">
+            This simple instruction acts as a universal key, unlocking the model's ability to break down a problem and explain its reasoning, even for tasks it has never seen before.
+          </p>
+          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
+            <p className="font-mono text-gray-200">Prompt:</p>
+            <div className="bg-gray-800 p-2 rounded mt-1">
+              <code className="block whitespace-pre-wrap break-words font-mono text-gray-300">{`I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then went and bought 5 more apples and ate 1. How many apples did I end up with?\n\nLet's think step by step.`}</code>
+            </div>
+            <p className="font-mono text-gray-200 mt-3">Output:</p>
+            <div className="bg-gray-800 p-2 rounded mt-1">
+              <code className="block whitespace-pre-wrap break-words font-mono text-green-400">1. You started with 10 apples.\n2. You gave away 2 + 2 = 4 apples.\n3. You have 10 - 4 = 6 apples left.\n4. You bought 5 more, so you have 6 + 5 = 11 apples.\n5. You ate 1, so you have 11 - 1 = 10 apples left.</code>
+            </div>
+          </div>
+          <p className="text-gray-300 mt-4">
+            The beauty of this approach lies in its simplicity - one phrase transforms any prompt into a reasoning tutorial. It's like discovering that saying "show your work" works across languages, subjects, and complexity levels.
+          </p>
+          <p className="text-gray-300 mt-2">
+            This technique shines when you're exploring new territory - when you don't have examples to guide the AI, you can still guide its thinking process.
+          </p>
 
-      {/* Validation Quiz */}
-      <section className="mt-8">
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
+          <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
+            <h3 className="font-semibold text-white mb-2">Your Turn: Zero-Shot CoT Challenge</h3>
+            <p className="text-gray-400 mb-4">Experiment with the magic phrase "Let's think step by step." Try it on different types of problems - from simple arithmetic to complex logic puzzles. Notice how the AI's response changes when you include this trigger.</p>
+            <p className="text-gray-400 mb-4">
+              <strong>Pro tips for experimentation:</strong>
+              <br />• Try the same problem with and without the phrase to see the difference
+              <br />• Test it on various problem types (math, logic, decision-making)
+              <br />• Observe how the AI structures its step-by-step reasoning
+              <br />• Notice when this technique works best vs. when it falls short
+            </p>
+            <InlineChat 
+              moduleId="module-3.2-zeroshot-cot"
+              maxAttempts={5}
+              maxFollowUps={3}
+              placeholder="Enter your query here based on what we have learned in this section..."
+              systemPrompt="You are a helpful AI assistant. When the user asks a question followed by 'Let's think step by step', break down your response into clear, logical steps. Show your reasoning process before arriving at the final answer. If the user doesn't include the trigger phrase, you may suggest they try adding it to see your step-by-step reasoning."
+              challengeChecklist={zeroShotCoTChallengeChecklist}
+            />
+          </div>
+        </Accordion>
 
-      {/* Navigation */}
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-3/3.1" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Shot Prompting
-        </Link>
-        <Link 
-          to="/instructions/module-3/3.3" 
-          onClick={() => completeLesson(3, 2)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next: Structuring Outputs <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
+        <Accordion title="Automatic Chain-of-Thought (Auto-CoT)">
+          <p className="text-gray-300 mb-4">
+            Creating effective CoT examples manually is like being a teacher who has to prepare detailed lesson plans for every possible question - it's time-consuming and you might miss important variations. Auto-CoT is like having an AI teaching assistant that automatically generates diverse, step-by-step solutions for you.
+          </p>
+          <p className="text-gray-300 mb-4">
+            Think of it as the difference between manually writing 50 different math problems with solutions versus having an AI generate 50 varied problems, each with clear step-by-step explanations. The AI approach ensures diversity and saves massive amounts of time.
+          </p>
+          <p className="text-gray-300 mb-4">
+            The key insight: by automatically generating reasoning chains across diverse problem types, Auto-CoT creates a comprehensive "reasoning toolkit" that the AI can draw from when tackling new challenges.
+          </p>
+          <AutoDemosDiagram />
+          <p className="text-center text-sm text-gray-500 mt-2">Image Source: Zhang et al. (2022)</p>
+        </Accordion>
       </div>
-    </div>
+    </LessonTemplate>
   );
 };
 

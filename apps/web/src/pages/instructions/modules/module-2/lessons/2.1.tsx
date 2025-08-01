@@ -1,11 +1,9 @@
 import React from 'react';
-import { BrainCircuit } from 'lucide-react';
-import { useProgressStore } from '../../../../../store/progressStore';
+import { BrainCircuit, MessageSquare } from 'lucide-react';
+import ContextExample from '../../../components/ContextExample';
 import KeyTakeaways from '../../../components/KeyTakeaways';
-import ContextExplorer from '../../../components/ContextExplorer';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
-import LessonHeader from '../../../../../components/layouts/LessonHeader';
-import LessonFooter from '../../../../../components/layouts/LessonFooter';
+import RollingWhiteboard from '../../../components/RollingWhiteboard';
+import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 
 const Lesson2_1: React.FC = () => {
   const quizQuestions = [
@@ -66,55 +64,73 @@ const Lesson2_1: React.FC = () => {
     }
   ];
 
-  const { completeLesson } = useProgressStore();
   return (
-    <div className="space-y-8 p-4 md:p-6">
-      <LessonHeader 
-        title="2.1: The Power of Context in AI"
-        subtitle="Mastering the AI's 'working memory' is the key to unlocking complex, multi-step conversations."
-      />
-
-      <p className="text-lg text-gray-300 max-w-prose">
-        Have you ever had a conversation where you had to keep repeating yourself? It's frustrating. The same is true when talking to an AI. The key to a smooth, intelligent conversation is understanding and managing its 'memory'—what we call the <strong>context window</strong>.
-      </p>
-
-      {/* What is a Context Window? */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <BrainCircuit className="w-7 h-7 mr-3 text-blue-400" />
-          What is a Context Window?
-        </h2>
-        <p className="text-gray-300 mb-4 max-w-prose">
-          Think of the context window as the AI's short-term memory. It's a finite space that holds the recent back-and-forth of your conversation. Every time you send a message, the entire history is sent to the AI. This history is called the 'context'.
+    <LessonTemplate
+      moduleNumber={2}
+      lessonNumber={1}
+      title="2.1: The Power of Context in AI"
+      subtitle="Mastering the AI's 'working memory' is the key to unlocking complex, multi-step conversations."
+      quizQuestions={quizQuestions}
+    >
+      <div className="space-y-8">
+        <p className="text-lg text-gray-300 max-w-prose">
+          Have you ever had a conversation where you had to keep repeating yourself? It's frustrating. The same is true when talking to an AI. The key to a smooth, intelligent conversation is understanding and managing its 'memory'—what we call the <strong>context window</strong>.
         </p>
-        <p className="text-gray-300 mb-4 max-w-prose">
-          Below is a live AI chat. As you interact with it, you can see the 'Live Context' on the right update in real-time. This is the actual array of messages being sent to the AI with every single request. This is the AI's 'memory' of your conversation. The more you chat, the larger this context grows.
-        </p>
-        <ContextExplorer />
-      </section>
 
-      <KeyTakeaways points={[
-        'The AI has a limited "working memory" (context window) that fills up like a whiteboard',
-        'When memory is full, the oldest parts of your conversation are "forgotten"',
-        'You can manage this by summarizing important details in long conversations',
-        'Short conversations (under ~10 messages) rarely have memory issues',
-        'If the AI seems confused, gently remind it of key details from earlier'
-      ]} />
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+            <BrainCircuit className="w-7 h-7 mr-3 text-blue-400" />
+            What is a Context Window?
+          </h2>
+          <p className="text-gray-300 mb-4 max-w-prose">
+            Think of the context window as the AI's short-term memory. It's a finite space that holds the recent back-and-forth of your conversation, measured in <strong>tokens</strong>, which are the basic units of text that the AI processes. A token can be a single word, part of a word, or even a single character. Every new message you send, and every response the AI gives, gets added to this window. When the window gets full, the oldest messages are 'forgotten' to make room for new ones.
+          </p>
+          <RollingWhiteboard />
+        </section>
 
-      {/* Validation Quiz */}
-      <section className="mt-8">
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+            <MessageSquare className="w-7 h-7 mr-3 text-purple-400" />
+            Why It's Your Most Powerful Tool
+          </h2>
+          <p className="text-gray-300 mb-4 max-w-prose">
+            Mastering the context window is the single most important skill for moving beyond simple, one-off questions. It's how you can have deep, multi-step conversations and guide the AI through complex tasks. For example, if you're building a marketing campaign, you can give the AI your brand guidelines in one message, your target audience in another, and your product details in a third. Without context, the AI would lose track of these details. With good context management, it uses all of this information to create a cohesive campaign.
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                  <h4 className="font-semibold text-green-400 mb-2">Effective Context Management Leads To:</h4>
+                  <ul className="list-disc list-inside text-gray-300 space-y-1">
+                      <li>Coherent, logical follow-up responses.</li>
+                      <li>The ability to build on previous ideas.</li>
+                      <li>Not having to repeat instructions.</li>
+                      <li>AI adapting its tone and style to the conversation.</li>
+                      <li>Successful completion of complex, multi-part tasks.</li>
+                  </ul>
+              </div>
+              <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                  <h4 className="font-semibold text-red-400 mb-2">Poor Context Management Leads To:</h4>
+                  <ul className="list-disc list-inside text-gray-300 space-y-1">
+                      <li>The AI forgetting what you just told it.</li>
+                      <li>Repetitive or contradictory answers.</li>
+                      <li>Irrelevant or off-topic responses.</li>
+                      <li>Frustration and wasted time.</li>
+                      <li>Failure to complete the task correctly.</li>
+                  </ul>
+              </div>
+          </div>
+        </section>
 
-      {/* Navigation */}
-      <LessonFooter 
-        prevLessonPath="/instructions/module-1/1.8"
-        prevLessonTitle="1.8: Module 1 Challenge"
-        nextLessonPath="/instructions/module-2/2.2"
-        nextLessonTitle="2.2: Keeping Conversations Coherent"
-        onNextClick={() => completeLesson(2, 1)}
-      />
-    </div>
+        <ContextExample />
+
+        <KeyTakeaways points={[
+          'The AI has a limited "working memory" (context window) that fills up like a whiteboard',
+          'When memory is full, the oldest parts of your conversation are "forgotten"',
+          'You can manage this by summarizing important details in long conversations',
+          'Short conversations (under ~10 messages) rarely have memory issues',
+          'If the AI seems confused, gently remind it of key details from earlier'
+        ]} />
+      </div>
+    </LessonTemplate>
   );
 };
 

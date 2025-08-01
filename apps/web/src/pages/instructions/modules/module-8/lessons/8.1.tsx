@@ -1,11 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Scale, ShieldCheck, Lightbulb } from 'lucide-react';
-import InlineChat from '../../../../../components/InlineChat';
-import { useProgressStore } from '../../../../../store/progressStore';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import { ShieldCheck, Lightbulb } from 'lucide-react';
+import InlineChat, { ChallengeChecklistItem } from '@/components/InlineChat';
+import LessonTemplate from '@/components/layouts/LessonTemplate';
 
-const Lesson8_1: React.FC = () => {
+const Lesson8_1 = () => {
   const quizQuestions = [
     {
       questionText: 'An AI model trained on 10 years of hiring data from a company that historically hired men for engineering roles is most likely to suffer from which type of bias?',
@@ -64,80 +61,68 @@ const Lesson8_1: React.FC = () => {
     }
   ];
 
-  const { completeLesson } = useProgressStore();
   const ethicsReviewerPrompt = `You are an AI Ethics and Fairness expert. Your task is to review a user's proposed strategy for mitigating bias in an AI-powered resume screening tool.
 
-**Case Study Context:** An AI tool was built to screen resumes for a software engineering role, trained on the company's hiring data from the last 10 years. The data shows a historical pattern of hiring predominantly from specific universities and demographic groups, leading the AI to unfairly penalize qualified candidates from underrepresented backgrounds.
+**The User's Goal:** To create a fair hiring process by identifying and reducing bias in an AI that screens software engineering resumes.
 
-When a user submits their mitigation strategy, follow these steps:
-1.  **Acknowledge and Validate**: Briefly acknowledge their submission.
-2.  **Analyze their Strategy**: Evaluate their plan against key fairness principles. Did they correctly identify the bias (e.g., historical, representation)? Are their proposed solutions (e.g., data auditing, re-weighting, fairness metrics) relevant and effective?
-3.  **Provide Specific Feedback**: Offer 2-3 clear, constructive bullet points. For example, 'Your suggestion to audit the data is a great first step, but consider also implementing a fairness metric like demographic parity to continuously monitor the model's performance post-deployment.'
-4.  **Suggest a Gold-Standard Example**: Provide a concise, expert-level mitigation strategy for comparison. Example: 'A robust strategy would involve: 1) Augmenting the training data with diverse, synthetic resumes. 2) Implementing adversarial debiasing to prevent the model from learning proxies for protected attributes. 3) Auditing the model's decisions for equal opportunity across demographic groups before and after deployment.'
-5.  **Encourage**: End with a positive, encouraging statement about the importance of building fair AI.`;
+**The Core Problem:** The AI was trained on 10 years of company data that reflects a historical pattern of hiring from specific universities and demographic groups. As a result, it unfairly penalizes qualified candidates from underrepresented backgrounds.
 
-  const biasMitigationChecklist: Array<{text: string, completed: boolean}> = [
-    { text: 'I have identified the type of bias in the scenario', completed: false },
-    { text: 'I have proposed specific techniques to address the bias', completed: false },
-    { text: 'I have considered both technical and organizational solutions', completed: false },
-    { text: 'I have received feedback on my bias mitigation strategy', completed: false },
-    { text: 'I have refined my approach based on the feedback', completed: false }
+**Your Evaluation Criteria:**
+1.  **Identify the Bias:** Does the user correctly identify the primary type of bias (e.g., historical, representation, measurement)?
+2.  **Propose Concrete Steps:** Does the user suggest specific, actionable steps? (e.g., data auditing, re-sampling, using fairness-aware algorithms).
+3.  **Define Measurement:** Does the user explain how they would measure fairness? (e.g., using metrics like demographic parity or equal opportunity).
+4.  **Acknowledge Nuance:** Does the user recognize that fairness is complex and that there are trade-offs?
+
+Provide constructive feedback. If their plan is good, validate it and perhaps suggest one additional best practice. If their plan is weak, gently guide them by asking probing questions related to the criteria above. For example, if they forget to mention measurement, ask, "That's a solid start. How would you know if your changes were successful? What metrics could you use to measure fairness?" Keep your feedback concise and focused on a single follow-up question if needed.`;
+
+  const biasMitigationChecklist: ChallengeChecklistItem[] = [
+    { id: 'identify-bias', text: 'Correctly identify the primary type of bias (Historical Bias).', completed: false },
+    { id: 'audit-data', text: 'Suggest auditing and augmenting the dataset to improve representation.', completed: false },
+    { id: 'fairness-metrics', text: 'Propose using fairness metrics (e.g., demographic parity) to measure success.', completed: false },
+    { id: 'technical-solution', text: 'Mention a technical debiasing technique (e.g., re-weighting, adversarial debiasing).', completed: false },
   ];
 
   return (
-    <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">8.1 Fairness & Bias in AI</h1>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/instructions/module-7/7.3" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Model Fine-Tuning
-          </Link>
-          <Link 
-            to="/instructions/module-8/8.2" 
-            onClick={() => completeLesson(8, 1)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Explainability <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
-
-      <p className="text-lg text-gray-300">
-        AI models learn from data. If that data reflects existing societal biases, the model will learn and even amplify them. Ensuring fairness is not just a technical challenge but an ethical imperative for building responsible AI.
-      </p>
-
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center"><Scale className="w-7 h-7 mr-3" />Sources of Bias in AI</h2>
-        <div className="space-y-4">
-          <div>
-            <h4 className="font-bold text-lg text-white">Historical Bias</h4>
-            <p className="text-gray-400">Occurs when the data used for training reflects past prejudices, even if the world has changed. For example, an AI trained on historical hiring data might learn to favor male candidates for engineering roles.</p>
-          </div>
-          <div>
-            <h4 className="font-bold text-lg text-white">Representation Bias</h4>
-            <p className="text-gray-400">Happens when the training data under-represents certain groups. A facial recognition system trained primarily on light-skinned faces will perform poorly on dark-skinned faces.</p>
-          </div>
-          <div>
-            <h4 className="font-bold text-lg text-white">Measurement Bias</h4>
-            <p className="text-gray-400">Arises from faulty data collection or measurement. If a camera sensor overexposes images of people with darker skin, an AI might misinterpret their features due to poor data quality.</p>
-          </div>
-        </div>
+    <LessonTemplate
+      moduleNumber={8}
+      lessonNumber={1}
+      title="Identifying and Mitigating Bias"
+      subtitle="Building fair and responsible AI systems."
+      quizQuestions={quizQuestions}
+    >
+      <section>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">The Unseen Architect: Historical Bias</h2>
+        <p className="text-gray-300 mb-4">
+          Imagine building a skyscraper on a tilted foundation. No matter how perfectly you build, the entire structure will be skewed. Historical bias is that tilted foundation. When we train models on data from a world with existing inequalities (e.g., hiring, loan applications), the AI learns to replicate and even amplify those past prejudices. It doesn't know it's being unfair; it only knows how to find patterns in the data it's given.
+        </p>
       </section>
 
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center"><ShieldCheck className="w-7 h-7 mr-3" />Strategies for Mitigation</h2>
-        <ul className="list-disc pl-5 space-y-2 text-gray-300">
-          <li><strong>Data Auditing:</strong> Carefully analyze your training data for skews and imbalances. Use tools to measure representation across different demographic groups.</li>
+      <section>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Common Types of Bias</h2>
+        <ul className="list-disc list-inside space-y-2 text-gray-300">
+          <li><strong>Representation Bias:</strong> The data fails to represent the diversity of the real world. If a facial recognition model is trained mostly on light-skinned faces, its performance on dark-skinned faces will be poor.</li>
+          <li><strong>Measurement Bias:</strong> The way you measure something is flawed or inconsistent. For example, using arrests as a proxy for crime can be biased if policing is heavier in certain neighborhoods.</li>
+          <li><strong>Evaluation Bias:</strong> The benchmark used to evaluate the model doesn't represent the real-world population the model will serve.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+          <ShieldCheck className="w-7 h-7 mr-3 text-green-400" />
+          Strategies for Mitigation
+        </h2>
+        <p className="text-gray-300 mb-4">
+          Fixing a tilted foundation is hard, but not impossible. It requires intentional, proactive effort. Here are some key strategies:
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-300">
+          <li><strong>Data Auditing & Augmentation:</strong> Carefully examine your dataset for skews. Use techniques like over-sampling under-represented groups or generating synthetic data to create a more balanced foundation.</li>
           <li><strong>Fairness Metrics:</strong> Implement metrics like 'demographic parity' or 'equal opportunity' to evaluate if your model performs equally well across different user groups.</li>
           <li><strong>Inclusive Design:</strong> Involve diverse teams and stakeholders in the design process to identify potential blind spots and challenge assumptions early on.</li>
           <li><strong>Adversarial Debiasing:</strong> Train a second model to predict the sensitive attribute (e.g., gender, race) from the first model's predictions. The primary model is then penalized for being 'too predictable,' forcing it to learn less biased representations.</li>
         </ul>
       </section>
 
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+      <section>
         <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
           Case Study: Mitigating Bias in a Hiring AI
@@ -168,29 +153,7 @@ When a user submits their mitigation strategy, follow these steps:
           />
         </div>
       </section>
-
-      {/* Validation Quiz */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
-
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-7/7.3" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Fine-Tuning Models
-        </Link>
-        <Link 
-          to="/instructions/module-8/8.2" 
-          onClick={() => completeLesson(8, 1)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next: Explainability <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
-    </div>
+    </LessonTemplate>
   );
 };
 

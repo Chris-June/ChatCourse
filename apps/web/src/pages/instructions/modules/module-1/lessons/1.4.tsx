@@ -1,14 +1,8 @@
 import React from 'react';
-import { Lightbulb, Check } from 'lucide-react';
-import LessonHeader from '../../../../../components/layouts/LessonHeader';
-import LessonFooter from '../../../../../components/layouts/LessonFooter';
-import { useProgressStore } from '../../../../../store/progressStore';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
-import PromptImprover from '../../../components/PromptImprover';
+import { Lightbulb, Check, ThumbsUp, ThumbsDown } from 'lucide-react';
+import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 
 const Lesson1_4: React.FC = () => {
-  const { completeLesson } = useProgressStore();
-
   const quizQuestions = [
     {
       questionText: 'In the context of AI, what is a "prompt"?',
@@ -35,60 +29,64 @@ const Lesson1_4: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-8 p-4 md:p-6 text-gray-200">
-      <LessonHeader 
-        title="1.4: The Art of the Ask (Intro to Prompting)"
-        subtitle="How to talk to an AI to get what you want."
-      />
-
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Lightbulb className="w-7 h-7 mr-3 text-blue-400" />
-          Your Conversation with AI
-        </h2>
-        <p className="text-gray-300 mb-4">
-          You now know that AI predicts the next word and that it can sometimes make things up (hallucinate). So, how do we control it? The answer is the <strong>prompt</strong>.
-        </p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-blue-500/50">
-          <p className="text-lg text-center font-semibold text-blue-200">
-            A prompt is the instruction you give to an AI. It's how you ask questions, give commands, and provide context.
+    <LessonTemplate
+      moduleNumber={1}
+      lessonNumber={4}
+      title="1.4: The Art of the Ask (Intro to Prompting)"
+      subtitle="How to talk to an AI to get what you want."
+      quizQuestions={quizQuestions}
+    >
+      <div className="space-y-8 text-gray-200">
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+            <Lightbulb className="w-7 h-7 mr-3 text-blue-400" />
+            Your Conversation with AI
+          </h2>
+          <p className="text-gray-300 mb-4">
+            You now know that AI predicts the next word and that it can sometimes make things up (hallucinate). So, how do we control it? The answer is the <strong>prompt</strong>.
+          </p>
+          <div className="bg-gray-900 p-4 rounded-lg border border-blue-500/50">
+            <p className="text-lg text-center font-semibold text-blue-200">
+              A prompt is the instruction you give to an AI. It's how you ask questions, give commands, and provide context.
+            </p>
+          </div>
+          <p className="text-gray-300 mt-4">
+            Think of the AI as an incredibly knowledgeable and skilled, but very literal, new employee. It can do almost anything you ask, but it won't do anything *until* you ask. It has no common sense and relies 100% on your instructions. The quality of your prompt directly determines the quality of its response.
           </p>
         </div>
-        <p className="text-gray-300 mt-4">
-          Think of the AI as an incredibly knowledgeable and skilled, but very literal, new employee who has read every book in the world but has never actually *seen* the world. It can do almost anything you ask, but it won't do anything *until* you ask, and it will follow your instructions to the letter, even if they don't make sense. It has no common sense and relies 100% on your guidance. The quality of your prompt directly determines the quality of its response.
-        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-red-900/20 border border-red-500/30 p-4 rounded-lg">
+            <h3 className="text-lg font-bold text-red-300 flex items-center mb-3"><ThumbsDown className="mr-2"/>A Bad Prompt</h3>
+            <p className="text-gray-400 italic bg-gray-800 p-3 rounded-md">"Tell me about space."</p>
+            <p className="text-gray-300 mt-3">This is too vague. 'Space' is a huge topic. The AI doesn't know if you want to know about planets, stars, black holes, the history of space travel, or something else. It will likely give a very generic, high-level summary.</p>
+          </div>
+          <div className="bg-green-900/20 border border-green-500/30 p-4 rounded-lg">
+            <h3 className="text-lg font-bold text-green-300 flex items-center mb-3"><ThumbsUp className="mr-2"/>A Good Prompt</h3>
+            <p className="text-gray-400 italic bg-gray-800 p-3 rounded-md">"Explain the concept of a black hole to a 12-year-old in three simple paragraphs."</p>
+            <p className="text-gray-300 mt-3">This is specific. It tells the AI the exact topic (black holes), the target audience (a 12-year-old), and the desired format (three simple paragraphs). This clarity will lead to a much better, more useful response.</p>
+          </div>
+        </div>
+
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-green-300">Key Takeaways</h2>
+          <ul className="space-y-3 text-gray-300">
+            <li className="flex items-start">
+              <Check className="w-6 h-6 text-green-400 mr-3 mt-1 flex-shrink-0" />
+              <span><strong>Garbage In, Garbage Out:</strong> The quality of the AI's output is directly tied to the quality of your input.</span>
+            </li>
+            <li className="flex items-start">
+              <Check className="w-6 h-6 text-green-400 mr-3 mt-1 flex-shrink-0" />
+              <span><strong>Be Specific:</strong> Always provide as much clear context and detail as you can. Tell the AI what you want, who the audience is, and what format you need.</span>
+            </li>
+            <li className="flex items-start">
+              <Check className="w-6 h-6 text-green-400 mr-3 mt-1 flex-shrink-0" />
+              <span><strong>Prompting is a Skill:</strong> Getting good at prompting is the single most important skill for using AI effectively. It's a skill you'll build throughout this course.</span>
+            </li>
+          </ul>
+        </div>
       </div>
-
-      <PromptImprover />
-
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-green-300">Key Takeaways</h2>
-        <ul className="space-y-3 text-gray-300">
-          <li className="flex items-start">
-            <Check className="w-6 h-6 text-green-400 mr-3 mt-1 flex-shrink-0" />
-            <span><strong>Garbage In, Garbage Out:</strong> The quality of the AI's output is directly tied to the quality of your input.</span>
-          </li>
-          <li className="flex items-start">
-            <Check className="w-6 h-6 text-green-400 mr-3 mt-1 flex-shrink-0" />
-            <span><strong>Be Specific:</strong> Always provide as much clear context and detail as you can. Tell the AI what you want, who the audience is, and what format you need.</span>
-          </li>
-           <li className="flex items-start">
-            <Check className="w-6 h-6 text-green-400 mr-3 mt-1 flex-shrink-0" />
-            <span><strong>Prompting is a Skill:</strong> Getting good at prompting is the single most important skill for using AI effectively. It's a skill you'll build throughout this course.</span>
-          </li>
-        </ul>
-      </div>
-
-      <ModuleQuizzes questions={quizQuestions} />
-
-      <LessonFooter 
-        prevLessonPath="/instructions/module-1/1.3"
-        prevLessonTitle="1.3: When AI Gets It Wrong (Hallucinations)"
-        nextLessonPath="/instructions/module-1/1.5"
-        nextLessonTitle="1.5: The I.N.S.Y.N.C. Framework"
-        onNextClick={() => completeLesson(1, 4)}
-      />
-    </div>
+    </LessonTemplate>
   );
 };
 
