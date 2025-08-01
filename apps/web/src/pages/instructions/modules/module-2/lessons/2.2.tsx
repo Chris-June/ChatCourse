@@ -11,7 +11,7 @@ import ExplicitReferencesTabs from '../../../components/ExplicitReferencesTabs';
 import ContextContaminationDemo from '../../../components/ContextContaminationDemo';
 import InstructionPriming from '../../../components/InstructionPriming';
 import CommonPitfalls from '../../../components/CommonPitfalls';
-import InlineChat from '../../../../../components/InlineChat';
+import ContextualChatChallenge from '../../../components/ContextualChatChallenge';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
 const initialConversation = [
@@ -133,13 +133,9 @@ const Lesson2_2: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Now, apply all the techniques you've learned. Start by summarizing the goal regularly to keep the AI focused on your objective. Use explicit references to direct the AI to specific details, like saying 'Make the second headline you suggested more inspiring by focusing on the mission to unlock human creativity' instead of 'Make it better.' Build on previous ideas by referencing them explicitly, and start fresh when the conversation becomes confused or off-track.
         </p>
-        <InlineChat 
-          moduleId="module-2.2-final-challenge"
-          initialMessages={initialConversation} 
-          placeholder="Practice all context management techniques..." 
+        <ContextualChatChallenge 
+          initialMessages={initialConversation}
           challengeChecklist={challengeChecklist}
-          maxFollowUps={5}
-          simulatedResponse="Excellent work! You've successfully guided the conversation using all the key techniques. You summarized the goal, used explicit references to ask for alternatives, and built upon the context to refine the final output."
         />
       </div>
 

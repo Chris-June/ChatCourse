@@ -1,7 +1,6 @@
 import React from 'react';
 import { Target, Bot } from 'lucide-react';
-import CopyButton from '../../../../../components/CopyButton';
-import InlineChat from '../../../../../components/InlineChat';
+import SocraticTutorProject from '../../../components/SocraticTutorProject';
 import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
@@ -86,13 +85,7 @@ const Lesson2_3: React.FC = () => {
         It's time to put your new skills to the test! This project challenges you to use this very chat interface to create and maintain a consistent AI persona over multiple turns. This is about practicing context management: the skill of deliberately guiding the AI by providing, reinforcing, and clarifying information to keep the conversation coherent and on-task.
       </p>
 
-      <p className="text-gray-300 mb-4">
-        Think of your system prompt as the AI's "character sheet"—it defines who the AI is and how it should behave. Unlike regular conversation, this persona persists throughout the entire interaction unless you explicitly change it.
-      </p>
       
-      <p className="text-gray-300 mb-4">
-        Context management isn't just about memory—it's an active skill of guiding the AI's attention and maintaining your intended persona. You'll practice re-centering the AI when it starts to drift from your established character, like gently reminding someone of their role in a play.
-      </p>
 
       <Accordion
         title="Project Objective"
@@ -111,18 +104,9 @@ const Lesson2_3: React.FC = () => {
         <p className="text-gray-300 mb-4">
           Start a new chat and use your first message to set the stage. This first message is called a system prompt. It's the foundational instruction that the AI will refer back to throughout the entire conversation to remember its role and rules. This is the most critical step.
         </p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <p className="text-gray-400 mb-3">Copy and paste the following prompt into the chat window as your first message.</p>
-          <div className="relative">
-            <CopyButton textToCopy="You are Gnosi, a Socratic Tutor. Your goal is to help me understand a topic by only asking guiding questions. Never give direct answers. Start by asking me what I want to learn about." />
-            <div className="bg-gray-700 p-3 rounded-md pr-10">
-              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
-                You are Gnosi, a Socratic Tutor. Your goal is to help me understand a topic by only asking guiding questions. Never give direct answers. Start by asking me what I want to learn about.
-              </code>
-            </div>
-          </div>
-        </div>
+        <p className="text-gray-300 mb-4">
+          Your first message to the AI is critical. It sets the 'persona' and rules for the entire conversation. Use the "Load System Prompt" button in the project workspace below to load the starting prompt.
+        </p>
       </Accordion>
 
       {/* Project Workspace */}
@@ -132,16 +116,11 @@ const Lesson2_3: React.FC = () => {
       </p>
       
       <p className="text-gray-300 mb-4">
-        <strong>Challenge:</strong> Practice maintaining this persona throughout a conversation. When the AI starts to drift (giving direct answers instead of questions), use re-centering techniques like: "Remember, as a Socratic tutor, your role is to guide through questions..." to bring it back to the established approach.
-      </p>
-        <p className="text-gray-300 mb-4">
-          Use the chat window below to complete the project. Start by pasting the persona prompt from Step 1. If the AI starts giving direct answers instead of asking questions, gently remind it of its role by saying something like: 'Remember, you are Gnosi, a Socratic tutor who only asks questions.' The evaluation criteria will be tracked as a checklist inside the chat window.
+          <strong>Your Challenge:</strong> Use the project workspace below to complete the exercise. Start by loading the system prompt, then guide the AI to teach you a topic of your choice. Your goal is to keep the AI in its Socratic persona. The checklist will track your progress in managing the AI's context.
         </p>
-        <InlineChat 
-          moduleId="module-2.3-project"
-          placeholder="Your conversation with the Socratic Tutor..."
-          maxFollowUps={15}
+        <SocraticTutorProject 
           challengeChecklist={challengeChecklist}
+          systemPrompt="You are Gnosi, a Socratic Tutor. Your goal is to help me understand a topic by only asking guiding questions. Never give direct answers. Start by asking me what I want to learn about."
         />
       </section>
 
