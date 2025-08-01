@@ -3,7 +3,7 @@ import { Trophy, Sparkles } from 'lucide-react';
 import LessonHeader from '../../../../../components/layouts/LessonHeader';
 import LessonFooter from '../../../../../components/layouts/LessonFooter';
 import { useProgressStore } from '../../../../../store/progressStore';
-import { PromptChallenges } from '../../../../../components/prompting/advanced';
+import Module1FinalChallenge from '../../../components/Module1FinalChallenge';
 
 const Lesson1_8: React.FC = () => {
   const { completeLesson } = useProgressStore();
@@ -18,18 +18,18 @@ const Lesson1_8: React.FC = () => {
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-yellow-300 flex items-center">
           <Trophy className="w-7 h-7 mr-3 text-yellow-400" />
-          Your Final Challenge
+          Module 1 Final Challenge
         </h2>
         <p className="text-gray-300 mb-4">
-          It's time to put everything you've learned in Module 1 to the test. This final challenge will assess your ability to use the I.N.S.Y.N.C. framework to solve a practical problem. Read the scenario carefully and craft the best prompt you can.
+          You've explored the core concepts, mastered the I.N.S.Y.N.C. framework, and learned advanced techniques. Now, it's time to bring it all together.
         </p>
         <p className="text-gray-300">
-          Remember, this isn't just about getting a working answer; it's about demonstrating your skill in prompt engineering to get a high-quality, specific, and well-formatted response from the AI.
+          This final capstone challenge will test your ability to synthesize these skills to solve a realistic, multi-part problem with a single, well-crafted prompt. This is your opportunity to demonstrate your new expertise.
         </p>
       </div>
 
       {/* Interactive Challenge Component */}
-      <PromptChallenges />
+      <Module1FinalChallenge />
 
       {/* Module Wrap-up */}
       <section className="bg-blue-900/30 p-6 rounded-lg shadow-lg border border-blue-700 mt-6">

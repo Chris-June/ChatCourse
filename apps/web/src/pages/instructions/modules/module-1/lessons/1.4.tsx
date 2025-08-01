@@ -1,9 +1,10 @@
 import React from 'react';
-import { Lightbulb, Check, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { Lightbulb, Check } from 'lucide-react';
 import LessonHeader from '../../../../../components/layouts/LessonHeader';
 import LessonFooter from '../../../../../components/layouts/LessonFooter';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import PromptImprover from '../../../components/PromptImprover';
 
 const Lesson1_4: React.FC = () => {
   const { completeLesson } = useProgressStore();
@@ -54,22 +55,11 @@ const Lesson1_4: React.FC = () => {
           </p>
         </div>
         <p className="text-gray-300 mt-4">
-          Think of the AI as an incredibly knowledgeable and skilled, but very literal, new employee. It can do almost anything you ask, but it won't do anything *until* you ask. It has no common sense and relies 100% on your instructions. The quality of your prompt directly determines the quality of its response.
+          Think of the AI as an incredibly knowledgeable and skilled, but very literal, new employee who has read every book in the world but has never actually *seen* the world. It can do almost anything you ask, but it won't do anything *until* you ask, and it will follow your instructions to the letter, even if they don't make sense. It has no common sense and relies 100% on your guidance. The quality of your prompt directly determines the quality of its response.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-red-900/20 border border-red-500/30 p-4 rounded-lg">
-          <h3 className="text-lg font-bold text-red-300 flex items-center mb-3"><ThumbsDown className="mr-2"/>A Bad Prompt</h3>
-          <p className="text-gray-400 italic bg-gray-800 p-3 rounded-md">"Tell me about space."</p>
-          <p className="text-gray-300 mt-3">This is too vague. 'Space' is a huge topic. The AI doesn't know if you want to know about planets, stars, black holes, the history of space travel, or something else. It will likely give a very generic, high-level summary.</p>
-        </div>
-        <div className="bg-green-900/20 border border-green-500/30 p-4 rounded-lg">
-          <h3 className="text-lg font-bold text-green-300 flex items-center mb-3"><ThumbsUp className="mr-2"/>A Good Prompt</h3>
-          <p className="text-gray-400 italic bg-gray-800 p-3 rounded-md">"Explain the concept of a black hole to a 12-year-old in three simple paragraphs."</p>
-          <p className="text-gray-300 mt-3">This is specific. It tells the AI the exact topic (black holes), the target audience (a 12-year-old), and the desired format (three simple paragraphs). This clarity will lead to a much better, more useful response.</p>
-        </div>
-      </div>
+      <PromptImprover />
 
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-green-300">Key Takeaways</h2>

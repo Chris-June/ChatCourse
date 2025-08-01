@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Beaker, Code, BookOpen, BarChart3, Sparkles, Layers, Zap } from 'lucide-react';
+import { Beaker, Code, BookOpen, BarChart3, Sparkles, Layers, Zap, Info } from 'lucide-react';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 import LessonHeader from '../../../../../components/layouts/LessonHeader';
@@ -118,11 +118,22 @@ const Lesson1_7: React.FC = () => {
   }, []);
 
   return (
-    <div className="space-y-8 p-4 md:p-6">
+    <div className="space-y-6 p-4 md:p-6 text-gray-200">
       <LessonHeader 
         title="1.7: Advanced Prompting Techniques"
-        subtitle="Take your prompt engineering skills to the next level with these advanced techniques and tools."
+        subtitle="Take your prompt engineering skills to the next level with these powerful strategies."
       />
+
+      {/* Introduction */}
+      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+          <Sparkles className="w-7 h-7 mr-3 text-blue-400" />
+          From Apprentice to Artisan
+        </h2>
+        <p className="text-gray-300">
+          If the I.N.S.Y.N.C. framework gave you the essential tools, these advanced techniques are the master-level skills that will turn you into a true prompt artisan. They are strategies for tackling complex problems with precision, creativity, and efficiency, allowing you to unlock the AI's full potential.
+        </p>
+      </section>
 
       {/* Navigation Tabs */}
       <div className="border-b border-gray-700">
@@ -171,6 +182,13 @@ const Lesson1_7: React.FC = () => {
                 <p className="text-gray-400">See how different elements of your prompt affect the AI's response quality in real-time.</p>
               </div>
             </div>
+            <p className="text-gray-300 mb-4">
+              The <strong>Prompt Visualizer</strong> helps you see the 'engine' inside a complex prompt. By breaking a prompt down into its core components (like Role, Task, and Context), you can understand how it works, debug it when it fails, and borrow techniques from prompts written by others. It's like looking at the blueprints of a finished building.
+            </p>
+            <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg mt-4">
+              <h4 className="font-semibold text-blue-300 flex items-center mb-2"><Info className="w-5 h-5 mr-2"/>Why This Matters</h4>
+              <p className="text-blue-200/80 text-sm">Deconstruction is a powerful learning and debugging tool. When a prompt isn't working, breaking it down helps you pinpoint the weak component. It also allows you to analyze expert-level prompts and incorporate their techniques into your own work.</p>
+            </div>
             <PromptVisualizer />
           </div>
         )}
@@ -182,6 +200,13 @@ const Lesson1_7: React.FC = () => {
                 <h2 className="text-2xl font-bold text-white">Prompt Engineering Challenges</h2>
                 <p className="text-gray-400">Test and improve your prompt engineering skills with these structured exercises.</p>
               </div>
+            </div>
+            <p className="text-gray-300 mb-4">
+              The best way to build muscle is to lift weights. These <strong>Prompt Challenges</strong> are the gym for your prompt engineering skills. Each challenge presents a targeted exercise designed to test your abilities under specific constraints, pushing you to apply what you've learned in a practical, hands-on context.
+            </p>
+            <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg mt-4">
+              <h4 className="font-semibold text-blue-300 flex items-center mb-2"><Info className="w-5 h-5 mr-2"/>Why This Matters</h4>
+              <p className="text-blue-200/80 text-sm">Deliberate practice is the fastest way to improve. These challenges provide a safe, structured environment to experiment, fail, and learn without real-world consequences. Completing them will rapidly accelerate your journey to becoming a skilled prompt engineer.</p>
             </div>
             <PromptChallenges />
           </div>
@@ -195,6 +220,13 @@ const Lesson1_7: React.FC = () => {
                 <p className="text-gray-400">Explore a collection of effective prompt patterns you can use in your own work.</p>
               </div>
             </div>
+            <p className="text-gray-300 mb-4">
+              Prompt patterns are like recipes from a master chef. Instead of starting from scratch, you use a proven, reusable structure to solve a common problem reliably. The <strong>Persona Pattern</strong>, for example, assigns the AI a specific role (like 'expert copywriter' or 'seasoned historian'), which dramatically improves the relevance and tone of its output.
+            </p>
+            <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg mt-4">
+              <h4 className="font-semibold text-blue-300 flex items-center mb-2"><Info className="w-5 h-5 mr-2"/>Why This Matters</h4>
+              <p className="text-blue-200/80 text-sm">Patterns save you time and prevent errors. By using a tested structure, you can consistently achieve high-quality results for common tasks (like summarizing text, changing tone, or extracting data) without reinventing the wheel every time.</p>
+            </div>
             <PromptPatternLibrary />
           </div>
         )}
@@ -207,6 +239,13 @@ const Lesson1_7: React.FC = () => {
                 <p className="text-gray-400">Iteratively improve your prompts with AI-powered feedback and version control.</p>
               </div>
             </div>
+            <p className="text-gray-300 mb-4">
+              Think of prompt refinement as a sculptor working with marble. You start with a rough block (your first prompt) and make small, deliberate chips and adjustments until a masterpiece emerges. This workbench allows you to do just that: systematically tweak your prompt and see the immediate impact of each change.
+            </p>
+            <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg mt-4">
+              <h4 className="font-semibold text-blue-300 flex items-center mb-2"><Info className="w-5 h-5 mr-2"/>Why This Matters</h4>
+              <p className="text-blue-200/80 text-sm">Complex tasks are rarely solved on the first try. Iterative refinement is the single most important skill for moving from a 'good enough' output to a precise, high-quality result that perfectly matches your vision.</p>
+            </div>
             <PromptRefinementWorkbench />
           </div>
         )}
@@ -218,6 +257,13 @@ const Lesson1_7: React.FC = () => {
                 <h2 className="text-2xl font-bold text-white">AI Pair Programming</h2>
                 <p className="text-gray-400">Collaborate with an AI pair programmer, switching between driver and navigator roles.</p>
               </div>
+            </div>
+            <p className="text-gray-300 mb-4">
+              Treat the AI less like a tool and more like a hyper-competent intern. In this <strong>Pair Programming Simulator</strong>, you'll work with an AI to write code. You are the senior developer—providing the vision, requirements, and crucial feedback. The AI is your partner, handling the boilerplate and suggesting solutions, but relying on your guidance to get it right.
+            </p>
+            <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg mt-4">
+              <h4 className="font-semibold text-blue-300 flex items-center mb-2"><Info className="w-5 h-5 mr-2"/>Why This Matters</h4>
+              <p className="text-blue-200/80 text-sm">This collaborative approach can supercharge your productivity. It's not just for coding; you can use it for writing, brainstorming, and problem-solving. Learning to guide an AI partner effectively is a key skill for the future.</p>
             </div>
             <PairProgrammingSimulator />
           </div>

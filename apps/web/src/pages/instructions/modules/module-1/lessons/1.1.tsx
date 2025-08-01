@@ -4,6 +4,7 @@ import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 import LessonHeader from '../../../../../components/layouts/LessonHeader';
 import LessonFooter from '../../../../../components/layouts/LessonFooter';
+import PredictTheNextToken from '../../../components/PredictTheNextToken';
 
 const tokenizeText = (text: string): string[] => {
   // This is a simplified tokenizer for demonstration.
@@ -111,20 +112,18 @@ const Lesson1_1: React.FC = () => {
   return (
     <div className="space-y-8 p-6 bg-gray-900 text-white">
       <LessonHeader 
-        title="1.1 What is an AI, Really?"
-        subtitle="Beyond the hype, let's build a real foundation."
-        nextLessonPath="/instructions/module-1/1.2"
-        onNextClick={() => completeLesson(1, 1)}
+        title="1.1: What is an AI, Really?"
+        subtitle="Beyond the hype, let's build a real foundation for effective prompting."
       />
 
       <section className="space-y-6">
         <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
           <h2 className="text-2xl font-semibold text-white mb-4 flex items-center">
             <Lightbulb className="w-6 h-6 mr-3 text-yellow-400" />
-            The Core Idea: It's All About Prediction
+            The Core Idea: A Super-Powered Autocomplete
           </h2>
           <p className="text-gray-300 mb-4">
-            Forget robots taking over the world for a moment. At its core, a Large Language Model (LLM) like the one powering this course has a surprisingly simple primary job:
+            Forget robots taking over the world. At its core, an LLM has a surprisingly simple primary job. Think of it like the autocomplete on your phone, but infinitely more powerful.
           </p>
           <blockquote className="border-l-4 border-blue-500 pl-4 py-2 bg-blue-900/20 text-blue-200">
             <p className="font-medium">
@@ -132,7 +131,7 @@ const Lesson1_1: React.FC = () => {
             </p>
           </blockquote>
           <p className="text-gray-300 mt-4">
-            That's it. All the amazing things they can do—write stories, answer questions, generate code—emerge from this single, powerful capability. They are masters of recognizing and recreating patterns from the vast amount of text data they were trained on.
+            That's it. All the amazing things they can do—write stories, answer questions, generate code—emerge from this single, powerful capability. They are masters of recognizing and recreating patterns from the vast amount of text they were trained on. A good prompt makes the desired answer the most probable next sequence of words.
           </p>
         </div>
 
@@ -153,6 +152,8 @@ const Lesson1_1: React.FC = () => {
           </p>
         </div>
 
+        <PredictTheNextToken />
+
         <InteractiveTokenizer />
 
         <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
@@ -172,7 +173,7 @@ const Lesson1_1: React.FC = () => {
 
       <LessonFooter 
         nextLessonPath="/instructions/module-1/1.2"
-        nextLessonTitle="Next: 1.2 "
+        nextLessonTitle="1.2: The Next Word Predictor"
         onNextClick={() => completeLesson(1, 1)}
       />
     </div>
