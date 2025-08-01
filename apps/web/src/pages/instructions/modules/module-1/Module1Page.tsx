@@ -12,9 +12,14 @@ const Module1Page: React.FC = () => {
   const location = useLocation();
   
   const lessons: Lesson[] = [
-    { id: '1.1', title: 'Introduction to AI', path: '/instructions/module-1/1.1' },
-    { id: '1.2', title: 'Crafting Effective Prompts', path: '/instructions/module-1/1.2' },
-    { id: '1.3', title: 'Advanced Techniques', path: '/instructions/module-1/1.3' },
+    { id: '1.1', title: 'What is Generative AI?', path: '/instructions/module-1/1.1' },
+    { id: '1.2', title: 'The "Next-Word" Predictor', path: '/instructions/module-1/1.2' },
+    { id: '1.3', title: 'The Power of Specificity', path: '/instructions/module-1/1.3' },
+    { id: '1.4', title: 'Intro to Prompting', path: '/instructions/module-1/1.4' },
+    { id: '1.5', title: 'The I.N.S.Y.N.C. Framework', path: '/instructions/module-1/1.5' },
+    { id: '1.6', title: 'I.N.S.Y.N.C. Workshop', path: '/instructions/module-1/1.6' },
+    { id: '1.7', title: 'Advanced Prompting', path: '/instructions/module-1/1.7' },
+    { id: '1.8', title: 'Module 1 Challenge', path: '/instructions/module-1/1.8' },
   ];
 
   const currentLessonIndex = lessons.findIndex(lesson => location.pathname.endsWith(lesson.id));
