@@ -164,7 +164,7 @@ const Lesson3_2: React.FC = () => {
             moduleId="module-3.2-zeroshot-cot"
             maxAttempts={5}
             maxFollowUps={3}
-            placeholder="Try your problem here... add 'Let's think step by step'"
+            placeholder="Enter your query here based on what we have learned in this section..."
             systemPrompt="You are a helpful AI assistant. When the user asks a question followed by 'Let's think step by step', break down your response into clear, logical steps. Show your reasoning process before arriving at the final answer. If the user doesn't include the trigger phrase, you may suggest they try adding it to see your step-by-step reasoning."
             challengeChecklist={zeroShotCoTChallengeChecklist}
           />

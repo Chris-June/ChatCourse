@@ -303,7 +303,7 @@ Bio: "Sarah, a 28-year-old software engineer from Toronto, Canada, is skilled in
           moduleId="module-3.3-structured-output"
           maxAttempts={5}
           maxFollowUps={2}
-          placeholder="Generate 3 beginner project ideas as JSON objects..."
+          placeholder="Generate a list of 3 project ideas for a beginner..."
           systemPrompt="You are a helpful AI assistant. The user is learning about generating structured data. When they ask for a list, respond with a properly formatted JSON array of objects. Each object should have 'title' and 'description' keys. If they don't specify the structure, use this format by default. Always validate the JSON before returning it."
           challengeChecklist={structuredListChallengeChecklist}
         />

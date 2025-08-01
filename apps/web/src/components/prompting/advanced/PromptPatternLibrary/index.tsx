@@ -59,8 +59,8 @@ const PromptPatternLibrary: React.FC<PromptPatternLibraryProps> = ({ patterns })
           ? '' 
           : import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
         const endpoint = apiBaseUrl 
-          ? `${apiBaseUrl}${apiBaseUrl.endsWith('/') ? '' : '/'}api/chat/get-patterns`
-          : '/api/chat/get-patterns';
+          ? `${apiBaseUrl}${apiBaseUrl.endsWith('/') ? '' : '/'}api/prompt-patterns`
+          : '/api/prompt-patterns';
 
         const response = await fetch(endpoint);
         if (!response.ok) {
