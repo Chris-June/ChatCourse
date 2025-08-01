@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
-import InlineChat from '../../../../../components/InlineChat';
-import { useProgressStore } from '../../../../../store/progressStore';
-import RagFlowVisualizer from '../../../components/RagFlowVisualizer';
-import RagUseCases from '../../../components/RagUseCases';
-import RagPlayground from '../../../components/RagPlayground';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import InlineChat from '@/components/InlineChat';
+import { useProgressStore } from '@/store/progressStore';
+import RagFlowVisualizer from '@/pages/instructions/components/RagFlowVisualizer';
+import RagUseCases from '@/pages/instructions/components/RagUseCases';
+import RagPlayground from '@/pages/instructions/components/RagPlayground';
+import ModuleQuizzes from '@/components/ModuleQuizzes/ModuleQuizzes';
+import LessonTemplate from '@/components/layouts/LessonTemplate';
 
 const Lesson7_2: React.FC = () => {
   const quizQuestions = [
@@ -92,47 +93,54 @@ When a user submits a prompt, follow these steps:
   ];
 
   return (
-    <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-bold text-white flex items-center">
-          <Lightbulb className="w-10 h-10 mr-4 text-yellow-400" />
-          Lesson 7.2: The Diligent Research Assistant
-        </h1>
-      </div>
+    <LessonTemplate
+      moduleNumber={7}
+      lessonNumber={2}
+      title="The Diligent Research Assistant"
+      subtitle="Giving your LLM a library card to access external knowledge."
+      quizQuestions={quizQuestions}
+    >
+      <div className="space-y-8 p-4 md:p-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-4xl font-bold text-white flex items-center">
+            <Lightbulb className="w-10 h-10 mr-4 text-yellow-400" />
+            Lesson 7.2: The Diligent Research Assistant
+          </h1>
+        </div>
 
-      <p className="text-lg text-gray-300">
-        An LLM is like a brilliant professor who knows a lot, but can't possibly remember everything. RAG gives your professor a diligent research assistant. Before answering a question, the assistant runs to the library (your knowledge base), finds the right facts, and puts them on the professor's desk. This ensures the final answer is accurate and based on specific, trusted information.
-      </p>
-
-      <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">The Research Process: Retrieve, Augment, Generate</h2>
-        <p className="text-gray-300 mb-4">The research assistant's job has three steps: find the right books (Retrieve), place them on the desk with key passages marked (Augment), so the professor can write the answer (Generate). This visualizer shows that process in action.</p>
-        <RagFlowVisualizer />
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Where a Research Assistant Shines</h2>
-        <p className="text-gray-300 mb-4">This technique is perfect for any task requiring fact-based answers from a specific set of documents, like a customer support bot that only uses official help docs, or an internal tool for querying company policies.</p>
-        <RagUseCases />
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Your First Day as a Research Assistant</h2>
-        <p className="text-gray-300 mb-4">Time to get hands-on. We've set up a small library for a fictional company. Your job is to ask the professor questions and watch your assistant retrieve the right documents to help them answer.</p>
-        <RagPlayground />
-      </section>
-
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Writing the Professor's Briefing Notes
-        </h2>
-        <p className="text-gray-300 mb-4">
-          The final, most critical step is writing the briefing note for the professor. This note (the generator prompt) must instruct them to answer the user's question using *only* the research you've provided. This prevents them from guessing. Your task is to write that perfect briefing note.
+        <p className="text-lg text-gray-300">
+          An LLM is like a brilliant professor who knows a lot, but can't possibly remember everything. RAG gives your professor a diligent research assistant. Before answering a question, the assistant runs to the library (your knowledge base), finds the right facts, and puts them on the professor's desk. This ensures the final answer is accurate and based on specific, trusted information.
         </p>
-        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-          <p className="text-gray-400 mb-3 text-sm">Engineer a generator prompt for a RAG system. Your prompt should instruct the model to answer a user's question based only on provided context. Use the chat window below to submit your prompt and get expert feedback.</p>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300">The Research Process: Retrieve, Augment, Generate</h2>
+          <p className="text-gray-300 mb-4">The research assistant's job has three steps: find the right books (Retrieve), place them on the desk with key passages marked (Augment), so the professor can write the answer (Generate). This visualizer shows that process in action.</p>
+          <RagFlowVisualizer />
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Where a Research Assistant Shines</h2>
+          <p className="text-gray-300 mb-4">This technique is perfect for any task requiring fact-based answers from a specific set of documents, like a customer support bot that only uses official help docs, or an internal tool for querying company policies.</p>
+          <RagUseCases />
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Your First Day as a Research Assistant</h2>
+          <p className="text-gray-300 mb-4">Time to get hands-on. We've set up a small library for a fictional company. Your job is to ask the professor questions and watch your assistant retrieve the right documents to help them answer.</p>
+          <RagPlayground />
+        </section>
+
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+            <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
+            Writing the Professor's Briefing Notes
+          </h2>
+          <p className="text-gray-300 mb-4">
+            The final, most critical step is writing the briefing note for the professor. This note (the generator prompt) must instruct them to answer the user's question using *only* the research you've provided. This prevents them from guessing. Your task is to write that perfect briefing note.
+          </p>
+          <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <h3 className="font-semibold text-white mb-2">Your Task:</h3>
+            <p className="text-gray-400 mb-3 text-sm">Engineer a generator prompt for a RAG system. Your prompt should instruct the model to answer a user's question based only on provided context. Use the chat window below to submit your prompt and get expert feedback.</p>
           {/* InlineChat for RAG prompt engineering exercise */}
           <InlineChat 
             moduleId="module-7.2-rag-prompt"
@@ -173,6 +181,7 @@ When a user submits a prompt, follow these steps:
         </Link>
       </div>
     </div>
+  </LessonTemplate>
   );
 };
 

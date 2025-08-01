@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Send } from 'lucide-react';
-import LessonHeader from '../../../../../components/layouts/LessonHeader';
-import LessonFooter from '../../../../../components/layouts/LessonFooter';
-import { useProgressStore } from '../../../../../store/progressStore';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 
 // Mock API call for chat response
 const getMockResponse = (prompt: string): Promise<string> => {
@@ -22,7 +19,6 @@ const PromptBuilder: React.FC<{ onPromptSubmit: (prompt: string) => void }> = ({
   const [context, setContext] = useState('');
 
   const constructPrompt = () => {
-    // A real implementation would be more sophisticated
     return `Intent: ${intent}\nNuance: ${nuance}\nStyle: ${style}\nYou-as-Narrative: ${youAsNarrative}\nContext: ${context}`;
   };
 
@@ -89,12 +85,7 @@ const InlineChat: React.FC<{ prompt: string }> = ({ prompt }) => {
 };
 
 const Lesson1_2: React.FC = () => {
-  const { completeLesson } = useProgressStore();
   const [submittedPrompt, setSubmittedPrompt] = useState('');
-
-  useEffect(() => {
-    completeLesson(1, 2);
-  }, [completeLesson]);
 
   const quizQuestions = [
     {
@@ -117,12 +108,13 @@ const Lesson1_2: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-8 p-6 bg-gray-900 text-white">
-      <LessonHeader 
-        title="1.2 The I.N.S.Y.N.C. Framework"
-        subtitle="A structured approach to predictable results."
-      />
-
+    <LessonTemplate
+      moduleNumber={1}
+      lessonNumber={2}
+      title="1.2 The I.N.S.Y.N.C. Framework"
+      subtitle="A structured approach to predictable results."
+      quizQuestions={quizQuestions}
+    >
       <section>
         <p className="text-gray-300 mb-4">
           Vague prompts lead to vague answers. To get high-quality, predictable results from an AI, you need to provide high-quality, structured input. The I.N.S.Y.N.C. framework is a mental model for building better prompts.
@@ -138,18 +130,7 @@ const Lesson1_2: React.FC = () => {
 
       <PromptBuilder onPromptSubmit={setSubmittedPrompt} />
       <InlineChat prompt={submittedPrompt} />
-
-      <section>
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
-
-      <LessonFooter 
-        prevLessonPath="/instructions/module-1/1.1"
-        prevLessonTitle="1.1: What is an AI, Really?"
-        nextLessonPath="/instructions/module-1/1.3"
-        nextLessonTitle="1.3: When AI Gets It Wrong (Hallucinations)"
-      />
-    </div>
+    </LessonTemplate>
   );
 };
 

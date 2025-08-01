@@ -1,86 +1,129 @@
 /**
  * @file Zustand store for user progress management.
  * @description This file defines the Zustand store that tracks a user's progress
- * through the learning modules, persisting the data to localStorage.
+ * through the learning modules, including quiz scores and completion status,
+ * persisting the data to localStorage.
  */
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-/**
- * Defines the state and actions for tracking user progress.
- */
+// --- TYPE DEFINITIONS ---
+
+interface LessonProgress {
+  completed: boolean;
+  score?: number;
+  totalQuestions?: number;
+  completedAt?: string; 
+}
+
+interface ModuleProgress {
+  [lessonId: number]: LessonProgress;
+}
+
 interface ProgressState {
+  modules: {
+    [moduleId: number]: ModuleProgress;
+  };
   highestCompletedModule: number;
   highestCompletedLesson: number;
   completeLesson: (module: number, lesson: number) => void;
+  completeLessonWithScore: (module: number, lesson: number, score: number, total: number) => void;
   isLessonUnlocked: (module: number, lesson: number) => boolean;
+  isLessonComplete: (module: number, lesson: number) => boolean;
+  getLessonProgress: (module: number, lesson: number) => LessonProgress | undefined;
 }
 
-/**
- * The total number of lessons in each module.
- * This is used to determine when a module is complete and the next one should be unlocked.
- */
+// --- CONSTANTS ---
+
 export const LESSONS_IN_MODULE: Record<number, number> = {
-  1: 3, // Module 1 has 3 lessons
-  2: 3, // Module 2 has 3 lessons
-  3: 3,
-  4: 3,
-  5: 3,
-  6: 3,
-  7: 3,
-  8: 3,
+  1: 8, 2: 3, 3: 3, 4: 6, 5: 3, 6: 3, 7: 3, 8: 3,
 };
+
+// --- ZUSTAND STORE ---
 
 export const useProgressStore = create<ProgressState>()(
   persist(
     (set, get) => ({
-      // By default, the user has access to Module 1, Lesson 1.
-      // This means they have completed module 1, lesson 0.
+      // Default state
+      modules: {},
       highestCompletedModule: 1,
       highestCompletedLesson: 0,
 
+      // --- ACTIONS ---
+
       /**
-       * Marks a lesson as complete and updates the user's progress.
-       * @param module - The module number of the completed lesson.
-       * @param lesson - The lesson number of the completed lesson.
+       * Legacy method to mark a lesson as complete without a score.
        */
-      completeLesson: (module, lesson) => {
-        const { highestCompletedModule, highestCompletedLesson } = get();
-
-        // Only update if this is a new, higher lesson
-        if (module > highestCompletedModule || (module === highestCompletedModule && lesson > highestCompletedLesson)) {
-          const totalLessonsInModule = LESSONS_IN_MODULE[module] || 0;
-
-          if (lesson >= totalLessonsInModule) {
-            // If the last lesson of the module is completed, unlock the next module
-            set({ highestCompletedModule: module + 1, highestCompletedLesson: 0 });
-          } else {
-            // Otherwise, just update the lesson progress within the current module
-            set({ highestCompletedModule: module, highestCompletedLesson: lesson });
-          }
-        }
+      completeLesson: (module: number, lesson: number) => {
+        get().completeLessonWithScore(module, lesson, 0, 0); // Defer to the new method
       },
 
       /**
-       * Checks if a specific lesson is accessible to the user.
-       * @param module - The module number to check.
-       * @param lesson - The lesson number to check.
-       * @returns True if the lesson is unlocked, false otherwise.
+       * Marks a lesson as complete with a quiz score.
        */
-      isLessonUnlocked: (module, lesson) => {
+      completeLessonWithScore: (module: number, lesson: number, score: number, total: number) => {
         const { highestCompletedModule, highestCompletedLesson } = get();
-        if (module < highestCompletedModule) {
-          return true; // All lessons in previous modules are unlocked
-        }
+
+        set(state => {
+          const newModules = { ...state.modules };
+          if (!newModules[module]) newModules[module] = {};
+
+          const existingProgress = newModules[module][lesson];
+          // Only update if the lesson is not already completed.
+          if (!existingProgress?.completed) {
+            newModules[module][lesson] = {
+              completed: true,
+              score,
+              totalQuestions: total,
+              completedAt: new Date().toISOString(),
+            };
+
+            // Check if progress has advanced
+            if (module > highestCompletedModule || (module === highestCompletedModule && lesson > highestCompletedLesson)) {
+              return {
+                modules: newModules,
+                highestCompletedModule: module,
+                highestCompletedLesson: lesson,
+              };
+            }
+          }
+
+          return { modules: newModules };
+        });
+      },
+
+      // --- SELECTORS ---
+
+      /**
+       * Checks if a lesson is accessible to the user.
+       */
+      isLessonUnlocked: (module: number, lesson: number) => {
+        const { highestCompletedModule, highestCompletedLesson } = get();
+        if (module === 1 && lesson === 1) return true;
+        if (module < highestCompletedModule) return true;
         if (module === highestCompletedModule) {
-          return lesson <= highestCompletedLesson + 1; // Check progress in the current module
+          return lesson <= highestCompletedLesson + 1;
         }
-        return false; // Future modules are locked
+        return false;
+      },
+
+      /**
+       * Checks if a lesson has been marked as complete.
+       */
+      isLessonComplete: (module: number, lesson: number) => {
+        return Boolean(get().modules[module]?.[lesson]?.completed);
+      },
+
+      /**
+       * Retrieves the progress data for a specific lesson.
+       */
+      getLessonProgress: (module: number, lesson: number) => {
+        return get().modules[module]?.[lesson];
       },
     }),
     {
       name: 'user-progress-storage', // Name for the localStorage item
-    }
-  )
+    },
+  ),
 );

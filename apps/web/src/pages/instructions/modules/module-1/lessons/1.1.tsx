@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Lightbulb, BrainCircuit, Puzzle } from 'lucide-react';
-import { useProgressStore } from '../../../../../store/progressStore';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
-import LessonHeader from '../../../../../components/layouts/LessonHeader';
-import LessonFooter from '../../../../../components/layouts/LessonFooter';
+import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 
+// This component is specific to Lesson 1.1
 const tokenizeText = (text: string): string[] => {
   // This is a simplified tokenizer for demonstration.
   // It splits by word boundaries or grabs any non-whitespace character.
@@ -57,7 +55,7 @@ const InteractiveTokenizer = () => {
               key={index}
               className={`px-2 py-1 rounded-md text-sm ${isAnimating ? 'animate-pulse' : ''}`}
               style={{
-                backgroundColor: isAnimating ? '#4F46E5' : '#374151', // Indigo-600 for animation, Gray-700 otherwise
+                backgroundColor: isAnimating ? '#4F46E5' : '#374151',
                 color: 'white',
                 animationDelay: isAnimating ? `${index * 50}ms` : '0ms',
               }}
@@ -73,8 +71,6 @@ const InteractiveTokenizer = () => {
 };
 
 const Lesson1_1: React.FC = () => {
-  const { completeLesson } = useProgressStore();
-
   const quizQuestions = [
     {
       questionText: 'What is the most fundamental job of a Large Language Model (LLM)?',
@@ -86,8 +82,6 @@ const Lesson1_1: React.FC = () => {
       ],
       correctAnswer: 'To predict the next most likely word in a sentence',
       explanation: 'Correct! LLMs are sophisticated pattern-matching systems designed to predict the next token (word or part of a word) based on the input they receive.',
-      link: 'https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/',
-      linkText: 'Learn more about LLM basics'
     },
     {
       questionText: 'What does it mean to \'tokenize\' text for an AI?',
@@ -99,24 +93,17 @@ const Lesson1_1: React.FC = () => {
       ],
       correctAnswer: 'To break the text down into smaller units (words or sub-words)',
       explanation: 'Exactly! Tokenization is the process of converting a sequence of text into a sequence of tokens, which are the basic building blocks the model works with.',
-      link: 'https://platform.openai.com/tokenizer',
-      linkText: 'Try OpenAI\'s official tokenizer'
     },
   ];
 
-  useEffect(() => {
-    completeLesson(1, 1);
-  }, [completeLesson]);
-
   return (
-    <div className="space-y-8 p-6 bg-gray-900 text-white">
-      <LessonHeader 
-        title="1.1 What is an AI, Really?"
-        subtitle="Beyond the hype, let's build a real foundation."
-        nextLessonPath="/instructions/module-1/1.2"
-        onNextClick={() => completeLesson(1, 1)}
-      />
-
+    <LessonTemplate
+      moduleNumber={1}
+      lessonNumber={1}
+      title="1.1 What is an AI, Really?"
+      subtitle="Beyond the hype, let's build a real foundation."
+      quizQuestions={quizQuestions}
+    >
       <section className="space-y-6">
         <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
           <h2 className="text-2xl font-semibold text-white mb-4 flex items-center">
@@ -165,17 +152,7 @@ const Lesson1_1: React.FC = () => {
           </p>
         </div>
       </section>
-
-      <section className="mt-8">
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
-
-      <LessonFooter 
-        nextLessonPath="/instructions/module-1/1.2"
-        nextLessonTitle="Next: 1.2 "
-        onNextClick={() => completeLesson(1, 1)}
-      />
-    </div>
+    </LessonTemplate>
   );
 };
 

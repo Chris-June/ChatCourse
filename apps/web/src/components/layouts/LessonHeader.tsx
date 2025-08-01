@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
 
 interface LessonHeaderProps {
   title: string;
   subtitle?: string;
+  completed?: boolean;
   prevLessonPath?: string;
   nextLessonPath?: string;
   prevLessonTitle?: string;
@@ -15,6 +16,7 @@ interface LessonHeaderProps {
 const LessonHeader: React.FC<LessonHeaderProps> = ({ 
   title,
   subtitle,
+  completed,
   prevLessonPath,
   nextLessonPath,
   prevLessonTitle = 'Previous',
@@ -24,7 +26,10 @@ const LessonHeader: React.FC<LessonHeaderProps> = ({
   return (
     <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
       <div>
-        <h1 className="text-3xl font-bold text-blue-400">{title}</h1>
+        <h1 className="text-3xl font-bold text-blue-400 flex items-center">
+          {title}
+          {completed && <CheckCircle className="w-7 h-7 ml-3 text-green-500" />}
+        </h1>
         {subtitle && <p className="text-lg text-gray-300 mt-2">{subtitle}</p>}
       </div>
       <div className="flex items-center space-x-4">

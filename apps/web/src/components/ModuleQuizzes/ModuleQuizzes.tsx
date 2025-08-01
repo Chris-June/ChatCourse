@@ -13,9 +13,10 @@ interface Question {
 
 interface ModuleQuizzesProps {
   questions: Question[];
+  onComplete?: (score: number, total: number) => void;
 }
 
-const ModuleQuizzes: React.FC<ModuleQuizzesProps> = ({ questions }) => {
+const ModuleQuizzes: React.FC<ModuleQuizzesProps> = ({ questions, onComplete }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
@@ -47,6 +48,7 @@ const ModuleQuizzes: React.FC<ModuleQuizzesProps> = ({ questions }) => {
     const percentage = (calculatedScore / questions.length) * 100;
     if (percentage >= 80) {
       setShowConfetti(true);
+      onComplete?.(calculatedScore, questions.length);
     }
   };
 

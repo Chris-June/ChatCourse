@@ -1,14 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Settings, Lightbulb, ShieldCheck, User, Briefcase } from 'lucide-react';
-import InlineChat from '../../../../../components/InlineChat';
-import { useProgressStore } from '../../../../../store/progressStore';
-import ComparisonCard from '../../../components/ComparisonCard';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import { Settings, Lightbulb, ShieldCheck, User, Briefcase } from 'lucide-react';
+import LessonTemplate from '@/components/layouts/LessonTemplate';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import InlineChat from '@/components/InlineChat';
+import ComparisonCard from '@/pages/instructions/components/ComparisonCard';
 
-import Accordion from '../../../components/Accordion';
+export interface ChallengeChecklistItem {
+  text: string;
+  completed: boolean;
+}
 
-const Lesson5_2: React.FC = () => {
+export default function Lesson5_2() {
   const quizQuestions = [
     {
       questionText: 'What is the most common technical method for personalizing an AI\'s responses?',
@@ -67,140 +68,134 @@ const Lesson5_2: React.FC = () => {
     }
   ];
 
-  const { completeLesson } = useProgressStore();
-  const studentProfile = {
-    name: "Maria",
-    grade: 10,
-    subjects: ["Biology", "History"],
-    learning_style: "visual",
-    goal: "Get help with homework for her upcoming Biology exam on cell division.",
-  };
 
-  const systemPrompt = `You are an expert AI tutor specializing in biology and history. You are speaking to a student named ${studentProfile.name}, who is in grade ${studentProfile.grade}. Their learning style is ${studentProfile.learning_style}, so try to use visual descriptions or analogies. Their current goal is: "${studentProfile.goal}". Be encouraging and tailor your explanation to their needs.`;
-  
-  const personalizationChecklist = [
-    { text: 'The AI addresses me by name (Maria)', completed: false },
-    { text: 'The response considers my grade level (10th grade)', completed: false },
-    { text: 'The explanation uses visual elements (my learning style)', completed: false },
-    { text: 'The response relates to my goal (Biology exam on cell division)', completed: false }
+  const systemPrompt = `You are an expert Biology tutor. The student's name is Maria, a 10th grader who is a visual learner. Your goal is to help her with her homework on cell division for an upcoming exam. Be encouraging and use visual descriptions or analogies where possible.`;
+
+  const personalizationChecklist: ChallengeChecklistItem[] = [
+    { text: 'Did the AI use the student\'s name, Maria?', completed: false },
+    { text: 'Did the AI acknowledge the subject (Biology) and topic (cell division)?', completed: false },
+    { text: 'Did the AI offer visual explanations, catering to the learning style?', completed: false },
+    { text: 'Was the tone encouraging and helpful?', completed: false }
   ];
+
   return (
-    <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-bold text-white flex items-center">
-          <Settings className="w-10 h-10 mr-4 text-blue-400" />
-          Lesson 5.2: The Personal Concierge
-        </h1>
-        <div className="flex items-center space-x-4">
-          <Link
-            to="/instructions/module-5/5.1"
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> The Director's Script
-          </Link>
-          <Link
-            to="/instructions/module-5/5.3"
-            onClick={() => completeLesson(5, 2)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Performance Optimization <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
+    <LessonTemplate
+      moduleNumber={5}
+      lessonNumber={2}
+      title="The Personal Concierge: AI That Knows You"
+      subtitle="By weaving user-specific details into the conversation, we transform a one-size-fits-all tool into a bespoke assistant that feels uniquely helpful."
+      quizQuestions={quizQuestions}
+    >
+      <div className="space-y-8">
+        <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <Lightbulb className="w-5 h-5 mr-2" />
+                The Personalization Playbook
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <p className="text-gray-300 mb-4">
+                The secret to personalization isn't magic; it's just a clever use of the `system` prompt. By dynamically building a system prompt that includes user data, we can give the AI a personalized "briefing" before it even starts talking.
+              </p>
+              <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                <h3 className="font-semibold text-white mb-2">Example: The Dynamic System Prompt</h3>
+                <p className="text-gray-300 mb-2">Imagine you have a user profile. You can use a template to inject their data right into the AI's instructions:</p>
+                <div className="bg-gray-700 p-3 rounded-md">
+                  <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
+{`// User Data
+const user = { name: "Alex", profession: "Software Engineer" };
 
-      <p className="text-lg text-gray-300">
-        A generic AI is like a hotel receptionist—helpful, but formal. A *personalized* AI is like a personal concierge who knows your preferences, remembers your past requests, and anticipates your needs. This lesson is about transforming your AI from a receptionist into a world-class concierge by mastering **static** and **dynamic context**.
-      </p>
+// Template
+const template = "You are a helpful assistant. The user's name is {{name}} and they work as a {{profession}}. Address them by name and tailor your examples to their field.";
 
-      {/* How it Works */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Settings className="w-7 h-7 mr-3 text-cyan-400" />
-          Technical Implementation: Dynamic System Prompts
-        </h2>
-        <p className="text-gray-300 mb-4">
-          The most common method for personalization is to dynamically construct a `system` prompt using stored user data. Before starting a conversation, your application fetches the user's profile and injects it into a template.
-        </p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-          <h3 className="font-semibold text-white mb-2">Example: Generating a System Prompt</h3>
-          <p className="text-gray-400 mb-2 text-sm">Given a user profile object:</p>
-          <div className="bg-gray-700 p-3 rounded-md mb-4">
-            <code className="block whitespace-pre-wrap break-words font-mono text-xs text-gray-200">
-{`const userProfile = {
-  name: "Alex",
-  profession: "Data Scientist",
-  expertise: ["Python", "Machine Learning", "SQL"],
-  goal: "Find novel ways to visualize time-series data."
-};`}
-            </code>
-          </div>
-          <p className="text-gray-400 mb-2 text-sm">Your application would generate this system prompt:</p>
-          <div className="bg-gray-700 p-3 rounded-md">
-            <code className="block whitespace-pre-wrap break-words font-mono text-xs text-gray-200">
-{`You are an expert AI assistant talking to Alex, a Data Scientist.
-Their expertise includes Python, Machine Learning, and SQL.
-Their current goal is to find novel ways to visualize time-series data.
-Provide technical, precise answers. When providing code, use Python.`}
-            </code>
-          </div>
-        </div>
-      </section>
+// Final System Prompt
+const finalPrompt = template.replace("{{name}}", user.name).replace("{{profession}}", user.profession);
+// Result: "You are a helpful assistant. The user's name is Alex and they work as a Software Engineer..."`}
+                  </code>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
-      {/* Static vs Dynamic */}
-      <Accordion title="The Concierge's Knowledge: Static vs. Dynamic Context" icon={<Settings />} isInitiallyOpen>
-        <p className="text-gray-300 mb-6">
-          Our concierge's expertise comes from two sources: a long-term preference card and in-the-moment briefings. 
-        </p>
-        <div className="flex flex-col md:flex-row gap-6">
-          <ComparisonCard 
-            icon={<User size={24} className="text-blue-300" />} 
-            title="The Preference Card (Static Context)" 
-            bgColorClass="bg-blue-900/50 border border-blue-700"
-            points={[
-              '<strong>Who the user is:</strong> Stored user profile data.',
-              '<strong>What they like:</strong> General preferences (e.g., `tone: formal`).',
-              '<strong>How they work:</strong> Custom instructions (e.g., `Always summarize in bullet points`).',
-              '<strong>Changes rarely.</strong>',
-            ]}
-          />
-          <ComparisonCard 
-            icon={<Briefcase size={24} className="text-green-300" />} 
-            title="The In-the-Moment Briefing (Dynamic Context)" 
-            bgColorClass="bg-green-900/50 border border-green-700"
-            points={[
-              '<strong>What the user is doing now:</strong> Real-time application state.',
-              '<strong>Example:</strong> `The user is viewing a product named \'X-12 Sneaker\'.`',
-              '<strong>Why it matters:</strong> Provides immediate, situational relevance.',
-              '<strong>Changes constantly.</strong>',
-            ]}
-          />
-        </div>
-      </Accordion>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-2">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <Settings className="w-5 h-5 mr-2" />
+                Static vs. Dynamic Context: Two Sides of the Same Coin
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <p className="text-gray-300 mb-4">
+                Personalization relies on two types of context. A good system uses both.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ComparisonCard
+                  title="Static Context (The User's Preferences)"
+                  icon={<User className="text-blue-400" />}
+                  points={[
+                    '<strong>What it is:</strong> General, user-defined settings.',
+                    '<strong>Example:</strong> `Tone: formal`, `Language: Spanish`, `Role: Marketing Expert`',
+                    '<strong>Why it matters:</strong> Sets the baseline personality and behavior of the AI.',
+                    '<strong>Changes infrequently.</strong>',
+                  ]}
+                  bgColorClass="bg-blue-900/50 border-blue-700"
+                />
+                <ComparisonCard
+                  title="Dynamic Context (The User's Situation)"
+                  icon={<Briefcase className="text-green-400" />}
+                  points={[
+                    '<strong>What the user is doing now:</strong> Real-time application state.',
+                    '<strong>Example:</strong> `The user is viewing a product named \'X-12 Sneaker\'.`',
+                    '<strong>Why it matters:</strong> Provides immediate, situational relevance.',
+                    '<strong>Changes constantly.</strong>',
+                  ]}
+                  bgColorClass="bg-green-900/50 border-green-700"
+                />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
-      {/* Ethical Considerations */}
-      <Accordion title="The Concierge's Code of Ethics" icon={<ShieldCheck />}>
-        <p className="text-gray-300 mb-4">
-          A great concierge is trustworthy. Personalization is built on user data, and handling that data responsibly is non-negotiable.
-        </p>
-        <ul className="list-disc pl-5 space-y-2 text-gray-300">
-          <li><strong>Transparency is Key:</strong> Be upfront about what data you collect and why.</li>
-          <li><strong>Give Users Control:</strong> Provide clear, accessible settings for users to manage their data and personalization preferences.</li>
-          <li><strong>Security First:</strong> Protect user data as if it were your own.</li>
-        </ul>
-      </Accordion>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-3">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <ShieldCheck className="w-5 h-5 mr-2" />
+                The Concierge's Code of Ethics
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <p className="text-gray-300 mb-4">
+                A great concierge is trustworthy. Personalization is built on user data, and handling that data responsibly is non-negotiable.
+              </p>
+              <ul className="list-disc pl-5 space-y-2 text-gray-300">
+                <li><strong>Transparency is Key:</strong> Be upfront about what data you collect and why.</li>
+                <li><strong>Give Users Control:</strong> Provide clear, accessible settings for users to manage their data and personalization preferences.</li>
+                <li><strong>Security First:</strong> Protect user data as if it were your own.</li>
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
-      {/* Conceptual Exercise */}
-      <Accordion title="Meet Your Personal Tutor" icon={<Lightbulb />}>
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Lightbulb className="w-7 h-7 mr-3 text-yellow-400" />
-          Your Turn: Interact with a Personalized Tutor
-        </h2>
-        <p className="text-gray-300 mb-4">
-          Let's see personalization in action. The AI in the chat window below has been given a dynamic system prompt based on the following student profile:
-        </p>
-        <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700 mb-4">
-          <div className="bg-gray-700 p-3 rounded-md">
-            <code className="block whitespace-pre-wrap break-words font-mono text-xs text-gray-200">
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-4">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <Lightbulb className="w-5 h-5 mr-2" />
+                Your Turn: Interact with a Personalized Tutor
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <p className="text-gray-300 mb-4">
+                Let's see personalization in action. The AI in the chat window below has been given a dynamic system prompt based on the following student profile:
+              </p>
+              <div className="mt-4 bg-gray-900 p-4 rounded-lg border border-gray-700 mb-4">
+                <div className="bg-gray-700 p-3 rounded-md">
+                  <code className="block whitespace-pre-wrap break-words font-mono text-xs text-gray-200">
 {`const studentProfile = {
   name: "Maria",
   grade: 10,
@@ -208,52 +203,31 @@ Provide technical, precise answers. When providing code, use Python.`}
   learning_style: "visual",
   goal: "Get help with homework for her upcoming Biology exam on cell division."
 };`}
-            </code>
-          </div>
-        </div>
-        <p className="text-gray-300 mb-4">
-          Pretend you are Maria. Ask for help with your biology homework and see how the AI responds. Notice if it mentions your learning style or tries to be encouraging.
-        </p>
-        {/* InlineChat for demonstrating personalized tutoring with dynamic context */}
-        <InlineChat 
-          moduleId="module-5.2-personalized-tutor"
-          maxAttempts={5}
-          maxFollowUps={3}
-          placeholder='Try asking: "Can you help me understand mitosis?"'
-          systemPrompt={systemPrompt}
-          initialMessages={[
-            {
-              role: 'assistant',
-              content: `Hi Maria! I'm here to help you with your Biology exam on cell division. Since you're a visual learner, I'll include diagrams and analogies to help you understand better. What specific topic would you like to review first?`
-            }
-          ]}
-          challengeChecklist={personalizationChecklist}
-        />
-      </Accordion>
+                  </code>
+                </div>
+              </div>
+              <p className="text-gray-300 mb-4">
+                Pretend you are Maria. Ask for help with your biology homework and see how the AI responds. Notice if it mentions your learning style or tries to be encouraging.
+              </p>
+              <InlineChat 
+                moduleId="module-5.2-personalized-tutor"
+                maxAttempts={5}
+                maxFollowUps={3}
+                placeholder='Try asking: "Can you help me understand mitosis?"'
+                systemPrompt={systemPrompt}
+                initialMessages={[
+                  {
+                    role: 'assistant',
+                    content: `Hi Maria! I'm here to help you with your Biology exam on cell division. Since you're a visual learner, I'll include diagrams and analogies to help you understand better. What specific topic would you like to review first?`
+                  }
+                ]}
+                challengeChecklist={personalizationChecklist}
+              />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
-      {/* Validation Quiz */}
-      <div className="mt-8">
-        <ModuleQuizzes questions={quizQuestions} />
       </div>
-
-      {/* Navigation */}
-      <div className="flex justify-between pt-4">
-        <Link
-          to="/instructions/module-5/5.1"
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Director's Script
-        </Link>
-        <Link
-          to="/instructions/module-5/5.3"
-          onClick={() => completeLesson(5, 2)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next: Performance Optimization <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
-    </div>
+    </LessonTemplate>
   );
-};
-
-export default Lesson5_2;
+}

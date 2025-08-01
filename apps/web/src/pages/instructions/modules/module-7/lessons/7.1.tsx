@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, GitMerge, Code, Bot, Puzzle, Wrench } from 'lucide-react';
-import { useProgressStore } from '../../../../../store/progressStore';
-import FunctionCallFlowVisualizer from '../../../components/FunctionCallFlowVisualizer';
-import FunctionSchemaDesigner from '../../../components/FunctionSchemaDesigner';
-import FunctionCallGrader from '../../../components/FunctionCallGrader';
-import ToolChoiceChallenge from '../../../components/ToolChoiceChallenge';
-import FunctionCallDebugger from '../../../components/FunctionCallDebugger';
-import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import { useProgressStore } from '@/store/progressStore';
+import FunctionCallFlowVisualizer from '@/pages/instructions/components/FunctionCallFlowVisualizer';
+import FunctionSchemaDesigner from '@/pages/instructions/components/FunctionSchemaDesigner';
+import FunctionCallGrader from '@/pages/instructions/components/FunctionCallGrader';
+import ToolChoiceChallenge from '@/pages/instructions/components/ToolChoiceChallenge';
+import FunctionCallDebugger from '@/pages/instructions/components/FunctionCallDebugger';
+import ModuleQuizzes from '@/components/ModuleQuizzes/ModuleQuizzes';
+import LessonTemplate from '@/components/layouts/LessonTemplate';
 
 const Lesson7_1: React.FC = () => {
   const quizQuestions = [
@@ -93,120 +94,128 @@ const Lesson7_1: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-bold text-white flex items-center">
-          <GitMerge className="w-10 h-10 mr-4 text-indigo-400" />
-          Lesson 7.1: The Master Dispatcher
-        </h1>
-        <div className="flex items-center space-x-4">
+    <LessonTemplate
+      moduleNumber={7}
+      lessonNumber={1}
+      title="The Master Dispatcher"
+      subtitle="Connecting your LLM to the outside world with tools."
+      quizQuestions={quizQuestions}
+    >
+      <div className="space-y-8 p-4 md:p-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-4xl font-bold text-white flex items-center">
+            <GitMerge className="w-10 h-10 mr-4 text-indigo-400" />
+            Lesson 7.1: The Master Dispatcher
+          </h1>
+          <div className="flex items-center space-x-4">
+            <Link 
+              to="/instructions/module-6/6.3" 
+              className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Iterative Development
+            </Link>
+            <Link 
+              to="/instructions/module-7/7.2" 
+              onClick={() => completeLesson(7, 1)}
+              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
+            >
+              Next: R.A.G. Systems <ChevronRight className="w-5 h-5 ml-2" />
+            </Link>
+          </div>
+        </div>
+
+        <p className="text-lg text-gray-300">
+          Function calling transforms an LLM from a simple chatbot into an agent that acts. Think of it as a master dispatcher in a logistics company. The dispatcher (LLM) takes a request, consults its directory of services (tools), calls the right department with the right information, and relays the result. This lesson teaches you how to be that dispatcher.
+        </p>
+
+        {/* 1. Function Call Flow Visualizer */}
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+            <GitMerge className="w-7 h-7 mr-3 text-indigo-400" />
+            1. The Dispatch Flow
+          </h2>
+          <p className="text-gray-300 mb-4">
+            A successful dispatch is a multi-step dance: the driver makes a request, the dispatcher identifies the right department, calls them with the correct info, gets a result, and relays it back. This visualizer breaks down that flow.
+          </p>
+          <FunctionCallFlowVisualizer />
+        </section>
+
+        {/* 2. Function Schema Designer */}
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+            <Code className="w-7 h-7 mr-3 text-green-400" />
+            2. The Dispatcher's Directory (The Schema)
+          </h2>
+          <p className="text-gray-300 mb-4">
+            The dispatcher's most critical tool is their directory (the JSON schema). It lists every department, what they do (`description`), and what info they need (`parameters`). A clear, accurate directory is essential for reliable dispatching. Use the designer below to create a directory entry for a `send_email` department.
+          </p>
+          <FunctionSchemaDesigner />
+        </section>
+
+        {/* 3. Function Call Grader */}
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+            <Bot className="w-7 h-7 mr-3 text-purple-400" />
+            3. Making the Call (Triggering the Tool)
+          </h2>
+          <p className="text-gray-300 mb-4">
+            The dispatcher can only act on a clear request. Your prompt must contain enough information for the dispatcher to understand the intent and find all the required info for the directory entry. Try to write a driver request that gets a perfect dispatch score.
+          </p>
+          <FunctionCallGrader 
+            functionSchema={weatherFunctionSchema}
+            initialPrompt="What's the weather like?"
+            evaluationCriteria={graderCriteria}
+          />
+        </section>
+
+        {/* 4. Tool Choice Challenge */}
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+            <Puzzle className="w-7 h-7 mr-3 text-yellow-400" />
+            4. Routing the Call (Choosing the Right Department)
+          </h2>
+          <p className="text-gray-300 mb-4">
+            If a driver just says "I have a problem," the dispatcher needs to figure out who to call. The quality of the `description` in your directory is what enables this. Given the driver's request below, which department is the right call?
+          </p>
+          <ToolChoiceChallenge />
+        </section>
+
+        {/* 5. Function Call Debugger */}
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
+            <Wrench className="w-7 h-7 mr-3 text-red-400" />
+            5. Dropped Calls (Debugging)
+          </h2>
+          <p className="text-gray-300 mb-4">
+            Sometimes the dispatcher dials a wrong number or the department line is busy. Dropped calls happen. In this final exercise, a dispatch has failed. Analyze the request, the faulty directory entry, and the error message to diagnose the problem.
+          </p>
+          <FunctionCallDebugger />
+        </section>
+
+        {/* Validation Quiz */}
+        <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
+          <ModuleQuizzes questions={quizQuestions} />
+        </section>
+
+        {/* Navigation */}
+        <div className="flex justify-between pt-4">
           <Link 
             to="/instructions/module-6/6.3" 
             className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Iterative Development
+            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Chef Refining the Recipe
           </Link>
           <Link 
             to="/instructions/module-7/7.2" 
             onClick={() => completeLesson(7, 1)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
-            Next: R.A.G. Systems <ChevronRight className="w-5 h-5 ml-2" />
+            Next: Building RAG Systems <ChevronRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>
-
-      <p className="text-lg text-gray-300">
-        Function calling transforms an LLM from a simple chatbot into an agent that acts. Think of it as a master dispatcher in a logistics company. The dispatcher (LLM) takes a request, consults its directory of services (tools), calls the right department with the right information, and relays the result. This lesson teaches you how to be that dispatcher.
-      </p>
-
-      {/* 1. Function Call Flow Visualizer */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <GitMerge className="w-7 h-7 mr-3 text-indigo-400" />
-          1. The Dispatch Flow
-        </h2>
-        <p className="text-gray-300 mb-4">
-          A successful dispatch is a multi-step dance: the driver makes a request, the dispatcher identifies the right department, calls them with the correct info, gets a result, and relays it back. This visualizer breaks down that flow.
-        </p>
-        <FunctionCallFlowVisualizer />
-      </section>
-
-      {/* 2. Function Schema Designer */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Code className="w-7 h-7 mr-3 text-green-400" />
-          2. The Dispatcher's Directory (The Schema)
-        </h2>
-        <p className="text-gray-300 mb-4">
-          The dispatcher's most critical tool is their directory (the JSON schema). It lists every department, what they do (`description`), and what info they need (`parameters`). A clear, accurate directory is essential for reliable dispatching. Use the designer below to create a directory entry for a `send_email` department.
-        </p>
-        <FunctionSchemaDesigner />
-      </section>
-
-      {/* 3. Function Call Grader */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Bot className="w-7 h-7 mr-3 text-purple-400" />
-          3. Making the Call (Triggering the Tool)
-        </h2>
-        <p className="text-gray-300 mb-4">
-          The dispatcher can only act on a clear request. Your prompt must contain enough information for the dispatcher to understand the intent and find all the required info for the directory entry. Try to write a driver request that gets a perfect dispatch score.
-        </p>
-        <FunctionCallGrader 
-          functionSchema={weatherFunctionSchema}
-          initialPrompt="What's the weather like?"
-          evaluationCriteria={graderCriteria}
-        />
-      </section>
-
-      {/* 4. Tool Choice Challenge */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Puzzle className="w-7 h-7 mr-3 text-yellow-400" />
-          4. Routing the Call (Choosing the Right Department)
-        </h2>
-        <p className="text-gray-300 mb-4">
-          If a driver just says "I have a problem," the dispatcher needs to figure out who to call. The quality of the `description` in your directory is what enables this. Given the driver's request below, which department is the right call?
-        </p>
-        <ToolChoiceChallenge />
-      </section>
-
-      {/* 5. Function Call Debugger */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-          <Wrench className="w-7 h-7 mr-3 text-red-400" />
-          5. Dropped Calls (Debugging)
-        </h2>
-        <p className="text-gray-300 mb-4">
-          Sometimes the dispatcher dials a wrong number or the department line is busy. Dropped calls happen. In this final exercise, a dispatch has failed. Analyze the request, the faulty directory entry, and the error message to diagnose the problem.
-        </p>
-        <FunctionCallDebugger />
-      </section>
-
-      {/* Validation Quiz */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
-
-      {/* Navigation */}
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-6/6.3" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Chef Refining the Recipe
-        </Link>
-        <Link 
-          to="/instructions/module-7/7.2" 
-          onClick={() => completeLesson(7, 1)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next: Building RAG Systems <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
-    </div>
+    </LessonTemplate>
   );
 };
 
