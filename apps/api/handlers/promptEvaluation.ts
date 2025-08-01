@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 
-import { constructINSYNCPrompt, validateINSYNCElements } from '../utils/insyncFramework.js';
+import { constructINSYNCPrompt, validateINSYNCElements, PromptElement } from '../utils/insyncFramework';
 
 // Helper function to get the correct API name
 function getApiName(model: string): string {
@@ -31,10 +31,7 @@ function getApiName(model: string): string {
   return mapping[model] || 'gpt-4o-mini-2024-07-18'; // Default fallback
 }
 
-interface PromptElement {
-  id: string;
-  value: string;
-}
+
 
 interface EvaluationRequest {
   elements?: PromptElement[];

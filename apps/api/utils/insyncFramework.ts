@@ -4,6 +4,11 @@
  * I.N.S.Y.N.C. prompt engineering framework.
  */
 
+export interface PromptElement {
+  id: string;
+  value: string;
+}
+
 export interface InsyncCriteria {
   intent: boolean;
   nuance: boolean;
@@ -46,6 +51,51 @@ const CRITERIA_DEFINITIONS = {
  * @param {string} promptText The text of the prompt to evaluate.
  * @returns {InsyncEvaluation} The evaluation result, including criteria, score, and feedback.
  */
+/**
+ * Validates that the core I.N.S.Y.N.C. elements are present.
+ * @param {PromptElement[]} elements The elements to validate.
+ * @returns {{valid: boolean, errors: string[]}} Validation result.
+ */
+export const validateINSYNCElements = (elements: PromptElement[]): { valid: boolean; errors: string[] } => {
+  const requiredIds = ['intent', 'nuance', 'style', 'youAs', 'narrativeFormat', 'context'];
+  const providedIds = new Set(elements.map(e => e.id));
+  const errors: string[] = [];
+
+  for (const id of requiredIds) {
+    if (!providedIds.has(id)) {
+      errors.push(`Missing required I.N.S.Y.N.C. element: ${id}`);
+    }
+  }
+
+  return { valid: errors.length === 0, errors };
+};
+
+/**
+ * Constructs a formatted I.N.S.Y.N.C. prompt from individual elements.
+ * @param {PromptElement[]} elements The elements to construct the prompt from.
+ * @returns {string} The formatted prompt string.
+ */
+export const constructINSYNCPrompt = (elements: PromptElement[]): string => {
+  const elementMap = new Map(elements.map(e => [e.id, e.value]));
+  return `
+--- I.N.S.Y.N.C. PROMPT ---
+
+[INTENT]: ${elementMap.get('intent') || ''}
+
+[NUANCE]: ${elementMap.get('nuance') || ''}
+
+[STYLE]: ${elementMap.get('style') || ''}
+
+[YOU AS...]: ${elementMap.get('youAs') || ''}
+
+[NARRATIVE FORMAT]: ${elementMap.get('narrativeFormat') || ''}
+
+[CONTEXT]: ${elementMap.get('context') || ''}
+
+--- END PROMPT ---
+`.trim();
+};
+
 export const evaluatePrompt = (promptText: string): InsyncEvaluation => {
   const lowerCasePrompt = promptText.toLowerCase();
   const criteria: InsyncCriteria = {
