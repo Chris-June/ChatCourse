@@ -4,7 +4,7 @@ import { useProgressStore } from '@/store/progressStore';
 import FineTuningDataFormatter from '@/pages/instructions/components/FineTuningDataFormatter';
 import FineTuningCostCalculator from '@/pages/instructions/components/FineTuningCostCalculator';
 import StrategyQuiz from '@/pages/instructions/components/StrategyQuiz';
-import ModuleQuizzes from '@/components/ModuleQuizzes/ModuleQuizzes';
+
 import LessonTemplate from '@/components/layouts/LessonTemplate';
 
 export default function Lesson7_3() {
@@ -106,12 +106,6 @@ export default function Lesson7_3() {
           <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center"><GitCompareArrows className="w-7 h-7 mr-3" />3. Casting Call: RAG vs. Fine-Tuning</h2>
           <p className="text-gray-300 mb-4">Do you need an actor who can read any script you hand them (RAG for knowledge)? Or one who deeply embodies a specific character (Fine-Tuning for behavior)? Knowing which to choose is a critical skill. Test your casting instincts with the scenarios below.</p>
           <StrategyQuiz />
-        </section>
-
-        {/* Validation Quiz */}
-        <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
-          <ModuleQuizzes questions={quizQuestions} />
         </section>
 
         {/* Navigation */}

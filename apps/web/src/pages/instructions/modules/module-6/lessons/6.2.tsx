@@ -7,10 +7,9 @@ import UncertaintyVisualizer from '@/pages/instructions/components/UncertaintyVi
 import BiasExplorer from '@/pages/instructions/components/BiasExplorer';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import ModuleQuizzes from '@/components/ModuleQuizzes/ModuleQuizzes';
-import { useProgressStore } from '@/store/progressStore';
 
 export interface ChallengeChecklistItem {
+  id: string;
   text: string;
   completed: boolean;
 }
@@ -74,7 +73,6 @@ const Lesson6_2: React.FC = () => {
     }
   ];
 
-  const { completeLesson } = useProgressStore();
   const designCritiquePrompt = `
     You are an expert AI Design Critic. Your goal is to help me, a student, improve the design of an AI feature I propose. Use the principles from the lesson to guide your critique.
 
@@ -95,21 +93,21 @@ const Lesson6_2: React.FC = () => {
     Keep your tone constructive and inquisitive. Your goal is to help me think more deeply about my own design.`;
 
   const designCritiqueChecklist: ChallengeChecklistItem[] = [
-    { text: 'I have described how my AI feature will collaborate with the user.', completed: false },
-    { text: 'I have explained how my design builds trust through transparency.', completed: false },
-    { text: 'I have considered how to communicate the AI\'s uncertainty to the user.', completed: false },
-    { text: 'I have thought about potential biases and how to design for fairness.', completed: false }
+    { id: 'collaboration', text: 'Did the AI critic ask about the user\'s goal (collaboration)?', completed: false },
+    { id: 'trust', text: 'Did the critic explore how to build trust (transparency/control)?', completed: false },
+    { id: 'fairness', text: 'Did the critic check for potential fairness issues (bias)?', completed: false },
+    { id: 'constructive', text: 'Was the critique constructive and helpful?', completed: false }
   ];
 
   return (
     <LessonTemplate
       moduleNumber={6}
       lessonNumber={2}
-      title="Training Your AI Animal"
-      subtitle="Building trust, communication, and clear boundaries with your AI."
+      title="Training Your AI Companion"
+      subtitle="Principles for Designing Collaborative and Trustworthy AI"
       quizQuestions={quizQuestions}
     >
-      <div className="space-y-6">
+      <div className="space-y-8">
         <p className="text-lg text-gray-300">
           Building an AI is like training a powerful, intelligent animal. It's not just about teaching it tricks; it's about building a relationship based on trust, communication, and clear boundaries. This lesson covers the core principles of Human-Computer Interaction (HCI) for AI, ensuring your creation is a helpful partner, not an unpredictable beast.
         </p>
@@ -206,12 +204,6 @@ const Lesson6_2: React.FC = () => {
           />
         </section>
 
-        {/* Validation Quiz */}
-        <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
-          <ModuleQuizzes questions={quizQuestions} />
-        </section>
-
         <div className="flex justify-between pt-4">
           <Link 
             to="/instructions/module-6/6.1" 
@@ -221,7 +213,6 @@ const Lesson6_2: React.FC = () => {
           </Link>
           <Link 
             to="/instructions/module-6/6.3" 
-            onClick={() => completeLesson(6, 2)}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
           >
             Next: Iterative Development <ChevronRight className="w-5 h-5 ml-2" />

@@ -37,6 +37,23 @@ const Lesson1_6: React.FC = () => {
         ],
         correctAnswer: 'The AI\'s knowledge base, tone, and how it frames the information.',
         explanation: 'Assigning a role is a powerful technique that primes the AI to adopt a specific viewpoint and communication style, making the response more consistent and appropriate for your needs.'
+      },
+      {
+        questionText: 'When brainstorming a creative social media campaign, which combination of I.N.S.Y.N.C. elements is most likely to produce unique and viral ideas?',
+        options: ['Intent and Context', 'Style and You as...', 'Nuance and Narrative Format', 'Intent and Nuance'],
+        correctAnswer: 'Style and You as...',
+        explanation: 'Assigning a creative persona (You as...) like \'a viral marketing genius\' and a specific Style (\'witty and bold\') pushes the AI beyond generic suggestions into more innovative territory.'
+      },
+      {
+        questionText: 'In the cover letter example, why is it crucial to provide the `Context` that \'the job description emphasizes data-driven decisions\'?',
+        options: [
+          'It makes the letter longer.',
+          'It tells the AI to use a formal tone.',
+          'It allows the AI to tailor the letter to the employer’s specific priorities, making the applicant seem like a better fit.',
+          'It is not important.'
+        ],
+        correctAnswer: 'It allows the AI to tailor the letter to the employer’s specific priorities, making the applicant seem like a better fit.',
+        explanation: 'Context is key for relevance. By providing this detail, the AI can weave the company\'s values and needs directly into the cover letter, making it far more impactful than a generic one.'
       }
   ];
 
@@ -77,6 +94,32 @@ const Lesson1_6: React.FC = () => {
             <li><strong>Context:</strong> Any other key info? (e.g., "I am a solo traveler in my late 20s and enjoy photography.")</li>
           </ul>
           <p className="text-gray-300 mt-4">Combine these elements to build a powerful prompt. The more specific you are, the better the result will be.</p>
+        </div>
+
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Applying I.N.S.Y.N.C. - Example 2: The Cover Letter</h2>
+          <p className="text-gray-300 mb-4">Here's how you might break down a request to write a cover letter:</p>
+          <ul className="space-y-3 text-gray-300 list-disc list-inside">
+            <li><strong>Intent:</strong> "Write a cover letter for a job application."</li>
+            <li><strong>Nuance:</strong> "...for the Senior Product Manager role at Acme Inc. Emphasize my 5 years of experience in B2B SaaS and my skills in roadmap planning."</li>
+            <li><strong>Style:</strong> "Use a professional, confident, and slightly formal tone."</li>
+            <li><strong>You as...:</strong> "Act as a professional career coach reviewing and improving my draft."</li>
+            <li><strong>Narrative Format:</strong> "Structure it as a standard 3-paragraph cover letter."</li>
+            <li><strong>Context:</strong> "The job description emphasizes a need for data-driven decision making. My resume highlights my work on a project that increased user retention by 15% through data analysis."</li>
+          </ul>
+        </div>
+
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-purple-300">Applying I.N.S.Y.N.C. - Example 3: The Social Media Campaign</h2>
+          <p className="text-gray-300 mb-4">Let's try a more creative task, like brainstorming marketing ideas:</p>
+          <ul className="space-y-3 text-gray-300 list-disc list-inside">
+            <li><strong>Intent:</strong> "Brainstorm ideas for a social media campaign."</li>
+            <li><strong>Nuance:</strong> "...for a new brand of eco-friendly, compostable coffee pods. The campaign should run on Instagram and TikTok, targeting millennials aged 25-35."</li>
+            <li><strong>Style:</strong> "The ideas should be creative, witty, and engaging."</li>
+            <li><strong>You as...:</strong> "Act as a senior marketing strategist from a top advertising agency known for viral campaigns."</li>
+            <li><strong>Narrative Format:</strong> "Provide 5 distinct campaign ideas. For each idea, give me a catchy headline, a brief description, and a key visual concept."</li>
+            <li><strong>Context:</strong> "Our main competitors focus on price, but our key differentiator is sustainability and our 'earthy' brand aesthetic."</li>
+          </ul>
         </div>
 
         <InlineChat 

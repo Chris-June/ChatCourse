@@ -2,12 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
 import InlineChat from '@/components/InlineChat';
-import { useProgressStore } from '@/store/progressStore';
+
 import RagFlowVisualizer from '@/pages/instructions/components/RagFlowVisualizer';
 import RagUseCases from '@/pages/instructions/components/RagUseCases';
 import RagPlayground from '@/pages/instructions/components/RagPlayground';
-import ModuleQuizzes from '@/components/ModuleQuizzes/ModuleQuizzes';
+
 import LessonTemplate from '@/components/layouts/LessonTemplate';
+import { useProgressStore } from '@/store/progressStore';
+
+export interface ChallengeChecklistItem {
+  id: string;
+  text: string;
+  completed: boolean;
+}
 
 const Lesson7_2: React.FC = () => {
   const quizQuestions = [
@@ -84,12 +91,12 @@ When a user submits a prompt, follow these steps:
 
 4.  **Encourage**: End with a positive and encouraging closing statement.`;
 
-  const ragPromptChecklist: Array<{text: string, completed: boolean}> = [
-    { text: 'I have included a clear instruction to use only the provided context', completed: false },
-    { text: 'I have specified what to do when the answer is not in the context', completed: false },
-    { text: 'I have included placeholders for context and question', completed: false },
-    { text: 'I have received feedback on my RAG prompt', completed: false },
-    { text: 'I have implemented improvements based on the feedback', completed: false }
+  const ragPromptChecklist: ChallengeChecklistItem[] = [
+    { id: 'use-context', text: 'I have included a clear instruction to use only the provided context', completed: false },
+    { id: 'not-found', text: 'I have specified what to do when the answer is not in the context', completed: false },
+    { id: 'placeholders', text: 'I have included placeholders for context and question', completed: false },
+    { id: 'feedback', text: 'I have received feedback on my RAG prompt', completed: false },
+    { id: 'implemented', text: 'I have implemented improvements based on the feedback', completed: false }
   ];
 
   return (
@@ -157,12 +164,6 @@ When a user submits a prompt, follow these steps:
             challengeChecklist={ragPromptChecklist}
           />
         </div>
-      </section>
-
-      {/* Validation Quiz */}
-      <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
-        <ModuleQuizzes questions={quizQuestions} />
       </section>
 
       <div className="flex justify-between pt-4">

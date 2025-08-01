@@ -1,100 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Lightbulb, BrainCircuit, Puzzle } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
+import InlineChat from '../../../../../components/InlineChat';
+import KeyTakeaways from '../../../components/KeyTakeaways';
 
-// This component is specific to Lesson 1.1
-const tokenizeText = (text: string): string[] => {
-  // This is a simplified tokenizer for demonstration.
-  // It splits by word boundaries or grabs any non-whitespace character.
-  return text.match(/\b\w+\b|\S/g) || [];
-};
 
-const InteractiveTokenizer = () => {
-  const [inputText, setInputText] = useState('Hello world! This is a test.');
-  const [tokens, setTokens] = useState<string[]>([]);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    setTokens(tokenizeText(inputText));
-  }, [inputText]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputText(e.target.value);
-  };
-
-  const animateTokens = () => {
-    setIsAnimating(true);
-    setTimeout(() => setIsAnimating(false), 1000); // Animation duration
-  };
-
-  return (
-    <div className="bg-gray-900 p-6 rounded-lg border border-gray-700 mt-4">
-      <h4 className="text-lg font-semibold text-white mb-4">Interactive Tokenizer Demo</h4>
-      <p className="text-gray-400 mb-4 text-sm">
-        Type in the box below to see how your text gets broken down into tokens. This is a fundamental step in how LLMs process language.
-      </p>
-      <textarea
-        value={inputText}
-        onChange={handleInputChange}
-        className="w-full h-24 bg-gray-800 border border-gray-600 rounded-md p-3 text-white focus:ring-2 focus:ring-blue-500 transition"
-        placeholder="Enter text to tokenize..."
-      />
-      <div className="flex justify-end mt-3">
-        <button
-          onClick={animateTokens}
-          className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Visualize Tokenization
-        </button>
-      </div>
-      <div className="mt-4 pt-4 border-t border-gray-700">
-        <h5 className="text-base font-medium text-white mb-3">Tokens:</h5>
-        <div className="flex flex-wrap gap-2">
-          {tokens.map((token, index) => (
-            <span
-              key={index}
-              className={`px-2 py-1 rounded-md text-sm ${isAnimating ? 'animate-pulse' : ''}`}
-              style={{
-                backgroundColor: isAnimating ? '#4F46E5' : '#374151',
-                color: 'white',
-                animationDelay: isAnimating ? `${index * 50}ms` : '0ms',
-              }}
-            >
-              {token}
-            </span>
-          ))}
-        </div>
-        <p className="text-xs text-gray-500 mt-3">Token Count: {tokens.length}</p>
-      </div>
-    </div>
-  );
-};
 
 const Lesson1_1: React.FC = () => {
-  const quizQuestions = [
-    {
-      questionText: 'What is the most fundamental job of a Large Language Model (LLM)?',
-      options: [
-        'To understand human emotions',
-        'To browse the internet and find facts',
-        'To predict the next most likely word in a sentence',
-        'To translate languages with perfect accuracy',
-      ],
-      correctAnswer: 'To predict the next most likely word in a sentence',
-      explanation: 'Correct! LLMs are sophisticated pattern-matching systems designed to predict the next token (word or part of a word) based on the input they receive.',
-    },
-    {
-      questionText: 'What does it mean to \'tokenize\' text for an AI?',
-      options: [
-        'To check for spelling and grammar errors',
-        'To break the text down into smaller units (words or sub-words)',
-        'To encrypt the text for security',
-        'To summarize the text into key points',
-      ],
-      correctAnswer: 'To break the text down into smaller units (words or sub-words)',
-      explanation: 'Exactly! Tokenization is the process of converting a sequence of text into a sequence of tokens, which are the basic building blocks the model works with.',
-    },
-  ];
+
+const quizQuestions = [
+  {
+    questionText: 'What is the most fundamental job of a Large Language Model (LLM)?',
+    options: [
+      'To understand human emotions',
+      'To browse the internet and find facts',
+      'To predict the next most likely word in a sentence',
+      'To translate languages with perfect accuracy',
+    ],
+    correctAnswer: 'To predict the next most likely word in a sentence',
+    explanation: 'Correct! LLMs are sophisticated pattern-matching systems designed to predict the next token (word or part of a word) based on the input they receive.',
+  },
+  {
+    questionText: 'What does it mean to \'tokenize\' text for an AI?',
+    options: [
+      'To check for spelling and grammar errors',
+      'To break the text down into smaller units (words or sub-words)',
+      'To encrypt the text for security',
+      'To summarize the text into key points',
+    ],
+    correctAnswer: 'To break the text down into smaller units (words or sub-words)',
+    explanation: 'Exactly! Tokenization is the process of converting a sequence of text into a sequence of tokens, which are the basic building blocks the model works with.',
+  },
+  {
+    questionText: 'Why are tokens important in how LLMs generate responses?',
+    options: [
+      'They help the model encrypt sensitive data',
+      'They determine the length and complexity of the prompt',
+      'They act as the basic building blocks the model uses to understand and generate text',
+      'They allow the model to speak multiple languages',
+    ],
+    correctAnswer: 'They act as the basic building blocks the model uses to understand and generate text',
+    explanation: 'Correct! Tokens are how the model “sees” your input. Everything is converted into tokens before the model can work with it.',
+  },
+  {
+    questionText: 'What happens after text is tokenized in an LLM?',
+    options: [
+      'The model uses a probability map to predict the next most likely token',
+      'The tokens are translated into human language',
+      'The tokens are stored permanently in the model’s memory',
+      'The model deletes unrelated tokens',
+    ],
+    correctAnswer: 'The model uses a probability map to predict the next most likely token',
+    explanation: 'Exactly. After tokenization, the model evaluates what token is most probable to follow using its learned knowledge from training.',
+  },
+  {
+    questionText: 'How does prompt design influence the model’s output?',
+    options: [
+      'It doesn’t matter—the output is always the same',
+      'A well-designed prompt makes the desired output more likely',
+      'Prompt design only affects the speed of the response',
+      'It changes the model’s training data',
+    ],
+    correctAnswer: 'A well-designed prompt makes the desired output more likely',
+    explanation: 'Correct! LLMs are probability machines, so phrasing your prompt well makes it easier for the model to predict the output you want.',
+  },
+];
 
   return (
     <LessonTemplate
@@ -111,7 +81,10 @@ const Lesson1_1: React.FC = () => {
             The Core Idea: A Super-Powered Autocomplete
           </h2>
           <p className="text-gray-300 mb-4">
-            Forget robots taking over the world. At its core, an LLM has a surprisingly simple primary job. Think of it like the autocomplete on your phone, but infinitely more powerful.
+            Forget sci-fi dreams of sentient machines—let’s start with the basics. At its most fundamental level, a Large Language Model (LLM) like ChatGPT is simply a system trained to predict the next most likely word—or more precisely, token—in a sequence of text. That’s it. It doesn't think or reason like a human. It doesn’t “know” things in the way you do. It works based on probabilities, patterns, and statistical correlations.
+          </p>
+          <p className="text-gray-300 mb-4">
+            Imagine you're typing a message on your phone, and your keyboard suggests the next word—"Hi, how are..." becomes "you?" That’s autocomplete. LLMs are like autocomplete on steroids, trained on vast amounts of text data to predict what comes next with astonishing fluency. But instead of just suggesting a word or two, they can generate full essays, answer complex questions, write code, and simulate conversations. All of this power comes from one core idea:
           </p>
           <blockquote className="border-l-4 border-blue-500 pl-4 py-2 bg-blue-900/20 text-blue-200">
             <p className="font-medium">
@@ -119,7 +92,13 @@ const Lesson1_1: React.FC = () => {
             </p>
           </blockquote>
           <p className="text-gray-300 mt-4">
-            That's it. All the amazing things they can do—write stories, answer questions, generate code—emerge from this single, powerful capability. They are masters of recognizing and recreating patterns from the vast amount of text they were trained on. A good prompt makes the desired answer the most probable next sequence of words.
+            This is called autoregressive prediction. The model looks at the input text—called a prompt—and tries to generate the most probable continuation, one token at a time. Tokens might be whole words, pieces of words, or even punctuation, depending on the tokenizer used. Each new token is influenced by everything that came before it.
+          </p>
+          <p className="text-gray-300 mt-4">
+            Over time, with enough training data and computational power, LLMs learn incredibly detailed statistical maps of language. They learn that certain phrases are more likely to follow others, that tone and structure matter, and that different contexts call for different completions. This allows them to perform a wide variety of tasks—because everything from writing an essay to answering a trivia question is just pattern completion.
+          </p>
+          <p className="text-gray-300 mt-4">
+            So, while the core mechanism is simple—predict the next token—the results feel magical. And it all begins with this foundational concept. If you can master the way prompts influence token prediction, you can make AI work for you in astonishing ways.
           </p>
         </div>
 
@@ -129,29 +108,52 @@ const Lesson1_1: React.FC = () => {
             How Do They 'Think'? Tokens and Probability
           </h2>
           <p className="text-gray-300 mb-4">
-            AI doesn't understand text like a human does. Instead, it breaks everything down into smaller pieces called <strong>tokens</strong>. A token can be a whole word, a part of a word, or even just a punctuation mark.
+            When we say LLMs “think,” we’re using a metaphor. They don’t understand or reason like humans. Instead, they operate entirely on statistical probabilities. Every response you see is the result of a complex sequence of mathematical calculations based on <strong>tokens</strong>.
           </p>
           <p className="text-gray-300 mb-4">
-            For example, the phrase <code className="bg-gray-700 px-1 py-0.5 rounded">"Prompt engineering is cool"</code> might be tokenized into:
+            A <strong>token</strong> is the smallest chunk of text the model processes. It might be a whole word (like <code className="bg-gray-700 px-1 py-0.5 rounded">dog</code>), a part of a word (like <code className="bg-gray-700 px-1 py-0.5 rounded">un-</code>), or even a punctuation mark. Tokenization helps standardize how input is processed across languages and writing styles.
+          </p>
+          <p className="text-gray-300 mb-4">
+            Let’s take the phrase <code className="bg-gray-700 px-1 py-0.5 rounded">"Prompt engineering is cool"</code>. Depending on the tokenizer, it might be split into tokens like:
             <code className="bg-gray-700 px-1 py-0.5 rounded">[Prompt]</code>, <code className="bg-gray-700 px-1 py-0.5 rounded">[ engineering]</code>, <code className="bg-gray-700 px-1 py-0.5 rounded">[ is]</code>, <code className="bg-gray-700 px-1 py-0.5 rounded">[ cool]</code>.
           </p>
+          <p className="text-gray-300 mb-4">
+            Once text is tokenized, the model’s job is to determine what token is likely to come next. To do this, it references an internal “probability distribution”—a massive statistical model built during training. Given a prompt, the model evaluates all possible next tokens and chooses the one with the highest probability.
+          </p>
+          <p className="text-gray-300 mb-4">
+            This process repeats one token at a time. After each new token is added to the sequence, the model recalculates the next most likely token. It’s like playing an infinite autocomplete game, but the stakes are much higher.
+          </p>
+          <p className="text-gray-300 mb-4">
+            Think of the model’s “thought process” as navigating a branching tree of possibilities. Every token you feed it narrows the branches. With each step, the model is trying to guess: “Given everything I’ve seen so far, what’s the most likely thing to come next?”
+          </p>
           <p className="text-gray-300">
-            The model then uses complex mathematical calculations (think of it as a giant probability map) to determine the most likely token to come next. When you give it a prompt, you're giving it a starting point on this map.
+            This is why prompt design is so important. The words you choose influence which path the model travels down. You’re not just asking it to generate text—you’re nudging its probability engine in the direction you want it to go.
           </p>
         </div>
 
+        <KeyTakeaways
+          points={[
+            "An LLM is a system trained to predict the next most likely word or token in a sequence of text.",
+            "Tokens are the basic building blocks the model uses to understand and generate text.",
+            "The model uses a probability map to predict the next most likely token.",
+            "Prompt design is crucial as it influences the model’s output.",
+          ]}
+        />
   
-
-        <InteractiveTokenizer />
 
         <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
           <h2 className="text-2xl font-semibold text-white mb-4 flex items-center">
             <Puzzle className="w-6 h-6 mr-3 text-green-400" />
-            Why This Matters for Prompting
+            Talk to the AI: Apply Your Knowledge
           </h2>
-          <p className="text-gray-300">
-            Understanding this core mechanic is your secret weapon in prompt engineering. Your job is to provide the AI with a starting sequence of tokens (your prompt) that makes your desired output the most probable next sequence. You are essentially guiding the AI through its probability map to the exact destination you want.
+          <p className="text-gray-300 mb-4">
+            Now that you understand what tokens are, try talking to the AI below. Ask it a question about tokenization, or give it a simple prompt and see how it responds. This is a great way to get a feel for how your words directly influence the AI.
           </p>
+          <InlineChat 
+            moduleId="lesson-1.1-chat"
+            systemPrompt="You are a helpful AI assistant for a course on prompt engineering. Your goal is to answer questions and have a simple conversation about tokenization and the basic concepts of how Large Language Models work. Keep your answers concise and easy to understand for a beginner."
+            placeholder="Ask a question about tokens..."
+          />
         </div>
       </section>
     </LessonTemplate>

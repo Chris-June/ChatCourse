@@ -2,7 +2,7 @@ import React from 'react';
 import { useProgressStore } from '../../store/progressStore';
 import { toast } from 'sonner';
 import LessonHeader from './LessonHeader';
-import ModuleQuizzes from '../ModuleQuizzes/ModuleQuizzes';
+import ModuleQuizzes from '../../pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
 
 interface Question {
   questionText: string;

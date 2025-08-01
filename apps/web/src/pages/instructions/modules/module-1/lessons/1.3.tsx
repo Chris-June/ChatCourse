@@ -117,6 +117,37 @@ const Lesson1_3: React.FC = () => {
       ],
       correctAnswer: 'Because the AI is predicting the next word based on patterns, not facts, and can sometimes generate plausible but untrue information.',
       explanation: 'The AI\'s goal is to create a statistically likely sequence of words. If the patterns in its training data lead to an incorrect statement that seems plausible, it will generate it. It lacks a ground truth or fact-checking mechanism.'
+    },
+    {
+      questionText: 'How can you best mitigate or reduce AI hallucinations?',
+      options: [
+        'Asking the AI to be more creative.',
+        'Providing specific context and grounding data in the prompt.',
+        'Using shorter prompts.',
+        'Typing in all caps.'
+      ],
+      correctAnswer: 'Providing specific context and grounding data in the prompt.',
+      explanation: 'Grounding the AI with real data, like a document or transcript, forces it to base its answers on provided facts rather than making things up from patterns.'
+    },
+    {
+      questionText: 'Which of the following is a common example of an AI hallucination?',
+      options: [
+        'The AI refusing to answer a question.',
+        'The AI providing a correct summary of a long article.',
+        'The AI inventing a fake academic paper or URL to support its claims.',
+        'The AI asking for clarification.'
+      ],
+      correctAnswer: 'The AI inventing a fake academic paper or URL to support its claims.',
+      explanation: 'This is a classic hallucination. The AI predicts what a citation *should* look like but invents the details because it does not have access to a real one.'
+    },
+    {
+      questionText: 'True or False: If an AI sounds confident, its answer is more likely to be factually correct.',
+      options: [
+        'True',
+        'False'
+      ],
+      correctAnswer: 'False',
+      explanation: 'An AI\'s tone is just another part of its prediction. It can generate highly confident-sounding prose for completely fabricated information. Always verify critical information from a primary source.'
     }
   ];
 
@@ -170,7 +201,8 @@ const Lesson1_3: React.FC = () => {
         <ul className="space-y-3 text-gray-300 list-disc list-inside">
           <li><strong>Ask for Sources:</strong> Add phrases like "Cite your sources" or "Provide URLs for your claims." While the AI can hallucinate sources too, this often forces it to ground its response in more factual data.</li>
           <li><strong>Provide Grounding Context:</strong> Use the 'C' in the I.N.S.Y.N.C. framework. By giving the AI the specific text, data, or background information it needs, you anchor its predictions to your facts, not its own.</li>
-          <li><strong>Request a Confidence Score:</strong> Ask the AI to "rate its confidence in this answer on a scale of 1 to 10." This can sometimes give you a signal about how speculative the response is.</li>
+          <li><strong>Request a Confidence Score:</strong> Ask the AI to "rate its confidence in this answer on a scale of 1 to 10." This can sometimes give you a signal about how speculative the response is.</li> 
+          <li><strong>Use Structured Responses:</strong> While hallucinations are true, there have been many improvements such as "Structured Responses" that correct hallucinations including other mechanisms we will discuss later in this course.</li>
         </ul>
       </div>
 

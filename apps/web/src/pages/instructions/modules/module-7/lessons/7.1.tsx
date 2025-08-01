@@ -7,7 +7,7 @@ import FunctionSchemaDesigner from '@/pages/instructions/components/FunctionSche
 import FunctionCallGrader from '@/pages/instructions/components/FunctionCallGrader';
 import ToolChoiceChallenge from '@/pages/instructions/components/ToolChoiceChallenge';
 import FunctionCallDebugger from '@/pages/instructions/components/FunctionCallDebugger';
-import ModuleQuizzes from '@/components/ModuleQuizzes/ModuleQuizzes';
+
 import LessonTemplate from '@/components/layouts/LessonTemplate';
 
 const Lesson7_1: React.FC = () => {
@@ -190,12 +190,6 @@ const Lesson7_1: React.FC = () => {
             Sometimes the dispatcher dials a wrong number or the department line is busy. Dropped calls happen. In this final exercise, a dispatch has failed. Analyze the request, the faulty directory entry, and the error message to diagnose the problem.
           </p>
           <FunctionCallDebugger />
-        </section>
-
-        {/* Validation Quiz */}
-        <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Check Your Understanding</h2>
-          <ModuleQuizzes questions={quizQuestions} />
         </section>
 
         {/* Navigation */}
