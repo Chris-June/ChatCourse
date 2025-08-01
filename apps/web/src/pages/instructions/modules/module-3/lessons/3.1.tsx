@@ -3,6 +3,9 @@ import ZeroCotDiagram from '../../../components/ZeroCotDiagram';
 import InlineChat from '../../../../../components/InlineChat';
 import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
+import KeyTakeaways from '../../../components/KeyTakeaways';
+import BestPractices from '../../../components/BestPractices';
+import CheckpointQuiz from '../../../components/CheckpointQuiz';
 
 const reasoningChallengeChecklist = [
   { id: 'reasoning-1', text: 'Get the AI to correctly identify the odd numbers', completed: false },
@@ -12,6 +15,29 @@ const reasoningChallengeChecklist = [
 ];
 
 const Lesson3_1: React.FC = () => {
+  const zeroShotQuiz = {
+    question: 'What is the core assumption behind zero-shot prompting?',
+    options: [
+      'The model needs detailed instructions to work.',
+      'The model has been trained on so much data that it can generalize to tasks it has not seen examples of.',
+      'The model can only perform tasks it was specifically fine-tuned for.',
+      'Examples are always required for good performance.',
+    ],
+    correctAnswerIndex: 1,
+    explanation: 'Zero-shot prompting relies on the model\'s vast pre-training to understand and execute tasks without any specific examples in the prompt.',
+  };
+
+  const fewShotQuiz = {
+    question: 'What is the primary purpose of the examples in a few-shot prompt?',
+    options: [
+      'To make the prompt longer.',
+      'To confuse the model.',
+      'To provide a pattern or template for the model to follow for the desired output.',
+      'To test the model\'s memory.',
+    ],
+    correctAnswerIndex: 2,
+    explanation: 'The examples in few-shot prompting act as demonstrations, guiding the model on the expected format, style, and logic.',
+  };
   const quizQuestions = [
     {
       questionText: 'What is the defining characteristic of \'zero-shot\' prompting?',
@@ -114,6 +140,8 @@ const Lesson3_1: React.FC = () => {
             When zero-shot doesn’t work, it’s recommended to provide demonstrations or examples in the prompt which leads to few-shot prompting. In the next section, we demonstrate few-shot prompting.
           </p>
 
+          <CheckpointQuiz {...zeroShotQuiz} />
+
           <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
             <h3 className="font-semibold text-white mb-2">Your Turn: Zero-Shot Challenge</h3>
             <p className="text-gray-400 mb-4">Practice zero-shot prompting by asking the AI to perform tasks without examples. Think of it as giving clear instructions to a new employee - be specific about what you want without showing them how others have done it.</p>
@@ -196,6 +224,8 @@ const Lesson3_1: React.FC = () => {
               ]}
             />
           </div>
+
+          <CheckpointQuiz {...fewShotQuiz} />
         </Accordion>
 
         <Accordion title="Limitations of Few-shot Prompting">
@@ -207,14 +237,20 @@ const Lesson3_1: React.FC = () => {
           </div>
           <p className="text-gray-300 my-4">If we try this again, the model outputs the following:</p>
           <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
-            <code className="block whitespace-pre-wrap break-words font-mono text-red-400">Yes, the odd numbers in this group add up to 107, which is an even number.</code>
+            <p className="font-mono text-gray-200 mt-3">Output:</p>
+            <div className="bg-gray-800 p-2 rounded mt-1">
+              <code className="block whitespace-pre-wrap break-words font-mono text-red-400">The answer is True.</code>
+            </div>
           </div>
+
           <p className="text-gray-300 my-4">
-            This is not the correct response, which not only highlights the limitations of these systems but that there is a need for more advanced prompt engineering.
+            This is incorrect. The odd numbers (15, 5, 13, 7, 1) sum to 41, which is an odd number. The model failed to perform the multi-step reasoning required.
           </p>
+
           <p className="text-gray-300 mb-4">
-            Let’s try to add some examples to see if few-shot prompting improves the results.
+            Let's see if providing examples (few-shot) can fix this. Below is the same problem, but with several examples provided in the prompt to guide the model.
           </p>
+
           <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 text-sm">
             <p className="font-mono text-gray-200">Prompt:</p>
             <div className="bg-gray-800 p-2 rounded mt-1">
@@ -225,9 +261,11 @@ const Lesson3_1: React.FC = () => {
               <code className="block whitespace-pre-wrap break-words font-mono text-red-400">The answer is True.</code>
             </div>
           </div>
+
           <p className="text-gray-300 my-4">
             That didn’t work. It seems like few-shot prompting is not enough to get reliable responses for this type of reasoning problem.
           </p>
+
           <p className="text-gray-300">
             Overall, it seems that providing examples is useful for solving some tasks. When zero-shot prompting and few-shot prompting are not sufficient, it might mean that whatever was learned by the model isn’t enough to do well at the task. From here it is recommended to start thinking about fine-tuning your models or experimenting with more advanced prompting techniques.
           </p>
@@ -242,6 +280,7 @@ const Lesson3_1: React.FC = () => {
               <br />• Consider rephrasing the problem statement
               <br />• Test if breaking the problem into smaller steps helps
             </p>
+            
             <InlineChat 
               moduleId="module-3.1-reasoning"
               maxAttempts={5}
@@ -252,6 +291,28 @@ const Lesson3_1: React.FC = () => {
             />
           </div>
         </Accordion>
+
+        <BestPractices
+          dos={[
+            'Always try zero-shot first. It\'s the simplest approach and often works for straightforward tasks.',
+            'When creating few-shot examples, ensure they are high-quality and consistent in format.',
+            'For complex reasoning, consider if the task needs to be broken down rather than just adding more examples.',
+          ]}
+          donts={[
+            'Don\'t use few-shot for tasks the model already excels at with zero-shot; it adds unnecessary complexity.',
+            'Avoid providing confusing or contradictory examples in your few-shot prompts.',
+            'Don\'t assume few-shot prompting will solve all reasoning problems. It\'s a tool, not a magic bullet.',
+          ]}
+        />
+
+        <KeyTakeaways
+          points={[
+            'Zero-shot prompting relies on the model\'s existing knowledge without providing examples.',
+            'Few-shot prompting guides the model by providing a small number of examples within the prompt.',
+            'Start with zero-shot and move to few-shot only when performance is poor or inconsistent.',
+            'Multi-step reasoning can be a challenge for both zero-shot and few-shot prompting, often requiring more advanced techniques.',
+          ]}
+        />
       </div>
     </LessonTemplate>
   );

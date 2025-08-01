@@ -18,6 +18,8 @@ interface LessonTemplateProps {
   subtitle: string;
   quizQuestions: Question[];
   children: React.ReactNode;
+  nextLessonPath?: string;
+  nextLessonTitle?: string;
 }
 
 const LessonTemplate: React.FC<LessonTemplateProps> = ({
@@ -27,6 +29,8 @@ const LessonTemplate: React.FC<LessonTemplateProps> = ({
   subtitle,
   quizQuestions,
   children,
+  nextLessonPath,
+  nextLessonTitle,
 }) => {
   const { completeLessonWithScore, isLessonComplete } = useProgressStore();
 
@@ -48,6 +52,8 @@ const LessonTemplate: React.FC<LessonTemplateProps> = ({
         title={title}
         subtitle={subtitle}
         completed={lessonIsComplete}
+        nextLessonPath={nextLessonPath}
+        nextLessonTitle={nextLessonTitle}
       />
 
       <div>

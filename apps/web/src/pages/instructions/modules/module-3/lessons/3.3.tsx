@@ -4,26 +4,28 @@ import CopyButton from '../../../../../components/CopyButton';
 import InlineChat from '../../../../../components/InlineChat';
 import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
+import KeyTakeaways from '../../../components/KeyTakeaways';
+import BestPractices from '../../../components/BestPractices';
 
 const jsonChallengeChecklist = [
-  { text: 'Ask the AI to extract name, age, and city from a sentence like "Sarah, 28, lives in Toronto"', completed: false },
-  { text: 'Explicitly specify "return as JSON object with keys: name, age, city"', completed: false },
-  { text: 'Define exact data types: name (string), age (number), city (string)', completed: false },
-  { text: 'Verify the response matches: {"name": "Sarah", "age": 28, "city": "Toronto"}', completed: false },
+  { id: 'json-1', text: 'Ask the AI to extract name, age, and city from a sentence like "Sarah, 28, lives in Toronto"', completed: false },
+  { id: 'json-2', text: 'Explicitly specify "return as JSON object with keys: name, age, city"', completed: false },
+  { id: 'json-3', text: 'Define exact data types: name (string), age (number), city (string)', completed: false },
+  { id: 'json-4', text: 'Verify the response matches: {"name": "Sarah", "age": 28, "city": "Toronto"}', completed: false },
 ];
 
 const markdownChallengeChecklist = [
-  { text: 'Ask the AI to create a comparison of Python vs JavaScript', completed: false },
-  { text: 'Explicitly specify "return as markdown table with columns: Feature, Python, JavaScript"', completed: false },
-  { text: 'Request specific rows: Syntax, Typing, Popular Frameworks', completed: false },
-  { text: 'Verify the response is a properly formatted markdown table with | separators', completed: false },
+  { id: 'md-1', text: 'Ask the AI to create a comparison of Python vs JavaScript', completed: false },
+  { id: 'md-2', text: 'Explicitly specify "return as markdown table with columns: Feature, Python, JavaScript"', completed: false },
+  { id: 'md-3', text: 'Request specific rows: Syntax, Typing, Popular Frameworks', completed: false },
+  { id: 'md-4', text: 'Verify the response is a properly formatted markdown table with | separators', completed: false },
 ];
 
 const structuredListChallengeChecklist = [
-  { text: 'Ask for 3 beginner web development project ideas', completed: false },
-  { text: 'Specify "return as JSON array with objects containing title and description keys"', completed: false },
-  { text: 'Define example structure: {"title": "Todo App", "description": "A simple task manager"}', completed: false },
-  { text: 'Verify response is valid JSON array like: [{"title": "...", "description": "..."}, {...}]', completed: false },
+  { id: 'list-1', text: 'Ask for 3 beginner web development project ideas', completed: false },
+  { id: 'list-2', text: 'Specify "return as JSON array with objects containing title and description keys"', completed: false },
+  { id: 'list-3', text: 'Define example structure: {"title": "Todo App", "description": "A simple task manager"}', completed: false },
+  { id: 'list-4', text: 'Verify response is valid JSON array like: [{"title": "...", "description": "..."}, {...}]', completed: false },
 ];
 
 const Lesson3_3: React.FC = () => {
@@ -59,7 +61,29 @@ const Lesson3_3: React.FC = () => {
         'Storing secret API keys.'
       ],
       correctAnswer: 'Creating a formatted report with tables, headings, and lists that can be rendered directly in a UI.',
-      explanation: 'Markdown is a lightweight markup language that is perfect for creating formatted text. It can be easily converted to HTML and rendered in a web browser or other applications.'
+      explanation: 'Markdown is a lightweight markup language for creating formatted text. It\'s ideal for when you need content that is readable as plain text but can also be rendered into rich text.'
+    },
+    {
+      questionText: 'When asking for a specific JSON structure, what is one of the most effective ways to improve the AI\'s accuracy?',
+      options: [
+        'Using all caps in your prompt.',
+        'Including a clear example of the desired JSON output in the prompt.',
+        'Asking the AI if it understands the request.',
+        'Making the prompt as short as possible.',
+      ],
+      correctAnswer: 'Including a clear example of the desired JSON output in the prompt.',
+      explanation: 'Providing a concrete example (e.g., `{"key": "value"}`) acts as a powerful guide, leaving less room for ambiguity and significantly increasing the chances of getting a perfectly formatted response.',
+    },
+    {
+      questionText: 'Your application requests JSON data from an AI. What is a crucial step to prevent your application from crashing?',
+      options: [
+        'Assuming the AI will always return perfect JSON.',
+        'Immediately using the AI\'s output without checking it.',
+        'Implementing a validation step to parse and check the JSON structure before using it.',
+        'Asking the AI to promise its output is correct.',
+      ],
+      correctAnswer: 'Implementing a validation step to parse and check the JSON structure before using it.',
+      explanation: 'AI models can sometimes generate malformed or incomplete JSON. Always validating the structure in your code before processing it is a critical best practice for building robust applications.',
     }
   ];
 
@@ -177,6 +201,28 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
           />
           <p className="text-gray-400 mt-3">This structured data is like pre-fabricated building materials - ready to be used directly in your application's UI components without any additional processing.</p>
         </Accordion>
+
+        <BestPractices
+          dos={[
+            'Be explicit: Clearly state the desired format (e.g., "Return as a JSON object").',
+            'Define the schema: Specify keys, data types, and even provide an example of the structure you want.',
+            'For formatted text, ask for Markdown. It\'s perfect for tables, lists, and headers.',
+          ]}
+          donts={[
+            'Don\'t vaguely ask for a "list." Specify if you want a numbered list, bullet points, or a JSON array.',
+            'Avoid assuming the AI will guess your desired structure. Always provide clear instructions.',
+            'Don\'t forget that the AI can generate invalid JSON. Always validate the output in your application code.',
+          ]}
+        />
+
+        <KeyTakeaways
+          points={[
+            'Requesting structured output (like JSON or Markdown) makes AI responses predictable and machine-readable.',
+            'The more specific your instructions are about format and schema, the more reliable the output will be.',
+            'Use JSON for data that needs to be parsed by an application, and Markdown for text that needs to be displayed with formatting.',
+            'You can dramatically improve reliability by providing a clear example of the output you want in your prompt.',
+          ]}
+        />
       </div>
     </LessonTemplate>
   );

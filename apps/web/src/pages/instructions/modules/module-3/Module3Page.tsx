@@ -19,7 +19,16 @@ const Module3Page: React.FC = () => {
 
   const currentLessonIndex = lessons.findIndex(lesson => location.pathname.endsWith(lesson.id));
   const prevLesson = currentLessonIndex > 0 ? lessons[currentLessonIndex - 1] : null;
-  const nextLesson = currentLessonIndex < lessons.length - 1 ? lessons[currentLessonIndex + 1] : null;
+  let nextLesson = currentLessonIndex < lessons.length - 1 ? lessons[currentLessonIndex + 1] : null;
+
+  // Manually add the link to the next module if on the last lesson
+  if (currentLessonIndex === lessons.length - 1) {
+    nextLesson = {
+      id: '4.1',
+      title: 'Function Calling',
+      path: '/instructions/module-4/4.1',
+    };
+  }
 
   return (
     <div className="flex flex-col h-full">

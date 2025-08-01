@@ -4,15 +4,53 @@ import AutoDemosDiagram from '../../../components/AutoDemosDiagram';
 import InlineChat from '../../../../../components/InlineChat';
 import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
+import KeyTakeaways from '../../../components/KeyTakeaways';
+import BestPractices from '../../../components/BestPractices';
+import CheckpointQuiz from '../../../components/CheckpointQuiz';
 
 const zeroShotCoTChallengeChecklist = [
-  { text: 'Pose a multi-step reasoning problem to the AI', completed: false },
-  { text: 'Append the phrase "Let\'s think step by step" to your prompt', completed: false },
-  { text: 'Confirm the AI outputs a step-by-step breakdown', completed: false },
-  { text: 'Verify the final answer is logical and correct', completed: false },
+  { id: 'cot-1', text: 'Pose a multi-step reasoning problem to the AI', completed: false },
+  { id: 'cot-2', text: 'Append the phrase "Let\'s think step by step" to your prompt', completed: false },
+  { id: 'cot-3', text: 'Confirm the AI outputs a step-by-step breakdown', completed: false },
+  { id: 'cot-4', text: 'Verify the final answer is logical and correct', completed: false },
 ];
 
 const Lesson3_2: React.FC = () => {
+  const cotQuiz = {
+    question: 'What is the primary goal of providing reasoning steps in a few-shot CoT prompt?',
+    options: [
+      'To make the prompt longer and more detailed.',
+      'To teach the model a new skill from scratch.',
+      'To demonstrate the desired thought process, guiding the model to replicate that reasoning pattern.',
+      'To confuse the model with complex logic.',
+    ],
+    correctAnswerIndex: 2,
+    explanation: 'The examples in CoT are not just about the final answer, but about showing the model *how* to arrive at the answer step-by-step.',
+  };
+
+  const zeroShotCotQuiz = {
+    question: 'What is the most common trigger phrase to elicit a zero-shot CoT response?',
+    options: [
+      '"Please explain your answer."',
+      '"Show your work."',
+      '"Let\'s think step by step."',
+      '"Are you sure about that?"'
+    ],
+    correctAnswerIndex: 2,
+    explanation: 'The phrase "Let\'s think step by step" is a simple but powerful instruction that prompts the model to output its reasoning process.',
+  };
+
+  const autoCotQuiz = {
+    question: 'What is the main advantage of Automatic CoT (Auto-CoT)?',
+    options: [
+      'It writes the user\'s initial prompt for them.',
+      'It guarantees a correct answer every time.',
+      'It automatically generates a diverse set of reasoning examples, saving significant manual effort.',
+      'It allows the model to ask clarifying questions.',
+    ],
+    correctAnswerIndex: 2,
+    explanation: 'Auto-CoT automates the labor-intensive process of creating high-quality, diverse reasoning chains for few-shot CoT prompting.',
+  };
   const quizQuestions = [
     {
       questionText: 'What is the core principle of Chain-of-Thought (CoT) prompting?',
@@ -105,6 +143,8 @@ const Lesson3_2: React.FC = () => {
           <p className="text-gray-300 my-4">
             Success! By explicitly showing the model the *chain of thought* (identifying odd numbers, summing them, checking if the sum is odd/even), it successfully replicated the reasoning process.
           </p>
+
+          <CheckpointQuiz {...cotQuiz} />
         </Accordion>
 
         <Accordion title="Zero-Shot CoT">
@@ -150,6 +190,8 @@ const Lesson3_2: React.FC = () => {
               challengeChecklist={zeroShotCoTChallengeChecklist}
             />
           </div>
+
+          <CheckpointQuiz {...zeroShotCotQuiz} />
         </Accordion>
 
         <Accordion title="Automatic Chain-of-Thought (Auto-CoT)">
@@ -163,8 +205,31 @@ const Lesson3_2: React.FC = () => {
             The key insight: by automatically generating reasoning chains across diverse problem types, Auto-CoT creates a comprehensive "reasoning toolkit" that the AI can draw from when tackling new challenges.
           </p>
           <AutoDemosDiagram />
-          <p className="text-center text-sm text-gray-500 mt-2">Image Source: Zhang et al. (2022)</p>
+          <p className="text-center text-sm text-gray-500 mt-2">Image Source: Brown et al. (2020)</p>
+          <CheckpointQuiz {...autoCotQuiz} />
         </Accordion>
+
+        <BestPractices
+          dos={[
+            "Use Chain-of-Thought for problems that require multiple logical steps, like math or planning.",
+            "For Zero-Shot CoT, simply add 'Let\'s think step by step' to your prompt to encourage a reasoned breakdown.",
+            "When creating manual CoT examples, ensure the reasoning process is clear, correct, and easy for the model to replicate.",
+          ]}
+          donts={[
+            "Don\'t use CoT for simple retrieval tasks where reasoning is not required; it adds unnecessary length.",
+            "Avoid overly complex or convoluted reasoning in your examples. Clarity is key.",
+            "Don\'t assume CoT makes the model infallible. Always check the reasoning steps for logical errors.",
+          ]}
+        />
+
+        <KeyTakeaways
+          points={[
+            'Chain-of-Thought (CoT) guides the AI by showing the reasoning steps, not just the final answer.',
+            'It is highly effective for multi-step logic, math, and planning problems.',
+            'A simple phrase like \'Let\'s think step by step\' can trigger a reasoning process (Zero-Shot CoT) without needing examples.',
+            'For complex tasks, providing explicit CoT examples (Few-Shot CoT) is a powerful way to improve reliability.',
+          ]}
+        />
       </div>
     </LessonTemplate>
   );
