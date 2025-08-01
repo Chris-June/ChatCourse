@@ -48,6 +48,13 @@ lerna-debug.log*
 .cache/
 .temp/
 .tmp/
+
+# Vite-specific build outputs
+dist-ssr/
+
+# VS Code specific settings
+!.vscode/extensions.json
+
 .turbo/
 
 # Debug logs

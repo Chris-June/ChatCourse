@@ -5,7 +5,6 @@ import Lesson1_1 from './lessons/1.1';
 import Lesson1_2 from './lessons/1.2';
 import Lesson1_3 from './lessons/1.3';
 import Lesson1_4 from './lessons/1.4';
-import Lesson1_5 from './lessons/1.5';
 import Lesson1_6 from './lessons/1.6';
 import Lesson1_7 from './lessons/1.7';
 import Lesson1_8 from './lessons/1.8';

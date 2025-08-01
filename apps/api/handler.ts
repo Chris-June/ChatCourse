@@ -106,43 +106,18 @@ app.use((req, res, next) => {
     'https://intelli-sync.vercel.app',
     'https://intelli-sync-dev.vercel.app',
     'https://intelli-sync-git-main-intellisync.vercel.app/',
-    'https://www.intellisync.academy',
-    'https://chat-dlvm2mvuz-chris-junes-projects-c32d49c9.vercel.app',
-    'https://*.vercel.app',
-    'https://*.intellisync.chat',
+    'https://www.intellisync.academy'
   ];
-
   const origin = req.headers.origin;
-
-  if (process.env.NODE_ENV !== 'production') {
-    // In development, allow any origin
-    res.setHeader('Access-Control-Allow-Origin', origin || '*');
-  } else if (origin) {
-    // In production, validate against the allowed list
-    const isAllowed = allowedOrigins.some(allowedOrigin => {
-      if (allowedOrigin.startsWith('*.')) {
-        // Handle wildcard domain *.example.com
-        return origin.endsWith(allowedOrigin.substring(1));
-      }
-      // Handle exact domain match
-      return origin === allowedOrigin;
-    });
-
-    if (isAllowed) {
-      res.setHeader('Access-Control-Allow-Origin', origin);
-    }
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
   }
-
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Expose-Headers', 'Content-Length,Content-Range');
-
-  // Handle preflight requests
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
-
   next();
 });
 
