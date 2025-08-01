@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, BrainCircuit, MessageSquare } from 'lucide-react';
+import { BrainCircuit, MessageSquare } from 'lucide-react';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ContextExample from '../../../components/ContextExample';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import RollingWhiteboard from '../../../components/RollingWhiteboard';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import LessonHeader from '../../../../../components/layouts/LessonHeader';
+import LessonFooter from '../../../../../components/layouts/LessonFooter';
 
 const Lesson2_1: React.FC = () => {
   const quizQuestions = [
@@ -69,24 +70,10 @@ const Lesson2_1: React.FC = () => {
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">2.1 The Power of Context in AI</h1>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/instructions/module-1/1.3" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Advanced Techniques
-          </Link>
-          <Link 
-            to="/instructions/module-2/2.2" 
-            onClick={() => completeLesson(2, 1)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Coherent Conversations <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
+      <LessonHeader 
+        title="2.1: The Power of Context in AI"
+        subtitle="Mastering the AI's 'working memory' is the key to unlocking complex, multi-step conversations."
+      />
 
       <p className="text-lg text-gray-300 max-w-prose">
         Have you ever had a conversation where you had to keep repeating yourself? It's frustrating. The same is true when talking to an AI. The key to a smooth, intelligent conversation is understanding and managing its 'memory'—what we call the <strong>context window</strong>.
@@ -153,21 +140,13 @@ const Lesson2_1: React.FC = () => {
       </section>
 
       {/* Navigation */}
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-1/1.3" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Back to Module 1
-        </Link>
-        <Link 
-          to="/instructions/module-2/2.2" 
-          onClick={() => completeLesson(2, 1)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next: Coherent Conversations <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
+      <LessonFooter 
+        prevLessonPath="/instructions/module-1/1.8"
+        prevLessonTitle="1.8: Module 1 Challenge"
+        nextLessonPath="/instructions/module-2/2.2"
+        nextLessonTitle="2.2: Keeping Conversations Coherent"
+        onNextClick={() => completeLesson(2, 1)}
+      />
     </div>
   );
 };

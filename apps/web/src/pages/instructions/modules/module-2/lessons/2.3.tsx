@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Target, Bot } from 'lucide-react';
+import { Target, Bot } from 'lucide-react';
 import CopyButton from '../../../../../components/CopyButton';
 import InlineChat from '../../../../../components/InlineChat';
 import { useProgressStore } from '../../../../../store/progressStore';
 import Accordion from '../../../components/Accordion';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import LessonHeader from '../../../../../components/layouts/LessonHeader';
+import LessonFooter from '../../../../../components/layouts/LessonFooter';
 
 const challengeChecklist = [
   { text: "AI maintains 'Gnosi' persona (responds as a tutor named Gnosi)", completed: false },
@@ -76,24 +77,10 @@ const Lesson2_3: React.FC = () => {
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">2.3 Context Management Exercises</h1>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/instructions/module-2/2.2" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Coherent Conversations
-          </Link>
-          <Link 
-            to="/instructions/module-3" 
-            onClick={() => completeLesson(2, 3)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Prompting Techniques <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
+      <LessonHeader 
+        title="2.3: Project: The Socratic Tutor"
+        subtitle="Apply your context management skills to build and maintain a consistent AI persona."
+      />
 
       <p className="text-lg text-gray-300">
         It's time to put your new skills to the test! This project challenges you to use this very chat interface to create and maintain a consistent AI persona over multiple turns. This is about practicing context management: the skill of deliberately guiding the AI by providing, reinforcing, and clarifying information to keep the conversation coherent and on-task.
@@ -164,21 +151,13 @@ const Lesson2_3: React.FC = () => {
       </section>
 
       {/* Navigation */}
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-2/2.2" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: Keeping the Thread
-        </Link>
-        <Link 
-          to="/instructions/module-3" 
-          onClick={() => completeLesson(2, 3)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next Module: Advanced Prompting <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
+      <LessonFooter 
+        prevLessonPath="/instructions/module-2/2.2"
+        prevLessonTitle="2.2: Keeping Conversations Coherent"
+        nextLessonPath="/instructions/module-3"
+        nextLessonTitle="Module 3: Advanced Prompting Techniques"
+        onNextClick={() => completeLesson(2, 3)}
+      />
     </div>
   );
 };
