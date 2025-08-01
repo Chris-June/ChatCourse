@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Repeat, Anchor, AlertTriangle } from 'lucide-react';
+import { Repeat, Anchor, AlertTriangle } from 'lucide-react';
 import { useProgressStore } from '../../../../../store/progressStore';
+import LessonHeader from '../../../../../components/layouts/LessonHeader';
+import LessonFooter from '../../../../../components/layouts/LessonFooter';
 
 // Interactive Lesson Components
 import Accordion from '../../../components/Accordion';
@@ -92,24 +93,10 @@ const Lesson2_2: React.FC = () => {
   const { completeLesson } = useProgressStore();
   return (
     <div className="space-y-8 p-4 md:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blue-400">2.2 Maintaining Coherent Conversations</h1>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/instructions/module-2/2.1" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Context in AI
-          </Link>
-          <Link 
-            to="/instructions/module-2/2.3" 
-            onClick={() => completeLesson(2, 2)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Coherent Conversations Exercises <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
+      <LessonHeader 
+        title="2.2: Keeping Conversations Coherent"
+        subtitle="Learn to actively manage the AI's context to prevent confusion and keep your conversations on track."
+      />
 
       <p className="text-lg text-gray-300">
         Now that you understand the AI's "memory" is a finite context window, let's learn how to actively manage it. Context contamination happens when irrelevant or conflicting details from earlier in the conversation start to confuse the AI, leading to off-topic or incorrect responses. These techniques will help you keep your conversations on track, even when tackling complex, multi-step problems.
@@ -162,21 +149,13 @@ const Lesson2_2: React.FC = () => {
       </section>
 
       {/* Navigation */}
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-2/2.1" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: How AI Remembers
-        </Link>
-        <Link 
-          to="/instructions/module-2/2.3" 
-          onClick={() => completeLesson(2, 2)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next: Context Management Exercises <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
+      <LessonFooter 
+        prevLessonPath="/instructions/module-2/2.1"
+        prevLessonTitle="2.1: The Power of Context in AI"
+        nextLessonPath="/instructions/module-2/2.3"
+        nextLessonTitle="2.3: Project: The Socratic Tutor"
+        onNextClick={() => completeLesson(2, 2)}
+      />
     </div>
   );
 };
