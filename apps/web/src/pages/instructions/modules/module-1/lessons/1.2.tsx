@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Send } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
+import Accordion from '../../../components/Accordion';
+import { Send } from 'lucide-react';
 
 // Mock API call for chat response
 const getMockResponse = (prompt: string): Promise<string> => {
@@ -128,26 +129,9 @@ const Lesson1_2: React.FC = () => {
         </div>
       </section>
 
-<<<<<<< HEAD
       <PromptBuilder onPromptSubmit={setSubmittedPrompt} />
       <InlineChat prompt={submittedPrompt} />
     </LessonTemplate>
-=======
-      <InteractiveInsync />
-
-      <section>
-        <ModuleQuizzes questions={quizQuestions} />
-      </section>
-
-      <LessonFooter 
-        prevLessonPath="/instructions/module-1/1.1"
-        prevLessonTitle="1.1: What is an AI, Really?"
-        nextLessonPath="/instructions/module-1/1.3"
-        nextLessonTitle="1.3: When AI Gets It Wrong (Hallucinations)"
-        onNextClick={() => completeLesson(1, 2)}
-      />
-    </div>
->>>>>>> origin/main
   );
 };
 

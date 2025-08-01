@@ -5,10 +5,10 @@ import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 
 const reasoningChallengeChecklist = [
-  { text: 'Get the AI to correctly identify the odd numbers', completed: false },
-  { text: 'Get the AI to sum the odd numbers correctly', completed: false },
-  { text: 'Get the AI to determine if the sum is even or odd', completed: false },
-  { text: 'Achieve the correct final answer: False', completed: false },
+  { id: 'reasoning-1', text: 'Get the AI to correctly identify the odd numbers', completed: false },
+  { id: 'reasoning-2', text: 'Get the AI to sum the odd numbers correctly', completed: false },
+  { id: 'reasoning-3', text: 'Get the AI to determine if the sum is even or odd', completed: false },
+  { id: 'reasoning-4', text: 'Achieve the correct final answer: False', completed: false },
 ];
 
 const Lesson3_1: React.FC = () => {
@@ -127,9 +127,9 @@ const Lesson3_1: React.FC = () => {
               placeholder="Try a zero-shot prompt here..."
               systemPrompt="You are a helpful AI assistant. The user is learning about zero-shot prompting. Respond to their requests directly without examples, demonstrating zero-shot capabilities."
               challengeChecklist={[
-                { text: 'Used a clear instruction without examples', completed: false },
-                { text: 'Received a relevant response', completed: false },
-                { text: 'Verified the response was generated without examples', completed: false }
+                { id: 'zeroshot-1', text: 'Used a clear instruction without examples', completed: false },
+                { id: 'zeroshot-2', text: 'Received a relevant response', completed: false },
+                { id: 'zeroshot-3', text: 'Verified the response was generated without examples', completed: false }
               ]}
             />
           </div>
@@ -190,9 +190,9 @@ const Lesson3_1: React.FC = () => {
               placeholder="Construct a few-shot prompt with examples..."
               systemPrompt="You are a helpful AI assistant. The user is learning about few-shot prompting. When they provide examples, analyze the pattern and respond in kind. If they don’t provide examples, gently remind them that few-shot learning requires examples."
               challengeChecklist={[
-                { text: 'Included at least 2-3 clear examples', completed: false },
-                { text: 'Maintained consistent format between examples', completed: false },
-                { text: 'Received a response following the example pattern', completed: false }
+                { id: 'fewshot-1', text: 'Included at least 2-3 clear examples', completed: false },
+                { id: 'fewshot-2', text: 'Maintained consistent format between examples', completed: false },
+                { id: 'fewshot-3', text: 'Received a response following the example pattern', completed: false }
               ]}
             />
           </div>

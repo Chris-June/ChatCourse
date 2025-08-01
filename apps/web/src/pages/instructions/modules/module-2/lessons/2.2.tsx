@@ -7,7 +7,7 @@ import ExplicitReferencesTabs from '../../../components/ExplicitReferencesTabs';
 import ContextContaminationDemo from '../../../components/ContextContaminationDemo';
 import InstructionPriming from '../../../components/InstructionPriming';
 import CommonPitfalls from '../../../components/CommonPitfalls';
-import InlineChat from '../../../../../components/InlineChat';
+import InlineChat, { ChallengeChecklistItem } from '../../../../../components/InlineChat';
 
 const initialConversation = [
   {
@@ -20,10 +20,10 @@ const initialConversation = [
   }
 ];
 
-const challengeChecklist = [
-  { text: 'Summarize the initial marketing copy in your own words.', completed: false },
-  { text: 'Ask for three alternative headlines based on the summary.', completed: false },
-  { text: 'Reference the mission to \'unlock human creativity\' in a follow-up question.', completed: false },
+const challengeChecklist: ChallengeChecklistItem[] = [
+  { id: '1', text: 'Summarize the initial marketing copy in your own words.', completed: false },
+  { id: '2', text: 'Ask for three alternative headlines based on the summary.', completed: false },
+  { id: '3', text: 'Reference the mission to \'unlock human creativity\' in a follow-up question.', completed: false },
 ];
 
 const quizQuestions = [
