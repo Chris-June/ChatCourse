@@ -4,6 +4,8 @@ import CopyButton from '../../../../../components/CopyButton';
 import InlineChat from '../../../../../components/InlineChat';
 import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
+import KeyTakeaways from '../../../components/KeyTakeaways';
+import BestPractices from '../../../components/BestPractices';
 
 
 const challengeChecklist = [
@@ -144,6 +146,28 @@ const Lesson2_3: React.FC = () => {
           />
         </section>
       </div>
+
+      <BestPractices
+        dos={[
+          "Gently re-center the AI if it drifts from its persona. For example: 'Remember, you're acting as a Socratic tutor, so please only ask questions.'",
+          "Periodically summarize key facts or decisions in a long conversation to reinforce context. For example: 'Okay, so we've decided on a 3-day trip to Tokyo with a focus on temples and technology.'",
+          "Refer to past information explicitly. Instead of 'What about that idea?', say 'What about the idea of using QR codes on the packaging we discussed?'"
+        ]}
+        donts={[
+          "Don't use ambiguous pronouns like 'it' or 'that' when the subject is far back in the conversation.",
+          "Avoid mixing completely unrelated tasks in the same chat. Start a new conversation to ensure a clean context.",
+          "Don't assume the AI perfectly recalls minor details from very long conversations. Reiterate important information if needed."
+        ]}
+      />
+
+
+      <KeyTakeaways
+        points={[
+          'Context management is the skill of deliberately guiding the AI by providing, reinforcing, and clarifying information to keep the conversation coherent and on-task.',
+          'Maintaining a persona is a great test of your ability to use techniques like priming and re-centering to ensure the AI doesn\'t lose track of its core goal.',
+          'Context management isn\'t just about memory—it\'s an active skill of guiding the AI\'s attention and maintaining your intended persona.'
+        ]}
+      />
     </LessonTemplate>
   );
 };

@@ -4,6 +4,7 @@ import ContextExample from '../../../components/ContextExample';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import RollingWhiteboard from '../../../components/RollingWhiteboard';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
+import BestPractices from '../../../components/BestPractices';
 
 const Lesson2_1: React.FC = () => {
   const quizQuestions = [
@@ -121,6 +122,20 @@ const Lesson2_1: React.FC = () => {
         </section>
 
         <ContextExample />
+        <BestPractices
+          dos={[
+            'Periodically summarize key points in long conversations to keep them in context.',
+            'Start new conversations for completely new topics to avoid context confusion.',
+            'If the AI gets confused, gently remind it of the most important instruction or piece of information.',
+            'Use clear, simple language, especially when establishing initial context.',
+          ]}
+          donts={[
+            'Don\'t assume the AI remembers details from many messages ago in a very long chat.',
+            'Avoid switching topics abruptly without resetting the context or starting a new chat.',
+            'Don\'t feed the AI massive, irrelevant documents and expect it to find the one key detail.',
+            'Avoid vague pronouns like \'it\' or \'that\' when referring to something from much earlier in the conversation.',
+          ]}
+        />
 
         <KeyTakeaways points={[
           'The AI has a limited "working memory" (context window) that fills up like a whiteboard',
