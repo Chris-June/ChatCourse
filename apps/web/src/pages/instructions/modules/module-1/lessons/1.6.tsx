@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Wrench } from 'lucide-react';
+import { Wrench } from 'lucide-react';
+import LessonHeader from '../../../../../components/layouts/LessonHeader';
+import LessonFooter from '../../../../../components/layouts/LessonFooter';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 import InlineChat from '../../../../../components/InlineChat';
@@ -46,17 +47,10 @@ const Lesson1_6: React.FC = () => {
 
   return (
     <div className="space-y-8 p-4 md:p-6 text-gray-200">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-green-400">1.6: Workshop: Building with I.N.S.Y.N.C.</h1>
-        <div className="flex items-center space-x-4">
-          <Link to="/instructions/module-1/1.5" className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous
-          </Link>
-          <Link to="/instructions/module-1/1.7" onClick={() => completeLesson(1, 6)} className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors">
-            Next <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
+      <LessonHeader 
+        title="1.6: Workshop: Building with I.N.S.Y.N.C."
+        subtitle="Put your knowledge to the test with a hands-on challenge."
+      />
 
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-green-300 flex items-center">
@@ -97,16 +91,13 @@ const Lesson1_6: React.FC = () => {
 
       <ModuleQuizzes questions={quizQuestions} />
 
-      <div className="flex justify-between mt-8">
-        <Link to="/instructions/module-1/1.5" className="flex items-center px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
-          <ChevronLeft className="w-5 h-5 mr-2" />
-          <span>1.5: The I.N.S.Y.N.C. Framework</span>
-        </Link>
-        <Link to="/instructions/module-1/1.7" onClick={() => completeLesson(1, 6)} className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors">
-          <span>Next: 1.7: Advanced Prompting</span>
-          <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
+      <LessonFooter 
+        prevLessonPath="/instructions/module-1/1.5"
+        prevLessonTitle="1.5: The I.N.S.Y.N.C. Framework"
+        nextLessonPath="/instructions/module-1/1.7"
+        nextLessonTitle="1.7: Advanced Prompting"
+        onNextClick={() => completeLesson(1, 6)}
+      />
     </div>
   );
 };

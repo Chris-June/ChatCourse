@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Lightbulb, Check, X, HelpCircle } from 'lucide-react';
+import { Lightbulb, Check, X, HelpCircle } from 'lucide-react';
+import LessonHeader from '../../../../../components/layouts/LessonHeader';
+import LessonFooter from '../../../../../components/layouts/LessonFooter';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
@@ -128,18 +129,11 @@ const Lesson1_3: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-8 p-4 md:p-6 text-gray-200">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-purple-400">1.3: When AI Gets It Wrong (Hallucinations)</h1>
-        <div className="flex items-center space-x-4">
-          <Link to="/instructions/module-1/1.2" className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous
-          </Link>
-          <Link to="/instructions/module-1/1.4" onClick={() => completeLesson(1, 3)} className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors">
-            Next <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
+    <div className="space-y-6 p-4 md:p-6 bg-gray-900 text-white">
+      <LessonHeader 
+        title="1.3: When AI Gets It Wrong (Hallucinations)"
+        subtitle="Understanding and identifying AI-generated misinformation."
+      />
 
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-purple-300 flex items-center">
@@ -181,16 +175,13 @@ const Lesson1_3: React.FC = () => {
 
       <ModuleQuizzes questions={quizQuestions} />
 
-      <div className="flex justify-between mt-8">
-        <Link to="/instructions/module-1/1.2" className="flex items-center px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
-          <ChevronLeft className="w-5 h-5 mr-2" />
-          <span>1.2: The I.N.S.Y.N.C. Framework</span>
-        </Link>
-        <Link to="/instructions/module-1/1.4" onClick={() => completeLesson(1, 3)} className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors">
-          <span>Next: 1.4: Intro to Prompting</span>
-          <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
+      <LessonFooter 
+        prevLessonPath="/instructions/module-1/1.2"
+        prevLessonTitle="1.2: The I.N.S.Y.N.C. Framework"
+        nextLessonPath="/instructions/module-1/1.4"
+        nextLessonTitle="1.4: The Art of the Ask (Intro to Prompting)"
+        onNextClick={() => completeLesson(1, 3)}
+      />
     </div>
   );
 };

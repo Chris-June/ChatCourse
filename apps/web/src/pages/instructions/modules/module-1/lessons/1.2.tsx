@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
+import LessonHeader from '../../../../../components/layouts/LessonHeader';
+import LessonFooter from '../../../../../components/layouts/LessonFooter';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
 
@@ -117,10 +118,10 @@ const Lesson1_2: React.FC = () => {
 
   return (
     <div className="space-y-8 p-6 bg-gray-900 text-white">
-      <header>
-        <h1 className="text-4xl font-bold text-white mb-2">1.2 The I.N.S.Y.N.C. Framework</h1>
-        <p className="text-lg text-gray-400">A structured approach to predictable results.</p>
-      </header>
+      <LessonHeader 
+        title="1.2 The I.N.S.Y.N.C. Framework"
+        subtitle="A structured approach to predictable results."
+      />
 
       <section>
         <p className="text-gray-300 mb-4">
@@ -142,14 +143,12 @@ const Lesson1_2: React.FC = () => {
         <ModuleQuizzes questions={quizQuestions} />
       </section>
 
-      <div className="flex justify-between pt-4">
-        <Link to="/instructions/module-1/1.1" className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous: What is an AI?
-        </Link>
-        <Link to="/instructions/module-1/1.3" className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors">
-          Next: When AI Gets It Wrong <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
+      <LessonFooter 
+        prevLessonPath="/instructions/module-1/1.1"
+        prevLessonTitle="1.1: What is an AI, Really?"
+        nextLessonPath="/instructions/module-1/1.3"
+        nextLessonTitle="1.3: When AI Gets It Wrong (Hallucinations)"
+      />
     </div>
   );
 };

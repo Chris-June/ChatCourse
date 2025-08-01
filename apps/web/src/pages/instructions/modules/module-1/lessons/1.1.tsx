@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronRight, Lightbulb, BrainCircuit, Puzzle } from 'lucide-react';
+import { Lightbulb, BrainCircuit, Puzzle } from 'lucide-react';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import LessonHeader from '../../../../../components/layouts/LessonHeader';
+import LessonFooter from '../../../../../components/layouts/LessonFooter';
 
 const tokenizeText = (text: string): string[] => {
   // This is a simplified tokenizer for demonstration.
@@ -109,10 +110,12 @@ const Lesson1_1: React.FC = () => {
 
   return (
     <div className="space-y-8 p-6 bg-gray-900 text-white">
-      <header>
-        <h1 className="text-4xl font-bold text-white mb-2">1.1 What is an AI, Really?</h1>
-        <p className="text-lg text-gray-400">Beyond the hype, let's build a real foundation.</p>
-      </header>
+      <LessonHeader 
+        title="1.1 What is an AI, Really?"
+        subtitle="Beyond the hype, let's build a real foundation."
+        nextLessonPath="/instructions/module-1/1.2"
+        onNextClick={() => completeLesson(1, 1)}
+      />
 
       <section className="space-y-6">
         <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
@@ -167,15 +170,11 @@ const Lesson1_1: React.FC = () => {
         <ModuleQuizzes questions={quizQuestions} />
       </section>
 
-      <div className="flex justify-end pt-4">
-        <Link 
-          to="/instructions/module-1/1.2" 
-          onClick={() => completeLesson(1, 1)} // Mark lesson 1.1 as complete
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next: The I.N.S.Y.N.C. Framework <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
+      <LessonFooter 
+        nextLessonPath="/instructions/module-1/1.2"
+        nextLessonTitle="Next: 1.2 "
+        onNextClick={() => completeLesson(1, 1)}
+      />
     </div>
   );
 };

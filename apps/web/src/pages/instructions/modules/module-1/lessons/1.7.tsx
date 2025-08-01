@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Beaker, Code, BookOpen, BarChart3, Sparkles, Layers, Zap } from 'lucide-react';
+import { Beaker, Code, BookOpen, BarChart3, Sparkles, Layers, Zap } from 'lucide-react';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
+import LessonHeader from '../../../../../components/layouts/LessonHeader';
+import LessonFooter from '../../../../../components/layouts/LessonFooter';
 
 // Import our advanced prompting components
 import {
@@ -118,30 +119,10 @@ const Lesson1_7: React.FC = () => {
 
   return (
     <div className="space-y-8 p-4 md:p-6">
-      {/* Header Section */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
-        <div>
-          <h1 className="text-3xl font-bold text-blue-400">1.3 Advanced Prompting Techniques</h1>
-          <p className="text-lg text-gray-300 mt-2">
-            Take your prompt engineering skills to the next level with these advanced techniques and tools.
-          </p>
-        </div>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/instructions/module-1/1.2" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous
-          </Link>
-          <Link 
-            to="/instructions/module-2" 
-            onClick={() => completeLesson(1, 3)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-          >
-            Next: Context Management <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
+      <LessonHeader 
+        title="1.7: Advanced Prompting Techniques"
+        subtitle="Take your prompt engineering skills to the next level with these advanced techniques and tools."
+      />
 
       {/* Navigation Tabs */}
       <div className="border-b border-gray-700">
@@ -351,37 +332,15 @@ const Lesson1_7: React.FC = () => {
 
 
 
-      {/* Navigation */}
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-1/1.6" 
-          className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" /> Previous
-        </Link>
-        <Link 
-          to="/instructions/module-1/1.8" 
-          onClick={() => completeLesson(1, 7)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          Next: Module 1 Challenge <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
+      <LessonFooter 
+        prevLessonPath="/instructions/module-1/1.6"
+        prevLessonTitle="1.6: Workshop: Building with I.N.S.Y.N.C."
+        nextLessonPath="/instructions/module-1/1.8"
+        nextLessonTitle="1.8: Module 1 Challenge"
+        onNextClick={() => completeLesson(1, 7)}
+      />
     </div>
   );
 };
-
-// Add fade-in animation
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in {
-    animation: fadeIn 0.3s ease-out forwards;
-  }
-`;
-document.head.appendChild(style);
 
 export default Lesson1_7;

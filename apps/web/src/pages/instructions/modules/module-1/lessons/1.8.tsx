@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Trophy, Sparkles } from 'lucide-react';
+import { Trophy, Sparkles } from 'lucide-react';
+import LessonHeader from '../../../../../components/layouts/LessonHeader';
+import LessonFooter from '../../../../../components/layouts/LessonFooter';
 import { useProgressStore } from '../../../../../store/progressStore';
 import { PromptChallenges } from '../../../../../components/prompting/advanced';
 
@@ -9,17 +10,10 @@ const Lesson1_8: React.FC = () => {
 
   return (
     <div className="space-y-8 p-4 md:p-6 text-gray-200">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-yellow-400">1.8: Module 1 Challenge</h1>
-        <div className="flex items-center space-x-4">
-          <Link to="/instructions/module-1/1.7" className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous
-          </Link>
-          <Link to="/instructions/module-2" onClick={() => completeLesson(1, 8)} className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors">
-            Go to Module 2 <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </div>
+      <LessonHeader 
+        title="1.8: Module 1 Challenge"
+        subtitle="Put everything you've learned in Module 1 to the test."
+      />
 
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-yellow-300 flex items-center">
@@ -52,23 +46,13 @@ const Lesson1_8: React.FC = () => {
       </section>
 
       {/* Navigation */}
-      <div className="flex justify-between pt-4">
-        <Link 
-          to="/instructions/module-1/1.7" 
-          className="flex items-center px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" />
-          <span>1.7: Advanced Prompting</span>
-        </Link>
-        <Link 
-          to="/instructions/module-2" 
-          onClick={() => completeLesson(1, 8)}
-          className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
-        >
-          <span>On to Module 2!</span>
-          <ChevronRight className="w-5 h-5 ml-2" />
-        </Link>
-      </div>
+      <LessonFooter 
+        prevLessonPath="/instructions/module-1/1.7"
+        prevLessonTitle="1.7: Advanced Prompting Techniques"
+        nextLessonPath="/instructions/module-2"
+        nextLessonTitle="On to Module 2!"
+        onNextClick={() => completeLesson(1, 8)}
+      />
     </div>
   );
 };
