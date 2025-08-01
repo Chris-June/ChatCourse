@@ -156,6 +156,37 @@ const Lesson1_3: React.FC = () => {
       <HallucinationGame />
 
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-orange-300 flex items-center">
+          Why Do They Really Happen?
+        </h2>
+        <p className="text-gray-300 mb-4">
+          Hallucinations are a direct side effect of the AI's core function: predicting the next word. The AI isn't consulting a knowledge base; it's weaving together words based on statistical patterns from its training data.
+        </p>
+        <p className="text-gray-300">
+          Imagine an actor who forgets their lines but is determined to keep the play going. Instead of stopping, they improvise something that sounds plausible in the context of the scene. The AI does the same—it fills in gaps with what's statistically likely, which isn't always what's factually true.
+        </p>
+      </div>
+
+      <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-teal-300 flex items-center">
+          How to Mitigate Hallucinations
+        </h2>
+        <p className="text-gray-300 mb-4">
+          You can't eliminate hallucinations entirely, but you can significantly reduce their likelihood with good prompting habits:
+        </p>
+        <ul className="space-y-3 text-gray-300 list-disc list-inside">
+          <li><strong>Ask for Sources:</strong> Add phrases like "Cite your sources" or "Provide URLs for your claims." While the AI can hallucinate sources too, this often forces it to ground its response in more factual data.</li>
+          <li><strong>Provide Grounding Context:</strong> Use the 'C' in the I.N.S.Y.N.C. framework. By giving the AI the specific text, data, or background information it needs, you anchor its predictions to your facts, not its own.</li>
+          <li><strong>Request a Confidence Score:</strong> Ask the AI to "rate its confidence in this answer on a scale of 1 to 10." This can sometimes give you a signal about how speculative the response is.</li>
+        </ul>
+      </div>
+
+      <div className="bg-yellow-900/50 border border-yellow-600/50 p-4 rounded-lg text-center">
+        <h4 className="font-bold text-yellow-300">Pro-Tip: Healthy Skepticism</h4>
+        <p className="text-yellow-200/80 mt-1">Treat AI responses like a helpful starting point from a brilliant but sometimes unreliable intern. Always verify critical information yourself.</p>
+      </div>
+
+      <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-green-300">Key Takeaways</h2>
         <ul className="space-y-3 text-gray-300">
           <li className="flex items-start">

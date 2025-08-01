@@ -4,7 +4,7 @@ import LessonHeader from '../../../../../components/layouts/LessonHeader';
 import LessonFooter from '../../../../../components/layouts/LessonFooter';
 import { useProgressStore } from '../../../../../store/progressStore';
 import ModuleQuizzes from '../../../../../components/ModuleQuizzes/ModuleQuizzes';
-import InlineChat from '../../../../../components/InlineChat';
+import InsyncWorkshop from '../../../components/InsyncWorkshop';
 
 const Lesson1_6: React.FC = () => {
   const { completeLesson } = useProgressStore();
@@ -63,31 +63,12 @@ const Lesson1_6: React.FC = () => {
         <div className="bg-gray-900 p-4 rounded-lg border border-green-500/50">
           <h3 className="text-lg font-semibold text-green-200">Your Challenge: The Travel Itinerary</h3>
           <p className="text-gray-300 mt-2">
-            Your task is to generate a <strong>3-day travel itinerary for a weekend trip to Tokyo</strong>. Use the chat interface below to craft a prompt. Your goal is to get a useful, creative, and personalized itinerary.
+            Your task is to generate a <strong>3-day travel itinerary for a weekend trip to Tokyo</strong>. Get ready to craft a prompt and see the I.N.S.Y.N.C. framework in action.
           </p>
         </div>
       </div>
 
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-yellow-300">Applying I.N.S.Y.N.C.</h2>
-        <p className="text-gray-300 mb-4">Before you start typing, think through the framework:</p>
-        <ul className="space-y-3 text-gray-300 list-disc list-inside">
-          <li><strong>Intent:</strong> What's the main goal? (e.g., "Create a 3-day itinerary for Tokyo")</li>
-          <li><strong>Nuance:</strong> What are your specific interests? (e.g., "...focusing on anime, technology, and traditional temples.") What are your constraints? (e.g., "...with a budget of $150 per day.")</li>
-          <li><strong>Style:</strong> What tone should the AI use? (e.g., "Write in an enthusiastic and friendly tone.")</li>
-          <li><strong>You as...:</strong> What persona should the AI adopt? (e.g., "Act as an expert local guide who has lived in Tokyo for 20 years.")</li>
-          <li><strong>Narrative Format:</strong> How should the output be structured? (e.g., "Format the output as a day-by-day schedule with morning, afternoon, and evening activities, including travel times.")</li>
-          <li><strong>Context:</strong> Any other key info? (e.g., "I am a solo traveler in my late 20s and enjoy photography.")</li>
-        </ul>
-        <p className="text-gray-300 mt-4">Combine these elements to build a powerful prompt. The more specific you are, the better the result will be.</p>
-      </div>
-
-      <InlineChat 
-          moduleId="module-1.6"
-          maxAttempts={15}
-          placeholder="Craft your prompt for the Tokyo itinerary here..."
-          systemPrompt={`You are an expert prompt engineer and AI educator. Your job is to help users master the I.N.S.Y.N.C. prompt framework by evaluating their prompt for a 3-day Tokyo itinerary. Your evaluation must be constructive and educational. Return your evaluation in this exact format:\n\n**I.N.S.Y.N.C. Prompt Evaluation**\n- Intent: [Score]/5 – [Brief explanation]\n- Nuance: [Score]/5 – [Brief explanation]\n- Style: [Score]/5 – [Brief explanation]\n- You as...: [Score]/5 – [Brief explanation]\n- Narrative Format: [Score]/5 – [Brief explanation]\n- Context: [Score]/5 – [Brief explanation]\n\n**Total Score: [XX/30]**\n\n**Strengths:**\n• [List strengths]\n\n**Suggestions for Improvement:**\n• [List improvements]\n\n**Revised Prompt Example:**\n\"\"\"\n[Provide an improved version of the user’s prompt using the full I.N.S.Y.N.C. structure]\n\"\"\"\n\n**Generated Output Example:**\n[Generate a sample itinerary using the revised prompt]`}
-        />
+      <InsyncWorkshop />
 
       <ModuleQuizzes questions={quizQuestions} />
 
