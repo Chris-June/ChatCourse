@@ -16,7 +16,7 @@ interface LessonTemplateProps {
   lessonNumber: number;
   title: string;
   subtitle: string;
-  quizQuestions: Question[];
+  quizQuestions?: Question[];
   children: React.ReactNode;
   nextLessonPath?: string;
   nextLessonTitle?: string;
@@ -60,7 +60,7 @@ const LessonTemplate: React.FC<LessonTemplateProps> = ({
         {children}
       </div>
 
-      {quizQuestions.length > 0 && (
+      {quizQuestions && quizQuestions.length > 0 && (
         <section className="mt-8">
           <ModuleQuizzes
             questions={quizQuestions}

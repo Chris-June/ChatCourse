@@ -1,11 +1,38 @@
-import { MessageSquare, BrainCircuit, Lightbulb, AlertTriangle, Star, TestTube2 } from 'lucide-react';
+import { MessageSquare, BrainCircuit, Lightbulb, AlertTriangle, TestTube2 } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
 import ContextExplorer from '@/pages/instructions/components/ContextExplorer';
 import DebuggingChallenge from '@/pages/instructions/components/DebuggingChallenge';
 import SystemPromptLab from '@/pages/instructions/components/SystemPromptLab';
+import ContextWindowVisualizer from '@/pages/instructions/components/ContextWindowVisualizer';
+import ContextCaseStudies from '@/pages/instructions/components/ContextCaseStudies';
+import RoleScriptingSandbox from '@/pages/instructions/components/RoleScriptingSandbox';
+import FailedPrompts from '@/pages/instructions/components/FailedPrompts';
+import KeyTakeaways from '../../../components/KeyTakeaways';
+import BestPractices from '../../../components/BestPractices';
+import CheckpointQuiz from '../../../components/CheckpointQuiz';
 
 export default function Lesson5_1() {
+  const keyTakeawaysData = [
+    'Context is King: Conversation history provides the AI with short-term memory, which is essential for coherent dialogue.',
+    'Defined Roles: Every message has a `role` (`system`, `user`, or `assistant`) to structure the conversation.',
+    'The Director\'s Note: The `system` prompt sets the AI\'s persona and overarching instructions.',
+    'Quality In, Quality Out: The AI\'s performance is directly tied to the clarity and accuracy of the context you provide.',
+    'Finite Memory: Be mindful of the model\'s \'context window\'—the maximum amount of information it can process at once.',
+  ];
+
+  const bestPracticesData = {
+    dos: [
+      'Keep the conversation history clean and well-structured.',
+      'Use the `system`, `user`, and `assistant` roles correctly and consistently.',
+      'For long conversations, develop a strategy to summarize or trim the history to stay within the context window.',
+    ],
+    donts: [
+      'Don\'t send corrupted or inaccurate data in the history; this will degrade performance.',
+      'Don\'t mislabel roles, as this will confuse the model.',
+      'Don\'t exceed the context window without a plan, as the model will \'forget\' early parts of the conversation.',
+    ],
+  };
   const quizQuestions = [
     {
       questionText: 'What is the primary purpose of sending the conversation history with each new user message?',
@@ -87,13 +114,46 @@ export default function Lesson5_1() {
               </p>
               <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
                 <h3 className="font-semibold text-white mb-2">Analogy: A Short-Term Memory</h3>
-                <p className="text-gray-300">
-                  Think of the conversation history as the AI's short-term memory. With each new message you send, you are also sending the previous messages along with it. This allows the model to see the full picture and provide a response that is relevant, coherent, and intelligent.
+                <p className="text-lg text-gray-300">
+                  Before we dive into advanced prompting techniques, we must master the single most important concept in conversational AI: <strong>context</strong>. This isn't just a feature; it is the absolute foundation upon which all meaningful AI interaction is built. Without context, an AI has no memory, no understanding of nuance, and no ability to hold a coherent conversation. It becomes a simple, stateless tool that responds to one-off queries. Mastering context is the key to unlocking the true power of AI, transforming it from a glorified search engine into a dynamic, intelligent partner. The message of this entire lesson is simple: <strong>Context is EVERYTHING</strong>.
                 </p>
+                <p className="text-gray-300 mb-4">
+                  Think of every conversation with an AI as a movie scene. The script is the conversation history. Without it, your lead actor (the AI) has severe short-term memory loss. It can only remember the very last line spoken and has no idea what the scene is about. By providing the full script—the entire back-and-forth—with every new line, you ensure the actor is always in character and the scene makes sense.
+                </p>
+                <p className="text-gray-300 mb-4">
+                  This script is the bedrock of conversational intelligence. It's how an AI can answer a follow-up question like "Why?" or remember a user's preference mentioned five messages ago. Each turn of the conversation adds a new page to the script, enriching the context and allowing for increasingly nuanced and relevant interactions. Just as a director wouldn't film a scene out of order, you must provide a clean, chronological history to get a coherent performance from your AI.
+                </p>
+                <p className="text-gray-300 mb-4">
+                  To put it bluntly: every advanced prompting technique you will learn—from chain-of-thought to complex agentic workflows—is fundamentally useless without a solid grasp of context management. An AI's value is not in its raw intelligence, but in its ability to apply that intelligence to the specific situation you provide. The quality of your context directly dictates the quality of the AI's output.
+                </p>
+              </div>
+
+              <div className="mt-6">
+                <h3 className="text-xl font-semibold text-blue-300 mb-3">Advanced Topic: Production-Scale Context Management</h3>
+                <p className="text-gray-300 mb-4">
+                  In real-world applications, conversations often grow too large for the model's context window. Simply truncating the history (cutting off the oldest messages) is a crude solution that can cause the AI to lose critical information. Production systems use more sophisticated techniques:
+                </p>
+                <ul className="list-disc list-inside text-gray-300 space-y-2 mb-4">
+                  <li><strong>Summarization:</strong> As the conversation grows, a separate AI call can summarize the earlier parts of the dialogue. This compressed summary is then fed back into the context, preserving key information while saving space.</li>
+                  <li><strong>Retrieval-Augmented Generation (RAG):</strong> For knowledge-intensive tasks, you don't stuff documents into the prompt. Instead, you use a database of information (vector store). When a user asks a question, the system first searches the database for relevant chunks of text and injects only those pieces into the context. This provides targeted, relevant knowledge without overwhelming the context window.</li>
+                </ul>
+                <ContextCaseStudies />
+                <div className="mt-4">
+                  <ContextWindowVisualizer />
+                </div>
               </div>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+
+        <div className="my-6">
+          <CheckpointQuiz
+            question={quizQuestions[0].questionText}
+            options={quizQuestions[0].options}
+            correctAnswerIndex={quizQuestions[0].options.findIndex(opt => opt === quizQuestions[0].correctAnswer)}
+            explanation={quizQuestions[0].explanation}
+          />
+        </div>
 
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-2">
@@ -113,7 +173,10 @@ export default function Lesson5_1() {
                 <li><strong>`assistant` (The Co-Star):</strong> The AI's previous lines, essential for continuity.</li>
                 <li><strong>`system` (The Director's Note):</strong> A powerful, high-level instruction that sets the scene. It tells the AI its motivation, personality, and the rules it must follow. For example: `"You are a cynical film noir detective from the 1940s."`</li>
               </ul>
-              <p className="text-gray-300 mb-2">A well-structured script ensures the AI actor never forgets its lines or motivation:</p>
+              <p className="text-gray-300 mb-4">
+                The <strong>`system`</strong> role is the most powerful player in this scene: the Director. This isn't just a line of dialogue; it's the core instruction that governs the entire performance. The director's note might be, "You are a cynical film noir detective from the 1940s," or "You are an enthusiastic science teacher who loves using analogies." This single prompt sets the AI's personality, its boundaries, and its objective for the whole conversation. It's the 'motivation' an actor receives before the cameras start rolling.
+              </p>
+              <p className="text-gray-300 mb-2">A well-structured script, guided by a clear director's note, ensures the AI actor never forgets its lines or motivation:</p>
               <div className="bg-gray-900 p-4 rounded-md font-mono text-sm text-gray-200">
                 <code className="block whitespace-pre-wrap break-words">
 {`[
@@ -136,9 +199,36 @@ export default function Lesson5_1() {
 ]`}
                 </code>
               </div>
+
+              <div className="mt-6">
+                <h3 className="text-xl font-semibold text-blue-300 mb-3">System Prompt Styles: A Comparative Breakdown</h3>
+                <p className="text-gray-300 mb-4">
+                  The 'system' prompt is your most powerful tool for shaping the AI's personality and goals. The style you choose has a massive impact on its behavior. Consider these common archetypes:
+                </p>
+                <ul className="list-disc list-inside text-gray-300 space-y-2 mb-4">
+                  <li><strong>The Helper:</strong> Direct, clear, and focused on a specific task. (e.g., "You are a helpful assistant that translates technical jargon into plain English.")</li>
+                  <li><strong>The Critic:</strong> Designed to challenge assumptions and provide constructive feedback. (e.g., "You are a skeptical editor. Your goal is to find logical fallacies and weak arguments in the user's text.")</li>
+                  <li><strong>The Creative:</strong> Open-ended and encouraging of novel ideas. (e.g., "You are a brainstorming partner. No idea is too wild. Generate ten unconventional solutions to the user's problem.")</li>
+                </ul>
+                <RoleScriptingSandbox />
+                <FailedPrompts />
+              </div>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+
+        <div className="my-6">
+          <CheckpointQuiz
+            question={quizQuestions[1].questionText}
+            options={quizQuestions[1].options}
+            correctAnswerIndex={quizQuestions[1].options.findIndex(opt => opt === quizQuestions[1].correctAnswer)}
+            explanation={quizQuestions[1].explanation}
+          />
+        </div>
+
+        <p className="text-lg text-gray-300 font-semibold text-center p-4 my-6 bg-gray-800 rounded-lg border border-blue-800">
+          Remember: An AI knows nothing outside of the context you provide. The more clear, relevant, and well-structured the context, the more valuable the AI becomes.
+        </p>
 
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-3">
@@ -151,6 +241,9 @@ export default function Lesson5_1() {
             <AccordionContent>
               <p className="text-gray-300 mb-4">
                 Even the best directors make mistakes. Sometimes, the script gets corrupted—roles are mislabeled, or lines are out of order. This is the "bad take." In this challenge, you're the editor. Find the continuity errors in these broken scripts and fix them.
+              </p>
+              <p className="text-gray-300 mb-4">
+                This structure is not just a suggestion; it's the blueprint for how the AI perceives the world. Getting it right is the key to unlocking complex, multi-turn behaviors.
               </p>
               <DebuggingChallenge />
             </AccordionContent>
@@ -191,28 +284,14 @@ export default function Lesson5_1() {
           </AccordionItem>
         </Accordion>
 
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-6">
-            <AccordionTrigger>
-              <div className="flex items-center">
-                <Star className="w-5 h-5 mr-2" />
-                The Director's Golden Rules
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul className="list-disc pl-5 space-y-2 text-gray-300">
-                <li><strong>The Script is Sacred:</strong> The conversation history is the AI's only source of truth. A clean, well-structured script leads to a great performance.</li>
-                <li><strong>Every Role Matters:</strong> Use the `user`, `assistant`, and `system` roles correctly to build a coherent narrative for the AI.</li>
-                <li><strong>Respect the Scroll's Length:</strong> Every model has a finite context window (the length of the script it can read). For long scenes, you'll need a strategy to summarize or trim the script to avoid the AI forgetting its opening lines.</li>
-                <li><strong>Bad Takes Lead to Bad Scenes:</strong> The principle of "Garbage In, Garbage Out" is paramount. A corrupted script (e.g., with incorrect roles or content) will ruin the performance.</li>
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        <KeyTakeaways points={keyTakeawaysData} />
+
+        <BestPractices dos={bestPracticesData.dos} donts={bestPracticesData.donts} />
+
+
 
       </div>
     </LessonTemplate>
   );
 }
-
 
