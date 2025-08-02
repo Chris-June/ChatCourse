@@ -1,14 +1,17 @@
 import React from 'react';
-import { Wrench, FileCode, Lightbulb, CheckSquare } from 'lucide-react';
+import { Wrench, FileCode, Lightbulb } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
 import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
+import KeyTakeaways from '../../../components/KeyTakeaways';
+import BestPractices from '../../../components/BestPractices';
+import CheckpointQuiz from '../../../components/CheckpointQuiz';
 
 const weatherChecklist = [
-  { text: 'My goal is to find the weather in a specific city.', completed: false },
-  { text: 'I have a tool called `get_weather` that takes a `city`.', completed: false },
-  { text: 'I will call that tool with the city name provided.', completed: false },
-  { text: 'The tool will return the temperature, which I can give to the user.', completed: false },
+  { id: '1', text: 'My goal is to find the weather in a specific city.', completed: false },
+  { id: '2', text: 'I have a tool called `get_weather` that takes a `city`.', completed: false },
+  { id: '3', text: 'I will call that tool with the city name provided.', completed: false },
+  { id: '4', text: 'The tool will return the temperature, which I can give to the user.', completed: false },
 ];
 
 const Lesson4_3: React.FC = () => {
@@ -119,6 +122,15 @@ const Lesson4_3: React.FC = () => {
 }`}
             </code>
           </div>
+
+          <div className="mt-6">
+            <CheckpointQuiz
+              question={quizQuestions[1].questionText}
+              options={quizQuestions[1].options}
+              correctAnswerIndex={quizQuestions[1].options.indexOf(quizQuestions[1].correctAnswer)}
+              explanation={quizQuestions[1].explanation}
+            />
+          </div>
         </Accordion>
 
         <Accordion title="Your Turn: Use a Custom Weather Tool" icon={<Lightbulb />}>
@@ -145,13 +157,29 @@ const Lesson4_3: React.FC = () => {
           />
         </Accordion>
         
-        <Accordion title="Key Takeaways for Tool Building" icon={<CheckSquare />}>
-            <ul className="list-disc pl-5 space-y-2 text-gray-300">
-                <li><strong>Master Chef's Rule:</strong> Like a specialized kitchen tool (a garlic press vs a multi-tool), your AI tool should excel at one specific task rather than trying to do everything</li>
-                <li><strong>Recipe Card Clarity:</strong> Your descriptions are the AI's only cookbook - make them so detailed that even someone who's never cooked could follow them perfectly</li>
-                <li><strong>Ingredients & Results:</strong> Every tool needs precise ingredients (parameters) and clear expected results (outputs) - just like a recipe needs both ingredients and the final dish description</li>
-            </ul>
-        </Accordion>
+        <KeyTakeaways
+          points={[
+            'Your AI tool should excel at one specific task (be atomic), like a specialized kitchen utensil.',
+            'The schema descriptions are the AI\'s only instruction manual—make them exceptionally clear and detailed.',
+            'Clearly define your tool\'s required inputs (parameters) and expected outputs.',
+            'The AI relies entirely on your descriptions to make smart decisions, so invest time in writing them well.',
+          ]}
+        />
+
+        <BestPractices
+          dos={[
+            'Use clear, descriptive names for functions and arguments.',
+            'Write rich descriptions for what the function does, when to use it, and what it returns.',
+            'Handle potential errors within your function code gracefully.',
+            'Keep the data structure for your parameters as simple as possible.',
+          ]}
+          donts={[
+            'Don\'t create ambiguous tools that perform multiple, unrelated tasks.',
+            'Never assume the model knows context not explicitly provided in the schema.',
+            'Avoid exposing sensitive information or destructive operations without proper safeguards.',
+            'Don\'t use overly complex parameter structures that might confuse the model.',
+          ]}
+        />
       </div>
     </LessonTemplate>
   );

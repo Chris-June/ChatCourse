@@ -4,6 +4,9 @@ import LivePromptGrader from '../../../components/LivePromptGrader';
 import Accordion from '../../../components/Accordion';
 import InlineChat from '../../../../../components/InlineChat';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
+import KeyTakeaways from '../../../components/KeyTakeaways';
+import BestPractices from '../../../components/BestPractices';
+import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
 
 const scheduleMeetingSchema = {
   name: 'schedule_meeting',
@@ -25,10 +28,10 @@ const scheduleMeetingSchema = {
 };
 
 const stockPriceChecklist = [
-  { text: 'Analyze the provided JSON output', completed: false },
-  { text: 'Identify the function name: `get_stock_price`', completed: false },
-  { text: 'Identify the argument: `ticker` with value "AAPL"', completed: false },
-  { text: 'Formulate a natural language prompt that asks for the stock price of Apple', completed: false },
+  { id: '1', text: 'Analyze the provided JSON output', completed: false },
+  { id: '2', text: 'Identify the function name: `get_stock_price`', completed: false },
+  { id: '3', text: 'Identify the argument: `ticker` with value "AAPL"', completed: false },
+  { id: '4', text: 'Formulate a natural language prompt that asks for the stock price of Apple', completed: false },
 ];
 
 const Lesson4_1: React.FC = () => {
@@ -129,6 +132,14 @@ const Lesson4_1: React.FC = () => {
 
           <h4 className="font-semibold text-white mt-4 mb-2">OpenAI-style Function Schema</h4>
           <p className="text-gray-300 mb-2">Then, you describe it to the model using a specific JSON format:</p>
+          
+          <CheckpointQuiz
+            question={quizQuestions[0].questionText}
+            options={quizQuestions[0].options}
+            correctAnswerIndex={quizQuestions[0].options.indexOf(quizQuestions[0].correctAnswer)}
+            explanation={quizQuestions[0].explanation}
+          />
+
           <div className="bg-gray-900 p-3 rounded-md">
             <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">{`{
   "name": "create_reminder",
@@ -183,6 +194,12 @@ const Lesson4_1: React.FC = () => {
               <p><strong>Calendar Assistant:</strong> "Schedule lunch with Sarah next Tuesday" → AI calls calendar API with details</p>
               <p><strong>Travel Planner:</strong> "Find flights to London next month" → AI calls travel API with search criteria</p>
             </div>
+            <CheckpointQuiz
+              question={quizQuestions[2].questionText}
+              options={quizQuestions[2].options}
+              correctAnswerIndex={quizQuestions[2].options.indexOf(quizQuestions[2].correctAnswer)}
+              explanation={quizQuestions[2].explanation}
+            />
         </Accordion>
 
         <Accordion title="Implementation Patterns">
@@ -212,6 +229,12 @@ if (functionToCall) {
             <li><strong>Keep Functions Atomic:</strong> Each function should have a single, well-defined purpose.</li>
             <li>Use Semantic Naming: Use short, descriptive names for functions and arguments to help the model understand their purpose.</li>
           </ul>
+          <CheckpointQuiz
+            question={quizQuestions[3].questionText}
+            options={quizQuestions[3].options}
+            correctAnswerIndex={quizQuestions[3].options.indexOf(quizQuestions[3].correctAnswer)}
+            explanation={quizQuestions[3].explanation}
+          />
         </Accordion>
 
         <div className="bg-blue-900/20 text-center p-6 rounded-lg shadow-lg border border-blue-700">
@@ -261,6 +284,29 @@ if (functionToCall) {
           </div>
         </Accordion>
 
+        <KeyTakeaways
+          points={[
+            'Function calling allows LLMs to connect to external tools and APIs, enabling real-world actions.',
+            'A function schema (name, description, parameters) is required to describe the tool to the AI.',
+            'The AI does not execute code; it generates a JSON object telling your application which function to run.',
+            'Security is critical: Always validate arguments from the model before executing any function.',
+          ]}
+        />
+
+        <BestPractices
+          dos={[
+            'Keep functions atomic, with a single, well-defined purpose.',
+            'Use clear, descriptive names for functions and arguments.',
+            'Validate and sanitize all arguments from the model before execution.',
+            'Implement user confirmation steps for sensitive or irreversible actions.',
+          ]}
+          donts={[
+            'Never trust model output implicitly; treat it as untrusted user input.',
+            'Avoid creating overly complex functions that perform multiple, unrelated tasks.',
+            'Do not pass sensitive data like API keys in the function schema.',
+            'Don\'t let the model execute functions that could have harmful side effects without safeguards.',
+          ]}
+        />
 
       </div>
     </LessonTemplate>

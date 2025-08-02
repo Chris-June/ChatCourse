@@ -8,6 +8,8 @@ import CheckpointQuiz from '../../../components/CheckpointQuiz';
 import TransformerArchitectureDiagram from '../../../components/TransformerArchitectureDiagram';
 import RagChunkingDiagram from '../../../components/RagChunkingDiagram';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
+import KeyTakeaways from '../../../components/KeyTakeaways';
+import BestPractices from '../../../components/BestPractices';
 
 const Lesson4_4: React.FC = () => {
   const quizQuestions = [
@@ -215,6 +217,31 @@ const Lesson4_4: React.FC = () => {
             </ul>
           </div>
         </Accordion>
+
+        <KeyTakeaways
+          points={[
+            'A GPT is a specialized AI assistant created by combining custom instructions, expanded knowledge, and unique capabilities (tools).',
+            'Custom instructions define the GPT\'s personality, goals, and rules of engagement.',
+            'Expanded knowledge (via RAG) allows a GPT to access information beyond its original training data.',
+            'Tool chaining—using the output of one tool as the input for another—is key to solving complex, multi-step problems.',
+          ]}
+        />
+
+        <BestPractices
+          dos={[
+            'Define a very specific purpose and audience for your GPT.',
+            'Write clear, detailed instructions that leave no room for ambiguity.',
+            'Curate high-quality, relevant documents for your knowledge base.',
+            'Build atomic, single-purpose tools and chain them for complex tasks.',
+            'Implement strong safety and ethical guidelines, especially for tools with real-world impact.',
+          ]}
+          donts={[
+            'Don\'t build overly broad GPTs that try to do everything.',
+            'Never assume the GPT knows context that isn\'t explicitly provided in its instructions or knowledge.',
+            'Avoid connecting tools that could be harmful without strict validation and user confirmation steps.',
+            'Don\'t use low-quality or irrelevant documents in your knowledge base, as this will degrade performance.',
+          ]}
+        />
 
         <Accordion title="Further Reading & Resources" icon={<BookOpen />}>
           <ul className="list-disc pl-5 space-y-2 text-blue-300">

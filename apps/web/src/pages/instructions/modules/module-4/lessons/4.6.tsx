@@ -1,10 +1,13 @@
 import React from 'react';
-import { Globe, Server, Lightbulb, ShieldCheck, Briefcase, Zap, CheckSquare } from 'lucide-react';
+import { Globe, Server, Lightbulb, Briefcase } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
 import MCPArchitectureDiagram from '@/pages/instructions/components/MCPArchitectureDiagram';
 import MCPServerExplorer from '@/pages/instructions/components/MCPServerExplorer';
 import AgentPlannerExercise from '@/pages/instructions/components/AgentPlannerExercise';
+import KeyTakeaways from '@/pages/instructions/components/KeyTakeaways';
+import BestPractices from '@/pages/instructions/components/BestPractices';
+import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
 
 const Lesson4_6: React.FC = () => {
   const quizQuestions = [
@@ -51,6 +54,17 @@ const Lesson4_6: React.FC = () => {
       ],
       correctAnswer: 'Service Orchestration',
       explanation: 'MCP\'s real power comes from orchestration—the ability to act as a conductor, leading a symphony of different services to achieve a high-level goal.'
+    },
+    {
+      questionText: 'When designing a tool for an MCP server, why is a clear and detailed description so important?',
+      options: [
+        'It makes the code run faster.',
+        'It allows the AI agent to understand the tool\'s purpose and parameters, enabling it to make smart decisions about when and how to use it.',
+        'It automatically translates the tool into different programming languages.',
+        'It is only for human developers to read and has no impact on the agent.'
+      ],
+      correctAnswer: 'It allows the AI agent to understand the tool\'s purpose and parameters, enabling it to make smart decisions about when and how to use it.',
+      explanation: 'The agent relies entirely on the tool\'s name and description to determine its utility for a given task. A vague or misleading description can cause the agent to use tools incorrectly or fail at its task.'
     },
   ];
 
@@ -121,6 +135,31 @@ const Lesson4_6: React.FC = () => {
             </AccordionTrigger>
             <AccordionContent>
               <p className="text-gray-300 mb-4">
+                This protocol acts like a universal remote for your AI. Instead of needing a different remote for your TV, soundbar, and streaming box, MCP provides a single, standardized way for your agent to interact with any tool, no matter who built it or where it's hosted. It's the ultimate connector for a universe of capabilities.
+              </p>
+              <MCPArchitectureDiagram />
+              <div className="mt-6">
+                <CheckpointQuiz
+                  question={quizQuestions[0].questionText}
+                  options={quizQuestions[0].options}
+                  correctAnswerIndex={quizQuestions[0].options.indexOf(quizQuestions[0].correctAnswer)}
+                  explanation={quizQuestions[0].explanation}
+                />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-4">
+            <AccordionTrigger>
+              <div className="flex items-center">
+                <Globe className="w-5 h-5 mr-2" />
+                Interactive Demo: The Server Explorer
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <p className="text-gray-300 mb-4">
                 The magic of MCP is <strong>discoverability</strong>. An agent can ask a server, "What tools do you have?" and get a list back. Use the explorer below to simulate this process. Click on a server to see the tools it offers.
               </p>
               <MCPServerExplorer />
@@ -129,7 +168,7 @@ const Lesson4_6: React.FC = () => {
         </Accordion>
 
         <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-4">
+          <AccordionItem value="item-5">
             <AccordionTrigger>
               <div className="flex items-center">
                 <Briefcase className="w-5 h-5 mr-2" />
@@ -207,40 +246,28 @@ const Lesson4_6: React.FC = () => {
           </AccordionItem>
         </Accordion>
 
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-5">
-            <AccordionTrigger>
-              <div className="flex items-center">
-                <CheckSquare className="w-5 h-5 mr-2" />
-                Key Takeaways & Best Practices
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <p className="text-gray-300 mb-4">
-                MCP transforms agents from static encyclopedias into dynamic problem-solvers. Here are the core concepts and best practices:
-              </p>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                  <h4 className="font-semibold text-blue-300 mb-2 flex items-center"><Zap size={18} className="mr-2"/>Core Pillars of MCP</h4>
-                  <ul className="list-disc pl-5 space-y-2 text-gray-300 text-sm">
-                    <li><strong>Standardization:</strong> A universal language for agents to talk to any tool.</li>
-                    <li><strong>Discoverability:</strong> Agents can ask a server what tools it has, enabling them to adapt dynamically.</li>
-                    <li><strong>Orchestration:</strong> Enables agents to combine tools from different servers to complete complex tasks.</li>
-                  </ul>
-                </div>
-                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                  <h4 className="font-semibold text-blue-300 mb-2 flex items-center"><ShieldCheck size={18} className="mr-2"/>Security & Design Best Practices</h4>
-                  <ul className="list-disc pl-5 space-y-2 text-gray-300 text-sm">
-                    <li><strong>Isolate Credentials:</strong> Keep API keys on the server, never expose them to the model or client.</li>
-                    <li><strong>Be Descriptive:</strong> Use clear names and descriptions for tools so the agent can make smart choices.</li>
-                    <li><strong>Aim for Idempotency:</strong> Ensure calling a tool multiple times with the same input doesn't cause errors.</li>
-                    <li><strong>Handle Errors Gracefully:</strong> Return specific error messages the agent can use to self-correct.</li>
-                  </ul>
-                </div>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        <KeyTakeaways
+          points={[
+            'MCP provides a standard way for an AI to discover and use external tools, like an App Store for agents.',
+            'MCP allows for dynamic tool discovery, unlike hard-coded function calling.',
+            'A key security benefit is isolating sensitive API keys on the server, away from the model and client.',
+            'Service orchestration is the ability to combine tools from different servers to solve complex problems.',
+          ]}
+        />
+
+        <BestPractices
+          dos={[
+            'Use clear, descriptive names and descriptions for your tools.',
+            'Isolate credentials and sensitive logic on the MCP server.',
+            'Design tools to be idempotent where possible.',
+            'Return specific, actionable error messages to help the agent self-correct.',
+          ]}
+          donts={[
+            'Don\'t expose raw API keys or sensitive data to the client or the AI model.',
+            'Avoid creating overly broad tools; favor specific, single-purpose functions.',
+            'Don\'t rely on the agent to guess what a tool does; be explicit in your descriptions.',
+          ]}
+        />
 
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-6">
@@ -251,11 +278,9 @@ const Lesson4_6: React.FC = () => {
               </div>
             </AccordionTrigger>
             <AccordionContent>
-              <p className="text-gray-300 mb-4">
-                Your agent's goal is: `Create a GitHub issue titled 'Fix login bug' in the 'acme-corp/website' repo.` Using the `github` MCP server from the explorer above, outline the steps your agent would take. Remember the <strong>Observe, Think, Act</strong> loop!
-              </p>
               <AgentPlannerExercise 
-                initialPlan={`Step 1 (Think): The goal is to create a GitHub issue. I see the 'github' MCP server has a 'create_issue' tool. I'll need the owner, repo, and title.\n(Act): Call github.create_issue(owner='acme-corp', repo='website', title='Fix login bug').`}
+                goal="Create a GitHub issue titled 'Fix login bug' in the 'acme-corp/website' repo."
+                initialPlan={`1. (Observe) The goal is to create a GitHub issue. The available server is 'github'.\n2. (Think) The 'github' server likely has a 'create_issue' tool. I will need the owner, repo, and title parameters. The goal provides all of these. \n3. (Act) Call github.create_issue(owner='acme-corp', repo='website', title='Fix login bug').`}
                 aiFeedback={{
                   suggestion: "Excellent! You've correctly identified the right tool and provided the necessary parameters. A more advanced agent might first use the 'list_repos' tool to confirm the repo exists, or 'get_issue' to check for duplicates before creating a new one. This prevents errors and duplicate work.",
                   reasoning: "Thinking about pre-condition checks and potential edge cases is what separates a basic agent from a production-ready one. Building in these validation steps makes your agent more reliable and efficient."

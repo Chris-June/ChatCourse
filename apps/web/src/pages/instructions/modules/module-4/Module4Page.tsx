@@ -46,13 +46,21 @@ const Module4Page: React.FC = () => {
           </div>
           
           <div>
-            {nextLesson && (
+            {nextLesson ? (
               <Link 
                 to={nextLesson.path}
                 className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
               >
                 <span className="hidden md:inline">Next:</span> 
                 <span className="ml-2">{nextLesson.title}</span>
+                <ChevronRight className="w-5 h-5 ml-2" />
+              </Link>
+            ) : (
+              <Link 
+                to="/instructions/module-5/5.1"
+                className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors"
+              >
+                <span>Multi-Turn Conversation</span>
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Link>
             )}

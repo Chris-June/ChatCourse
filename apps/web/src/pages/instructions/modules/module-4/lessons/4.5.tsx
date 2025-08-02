@@ -13,6 +13,8 @@ import GlossarySection from '../../../components/GlossarySection';
 import AgentPlannerExercise from '../../../components/AgentPlannerExercise';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import GlossaryTerm from '../../../components/GlossaryTerm';
+import KeyTakeaways from '../../../components/KeyTakeaways';
+import CheckpointQuiz from '../../../components/CheckpointQuiz';
 
 const Lesson4_5: React.FC = () => {
   const quizQuestions = [
@@ -86,6 +88,14 @@ const Lesson4_5: React.FC = () => {
           <p className="text-gray-300">
             An AI Agent is a system that can perceive its environment, make decisions, and take actions to achieve specific goals. Unlike a simple chatbot that just responds to input, an agent is <GlossaryTerm term="autonomous" definition="Able to operate independently without direct human control, making decisions and taking actions to achieve goals." />. It has a goal, a set of tools, and the ability to create and execute a plan over multiple steps. Think of it as hiring a digital employee for a specific job.
           </p>
+          <div className="mt-6">
+            <CheckpointQuiz
+              question={quizQuestions[0].questionText}
+              options={quizQuestions[0].options}
+              correctAnswerIndex={quizQuestions[0].options.indexOf(quizQuestions[0].correctAnswer)}
+              explanation={quizQuestions[0].explanation}
+            />
+          </div>
         </Accordion>
 
         <AgentAnatomyDiagram />
@@ -237,6 +247,16 @@ const Lesson4_5: React.FC = () => {
           </div>
         </Accordion>
 
+        <KeyTakeaways
+          points={[
+            'An AI agent is defined by its autonomy—the ability to use tools to achieve goals without step-by-step human direction.',
+            'The core operational cycle of an agent is Observe (perceive the environment), Think (plan the next action), and Act (execute a tool or respond).',
+            'Key components of an agent include the Core Model (brain), Memory (short/long-term recall), Planning (strategy), and Tools (capabilities).',
+            'Hierarchical agent systems (manager/worker) can solve more complex problems by breaking them down and delegating tasks.',
+            'Building safe and reliable agents requires a strong focus on security (least privilege), robust error handling, and continuous evaluation.',
+          ]}
+        />
+
         <Accordion title="Hands-On Mini-Project: 'Ticket-Bot' (Coming Soon)" icon={<GitCommit />} isDisabled>
           <p className="text-gray-400">
             This upcoming lab will guide you through building a simple support ticket agent from scratch. You'll fork a GitHub repo, implement the Observe-Think-Act loop, and deploy it to the cloud. Stay tuned!
@@ -273,9 +293,10 @@ const Lesson4_5: React.FC = () => {
 
         <Accordion title="Exercise: Think Like an Agent" icon={<Lightbulb />}>
           <p className="text-gray-300 mb-4">
-            Consider the 'Automated Data Analyst' agent. Its goal is: `Generate and email the quarterly sales report.` Use the planner below to outline the first few steps of its <strong>Observe, Think, Act</strong> loop. What tools would it need? What decisions would it make? Get feedback on your plan from a simulated AI peer.
+            Consider the 'Automated Data Analyst' agent. Use the planner below to outline the first few steps of its <strong>Observe, Think, Act</strong> loop. What tools would it need? What decisions would it make? Get feedback on your plan from a simulated AI peer.
           </p>
           <AgentPlannerExercise 
+            goal="Generate and email the quarterly sales report."
             initialPlan={`Step 1 (Think): I need to get the sales data for the latest quarter.\n(Act): Call get_sales_data(quarter='Q3').\n\nStep 2 (Think): Now I need to analyze this data to find key insights.\n(Act): Call analyze_data(data).`}
             aiFeedback={{
               suggestion: "This is a good start! To make the plan more robust, consider adding a step for error handling. What should the agent do if the 'get_sales_data' tool fails or returns no data? Also, think about the final step: how will the agent email the report? It will likely need another tool, like 'send_email'.",
