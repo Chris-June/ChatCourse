@@ -1,43 +1,21 @@
 import React, { useState, useMemo } from 'react';
 import { ShieldCheck } from 'lucide-react';
-
-const sliderConfig = {
-  stakes: {
-    label: 'Task Stakes',
-    description: 'How critical is it for the AI to be right?',
-    options: ['Low (e.g., music recommendation)', 'Medium (e.g., email summary)', 'High (e.g., medical diagnosis)'],
-    weights: [1, 0.6, 0.2],
-  },
-  transparency: {
-    label: 'AI Transparency',
-    description: "Can the user see *why* the AI made its decision?",
-    options: ['Opaque (a black box)', 'Some Insight (shows sources)', 'Fully Explained (shows reasoning)'],
-    weights: [0.4, 0.7, 1],
-  },
-  correctability: {
-    label: 'Correctability',
-    description: 'How easily can a user fix the AI’s mistakes?',
-    options: ['Impossible to fix', 'Difficult (manual override)', 'Easy (one-click correction)'],
-    weights: [0.2, 0.6, 1],
-  },
-};
+import { Slider } from '@/components/ui/slider';
 
 const AiTrustMeter: React.FC = () => {
-  const [values, setValues] = useState({ stakes: 1, transparency: 1, correctability: 1 });
-
-  const handleSliderChange = (key: keyof typeof values, value: string) => {
-    setValues(prev => ({ ...prev, [key]: parseInt(value) }));
-  };
+  const [stakes, setStakes] = useState(50);
+  const [transparency, setTransparency] = useState(50);
+  const [correctability, setCorrectability] = useState(50);
 
   const trustScore = useMemo(() => {
-    const stakesWeight = sliderConfig.stakes.weights[values.stakes];
-    const transparencyWeight = sliderConfig.transparency.weights[values.transparency];
-    const correctabilityWeight = sliderConfig.correctability.weights[values.correctability];
-    
-    // A weighted average to calculate the score
-    const score = Math.round(((stakesWeight * 0.5) + (transparencyWeight * 0.25) + (correctabilityWeight * 0.25)) * 100);
-    return Math.min(100, score);
-  }, [values]);
+    // Invert stakes: higher stakes (100) should result in a lower trust score contribution.
+    const weightedStakes = (100 - stakes) * 0.5;
+    const weightedTransparency = transparency * 0.25;
+    const weightedCorrectability = correctability * 0.25;
+
+    const score = Math.round(weightedStakes + weightedTransparency + weightedCorrectability);
+    return Math.min(100, Math.max(0, score)); // Clamp score between 0 and 100
+  }, [stakes, transparency, correctability]);
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-green-400';
@@ -53,22 +31,41 @@ const AiTrustMeter: React.FC = () => {
       </h4>
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
-          {Object.entries(sliderConfig).map(([key, config]) => (
-            <div key={key}>
-              <label className="block text-sm font-medium text-gray-300">{config.label}</label>
-              <p className='text-xs text-gray-500 mb-2'>{config.description}</p>
-              <input 
-                type="range" 
-                min="0" 
-                max={config.options.length - 1}
-                step="1"
-                value={values[key as keyof typeof values]}
-                onChange={(e) => handleSliderChange(key as keyof typeof values, e.target.value)}
-                className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
-              />
-              <div className="text-xs text-center mt-1 text-gray-400">{config.options[values[key as keyof typeof values]]}</div>
-            </div>
-          ))}
+          {/* Stakes Slider */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Task Stakes</label>
+            <p className='text-xs text-gray-500 mb-2'>How critical is it for the AI to be right? (0=Low, 100=High)</p>
+            <Slider
+              value={[stakes]}
+              onValueChange={(value) => setStakes(value[0])}
+              max={100}
+              step={1}
+            />
+          </div>
+
+          {/* Transparency Slider */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300">AI Transparency</label>
+            <p className='text-xs text-gray-500 mb-2'>Can the user see why the AI decided something? (0=Opaque, 100=Explained)</p>
+            <Slider
+              value={[transparency]}
+              onValueChange={(value) => setTransparency(value[0])}
+              max={100}
+              step={1}
+            />
+          </div>
+
+          {/* Correctability Slider */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Correctability</label>
+            <p className='text-xs text-gray-500 mb-2'>How easily can a user fix the AI’s mistakes? (0=Impossible, 100=Easy)</p>
+            <Slider
+              value={[correctability]}
+              onValueChange={(value) => setCorrectability(value[0])}
+              max={100}
+              step={1}
+            />
+          </div>
         </div>
         <div className="bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center">
           <h5 className="font-semibold text-blue-300 mb-2">Calculated User Trust Score:</h5>

@@ -1,14 +1,9 @@
 import { BarChart2, Beaker, RefreshCw } from 'lucide-react';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import InlineChat from '@/components/InlineChat';
+import InlineChat, { ChallengeChecklistItem } from '@/components/InlineChat';
 import MetricSorter from '@/pages/instructions/components/MetricSorter';
 import PromptABTester from '@/pages/instructions/components/PromptABTester';
-
-export interface ChallengeChecklistItem {
-  text: string;
-  completed: boolean;
-}
 
 export default function Lesson6_3() {
   const quizQuestions = [
@@ -85,10 +80,10 @@ export default function Lesson6_3() {
   `;
 
   const hypothesisChecklist: ChallengeChecklistItem[] = [
-    { text: 'I have identified a clear goal for my improvement.', completed: false },
-    { text: 'I have chosen a single, high-signal metric to measure success.', completed: false },
-    { text: 'I have formulated a testable hypothesis in the correct format.', completed: false },
-    { text: 'I have described the control and variant for my A/B test.', completed: false }
+    { id: 'item-1', text: 'I have identified a clear goal for my improvement.', completed: false },
+    { id: 'item-2', text: 'I have chosen a single, high-signal metric to measure success.', completed: false },
+    { id: 'item-3', text: 'I have formulated a testable hypothesis in the correct format.', completed: false },
+    { id: 'item-4', text: 'I have described the control and variant for my A/B test.', completed: false }
   ];
 
   return (

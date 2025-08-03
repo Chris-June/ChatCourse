@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
+import { Slider } from '@/components/ui/slider';
 
 const FeasibilityCalculator: React.FC = () => {
   const [risk, setRisk] = useState(50);
@@ -30,41 +31,35 @@ const FeasibilityCalculator: React.FC = () => {
         
         <div className="space-y-5">
           {/* Technical Risk Slider */}
-          <div>
+          <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-300 mb-1">Technical Risk (0 = Low, 100 = High)</label>
-            <input 
-              type="range" 
-              min="0" 
-              max="100" 
-              value={risk}
-              onChange={(e) => setRisk(parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+            <Slider
+              value={[risk]}
+              onValueChange={(value) => setRisk(value[0])}
+              max={100}
+              step={1}
             />
           </div>
 
           {/* Data Availability Slider */}
-          <div>
+          <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-300 mb-1">Data Availability (0 = None, 100 = Abundant)</label>
-            <input 
-              type="range" 
-              min="0" 
-              max="100" 
-              value={data}
-              onChange={(e) => setData(parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+            <Slider
+              value={[data]}
+              onValueChange={(value) => setData(value[0])}
+              max={100}
+              step={1}
             />
           </div>
 
           {/* Model Reliability Slider */}
-          <div>
+          <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-300 mb-1">Required Reliability (0 = Low, 100 = Perfect)</label>
-            <input 
-              type="range" 
-              min="0" 
-              max="100" 
-              value={reliability}
-              onChange={(e) => setReliability(parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+            <Slider
+              value={[reliability]}
+              onValueChange={(value) => setReliability(value[0])}
+              max={100}
+              step={1}
             />
           </div>
         </div>

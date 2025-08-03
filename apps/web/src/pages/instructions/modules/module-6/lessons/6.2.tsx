@@ -1,4 +1,4 @@
-import { Users, TestTube2, ShieldCheck, Percent, Scale } from 'lucide-react';
+import { TestTube2, ShieldCheck, Percent, Scale } from 'lucide-react';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import InlineChat from '@/components/InlineChat';
@@ -111,23 +111,6 @@ const Lesson6_2: React.FC = () => {
         <p className="text-lg text-gray-300">
           Building an AI is like training a powerful, intelligent animal. It's not just about teaching it tricks; it's about building a relationship based on trust, communication, and clear boundaries. This lesson covers the core principles of Human-Computer Interaction (HCI) for AI, ensuring your creation is a helpful partner, not an unpredictable beast.
         </p>
-
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-1">
-            <AccordionTrigger>
-              <div className="flex items-center">
-                <Users className="w-6 h-6 mr-2 text-blue-400" />
-                The Leash: Collaboration, Not Command
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-4 text-gray-300">
-                <p>A well-trained guide dog doesn't just follow orders; it collaborates with its owner to navigate the world safely. Your AI should do the same. The goal is a partnership where the user feels in control, and the AI provides helpful guidance. It's about teamwork, not a one-way command structure.</p>
-                <AiTrustMeter />
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
 
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-2">
