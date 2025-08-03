@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useChatStore } from '@/store/chat';
 import { CheckCircle, ChevronRight, Star, XCircle, Zap, AlertCircle } from 'lucide-react';
 import CopyButton from '../../../CopyButton';
 import { api } from '@/lib/api';
@@ -39,6 +40,7 @@ interface Challenge {
  * )
  */
 const PromptChallenges: React.FC = () => {
+  const { apiKey } = useChatStore();
   const [activeChallenge, setActiveChallenge] = useState<number | null>(1);
   const [userPrompts, setUserPrompts] = useState<{ [key: number]: string }>({});
   const [evaluationResults, setEvaluationResults] = useState<{ [key: number]: EvaluationResult | null }>({});
@@ -180,12 +182,19 @@ const PromptChallenges: React.FC = () => {
     setIsEvaluating(prev => ({ ...prev, [id]: true }));
 
     try {
-      const result = await api.post('/api/chat/evaluate-challenge', {
-        userPrompt,
-        challenge: challenge.description,
-        successCriteria: challenge.successCriteria,
-        apiKey: localStorage.getItem('openai_api_key'),
-      });
+      const result = await api.post<EvaluationResult>(
+        '/api/chat/evaluate-challenge',
+        {
+          userPrompt: userPrompt,
+          challenge: challenge.description,
+          successCriteria: challenge.successCriteria,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey || ''}`,
+          },
+        }
+      );
 
       setEvaluationResults(prev => ({ ...prev, [id]: result }));
     } catch (error: any) {

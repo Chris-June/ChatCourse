@@ -13,7 +13,8 @@ export interface InsyncCriteria {
   intent: boolean;
   nuance: boolean;
   style: boolean;
-  youAsNarrative: boolean;
+  youAs: boolean;
+  narrativeFormat: boolean;
   context: boolean;
 }
 
@@ -36,9 +37,13 @@ const CRITERIA_DEFINITIONS = {
     pass: 'Defined Style: The prompt specifies a clear tone or writing style.',
     fail: 'Undefined Style: The prompt does not specify a tone or style (e.g., formal, friendly, professional).',
   },
-  youAsNarrative: {
+  youAs: {
     pass: 'Effective Persona: The prompt assigns a clear role or persona to the AI.',
     fail: 'No Persona: The prompt does not assign a role to the AI (e.g., "Act as an expert marketer").',
+  },
+  narrativeFormat: {
+    pass: 'Clear Format: The prompt specifies a clear output format.',
+    fail: 'Undefined Format: The prompt does not specify an output format (e.g., list, JSON, table).',
   },
   context: {
     pass: 'Sufficient Context: The prompt provides necessary background information.',
@@ -102,7 +107,8 @@ export const evaluatePrompt = (promptText: string): InsyncEvaluation => {
     intent: [/goal is to/, /objective is/, /i want you to/, /your task is/].some(p => p.test(lowerCasePrompt)),
     nuance: [/format:/, /tone:/, /length:/, /max words/, /must include/, /do not include/].some(p => p.test(lowerCasePrompt)),
     style: [/style:/, /tone is/, /writing style/].some(p => p.test(lowerCasePrompt)),
-    youAsNarrative: [/act as/, /you are a/, /your role is/, /persona:/].some(p => p.test(lowerCasePrompt)),
+    youAs: [/act as/, /you are a/, /your role is/, /persona:/].some(p => p.test(lowerCasePrompt)),
+    narrativeFormat: [/format:/, /structure:/, /output as a/, /in the form of/, /json/, /list/, /table/].some(p => p.test(lowerCasePrompt)),
     context: [/context:/, /background:/, /information:/, /scenario:/].some(p => p.test(lowerCasePrompt)),
   };
 

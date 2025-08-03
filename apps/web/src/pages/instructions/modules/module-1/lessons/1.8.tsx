@@ -1,7 +1,7 @@
 import React from 'react';
 import { Trophy, Sparkles } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
-import { PromptChallenges } from '../../../../../components/prompting/advanced';
+import Module1FinalChallenge from '../../../components/Module1FinalChallenge';
 
 const Lesson1_8: React.FC = () => {
   return (
@@ -27,7 +27,7 @@ const Lesson1_8: React.FC = () => {
         </div>
 
         {/* Interactive Challenge Component */}
-        <PromptChallenges />
+        <Module1FinalChallenge />
 
         {/* Module Wrap-up */}
         <section className="bg-blue-900/30 p-6 rounded-lg shadow-lg border border-blue-700 mt-6">

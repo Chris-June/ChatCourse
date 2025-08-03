@@ -1,17 +1,81 @@
 import React, { useState } from 'react';
 import { Lightbulb, Send } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
-import InlineChat from '../../../../../components/InlineChat';
+import { useChatStore } from '@/store/chat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 
 const Lesson1_5: React.FC = () => {
+  const apiKey = useChatStore(state => state.apiKey);
+  // State for the prompt builder inputs
+  const [promptParts, setPromptParts] = useState({
+    intent: '',
+    nuance: '',
+    style: '',
+    youAs: '',
+    narrativeFormat: '',
+    context: '',
+  });
+
+  const [evaluationResult, setEvaluationResult] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setPromptParts(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleEvaluatePrompt = async () => {
+    setIsLoading(true);
+    setEvaluationResult(null);
+
+    if (!apiKey) {
+      setEvaluationResult({ error: 'OpenAI API Key not found. Please set it in the settings panel.' });
+      setIsLoading(false);
+      return;
+    }
+
+    const constructedPrompt = Object.values(promptParts).filter(p => p.trim() !== '').join(' \n\n');
+
+    if (!constructedPrompt) {
+      setEvaluationResult({ error: 'Please fill out at least one part of the prompt to evaluate.' });
+      setIsLoading(false);
+      return;
+    }
+
+    const url = `${process.env.NEXT_PUBLIC_API_URL || ''}/api/chat/grade-prompt`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({ prompt: constructedPrompt }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      setEvaluationResult(data);
+    } catch (error) {
+      console.error('Failed to evaluate prompt:', error);
+      setEvaluationResult({ error: error instanceof Error ? error.message : 'An unknown error occurred.' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const frameworkComponents = [
-    { letter: 'I', name: 'Intent', description: 'The core goal. What do you want the AI to do?', example: 'Write a summary of the provided article.' },
-    { letter: 'N', name: 'Nuance', description: 'Specific details and constraints. What to include or avoid.', example: 'The summary must be under 150 words and avoid technical jargon.' },
-    { letter: 'S', name: 'Style', description: 'The desired tone and voice.', example: 'Use a professional and authoritative tone.' },
-    { letter: 'Y', name: 'You as...', description: 'The persona or role for the AI.', example: 'Act as a senior editor for a scientific journal.' },
-    { letter: 'N', name: 'Narrative Format', description: 'The structure of the output.', example: 'Format the output as a single paragraph.' },
-    { letter: 'C', name: 'Context', description: 'Background information the AI needs.', example: 'The article is about quantum computing and the target audience is high school students.' },
+    { letter: 'I', name: 'Intent', description: 'The core goal. What do you want the AI to do?', examples: ['Write a summary of the provided article.', 'Generate 5 creative names for a new coffee shop.', 'Translate this English sentence to French.'] },
+    { letter: 'N', name: 'Nuance', description: 'Specific details and constraints. What to include or avoid.', examples: ['The summary must be under 150 words and avoid technical jargon.', 'The names should be modern and appeal to a young, urban audience.', 'The translation must be formal and suitable for a business contract.'] },
+    { letter: 'S', name: 'Style', description: 'The desired tone and voice.', examples: ['Use a professional and authoritative tone.', 'The names should be playful and witty.', 'Adopt a friendly and conversational tone.'] },
+    { letter: 'Y', name: 'You as...', description: 'The persona or role for the AI.', examples: ['Act as a senior editor for a scientific journal.', 'You are a branding expert specializing in catchy, modern names.', 'You are a professional translator with expertise in legal documents.'] },
+    { letter: 'N', name: 'Narrative Format', description: 'The structure of the output.', examples: ['Format the output as a single paragraph.', 'Provide the names as a numbered list, each with a brief explanation.', 'Present the translation in a table with English and French side-by-side.'] },
+    { letter: 'C', name: 'Context', description: 'Background information the AI needs.', examples: ['The article is about quantum computing for high school students.', 'The coffee shop is in a trendy neighborhood and will serve specialty single-origin coffees.', 'The sentence is part of a binding legal agreement between two companies.'] },
   ];
 
   const quizQuestions = [
@@ -57,7 +121,7 @@ const Lesson1_5: React.FC = () => {
     }
   ];
 
-  const [submittedPrompt, setSubmittedPrompt] = useState('');
+  const constructedPrompt = Object.values(promptParts).filter(p => p.trim() !== '').join(' \n\n');
 
   return (
     <LessonTemplate
@@ -166,54 +230,92 @@ const Lesson1_5: React.FC = () => {
             <div key={index} className="bg-gray-800 p-5 rounded-lg border border-gray-700">
               <h3 className="text-xl font-bold text-blue-300"><span className="text-4xl font-black text-blue-500 mr-2">{item.letter}</span> - {item.name}</h3>
               <p className="text-gray-400 mt-1 ml-12">{item.description}</p>
-              <p className="text-sm text-gray-500 mt-2 ml-12 italic"><strong>Example:</strong> "{item.example}"</p>
+              <div className="mt-2 ml-12">
+                <p className="text-sm text-gray-400 font-semibold">Examples:</p>
+                <ul className="list-disc list-inside text-sm text-gray-500 italic mt-1 space-y-1">
+                  {item.examples.map((ex, i) => (
+                    <li key={i}>{ex}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ))}
         </div>
 
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-green-300">Your Turn: Build a Prompt</h2>
-          <p className="text-gray-300 mb-4">
-            Now it's your turn to use the framework. Fill out the fields below to construct your own prompt and see what the AI creates. Try to be as specific as possible!
-          </p>
-          <PromptBuilder onPromptSubmit={setSubmittedPrompt} />
-          {submittedPrompt && (
-            <div className="mt-4">
-              <InlineChat 
-                moduleId="lesson-1.5-builder"
-                systemPrompt="You are a helpful AI assistant. Execute the user's instructions exactly."
-                initialMessages={[{ role: 'user', content: submittedPrompt }]}
-                key={submittedPrompt} // Force re-render when prompt changes
-              />
+        <div id="prompt-builder" className="mt-12 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
+          <h3 className="text-2xl font-bold text-indigo-300 mb-4">I.N.S.Y.N.C. Prompt Builder</h3>
+          <p className="text-gray-400 mb-6">Use the fields below to construct a prompt piece-by-piece. When you're ready, evaluate it to see how the AI responds and get feedback on your prompt's quality.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {frameworkComponents.map(comp => (
+              <div key={comp.name}>
+                <label htmlFor={comp.name} className="block text-sm font-medium text-gray-300 mb-1">{comp.letter}: {comp.name}</label>
+                <textarea
+                  id={comp.name}
+                  name={comp.name.toLowerCase().replace(' as...', 'As')}
+                  rows={3}
+                  value={promptParts[comp.name.toLowerCase().replace(' as...', 'As') as keyof typeof promptParts]}
+                  onChange={handleInputChange}
+                  className="w-full bg-gray-900 border border-gray-600 rounded-md shadow-sm p-2 text-white focus:ring-indigo-500 focus:border-indigo-500"
+                  placeholder={comp.examples[0]}
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8">
+            <button
+              onClick={handleEvaluatePrompt}
+              disabled={isLoading}
+              className="w-full flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-500 disabled:cursor-not-allowed"
+            >
+              {isLoading ? <><Send className="animate-spin mr-2"/> Evaluating...</> : 'Build & Evaluate Prompt'}
+            </button>
+          </div>
+
+          {evaluationResult && (
+            <div className="mt-8 p-4 bg-gray-900 rounded-lg">
+              <h4 className="text-xl font-bold text-green-300 mb-4">Evaluation Results</h4>
+              <div>
+                <h5 className="font-bold text-gray-300">Constructed Prompt:</h5>
+                <p className="text-gray-400 whitespace-pre-wrap p-2 bg-gray-800 rounded-md">{constructedPrompt}</p>
+              </div>
+              <div className="mt-4">
+                <h5 className="font-bold text-gray-300">AI Response:</h5>
+                <p className="text-gray-400 p-2 bg-gray-800 rounded-md whitespace-pre-wrap">{evaluationResult.response}</p>
+              </div>
+
+              {evaluationResult.feedback && (
+                <div className="mt-6">
+                  <h5 className="font-bold text-gray-300 mb-3">I.N.S.Y.N.C. Feedback:</h5>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    {Object.entries(evaluationResult.feedback).map(([key, value]: [string, any]) => (
+                      <div key={key} className="bg-gray-800 p-3 rounded-lg">
+                        <p className="font-bold capitalize text-indigo-300">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
+                        <p className="text-gray-400 mt-1"><strong>Score:</strong> {value.score}/10</p>
+                        <p className="text-gray-400 mt-1"><strong>Comment:</strong> {value.comment}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {evaluationResult.error && (
+                <div className="mt-4 p-3 bg-red-900/50 border border-red-500/50 rounded-lg">
+                    <p className="text-red-300 font-bold">An Error Occurred</p>
+                    <p className="text-red-400 text-sm mt-1">{evaluationResult.error}</p>
+                </div>
+              )}
             </div>
           )}
         </div>
 
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-green-300">Putting It All Together</h2>
-          <p className="text-gray-300 mb-4">
-            When you combine these elements, you create a comprehensive set of instructions that leaves no room for ambiguity. Let's see an example.
-          </p>
-          <div className="bg-gray-900 p-4 rounded-lg">
-            <h4 className="font-bold text-lg text-blue-300 mb-2">Interactive Example:</h4>
-            <p className="text-gray-400 mb-4">This is a high-quality, structured prompt. Click send to see the excellent result it produces.</p>
-            <InlineChat 
-              moduleId="lesson-1.5-example"
-              systemPrompt="You are a helpful AI assistant. Execute the user's instructions exactly."
-              initialMessages={[{
-                role: 'user',
-                content: 'Act as an expert travel blogger. Write a short, exciting paragraph for a blog post about visiting Tokyo. Use an enthusiastic and adventurous tone. Mention the contrast between modern technology and ancient temples. Do not mention food. Format it as a single paragraph, approximately 100 words. The blog post is for young adults aged 18-25 who are interested in budget travel.'
-              }]}
-            />
-          </div>
-        </div>
-
         <KeyTakeaways
             points={[
-              "A prompt is the instruction, question, or input you give to an AI.",
-              "Clear and specific prompts lead to better quality responses.",
-              "Providing a persona helps shape the AI's tone, style, and expertise.",
-              "Prompt design is crucial for getting the AI to perform tasks effectively.",
+              "The I.N.S.Y.N.C. framework provides a structured way to build high-quality prompts.",
+              "Each element (Intent, Nuance, Style, You as..., Narrative Format, Context) plays a specific role.",
+              "A well-structured prompt significantly increases the chances of getting the desired output.",
+              "Iterating on each part of the framework can help you refine your prompts effectively.",
           ]}
         />
       </div>
@@ -221,65 +323,6 @@ const Lesson1_5: React.FC = () => {
   );
 };
 
-const PromptBuilder: React.FC<{ onPromptSubmit: (prompt: string) => void }> = ({ onPromptSubmit }) => {
-  const [intent, setIntent] = useState('');
-  const [nuance, setNuance] = useState('');
-  const [style, setStyle] = useState('');
-  const [youAs, setYouAs] = useState('');
-  const [narrativeFormat, setNarrativeFormat] = useState('');
-  const [context, setContext] = useState('');
 
-  const constructPrompt = () => {
-    let prompt = '';
-    if (youAs) prompt += `[YOU AS...]: ${youAs}\n`;
-    if (intent) prompt += `[INTENT]: ${intent}\n`;
-    if (style) prompt += `[STYLE]: ${style}\n`;
-    if (nuance) prompt += `[NUANCE]: ${nuance}\n`;
-    if (narrativeFormat) prompt += `[NARRATIVE FORMAT]: ${narrativeFormat}\n`;
-    if (context) prompt += `[CONTEXT]: ${context}`;
-    return prompt.trim();
-  };
-
-  const handleSubmit = () => {
-    const prompt = constructPrompt();
-    if (prompt) {
-      onPromptSubmit(prompt);
-    }
-  };
-
-  return (
-    <div className="bg-gray-900 p-6 rounded-lg border border-gray-700 space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">I - Intent</label>
-          <input type="text" value={intent} onChange={e => setIntent(e.target.value)} className="w-full bg-gray-700 rounded p-2 text-white" placeholder="e.g., Write an email..." />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">N - Nuance</label>
-          <input type="text" value={nuance} onChange={e => setNuance(e.target.value)} className="w-full bg-gray-700 rounded p-2 text-white" placeholder="e.g., Max 100 words..." />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">S - Style</label>
-          <input type="text" value={style} onChange={e => setStyle(e.target.value)} className="w-full bg-gray-700 rounded p-2 text-white" placeholder="e.g., Formal tone..." />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">Y - You as...</label>
-          <input type="text" value={youAs} onChange={e => setYouAs(e.target.value)} className="w-full bg-gray-700 rounded p-2 text-white" placeholder="e.g., Act as a pirate..." />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">N - Narrative Format</label>
-          <input type="text" value={narrativeFormat} onChange={e => setNarrativeFormat(e.target.value)} className="w-full bg-gray-700 rounded p-2 text-white" placeholder="e.g., A bulleted list..." />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">C - Context</label>
-          <input type="text" value={context} onChange={e => setContext(e.target.value)} className="w-full bg-gray-700 rounded p-2 text-white" placeholder="e.g., The project is due..." />
-        </div>
-      </div>
-      <button onClick={handleSubmit} className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded flex items-center justify-center">
-        <Send className="w-4 h-4 mr-2" /> Construct & Test Prompt
-      </button>
-    </div>
-  );
-};
 
 export default Lesson1_5;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useChatStore } from '@/store/chat';
 import CopyButton from '../../../CopyButton';
 
 interface PromptElement {
@@ -29,6 +30,7 @@ interface PromptElement {
  * )
  */
 const PromptVisualizer: React.FC = () => {
+  const { apiKey } = useChatStore();
   const [promptElements, setPromptElements] = useState<PromptElement[]>([
     {
       id: 'intent',
@@ -97,6 +99,8 @@ const PromptVisualizer: React.FC = () => {
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedPrompt, setGeneratedPrompt] = useState('');
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [strengths, setStrengths] = useState<string[]>([]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,10 +115,12 @@ const PromptVisualizer: React.FC = () => {
 
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey || ''}`,
+        },
         body: JSON.stringify({
           elements: promptElements,
-          apiKey: localStorage.getItem('openai_api_key')
         }),
       });
 
@@ -123,12 +129,16 @@ const PromptVisualizer: React.FC = () => {
       }
 
       const data = await response.json();
-      setMetrics(data.metrics);
-      setGeneratedPrompt(data.prompt);
+      setMetrics(data.metrics || { clarity: 0, specificity: 0, effectiveness: 0, completeness: 0, structure: 0 });
+      setGeneratedPrompt(data.prompt || '');
+      setSuggestions(data.suggestions || []);
+      setStrengths(data.strengths || []);
 
     } catch (error) {
       console.error('Failed to visualize prompt:', error);
       // Display error to user instead of mock data
+      setSuggestions([]);
+      setStrengths([]);
       setMetrics({
         clarity: 0,
         specificity: 0,
@@ -272,6 +282,28 @@ const PromptVisualizer: React.FC = () => {
                 {!isGenerating && generatedPrompt && <CopyButton textToCopy={generatedPrompt} />}
               </div>
             </div>
+
+            {strengths.length > 0 && (
+              <div className="bg-gray-800/50 p-5 rounded-lg border border-gray-700">
+                <h3 className="text-lg font-semibold text-white mb-3">Strengths</h3>
+                <ul className="list-disc list-inside space-y-2 text-sm text-gray-300">
+                  {strengths.map((strength, index) => (
+                    <li key={index}>{strength}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {suggestions.length > 0 && (
+              <div className="bg-gray-800/50 p-5 rounded-lg border border-gray-700">
+                <h3 className="text-lg font-semibold text-white mb-3">Suggestions</h3>
+                <ul className="list-disc list-inside space-y-2 text-sm text-gray-300">
+                  {suggestions.map((suggestion, index) => (
+                    <li key={index}>{suggestion}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

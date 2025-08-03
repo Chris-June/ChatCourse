@@ -58,8 +58,20 @@ export const handleRefinePrompt = async (req: Request, res: Response): Promise<v
 /**
  * Handler for I.N.S.Y.N.C. prompt grading
  */
+const getApiKey = (req: Request): string | null => {
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    return authHeader.substring(7);
+  }
+  return null;
+};
+
+/**
+ * Handler for I.N.S.Y.N.C. prompt grading
+ */
 export const handleGradePrompt = async (req: Request, res: Response): Promise<void> => {
-  const { prompt, apiKey } = req.body;
+  const { prompt } = req.body;
+  const apiKey = getApiKey(req);
 
   if (!prompt) {
     res.status(400).json({ error: 'Prompt is required.' });
@@ -115,14 +127,20 @@ export const handleGradePrompt = async (req: Request, res: Response): Promise<vo
     });
 
     const evaluation = JSON.parse(response.choices[0]?.message?.content || '{}');
-    
-    // Convert to 10-point scale for consistency
-    const scaledScore = Math.round((evaluation.totalScore / 30) * 10 * 10) / 10;
-    
+
+    // Step 2: Get a direct response to the user's prompt
+    const modelResponse = await openai.chat.completions.create({
+      model: getApiName('gpt-4o-mini'),
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.7,
+    });
+
+    const directResponse = modelResponse.choices[0]?.message?.content || 'No response generated.';
+
+    // Step 3: Combine evaluation and response
     res.json({
-      ...evaluation,
-      scaledScore,
-      framework: 'INSYNC'
+      response: directResponse,
+      feedback: evaluation
     });
 
   } catch (error) {
