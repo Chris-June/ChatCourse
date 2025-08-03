@@ -113,7 +113,11 @@ const Module1FinalChallenge: React.FC = () => {
             </div>
             <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
               <h4 className="font-bold text-lg text-green-300 mb-2">Example Output</h4>
-              <pre className="whitespace-pre-wrap text-gray-300 text-sm bg-gray-950 p-3 rounded-md">{evaluationResult.expertOutput}</pre>
+              <pre className="whitespace-pre-wrap text-gray-300 text-sm bg-gray-950 p-3 rounded-md">
+                {typeof evaluationResult.expertOutput === 'string' 
+                  ? evaluationResult.expertOutput 
+                  : JSON.stringify(evaluationResult.expertOutput, null, 2)}
+              </pre>
             </div>
           </motion.div>
         )}
