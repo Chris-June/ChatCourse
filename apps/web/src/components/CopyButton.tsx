@@ -23,7 +23,7 @@ const CopyButton = ({ textToCopy }: CopyButtonProps) => {
       size="icon"
       className="absolute top-2 right-2 h-8 w-8"
     >
-      {isCopied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+      {isCopied ? <Check className="h-4 w-4 text-primary" /> : <Copy className="h-4 w-4" />}
     </Button>
   );
 };

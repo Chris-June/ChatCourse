@@ -77,7 +77,7 @@ const SettingsModal = () => {
     return (
     <Dialog open={isSettingsOpen} onOpenChange={toggleSettings}>
       <DialogContent 
-        className="bg-zinc-900 border-zinc-800 text-gray-100 max-w-2xl"
+        className="bg-card border-border text-card-foreground max-w-2xl"
         aria-describedby="settings-description"
       >
         <DialogDescription id="settings-description" className="sr-only">
@@ -89,24 +89,24 @@ const SettingsModal = () => {
 
         <div className="py-4 space-y-4">
           <div className="flex items-center justify-between">
-            <label htmlFor="model-select" className="text-sm font-medium text-gray-300">
+            <label htmlFor="model-select" className="text-sm font-medium text-muted-foreground">
               Model
             </label>
             <Select value={model} onValueChange={setModel}>
-              <SelectTrigger id="model-select" className="w-[320px] bg-zinc-800 border-zinc-700">
+              <SelectTrigger id="model-select" className="w-[320px] bg-input border-input">
                 <SelectValue placeholder="Select a model" />
               </SelectTrigger>
-              <SelectContent className="bg-zinc-800 border-zinc-700 text-gray-100 max-h-[400px]">
+              <SelectContent className="bg-card border-border text-card-foreground max-h-[400px]">
                 {modelFamilies.map((family) => (
                   <SelectGroup key={family}>
-                    <SelectLabel className="px-2 py-1.5 text-xs font-semibold text-gray-400">{family}</SelectLabel>
+                    <SelectLabel className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">{family}</SelectLabel>
                     {models
                       .filter((m) => m.family === family)
                       .map((m) => (
                         <SelectItem key={m.id} value={m.id}>
                           <div className="flex items-center justify-between w-full">
                             <span className="whitespace-nowrap">{m.name}</span>
-                            <span className="text-xs text-gray-400 ml-4 whitespace-nowrap">
+                            <span className="text-xs text-muted-foreground ml-4 whitespace-nowrap">
                               {m.context} | In: ${m.inputCost.toFixed(2)} Out: ${m.outputCost.toFixed(2)}
                             </span>
                           </div>
@@ -118,7 +118,7 @@ const SettingsModal = () => {
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="custom-instructions" className="text-sm font-medium text-gray-300">
+            <Label htmlFor="custom-instructions" className="text-sm font-medium text-muted-foreground">
               Custom Instructions
             </Label>
             <Textarea
@@ -126,17 +126,17 @@ const SettingsModal = () => {
               placeholder="Enter custom instructions to guide the AI's behavior..."
               value={customInstructions}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setCustomInstructions(e.target.value)}
-              className="bg-zinc-800 border-zinc-700 focus:ring-zinc-600"
+              className="bg-input border-input focus:ring-ring"
               rows={4}
             />
           </div>
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="temperature-slider" className="text-sm font-medium text-gray-300">
+              <Label htmlFor="temperature-slider" className="text-sm font-medium text-muted-foreground">
                 Temperature
               </Label>
-              <span className="text-sm text-gray-400">{temperature.toFixed(1)}</span>
+              <span className="text-sm text-muted-foreground">{temperature.toFixed(1)}</span>
             </div>
             <Slider
               id="temperature-slider"
@@ -146,17 +146,17 @@ const SettingsModal = () => {
               value={[temperature]}
               onValueChange={(value) => setTemperature(value[0])}
             />
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-muted-foreground">
               Lower values for temperature result in more consistent outputs, while higher values generate more diverse and creative results. Stick to a range of 0 to 1 for most use cases.
             </p>
           </div>
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="top_p-slider" className="text-sm font-medium text-gray-300">
+              <Label htmlFor="top_p-slider" className="text-sm font-medium text-muted-foreground">
                 Top P
               </Label>
-              <span className="text-sm text-gray-400">{top_p.toFixed(1)}</span>
+              <span className="text-sm text-muted-foreground">{top_p.toFixed(1)}</span>
             </div>
             <Slider
               id="top_p-slider"
@@ -166,7 +166,7 @@ const SettingsModal = () => {
               value={[top_p]}
               onValueChange={(value) => setTopP(value[0])}
             />
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-muted-foreground">
               Top P is an alternative to temperature that selects from the highest probability tokens. A lower value narrows the selection to more likely tokens.
             </p>
           </div>
@@ -178,7 +178,7 @@ const SettingsModal = () => {
                 href="https://platform.openai.com/api-keys" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-sm text-blue-400 hover:text-blue-300 underline"
+                className="text-sm text-primary hover:text-primary/90 underline"
               >
                 Get your API key
               </a>
@@ -189,15 +189,15 @@ const SettingsModal = () => {
               placeholder="sk-..."
               value={localApiKey || ''}
               onChange={(e) => setLocalApiKey(e.target.value)}
-              className="bg-zinc-800 border-zinc-700 text-white flex-1"
+              className="bg-input border-input text-foreground flex-1"
             />
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-muted-foreground">
               Your API key is stored locally in your browser and never sent to our servers. For testing purposes, you will need to add a payment option to your OpenAI account. We find that most testers spend less than $10.00 in API Credits for this project.
             </p>
           </div>
 
           <div className="flex items-center justify-between">
-            <Label className="text-sm font-medium text-gray-300">
+            <Label className="text-sm font-medium text-muted-foreground">
               Theme
             </Label>
             <Button variant="ghost" className="w-full justify-start" onClick={toggleTheme}>

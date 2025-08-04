@@ -119,9 +119,9 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
       initial={false}
       animate={{ width: isOpen ? '18rem' : '0rem' }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className="h-full bg-zinc-900/90 backdrop-blur-lg border-r border-zinc-800 flex-shrink-0 overflow-hidden"
+      className="h-full bg-background/90 backdrop-blur-lg border-r border-border flex-shrink-0 overflow-hidden"
     >
-      <div className="w-72 h-full p-4 flex flex-col">
+      <div className="w-72 h-full p-4 flex flex-col text-foreground">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold">Course Modules</h2>
         </div>
@@ -155,7 +155,7 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
           </div>
 
           <div className="space-y-1">
-            <h3 className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+            <h3 className="px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
               Course Content
             </h3>
             <div className="mt-2 space-y-1">
@@ -175,7 +175,7 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
                   </Button>
                   
                   {expandedModules[module.id] && (
-                    <div className="ml-4 mt-1 space-y-1 border-l border-zinc-700 pl-2">
+                    <div className="ml-4 mt-1 space-y-1 border-l border-border pl-2">
                       {module.lessons.map((lesson) => {
                         const moduleNumber = parseInt(module.id.split('-')[1]);
                         const lessonNumber = parseInt(lesson.id.split('.')[1]);
@@ -185,7 +185,7 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
                           <Button
                             key={lesson.id}
                             variant={location.pathname === lesson.path ? 'secondary' : 'ghost'}
-                            className={`w-full justify-start text-left h-auto whitespace-normal flex items-center ${isLocked ? 'text-zinc-500' : ''}`}
+                            className={`w-full justify-start text-left h-auto whitespace-normal flex items-center ${isLocked ? 'text-muted-foreground' : ''}`}
                             onClick={() => !isLocked && navigate(lesson.path)}
                             disabled={isLocked}
                           >
@@ -206,7 +206,7 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
           </div>
 
           <div className="space-y-1">
-            <h3 className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+            <h3 className="px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
               Resources
             </h3>
             <div className="mt-2 space-y-1">
@@ -230,8 +230,8 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
           </div>
         </nav>
 
-        <div className="pt-4 mt-auto border-t border-zinc-800">
-          <div className="text-xs text-gray-500 text-center">
+        <div className="pt-4 mt-auto border-t border-border">
+          <div className="text-xs text-muted-foreground text-center">
             IntelliSync Solutions
           </div>
         </div>

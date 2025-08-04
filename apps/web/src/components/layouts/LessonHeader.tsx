@@ -28,7 +28,7 @@ const LessonHeader: React.FC<LessonHeaderProps> = ({
       <div>
         <h1 className="text-3xl font-bold text-primary flex items-center">
           {title}
-          {completed && <CheckCircle className="w-7 h-7 ml-3 text-success" />}
+          {completed && <CheckCircle className="w-7 h-7 ml-3 text-primary" />}
         </h1>
         {subtitle && <p className="text-lg text-muted-foreground mt-2">{subtitle}</p>}
       </div>
@@ -45,7 +45,7 @@ const LessonHeader: React.FC<LessonHeaderProps> = ({
           <Link 
             to={nextLessonPath} 
             onClick={onNextClick}
-            className="flex items-center px-4 py-2 bg-success text-success-foreground rounded-lg hover:bg-success/90 transition-colors border border-border"
+            className="flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
           >
             {nextLessonTitle} <ChevronRight className="w-5 h-5 ml-2" />
           </Link>

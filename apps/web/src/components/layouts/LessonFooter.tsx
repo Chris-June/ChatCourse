@@ -22,7 +22,7 @@ const LessonFooter: React.FC<LessonFooterProps> = ({
       {prevLessonPath && (
         <Link 
           to={prevLessonPath} 
-          className="flex items-center px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+          className="flex items-center px-6 py-3 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors"
         >
           <ChevronLeft className="w-5 h-5 mr-2" />
           <span>{prevLessonTitle}</span>
@@ -32,7 +32,7 @@ const LessonFooter: React.FC<LessonFooterProps> = ({
         <Link 
           to={nextLessonPath} 
           onClick={onNextClick}
-          className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
+          className="flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
         >
           <span>{nextLessonTitle}</span>
           <ChevronRight className="w-5 h-5 ml-2" />

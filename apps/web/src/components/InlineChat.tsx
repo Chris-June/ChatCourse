@@ -388,16 +388,16 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
     const isInteractionDisabled = isLoading || rateLimited || (maxFollowUps ? userFollowUps >= maxFollowUps : false);
 
     return (
-      <div className={`bg-gray-800/50 p-4 rounded-2xl border border-gray-700`}>
+      <div className={`bg-card/80 p-4 rounded-2xl border border-border`}>
         {checklist && checklist.length > 0 && (
-          <div className="mb-4 p-3 bg-gray-900/50 rounded-xl border border-gray-700">
+          <div className="mb-4 p-3 bg-background/50 rounded-xl border border-border">
             <h4 className="font-semibold text-white mb-2">Challenge Checklist</h4>
             <ul className="space-y-2">
               {checklist.map((item, index) => (
                 <li
                   key={index}
                   className={`flex items-center text-sm transition-colors ${
-                    item.completed ? 'text-green-400' : 'text-gray-400'
+                    item.completed ? 'text-primary' : 'text-muted-foreground'
                   }`}>
                   {item.completed ? (
                     <CheckCircle className="w-4 h-4 mr-2 flex-shrink-0" />
@@ -415,8 +415,8 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
           {messages.map(
             (msg, index) =>
               msg.role !== 'system' && (
-                <div key={index} className={`p-3 rounded-xl ${msg.role === 'user' ? 'bg-blue-900/50' : 'bg-gray-700/50'}`}>
-                  <p className="text-white whitespace-pre-wrap">{msg.content}</p>
+                <div key={index} className={`p-3 rounded-xl ${msg.role === 'user' ? 'bg-primary/10' : 'bg-muted/50'}`}>
+                  <p className="text-foreground whitespace-pre-wrap">{msg.content}</p>
                 </div>
               )
           )}
@@ -428,7 +428,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
               type="button"
               onClick={() => handleSubmit(new Event('submit') as any)}
               disabled={isLoading || simulationHasRun}
-              className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-500 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-full shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <><Loader className="animate-spin mr-2" size={20} /> Generating...</>
@@ -444,7 +444,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder={placeholder || 'Type your message...'}
-              className="w-full bg-gray-900 text-white border border-gray-600 rounded-xl p-3 pr-20 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow duration-200 text-sm"
+              className="w-full bg-background text-foreground border border-input rounded-xl p-3 pr-20 resize-none focus:ring-2 focus:ring-ring focus:outline-none transition-shadow duration-200 text-sm"
               rows={3}
               disabled={isInteractionDisabled}
               onKeyDown={(e) => {
@@ -456,24 +456,24 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
             />
             <button
               type="submit"
-              className="absolute top-1/2 right-3 -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center"
+              className="absolute top-1/2 right-3 -translate-y-1/2 bg-primary text-primary-foreground p-2 rounded-full hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center"
               disabled={!prompt.trim() || isInteractionDisabled}
               aria-label="Send message">
               {isLoading ? <Loader className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
             </button>
           </div>
           <div className="flex justify-between items-center mt-2">
-            <button type="button" onClick={handleClear} className="text-xs text-gray-400 hover:text-white flex items-center">
+            <button type="button" onClick={handleClear} className="text-xs text-muted-foreground hover:text-foreground flex items-center">
               <X className="w-4 h-4 mr-1" /> Clear
             </button>
             {maxFollowUps !== undefined && (
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-muted-foreground">
                 Follow-ups: {userFollowUps} / {maxFollowUps}
               </div>
             )}
           </div>
           {rateLimited && (
-            <div className="mt-2 text-xs text-red-400 flex items-center">
+            <div className="mt-2 text-xs text-destructive flex items-center">
               <AlertCircle className="w-4 h-4 mr-1.5" />
               <span>You have reached the maximum number of attempts. Please try again later.</span>
             </div>
