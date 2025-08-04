@@ -6,10 +6,9 @@
  */
 
 import express from 'express';
-import dotenv from 'dotenv';
 
-import path from 'path';
-import { fileURLToPath } from 'url';
+
+
 
 
 import { handlePromptVisualization, handleChallengeEvaluation, handleFinalChallengeEvaluation } from './handlers/promptEvaluation';
@@ -17,13 +16,13 @@ import { handleGetPatterns } from './handlers/promptPatterns';
 import { handleRefinePrompt, handleGradePrompt } from './handlers/promptRefinement';
 import { handlePairProgramming } from './handlers/pairProgramming';
 import { handleSummaryEvaluation } from './handlers/summaryEvaluation';
+console.log('[handler.ts] Module start');
 import { handleChat } from './handlers/chat';
+console.log('[handler.ts] All handlers imported successfully.');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
-// Load environment variables
-dotenv.config({ path: path.resolve(__dirname, '../.env.local') });
+
+// Environment variables are loaded by Vercel in production.
 
 // --- Constants and Helper Functions ---
 
@@ -96,6 +95,7 @@ export const getApiKey = (req: express.Request): string | null => {
 // --- Express App Setup ---
 
 const app = express();
+console.log('[handler.ts] Express app created.');
 
 // Middleware for CORS
 app.use((req, res, next) => {
@@ -124,6 +124,7 @@ app.use((req, res, next) => {
 
 // Middleware for JSON parsing
 app.use(express.json());
+console.log('[handler.ts] Middleware configured.');
 
 export const ALLOWED_MODELS = [
   'gpt-4.1',
@@ -151,6 +152,7 @@ export const ALLOWED_MODELS = [
 ];
 
 // --- Modular API Endpoints ---
+console.log('[handler.ts] Configuring API endpoints...');
 
 // INSYNC Framework & Prompt Evaluation
 app.post('/api/chat/visualize-prompt', handlePromptVisualization);
@@ -181,5 +183,7 @@ if (process.env.NODE_ENV !== 'production') {
     console.log(`API server listening on port ${PORT}`);
   });
 }
+
+console.log('[handler.ts] Endpoints configured. Exporting app.');
 
 export default app;
