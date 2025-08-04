@@ -153,25 +153,25 @@ export const ALLOWED_MODELS = [
 // --- Modular API Endpoints ---
 
 // INSYNC Framework & Prompt Evaluation
-app.post('/chat/visualize-prompt', handlePromptVisualization);
-app.post('/chat/evaluate-challenge', handleChallengeEvaluation);
-app.post('/chat/evaluate-final-challenge', handleFinalChallengeEvaluation);
-app.post('/chat/grade-prompt', handleGradePrompt);
-app.post('/chat/refine-prompt', handleRefinePrompt);
+app.post('/api/chat/visualize-prompt', handlePromptVisualization);
+app.post('/api/chat/evaluate-challenge', handleChallengeEvaluation);
+app.post('/api/chat/evaluate-final-challenge', handleFinalChallengeEvaluation);
+app.post('/api/chat/grade-prompt', handleGradePrompt);
+app.post('/api/chat/refine-prompt', handleRefinePrompt);
 
 // Prompt Pattern Library
-app.get('/chat/get-patterns', handleGetPatterns);
+app.get('/api/chat/get-patterns', handleGetPatterns);
 
 // --- Core Logic Endpoints ---
 
 // Main chat streaming endpoint
-app.post('/chat', handleChat);
+app.post('/api/chat', handleChat);
 
 // Pair Programming Simulator
-app.post('/chat/pair-programming', handlePairProgramming);
+app.post('/api/chat/pair-programming', handlePairProgramming);
 
 // Summary evaluation endpoint
-app.post('/chat/evaluate-summary', handleSummaryEvaluation);
+app.post('/api/chat/evaluate-summary', handleSummaryEvaluation);
 
 // --- Server Start ---
 
