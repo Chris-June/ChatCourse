@@ -2,7 +2,7 @@ import React from 'react';
 import { CheckCircle, XCircle } from 'lucide-react';
 
 const DiagramBox = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 flex flex-col h-full">
+  <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 flex flex-col h-full">
     <h3 className="font-semibold text-lg text-center text-gray-300 mb-3">{title}</h3>
     <div className="text-sm text-gray-300 space-y-2 flex-grow">{children}</div>
   </div>

@@ -18,7 +18,7 @@ const pitfalls = [
 
 const CommonPitfalls: React.FC = () => {
   return (
-    <div className="bg-gray-900 p-4 rounded-lg border border-yellow-700">
+    <div className="bg-gray-900 p-4 rounded-xl border border-yellow-700">
       <ul className="space-y-3">
         {pitfalls.map((pitfall, index) => (
           <li key={index} className="flex items-start text-sm">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Check, X, HelpCircle } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
+import KeyTakeaways from '../../../components/KeyTakeaways';
 
 // A new, self-contained interactive component for the Hallucination Game
 const HallucinationGame: React.FC = () => {
@@ -58,8 +59,8 @@ const HallucinationGame: React.FC = () => {
   const isCorrect = guess !== null && (guess === 'fact' ? !currentStatement.isHallucination : currentStatement.isHallucination);
 
   return (
-    <div className="bg-gray-900 border border-purple-500/30 p-6 rounded-lg my-6">
-      <h3 className="text-xl font-bold text-purple-300 mb-4 flex items-center"><HelpCircle className="mr-3"/>The Hallucination Game</h3>
+    <div className="bg-card border p-6 rounded-xl my-6">
+      <h3 className="text-xl font-bold text-primary mb-4 flex items-center"><HelpCircle className="mr-3"/>The Hallucination Game</h3>
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
@@ -68,26 +69,26 @@ const HallucinationGame: React.FC = () => {
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.3 }}
         >
-          <p className="text-lg text-gray-300 bg-gray-800 p-4 rounded-md min-h-[100px]">"{currentStatement.text}"</p>
+          <p className="text-lg text-muted-foreground bg-muted p-4 rounded-md min-h-[100px]">"{currentStatement.text}"</p>
         </motion.div>
       </AnimatePresence>
 
       {!showResult ? (
         <div className="flex justify-center space-x-4 mt-4">
-          <button onClick={() => handleGuess('fact')} className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105">Fact</button>
-          <button onClick={() => handleGuess('hallucination')} className="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105">Hallucination</button>
+          <button onClick={() => handleGuess('fact')} className="bg-success hover:bg-success/90 text-success-foreground font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105">Fact</button>
+          <button onClick={() => handleGuess('hallucination')} className="bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105">Hallucination</button>
         </div>
       ) : (
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className={`mt-4 p-4 rounded-lg text-center ${isCorrect ? 'bg-green-900/50 border border-green-500' : 'bg-red-900/50 border border-red-500'}`}>
+          className={`mt-4 p-4 rounded-lg text-center ${isCorrect ? 'bg-success/10 border-success/20' : 'bg-destructive/10 border-destructive/20'} border`}>
           <h4 className="font-bold text-lg flex items-center justify-center">
-            {isCorrect ? <Check className="mr-2 text-green-400"/> : <X className="mr-2 text-red-400"/>}
-            {isCorrect ? 'Correct!' : 'Incorrect'}
+            {isCorrect ? <Check className="mr-2 text-success"/> : <X className="mr-2 text-destructive"/>}
+            <span className={isCorrect ? 'text-success' : 'text-destructive'}>{isCorrect ? 'Correct!' : 'Incorrect'}</span>
           </h4>
-          <p className="text-sm text-gray-300 mt-2">{currentStatement.explanation}</p>
-          <button onClick={handleNext} className="mt-4 bg-blue-600 hover:bg-blue-500 text-white font-bold py-1 px-4 rounded-full text-sm">Next Statement</button>
+          <p className="text-muted-foreground mt-2">{currentStatement.explanation}</p>
+          <button onClick={handleNext} className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105">Next Statement</button>
         </motion.div>
       )}
     </div>
@@ -159,46 +160,46 @@ const Lesson1_3: React.FC = () => {
       subtitle="Understanding and identifying AI-generated misinformation."
       quizQuestions={quizQuestions}
     >
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-purple-300 flex items-center">
-          <Lightbulb className="w-7 h-7 mr-3 text-purple-400" />
+      <div className="bg-card p-6 rounded-xl shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-primary flex items-center">
+          <Lightbulb className="w-7 h-7 mr-3 text-primary" />
           The Confident Robot Problem
         </h2>
-        <p className="text-gray-300 mb-4">
+        <p className="text-lg text-muted-foreground mb-4">
           You've seen that AI is a powerful prediction engine. But what happens when its predictions go wrong? This leads to one of the most important and sometimes frustrating concepts in AI: <strong>hallucinations</strong>.
         </p>
-        <div className="bg-gray-900 p-4 rounded-lg border border-purple-500/50">
-          <p className="text-lg text-center font-semibold text-purple-200">
-            An AI hallucination is a response that is nonsensical or factually incorrect, but delivered with complete confidence.
+        <div className="bg-muted p-4 rounded-lg border border-primary/20">
+          <p className="text-lg text-center font-semibold text-primary">
+            "I am 99.9% confident that the capital of Australia is Sydney."
           </p>
         </div>
-        <p className="text-gray-300 mt-4">
+        <p className="text-muted-foreground mt-4">
           Think of it this way: the AI doesn't 'know' things. It only knows which words are likely to follow other words. Sometimes, the most 'likely' path leads to a dead end of made-up facts, fake statistics, or invented stories. Because it has no concept of 'truth,' it can't tell you it's making something up. It just keeps predicting.
         </p>
       </div>
 
       <HallucinationGame />
 
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-orange-300 flex items-center">
+      <div className="bg-card p-6 rounded-xl shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
           Why Do They Really Happen?
         </h2>
-        <p className="text-gray-300 mb-4">
+        <p className="text-muted-foreground mb-4">
           Hallucinations are a direct side effect of the AI's core function: predicting the next word. The AI isn't consulting a knowledge base; it's weaving together words based on statistical patterns from its training data.
         </p>
-        <p className="text-gray-300">
+        <p className="text-muted-foreground">
           Imagine an actor who forgets their lines but is determined to keep the play going. Instead of stopping, they improvise something that sounds plausible in the context of the scene. The AI does the same—it fills in gaps with what's statistically likely, which isn't always what's factually true.
         </p>
       </div>
 
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-teal-300 flex items-center">
+      <div className="bg-card p-6 rounded-xl shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
           How to Mitigate Hallucinations
         </h2>
-        <p className="text-gray-300 mb-4">
+        <p className="text-muted-foreground mb-4">
           You can't eliminate hallucinations entirely, but you can significantly reduce their likelihood with good prompting habits:
         </p>
-        <ul className="space-y-3 text-gray-300 list-disc list-inside">
+        <ul className="space-y-3 text-muted-foreground list-disc list-inside">
           <li><strong>Ask for Sources:</strong> Add phrases like "Cite your sources" or "Provide URLs for your claims." While the AI can hallucinate sources too, this often forces it to ground its response in more factual data.</li>
           <li><strong>Provide Grounding Context:</strong> Use the 'C' in the I.N.S.Y.N.C. framework. By giving the AI the specific text, data, or background information it needs, you anchor its predictions to your facts, not its own.</li>
           <li><strong>Request a Confidence Score:</strong> Ask the AI to "rate its confidence in this answer on a scale of 1 to 10." This can sometimes give you a signal about how speculative the response is.</li> 
@@ -206,28 +207,19 @@ const Lesson1_3: React.FC = () => {
         </ul>
       </div>
 
-      <div className="bg-yellow-900/50 border border-yellow-600/50 p-4 rounded-lg text-center">
-        <h4 className="font-bold text-yellow-300">Pro-Tip: Healthy Skepticism</h4>
-        <p className="text-yellow-200/80 mt-1">Treat AI responses like a helpful starting point from a brilliant but sometimes unreliable intern. Always verify critical information yourself.</p>
+      <div className="bg-accent/10 border border-accent/20 p-4 mb-8 rounded-xl text-center">
+        <h4 className="font-bold text-accent">Pro-Tip: Healthy Skepticism</h4>
+        <p className="text-accent/80 mt-1">Treat AI responses like a helpful starting point from a brilliant but sometimes unreliable intern. Always verify critical information yourself.</p>
       </div>
 
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-green-300">Key Takeaways</h2>
-        <ul className="space-y-3 text-gray-300">
-          <li className="flex items-start">
-            <Check className="w-6 h-6 text-green-400 mr-3 mt-1 flex-shrink-0" />
-            <span><strong>Always Verify:</strong> Never trust an AI's factual claims without checking them from a reliable source, especially for important information.</span>
-          </li>
-          <li className="flex items-start">
-            <Check className="w-6 h-6 text-green-400 mr-3 mt-1 flex-shrink-0" />
-            <span><strong>It's a Feature, Not a Bug:</strong> Hallucinations are a natural side effect of how LLMs work. They aren't 'lying' because they don't understand the concept of truth.</span>
-          </li>
-           <li className="flex items-start">
-            <Check className="w-6 h-6 text-green-400 mr-3 mt-1 flex-shrink-0" />
-            <span><strong>Your Prompts Matter:</strong> Providing clear context and constraints in your prompts can help reduce the likelihood of hallucinations, but cannot eliminate them entirely.</span>
-          </li>
-        </ul>
-      </div>
+      <KeyTakeaways 
+        points={[
+          'AI hallucinations occur because it predicts the next word based on patterns, not facts.',
+          'Provide specific context and grounding data to reduce hallucinations.',
+          'Always verify critical information from primary sources.',
+          'Use the I.N.S.Y.N.C. framework to ground the AI in your facts.'
+        ]}
+      />
     </LessonTemplate>
   );
 };

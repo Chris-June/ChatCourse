@@ -47,7 +47,7 @@ const LessonTemplate: React.FC<LessonTemplateProps> = ({
   };
 
   return (
-    <div className="space-y-8 p-6 bg-gray-900 text-white">
+    <div className="space-y-8 p-6 bg-background text-foreground">
       <LessonHeader
         title={title}
         subtitle={subtitle}

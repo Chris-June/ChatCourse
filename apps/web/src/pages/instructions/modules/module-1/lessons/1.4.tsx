@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lightbulb, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { ThumbsUp, ThumbsDown } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
@@ -71,33 +71,30 @@ const Lesson1_4: React.FC = () => {
       subtitle="How to talk to an AI to get what you want."
       quizQuestions={quizQuestions}
     >
-      <div className="space-y-8 text-gray-200">
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-            <Lightbulb className="w-7 h-7 mr-3 text-blue-400" />
-            Your Conversation with AI
-          </h2>
-          <p className="text-gray-300 mb-4">
+      <div className="space-y-8 text-foreground">
+        <div className="bg-card p-6 rounded-xl">
+          <h2 className="text-xl font-semibold text-card-foreground mb-4">Prompting Showdown: Vague vs. Specific</h2>
+          <p className="text-muted-foreground mb-4">
             You now know that AI predicts the next word and that it can sometimes make things up (hallucinate). So, how do we control it? The answer is the <strong>prompt</strong>.
           </p>
-          <div className="bg-gray-900 p-4 rounded-lg border border-blue-500/50">
+          <div className="bg-gray-900 p-4 rounded-xl border border-blue-500/50">
             <p className="text-lg text-center font-semibold text-blue-200">
               A prompt is the instruction you give to an AI. It's how you ask questions, give commands, and provide context.
             </p>
           </div>
-          <p className="text-gray-300 mt-4">
+          <p className="text-muted-foreground mt-4">
             Think of the AI as an incredibly knowledgeable and skilled, but very literal, new employee. It can do almost anything you ask, but it won't do anything *until* you ask. It has no common sense and relies 100% on your instructions. The quality of your prompt directly determines the quality of its response.
           </p>
         </div>
 
-        <div>
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">See It In Action: More Examples</h2>
+        <div className="text-lg text-muted-foreground">
+          <h2 className="text-2xl font-bold text-foreground mb-3">The Core Idea: Your Words are the Controls</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             {/* Example 1: Vague vs. Specific Topic */}
-            <div className="bg-red-900/20 border border-red-500/30 p-4 rounded-lg">
-              <h3 className="text-lg font-bold text-red-300 flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: General Topic</h3>
-              <p className="text-gray-300 mb-4">This prompt is too broad, leading to a generic, unfocused answer.</p>
+            <div className="bg-destructive/10 border border-red-600 p-4 rounded-xl">
+              <h3 className="text-lg font-bold text-destructive flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: General Topic</h3>
+              <p className="text-muted-foreground mb-4">This prompt is too broad, leading to a generic, unfocused answer.</p>
               <InlineChat 
                 moduleId="lesson-1.4-bad-prompt-1"
                 readOnly={true}
@@ -106,9 +103,9 @@ const Lesson1_4: React.FC = () => {
                 simulatedResponse="This code defines a function that takes two arguments, `a` and `b`, and returns their sum."
               />
             </div>
-            <div className="bg-green-900/20 border border-green-500/30 p-4 rounded-lg">
-              <h3 className="text-lg font-bold text-green-300 flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Focused Topic</h3>
-              <p className="text-gray-300 mb-4">Adds audience, format, and topic constraints for a tailored response.</p>
+            <div className="bg-emerald-900/30 border border-emerald-600 p-4 rounded-xl">
+              <h3 className="text-lg font-bold text-success flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Focused Topic</h3>
+              <p className="text-muted-foreground mb-4">Adds audience, format, and topic constraints for a tailored response.</p>
               <InlineChat 
                 moduleId="lesson-1.4-good-prompt-1"
                 readOnly={true}
@@ -119,9 +116,9 @@ const Lesson1_4: React.FC = () => {
             </div>
 
             {/* Example 2: Vague vs. Specific Dinner Planning */}
-            <div className="bg-red-900/20 border border-red-500/30 p-4 rounded-lg">
-              <h3 className="text-lg font-bold text-red-300 flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: Dinner Idea</h3>
-              <p className="text-gray-300 mb-4">The AI has no idea about your preferences, ingredients, or time.</p>
+            <div className="bg-destructive/10 border border-red-600 p-4 rounded-xl">
+              <h3 className="text-lg font-bold text-destructive flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: Dinner Idea</h3>
+              <p className="text-muted-foreground mb-4">The AI has no idea about your preferences, ingredients, or time.</p>
               <InlineChat 
                 moduleId="lesson-1.4-bad-prompt-2"
                 readOnly={true}
@@ -130,9 +127,9 @@ const Lesson1_4: React.FC = () => {
                 simulatedResponse="There are many options! You could make pasta, a stir-fry, or perhaps a salad. Without knowing your preferences or what ingredients you have, it's hard to give a specific suggestion."
               />
             </div>
-            <div className="bg-green-900/20 border border-green-500/30 p-4 rounded-lg">
-              <h3 className="text-lg font-bold text-green-300 flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Dinner Idea</h3>
-              <p className="text-gray-300 mb-4">Includes dietary needs, ingredients, and time available for a more helpful suggestion.</p>
+            <div className="bg-emerald-900/30 border border-emerald-600 p-4 rounded-xl">
+              <h3 className="text-lg font-bold text-success flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Dinner Idea</h3>
+              <p className="text-muted-foreground mb-4">Includes dietary needs, ingredients, and time available for a more helpful suggestion.</p>
               <InlineChat 
                 moduleId="lesson-1.4-good-prompt-2"
                 readOnly={true}
@@ -143,9 +140,9 @@ const Lesson1_4: React.FC = () => {
             </div>
 
             {/* Example 3: Ambiguous vs. Clear Persona */}
-            <div className="bg-red-900/20 border border-red-500/30 p-4 rounded-lg">
-              <h3 className="text-lg font-bold text-red-300 flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: Email Request</h3>
-              <p className="text-gray-300 mb-4">The AI lacks the sender, recipient, and context to write a useful email.</p>
+            <div className="bg-destructive/10 border border-red-600 p-4 rounded-xl">
+              <h3 className="text-lg font-bold text-destructive flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: Email Request</h3>
+              <p className="text-muted-foreground mb-4">The AI lacks the sender, recipient, and context to write a useful email.</p>
               <InlineChat 
                 moduleId="lesson-1.4-bad-prompt-3"
                 readOnly={true}
@@ -154,9 +151,9 @@ const Lesson1_4: React.FC = () => {
                 simulatedResponse="Subject: Deadline\n\nHi Team,\n\nPlease be aware of the upcoming deadline. Let me know if you have any questions.\n\nThanks"
               />
             </div>
-            <div className="bg-green-900/20 border border-green-500/30 p-4 rounded-lg">
-              <h3 className="text-lg font-bold text-green-300 flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Email Request</h3>
-              <p className="text-gray-300 mb-4">Provides a clear persona, audience, and key message points.</p>
+            <div className="bg-emerald-900/30 border border-emerald-600 p-4 rounded-xl">
+              <h3 className="text-lg font-bold text-success flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Email Request</h3>
+              <p className="text-muted-foreground mb-4">Provides a clear persona, audience, and key message points.</p>
               <InlineChat 
                 moduleId="lesson-1.4-good-prompt-3"
                 readOnly={true}
@@ -167,9 +164,9 @@ const Lesson1_4: React.FC = () => {
             </div>
 
              {/* Example 4: Missing Context vs. Context-Rich */}
-            <div className="bg-red-900/20 border border-red-500/30 p-4 rounded-lg">
-              <h3 className="text-lg font-bold text-red-300 flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: Summarization</h3>
-              <p className="text-gray-300 mb-4">The AI doesn't know what to summarize or what's important.</p>
+            <div className="bg-destructive/10 border border-red-600 p-4 rounded-xl">
+              <h3 className="text-lg font-bold text-destructive flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: Summarization</h3>
+              <p className="text-muted-foreground mb-4">The AI doesn't know what to summarize or what's important.</p>
               <InlineChat 
                 moduleId="lesson-1.4-bad-prompt-4"
                 readOnly={true}
@@ -178,9 +175,9 @@ const Lesson1_4: React.FC = () => {
                 simulatedResponse="To summarize the report, I need you to provide the text of the report first. Please paste the content you would like me to summarize."
               />
             </div>
-            <div className="bg-green-900/20 border border-green-500/30 p-4 rounded-lg">
-              <h3 className="text-lg font-bold text-green-300 flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Summarization</h3>
-              <p className="text-gray-300 mb-4">Provides the text and specifies the desired focus of the summary.</p>
+            <div className="bg-emerald-900/30 border border-emerald-600 p-4 rounded-xl">
+              <h3 className="text-lg font-bold text-success flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Summarization</h3>
+              <p className="text-muted-foreground mb-4">Provides the text and specifies the desired focus of the summary.</p>
               <InlineChat 
                 moduleId="lesson-1.4-good-prompt-4"
                 readOnly={true}

@@ -14,7 +14,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, icon, children, isInitiall
   const [isOpen, setIsOpen] = useState(isInitiallyOpen && !isDisabled);
 
   return (
-    <div className={`bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-700 ${isDisabled ? 'opacity-60' : ''}`}>
+    <div className={`bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700 ${isDisabled ? 'opacity-60' : ''}`}>
       <button
         onClick={() => !isDisabled && setIsOpen(!isOpen)}
         disabled={isDisabled}

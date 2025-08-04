@@ -42,7 +42,7 @@ const Module3Page: React.FC = () => {
             {prevLesson && (
               <Link 
                 to={prevLesson.path}
-                className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5 mr-2" /> 
                 <span className="hidden md:inline">Previous:</span>
@@ -55,7 +55,7 @@ const Module3Page: React.FC = () => {
             {nextLesson && (
               <Link 
                 to={nextLesson.path}
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
+                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-500 transition-colors"
               >
                 <span className="hidden md:inline">Next:</span> 
                 <span className="ml-2">{nextLesson.title}</span>

@@ -20,14 +20,14 @@ const CheckpointQuiz: React.FC<QuizProps> = ({ question, options, correctAnswerI
   };
 
   return (
-    <div className="bg-gray-900 border border-gray-700 p-6 rounded-lg my-6">
+    <div className="bg-gray-900 border border-gray-700 p-6 rounded-xl my-6">
       <h4 className="font-bold text-lg text-white mb-4">Checkpoint Quiz</h4>
       <p className="text-gray-300 mb-4">{question}</p>
       <div className="space-y-3">
         {options.map((option, index) => {
           const isCorrect = index === correctAnswerIndex;
           const isSelected = selectedAnswer === index;
-          let buttonClass = 'w-full text-left p-3 rounded-md transition-colors ';
+          let buttonClass = 'w-full text-left p-3 rounded-xl transition-colors ';
           if (isAnswered) {
             if (isCorrect) {
               buttonClass += 'bg-green-800/50 border border-green-600';
@@ -56,7 +56,7 @@ const CheckpointQuiz: React.FC<QuizProps> = ({ question, options, correctAnswerI
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-4 p-3 bg-gray-800 rounded-md text-gray-300"
+          className="mt-4 p-3 bg-gray-800 rounded-xl text-gray-300"
         >
           <strong className={selectedAnswer === correctAnswerIndex ? 'text-green-400' : 'text-red-400'}>
             {selectedAnswer === correctAnswerIndex ? 'Correct!' : 'Not quite.'}

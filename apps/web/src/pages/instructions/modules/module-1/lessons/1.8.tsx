@@ -13,7 +13,7 @@ const Lesson1_8: React.FC = () => {
       quizQuestions={[]}
     >
       <div className="space-y-8 text-gray-200">
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
           <h2 className="text-2xl font-semibold mb-4 text-yellow-300 flex items-center">
             <Trophy className="w-7 h-7 mr-3 text-yellow-400" />
             Your Final Challenge
@@ -30,7 +30,7 @@ const Lesson1_8: React.FC = () => {
         <Module1FinalChallenge />
 
         {/* Module Wrap-up */}
-        <section className="bg-blue-900/30 p-6 rounded-lg shadow-lg border border-blue-700 mt-6">
+        <section className="bg-blue-900/30 p-6 rounded-xl shadow-lg border border-blue-700 mt-6">
           <h2 className="text-2xl font-semibold mb-3 text-white flex items-center">
               <Sparkles className="w-6 h-6 mr-3 text-blue-300"/>
               Module 1 Complete!

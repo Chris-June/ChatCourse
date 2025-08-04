@@ -1,11 +1,10 @@
 import React from 'react';
-import { Wrench, FileCode, Lightbulb } from 'lucide-react';
+import { Wrench, Lightbulb } from 'lucide-react';
 import InlineChat from '../../../../../components/InlineChat';
 import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
-import CheckpointQuiz from '../../../components/CheckpointQuiz';
 
 const weatherChecklist = [
   { id: '1', text: 'My goal is to find the weather in a specific city.', completed: false },
@@ -17,15 +16,15 @@ const weatherChecklist = [
 const Lesson4_3: React.FC = () => {
   const quizQuestions = [
     {
-      questionText: 'In the lesson\'s analogy, what does the \'recipe card\' represent when building an AI tool?',
+      questionText: "In the lesson's analogy, what does the 'recipe card' represent when building an AI tool?",
       options: [
-        'The tool\'s schema (its name, description, and parameters).',
+        "The tool's schema (its name, description, and parameters).",
         'The AI model itself.',
         'The final output of the tool.',
         'The server where the tool is hosted.'
       ],
-      correctAnswer: 'The tool\'s schema (its name, description, and parameters).',
-      explanation: 'The schema is the detailed instruction set, or \'recipe\', that tells the AI exactly what the tool does, what it needs, and when to use it. Think of it as the detailed recipe card for your AI chef.'
+      correctAnswer: "The tool's schema (its name, description, and parameters).",
+      explanation: "The schema is the detailed instruction set, or 'recipe', that tells the AI exactly what the tool does, what it needs, and when to use it. Think of it as the detailed recipe card for your AI chef."
     },
     {
       questionText: 'What is the most important reason to write very clear and detailed descriptions in your tool schema?',
@@ -36,7 +35,7 @@ const Lesson4_3: React.FC = () => {
         'To hide the tool from other users.'
       ],
       correctAnswer: 'The AI relies entirely on these descriptions to understand the tool\'s purpose and how to use it correctly.',
-      explanation: 'The AI doesn\'t understand code; it understands language. Your descriptions are the only guide it has to make smart decisions about your tool.'
+      explanation: "The AI doesn't understand code; it understands language. Your descriptions are the only guide it has to make smart decisions about your tool."
     },
     {
       questionText: 'What is a key principle of good tool design?',
@@ -50,7 +49,7 @@ const Lesson4_3: React.FC = () => {
       explanation: 'Single-purpose tools are less ambiguous and more reliable, making it easier for the AI to choose the right tool for the job.'
     },
     {
-      questionText: 'In the `order_pizza` tool example, what are the \'ingredients\' (inputs) the AI needs?',
+      questionText: "In the `order_pizza` tool example, what are the 'ingredients' (inputs) the AI needs?",
       options: [
         'The oven temperature.',
         'A `confirmation_number`.',
@@ -61,7 +60,7 @@ const Lesson4_3: React.FC = () => {
       explanation: 'These are the parameters defined in the schema that the AI must gather to successfully call the tool, just like a chef needs ingredients for a recipe.'
     },
     {
-      questionText: 'Why don\'t you need to provide the actual code for your function in the schema?',
+      questionText: "Why don't you need to provide the actual code for your function in the schema?",
       options: [
         'The AI will write the code for you.',
         'The AI only needs to know *what* the tool does and *what arguments* to provide, not *how* it works.',
@@ -69,7 +68,7 @@ const Lesson4_3: React.FC = () => {
         'You do need to provide the code.'
       ],
       correctAnswer: 'The AI only needs to know *what* the tool does and *what arguments* to provide, not *how* it works.',
-      explanation: 'The schema is for the AI\'s decision-making process. The actual execution of the code happens in your application after the AI tells you which tool to run.'
+      explanation: 'The AI is the decision-making brain; your application is the hands that perform the actions. The schema is the contract between them, not the implementation itself.'
     }
   ];
 
@@ -77,35 +76,25 @@ const Lesson4_3: React.FC = () => {
     <LessonTemplate
       moduleNumber={4}
       lessonNumber={3}
-      title="Building Your First AI Tool"
-      subtitle="From Idea to Actionable Function"
+      title="Designing Good Tools"
+      subtitle="Learn the art of crafting effective, reliable tools that AI models can easily understand and use."
       quizQuestions={quizQuestions}
     >
-      <div className="space-y-8 text-gray-300">
-        <p className="text-lg">
-          Building a tool for an AI is like creating a new appliance for a smart kitchen. The AI (the chef) needs to know what the appliance does, what ingredients it needs, and what it produces. Let's walk through the process of designing a tool from scratch.
-        </p>
-
-        <Accordion title="Step 1: Define the Job (The Concept)" icon={<Wrench />} isInitiallyOpen>
-          <p className="text-gray-300 mb-4">
-            Before you write any code, clearly define what your tool will do. Be specific. A tool to "handle food" is too vague. A tool to "order a pizza" is much better. It should have a single, well-defined purpose.
+      <div className="space-y-6 p-4 md:p-6">
+        <Accordion title="The Anatomy of a Tool: The Recipe Card" icon={<Wrench />} isInitiallyOpen>
+          <p className="text-muted-foreground mb-4">
+            Think of an AI tool not as a pre-built appliance, but as a recipe you give to a master chef (the AI). The AI is brilliant, but it can only cook what's on the recipe card. Your job is to write a perfect recipe card—this is your tool's <strong>schema</strong>.
           </p>
-          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-            <h3 className="font-semibold text-white mb-2">Our Goal: The Pizza-Ordering Tool</h3>
-            <ul className="list-disc pl-5 space-y-2 text-gray-300">
-              <li><strong>Purpose:</strong> Order a pizza for delivery.</li>
-              <li><strong>Ingredients (Inputs):</strong> It needs to know the `size` and `toppings`.</li>
-              <li><strong>Result (Output):</strong> It should return a `confirmation_number`.</li>
-            </ul>
-          </div>
-        </Accordion>
-
-        <Accordion title="Step 2: Write the Recipe Card (Provide a Schema)" icon={<FileCode />}>
-          <p className="text-gray-300 mb-4">
-            Think of the schema as a detailed recipe card for your AI chef. Just like a recipe needs precise instructions ("add 2 cups of flour"), your tool schema needs crystal-clear descriptions for each parameter. The AI chef can't guess what "some flour" means - it needs exact measurements and specific instructions.
+          <p className="text-muted-foreground mb-4">
+            The schema defines the tool's name, its purpose, the 'ingredients' (parameters) it needs, and what kind of 'dish' (output) it produces. The AI reads this schema to understand when and how to use your tool.
           </p>
-          <div className="bg-gray-900 p-3 rounded-md">
-            <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
+
+          <h4 className="font-semibold text-lg mt-6 mb-2 text-foreground">Example Schema: `order_pizza`</h4>
+          <p className="text-muted-foreground mb-4">
+            Here’s a simple schema for a pizza ordering tool. Notice how the descriptions clearly explain the purpose of the tool and its parameters.
+          </p>
+          <div className="bg-muted p-4 rounded-lg">
+            <code className="block whitespace-pre-wrap break-words font-mono text-sm text-foreground">
 {`{
   "name": "order_pizza",
   "description": "Orders a pizza for delivery.",
@@ -122,22 +111,13 @@ const Lesson4_3: React.FC = () => {
 }`}
             </code>
           </div>
-
-          <div className="mt-6">
-            <CheckpointQuiz
-              question={quizQuestions[1].questionText}
-              options={quizQuestions[1].options}
-              correctAnswerIndex={quizQuestions[1].options.indexOf(quizQuestions[1].correctAnswer)}
-              explanation={quizQuestions[1].explanation}
-            />
-          </div>
         </Accordion>
 
         <Accordion title="Your Turn: Use a Custom Weather Tool" icon={<Lightbulb />}>
-          <p className="text-gray-300 mb-4">
+          <p className="text-muted-foreground mb-4">
             Let's test your new tool-building skills. Imagine you've created a weather-checking robot that needs one piece of information: which city to investigate. This robot (our `get_weather` tool) has been trained to understand your exact instructions and deliver precise weather reports.
           </p>
-          <p className="text-gray-300 mb-4">
+          <p className="text-muted-foreground mb-4">
             Use the chat window below to ask for the weather in any city. Watch how the AI uses the tool you designed. Follow the checklist to track the AI's reasoning.
           </p>
           <InlineChat 

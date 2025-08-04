@@ -1,26 +1,39 @@
-import React from 'react';
-import { Globe, Server, Lightbulb, Briefcase } from 'lucide-react';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import BestPractices from '@/pages/instructions/components/BestPractices';
+import KeyTakeaways from '@/pages/instructions/components/KeyTakeaways';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
+import {
+  Briefcase,
+  Globe,
+  Lightbulb,
+  Server,
+  BookOpen,
+} from 'lucide-react';
+import AgentPlannerExercise from '@/pages/instructions/components/AgentPlannerExercise';
 import MCPArchitectureDiagram from '@/pages/instructions/components/MCPArchitectureDiagram';
 import MCPServerExplorer from '@/pages/instructions/components/MCPServerExplorer';
-import AgentPlannerExercise from '@/pages/instructions/components/AgentPlannerExercise';
-import KeyTakeaways from '@/pages/instructions/components/KeyTakeaways';
-import BestPractices from '@/pages/instructions/components/BestPractices';
-import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
+import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
 
-const Lesson4_6: React.FC = () => {
+const Lesson4_6 = () => {
   const quizQuestions = [
     {
-      questionText: 'What is the main purpose of the Model Context Protocol (MCP), using the \'App Store for Agents\' analogy?',
+      questionText:
+        "What is the main purpose of the Model Context Protocol (MCP), using the 'App Store for Agents' analogy?",
       options: [
         'To give the AI a standard way to discover and use external tools.',
         'To make the AI run faster.',
         'To teach the AI new languages.',
-        'To let the AI browse the web freely.'
+        'To let the AI browse the web freely.',
       ],
-      correctAnswer: 'To give the AI a standard way to discover and use external tools.',
-      explanation: 'MCP provides a standardized interface, like a universal remote, allowing the AI to interact with many different tools without needing to know their internal workings.'
+      correctAnswer:
+        'To give the AI a standard way to discover and use external tools.',
+      explanation:
+        'MCP provides a standardized interface, like a universal remote, allowing the AI to interact with many different tools without needing to know their internal workings.',
     },
     {
       questionText: 'What is a key difference between basic function calling and MCP?',
@@ -28,43 +41,52 @@ const Lesson4_6: React.FC = () => {
         'There is no difference.',
         'With MCP, the AI can discover tools dynamically; basic function calling uses hard-coded tools.',
         'MCP only works for weather tools.',
-        'Basic function calling is more secure than MCP.'
+        'Basic function calling is more secure than MCP.',
       ],
-      correctAnswer: 'With MCP, the AI can discover tools dynamically; basic function calling uses hard-coded tools.',
-      explanation: 'The ability to discover tools on-the-fly is a major advantage of MCP, making the AI more adaptable and scalable.'
+      correctAnswer:
+        'With MCP, the AI can discover tools dynamically; basic function calling uses hard-coded tools.',
+      explanation:
+        'The ability to discover tools on-the-fly is a major advantage of MCP, making the AI more adaptable and scalable.',
     },
     {
       questionText: 'Which is a critical SECURITY benefit of using an MCP server?',
       options: [
-        'It makes the agent\'s responses faster.',
+        "It makes the agent's responses faster.",
         'It isolates sensitive API keys on the server, never exposing them to the model or client.',
         'It allows the agent to use more tools.',
-        'It makes tool descriptions easier to read.'
+        'It makes tool descriptions easier to read.',
       ],
-      correctAnswer: 'It isolates sensitive API keys on the server, never exposing them to the model or client.',
-      explanation: 'Credential isolation is a critical security feature. The agent asks the MCP server to use a tool, and the server uses the stored API key, preventing leaks.'
+      correctAnswer:
+        'It isolates sensitive API keys on the server, never exposing them to the model or client.',
+      explanation:
+        'Credential isolation is a critical security feature. The agent asks the MCP server to use a tool, and the server uses the stored API key, preventing leaks.',
     },
     {
-      questionText: 'The ability to combine tools from different, independent servers (like flights, hotels, weather) to complete a complex task is known as what?',
+      questionText:
+        'The ability to combine tools from different, independent servers (like flights, hotels, weather) to complete a complex task is known as what?',
       options: [
         'Tool Redundancy',
         'Service Orchestration',
         'API Chaining',
-        'Function Calling'
+        'Function Calling',
       ],
       correctAnswer: 'Service Orchestration',
-      explanation: 'MCP\'s real power comes from orchestration—the ability to act as a conductor, leading a symphony of different services to achieve a high-level goal.'
+      explanation:
+        "MCP's real power comes from orchestration—the ability to act as a conductor, leading a symphony of different services to achieve a high-level goal.",
     },
     {
-      questionText: 'When designing a tool for an MCP server, why is a clear and detailed description so important?',
+      questionText:
+        'When designing a tool for an MCP server, why is a clear and detailed description so important?',
       options: [
         'It makes the code run faster.',
-        'It allows the AI agent to understand the tool\'s purpose and parameters, enabling it to make smart decisions about when and how to use it.',
+        "It allows the AI agent to understand the tool's purpose and parameters, enabling it to make smart decisions about when and how to use it.",
         'It automatically translates the tool into different programming languages.',
-        'It is only for human developers to read and has no impact on the agent.'
+        'It is only for human developers to read and has no impact on the agent.',
       ],
-      correctAnswer: 'It allows the AI agent to understand the tool\'s purpose and parameters, enabling it to make smart decisions about when and how to use it.',
-      explanation: 'The agent relies entirely on the tool\'s name and description to determine its utility for a given task. A vague or misleading description can cause the agent to use tools incorrectly or fail at its task.'
+      correctAnswer:
+        "It allows the AI agent to understand the tool's purpose and parameters, enabling it to make smart decisions about when and how to use it.",
+      explanation:
+        'The agent relies entirely on the tool\'s description (its "docstring") to decide if it\'s the right tool for the job. A poor description leads to poor agent performance.',
     },
   ];
 
@@ -72,117 +94,100 @@ const Lesson4_6: React.FC = () => {
     <LessonTemplate
       moduleNumber={4}
       lessonNumber={6}
-      title="4.6 The App Store for Agents: Mastering the Model Context Protocol (MCP)"
-      subtitle="How to give your AI superpowers by connecting it to any tool, safely and scalably."
-      quizQuestions={quizQuestions}
+      title="Module 4.6: The Model Context Protocol (MCP)"
+      subtitle="Creating an App Store for Agents"
     >
-      <div className="max-w-7xl mx-auto space-y-8">
+      <div className="space-y-6">
+        <p className="text-muted-foreground">
+          Welcome to the future of agentic AI. Basic function calling is powerful,
+          but it has limitations. It's like having a phone that can only call
+          numbers you've already saved. The Model Context Protocol (MCP) is the
+          next evolution: it gives your agent an entire "App Store" of tools it
+          can discover, understand, and use on the fly.
+        </p>
 
-        <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
+        <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
-            <AccordionTrigger>
+            <AccordionTrigger className="text-left hover:no-underline">
               <div className="flex items-center">
-                <Server className="w-5 h-5 mr-2" />
-                The Big Idea: An App Store for Agents
+                <Server className="w-5 h-5 mr-2 text-primary" />
+                From Function Calling to Service Orchestration
               </div>
             </AccordionTrigger>
-            <AccordionContent>
-              <p className="text-gray-300 mb-4">
-                MCP (Model Context Protocol) Servers are like an App Store for your AI agent. Instead of the agent having to know the messy details of every API (like GitHub, Google Calendar, etc.), it just connects to the MCP Server. The server provides a clean, standardized list of available tools, handling all the security and authentication behind the scenes.
+            <AccordionContent className="space-y-4 pt-4">
+              <p className="text-muted-foreground">
+                MCP introduces a standardized way for an AI to communicate with
+                external services. Instead of hard-coding a specific tool, the
+                agent can query an "MCP Server" to see what tools are available,
+                read their descriptions, and decide how to use them.
               </p>
-              <MCPArchitectureDiagram />
-              <p className="text-gray-300 mt-4">
-                This architecture is powerful because it separates the agent's reasoning ability from the specific implementation of its tools. You can add, remove, or update tools on the server without ever having to change the agent's core logic.
+              <div className="p-4 border rounded-lg bg-muted">
+                <MCPArchitectureDiagram />
+              </div>
+              <p className="text-muted-foreground">
+                This architecture decouples the agent from the tools. The agent
+                only needs to know how to speak "MCP," and it can instantly gain
+                access to any tool that also speaks the protocol.
               </p>
             </AccordionContent>
           </AccordionItem>
-        </Accordion>
 
-        <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-2">
-            <AccordionTrigger>
+            <AccordionTrigger className="text-left hover:no-underline">
               <div className="flex items-center">
-                <Server className="w-5 h-5 mr-2" />
-                The MCP Architecture
+                <Globe className="w-5 h-5 mr-2 text-primary" />
+                Exploring an MCP Server
               </div>
             </AccordionTrigger>
-            <AccordionContent>
-              <div className="grid md:grid-cols-3 gap-4 text-center">
-                <div className="bg-gray-800 p-4 rounded-lg">
-                  <h4 className="font-bold text-blue-300">Standardization</h4>
-                  <p className="text-sm text-gray-400">Provides a consistent way for an agent to discover and use tools, regardless of the underlying API's complexity.</p>
-                </div>
-                <div className="bg-gray-800 p-4 rounded-lg">
-                  <h4 className="font-bold text-yellow-300">Security</h4>
-                  <p className="text-sm text-gray-400">Manages API keys and authentication, so they are never exposed to the model or the end-user, preventing leaks.</p>
-                </div>
-                <div className="bg-gray-800 p-4 rounded-lg">
-                  <h4 className="font-bold text-green-300">Discoverability</h4>
-                  <p className="text-sm text-gray-400">Allows an agent to dynamically ask what tools are available and how to use them, enabling flexible and powerful new behaviors.</p>
-                </div>
+            <AccordionContent className="space-y-4 pt-4">
+              <p className="text-muted-foreground">
+                Imagine your agent needs to interact with GitHub. Instead of you
+                writing custom code for every single GitHub API endpoint, you
+                connect your agent to a pre-built GitHub MCP Server. The agent can
+                then ask the server, "What can you do?" and get a list of
+                available tools.
+              </p>
+              <div className="p-4 border rounded-lg bg-muted">
+                <MCPServerExplorer />
               </div>
+              <p className="text-muted-foreground">
+                This dynamic discovery is the core of MCP's power. It allows
+                developers to add, remove, or update tools on the server without
+                ever touching the agent's code.
+              </p>
             </AccordionContent>
           </AccordionItem>
-        </Accordion>
 
-        <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-3">
-            <AccordionTrigger>
+            <AccordionTrigger className="text-left hover:no-underline">
               <div className="flex items-center">
-                <Globe className="w-5 h-5 mr-2" />
-                Interactive Demo: The Server Explorer
+                <Briefcase className="w-5 h-5 mr-2 text-primary" />
+                Real-World Examples of MCP
               </div>
             </AccordionTrigger>
-            <AccordionContent>
-              <p className="text-gray-300 mb-4">
-                This protocol acts like a universal remote for your AI. Instead of needing a different remote for your TV, soundbar, and streaming box, MCP provides a single, standardized way for your agent to interact with any tool, no matter who built it or where it's hosted. It's the ultimate connector for a universe of capabilities.
-              </p>
-              <MCPArchitectureDiagram />
-              <div className="mt-6">
-                <CheckpointQuiz
-                  question={quizQuestions[0].questionText}
-                  options={quizQuestions[0].options}
-                  correctAnswerIndex={quizQuestions[0].options.indexOf(quizQuestions[0].correctAnswer)}
-                  explanation={quizQuestions[0].explanation}
-                />
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-4">
-            <AccordionTrigger>
-              <div className="flex items-center">
-                <Globe className="w-5 h-5 mr-2" />
-                Interactive Demo: The Server Explorer
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <p className="text-gray-300 mb-4">
-                The magic of MCP is <strong>discoverability</strong>. An agent can ask a server, "What tools do you have?" and get a list back. Use the explorer below to simulate this process. Click on a server to see the tools it offers.
-              </p>
-              <MCPServerExplorer />
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-5">
-            <AccordionTrigger>
-              <div className="flex items-center">
-                <Briefcase className="w-5 h-5 mr-2" />
-                Real-World Use Cases
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-                  <h4 className="font-bold text-lg text-white mb-2">🏢 Internal Data Access</h4>
-                  <p className="text-gray-400 mb-3">An agent uses an MCP server to safely query your company's internal database or CRM to answer questions like, "What was our Q3 revenue?" without exposing sensitive credentials.</p>
-                  <div className="bg-gray-800 p-3 rounded">
-                    <p className="text-sm text-blue-300"><strong>Server:</strong> <code>company-db-mcp</code></p>
-                    <p className="text-sm text-gray-400"><strong>Tools:</strong> <code>query_sales_data</code>, <code>get_customer_info</code></p>
+            <AccordionContent className="space-y-4 pt-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 border rounded-lg bg-muted">
+                  <h4 className="font-bold text-foreground mb-2">
+                    ✈️ Travel Agent
+                  </h4>
+                  <p className="text-muted-foreground mb-3">
+                    An agent plans a full trip by orchestrating multiple MCP
+                    servers.
+                  </p>
+                  <div className="p-3 rounded bg-background/50">
+                    <p className="text-sm font-mono text-muted-foreground">
+                      <strong className="text-foreground">Server:</strong>{' '}
+                      <code>airline-mcp</code>,{' '}
+                      <strong className="text-foreground">Tools:</strong>{' '}
+                      <code>find_flights</code>, <code>book_seat</code>
+                    </p>
+                    <p className="text-sm font-mono text-muted-foreground">
+                      <strong className="text-foreground">Server:</strong>{' '}
+                      <code>hotel-mcp</code>,{' '}
+                      <strong className="text-foreground">Tools:</strong>{' '}
+                      <code>find_rooms</code>, <code>make_reservation</code>
+                    </p>
                   </div>
                 </div>
                 <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
@@ -226,6 +231,7 @@ const Lesson4_6: React.FC = () => {
                   </div>
                 </div>
                 <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                  <h4 className="font-bold text-lg text-white mb-2">🛍️ E-commerce Operations</h4>
                   <h4 className="font-bold text-lg text-white mb-2">🛒 E-commerce Operations</h4>
                   <p className="text-gray-400 mb-3">An agent uses MCP servers to manage e-commerce operations: tracking orders, updating inventory, and processing returns.</p>
                   <div className="bg-gray-800 p-3 rounded">
@@ -290,6 +296,21 @@ const Lesson4_6: React.FC = () => {
           </AccordionItem>
         </Accordion>
 
+        <div
+          id="knowledge-check"
+          className="p-6 bg-muted border border-border rounded-lg mt-6"
+        >
+          <div className="flex items-center mb-4">
+            <BookOpen className="w-6 h-6 mr-3 text-primary" />
+            <h3 className="text-2xl font-bold text-foreground">
+              Knowledge Check
+            </h3>
+          </div>
+          <p className="text-muted-foreground mb-6">
+            Test your understanding of the Model Context Protocol.
+          </p>
+          <ModuleQuizzes questions={quizQuestions} />
+        </div>
       </div>
     </LessonTemplate>
   );

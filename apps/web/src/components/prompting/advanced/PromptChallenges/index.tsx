@@ -231,9 +231,9 @@ setEvaluationResults(prev => ({
 
   return (
     <div className="space-y-6">
-      <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 p-6 rounded-lg border border-gray-700">
+      <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 p-6 rounded-xl border border-gray-700">
         <div className="flex items-start">
-          <div className="bg-blue-500/20 p-2 rounded-lg mr-4">
+          <div className="bg-blue-500/20 p-2 rounded-xl mr-4">
             <Zap className="w-6 h-6 text-blue-400" />
           </div>
           <div>
@@ -250,7 +250,7 @@ setEvaluationResults(prev => ({
         {challenges.map(challenge => (
           <div 
             key={challenge.id} 
-            className="bg-gray-800/50 rounded-lg border border-gray-700 overflow-hidden transition-all duration-200"
+            className="bg-gray-800/50 rounded-xl border border-gray-700 overflow-hidden transition-all duration-200"
           >
             <div
               onClick={() => toggleChallenge(challenge.id)}
@@ -293,7 +293,7 @@ setEvaluationResults(prev => ({
               </div>
             )}
             {activeChallenge === challenge.id && (
-              <div className="bg-gray-900 p-3 rounded text-sm text-gray-300 font-mono">
+              <div className="bg-gray-900 p-3 rounded-xl text-sm text-gray-300 font-mono">
                 {challenge.startingPrompt}
               </div>
             )}
@@ -321,7 +321,7 @@ setEvaluationResults(prev => ({
                         id={`prompt-${challenge.id}`}
                         value={userPrompts[challenge.id] || ''}
                         onChange={(e) => setUserPrompts(prev => ({ ...prev, [challenge.id]: e.target.value }))}
-                        className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full p-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         rows={3}
                         placeholder="Enter your improved prompt here..."
                       />
@@ -333,7 +333,7 @@ setEvaluationResults(prev => ({
 
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors flex items-center disabled:bg-blue-800 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-500 transition-colors flex items-center disabled:bg-blue-800 disabled:cursor-not-allowed"
                     disabled={isEvaluating[challenge.id] || !userPrompts[challenge.id]?.trim()}
                   >
                     {isEvaluating[challenge.id] ? (
@@ -351,7 +351,7 @@ setEvaluationResults(prev => ({
                 </form>
 
                 {evaluationResults[challenge.id] && (
-                  <div className="mt-6 p-4 bg-gray-900/70 rounded-lg border border-gray-700">
+                  <div className="mt-6 p-4 bg-gray-900/70 rounded-xl border border-gray-700">
                     <h4 className="text-md font-semibold text-blue-300 mb-3">Evaluation Feedback</h4>
                     <div className="flex items-baseline mb-3">
                       <p className="text-lg font-bold text-white mr-2">Score: {evaluationResults[challenge.id]?.score}/100</p>
@@ -387,9 +387,9 @@ setEvaluationResults(prev => ({
         ))}
       </div>
 
-      <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 p-6 rounded-lg border border-gray-700 mt-8">
+      <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 p-6 rounded-xl border border-gray-700 mt-8">
         <div className="flex items-start">
-          <div className="bg-purple-500/20 p-2 rounded-lg mr-4">
+          <div className="bg-purple-500/20 p-2 rounded-xl mr-4">
             <AlertCircle className="w-6 h-6 text-purple-400" />
           </div>
           <div>
@@ -398,7 +398,7 @@ setEvaluationResults(prev => ({
               Try completing all challenges and compare your solutions with others. 
               The more you practice, the better you'll become at crafting effective prompts.
             </p>
-            <div className="flex items-center text-sm text-purple-300">
+            <div className="flex items-center text-sm text- purple-300">
               <span className="inline-block w-2 h-2 bg-purple-400 rounded-full mr-2"></span>
               Tip: Come back to these challenges after completing the course to see how your skills have improved.
             </div>

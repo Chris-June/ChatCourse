@@ -388,9 +388,9 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
     const isInteractionDisabled = isLoading || rateLimited || (maxFollowUps ? userFollowUps >= maxFollowUps : false);
 
     return (
-      <div className={`bg-gray-800/50 p-4 rounded-lg border border-gray-700`}>
+      <div className={`bg-gray-800/50 p-4 rounded-2xl border border-gray-700`}>
         {checklist && checklist.length > 0 && (
-          <div className="mb-4 p-3 bg-gray-900/50 rounded-lg border border-gray-700">
+          <div className="mb-4 p-3 bg-gray-900/50 rounded-xl border border-gray-700">
             <h4 className="font-semibold text-white mb-2">Challenge Checklist</h4>
             <ul className="space-y-2">
               {checklist.map((item, index) => (
@@ -415,7 +415,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
           {messages.map(
             (msg, index) =>
               msg.role !== 'system' && (
-                <div key={index} className={`p-3 rounded-lg ${msg.role === 'user' ? 'bg-blue-900/50' : 'bg-gray-700/50'}`}>
+                <div key={index} className={`p-3 rounded-xl ${msg.role === 'user' ? 'bg-blue-900/50' : 'bg-gray-700/50'}`}>
                   <p className="text-white whitespace-pre-wrap">{msg.content}</p>
                 </div>
               )
@@ -428,7 +428,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
               type="button"
               onClick={() => handleSubmit(new Event('submit') as any)}
               disabled={isLoading || simulationHasRun}
-              className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-500 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-500 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <><Loader className="animate-spin mr-2" size={20} /> Generating...</>
@@ -444,7 +444,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder={placeholder || 'Type your message...'}
-              className="w-full bg-gray-900 text-white border border-gray-600 rounded-lg p-3 pr-20 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow duration-200 text-sm"
+              className="w-full bg-gray-900 text-white border border-gray-600 rounded-xl p-3 pr-20 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow duration-200 text-sm"
               rows={3}
               disabled={isInteractionDisabled}
               onKeyDown={(e) => {

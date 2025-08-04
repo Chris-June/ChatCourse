@@ -84,42 +84,42 @@ const Lesson2_3: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-8">
-        <p className="text-lg text-gray-300">
+        <p className="text-lg text-muted-foreground">
           It's time to put your new skills to the test! This project challenges you to use this very chat interface to create and maintain a consistent AI persona over multiple turns. This is about practicing context management: the skill of deliberately guiding the AI by providing, reinforcing, and clarifying information to keep the conversation coherent and on-task.
         </p>
 
-        <p className="text-gray-300 mb-4">
+        <p className="text-muted-foreground mb-4">
           Think of your system prompt as the AI's "character sheet"—it defines who the AI is and how it should behave. Unlike regular conversation, this persona persists throughout the entire interaction unless you explicitly change it.
         </p>
         
-        <p className="text-gray-300 mb-4">
+        <p className="text-muted-foreground mb-4">
           Context management isn't just about memory—it's an active skill of guiding the AI's attention and maintaining your intended persona. You'll practice re-centering the AI when it starts to drift from your established character, like gently reminding someone of their role in a play.
         </p>
 
         <Accordion
           title="Project Objective"
-          icon={<Target className="w-7 h-7 mr-3 text-green-400" />}
+          icon={<Target className="w-7 h-7 mr-3 text-primary" />}
           isInitiallyOpen
         >
-          <p className="text-gray-300">
+          <p className="text-muted-foreground">
             Your mission is to create a 'Socratic Tutor' persona. This AI's goal is to teach a concept not by giving answers directly, but by asking guiding questions to help you discover the answer yourself. This requires careful context management to remember the topic, your progress, and its own persona.
           </p>
         </Accordion>
 
         <Accordion
           title="Step 1: Define the Persona (The System Prompt)"
-          icon={<Bot className="w-7 h-7 mr-3 text-purple-400" />}
+          icon={<Bot className="w-7 h-7 mr-3 text-primary" />}
         >
-          <p className="text-gray-300 mb-4">
+          <p className="text-muted-foreground mb-4">
             Start a new chat and use your first message to set the stage. This first message is called a system prompt. It's the foundational instruction that the AI will refer back to throughout the entire conversation to remember its role and rules. This is the most critical step.
           </p>
-          <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-            <h3 className="font-semibold text-white mb-2">Your Task:</h3>
-            <p className="text-gray-400 mb-3">Copy and paste the following prompt into the chat window as your first message.</p>
+          <div className="bg-card p-4 rounded-lg border border-border">
+            <h3 className="font-semibold text-foreground mb-2">Your Task:</h3>
+            <p className="text-muted-foreground mb-3">Copy and paste the following prompt into the chat window as your first message.</p>
             <div className="relative">
               <CopyButton textToCopy="You are Gnosi, a Socratic Tutor. Your goal is to help me understand a topic by only asking guiding questions. Never give direct answers. Start by asking me what I want to learn about." />
-              <div className="bg-gray-700 p-3 rounded-md pr-10">
-                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
+              <div className="bg-muted p-3 rounded-md pr-10">
+                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-foreground">
                   You are Gnosi, a Socratic Tutor. Your goal is to help me understand a topic by only asking guiding questions. Never give direct answers. Start by asking me what I want to learn about.
                 </code>
               </div>
@@ -127,15 +127,15 @@ const Lesson2_3: React.FC = () => {
           </div>
         </Accordion>
 
-        <section className="bg-gray-900/50 p-6 rounded-lg shadow-lg border-2 border-dashed border-blue-500/50">
-          <p className="text-gray-300 mb-4">
+        <section className="bg-card p-6 rounded-xl shadow-lg border-2 border-dashed border-primary/50">
+          <p className="text-muted-foreground mb-4">
             <strong>Project Objective:</strong> Create a Socratic tutor persona that guides users through learning concepts by asking thoughtful questions rather than providing direct answers. Your system prompt should establish this role clearly and provide specific instructions on how to respond.
           </p>
           
-          <p className="text-gray-300 mb-4">
+          <p className="text-muted-foreground mb-4">
             <strong>Challenge:</strong> Practice maintaining this persona throughout a conversation. When the AI starts to drift (giving direct answers instead of questions), use re-centering techniques like: "Remember, as a Socratic tutor, your role is to guide through questions..." to bring it back to the established approach.
           </p>
-          <p className="text-gray-300 mb-4">
+          <p className="text-muted-foreground mb-4">
             Use the chat window below to complete the project. Start by pasting the persona prompt from Step 1. If the AI starts giving direct answers instead of asking questions, gently remind it of its role by saying something like: 'Remember, you are Gnosi, a Socratic tutor who only asks questions.' The evaluation criteria will be tracked as a checklist inside the chat window.
           </p>
           <InlineChat 

@@ -13,10 +13,10 @@ const ContextExample: React.FC = () => {
   };
 
   return (
-    <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
+    <section className="bg-gray-800 p-6 rounded-xl shadow-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-semibold text-blue-300">A Practical Example</h2>
-        <div className="flex items-center space-x-2 bg-gray-900 p-1 rounded-lg">
+        <div className="flex items-center space-x-2 bg-gray-900 p-1 rounded-xl">
           <button 
             onClick={() => setShowFailureCase(false)}
             className={`px-3 py-1 text-sm rounded-md transition-colors ${!showFailureCase ? 'bg-green-600 text-white' : 'bg-transparent text-gray-300 hover:bg-gray-700'}`}>
@@ -29,7 +29,7 @@ const ContextExample: React.FC = () => {
           </button>
         </div>
       </div>
-      <div className="bg-gray-900 p-4 rounded-lg">
+      <div className="bg-gray-900 p-4 rounded-xl">
           <p className="text-gray-400 mb-3">Imagine this conversation flow:</p>
           <div className="space-y-3">
               {!showFailureCase && (
@@ -53,14 +53,14 @@ const ContextExample: React.FC = () => {
                   <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-green-400">AI:</strong> {showFailureCase ? conversation.failureResponse : conversation.successResponse}</p>
               </div>
               {showFailureCase && (
-                <div className="p-3 bg-red-900/30 border border-red-700 rounded-md">
+                <div className="p-3 bg-red-900/30 border border-red-700 rounded-xl">
                   <p className="text-red-300 text-sm">
                     <strong>AI:</strong> Sure I can help with that! What is the second one?
                   </p>
                 </div>
               )}
           </div>
-          <div className={`mt-4 p-3 rounded-lg border ${showFailureCase ? 'bg-red-900/30 border-red-700' : 'bg-blue-900/30 border-blue-700'}`}>
+          <div className={`mt-4 p-3 rounded-xl border ${showFailureCase ? 'bg-red-900/30 border-red-700' : 'bg-blue-900/30 border-blue-700'}`}>
             <p className={`${showFailureCase ? 'text-red-200' : 'text-blue-200'} text-sm`}>
               <span className="font-bold">Key Insight:</span> 
               {showFailureCase 

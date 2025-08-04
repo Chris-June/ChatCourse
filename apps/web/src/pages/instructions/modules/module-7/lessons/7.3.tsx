@@ -1,14 +1,29 @@
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, GitCompareArrows } from 'lucide-react';
-import { useProgressStore } from '@/store/progressStore';
+import {
+  BookCopy,
+  ChevronLeft,
+  ChevronRight,
+  Coins,
+  GraduationCap,
+  PenSquare,
+  GitCompareArrows,
+} from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
+import LessonTemplate from '@/components/layouts/LessonTemplate';
+
 import FineTuningDataFormatter from '@/pages/instructions/components/FineTuningDataFormatter';
 import FineTuningCostCalculator from '@/pages/instructions/components/FineTuningCostCalculator';
 import StrategyQuiz from '@/pages/instructions/components/StrategyQuiz';
+import { useProgressStore } from '@/store/progressStore';
 
-import LessonTemplate from '@/components/layouts/LessonTemplate';
-
-export default function Lesson7_3() {
-  const quizQuestions = [
+const quizQuestions = [
     {
       questionText: 'What is the primary purpose of fine-tuning a Large Language Model?',
       options: [
@@ -66,65 +81,121 @@ export default function Lesson7_3() {
     }
   ];
 
+function Lesson7_3() {
   const { completeLesson } = useProgressStore();
+  const navigate = useNavigate();
+
+  const handleFinishCourse = () => {
+    completeLesson(7, 3);
+    navigate('/instructions');
+  };
 
   return (
     <LessonTemplate
       moduleNumber={7}
       lessonNumber={3}
       title="Training a Method Actor"
-      subtitle="Teaching your LLM a new personality, style, or skill."
+      subtitle="Fine-tuning teaches your LLM a new personality, style, or skill, turning it into a specialized performer."
       quizQuestions={quizQuestions}
     >
-      <div className="space-y-12 p-4 md:p-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-4xl font-bold text-white flex items-center">
-            <GitCompareArrows className="w-10 h-10 mr-4 text-rose-400" />
-            Lesson 7.3: Training a Method Actor
-          </h1>
-        </div>
+      <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
+        <AccordionItem value="item-1">
+          <AccordionTrigger>
+            <div className="flex items-center">
+              <BookCopy className="w-5 h-5 mr-3 text-primary" />
+              Introduction: The Method Actor
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="prose prose-invert max-w-none">
+            <p>
+              If RAG gives an LLM a script for one performance, fine-tuning trains it to become a method actor. You're not just giving it lines to read; you're teaching it to embody a new personality, style, or skill by having it rehearse hundreds of specific scenes.
+            </p>
+            <p>
+              This is how you create an AI with a truly unique and consistent character, whether it's a perpetually sarcastic chatbot, a marketing copywriter that nails your brand voice, or a coder that writes in a specific programming style.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
 
-        <section>
-          <p className="text-lg text-gray-300">
-            RAG gives an LLM a script. Fine-tuning trains it to become a method actor. You're not just giving it lines to read; you're teaching it to embody a new personality, style, or skill by having it rehearse hundreds of specific scenes. This is how you create an AI with a truly unique and consistent character.
-          </p>
-        </section>
+        <AccordionItem value="item-2">
+          <AccordionTrigger>
+            <div className="flex items-center">
+              <PenSquare className="w-5 h-5 mr-3 text-primary" />
+              Writing the Script (Preparing Data)
+            </div>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p className="mb-4 text-muted-foreground">
+              A method actor needs a script. Your fine-tuning dataset is that script, composed of many 'scenes' (prompt/completion pairs). The quality of this script determines the quality of the final performance. Use the formatter below to see how a conversation is turned into a scene for the actor to rehearse.
+            </p>
+            <div className="p-4 border rounded-lg bg-card">
+              <FineTuningDataFormatter />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
 
-        <section>
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">1. Writing the Script (Preparing Data)</h2>
-          <p className="text-gray-300 mb-4">A method actor needs a script. Your fine-tuning dataset is that script, composed of many 'scenes' (prompt/completion pairs). The quality of this script determines the quality of the final performance. Use the formatter below to see how a conversation is turned into a scene for the actor to rehearse.</p>
-          <FineTuningDataFormatter />
-        </section>
+        <AccordionItem value="item-3">
+          <AccordionTrigger>
+            <div className="flex items-center">
+              <Coins className="w-5 h-5 mr-3 text-primary" />
+              The Cost of Immersive Training
+            </div>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p className="mb-4 text-muted-foreground">
+              Hiring a method actor for a lead role is expensive. Fine-tuning is too. It costs time and money, and the results depend on the quality of the script and the length of the rehearsal (epochs). This calculator gives you a sense of the investment required.
+            </p>
+            <div className="p-4 border rounded-lg bg-card">
+              <FineTuningCostCalculator />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
 
-        <section>
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">2. The Cost of Immersive Training</h2>
-          <p className="text-gray-300 mb-4">Hiring a method actor for a lead role is expensive. Fine-tuning is too. It costs time and money, and the results depend on the quality of the script and the length of the rehearsal (epochs). This calculator gives you a sense of the investment required.</p>
-          <FineTuningCostCalculator />
-        </section>
+        <AccordionItem value="item-4">
+          <AccordionTrigger>
+            <div className="flex items-center">
+              <GitCompareArrows className="w-5 h-5 mr-3 text-primary" />
+              Casting Call: RAG vs. Fine-Tuning
+            </div>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p className="mb-4 text-muted-foreground">
+              Do you need an actor who can read any script you hand them (RAG for knowledge)? Or one who deeply embodies a specific character (Fine-Tuning for behavior)? Knowing which to choose is a critical skill. Test your casting instincts with the scenarios below.
+            </p>
+            <div className="p-4 border rounded-lg bg-card">
+              <StrategyQuiz />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
 
-        <section>
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center"><GitCompareArrows className="w-7 h-7 mr-3" />3. Casting Call: RAG vs. Fine-Tuning</h2>
-          <p className="text-gray-300 mb-4">Do you need an actor who can read any script you hand them (RAG for knowledge)? Or one who deeply embodies a specific character (Fine-Tuning for behavior)? Knowing which to choose is a critical skill. Test your casting instincts with the scenarios below.</p>
-          <StrategyQuiz />
-        </section>
+        <AccordionItem value="item-5">
+          <AccordionTrigger>
+            <div className="flex items-center">
+              <GraduationCap className="w-5 h-5 mr-3 text-primary" />
+              Knowledge Check
+            </div>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p className="text-muted-foreground">
+              Test your understanding of fine-tuning. The quiz will appear automatically at the end of the lesson.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
 
-        {/* Navigation */}
-        <div className="flex justify-between pt-4">
-          <Link 
-            to="/instructions/module-7/7.2" 
-            className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" /> Previous: The Diligent Research Assistant
+      <div className="flex justify-between pt-8 mt-8 border-t">
+        <Button variant="outline" asChild>
+          <Link to="/instructions/module-7/7.2">
+            <ChevronLeft className="w-4 h-4 mr-2" />
+            Previous: The RAG-Powered Research Assistant
           </Link>
-          <Link 
-            to="/instructions"
-            onClick={() => completeLesson(7, 3)}
-            className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors"
-          >
-            Finish Course & Review Progress <ChevronRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
+        </Button>
+        <Button onClick={handleFinishCourse}>
+          Finish Course & Review Progress
+          <ChevronRight className="w-4 h-4 ml-2" />
+        </Button>
       </div>
     </LessonTemplate>
   );
 }
+
+export default Lesson7_3;

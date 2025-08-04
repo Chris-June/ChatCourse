@@ -95,31 +95,31 @@ const Lesson3_3: React.FC = () => {
       subtitle="Getting the AI to give you exactly what you need."
       quizQuestions={quizQuestions}
     >
-      <div className="space-y-8 text-gray-300">
+      <div className="space-y-8">
         <Accordion title="Framing Your Request: You're the Client" isInitiallyOpen icon={<FileJson />}>
           <div className="prose prose-invert max-w-none">
             <p>
               When you need data for an application, think of the AI as a developer you've hired. You wouldn't just say, "Give me some user info." You'd provide a clear data schema. The same principle applies here. By specifying the exact format (like JSON) and structure (keys, data types), you turn the AI's response from a simple text string into a machine-readable, predictable data source.
             </p>
-            <p className="text-gray-400 mb-3">
+            <p className="text-muted-foreground mb-3">
               This is like giving a developer a blueprint. Instead of a vague description, you provide a precise plan that ensures the final product fits perfectly into your application.
             </p>
             <div className="relative">
               <CopyButton textToCopy={'From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city. Return it as a JSON object with keys "name" (string), "age" (number), and "city" (string).'} />
-              <div className="bg-gray-700 p-3 rounded-md pr-10">
-                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
-                  <span className="text-gray-400">// Prompt - Like giving a developer a data schema</span>
+              <div className="bg-muted p-3 rounded-md pr-10">
+                <code className="block whitespace-pre-wrap break-words font-mono text-muted-foreground">
+                  <span className="text-muted-foreground">// Prompt - Like giving a developer a data schema</span>
                   {`
 From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city. Return it as a JSON object with keys "name" (string), "age" (number), and "city" (string).`}
                 </code>
               </div>
             </div>
 
-            <div className="mt-4 text-xs text-gray-400">
+            <div className="mt-4 text-xs text-muted-foreground">
               <strong>What you'll get:</strong> A clean, usable JSON object.
             </div>
-            <div className="bg-gray-800 p-3 rounded-md mt-2">
-              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-green-400">
+            <div className="bg-muted p-3 rounded-md mt-2">
+              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-success">
                 {`{
   "name": "Sarah",
   "age": 28,
@@ -129,9 +129,9 @@ From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city
             </div>
           </div>
 
-          <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
-            <h3 className="font-semibold text-white mb-2">Your Turn: Define Your Data Structure</h3>
-            <p className="text-gray-400 mb-4">Practice being the client. Ask the AI to extract information from a sentence, but be demanding about the format. Specify the keys and data types you need.</p>
+          <div className="mt-6 bg-card p-4 rounded-xl border-2 border-dashed border-primary/50">
+            <h3 className="font-semibold text-foreground mb-2">Your Turn: Define Your Data Structure</h3>
+            <p className="text-muted-foreground mb-4">Practice being the client. Ask the AI to extract information from a sentence, but be demanding about the format. Specify the keys and data types you need.</p>
             <InlineChat 
               moduleId="module-3.3-json"
               maxAttempts={5}
@@ -148,36 +148,33 @@ From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city
             <p>
               Sometimes you need formatted content, not raw data. In these cases, think of yourself as a graphic designer providing a layout. By asking for Markdown, you can request structured text with headings, lists, tables, and more. This is perfect for generating reports, documentation, or any content that needs to be displayed in a clean, readable format.
             </p>
-            <p className="text-gray-400 mb-3">
+            <p className="text-muted-foreground mb-3">
               Markdown is like having a graphic designer who follows your exact template. Instead of getting a paragraph describing a table, you get a perfectly formatted table ready to display.
             </p>
             <div className="relative">
               <CopyButton textToCopy={"Create a markdown table comparing Python and JavaScript for web development. Include rows for 'Primary Use', 'Typing', and 'Backend Frameworks'."} />
-              <div className="bg-gray-700 p-3 rounded-md pr-10">
-                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-gray-200">
-                  <span className="text-gray-400">// Prompt - Like giving a designer your specs</span>
+              <div className="bg-muted p-3 rounded-md pr-10">
+                <code className="block whitespace-pre-wrap break-words font-mono text-muted-foreground">
+                  <span className="text-muted-foreground">// Prompt - Like giving a designer your specs</span>
                   {`
 Create a markdown table comparing Python and JavaScript for web development. Include rows for 'Primary Use', 'Typing', and 'Backend Frameworks'.`}
                 </code>
               </div>
             </div>
 
-            <div className="mt-4 text-xs text-gray-400">
+            <div className="mt-4 text-xs text-muted-foreground">
               <strong>What you'll get:</strong> A perfectly formatted table like this:
             </div>
-            <div className="bg-gray-800 p-3 rounded-md mt-2">
-              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-green-400">
-                {`| Feature | Python | JavaScript |
-| Primary Use | Data science, backend | Frontend, full-stack |
-| Typing | Dynamic (optional static) | Dynamic |
-| Backend Frameworks | Django, Flask | Express, Node.js |`}
+            <div className="bg-muted p-3 rounded-md mt-2">
+              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-success">
+                {`| Feature | Python | JavaScript |\n| Primary Use | Data science, backend | Frontend, full-stack |\n| Typing | Dynamic (optional static) | Dynamic |\n| Backend Frameworks | Django, Flask | Express, Node.js |`}
               </code>
             </div>
           </div>
 
-          <div className="mt-6 bg-gray-900/50 p-4 rounded-lg border-2 border-dashed border-blue-500/50">
-            <h3 className="font-semibold text-white mb-2">Your Turn: Design Your Own Template</h3>
-            <p className="text-gray-400 mb-4">Think of yourself as a client giving design specs to a designer. Ask for exactly what you want - a bulleted list, numbered steps, or a comparison table.</p>
+          <div className="mt-6 bg-card p-4 rounded-xl border-2 border-dashed border-primary/50">
+            <h3 className="font-semibold text-foreground mb-2">Your Turn: Design Your Own Template</h3>
+            <p className="text-muted-foreground mb-4">Think of yourself as a client giving design specs to a designer. Ask for exactly what you want - a bulleted list, numbered steps, or a comparison table.</p>
             <InlineChat 
               moduleId="module-3.3-markdown"
               maxAttempts={5}
@@ -190,7 +187,7 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
         </Accordion>
 
         <Accordion title="Exercise: Build Your Data Blueprint" icon={<Lightbulb />}>
-          <p className="text-gray-300 mb-4">Think of this like being an architect designing a building. You need to specify exactly what data structure you want. Ask the AI to generate a list of project ideas for a new web developer, but be specific: you want a JSON array of objects, each with a 'title' and 'description'.</p>
+          <p className="text-muted-foreground mb-4">Think of this like being an architect designing a building. You need to specify exactly what data structure you want. Ask the AI to generate a list of project ideas for a new web developer, but be specific: you want a JSON array of objects, each with a 'title' and 'description'.</p>
           <InlineChat 
             moduleId="module-3.3-structured-output"
             maxAttempts={5}
@@ -199,7 +196,7 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
             systemPrompt="You are a helpful AI assistant. The user is learning about generating structured data. When they ask for a list, respond with a properly formatted JSON array of objects. Each object should have 'title' and 'description' keys. If they don't specify the structure, use this format by default. Always validate the JSON before returning it."
             challengeChecklist={structuredListChallengeChecklist}
           />
-          <p className="text-gray-400 mt-3">This structured data is like pre-fabricated building materials - ready to be used directly in your application's UI components without any additional processing.</p>
+          <p className="text-muted-foreground mt-3">This structured data is like pre-fabricated building materials - ready to be used directly in your application's UI components without any additional processing.</p>
         </Accordion>
 
         <BestPractices

@@ -95,40 +95,46 @@ const Lesson2_2: React.FC = () => {
       subtitle="Learn to actively manage the AI's context to prevent confusion and keep your conversations on track."
       quizQuestions={quizQuestions}
     >
-      <div className="space-y-8">
+   <div className="space-y-8 bg-gray-800/50 border border-gray-700 rounded-xl p-6">
         <p className="text-lg text-gray-300">
           Now that you understand the AI's "memory" is a finite context window, let's learn how to actively manage it. Context contamination happens when irrelevant or conflicting details from earlier in the conversation start to confuse the AI, leading to off-topic or incorrect responses. These techniques will help you keep your conversations on track, even when tackling complex, multi-step problems.
         </p>
 
         <InstructionPriming />
 
-        <Accordion 
-          title="Technique 1: Summarize and Re-center"
-          icon={<Repeat className="w-7 h-7 mr-3 text-blue-400" />}
-          isInitiallyOpen
-        >
-          <SummarizationChallenge />
-        </Accordion>
+    <div className="rounded-xl border-gray-700">
+      <Accordion 
+        title="Technique 1: Summarize and Re-center"
+        icon={<Repeat className="w-7 h-7 mr-3 text-primary" />}
+        isInitiallyOpen
+      >
+        <SummarizationChallenge />
+      </Accordion>
+    </div>
 
-        <Accordion 
-          title="Technique 2: Use Explicit References"
-          icon={<Anchor className="w-7 h-7 mr-3 text-blue-400" />}
-        >
-          <ExplicitReferencesTabs />
-        </Accordion>
+       <div className="rounded-xl border border-gray-700">
+         <Accordion 
+           title="Technique 2: Use Explicit References"
+           icon={<Anchor className="w-7 h-7 mr-3 text-primary" />}
+         >
+           <ExplicitReferencesTabs />
+         </Accordion>
+       </div>
 
-        <Accordion 
-          title="Technique 3: Know When to Start Fresh"
-          icon={<AlertTriangle className="w-7 h-7 mr-3 text-yellow-400" />}
-        >
-          <ContextContaminationDemo />
-        </Accordion>
+        <div className="rounded-xl border border-gray-700">
+          <Accordion 
+            title="Technique 3: Know When to Start Fresh"
+            icon={<AlertTriangle className="w-7 h-7 mr-3 text-warning" />}
+          >
+            <ContextContaminationDemo />
+          </Accordion>
+        </div>
 
         <CommonPitfalls />
 
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Putting It All Together: Final Challenge</h2>
-          <p className="text-gray-300 mb-4">
+        <div className="bg-card p-6 rounded-xl shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-primary">Putting It All Together: Final Challenge</h2>
+          <p className="text-muted-foreground mb-4">
             Now, apply all the techniques you've learned. Start by summarizing the goal regularly to keep the AI focused on your objective. Use explicit references to direct the AI to specific details, like saying 'Make the second headline you suggested more inspiring by focusing on the mission to unlock human creativity' instead of 'Make it better.' Build on previous ideas by referencing them explicitly, and start fresh when the conversation becomes confused or off-track.
           </p>
           <InlineChat 

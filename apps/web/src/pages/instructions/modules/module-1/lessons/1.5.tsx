@@ -132,7 +132,7 @@ const Lesson1_5: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-8 text-gray-200">
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
           <h2 className="text-2xl font-semibold mb-4 text-purple-300 flex items-center">
             <Lightbulb className="w-7 h-7 mr-3 text-purple-400" />
             Common Prompting Frameworks
@@ -210,7 +210,7 @@ const Lesson1_5: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+  <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
           <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
             <Lightbulb className="w-7 h-7 mr-3 text-blue-400" />
             The I.N.S.Y.N.C. Framework: Our Proprietary Structure for Success
@@ -218,7 +218,7 @@ const Lesson1_5: React.FC = () => {
           <p className="text-gray-300 mb-4">
             While a simple question can get a simple answer, complex tasks require a more structured approach. A well-structured prompt is the difference between a generic response and a masterpiece tailored perfectly to your needs.
           </p>
-          <div className="bg-gray-900 p-4 rounded-lg border border-blue-500/50">
+    <div className="bg-gray-900 p-4 rounded-xl border border-blue-500/50">
             <p className="text-lg text-center font-semibold text-blue-200">
               The I.N.S.Y.N.C. framework is a powerful, memorable system for building high-quality prompts by breaking them down into six clear components.
             </p>
@@ -226,8 +226,8 @@ const Lesson1_5: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          {frameworkComponents.map((item, index) => (
-            <div key={index} className="bg-gray-800 p-5 rounded-lg border border-gray-700">
+        {frameworkComponents.map((item, index) => (
+          <div key={index} className="bg-gray-800 p-5 rounded-xl border border-gray-700">
               <h3 className="text-xl font-bold text-blue-300"><span className="text-4xl font-black text-blue-500 mr-2">{item.letter}</span> - {item.name}</h3>
               <p className="text-gray-400 mt-1 ml-12">{item.description}</p>
               <div className="mt-2 ml-12">

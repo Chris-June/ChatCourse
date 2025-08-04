@@ -2,7 +2,7 @@ import React from 'react';
 import { XCircle, CheckCircle } from 'lucide-react';
 
 const ContaminatedChat = () => (
-  <div className="bg-gray-900 p-4 rounded-lg border border-red-700 h-full">
+  <div className="bg-gray-900 p-4 rounded-xl border border-red-700 h-full">
     <h4 className="font-semibold text-red-400 mb-2 flex items-center">
       <XCircle className="w-5 h-5 mr-2" />
       When Context Gets Confused
@@ -21,7 +21,7 @@ const ContaminatedChat = () => (
 );
 
 const CleanChat = () => (
-  <div className="bg-gray-900 p-4 rounded-lg border border-green-700 h-full">
+  <div className="bg-gray-900 p-4 rounded-xl border border-green-700 h-full">
     <h4 className="font-semibold text-green-400 mb-2 flex items-center">
       <CheckCircle className="w-5 h-5 mr-2" />
       With a Fresh Start

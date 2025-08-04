@@ -31,12 +31,12 @@ const RollingWhiteboard: React.FC = () => {
   }, [messages]);
 
   return (
-    <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+    <div className="bg-gray-900 p-4 rounded-xl border border-gray-700">
       <h3 className="font-semibold text-white mb-2">Analogy: A Rolling Whiteboard</h3>
       <p className="text-gray-400 mb-4">
         This interactive whiteboard demonstrates how AI memory works. Each message you type is like writing on a whiteboard with limited space. When the board is full (typically 4,000-8,000 words), the oldest messages get erased to make room for new ones. This is why the AI might "forget" details from earlier in a long conversation.
       </p>
-      <div className="bg-gray-800 p-4 rounded-lg h-64 flex flex-col">
+      <div className="bg-gray-800 p-4 rounded-xl h-64 flex flex-col">
         <div ref={listRef} className="flex-grow overflow-y-auto space-y-2 pr-2">
           <AnimatePresence initial={false}>
             {messages.map((msg, index) => (
@@ -46,7 +46,7 @@ const RollingWhiteboard: React.FC = () => {
                 initial={{ opacity: 0, y: 20, scale: 0.8 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -30, transition: { duration: 0.2 } }}
-                className={`p-2 rounded-lg ${messages.length > MAX_MESSAGES && index === 0 ? 'bg-red-900/50' : 'bg-blue-900/50'}`}
+                className={`p-2 rounded-xl ${messages.length > MAX_MESSAGES && index === 0 ? 'bg-red-900/50' : 'bg-blue-900/50'}`}
               >
                 <p className="text-white">{msg}</p>
               </motion.div>
@@ -59,9 +59,9 @@ const RollingWhiteboard: React.FC = () => {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Type your message..."
-            className="flex-grow bg-gray-700 text-white placeholder-gray-400 rounded-md p-2 border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="flex-grow bg-gray-700 text-white placeholder-gray-400 rounded-xl p-2 border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
-          <button type="submit" className="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-500 transition-colors disabled:bg-gray-500 disabled:cursor-not-allowed" disabled={!inputValue.trim()}>
+          <button type="submit" className="bg-blue-600 text-white p-2 rounded-xl hover:bg-blue-500 transition-colors disabled:bg-gray-500 disabled:cursor-not-allowed" disabled={!inputValue.trim()}>
             <Send className="w-5 h-5" />
           </button>
         </form>

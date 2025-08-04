@@ -30,43 +30,39 @@ const InteractiveTokenizer = () => {
   };
 
   return (
-    <div className="bg-gray-900 p-6 rounded-lg border border-gray-700 my-8">
-      <h4 className="text-lg font-semibold text-white mb-4">Interactive Tokenizer Demo</h4>
-      <p className="text-gray-400 mb-4 text-sm">
+    <div className="bg-card p-6 rounded-xl border border-muted mb-6 my-8">
+      <h4 className="text-lg font-semibold text-card-foreground mb-4">Interactive Tokenizer Demo</h4>
+      <p className="text-muted-foreground mb-4 text-sm">
         Type in the box below to see how your text gets broken down into tokens. This is a fundamental step in how LLMs process language.
       </p>
       <textarea
         value={inputText}
         onChange={handleInputChange}
-        className="w-full h-24 bg-gray-800 border border-gray-600 rounded-md p-3 text-white focus:ring-2 focus:ring-blue-500 transition"
+        className="w-full h-24 bg-muted border rounded-md p-3 text-foreground focus:ring-2 focus:ring-primary transition"
         placeholder="Enter text to tokenize..."
       />
       <div className="flex justify-end mt-3">
         <button
           onClick={animateTokens}
-          className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-500 transition-colors"
+          className="px-4 py-2 bg-primary text-primary-foreground text-sm rounded-lg hover:bg-primary/90 transition-colors"
         >
           Visualize Tokenization
         </button>
       </div>
-      <div className="mt-4 pt-4 border-t border-gray-700">
-        <h5 className="text-base font-medium text-white mb-3">Tokens:</h5>
+      <div className="mt-4 pt-4 border-t border">
+        <h5 className="text-base font-medium text-card-foreground mb-3">Tokens:</h5>
         <div className="flex flex-wrap gap-2">
           {tokens.map((token, index) => (
             <span
               key={index}
-              className={`px-2 py-1 rounded-md text-sm ${isAnimating ? 'animate-pulse' : ''}`}
-              style={{
-                backgroundColor: isAnimating ? '#4F46E5' : '#374151',
-                color: 'white',
-                animationDelay: isAnimating ? `${index * 50}ms` : '0ms',
-              }}
+              className={`px-2 py-1 rounded-md text-sm ${isAnimating ? 'animate-pulse bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}
+              style={{ animationDelay: isAnimating ? `${index * 50}ms` : '0ms' }}
             >
               {token}
             </span>
           ))}
         </div>
-        <p className="text-xs text-gray-500 mt-3">Token Count: {tokens.length}</p>
+        <p className="text-xs text-muted-foreground mt-3">Token Count: {tokens.length}</p>
       </div>
     </div>
   );
@@ -130,18 +126,18 @@ const Lesson1_2: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <section>
-        <h3 className="text-2xl font-semibold text-white mb-4">What Are Tokens?</h3>
+        <h3 className="text-2xl font-semibold text-foreground mb-4">The Building Blocks: Tokens</h3>
         <p className="text-gray-300 mb-4">
           Before an AI can understand your prompt, it needs to break it down into smaller pieces. These pieces are called <strong>tokens</strong>. A token can be a word, a part of a word, a number, or even just a punctuation mark. For example, the sentence "AI is powerful" might be broken down into three tokens: `["AI", "is", "powerful"]`.
         </p>
         <p className="text-gray-300 mb-4">
           However, a more complex word like "tokenization" might be broken into multiple tokens, such as `["token", "ization"]`. This allows the model to understand and build new words it hasn't seen before.
         </p>
-        <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
-          <h4 className="text-lg font-bold text-blue-400 mb-2">Example of Tokenization</h4>
-          <p className="text-gray-300">The phrase: <code>Prompt engineering is fun!</code></p>
-          <p className="text-gray-300">Might become these tokens: <code>["Prompt", "_engineering", "_is", "_fun", "!"]</code></p>
-          <p className="text-xs text-blue-400 mt-3 bg-blue-900/50 p-2 rounded">Notice the underscores? They represent spaces and are part of the token itself. Everything you type is converted into this format.</p>
+        <div className="bg-muted p-4 rounded-xl border">
+          <h4 className="text-lg font-bold text-primary mb-2">Example of Tokenization</h4>
+          <p className="text-muted-foreground">The phrase: <code className="bg-muted-foreground/20 px-1 rounded">Prompt engineering is fun!</code></p>
+          <p className="text-muted-foreground">Might become these tokens: <code className="bg-muted-foreground/20 px-1 rounded">["Prompt", "_engineering", "_is", "_fun", "!"]</code></p>
+          <p className="text-xs text-primary mt-3 bg-primary/10 p-2 rounded">Notice the underscores? They represent spaces and are part of the token itself. Everything you type is converted into this format.</p>
         </div>
 
         <InteractiveTokenizer />
@@ -149,14 +145,14 @@ const Lesson1_2: React.FC = () => {
       </section>
 
       <section className="mt-8">
-        <h3 className="text-2xl font-semibold text-white mb-4">The Engine of Creation: Next-Token Prediction</h3>
+        <h3 className="text-2xl font-semibold text-foreground mb-4">The Engine of Creation: Next-Token Prediction</h3>
         <p className="text-gray-300 mb-4">
           So, why are tokens so important? Because at its core, a Large Language Model (LLM) is a <strong>next-token prediction engine</strong>. Its fundamental job is to look at a sequence of tokens and predict which token is most likely to come next.
         </p>
         <p className="text-gray-300 mb-4">
           When you give the AI a prompt, it tokenizes your input and then runs a simple, powerful loop:
         </p>
-        <ol className="list-decimal list-inside bg-gray-900 p-4 rounded-lg space-y-2 text-gray-300">
+        <ol className="list-decimal list-inside bg-muted p-4 rounded-xl space-y-2 text-muted-foreground">
           <li>Look at the existing sequence of tokens.</li>
           <li>Calculate the probability for every possible token that could come next.</li>
           <li>Choose the most likely token and add it to the sequence.</li>
@@ -180,7 +176,7 @@ const Lesson1_2: React.FC = () => {
 
 
       <section className="mt-8">
-        <h3 className="text-2xl font-semibold text-white mb-4">Challenge: Guide the Predictor</h3>
+        <h3 className="text-2xl font-semibold text-foreground mb-4">Challenge: Guide the Predictor</h3>
         <p className="text-gray-300 mb-4">
           Now it's time to apply what you've learned. Your challenge is to write a prompt that steers the AI's next-token prediction. Start a sentence or a question and see if you can get the AI to complete it in a specific way. For example, try starting with "The best way to learn prompt engineering is..." and see what it predicts.
         </p>

@@ -10,7 +10,7 @@ const BestPractices: React.FC<BestPracticesProps> = ({ dos, donts }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
       {/* Do's Column */}
-      <div className="bg-green-900/20 p-4 rounded-lg border border-green-500/50">
+      <div className="bg-green-900/20 p-4 rounded-xl border border-green-500/50">
         <h4 className="text-lg font-bold text-green-300 flex items-center mb-3">
           <CheckCircle className="w-6 h-6 mr-2" />
           Do
@@ -21,7 +21,7 @@ const BestPractices: React.FC<BestPracticesProps> = ({ dos, donts }) => {
       </div>
 
       {/* Don'ts Column */}
-      <div className="bg-red-900/20 p-4 rounded-lg border border-red-500/50">
+      <div className="bg-red-900/20 p-4 rounded-xl border border-red-500/50">
         <h4 className="text-lg font-bold text-red-300 flex items-center mb-3">
           <XCircle className="w-6 h-6 mr-2" />
           Don't

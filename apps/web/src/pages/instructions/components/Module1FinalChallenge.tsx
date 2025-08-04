@@ -50,8 +50,8 @@ const Module1FinalChallenge: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg shadow-lg my-6 border border-yellow-500/30">
-      <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 mb-4">
+    <div className="bg-gray-800 p-6 rounded-xl shadow-lg my-6 border border-yellow-500/30">
+      <div className="bg-gray-900 p-4 rounded-xl border border-gray-700 mb-4">
         <h3 className="text-lg font-semibold text-yellow-300">The Scenario</h3>
         <p className="text-gray-300 mt-2">
           You are a marketing assistant at a startup launching a new AI-powered productivity app called 'CogniFlow'. Your manager has asked you to generate three distinct social media posts (for Twitter, LinkedIn, and a blog) announcing the launch. The posts must be tailored to each platform's audience and style, highlight specific features, and avoid making unrealistic claims.
@@ -89,11 +89,11 @@ const Module1FinalChallenge: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="mt-6 space-y-6"
           >
-            <div className="bg-gray-900/50 p-6 rounded-lg border border-gray-700">
+            <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700">
               <h4 className="font-bold text-xl text-green-300 mb-4">Evaluation Feedback</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {evaluationResult.feedback && Object.entries(evaluationResult.feedback).map(([key, value]: [string, any]) => (
-                  <div key={key} className="bg-gray-800 p-4 rounded-lg">
+                  <div key={key} className="bg-gray-800 p-4 rounded-xl">
                     <p className="font-bold capitalize text-indigo-300">{key}</p>
                     <p className="text-gray-300 mt-1"><strong>Score:</strong> {value.score}/5</p>
                     <p className="text-gray-300 mt-1"><strong>Comment:</strong> {value.comment}</p>
@@ -102,7 +102,7 @@ const Module1FinalChallenge: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
+            <div className="bg-gray-900/50 p-4 rounded-xl border border-gray-700">
               <h4 className="font-bold text-lg text-blue-300 mb-2 flex justify-between items-center">
                 Expert-Level Prompt
                 <button onClick={() => handleCopy(evaluationResult.expertPrompt)} className="p-1.5 bg-gray-700 hover:bg-gray-600 rounded-md">
@@ -111,7 +111,7 @@ const Module1FinalChallenge: React.FC = () => {
               </h4>
               <pre className="whitespace-pre-wrap text-gray-300 text-sm font-mono bg-gray-950 p-3 rounded-md">{evaluationResult.expertPrompt}</pre>
             </div>
-            <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
+            <div className="bg-gray-900/50 p-4 rounded-xl border border-gray-700">
               <h4 className="font-bold text-lg text-green-300 mb-2">Example Output</h4>
               <pre className="whitespace-pre-wrap text-gray-300 text-sm bg-gray-950 p-3 rounded-md">
                 {typeof evaluationResult.expertOutput === 'string' 

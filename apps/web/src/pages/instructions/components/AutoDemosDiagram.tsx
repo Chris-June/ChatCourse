@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowDown, GitCommitHorizontal } from 'lucide-react';
 
 const Box = ({ children, className }: { children: React.ReactNode, className?: string }) => (
-  <div className={`bg-gray-800/60 border border-gray-700 rounded-lg p-3 text-sm text-gray-300 ${className}`}>
+  <div className={`bg-gray-800/60 border border-gray-700 rounded-xl p-3 text-sm text-gray-300 ${className}`}>
     {children}
   </div>
 );

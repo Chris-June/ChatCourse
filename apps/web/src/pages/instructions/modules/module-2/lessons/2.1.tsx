@@ -74,33 +74,33 @@ const Lesson2_1: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-8">
-        <p className="text-lg text-gray-300 max-w-prose">
+        <p className="text-lg text-muted-foreground max-w-prose">
           Have you ever had a conversation where you had to keep repeating yourself? It's frustrating. The same is true when talking to an AI. The key to a smooth, intelligent conversation is understanding and managing its 'memory'—what we call the <strong>context window</strong>.
         </p>
 
-        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-            <BrainCircuit className="w-7 h-7 mr-3 text-blue-400" />
+        <section className="bg-card p-6 rounded-xl shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-primary flex items-center">
+            <BrainCircuit className="w-7 h-7 mr-3 text-primary" />
             What is a Context Window?
           </h2>
-          <p className="text-gray-300 mb-4 max-w-prose">
+          <p className="text-muted-foreground mb-4 max-w-prose">
             Think of the context window as the AI's short-term memory. It's a finite space that holds the recent back-and-forth of your conversation, measured in <strong>tokens</strong>, which are the basic units of text that the AI processes. A token can be a single word, part of a word, or even a single character. Every new message you send, and every response the AI gives, gets added to this window. When the window gets full, the oldest messages are 'forgotten' to make room for new ones.
           </p>
           <RollingWhiteboard />
         </section>
 
-        <section className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-            <MessageSquare className="w-7 h-7 mr-3 text-purple-400" />
+        <section className="bg-card p-6 rounded-xl shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-primary flex items-center">
+            <MessageSquare className="w-7 h-7 mr-3 text-primary" />
             Why It's Your Most Powerful Tool
           </h2>
-          <p className="text-gray-300 mb-4 max-w-prose">
+          <p className="text-muted-foreground mb-4 max-w-prose">
             Mastering the context window is the single most important skill for moving beyond simple, one-off questions. It's how you can have deep, multi-step conversations and guide the AI through complex tasks. For example, if you're building a marketing campaign, you can give the AI your brand guidelines in one message, your target audience in another, and your product details in a third. Without context, the AI would lose track of these details. With good context management, it uses all of this information to create a cohesive campaign.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-                  <h4 className="font-semibold text-green-400 mb-2">Effective Context Management Leads To:</h4>
-                  <ul className="list-disc list-inside text-gray-300 space-y-1">
+              <div className="bg-muted p-4 rounded-xl border border-border">
+                  <h4 className="font-semibold text-success mb-2">Effective Context Management Leads To:</h4>
+                  <ul className="list-disc list-inside text-muted-foreground space-y-1">
                       <li>Coherent, logical follow-up responses.</li>
                       <li>The ability to build on previous ideas.</li>
                       <li>Not having to repeat instructions.</li>
@@ -108,9 +108,9 @@ const Lesson2_1: React.FC = () => {
                       <li>Successful completion of complex, multi-part tasks.</li>
                   </ul>
               </div>
-              <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-                  <h4 className="font-semibold text-red-400 mb-2">Poor Context Management Leads To:</h4>
-                  <ul className="list-disc list-inside text-gray-300 space-y-1">
+              <div className="bg-muted p-4 rounded-xl border border-border">
+                  <h4 className="font-semibold text-destructive mb-2">Poor Context Management Leads To:</h4>
+                  <ul className="list-disc list-inside text-muted-foreground space-y-1">
                       <li>The AI forgetting what you just told it.</li>
                       <li>Repetitive or contradictory answers.</li>
                       <li>Irrelevant or off-topic responses.</li>

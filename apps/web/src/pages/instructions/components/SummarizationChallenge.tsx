@@ -62,7 +62,7 @@ const SummarizationChallenge: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
+    <div className="bg-gray-900 p-4 rounded-xl border border-gray-700">
       <h3 className="font-semibold text-white mb-2">Challenge: Write a Summary</h3>
       <p className="text-gray-400 mb-3">
         This demonstrates the "Summarize and Re-center" technique. When conversations get long, the AI's working memory fills up. By summarizing, you bring the most important details back into focus—like highlighting key points on your whiteboard before adding new ones.
@@ -70,7 +70,7 @@ const SummarizationChallenge: React.FC = () => {
       
       <div className="space-y-2 mb-4">
         {challengeConversation.map((msg, index) => (
-          <p key={index} className={`p-2 rounded-md text-sm ${msg.speaker === 'You' ? 'bg-gray-700' : 'bg-gray-600'}`}>
+          <p key={index} className={`p-2 rounded-xl text-sm ${msg.speaker === 'You' ? 'bg-gray-700' : 'bg-gray-600'}`}>
             <strong className={msg.speaker === 'You' ? 'text-cyan-400' : 'text-purple-400'}>{msg.speaker}:</strong> {msg.text}
           </p>
         ))}
@@ -83,7 +83,7 @@ const SummarizationChallenge: React.FC = () => {
           setEvaluation(null);
           setError(null);
         }}
-        className="w-full bg-gray-800 text-white p-2 rounded-md border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        className="w-full bg-gray-800 text-white p-2 rounded-xl border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:outline-none"
         placeholder="Your summary prompt here... e.g., 'Okay, let's recap...'"
         rows={3}
       />
@@ -94,13 +94,13 @@ const SummarizationChallenge: React.FC = () => {
       <button
         onClick={handleEvaluate}
         disabled={isEvaluating || !userSummary.trim()}
-        className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isEvaluating ? 'Evaluating...' : 'Get AI Evaluation'}
       </button>
 
       {error && (
-        <div className="mt-4 p-3 bg-red-900/30 rounded-lg border border-red-700">
+        <div className="mt-4 p-3 bg-red-900/30 rounded-xl border border-red-700">
           <p className="text-red-300 text-sm">{error}</p>
         </div>
       )}
@@ -109,7 +109,7 @@ const SummarizationChallenge: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-4 p-4 bg-blue-900/30 rounded-lg border border-blue-700"
+          className="mt-4 p-4 bg-blue-900/30 rounded-xl border border-blue-700"
         >
           <h4 className="font-semibold text-blue-200 mb-2 flex items-center">
             <Lightbulb className="w-5 h-5 mr-2" />

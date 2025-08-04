@@ -17,7 +17,7 @@ const PromptingColumn = ({ title, children }: { title: string; children: React.R
 );
 
 const Card = ({ title, titleColor, children }: { title: string; titleColor: string; children: React.ReactNode }) => (
-  <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 h-full">
+  <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 h-full">
     <div className={`inline-block px-3 py-1 text-sm font-medium rounded-md mb-3 ${titleColor}`}>
       {title}
     </div>
