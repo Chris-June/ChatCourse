@@ -185,7 +185,7 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
                           <Button
                             key={lesson.id}
                             variant={location.pathname === lesson.path ? 'secondary' : 'ghost'}
-                            className={`w-full justify-start text-left h-auto whitespace-normal flex items-center ${isLocked ? 'text-muted-foreground' : ''}`}
+                            className={`w-full justify-start text-left h-auto whitespace-normal flex items-center rounded-md ${isLocked ? 'text-muted-foreground' : ''}`}
                             onClick={() => !isLocked && navigate(lesson.path)}
                             disabled={isLocked}
                           >
@@ -194,7 +194,7 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
                             ) : (
                               <div className="w-3 h-3 mr-2 flex-shrink-0" /> // Placeholder for alignment
                             )}
-                            <span className="truncate">{lesson.id} {lesson.title}</span>
+                            <span className="whitespace-normal">{lesson.id} {lesson.title}</span>
                           </Button>
                         );
                       })}
