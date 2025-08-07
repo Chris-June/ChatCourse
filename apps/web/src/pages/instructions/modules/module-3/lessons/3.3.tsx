@@ -96,9 +96,9 @@ const Lesson3_3: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-8">
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-card border border-border rounded-xl p-4 shadow-sm">
           <p className="text-xs text-muted-foreground mb-2">Estimated time: 8–12 minutes</p>
-          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <h3 className="font-semibold text-card-foreground mb-2">What you'll learn</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>How to ask for predictable, machine‑readable outputs (JSON, Markdown)</li>
             <li>How to define schemas (keys, data types) to increase reliability</li>
@@ -115,7 +115,7 @@ const Lesson3_3: React.FC = () => {
             </p>
             <div className="relative">
               <CopyButton textToCopy={'From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city. Return it as a JSON object with keys "name" (string), "age" (number), and "city" (string).'} />
-              <div className="bg-muted p-3 rounded-md pr-10">
+              <div className="bg-muted border border-border p-3 rounded-md pr-10">
                 <code className="block whitespace-pre-wrap break-words font-mono text-muted-foreground">
                   <span className="text-muted-foreground">// Prompt - Like giving a developer a data schema</span>
                   {`
@@ -127,8 +127,8 @@ From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city
             <div className="mt-4 text-xs text-muted-foreground">
               <strong>What you'll get:</strong> A clean, usable JSON object.
             </div>
-            <div className="bg-muted p-3 rounded-md mt-2">
-              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-success">
+            <div className="bg-muted border border-border p-3 rounded-md mt-2">
+              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-emerald-400">
                 {`{
   "name": "Sarah",
   "age": 28,
@@ -138,8 +138,8 @@ From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city
             </div>
           </div>
 
-          <div className="mt-6 bg-card p-4 rounded-xl border-2 border-dashed border-primary/50">
-            <h3 className="font-semibold text-foreground mb-2">Your Turn: Define Your Data Structure</h3>
+          <div className="mt-6 bg-card border border-border rounded-xl p-4 shadow-sm">
+            <h3 className="font-semibold text-card-foreground mb-2">Your Turn: Define Your Data Structure</h3>
             <p className="text-muted-foreground mb-4">Practice being the client. Ask the AI to extract information from a sentence, but be demanding about the format. Specify the keys and data types you need.</p>
             <InlineChat 
               moduleId="module-3.3-json"
@@ -162,7 +162,7 @@ From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city
             </p>
             <div className="relative">
               <CopyButton textToCopy={"Create a markdown table comparing Python and JavaScript for web development. Include rows for 'Primary Use', 'Typing', and 'Backend Frameworks'."} />
-              <div className="bg-muted p-3 rounded-md pr-10">
+              <div className="bg-muted border border-border p-3 rounded-md pr-10">
                 <code className="block whitespace-pre-wrap break-words font-mono text-muted-foreground">
                   <span className="text-muted-foreground">// Prompt - Like giving a designer your specs</span>
                   {`
@@ -174,15 +174,15 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
             <div className="mt-4 text-xs text-muted-foreground">
               <strong>What you'll get:</strong> A perfectly formatted table like this:
             </div>
-            <div className="bg-muted p-3 rounded-md mt-2">
-              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-success">
+            <div className="bg-muted border border-border p-3 rounded-md mt-2">
+              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-emerald-400">
                 {`| Feature | Python | JavaScript |\n| Primary Use | Data science, backend | Frontend, full-stack |\n| Typing | Dynamic (optional static) | Dynamic |\n| Backend Frameworks | Django, Flask | Express, Node.js |`}
               </code>
             </div>
           </div>
 
-          <div className="mt-6 bg-card p-4 rounded-xl border-2 border-dashed border-primary/50">
-            <h3 className="font-semibold text-foreground mb-2">Your Turn: Design Your Own Template</h3>
+          <div className="mt-6 bg-card border border-border rounded-xl p-4 shadow-sm">
+            <h3 className="font-semibold text-card-foreground mb-2">Your Turn: Design Your Own Template</h3>
             <p className="text-muted-foreground mb-4">Think of yourself as a client giving design specs to a designer. Ask for exactly what you want - a bulleted list, numbered steps, or a comparison table.</p>
             <InlineChat 
               moduleId="module-3.3-markdown"
@@ -195,7 +195,7 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
           </div>
         </Accordion>
 
-        <Accordion title="Exercise: Build Your Data Blueprint" icon={<Lightbulb />}>
+        <Accordion title="Exercise: Build Your Data Blueprint" icon={<Lightbulb className="text-amber-400" />}>
           <p className="text-muted-foreground mb-4">Think of this like being an architect designing a building. You need to specify exactly what data structure you want. Ask the AI to generate a list of project ideas for a new web developer, but be specific: you want a JSON array of objects, each with a 'title' and 'description'.</p>
           <InlineChat 
             moduleId="module-3.3-structured-output"
@@ -208,8 +208,8 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
           <p className="text-muted-foreground mt-3">This structured data is like pre-fabricated building materials - ready to be used directly in your application's UI components without any additional processing.</p>
         </Accordion>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
-          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+        <div className="bg-card border border-border rounded-xl p-4 shadow-sm">
+          <h3 className="font-semibold text-card-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Write prompts that return clean JSON or Markdown on demand</li>
             <li>Specify exact schemas and validate outputs in your app</li>
