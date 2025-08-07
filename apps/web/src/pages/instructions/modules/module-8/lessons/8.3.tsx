@@ -134,6 +134,16 @@ function Lesson8_3() {
       subtitle="Protecting systems and users in an AI-driven world."
       quizQuestions={quizQuestions}
     >
+      <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 12–16 minutes</p>
+        <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+          <li>Core AI security threats (prompt injection, data exfiltration)</li>
+          <li>Privacy safeguards and safe data handling patterns</li>
+          <li>Designing layered guardrails and monitoring</li>
+        </ul>
+      </div>
+
       <Accordion type="multiple" defaultValue={['item-1']} className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -204,6 +214,15 @@ function Lesson8_3() {
             </div>
           </AccordionContent>
         </AccordionItem>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Identify and describe common AI threat vectors</li>
+            <li>Recommend concrete privacy protections and redaction</li>
+            <li>Propose guardrails and monitoring for production use</li>
+          </ul>
+        </div>
 
         <AccordionItem value="item-4">
           <AccordionTrigger>

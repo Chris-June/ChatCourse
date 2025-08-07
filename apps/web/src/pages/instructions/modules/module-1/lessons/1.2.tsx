@@ -35,9 +35,13 @@ const InteractiveTokenizer = () => {
       <p className="text-muted-foreground mb-4 text-sm">
         Type in the box below to see how your text gets broken down into tokens. This is a fundamental step in how LLMs process language.
       </p>
+      <label htmlFor="tokenizer-input" className="block text-xs font-medium text-muted-foreground mb-2">
+        Enter text to tokenize
+      </label>
       <textarea
         value={inputText}
         onChange={handleInputChange}
+        id="tokenizer-input"
         className="w-full h-24 bg-muted border rounded-md p-3 text-foreground focus:ring-2 focus:ring-primary transition"
         placeholder="Enter text to tokenize..."
       />
@@ -62,7 +66,7 @@ const InteractiveTokenizer = () => {
             </span>
           ))}
         </div>
-        <p className="text-xs text-muted-foreground mt-3">Token Count: {tokens.length}</p>
+        <p className="text-xs text-muted-foreground mt-3" role="status" aria-live="polite">Token Count: {tokens.length}</p>
       </div>
     </div>
   );
@@ -72,7 +76,7 @@ const Lesson1_2: React.FC = () => {
 
  const quizQuestions = [
     {
-      questionText: 'What does \'Intent\' in the I.N.S.Y.N.C. framework refer to?',
+      questionText: 'In LLMs, what is a token?',
       options: [
         'A special password for accessing the AI.',
         'A small piece of text, like a word or part of a word, that the AI uses for processing.',
@@ -125,6 +129,15 @@ const Lesson1_2: React.FC = () => {
       subtitle="The foundation of AI interaction."
       quizQuestions={quizQuestions}
     >
+      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 8–12 minutes</p>
+        <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>What tokens are and why they matter</li>
+          <li>How next-token prediction works at a high level</li>
+          <li>How tokenization impacts costs and limits</li>
+        </ul>
+      </section>
       <section>
         <h3 className="text-2xl font-semibold text-foreground mb-4">The Building Blocks: Tokens</h3>
         <p className="text-gray-300 mb-4">
@@ -174,7 +187,6 @@ const Lesson1_2: React.FC = () => {
         ]}
       />
 
-
       <section className="mt-8">
         <h3 className="text-2xl font-semibold text-foreground mb-4">Challenge: Guide the Predictor</h3>
         <p className="text-gray-300 mb-4">
@@ -185,6 +197,15 @@ const Lesson1_2: React.FC = () => {
           systemPrompt="You are a helpful AI assistant demonstrating next-token prediction. Your goal is to complete the user's sentence or answer their question in a natural, helpful way. You are continuing a conversation about the fundamentals of prompt engineering."
           placeholder="Write the beginning of a prompt to see how the AI completes it..."
         />
+      </section>
+
+      <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>Explain tokens in plain language to a non-technical colleague</li>
+          <li>Predict when tokenization will split words and why</li>
+          <li>Write prompts that better steer next-token prediction</li>
+        </ul>
       </section>
     </LessonTemplate>
   );

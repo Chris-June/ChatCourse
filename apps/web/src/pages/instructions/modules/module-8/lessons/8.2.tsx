@@ -144,6 +144,16 @@ function Lesson8_2() {
       subtitle="Building trust by showing the 'what' and the 'why'"
       quizQuestions={quizQuestions}
     >
+      <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 12–16 minutes</p>
+        <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+          <li>Why transparency and explainability matter for trust</li>
+          <li>How to communicate decisions without jargon</li>
+          <li>Design patterns for user-friendly explanations</li>
+        </ul>
+      </div>
+
       <Accordion type="multiple" defaultValue={['item-1']} className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -217,6 +227,15 @@ function Lesson8_2() {
             </div>
           </AccordionContent>
         </AccordionItem>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Write clear, empathetic user-facing explanations</li>
+            <li>Mention key factors without exposing sensitive details</li>
+            <li>Offer actionable next steps alongside decisions</li>
+          </ul>
+        </div>
 
         <AccordionItem value="item-4">
           <AccordionTrigger>

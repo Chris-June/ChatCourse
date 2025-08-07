@@ -82,12 +82,14 @@ const HallucinationGame: React.FC = () => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className={`mt-4 p-4 rounded-lg text-center ${isCorrect ? 'bg-success/10 border-success/20' : 'bg-destructive/10 border-destructive/20'} border`}>
+          className={`mt-4 p-4 rounded-lg text-center ${isCorrect ? 'bg-success/10 border-success/20' : 'bg-destructive/10 border-destructive/20'} border`}
+          role="status" aria-live="polite">
           <h4 className="font-bold text-lg flex items-center justify-center">
             {isCorrect ? <Check className="mr-2 text-success"/> : <X className="mr-2 text-destructive"/>}
             <span className={isCorrect ? 'text-success' : 'text-destructive'}>{isCorrect ? 'Correct!' : 'Incorrect'}</span>
           </h4>
           <p className="text-muted-foreground mt-2">{currentStatement.explanation}</p>
+          <p className="text-xs text-muted-foreground mt-2">Verification tip: Cross-check with a primary or authoritative source (e.g., official site, encyclopedia, scholarly database).</p>
           <button onClick={handleNext} className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105">Next Statement</button>
         </motion.div>
       )}
@@ -160,6 +162,16 @@ const Lesson1_3: React.FC = () => {
       subtitle="Understanding and identifying AI-generated misinformation."
       quizQuestions={quizQuestions}
     >
+      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–15 minutes</p>
+        <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>What hallucinations are and why they happen</li>
+          <li>How to spot signs of hallucination and overconfidence</li>
+          <li>Ways to reduce hallucinations with grounding and structure</li>
+          <li>Healthy verification habits for critical tasks</li>
+        </ul>
+      </section>
       <div className="bg-card p-6 rounded-xl shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-primary flex items-center">
           <Lightbulb className="w-7 h-7 mr-3 text-primary" />
@@ -203,7 +215,7 @@ const Lesson1_3: React.FC = () => {
           <li><strong>Ask for Sources:</strong> Add phrases like "Cite your sources" or "Provide URLs for your claims." While the AI can hallucinate sources too, this often forces it to ground its response in more factual data.</li>
           <li><strong>Provide Grounding Context:</strong> Use the 'C' in the I.N.S.Y.N.C. framework. By giving the AI the specific text, data, or background information it needs, you anchor its predictions to your facts, not its own.</li>
           <li><strong>Request a Confidence Score:</strong> Ask the AI to "rate its confidence in this answer on a scale of 1 to 10." This can sometimes give you a signal about how speculative the response is.</li> 
-          <li><strong>Use Structured Responses:</strong> While hallucinations are true, there have been many improvements such as "Structured Responses" that correct hallucinations including other mechanisms we will discuss later in this course.</li>
+          <li><strong>Use Structured Responses:</strong> While hallucinations still occur, there are improvements such as structured responses and other mechanisms we will discuss later in this course that help reduce errors and improve grounding.</li>
         </ul>
       </div>
 
@@ -220,6 +232,16 @@ const Lesson1_3: React.FC = () => {
           'Use the I.N.S.Y.N.C. framework to ground the AI in your facts.'
         ]}
       />
+
+      <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>Define hallucinations in plain language</li>
+          <li>Identify common hallucination patterns and red flags</li>
+          <li>Prompt with grounding context and structure to reduce errors</li>
+          <li>Apply a verification step for important outputs</li>
+        </ul>
+      </section>
     </LessonTemplate>
   );
 };

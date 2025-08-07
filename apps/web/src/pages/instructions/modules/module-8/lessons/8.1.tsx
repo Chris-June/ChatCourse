@@ -150,6 +150,16 @@ function Lesson8_1() {
       lessonNumber={1}
       quizQuestions={quizQuestions}
     >
+      <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 14–18 minutes</p>
+        <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+          <li>Common forms of AI bias and where they originate</li>
+          <li>Fairness metrics to evaluate model behavior</li>
+          <li>Practical strategies to mitigate bias</li>
+        </ul>
+      </div>
+
       <Accordion type="multiple" defaultValue={['item-1']} className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -225,6 +235,15 @@ function Lesson8_1() {
             </div>
           </AccordionContent>
         </AccordionItem>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Identify bias types in datasets and models</li>
+            <li>Select an appropriate fairness metric</li>
+            <li>Propose concrete mitigation steps</li>
+          </ul>
+        </div>
 
         <AccordionItem value="item-4">
           <AccordionTrigger>

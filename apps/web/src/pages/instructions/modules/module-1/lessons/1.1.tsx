@@ -71,6 +71,15 @@ const Lesson1_1: React.FC = () => {
       subtitle="Beyond the hype, let's build a real foundation."
       quizQuestions={quizQuestions}
     >
+      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 8–12 minutes</p>
+        <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>What an LLM is (in plain language)</li>
+          <li>What tokens are and why they matter</li>
+          <li>Why prompting influences model behavior</li>
+        </ul>
+      </section>
       <section className="space-y-6">
         <div className="p-6 bg-card rounded-xl border">
           <h2 className="text-2xl font-semibold text-card-foreground mb-4 flex items-center">
@@ -142,6 +151,15 @@ const Lesson1_1: React.FC = () => {
             placeholder="Ask a question about tokens..."
           />
         </div>
+      </section>
+
+      <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>Explain what an LLM does without jargon</li>
+          <li>Describe tokens as the model’s basic building blocks</li>
+          <li>Articulate why prompt wording steers the result</li>
+        </ul>
       </section>
     </LessonTemplate>
   );
