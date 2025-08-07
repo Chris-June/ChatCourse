@@ -95,6 +95,15 @@ export default function Lesson5_3() {
       subtitle="Balancing Speed and Spend in AI Applications"
     >
       <div className="space-y-6 text-card-foreground">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 12–16 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>How streaming improves perceived latency</li>
+            <li>Choosing the right model tier for the job</li>
+            <li>Cost-aware design: caching and request strategies</li>
+          </ul>
+        </div>
         <p className="text-muted-foreground">
           A brilliant AI that's too slow or too expensive is a failed product.
           In the real world, performance is a feature. This lesson covers the
@@ -209,6 +218,15 @@ export default function Lesson5_3() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Enable streaming to improve UX without changing total time</li>
+            <li>Select an appropriate model tier for a given task</li>
+            <li>Reduce latency and cost with caching and batching strategies</li>
+          </ul>
+        </div>
 
         <KeyTakeaways
           points={[

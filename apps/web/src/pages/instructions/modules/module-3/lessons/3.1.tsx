@@ -105,6 +105,15 @@ const Lesson3_1: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-8">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 8–12 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>When to start with zero-shot vs. move to few-shot</li>
+            <li>How examples shape outputs and reduce ambiguity</li>
+            <li>Limits of examples for multi-step reasoning tasks</li>
+          </ul>
+        </div>
         <ZeroCotDiagram />
 
         <Accordion 
@@ -291,6 +300,15 @@ const Lesson3_1: React.FC = () => {
             />
           </div>
         </Accordion>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Identify when zero-shot is sufficient for straightforward tasks</li>
+            <li>Write effective few-shot prompts using clear, consistent examples</li>
+            <li>Recognize when example-based prompting still struggles and consider advanced techniques</li>
+          </ul>
+        </div>
 
         <BestPractices
           dos={[

@@ -81,6 +81,15 @@ const Lesson4_3: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-6 p-4 md:p-6">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–14 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>How to write clear, detailed tool descriptions (the “recipe card”)</li>
+            <li>Why atomic, single‑purpose tools work best</li>
+            <li>How to define parameters and expected outputs</li>
+          </ul>
+        </div>
         <Accordion title="The Anatomy of a Tool: The Recipe Card" icon={<Wrench />} isInitiallyOpen>
           <p className="text-muted-foreground mb-4">
             Think of an AI tool not as a pre-built appliance, but as a recipe you give to a master chef (the AI). The AI is brilliant, but it can only cook what's on the recipe card. Your job is to write a perfect recipe card—this is your tool's <strong>schema</strong>.
@@ -137,6 +146,15 @@ const Lesson4_3: React.FC = () => {
           />
         </Accordion>
         
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Draft a high‑quality tool schema (name, description, parameters)</li>
+            <li>Keep tools narrowly scoped and unambiguous</li>
+            <li>Guide the model toward the right tool with descriptive text</li>
+          </ul>
+        </div>
+
         <KeyTakeaways
           points={[
             'Your AI tool should excel at one specific task (be atomic), like a specialized kitchen utensil.',

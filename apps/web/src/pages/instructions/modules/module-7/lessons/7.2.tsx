@@ -139,6 +139,16 @@ function Lesson7_2() {
       subtitle="Learn how to give your LLM a library card. Retrieval-Augmented Generation (RAG) grounds your model in facts, preventing it from making things up."
       quizQuestions={quizQuestions}
     >
+      <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 14–18 minutes</p>
+        <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+          <li>What RAG is and when to use it</li>
+          <li>The retrieve → augment → generate flow</li>
+          <li>How RAG reduces hallucinations with trusted data</li>
+        </ul>
+      </div>
+
       <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -229,6 +239,15 @@ function Lesson7_2() {
             </div>
           </AccordionContent>
         </AccordionItem>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Explain RAG in simple terms</li>
+            <li>Identify good use cases for RAG</li>
+            <li>Describe a basic RAG pipeline</li>
+          </ul>
+        </div>
 
         <AccordionItem value="item-6">
           <AccordionTrigger>

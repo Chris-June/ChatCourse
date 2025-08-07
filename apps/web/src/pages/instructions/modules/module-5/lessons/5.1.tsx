@@ -88,6 +88,15 @@ const Lesson5_1 = () => {
       subtitle="How an AI Remembers and Reasons"
     >
       <div className="space-y-6 text-card-foreground">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–14 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>How conversation context provides short‑term memory for the model</li>
+            <li>The roles of system, user, and assistant messages</li>
+            <li>How the system prompt shapes behavior, and limits from the context window</li>
+          </ul>
+        </div>
         <p className="text-muted-foreground">
           Welcome to the director's room. An AI, like an actor, knows only what's
           in the script. In AI conversations, that script is called{' '}
@@ -210,6 +219,15 @@ const Lesson5_1 = () => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Explain how context and roles guide the model’s responses</li>
+            <li>Write an effective system prompt to set tone and rules</li>
+            <li>Plan for the context window by trimming or summarizing history</li>
+          </ul>
+        </div>
 
         <KeyTakeaways
           points={[

@@ -80,6 +80,15 @@ const Lesson4_2: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-6 p-4 md:p-6">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–14 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>When to use parallel calls to reduce latency</li>
+            <li>When sequential calls are required due to dependencies</li>
+            <li>How APIs structure arrays of tool calls and handle failures</li>
+          </ul>
+        </div>
         <p className="text-muted-foreground">
           Simple tasks might need one tool, but complex queries often require a coordinated effort. Imagine asking an assistant to book a flight and reserve a rental car. This requires two different tools. Modern AI can handle this by calling multiple functions in a single turn, making workflows much more powerful and efficient.
         </p>
@@ -138,6 +147,15 @@ const Lesson4_2: React.FC = () => {
               maxFollowUps={2}
             />
         </Accordion>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Design prompts that trigger parallel calls for independent tasks</li>
+            <li>Implement sequencing when one tool depends on another</li>
+            <li>Handle partial failures and report structured results back to the model</li>
+          </ul>
+        </div>
 
         <KeyTakeaways
           points={[

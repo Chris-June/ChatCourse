@@ -79,10 +79,15 @@ const Lesson2_3: React.FC = () => {
     <LessonTemplate
       moduleNumber={2}
       lessonNumber={3}
-      title="2.3: Project - The Socratic Tutor"
-      subtitle="Put your context management skills to the test by creating a consistent AI persona."
+      title="2.3: Practice Context Management with a Persona"
+      subtitle="Create and maintain a Socratic Tutor persona to practice re-centering and explicit references."
       quizQuestions={quizQuestions}
     >
+      <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
+        <p className="text-sm text-muted-foreground">
+          Why personas? Maintaining a consistent AI persona forces you to practice priming, re-centering, and explicit referencing. Expect ~10 minutes to set up your persona and complete the guided exercise.
+        </p>
+      </div>
       <div className="space-y-8">
         <p className="text-lg text-muted-foreground">
           It's time to put your new skills to the test! This project challenges you to use this very chat interface to create and maintain a consistent AI persona over multiple turns. This is about practicing context management: the skill of deliberately guiding the AI by providing, reinforcing, and clarifying information to keep the conversation coherent and on-task.
@@ -117,7 +122,7 @@ const Lesson2_3: React.FC = () => {
             <h3 className="font-semibold text-foreground mb-2">Your Task:</h3>
             <p className="text-muted-foreground mb-3">Copy and paste the following prompt into the chat window as your first message.</p>
             <div className="relative">
-              <CopyButton textToCopy="You are Gnosi, a Socratic Tutor. Your goal is to help me understand a topic by only asking guiding questions. Never give direct answers. Start by asking me what I want to learn about." />
+              <CopyButton aria-label="Copy Socratic Tutor persona prompt" textToCopy="You are Gnosi, a Socratic Tutor. Your goal is to help me understand a topic by only asking guiding questions. Never give direct answers. Start by asking me what I want to learn about." />
               <div className="bg-muted p-3 rounded-md pr-10">
                 <code className="block whitespace-pre-wrap break-words font-mono text-sm text-foreground">
                   You are Gnosi, a Socratic Tutor. Your goal is to help me understand a topic by only asking guiding questions. Never give direct answers. Start by asking me what I want to learn about.
@@ -126,6 +131,49 @@ const Lesson2_3: React.FC = () => {
             </div>
           </div>
         </Accordion>
+
+        <div className="bg-card p-6 rounded-xl shadow-lg">
+          <h3 className="text-xl font-semibold text-card-foreground mb-3">Quick Re-centering Phrases</h3>
+          <p className="text-sm text-muted-foreground mb-3">Click to copy a gentle nudge if the AI drifts from the Socratic persona.</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="relative">
+              <CopyButton aria-label="Copy re-centering phrase 1" textToCopy="Remember, you are a Socratic tutor. Please respond with guiding questions only—no direct answers." />
+              <div className="bg-muted p-3 rounded-md pr-10">
+                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-foreground">Remember, you are a Socratic tutor. Please respond with guiding questions only—no direct answers.</code>
+              </div>
+            </div>
+            <div className="relative">
+              <CopyButton aria-label="Copy re-centering phrase 2" textToCopy="Re-center: ask me a clarifying question that builds on my last response instead of giving the answer." />
+              <div className="bg-muted p-3 rounded-md pr-10">
+                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-foreground">Re-center: ask me a clarifying question that builds on my last response instead of giving the answer.</code>
+              </div>
+            </div>
+            <div className="relative">
+              <CopyButton aria-label="Copy re-centering phrase 3" textToCopy="Please continue in Socratic style: short, focused questions that help me reason step by step." />
+              <div className="bg-muted p-3 rounded-md pr-10">
+                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-foreground">Please continue in Socratic style: short, focused questions that help me reason step by step.</code>
+              </div>
+            </div>
+            <div className="relative">
+              <CopyButton aria-label="Copy re-centering phrase 4" textToCopy="Switch back to questions. Avoid statements or conclusions; guide me to derive them." />
+              <div className="bg-muted p-3 rounded-md pr-10">
+                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-foreground">Switch back to questions. Avoid statements or conclusions; guide me to derive them.</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-card p-6 rounded-xl shadow-lg">
+          <h3 className="text-xl font-semibold text-card-foreground mb-3">Exemplar Transcript (3 turns)</h3>
+          <div className="bg-muted p-3 rounded-md">
+            <code className="block whitespace-pre-wrap break-words font-mono text-sm text-foreground">
+User: I want to learn recursion.
+AI (Gnosi): Great—what part of recursion feels unclear: the concept, the base case, or how it unwinds?
+User: The base case.
+AI (Gnosi): If we think of a function calling itself, what must be true to stop the calls from continuing forever?
+            </code>
+          </div>
+        </div>
 
         <section className="bg-card p-6 rounded-xl shadow-lg border-2 border-dashed border-primary/50">
           <p className="text-muted-foreground mb-4">

@@ -102,6 +102,15 @@ const Lesson4_1: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-8 p-4 md:p-6">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–14 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>How function calling works (model returns a JSON tool request, your app executes)</li>
+            <li>How to define a function schema (name, description, parameters)</li>
+            <li>Critical security practices for validating arguments</li>
+          </ul>
+        </div>
         <p className="text-lg text-muted-foreground">
           Imagine AI as a highly intelligent assistant who can't physically do things themselves, but can perfectly tell you exactly what to do. Function calling is like giving your AI assistant a set of specialized tools - a calculator, a calendar, a weather app - and teaching them to say: "To get the current temperature, use the weather tool with location 'New York'." They don't actually check the weather, but they give you the precise instructions to do it yourself.
         </p>
@@ -283,6 +292,15 @@ if (functionToCall) {
             />
           </div>
         </Accordion>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Explain function calling at a high level</li>
+            <li>Write a clear function schema with parameters</li>
+            <li>Validate and safely execute tool calls in your app</li>
+          </ul>
+        </div>
 
         <KeyTakeaways
           points={[

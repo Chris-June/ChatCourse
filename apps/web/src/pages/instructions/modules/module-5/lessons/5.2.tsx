@@ -86,6 +86,15 @@ export default function Lesson5_2() {
       subtitle="From One-Size-Fits-All to Tailor-Made"
     >
       <div className="space-y-6 text-card-foreground">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–14 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>How to generate a dynamic system prompt per user/session</li>
+            <li>Static vs dynamic context and when to use each</li>
+            <li>Ethical guardrails: consent, privacy, and user control</li>
+          </ul>
+        </div>
         <p className="text-muted-foreground">
           A generic AI is useful, but a personalized AI is a game-changer.
           Personalization transforms a general-purpose tool into a bespoke
@@ -175,6 +184,15 @@ export default function Lesson5_2() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Assemble a personalized system prompt from user data</li>
+            <li>Choose the right mix of static and dynamic context</li>
+            <li>Apply ethical practices for consent, privacy, and control</li>
+          </ul>
+        </div>
 
         <KeyTakeaways
           points={[

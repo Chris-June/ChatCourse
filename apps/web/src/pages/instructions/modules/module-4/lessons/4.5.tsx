@@ -82,6 +82,15 @@ const Lesson4_5: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-6 p-4 md:p-6">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 12–18 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>The agent loop (Observe, Think, Act) and core components (model, memory, planning, tools)</li>
+            <li>Hierarchical manager/worker patterns</li>
+            <li>Security: least privilege, error handling, and evaluation basics</li>
+          </ul>
+        </div>
         <Accordion title="What is an AI Agent?" icon={<Bot />} isInitiallyOpen>
           <p className="text-muted-foreground mb-4">
             An AI Agent is a system that can perceive its environment, make decisions, and take actions to achieve a specific goal. Unlike a simple tool-using model that waits for your command, an agent operates in a continuous <strong>Observe → Think → Act</strong> loop. It's the difference between a smart calculator and a self-driving car.
@@ -199,6 +208,15 @@ const Lesson4_5: React.FC = () => {
             "Debate the pros and cons of giving an agent a persistent, long-term memory. What are the privacy and security risks?"
           ]}
         />
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Explain how an agent operates and plans actions</li>
+            <li>Sketch a basic manager/worker design for a multi‑step task</li>
+            <li>Apply least‑privilege and add error handling/evaluation hooks</li>
+          </ul>
+        </div>
 
         <KeyTakeaways
           points={[

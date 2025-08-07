@@ -98,6 +98,15 @@ const Lesson4_6 = () => {
       subtitle="Creating an App Store for Agents"
     >
       <div className="space-y-6">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 12–18 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>MCP as an “App Store for agents” enabling dynamic tool discovery</li>
+            <li>Security benefits like isolating credentials on the server</li>
+            <li>Orchestrating tools across multiple servers; clearer tool design</li>
+          </ul>
+        </div>
         <p className="text-muted-foreground">
           Welcome to the future of agentic AI. Basic function calling is powerful,
           but it has limitations. It's like having a phone that can only call
@@ -251,6 +260,15 @@ const Lesson4_6 = () => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Explain differences between basic function calling and MCP</li>
+            <li>Identify where MCP improves security and scale</li>
+            <li>Write clearer tool descriptions for MCP servers</li>
+          </ul>
+        </div>
 
         <KeyTakeaways
           points={[

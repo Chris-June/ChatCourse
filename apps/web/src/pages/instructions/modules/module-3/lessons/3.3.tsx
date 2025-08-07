@@ -96,6 +96,15 @@ const Lesson3_3: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-8">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 8–12 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>How to ask for predictable, machine‑readable outputs (JSON, Markdown)</li>
+            <li>How to define schemas (keys, data types) to increase reliability</li>
+            <li>When to use JSON vs. Markdown for application needs</li>
+          </ul>
+        </div>
         <Accordion title="Framing Your Request: You're the Client" isInitiallyOpen icon={<FileJson />}>
           <div className="prose prose-invert max-w-none">
             <p>
@@ -198,6 +207,15 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
           />
           <p className="text-muted-foreground mt-3">This structured data is like pre-fabricated building materials - ready to be used directly in your application's UI components without any additional processing.</p>
         </Accordion>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Write prompts that return clean JSON or Markdown on demand</li>
+            <li>Specify exact schemas and validate outputs in your app</li>
+            <li>Choose the right format based on display vs. data needs</li>
+          </ul>
+        </div>
 
         <BestPractices
           dos={[

@@ -78,6 +78,15 @@ const Lesson4_4: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-6 p-4 md:p-6">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 12–16 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>What a GPT is and the 3 core components (custom instructions, expanded knowledge, tools)</li>
+            <li>How Retrieval‑Augmented Generation (RAG) expands knowledge</li>
+            <li>Basics of chaining tools and ethics/safety considerations</li>
+          </ul>
+        </div>
         <Accordion title="The Big Idea: Packaging AI Superpowers" icon={<Rocket />} isInitiallyOpen>
           <p className="text-muted-foreground">
             We've learned how to give an AI new skills with tools. Now, let's learn how to package those skills into a complete, specialized assistant called a <GlossaryTerm term="GPT" definition="A custom version of ChatGPT that combines instructions, extra knowledge, and capabilities for a specific purpose." />. Think of it as creating a custom superhero, complete with a unique personality, special knowledge, and a utility belt of custom tools.
@@ -205,6 +214,15 @@ const Lesson4_4: React.FC = () => {
             </ul>
           </div>
         </Accordion>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Describe a GPT’s building blocks and when to use each</li>
+            <li>Outline a simple RAG setup at a conceptual level</li>
+            <li>Plan a safe tool chain with ethical guardrails</li>
+          </ul>
+        </div>
 
         <KeyTakeaways
           points={[

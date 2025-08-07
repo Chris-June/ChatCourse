@@ -57,9 +57,9 @@ const InstructionsPage: React.FC = () => {
               target.src = 'Logo.png';
             }}
           />
-          <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">All About A.I.</h1>
+          <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">The I.N.S.Y.N.C. Framework</h1>
           <p className="mt-6 text-xl leading-8 text-gray-300">
-            Learn how to effectively collaborate with AI through practical lessons and hands-on exercises.
+            Master the I.N.S.Y.N.C. framework to elevate your AI collaboration from basic commands to sophisticated, human-like interactions.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link
@@ -125,7 +125,7 @@ const InstructionsPage: React.FC = () => {
         <Button onClick={toggleSidebar} variant="ghost" size="icon" className="mr-4">
           <Menu />
         </Button>
-        <h1 className="text-xl font-semibold">All About A.I.</h1>
+        <h1 className="text-xl font-semibold">I.N.S.Y.N.C. Framework Course</h1>
       </header>
       <div className="flex flex-1 overflow-hidden">
         <InstructionsSidebar isOpen={isSidebarOpen} />

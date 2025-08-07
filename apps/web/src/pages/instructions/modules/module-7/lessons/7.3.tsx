@@ -98,6 +98,16 @@ function Lesson7_3() {
       subtitle="Fine-tuning teaches your LLM a new personality, style, or skill, turning it into a specialized performer."
       quizQuestions={quizQuestions}
     >
+      <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 14–18 minutes</p>
+        <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+          <li>When to choose fine-tuning vs. RAG</li>
+          <li>How fine-tuning data (prompt/completion pairs) is structured</li>
+          <li>Best practices for evaluation and iteration</li>
+        </ul>
+      </div>
+
       <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -166,6 +176,15 @@ function Lesson7_3() {
             </div>
           </AccordionContent>
         </AccordionItem>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Describe what fine-tuning is—and isn’t</li>
+            <li>Prepare a small, high-quality fine-tuning dataset</li>
+            <li>Outline how you’ll evaluate a fine-tuned model</li>
+          </ul>
+        </div>
 
         <AccordionItem value="item-5">
           <AccordionTrigger>

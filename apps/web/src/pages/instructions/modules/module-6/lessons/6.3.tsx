@@ -143,6 +143,15 @@ export default function Lesson6_3() {
       subtitle="How to measure, test, and refine your AI to turn a good product into a great one."
     >
       <div className="space-y-6 text-card-foreground">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 12–16 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Setting goals and metrics for AI improvement</li>
+            <li>Forming testable hypotheses and A/B designs</li>
+            <li>Running iterative experiments with clear readouts</li>
+          </ul>
+        </div>
         <p className="text-muted-foreground">
           A great AI product is like a Michelin-star dish. It doesn't just
           appear fully formed. It's the result of countless small adjustments—a
@@ -235,6 +244,15 @@ export default function Lesson6_3() {
             ]}
             challengeChecklist={hypothesisChecklist}
           />
+        </div>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Define a clear goal and single high-signal metric</li>
+            <li>Write a hypothesis and outline control vs. variant</li>
+            <li>Plan quick iterations and measure results responsibly</li>
+          </ul>
         </div>
 
         <div

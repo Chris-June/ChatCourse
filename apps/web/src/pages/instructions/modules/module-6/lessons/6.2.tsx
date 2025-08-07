@@ -124,6 +124,15 @@ export default function Lesson6_2() {
       subtitle="Principles for Designing Collaborative and Trustworthy AI"
     >
       <div className="space-y-6 text-card-foreground">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 12–16 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Designing AI as a collaborator (HCI principles)</li>
+            <li>Establishing boundaries, feedback, and transparency</li>
+            <li>Spotting bias and building trust with users</li>
+          </ul>
+        </div>
         <p className="text-muted-foreground">
           Building an AI is like training a powerful, intelligent animal. It's
           not just about teaching it tricks; it's about building a relationship
@@ -234,6 +243,15 @@ export default function Lesson6_2() {
             ]}
             challengeChecklist={designCritiqueChecklist}
           />
+        </div>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Apply collaboration-first design patterns</li>
+            <li>Set clear boundaries and feedback loops for your AI</li>
+            <li>Identify fairness risks and add transparency affordances</li>
+          </ul>
         </div>
 
         <div

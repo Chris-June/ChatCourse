@@ -113,11 +113,20 @@ const Lesson3_2: React.FC = () => {
     <LessonTemplate
       moduleNumber={3}
       lessonNumber={2}
-      title="3.2: Chain-of-Thought Prompting"
-      subtitle="Teaching AI to 'think' step by step."
+      title="3.2: Chain-of-Thought (CoT) Prompting"
+      subtitle="Guide the model’s reasoning with few-shot CoT, zero-shot CoT, and Auto-CoT."
       quizQuestions={quizQuestions}
     >
-      <div className="space-y-8 text-gray-300">
+      <div className="space-y-8">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–14 minutes</p>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>How Chain-of-Thought (CoT) improves reliability on multi-step problems</li>
+            <li>How to trigger Zero‑Shot CoT with “Let’s think step by step”</li>
+            <li>When to provide Few‑Shot CoT examples and what Auto‑CoT offers</li>
+          </ul>
+        </div>
         <CotDiagram />
 
         <Accordion 
@@ -208,6 +217,15 @@ const Lesson3_2: React.FC = () => {
           <p className="text-center text-sm text-muted-foreground mt-2">Image Source: Brown et al. (2020)</p>
           <CheckpointQuiz {...autoCotQuiz} />
         </Accordion>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <li>Prompt Zero‑Shot CoT to elicit step‑by‑step reasoning</li>
+            <li>Create concise Few‑Shot CoT examples that model clear logic</li>
+            <li>Describe Auto‑CoT at a high level and when to try it</li>
+          </ul>
+        </div>
 
         <BestPractices
           dos={[
