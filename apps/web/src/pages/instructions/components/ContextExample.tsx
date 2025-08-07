@@ -13,55 +13,55 @@ const ContextExample: React.FC = () => {
   };
 
   return (
-    <section className="bg-gray-800 p-6 rounded-xl shadow-lg">
+    <section className="bg-card p-6 rounded-xl border border-border shadow-sm">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold text-blue-300">A Practical Example</h2>
-        <div className="flex items-center space-x-2 bg-gray-900 p-1 rounded-xl">
+        <h2 className="text-2xl font-semibold text-card-foreground">A Practical Example</h2>
+        <div className="flex items-center space-x-2 bg-muted p-1 rounded-xl border border-border">
           <button 
             onClick={() => setShowFailureCase(false)}
-            className={`px-3 py-1 text-sm rounded-md transition-colors ${!showFailureCase ? 'bg-green-600 text-white' : 'bg-transparent text-gray-300 hover:bg-gray-700'}`}>
+            className={`px-3 py-1 text-sm rounded-md transition-colors ${!showFailureCase ? 'bg-primary text-primary-foreground' : 'bg-transparent text-muted-foreground hover:bg-muted'}`}>
               Success
           </button>
           <button 
             onClick={() => setShowFailureCase(true)}
-            className={`px-3 py-1 text-sm rounded-md transition-colors ${showFailureCase ? 'bg-red-600 text-white' : 'bg-transparent text-gray-300 hover:bg-gray-700'}`}>
+            className={`px-3 py-1 text-sm rounded-md transition-colors ${showFailureCase ? 'bg-destructive text-destructive-foreground' : 'bg-transparent text-muted-foreground hover:bg-muted'}`}>
               Failure
           </button>
         </div>
       </div>
-      <div className="bg-gray-900 p-4 rounded-xl">
-          <p className="text-gray-400 mb-3">Imagine this conversation flow:</p>
+      <div className="bg-card p-4 rounded-xl border border-border">
+          <p className="text-muted-foreground mb-3">Imagine this conversation flow:</p>
           <div className="space-y-3">
               {!showFailureCase && (
                 <div className="relative">
                     <CopyButton textToCopy={conversation.user1} />
-                    <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-cyan-400">You:</strong> {conversation.user1}</p>
+                    <p className="p-2 bg-muted rounded-md pr-10 text-foreground"><strong className="text-primary">You:</strong> {conversation.user1}</p>
                 </div>
               )}
               {!showFailureCase && (
                 <div className="relative">
                     <CopyButton textToCopy={conversation.ai1} />
-                    <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-green-400">AI:</strong> {conversation.ai1}</p>
+                    <p className="p-2 bg-muted rounded-md pr-10 text-foreground"><strong className="text-success">AI:</strong> {conversation.ai1}</p>
                 </div>
               )}
               <div className="relative">
                   <CopyButton textToCopy={conversation.user2} />
-                  <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-cyan-400">You:</strong> {conversation.user2}</p>
+                  <p className="p-2 bg-muted rounded-md pr-10 text-foreground"><strong className="text-primary">You:</strong> {conversation.user2}</p>
               </div>
               <div className="relative">
                   <CopyButton textToCopy={showFailureCase ? conversation.failureResponse : conversation.successResponse} />
-                  <p className="p-2 bg-gray-700 rounded-md pr-10"><strong className="text-green-400">AI:</strong> {showFailureCase ? conversation.failureResponse : conversation.successResponse}</p>
+                  <p className="p-2 bg-muted rounded-md pr-10 text-foreground"><strong className="text-success">AI:</strong> {showFailureCase ? conversation.failureResponse : conversation.successResponse}</p>
               </div>
               {showFailureCase && (
-                <div className="p-3 bg-red-900/30 border border-red-700 rounded-xl">
-                  <p className="text-red-300 text-sm">
+                <div className="p-3 bg-destructive/10 border border-destructive rounded-xl">
+                  <p className="text-destructive text-sm">
                     <strong>AI:</strong> Sure I can help with that! What is the second one?
                   </p>
                 </div>
               )}
           </div>
-          <div className={`mt-4 p-3 rounded-xl border ${showFailureCase ? 'bg-red-900/30 border-red-700' : 'bg-blue-900/30 border-blue-700'}`}>
-            <p className={`${showFailureCase ? 'text-red-200' : 'text-blue-200'} text-sm`}>
+          <div className={`${showFailureCase ? 'bg-destructive/10 border-destructive' : 'bg-primary/10 border-primary'} mt-4 p-3 rounded-xl border`}>
+            <p className={`${showFailureCase ? 'text-destructive' : 'text-primary'} text-sm`}>
               <span className="font-bold">Key Insight:</span> 
               {showFailureCase 
                 ? 'The AI has forgotten your earlier conversation because its "working memory" (the context window) became full. Just like a whiteboard that gets erased when full, the AI can no longer see your first message asking for breakfast ideas.'
