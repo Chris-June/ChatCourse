@@ -72,13 +72,13 @@ const Lesson1_4: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-8 text-foreground">
-        <div className="bg-card p-6 rounded-xl">
-          <h2 className="text-xl font-semibold text-card-foreground mb-4">Prompting Showdown: Vague vs. Specific</h2>
+        <div className="bg-card p-6 rounded-xl border border-border">
+          <h2 className="text-2xl font-semibold text-card-foreground mb-4">Prompting Showdown: Vague vs. Specific</h2>
           <p className="text-muted-foreground mb-4">
             You now know that AI predicts the next word and that it can sometimes make things up (hallucinate). So, how do we control it? The answer is the <strong>prompt</strong>.
           </p>
-          <div className="bg-gray-900 p-4 rounded-xl border border-blue-500/50">
-            <p className="text-lg text-center font-semibold text-blue-200">
+          <div className="bg-muted p-4 rounded-xl border border-border">
+            <p className="text-lg text-center font-semibold text-foreground">
               A prompt is the instruction you give to an AI. It's how you ask questions, give commands, and provide context.
             </p>
           </div>
@@ -92,7 +92,7 @@ const Lesson1_4: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             {/* Example 1: Vague vs. Specific Topic */}
-            <div className="bg-destructive/10 border border-red-600 p-4 rounded-xl">
+            <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-xl">
               <h3 className="text-lg font-bold text-destructive flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: General Topic</h3>
               <p className="text-muted-foreground mb-4">This prompt is too broad, leading to a generic, unfocused answer.</p>
               <InlineChat 
@@ -103,7 +103,7 @@ const Lesson1_4: React.FC = () => {
                 simulatedResponse="This code defines a function that takes two arguments, `a` and `b`, and returns their sum."
               />
             </div>
-            <div className="bg-emerald-900/30 border border-emerald-600 p-4 rounded-xl">
+            <div className="bg-success/10 border border-success/30 p-4 rounded-xl">
               <h3 className="text-lg font-bold text-success flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Focused Topic</h3>
               <p className="text-muted-foreground mb-4">Adds audience, format, and topic constraints for a tailored response.</p>
               <InlineChat 
@@ -116,7 +116,7 @@ const Lesson1_4: React.FC = () => {
             </div>
 
             {/* Example 2: Vague vs. Specific Dinner Planning */}
-            <div className="bg-destructive/10 border border-red-600 p-4 rounded-xl">
+            <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-xl">
               <h3 className="text-lg font-bold text-destructive flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: Dinner Idea</h3>
               <p className="text-muted-foreground mb-4">The AI has no idea about your preferences, ingredients, or time.</p>
               <InlineChat 
@@ -127,7 +127,7 @@ const Lesson1_4: React.FC = () => {
                 simulatedResponse="There are many options! You could make pasta, a stir-fry, or perhaps a salad. Without knowing your preferences or what ingredients you have, it's hard to give a specific suggestion."
               />
             </div>
-            <div className="bg-emerald-900/30 border border-emerald-600 p-4 rounded-xl">
+            <div className="bg-success/10 border border-success/30 p-4 rounded-xl">
               <h3 className="text-lg font-bold text-success flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Dinner Idea</h3>
               <p className="text-muted-foreground mb-4">Includes dietary needs, ingredients, and time available for a more helpful suggestion.</p>
               <InlineChat 
@@ -140,7 +140,7 @@ const Lesson1_4: React.FC = () => {
             </div>
 
             {/* Example 3: Ambiguous vs. Clear Persona */}
-            <div className="bg-destructive/10 border border-red-600 p-4 rounded-xl">
+            <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-xl">
               <h3 className="text-lg font-bold text-destructive flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: Email Request</h3>
               <p className="text-muted-foreground mb-4">The AI lacks the sender, recipient, and context to write a useful email.</p>
               <InlineChat 
@@ -151,7 +151,7 @@ const Lesson1_4: React.FC = () => {
                 simulatedResponse="Subject: Deadline\n\nHi Team,\n\nPlease be aware of the upcoming deadline. Let me know if you have any questions.\n\nThanks"
               />
             </div>
-            <div className="bg-emerald-900/30 border border-emerald-600 p-4 rounded-xl">
+            <div className="bg-success/10 border border-success/30 p-4 rounded-xl">
               <h3 className="text-lg font-bold text-success flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Email Request</h3>
               <p className="text-muted-foreground mb-4">Provides a clear persona, audience, and key message points.</p>
               <InlineChat 
@@ -164,7 +164,7 @@ const Lesson1_4: React.FC = () => {
             </div>
 
              {/* Example 4: Missing Context vs. Context-Rich */}
-            <div className="bg-destructive/10 border border-red-600 p-4 rounded-xl">
+            <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-xl">
               <h3 className="text-lg font-bold text-destructive flex items-center mb-3"><ThumbsDown className="mr-2"/>Vague: Summarization</h3>
               <p className="text-muted-foreground mb-4">The AI doesn't know what to summarize or what's important.</p>
               <InlineChat 
@@ -175,7 +175,7 @@ const Lesson1_4: React.FC = () => {
                 simulatedResponse="To summarize the report, I need you to provide the text of the report first. Please paste the content you would like me to summarize."
               />
             </div>
-            <div className="bg-emerald-900/30 border border-emerald-600 p-4 rounded-xl">
+            <div className="bg-success/10 border border-success/30 p-4 rounded-xl">
               <h3 className="text-lg font-bold text-success flex items-center mb-3"><ThumbsUp className="mr-2"/>Specific: Summarization</h3>
               <p className="text-muted-foreground mb-4">Provides the text and specifies the desired focus of the summary.</p>
               <InlineChat 
