@@ -16,10 +16,10 @@ const TabButton: React.FC<{
 }> = ({ active, onClick, icon, label }) => (
   <button
     onClick={onClick}
-    className={`flex items-center px-4 py-3 text-sm font-medium rounded-t-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
+    className={`flex items-center px-4 py-3 text-sm font-medium rounded-t-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
       active
-        ? 'bg-gray-800 text-blue-400 border-b-2 border-blue-500'
-        : 'text-gray-400 hover:bg-gray-800/50 hover:text-gray-200'
+        ? 'bg-card text-primary border-b-2 border-primary'
+        : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
     }`}
   >
     <span className="mr-2">{icon}</span>
@@ -116,11 +116,11 @@ const Lesson1_7: React.FC = () => {
         return (
           <div key={contentKey} className="animate-fade-in">
             <section>
-              <h3 className="text-2xl font-bold text-blue-400 mb-4">1. Deconstruction: The Art of Taking Prompts Apart</h3>
-              <p className="text-gray-300 mb-4">
+              <h3 className="text-2xl font-bold text-card-foreground mb-4">1. Deconstruction: The Art of Taking Prompts Apart</h3>
+              <p className="text-muted-foreground mb-4">
                 Complex tasks require complex prompts. But a monolithic prompt is hard to debug. Deconstruction is the technique of breaking a large prompt into its fundamental building blocks, such as:
               </p>
-              <ul className="list-disc list-inside text-gray-300 space-y-2 mb-4 pl-4">
+              <ul className="list-disc list-inside text-muted-foreground space-y-2 mb-4 pl-4">
                 <li><strong>Role & Goal:</strong> Who the AI should be and what it should achieve.</li>
                 <li><strong>Context & Constraints:</strong> The background information and rules the AI must follow.</li>
                 <li><strong>Task & Steps:</strong> The specific action items and the sequence to perform them.</li>
@@ -128,8 +128,8 @@ const Lesson1_7: React.FC = () => {
               </ul>
             </section>
             <section className="mt-8">
-              <h3 className="text-2xl font-bold text-blue-400 mb-4">2. Pattern Recognition: Using Blueprints for Success</h3>
-              <p className="text-gray-300 mb-4">
+              <h3 className="text-2xl font-bold text-card-foreground mb-4">2. Pattern Recognition: Using Blueprints for Success</h3>
+              <p className="text-muted-foreground mb-4">
                 Many prompting challenges are variations of common problems. Prompt patterns are reusable, strategic templates for solving these problems.
               </p>
             </section>
@@ -145,26 +145,26 @@ const Lesson1_7: React.FC = () => {
         return (
           <div key={contentKey} className="animate-fade-in">
             <section>
-              <h3 className="text-2xl font-bold text-blue-400 mb-4">Instructional Priming: Setting the Stage</h3>
-              <p className="text-gray-300 mb-4">
+              <h3 className="text-2xl font-bold text-card-foreground mb-4">Instructional Priming: Setting the Stage</h3>
+              <p className="text-muted-foreground mb-4">
                 Instructional priming involves giving the AI context or examples *before* you give it the main task. This 'warms up' the model and guides it toward the desired style, format, or domain of knowledge.
               </p>
-              <p className="text-gray-300 mb-4">
+              <p className="text-muted-foreground mb-4">
                 This is one of the most powerful techniques for achieving high-quality results, especially for complex tasks. It's the core idea behind "few-shot" prompting.
               </p>
-              <div className="bg-gray-950 p-4 rounded-lg border border-gray-700/50 my-6">
-                <p className="text-gray-400 font-mono text-sm">// Example of priming for a code generation task</p>
-                <p className="text-gray-300 font-mono text-sm mt-4">
+              <div className="bg-muted p-4 rounded-lg border border-border my-6">
+                <p className="text-muted-foreground font-mono text-sm">// Example of priming for a code generation task</p>
+                <p className="text-foreground font-mono text-sm mt-4">
                   <span className="text-purple-400">// Here is a high-quality, well-documented Python function:</span><br/>
                   <span className="text-cyan-400">def calculate_average(numbers):</span><br/>
-                  <span className="text-gray-500">    """Calculates the mean of a list of numbers."""</span><br/>
+                  <span className="text-muted-foreground">    """Calculates the mean of a list of numbers."""</span><br/>
                   <span className="text-cyan-400">    return sum(numbers) / len(numbers) if numbers else 0</span>
                 </p>
-                <p className="text-gray-300 font-mono text-sm mt-6">
+                <p className="text-foreground font-mono text-sm mt-6">
                   <span className="text-purple-400">// Now, using the same style, write a function that finds the median...</span>
                 </p>
               </div>
-              <p className="text-gray-300 mt-4">
+              <p className="text-muted-foreground mt-4">
                 By providing a high-quality example first, you're not just telling the AI what to do—you're *showing* it. The model will infer the rules of the pattern (e.g., type hinting, docstrings, clean code) and apply them to the new task.
               </p>
             </section>
@@ -186,15 +186,15 @@ const Lesson1_7: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4">
         {/* Intro Section */}
         <section className="text-center my-8 md:my-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white">Beyond the Basics</h2>
-          <p className="text-lg text-gray-400 mt-3 max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-card-foreground">Beyond the Basics</h2>
+          <p className="text-lg text-muted-foreground mt-3 max-w-3xl mx-auto">
             You've mastered the I.N.S.Y.N.C. framework. Now, let's explore techniques that separate casual users from professional prompt engineers.
           </p>
         </section>
 
         {/* Interactive Tabs for Core Concepts */}
-        <div className="bg-gray-900/70 backdrop-blur-sm rounded-lg border border-gray-700/50 shadow-2xl mb-12">
-          <div className="flex flex-wrap border-b border-gray-700">
+        <div className="bg-card rounded-xl border border-border shadow-sm mb-12">
+          <div className="flex flex-wrap border-b border-border">
             <TabButton active={activeTab === 'intro'} onClick={() => setActiveTab('intro')} icon={<BookOpen size={18} />} label="Introduction" />
             <TabButton active={activeTab === 'deconstruction'} onClick={() => setActiveTab('deconstruction')} icon={<FileText size={18} />} label="Deconstruction" />
             <TabButton active={activeTab === 'pattern-recognition'} onClick={() => setActiveTab('pattern-recognition')} icon={<Sparkles size={18} />} label="Pattern Recognition" />
@@ -209,12 +209,12 @@ const Lesson1_7: React.FC = () => {
         {/* Standalone Advanced Tools Section */}
         <section className="mt-16">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">Advanced Tools Practice</h2>
-            <p className="text-lg text-gray-400 mt-3 max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-card-foreground">Advanced Tools Practice</h2>
+            <p className="text-lg text-muted-foreground mt-3 max-w-3xl mx-auto">
               Apply your knowledge with interactive exercises.
             </p>
           </div>
-          <div className="bg-gray-900/70 backdrop-blur-sm rounded-lg border border-gray-700/50 shadow-2xl">
+          <div className="bg-card rounded-xl border border-border shadow-sm">
             <div className="p-6 md:p-8">
               <AdvancedTools />
             </div>

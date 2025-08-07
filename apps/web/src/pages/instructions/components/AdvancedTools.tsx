@@ -10,7 +10,9 @@ import {
 const TabButton: React.FC<{ active: boolean; onClick: () => void; icon: React.ReactNode; label: string; }> = ({ active, onClick, icon, label }) => (
   <button
     onClick={onClick}
-    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${active ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-700'}`}>
+    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+      active ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
+    }`}>
     {icon}
     <span>{label}</span>
   </button>
@@ -33,9 +35,9 @@ const AdvancedTools: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700 my-6">
-      <h3 className="text-lg font-semibold text-white mb-4">Advanced Tools Playground</h3>
-      <div className="flex space-x-2 border-b border-gray-700 mb-4 pb-2">
+    <div className="bg-card p-6 rounded-xl border border-border shadow-sm my-6">
+      <h3 className="text-lg font-semibold text-card-foreground mb-4">Advanced Tools Playground</h3>
+      <div className="flex space-x-2 border-b border-border mb-4 pb-2">
         <TabButton
           active={activeTab === 'visualizer'}
           onClick={() => setActiveTab('visualizer')}
