@@ -130,4 +130,27 @@
   .setup-guide-container pre > code {
     @apply p-4 block overflow-x-auto text-sm;
   }
+
+  /* Constrain setup guide content to avoid runaway layout */
+  .setup-guide-container {
+    @apply max-w-3xl mx-auto;
+  }
+
+  .setup-guide-container * {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .setup-guide-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .setup-guide-container table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+  }
 }
