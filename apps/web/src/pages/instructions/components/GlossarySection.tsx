@@ -13,19 +13,19 @@ interface GlossarySectionProps {
 
 const GlossarySection: React.FC<GlossarySectionProps> = ({ items }) => {
   return (
-    <div className="my-4 space-y-4">
+    <div className="my-4 space-y-4 bg-card border rounded-lg p-4 text-card-foreground" role="list">
       {items.map((item, index) => (
-        <div key={index} className="bg-gray-800/50 p-4 rounded-lg">
-          <h5 className="font-bold text-white">{item.term}</h5>
-          <p className="text-gray-300 mt-1 mb-2">{item.definition}</p>
+        <div key={index} className="bg-muted p-4 rounded-lg border" role="listitem">
+          <h5 className="font-bold text-foreground">{item.term}</h5>
+          <p className="text-muted-foreground mt-1 mb-2">{item.definition}</p>
           {item.link && (
-            <a 
-              href={item.link} 
-              target="_blank" 
+            <a
+              href={item.link}
+              target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-blue-400 hover:text-blue-300 inline-flex items-center transition-colors"
+              className="text-sm text-primary hover:underline inline-flex items-center transition-colors"
             >
-              Learn More <ExternalLink size={14} className="ml-1.5" />
+              Learn More <ExternalLink size={14} className="ml-1.5" aria-hidden="true" />
             </a>
           )}
         </div>
