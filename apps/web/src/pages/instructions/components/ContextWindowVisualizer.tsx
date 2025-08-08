@@ -17,31 +17,37 @@ const ContextWindowVisualizer = () => {
   }, [tokenCount]);
 
   const getBarColor = () => {
-    if (percentage > 90) return 'bg-red-600';
-    if (percentage > 75) return 'bg-yellow-500';
-    return 'bg-blue-500';
+    if (percentage > 90) return 'bg-destructive';
+    if (percentage > 75) return 'bg-secondary';
+    return 'bg-primary';
   };
 
   return (
-    <div className="p-4 bg-gray-900 rounded-lg border border-gray-700">
-      <h3 className="text-lg font-semibold text-white mb-2">Context Window Visualizer</h3>
-      <p className="text-sm text-gray-400 mb-4">
+    <div className="p-4 bg-card text-card-foreground rounded-lg border">
+      <h3 className="text-lg font-semibold text-foreground mb-2">Context Window Visualizer</h3>
+      <p className="text-sm text-muted-foreground mb-4">
         Paste or type text below to see how it might fill a model's context window. This is a simple approximation where 1 token ≈ 4 characters.
       </p>
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="w-full h-32 p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-200 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        aria-label="Prompt or conversation input"
+        className="w-full h-32 p-2 bg-background border rounded-md text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:outline-none"
         placeholder="Enter your prompt or conversation history here..."
       />
       <div className="mt-4">
-        <div className="flex justify-between items-center text-sm text-gray-300 mb-1">
+        <div className="flex justify-between items-center text-sm text-muted-foreground mb-1">
           <span>Character Count: {charCount}</span>
           <span>Estimated Tokens: {tokenCount} / {MAX_TOKENS}</span>
         </div>
-        <div className="w-full bg-gray-700 rounded-full h-4">
+        <div className="w-full bg-muted rounded-full h-4">
           <div
             className={`h-4 rounded-full transition-all duration-300 ease-in-out ${getBarColor()}`}
+            role="progressbar"
+            aria-label="Context window usage"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.floor(percentage)}
             style={{ width: `${percentage}%` }}
           />
         </div>
