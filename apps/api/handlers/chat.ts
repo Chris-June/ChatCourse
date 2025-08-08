@@ -58,7 +58,15 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
       lastMessage.content = sanitizeInput(lastMessage.content);
     }
 
-    const messagesForAPI = messages.map((msg: { role: 'user' | 'assistant' | 'system', content: string }) => ({
+    // Optionally inject a system guide from 'verbosity' (not an OpenAI parameter)
+    const injectedMessages = [...messages];
+    if (verbosity === 'low') {
+      injectedMessages.unshift({ role: 'system', content: 'Be concise. Prefer brief answers.' });
+    } else if (verbosity === 'high') {
+      injectedMessages.unshift({ role: 'system', content: 'Be detailed. Provide thorough explanations and examples when helpful.' });
+    }
+
+    const messagesForAPI = injectedMessages.map((msg: { role: 'user' | 'assistant' | 'system', content: string }) => ({
       role: msg.role,
       content: msg.content,
     }));
@@ -88,7 +96,7 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
       max_output_tokens: parseInt(process.env.MAX_TOKENS || '512'),
     };
     if (reasoning_effort) base.reasoning = { effort: reasoning_effort };
-    if (verbosity) base.verbosity = verbosity;
+    // Do not send 'verbosity' to OpenAI Responses API (unsupported)
     if (Array.isArray(tools) && tools.length) base.tools = tools;
     if (tool_choice) base.tool_choice = tool_choice;
 
