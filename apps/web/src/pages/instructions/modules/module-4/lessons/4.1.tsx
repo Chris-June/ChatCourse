@@ -250,10 +250,10 @@ if (functionToCall) {
             <p className="text-2xl font-bold text-primary italic">“Function calling is where AI stops being a librarian and becomes a project manager - directing real tools to get real work done.”</p>
         </div>
 
-        <Accordion title="Conceptual Exercise: Guess the Call" icon={<Lightbulb />}>
+        <Accordion title="Conceptual Exercise: Guess the Call" icon={<Lightbulb className="text-amber-400" />}>
           
           <div className="mb-6">
-            <h3 className="font-semibold text-foreground mb-2">Tool Coordination Challenge</h3>
+            <h3 className="font-semibold text-card-foreground mb-2">Tool Coordination Challenge</h3>
             <p className="text-muted-foreground mb-4">
               Imagine you're the AI chef coordinating a kitchen. You have a "schedule_meeting" tool. Write a prompt that tells this tool exactly what meeting to schedule. Think like giving precise instructions to a sous chef!
             </p>
@@ -264,11 +264,11 @@ if (functionToCall) {
           </div>
 
           <div>
-            <h3 className="font-semibold text-foreground mb-2">Reverse Detective Challenge</h3>
+            <h3 className="font-semibold text-card-foreground mb-2">Reverse Detective Challenge</h3>
             <p className="text-muted-foreground mb-4">Here's a completed order ticket from our AI chef to the stock price tool. What customer order (prompt) would have produced this exact ticket? Try asking the AI in the chat window!</p>
             <div className="bg-card p-4 rounded-xl border border-border mb-4">
-              <div className="bg-muted p-3 rounded-md">
-                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-success">{`{
+              <div className="bg-muted border border-border p-3 rounded-md">
+                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-emerald-400">{`{
   "name": "get_stock_price",
   "arguments": { "ticker": "AAPL" }
 }`}</code>
@@ -293,8 +293,8 @@ if (functionToCall) {
           </div>
         </Accordion>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
-          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+        <div className="bg-card border border-border rounded-xl p-4 shadow-sm">
+          <h3 className="font-semibold text-card-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Explain function calling at a high level</li>
             <li>Write a clear function schema with parameters</li>
