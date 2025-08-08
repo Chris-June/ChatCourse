@@ -125,7 +125,7 @@ const InstructionsPage: React.FC = () => {
         <Button onClick={toggleSidebar} variant="ghost" size="icon" className="mr-4">
           <Menu />
         </Button>
-        <h1 className="text-xl font-semibold">I.N.S.Y.N.C. Framework Course</h1>
+        <h1 className="text-xl font-semibold">AI Framework Course</h1>
       </header>
       <div className="flex flex-1 overflow-hidden min-h-0">
         <InstructionsSidebar isOpen={isSidebarOpen} />
