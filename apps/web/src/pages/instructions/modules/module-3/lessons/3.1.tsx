@@ -6,6 +6,8 @@ import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
 import CheckpointQuiz from '../../../components/CheckpointQuiz';
+import ComparisonCard from '../../../components/ComparisonCard';
+import { Sparkles, ListChecks } from 'lucide-react';
 
 const reasoningChallengeChecklist = [
   { id: 'reasoning-1', text: 'Get the AI to correctly identify the odd numbers', completed: false },
@@ -300,6 +302,30 @@ const Lesson3_1: React.FC = () => {
             />
           </div>
         </Accordion>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+          <ComparisonCard
+            title="Zero-shot"
+            icon={<Sparkles className="h-5 w-5" aria-hidden="true" />}
+            points={[
+              'Fastest to try; no examples needed',
+              'Works well for straightforward tasks and clear instructions',
+              'If results are inconsistent, consider moving to few-shot',
+            ]}
+            bgColorClass=""
+          />
+
+          <ComparisonCard
+            title="Few-shot"
+            icon={<ListChecks className="h-5 w-5" aria-hidden="true" />}
+            points={[
+              'Provide a handful of high-quality examples',
+              'Guides output style, structure, and reasoning pattern',
+              'Useful when zero-shot is unreliable for your task',
+            ]}
+            bgColorClass=""
+          />
+        </div>
 
         <div className="bg-muted/30 border border-muted rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
