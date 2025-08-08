@@ -98,14 +98,24 @@ const moduleData = [
   },
 ];
 
-const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
-  const { isLessonUnlocked } = useProgressStore();
+const InstructionsSidebar: React.FC<InstructionsSidebarProps> = ({ isOpen }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [expandedModules, setExpandedModules] = useState<Record<string, boolean>>(() => {
-    const currentModuleId = location.pathname.split('/')[2];
-    return { [currentModuleId]: true };
-  });
+  const { isLessonUnlocked } = useProgressStore();
+  const [expandedModules, setExpandedModules] = useState<Record<string, boolean>>({});
+
+  // Testing bypass: mirror ProtectedRoute behavior
+  let disableGating = false;
+  try {
+    const params = new URLSearchParams(location.search);
+    const unlockParam = params.get('unlock') === '1';
+    const flag = typeof window !== 'undefined' && window.localStorage?.getItem('disable-gating') === '1';
+    disableGating = unlockParam || flag;
+    // Dev auto-bypass: always disable gating in development
+    if (import.meta && import.meta.env && import.meta.env.DEV) {
+      disableGating = true;
+    }
+  } catch {}
 
   const toggleModule = (moduleId: string) => {
     setExpandedModules(prev => ({
@@ -179,7 +189,7 @@ const InstructionsSidebar = ({ isOpen }: InstructionsSidebarProps) => {
                       {module.lessons.map((lesson) => {
                         const moduleNumber = parseInt(module.id.split('-')[1]);
                         const lessonNumber = parseInt(lesson.id.split('.')[1]);
-                        const isLocked = !isLessonUnlocked(moduleNumber, lessonNumber);
+                        const isLocked = !disableGating && !isLessonUnlocked(moduleNumber, lessonNumber);
 
                         return (
                           <Button

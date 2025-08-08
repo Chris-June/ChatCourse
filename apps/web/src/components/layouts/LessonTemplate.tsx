@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useProgressStore } from '../../store/progressStore';
 import { toast } from 'sonner';
 import LessonHeader from './LessonHeader';
@@ -35,6 +35,13 @@ const LessonTemplate: React.FC<LessonTemplateProps> = ({
   const { completeLessonWithScore, isLessonComplete } = useProgressStore();
 
   const lessonIsComplete = isLessonComplete(moduleNumber, lessonNumber);
+
+  // Auto-complete lessons that have no quizzes so users can progress.
+  useEffect(() => {
+    if ((!quizQuestions || quizQuestions.length === 0) && !lessonIsComplete) {
+      completeLessonWithScore(moduleNumber, lessonNumber, 0, 0);
+    }
+  }, [quizQuestions, lessonIsComplete, moduleNumber, lessonNumber, completeLessonWithScore]);
 
   const handleQuizComplete = (score: number, total: number) => {
     if (!lessonIsComplete) {
