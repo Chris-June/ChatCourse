@@ -81,6 +81,10 @@ const ChatInterface = () => {
     }
   }, [theme]);
 
+  // Resolve display model: fallback to GPT-5 Nano if legacy/invalid
+  const displayAllowed = ['gpt-5', 'gpt-5-mini', 'gpt-5-nano'];
+  const displayModel = displayAllowed.includes(model) ? model : 'gpt-5-nano';
+
   const handleStopStreaming = () => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
@@ -113,6 +117,9 @@ const ChatInterface = () => {
       
       console.log('API Endpoint:', endpoint); // For debugging
       
+      const allowedModels = ['gpt-5', 'gpt-5-mini', 'gpt-5-nano'];
+      const safeModel = allowedModels.includes(model) ? model : 'gpt-5-nano';
+
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 
@@ -122,7 +129,7 @@ const ChatInterface = () => {
         signal: abortControllerRef.current.signal,
         body: JSON.stringify({
           messages,
-          model,
+          model: safeModel,
           customInstructions,
           temperature,
           top_p,
@@ -271,7 +278,7 @@ const ChatInterface = () => {
                 }}
               />
               <h1 className="text-xl font-bold">
-                {model.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {displayModel.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
               </h1>
             </div>
           </div>
