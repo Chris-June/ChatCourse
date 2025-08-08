@@ -148,7 +148,7 @@ const Lesson4_2: React.FC = () => {
             />
         </Accordion>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Design prompts that trigger parallel calls for independent tasks</li>

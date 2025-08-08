@@ -102,7 +102,7 @@ const Lesson4_1: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-8 p-4 md:p-6">
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–14 minutes</p>
           <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
@@ -122,7 +122,7 @@ const Lesson4_1: React.FC = () => {
           
           <div className="my-4">
             {/* Placeholder for a visual diagram */}
-            <div className="bg-card p-4 rounded-xl border-2 border-dashed border-border text-center">
+            <div className="bg-card p-4 rounded-xl border border-dashed border-border text-center">
               <p className="text-muted-foreground">[Visual Diagram: Prompt → Function Call JSON → Server Call → Response → Final Message]</p>
             </div>
           </div>
@@ -132,8 +132,8 @@ const Lesson4_1: React.FC = () => {
           
           <h4 className="font-semibold text-foreground mb-2">TypeScript Interface</h4>
           <p className="text-muted-foreground mb-4">First, you might define the data structure in your application code:</p>
-          <div className="bg-muted p-2 rounded-lg mt-1">
-            <code className="block whitespace-pre-wrap break-words font-mono text-muted-foreground">{`interface CreateReminder {
+          <div className="bg-muted/50 border border-border p-3 rounded-md mt-1">
+            <code className="block whitespace-pre-wrap break-words font-mono text-sm text-muted-foreground">{`interface CreateReminder {
   task: string;
   due_date: string;
 }`}</code>
@@ -165,7 +165,7 @@ const Lesson4_1: React.FC = () => {
           </div>
         </Accordion>
 
-        <Accordion title="Why Use Function Calling?" icon={<Lightbulb />}>
+        <Accordion title="Why Use Function Calling?" icon={<Lightbulb className="text-amber-400" />}>
           <div className="space-y-4 text-muted-foreground">
             <p><strong>Think of it like a restaurant kitchen:</strong> The AI is the head chef who can't physically cook, but can perfectly coordinate the kitchen. Function calling gives them specific tools - the oven, the mixer, the thermometer - and they tell each tool exactly what to do.</p>
             <ul className="list-disc pl-5 space-y-2">
@@ -178,7 +178,7 @@ const Lesson4_1: React.FC = () => {
         </Accordion>
 
         <Accordion title="How it Works" icon={<Terminal />}>
-          <h2 className="text-2xl font-semibold mb-4 text-primary">Why is it a Game-Changer?</h2>
+          <h3 className="text-xl font-semibold mb-4 text-card-foreground">Why is it a Game-Changer?</h3>
           
           <h3 className="text-xl font-semibold text-foreground mt-6 mb-4">Real-World Examples by Industry</h3>
           <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
@@ -190,7 +190,7 @@ const Lesson4_1: React.FC = () => {
 
           <h3 className="text-xl font-semibold text-foreground mt-6 mb-4">Security Considerations</h3>
           <p className="text-muted-foreground mb-2">Never blindly execute functions based on model output. Always:</p>
-          <ul className="list-disc pl-5 space-y-2 text-destructive">
+          <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
             <li><strong>Validate Arguments:</strong> Ensure the arguments provided by the model are of the correct type and within expected ranges.</li>
             <li><strong>Confirm Actions:</strong> For sensitive operations (e.g., sending an email, deleting data), ask the user for confirmation before executing the function.</li>
           </ul>
@@ -212,11 +212,11 @@ const Lesson4_1: React.FC = () => {
         </Accordion>
 
         <Accordion title="Implementation Patterns">
-          <h2 className="text-2xl font-semibold mb-4 text-primary">Implementation Patterns</h2>
-          <h3 className="text-xl font-semibold text-white mb-2">Function Router Pattern</h3>
+          <h3 className="text-xl font-semibold mb-4 text-card-foreground">Implementation Patterns</h3>
+          <h3 className="text-xl font-semibold text-card-foreground mb-2">Function Router Pattern</h3>
           <p className="text-muted-foreground mb-4">To handle multiple functions, create a dispatcher that maps the function name from the model to your actual backend logic.</p>
-          <div className="bg-muted p-2 rounded-lg mt-1">
-            <code className="block whitespace-pre-wrap break-words font-mono text-muted-foreground">{`// Your app's function registry
+          <div className="bg-muted/50 border border-border p-3 rounded-md mt-1">
+            <code className="block whitespace-pre-wrap break-words font-mono text-sm text-muted-foreground">{`// Your app's function registry
 const availableFunctions = {
   create_reminder: createReminder, // your actual function
   get_weather: getWeather,       // your actual function
@@ -246,14 +246,14 @@ if (functionToCall) {
           />
         </Accordion>
 
-        <div className="bg-primary/10 text-center p-6 rounded-xl shadow-lg border border-primary/30">
-            <p className="text-2xl font-bold text-primary italic">“Function calling is where AI stops being a librarian and becomes a project manager - directing real tools to get real work done.”</p>
+        <div className="bg-card text-center p-6 rounded-xl shadow-sm border border-border">
+            <p className="text-2xl font-bold text-card-foreground italic">“Function calling is where AI stops being a librarian and becomes a project manager - directing real tools to get real work done.”</p>
         </div>
 
-        <Accordion title="Conceptual Exercise: Guess the Call" icon={<Lightbulb />}>
+        <Accordion title="Conceptual Exercise: Guess the Call" icon={<Lightbulb className="text-amber-400" />}>
           
           <div className="mb-6">
-            <h3 className="font-semibold text-foreground mb-2">Tool Coordination Challenge</h3>
+            <h3 className="font-semibold text-card-foreground mb-2">Tool Coordination Challenge</h3>
             <p className="text-muted-foreground mb-4">
               Imagine you're the AI chef coordinating a kitchen. You have a "schedule_meeting" tool. Write a prompt that tells this tool exactly what meeting to schedule. Think like giving precise instructions to a sous chef!
             </p>
@@ -264,37 +264,37 @@ if (functionToCall) {
           </div>
 
           <div>
-            <h3 className="font-semibold text-foreground mb-2">Reverse Detective Challenge</h3>
+            <h2 className="font-bold text-foreground mb-2">Reverse Detective Challenge</h2>
             <p className="text-muted-foreground mb-4">Here's a completed order ticket from our AI chef to the stock price tool. What customer order (prompt) would have produced this exact ticket? Try asking the AI in the chat window!</p>
-            <div className="bg-card p-4 rounded-xl border border-border mb-4">
-              <div className="bg-muted p-3 rounded-md">
-                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-success">{`{
+            <div className="bg-card p-4 rounded-xl border border-dashed border-border mb-4">
+              <div className="bg-muted border border-dashed border-border p-3 rounded-md">
+                <code className="block whitespace-pre-wrap break-words font-mono text-sm text-muted-foreground">{`{
   "name": "get_stock_price",
   "arguments": { "ticker": "AAPL" }
 }`}</code>
               </div>
             </div>
             {/* InlineChat for reverse engineering function calls with a focus on stock price queries */}
-            <InlineChat 
-              moduleId="module-4.1-stock-price"
-              placeholder='What prompt makes the AI call the get_stock_price function for Apple?'
-              systemPrompt="You are a helpful assistant that helps users understand how to properly structure prompts to trigger specific function calls. When the user provides a prompt, analyze whether it would correctly trigger the 'get_stock_price' function with the appropriate ticker symbol. Provide guidance on how to improve the prompt if needed."
-              initialMessages={[
-                {
-                  role: 'assistant',
-                  content: 'I can help you craft a prompt that will trigger the get_stock_price function. Try asking me something like: "What is the current stock price of Apple?" or "Can you get me the latest AAPL stock price?"'
-                }
-              ]}
-              simulatedResponse={`{\n  "name": "get_stock_price",\n  "arguments": { "ticker": "AAPL" }\n}`}
-              challengeChecklist={stockPriceChecklist}
-              maxAttempts={3}
-              maxFollowUps={2}
-            />
+          <InlineChat 
+            moduleId="module-4.1-stock-price"
+            placeholder='What prompt makes the AI call the get_stock_price function for Apple?'
+            systemPrompt="You are a helpful assistant that helps users understand how to properly structure prompts to trigger specific function calls. When the user provides a prompt, analyze whether it would correctly trigger the 'get_stock_price' function with the appropriate ticker symbol. Provide guidance on how to improve the prompt if needed."
+            initialMessages={[
+              {
+                role: 'assistant',
+                content: 'I can help you craft a prompt that will trigger the get_stock_price function. Try asking me something like: "What is the current stock price of Apple?" or "Can you get me the latest AAPL stock price?"'
+              }
+            ]}
+            simulatedResponse={`{\n  "name": "get_stock_price",\n  "arguments": { "ticker": "AAPL" }\n}`}
+            challengeChecklist={stockPriceChecklist}
+            maxAttempts={3}
+            maxFollowUps={2}
+          />
           </div>
         </Accordion>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
-          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+        <div className="bg-card border border-border rounded-xl p-4 shadow-sm">
+          <h3 className="font-semibold text-card-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Explain function calling at a high level</li>
             <li>Write a clear function schema with parameters</li>

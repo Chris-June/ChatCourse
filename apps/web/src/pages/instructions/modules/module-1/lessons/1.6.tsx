@@ -65,27 +65,27 @@ const Lesson1_6: React.FC = () => {
       subtitle="Put your knowledge to the test with a hands-on challenge."
       quizQuestions={quizQuestions}
     >
-      <div className="space-y-8 text-gray-200">
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-green-300 flex items-center">
-            <Wrench className="w-7 h-7 mr-3 text-green-400" />
+      <div className="space-y-8 text-foreground">
+        <div className="bg-card p-6 rounded-xl border border-border">
+          <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
+            <Wrench className="w-6 h-6 mr-3 text-primary" />
             Time to Get Your Hands Dirty
           </h2>
-          <p className="text-gray-300 mb-4">
+          <p className="text-muted-foreground mb-4">
             Theory is great, but practice is where skills are built. In this workshop, you'll use the I.N.S.Y.N.C. framework to tackle a practical challenge. There's no single "right" answer; the goal is to experiment and see how each element of the framework changes the AI's output.
           </p>
-          <div className="bg-gray-900 p-4 rounded-lg border border-green-500/50">
-            <h3 className="text-lg font-semibold text-green-200">Your Challenge: The Travel Itinerary</h3>
-            <p className="text-gray-300 mt-2">
+          <div className="bg-muted p-4 rounded-lg border border-border">
+            <h3 className="text-lg font-semibold text-card-foreground">Your Challenge: The Travel Itinerary</h3>
+            <p className="text-muted-foreground mt-2">
               Your task is to generate a <strong>3-day travel itinerary for a weekend trip to Tokyo</strong>. Use the chat interface below to craft a prompt. Your goal is to get a useful, creative, and personalized itinerary.
             </p>
           </div>
         </div>
 
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-300">Applying I.N.S.Y.N.C.</h2>
-          <p className="text-gray-300 mb-4">Before you start typing, think through the framework:</p>
-          <ul className="space-y-3 text-gray-300 list-disc list-inside">
+        <div className="bg-card p-6 rounded-xl border border-border">
+          <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Applying I.N.S.Y.N.C.</h2>
+          <p className="text-muted-foreground mb-4">Before you start typing, think through the framework:</p>
+          <ul className="space-y-3 text-muted-foreground list-disc list-inside">
             <li><strong>Intent:</strong> What's the main goal? (e.g., "Create a 3-day itinerary for Tokyo")</li>
             <li><strong>Nuance:</strong> What are your specific interests? (e.g., "...focusing on anime, technology, and traditional temples.") What are your constraints? (e.g., "...with a budget of $150 per day.")</li>
             <li><strong>Style:</strong> What tone should the AI use? (e.g., "Write in an enthusiastic and friendly tone.")</li>
@@ -93,13 +93,13 @@ const Lesson1_6: React.FC = () => {
             <li><strong>Narrative Format:</strong> How should the output be structured? (e.g., "Format the output as a day-by-day schedule with morning, afternoon, and evening activities, including travel times.")</li>
             <li><strong>Context:</strong> Any other key info? (e.g., "I am a solo traveler in my late 20s and enjoy photography.")</li>
           </ul>
-          <p className="text-gray-300 mt-4">Combine these elements to build a powerful prompt. The more specific you are, the better the result will be.</p>
+          <p className="text-muted-foreground mt-4">Combine these elements to build a powerful prompt. The more specific you are, the better the result will be.</p>
         </div>
 
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300">Applying I.N.S.Y.N.C. - Example 2: The Cover Letter</h2>
-          <p className="text-gray-300 mb-4">Here's how you might break down a request to write a cover letter:</p>
-          <ul className="space-y-3 text-gray-300 list-disc list-inside">
+        <div className="bg-card p-6 rounded-xl border border-border">
+          <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Applying I.N.S.Y.N.C. - Example 2: The Cover Letter</h2>
+          <p className="text-muted-foreground mb-4">Here's how you might break down a request to write a cover letter:</p>
+          <ul className="space-y-3 text-muted-foreground list-disc list-inside">
             <li><strong>Intent:</strong> "Write a cover letter for a job application."</li>
             <li><strong>Nuance:</strong> "...for the Senior Product Manager role at Acme Inc. Emphasize my 5 years of experience in B2B SaaS and my skills in roadmap planning."</li>
             <li><strong>Style:</strong> "Use a professional, confident, and slightly formal tone."</li>
@@ -109,10 +109,10 @@ const Lesson1_6: React.FC = () => {
           </ul>
         </div>
 
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-purple-300">Applying I.N.S.Y.N.C. - Example 3: The Social Media Campaign</h2>
-          <p className="text-gray-300 mb-4">Let's try a more creative task, like brainstorming marketing ideas:</p>
-          <ul className="space-y-3 text-gray-300 list-disc list-inside">
+        <div className="bg-card p-6 rounded-xl border border-border">
+          <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Applying I.N.S.Y.N.C. - Example 3: The Social Media Campaign</h2>
+          <p className="text-muted-foreground mb-4">Let's try a more creative task, like brainstorming marketing ideas:</p>
+          <ul className="space-y-3 text-muted-foreground list-disc list-inside">
             <li><strong>Intent:</strong> "Brainstorm ideas for a social media campaign."</li>
             <li><strong>Nuance:</strong> "...for a new brand of eco-friendly, compostable coffee pods. The campaign should run on Instagram and TikTok, targeting millennials aged 25-35."</li>
             <li><strong>Style:</strong> "The ideas should be creative, witty, and engaging."</li>

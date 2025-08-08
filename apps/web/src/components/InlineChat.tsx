@@ -388,7 +388,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
     const isInteractionDisabled = isLoading || rateLimited || (maxFollowUps ? userFollowUps >= maxFollowUps : false);
 
     return (
-      <div className={`bg-card/80 p-4 rounded-2xl border border-border`}>
+      <div className={`bg-card border border-border rounded-xl p-4 shadow-sm`}>
         {checklist && checklist.length > 0 && (
           <div className="mb-4 p-3 bg-background/50 rounded-xl border border-border">
             <h4 className="font-semibold text-white mb-2">Challenge Checklist</h4>

@@ -196,8 +196,8 @@ const Lesson2_2: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-card p-6 rounded-xl shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-primary">Putting It All Together: Final Challenge</h2>
+        <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
+          <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Putting It All Together: Final Challenge</h2>
           <p className="text-muted-foreground mb-4">
             Now, apply all the techniques you've learned. Start by summarizing the goal regularly to keep the AI focused on your objective. Use explicit references to direct the AI to specific details, like saying 'Make the second headline you suggested more inspiring by focusing on the mission to unlock human creativity' instead of 'Make it better.' Build on previous ideas by referencing them explicitly, and start fresh when the conversation becomes confused or off-track.
           </p>

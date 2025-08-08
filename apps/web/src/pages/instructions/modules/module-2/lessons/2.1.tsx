@@ -78,8 +78,8 @@ const Lesson2_1: React.FC = () => {
           Have you ever had a conversation where you had to keep repeating yourself? It's frustrating. The same is true when talking to an AI. The key to a smooth, intelligent conversation is understanding and managing its 'memory'—what we call the <strong>context window</strong>.
         </p>
 
-        <section className="bg-card p-6 rounded-xl shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-primary flex items-center">
+        <section className="bg-card p-6 rounded-xl border border-border shadow-sm">
+          <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
             <BrainCircuit className="w-7 h-7 mr-3 text-primary" />
             What is a Context Window?
           </h2>
@@ -89,8 +89,8 @@ const Lesson2_1: React.FC = () => {
           <RollingWhiteboard />
         </section>
 
-        <section className="bg-card p-6 rounded-xl shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-primary flex items-center">
+        <section className="bg-card p-6 rounded-xl border border-border shadow-sm">
+          <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
             <MessageSquare className="w-7 h-7 mr-3 text-primary" />
             Why It's Your Most Powerful Tool
           </h2>

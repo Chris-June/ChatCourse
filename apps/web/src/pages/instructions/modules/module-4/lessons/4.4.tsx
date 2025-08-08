@@ -204,7 +204,7 @@ const Lesson4_4: React.FC = () => {
             <strong>Real-World Application:</strong> These three elements combine to create your perfect AI sidekick, ready for any mission, but always operating within ethical boundaries.
           </p>
           <div className="bg-muted p-4 rounded-lg border border-border mt-4">
-            <h5 className="font-semibold text-primary mb-2">Ethical AI Development Framework</h5>
+            <h5 className="font-semibold text-card-foreground mb-2">Ethical AI Development Framework</h5>
             <ul className="list-disc pl-5 space-y-1 text-muted-foreground text-sm">
               <li><strong>Transparency:</strong> Always disclose when users are interacting with AI</li>
               <li><strong>Privacy:</strong> Handle user data with the care of a trusted confidant</li>
@@ -215,7 +215,7 @@ const Lesson4_4: React.FC = () => {
           </div>
         </Accordion>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Describe a GPT’s building blocks and when to use each</li>
@@ -250,10 +250,10 @@ const Lesson4_4: React.FC = () => {
         />
 
         <Accordion title="Further Reading & Resources" icon={<BookOpen />}>
-          <ul className="list-disc pl-5 space-y-2 text-primary">
-            <li><a href="#" className="hover:underline">Official OpenAI Documentation on GPTs</a></li>
-            <li><a href="#" className="hover:underline">Best Practices for Retrieval-Augmented Generation (RAG)</a></li>
-            <li><a href="#" className="hover:underline">Building a GPT from Scratch: A Video Tutorial</a></li>
+          <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+            <li><a href="#" className="text-primary hover:underline">Official OpenAI Documentation on GPTs</a></li>
+            <li><a href="#" className="text-primary hover:underline">Best Practices for Retrieval-Augmented Generation (RAG)</a></li>
+            <li><a href="#" className="text-primary hover:underline">Building a GPT from Scratch: A Video Tutorial</a></li>
           </ul>
         </Accordion>
       </div>

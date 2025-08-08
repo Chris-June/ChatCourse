@@ -143,7 +143,7 @@ export default function Lesson6_3() {
       subtitle="How to measure, test, and refine your AI to turn a good product into a great one."
     >
       <div className="space-y-6 text-card-foreground">
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <p className="text-xs text-muted-foreground mb-2">Estimated time: 12–16 minutes</p>
           <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
@@ -246,7 +246,7 @@ export default function Lesson6_3() {
           />
         </div>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Define a clear goal and single high-signal metric</li>

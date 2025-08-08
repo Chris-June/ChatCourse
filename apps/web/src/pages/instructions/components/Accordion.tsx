@@ -14,21 +14,21 @@ const Accordion: React.FC<AccordionProps> = ({ title, icon, children, isInitiall
   const [isOpen, setIsOpen] = useState(isInitiallyOpen && !isDisabled);
 
   return (
-    <div className={`bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700 ${isDisabled ? 'opacity-60' : ''}`}>
+    <div className={`bg-card rounded-xl shadow-sm overflow-hidden border border-border ${isDisabled ? 'opacity-60' : ''}`}>
       <button
         onClick={() => !isDisabled && setIsOpen(!isOpen)}
         disabled={isDisabled}
-        className="w-full flex justify-between items-center p-4 text-left bg-gray-900/50 hover:bg-gray-700/50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:hover:bg-gray-900/50"
+        className="w-full flex justify-between items-center p-4 text-left bg-muted hover:bg-muted/80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:hover:bg-muted"
       >
         <div className="flex items-center">
-          {icon && <div className="mr-3 text-blue-400">{icon}</div>}
-          <h2 className={`text-xl font-semibold ${isDisabled ? 'text-gray-500' : 'text-blue-300'}`}>{title}</h2>
+          {icon && <div className="mr-3 text-primary">{icon}</div>}
+          <h2 className={`text-xl font-semibold ${isDisabled ? 'text-muted-foreground' : 'text-card-foreground'}`}>{title}</h2>
         </div>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
         >
-          <ChevronDown className={`w-6 h-6 ${isDisabled ? 'text-gray-600' : 'text-gray-400'}`} />
+          <ChevronDown className={`w-6 h-6 ${isDisabled ? 'text-muted-foreground/60' : 'text-muted-foreground'}`} />
         </motion.div>
       </button>
       <AnimatePresence initial={false}>

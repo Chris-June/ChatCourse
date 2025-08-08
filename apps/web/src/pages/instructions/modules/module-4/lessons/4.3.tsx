@@ -81,7 +81,7 @@ const Lesson4_3: React.FC = () => {
       quizQuestions={quizQuestions}
     >
       <div className="space-y-6 p-4 md:p-6">
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–14 minutes</p>
           <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
@@ -122,7 +122,7 @@ const Lesson4_3: React.FC = () => {
           </div>
         </Accordion>
 
-        <Accordion title="Your Turn: Use a Custom Weather Tool" icon={<Lightbulb />}>
+        <Accordion title="Your Turn: Use a Custom Weather Tool" icon={<Lightbulb className="text-amber-400" />}>
           <p className="text-muted-foreground mb-4">
             Let's test your new tool-building skills. Imagine you've created a weather-checking robot that needs one piece of information: which city to investigate. This robot (our `get_weather` tool) has been trained to understand your exact instructions and deliver precise weather reports.
           </p>
@@ -146,7 +146,7 @@ const Lesson4_3: React.FC = () => {
           />
         </Accordion>
         
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Draft a high‑quality tool schema (name, description, parameters)</li>

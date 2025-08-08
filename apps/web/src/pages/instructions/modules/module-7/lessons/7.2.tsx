@@ -139,7 +139,7 @@ function Lesson7_2() {
       subtitle="Learn how to give your LLM a library card. Retrieval-Augmented Generation (RAG) grounds your model in facts, preventing it from making things up."
       quizQuestions={quizQuestions}
     >
-      <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
+      <div className="bg-muted/30 border border-border rounded-xl p-4 mb-6">
         <p className="text-xs text-muted-foreground mb-2">Estimated time: 14–18 minutes</p>
         <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
         <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
@@ -178,7 +178,7 @@ function Lesson7_2() {
             <p className="mb-4 text-muted-foreground">
               The RAG process is a three-step flow that turns a simple question into a fact-based, reliable answer. Explore the visualizer to see how a user's query travels through the system.
             </p>
-            <div className="p-4 border rounded-lg bg-card">
+            <div className="p-4 border border-border rounded-lg bg-card">
               <RagFlowVisualizer />
             </div>
           </AccordionContent>
@@ -187,7 +187,7 @@ function Lesson7_2() {
         <AccordionItem value="item-3">
           <AccordionTrigger>
             <div className="flex items-center">
-              <Lightbulb className="w-5 h-5 mr-3 text-primary" />
+              <Lightbulb className="w-5 h-5 mr-3 text-amber-400" />
               When to Use RAG
             </div>
           </AccordionTrigger>
@@ -195,7 +195,7 @@ function Lesson7_2() {
             <p className="mb-4 text-muted-foreground">
               RAG is a powerful technique, but it's not the solution for every problem. It shines when you need to ground your AI in specific, factual, and up-to-date information. Explore some common use cases where RAG is the perfect fit.
             </p>
-            <div className="p-4 border rounded-lg bg-card">
+            <div className="p-4 border border-border rounded-lg bg-card">
               <RagUseCases />
             </div>
           </AccordionContent>
@@ -229,7 +229,7 @@ function Lesson7_2() {
             <p className="mb-4 text-muted-foreground">
               The final step in the RAG flow is the prompt. A well-crafted prompt is crucial for ensuring the model uses the retrieved context correctly. Use the chat below to refine a prompt with the help of an expert AI critic. Your goal is to satisfy all the requirements on the checklist.
             </p>
-            <div className="p-4 border rounded-lg bg-card">
+            <div className="p-4 border border-border rounded-lg bg-card">
               <InlineChat
                 moduleId="rag-prompt-critic"
                 systemPrompt={ragPromptValidator}
@@ -240,7 +240,7 @@ function Lesson7_2() {
           </AccordionContent>
         </AccordionItem>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Explain RAG in simple terms</li>

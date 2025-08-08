@@ -83,7 +83,7 @@ const Lesson1_1: React.FC = () => {
       <section className="space-y-6">
         <div className="p-6 bg-card rounded-xl border">
           <h2 className="text-2xl font-semibold text-card-foreground mb-4 flex items-center">
-            <Lightbulb className="w-6 h-6 mr-3 text-primary" />
+            <Lightbulb className="w-6 h-6 mr-3 text-amber-400" />
             The Core Idea: A Super-Powered Autocomplete
           </h2>
           <p className="text-muted-foreground mb-4">
@@ -92,7 +92,7 @@ const Lesson1_1: React.FC = () => {
           <p className="text-muted-foreground mb-4">
             Imagine you're typing a message on your phone, and your keyboard suggests the next word—"Hi, how are..." becomes "you?" That’s autocomplete. LLMs are like autocomplete on steroids, trained on vast amounts of text data to predict what comes next with astonishing fluency. But instead of just suggesting a word or two, they can generate full essays, answer complex questions, write code, and simulate conversations. All of this power comes from one core idea:
           </p>
-          <blockquote className="border-l-4 border-primary pl-4 py-2 bg-primary/10 text-primary-foreground">
+          <blockquote className="border-l-4 border-primary pl-4 py-2 bg-primary/10 text-foreground rounded-lg">
             <p className="font-medium">
               Given a sequence of text, an LLM is trained to predict the next most likely word (or token).
             </p>
@@ -101,18 +101,18 @@ const Lesson1_1: React.FC = () => {
 
         <div className="p-6 bg-card rounded-xl border">
           <h2 className="text-2xl font-semibold text-card-foreground mb-4 flex items-center">
-            <BrainCircuit className="w-6 h-6 mr-3 text-primary" />
+            <BrainCircuit className="w-6 h-6 mr-3 text-sky-400" />
             How Do They 'Think'? Tokens and Probability
           </h2>
           <p className="text-muted-foreground mb-4">
             Think of your favorite messaging app. When you start typing a word, it often suggests what you might say next. LLMs operate on a similar principle, but on a planetary scale. They aren’t “thinking” in the human sense; they are running a sophisticated statistical analysis to predict the next most likely word based on the trillions of sentences they’ve been trained on.
           </p>
           <p className="text-muted-foreground mb-4">
-            A <strong>token</strong> is the smallest chunk of text the model processes. It might be a whole word (like <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded">dog</code>), a part of a word (like <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded">un-</code>), or even a punctuation mark. Tokenization helps standardize how input is processed across languages and writing styles.
+            A <strong>token</strong> is the smallest chunk of text the model processes. It might be a whole word (like <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded-md">dog</code>), a part of a word (like <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded-md">un-</code>), or even a punctuation mark. Tokenization helps standardize how input is processed across languages and writing styles.
           </p>
           <p className="text-muted-foreground mb-4">
-            Let’s take the phrase <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded">"Prompt engineering is cool"</code>. Depending on the tokenizer, it might be split into tokens like:
-            <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded">[Prompt]</code>, <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded">[ engineering]</code>, <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded">[ is]</code>, <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded">[ cool]</code>.
+            Let’s take the phrase <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded-md">"Prompt engineering is cool"</code>. Depending on the tokenizer, it might be split into tokens like:
+            <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded-md">[Prompt]</code>, <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded-md">[ engineering]</code>, <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded-md">[ is]</code>, <code className="bg-muted text-muted-foreground px-1 py-0.5 rounded-md">[ cool]</code>.
           </p>
           <p className="text-muted-foreground mb-4">
             Once text is tokenized, the model’s job is to determine what token is likely to come next. To do this, it references an internal “probability distribution”—a massive statistical model built during training. Given a prompt, the model evaluates all possible next tokens and chooses the one with the highest probability.
@@ -139,10 +139,11 @@ const Lesson1_1: React.FC = () => {
 
         <div className="p-6 bg-card rounded-xl border">
           <h2 className="text-2xl font-semibold text-card-foreground mb-4 flex items-center">
-            <Puzzle className="w-6 h-6 mr-3 text-accent" />
+            <Puzzle className="w-6 h-6 mr-3 text-violet-400" />
             Talk to the AI: Apply Your Knowledge
           </h2>
-          <p className="text-muted-foreground mb-4">
+          
+        <p className="text-muted-foreground mb-4">
             Now that you understand what tokens are, try talking to the AI below. Ask it a question about tokenization, or give it a simple prompt and see how it responds. This is a great way to get a feel for how your words directly influence the AI.
           </p>
           <InlineChat 

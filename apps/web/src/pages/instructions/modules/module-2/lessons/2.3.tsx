@@ -163,7 +163,7 @@ const Lesson2_3: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-card p-6 rounded-xl shadow-lg">
+        <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
           <h3 className="text-xl font-semibold text-card-foreground mb-3">Exemplar Transcript (3 turns)</h3>
           <div className="bg-muted p-3 rounded-md">
             <code className="block whitespace-pre-wrap break-words font-mono text-sm text-foreground">
@@ -175,7 +175,7 @@ AI (Gnosi): If we think of a function calling itself, what must be true to stop 
           </div>
         </div>
 
-        <section className="bg-card p-6 rounded-xl shadow-lg border-2 border-dashed border-primary/50">
+        <section className="bg-card p-6 rounded-xl border border-border shadow-sm">
           <p className="text-muted-foreground mb-4">
             <strong>Project Objective:</strong> Create a Socratic tutor persona that guides users through learning concepts by asking thoughtful questions rather than providing direct answers. Your system prompt should establish this role clearly and provide specific instructions on how to respond.
           </p>

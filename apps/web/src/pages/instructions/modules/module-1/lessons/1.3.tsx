@@ -59,8 +59,8 @@ const HallucinationGame: React.FC = () => {
   const isCorrect = guess !== null && (guess === 'fact' ? !currentStatement.isHallucination : currentStatement.isHallucination);
 
   return (
-    <div className="bg-card border p-6 rounded-xl my-6">
-      <h3 className="text-xl font-bold text-primary mb-4 flex items-center"><HelpCircle className="mr-3"/>The Hallucination Game</h3>
+    <div className="bg-card p-6 rounded-xl my-6 border border-border">
+      <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-center"><HelpCircle className="w-6 h-6 mr-3 text-sky-400"/>The Hallucination Game</h3>
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
@@ -75,8 +75,8 @@ const HallucinationGame: React.FC = () => {
 
       {!showResult ? (
         <div className="flex justify-center space-x-4 mt-4">
-          <button onClick={() => handleGuess('fact')} className="bg-success hover:bg-success/90 text-success-foreground font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105">Fact</button>
-          <button onClick={() => handleGuess('hallucination')} className="bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105">Hallucination</button>
+          <button onClick={() => handleGuess('fact')} className="bg-success hover:bg-success/90 text-success-foreground font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">Fact</button>
+          <button onClick={() => handleGuess('hallucination')} className="bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">Hallucination</button>
         </div>
       ) : (
         <motion.div 
@@ -162,7 +162,7 @@ const Lesson1_3: React.FC = () => {
       subtitle="Understanding and identifying AI-generated misinformation."
       quizQuestions={quizQuestions}
     >
-      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+      <section className="mb-6 bg-muted/30 border border-border rounded-xl p-4">
         <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–15 minutes</p>
         <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
         <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -172,16 +172,16 @@ const Lesson1_3: React.FC = () => {
           <li>Healthy verification habits for critical tasks</li>
         </ul>
       </section>
-      <div className="bg-card p-6 rounded-xl shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-primary flex items-center">
-          <Lightbulb className="w-7 h-7 mr-3 text-primary" />
+      <div className="bg-card p-6 rounded-xl border border-border">
+        <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
+          <Lightbulb className="w-6 h-6 mr-3 text-amber-400" />
           The Confident Robot Problem
         </h2>
         <p className="text-lg text-muted-foreground mb-4">
           You've seen that AI is a powerful prediction engine. But what happens when its predictions go wrong? This leads to one of the most important and sometimes frustrating concepts in AI: <strong>hallucinations</strong>.
         </p>
-        <div className="bg-muted p-4 rounded-lg border border-primary/20">
-          <p className="text-lg text-center font-semibold text-primary">
+        <div className="bg-muted p-4 rounded-lg border border-border">
+          <p className="text-lg text-center font-semibold text-foreground">
             "I am 99.9% confident that the capital of Australia is Sydney."
           </p>
         </div>
@@ -192,7 +192,7 @@ const Lesson1_3: React.FC = () => {
 
       <HallucinationGame />
 
-      <div className="bg-card p-6 rounded-xl shadow-lg">
+      <div className="bg-card p-6 rounded-xl border border-border">
         <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
           Why Do They Really Happen?
         </h2>
@@ -204,7 +204,7 @@ const Lesson1_3: React.FC = () => {
         </p>
       </div>
 
-      <div className="bg-card p-6 rounded-xl shadow-lg">
+      <div className="bg-card p-6 rounded-xl border border-border">
         <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
           How to Mitigate Hallucinations
         </h2>
@@ -233,7 +233,7 @@ const Lesson1_3: React.FC = () => {
         ]}
       />
 
-      <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+      <section className="mt-6 bg-muted/30 border border-border rounded-xl p-4">
         <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
         <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
           <li>Define hallucinations in plain language</li>

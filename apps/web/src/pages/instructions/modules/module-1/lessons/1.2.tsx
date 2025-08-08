@@ -30,7 +30,7 @@ const InteractiveTokenizer = () => {
   };
 
   return (
-    <div className="bg-card p-6 rounded-xl border border-muted mb-6 my-8">
+    <div className="bg-card p-6 rounded-xl border border-border mb-6 my-8">
       <h4 className="text-lg font-semibold text-card-foreground mb-4">Interactive Tokenizer Demo</h4>
       <p className="text-muted-foreground mb-4 text-sm">
         Type in the box below to see how your text gets broken down into tokens. This is a fundamental step in how LLMs process language.
@@ -42,7 +42,7 @@ const InteractiveTokenizer = () => {
         value={inputText}
         onChange={handleInputChange}
         id="tokenizer-input"
-        className="w-full h-24 bg-muted border rounded-md p-3 text-foreground focus:ring-2 focus:ring-primary transition"
+        className="w-full h-24 bg-muted border border-input rounded-md p-3 text-foreground focus:ring-2 focus:ring-primary transition"
         placeholder="Enter text to tokenize..."
       />
       <div className="flex justify-end mt-3">
@@ -53,7 +53,7 @@ const InteractiveTokenizer = () => {
           Visualize Tokenization
         </button>
       </div>
-      <div className="mt-4 pt-4 border-t border">
+      <div className="mt-4 pt-4 border-t border-border">
         <h5 className="text-base font-medium text-card-foreground mb-3">Tokens:</h5>
         <div className="flex flex-wrap gap-2">
           {tokens.map((token, index) => (
@@ -140,10 +140,10 @@ const Lesson1_2: React.FC = () => {
       </section>
       <section>
         <h3 className="text-2xl font-semibold text-foreground mb-4">The Building Blocks: Tokens</h3>
-        <p className="text-gray-300 mb-4">
+        <p className="text-muted-foreground mb-4">
           Before an AI can understand your prompt, it needs to break it down into smaller pieces. These pieces are called <strong>tokens</strong>. A token can be a word, a part of a word, a number, or even just a punctuation mark. For example, the sentence "AI is powerful" might be broken down into three tokens: `["AI", "is", "powerful"]`.
         </p>
-        <p className="text-gray-300 mb-4">
+        <p className="text-muted-foreground mb-4">
           However, a more complex word like "tokenization" might be broken into multiple tokens, such as `["token", "ization"]`. This allows the model to understand and build new words it hasn't seen before.
         </p>
         <div className="bg-muted p-4 rounded-xl border">
@@ -154,15 +154,15 @@ const Lesson1_2: React.FC = () => {
         </div>
 
         <InteractiveTokenizer />
-
       </section>
 
       <section className="mt-8">
+        <div className="p-6 bg-card rounded-xl border">
         <h3 className="text-2xl font-semibold text-foreground mb-4">The Engine of Creation: Next-Token Prediction</h3>
-        <p className="text-gray-300 mb-4">
+        <p className="text-muted-foreground mb-4">
           So, why are tokens so important? Because at its core, a Large Language Model (LLM) is a <strong>next-token prediction engine</strong>. Its fundamental job is to look at a sequence of tokens and predict which token is most likely to come next.
         </p>
-        <p className="text-gray-300 mb-4">
+        <p className="text-muted-foreground mb-4">
           When you give the AI a prompt, it tokenizes your input and then runs a simple, powerful loop:
         </p>
         <ol className="list-decimal list-inside bg-muted p-4 rounded-xl space-y-2 text-muted-foreground">
@@ -171,9 +171,24 @@ const Lesson1_2: React.FC = () => {
           <li>Choose the most likely token and add it to the sequence.</li>
           <li>Repeat the process until the response is complete.</li>
         </ol>
-        <p className="text-gray-300 mb-4">
+        <p className="text-muted-foreground mb-4">
           Every amazing essay, complex piece of code, or creative story an AI generates is built one token at a time through this predictive process. This is why your prompt is so critical—it sets the starting conditions and guides the AI's predictions, making your desired output the most probable outcome.
         </p>
+        </div>
+      </section>
+
+      <section className="mt-8">
+        <div className="p-6 bg-card rounded-xl border">
+        <h3 className="text-2xl font-semibold text-foreground mb-4">Challenge: Guide the Predictor</h3>
+        <p className="text-muted-foreground mb-4">
+          Now it's time to apply what you've learned. Your challenge is to write a prompt that steers the AI's next-token prediction. Start a sentence or a question and see if you can get the AI to complete it in a specific way. For example, try starting with "The best way to learn prompt engineering is..." and see what it predicts.
+        </p>
+        <InlineChat 
+          moduleId="lesson-1.2-chat"
+          systemPrompt="You are a helpful AI assistant demonstrating next-token prediction. Your goal is to complete the user's sentence or answer their question in a natural, helpful way. You are continuing a conversation about the fundamentals of prompt engineering."
+          placeholder="Write the beginning of a prompt to see how the AI completes it..."
+        />
+        </div>
       </section>
 
       <KeyTakeaways
@@ -187,17 +202,7 @@ const Lesson1_2: React.FC = () => {
         ]}
       />
 
-      <section className="mt-8">
-        <h3 className="text-2xl font-semibold text-foreground mb-4">Challenge: Guide the Predictor</h3>
-        <p className="text-gray-300 mb-4">
-          Now it's time to apply what you've learned. Your challenge is to write a prompt that steers the AI's next-token prediction. Start a sentence or a question and see if you can get the AI to complete it in a specific way. For example, try starting with "The best way to learn prompt engineering is..." and see what it predicts.
-        </p>
-        <InlineChat 
-          moduleId="lesson-1.2-chat"
-          systemPrompt="You are a helpful AI assistant demonstrating next-token prediction. Your goal is to complete the user's sentence or answer their question in a natural, helpful way. You are continuing a conversation about the fundamentals of prompt engineering."
-          placeholder="Write the beginning of a prompt to see how the AI completes it..."
-        />
-      </section>
+      
 
       <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
         <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>

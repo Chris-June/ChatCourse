@@ -131,13 +131,13 @@ const Lesson1_5: React.FC = () => {
       subtitle="A powerful, memorable system for building high-quality prompts."
       quizQuestions={quizQuestions}
     >
-      <div className="space-y-8 text-gray-200">
-        <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-purple-300 flex items-center">
-            <Lightbulb className="w-7 h-7 mr-3 text-purple-400" />
+      <div className="space-y-8 text-foreground">
+        <div className="bg-card p-6 rounded-xl border border-border">
+          <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
+            <Lightbulb className="w-6 h-6 mr-3 text-amber-400" />
             Common Prompting Frameworks
           </h2>
-          <p className="text-gray-300 mb-6">
+          <p className="text-muted-foreground mb-6">
             Before diving into our proprietary I.N.S.Y.N.C. method, it's useful to understand a few other popular frameworks. These can help structure your thoughts, especially for common tasks.
           </p>
           <div className="space-y-6">
@@ -197,10 +197,10 @@ const Lesson1_5: React.FC = () => {
                 ],
               },
             ].map(fw => (
-              <div key={fw.name} className="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
-                <h3 className="text-xl font-bold text-purple-200">{fw.name}</h3>
-                <p className="text-sm text-gray-400 italic mb-3"><b>Use When:</b> {fw.useWhen}</p>
-                <ul className="space-y-1 text-gray-300">
+              <div key={fw.name} className="bg-muted p-4 rounded-lg border border-border">
+                <h3 className="text-xl font-bold text-card-foreground">{fw.name}</h3>
+                <p className="text-sm text-muted-foreground italic mb-3"><b>Use When:</b> {fw.useWhen}</p>
+                <ul className="space-y-1 text-muted-foreground">
                   {fw.points.map(p => (
                     <li key={p.letter}><strong>{p.letter[0]}</strong> - {p.description}</li>
                   ))}
@@ -210,16 +210,16 @@ const Lesson1_5: React.FC = () => {
           </div>
         </div>
 
-  <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-300 flex items-center">
-            <Lightbulb className="w-7 h-7 mr-3 text-blue-400" />
+  <div className="bg-card p-6 rounded-xl border border-border">
+          <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
+            <Lightbulb className="w-6 h-6 mr-3 text-amber-400" />
             The I.N.S.Y.N.C. Framework: Our Proprietary Structure for Success
           </h2>
-          <p className="text-gray-300 mb-4">
+          <p className="text-muted-foreground mb-4">
             While a simple question can get a simple answer, complex tasks require a more structured approach. A well-structured prompt is the difference between a generic response and a masterpiece tailored perfectly to your needs.
           </p>
-    <div className="bg-gray-900 p-4 rounded-xl border border-blue-500/50">
-            <p className="text-lg text-center font-semibold text-blue-200">
+    <div className="bg-muted p-4 rounded-xl border border-border">
+            <p className="text-lg text-center font-semibold text-foreground">
               The I.N.S.Y.N.C. framework is a powerful, memorable system for building high-quality prompts by breaking them down into six clear components.
             </p>
           </div>
@@ -227,12 +227,12 @@ const Lesson1_5: React.FC = () => {
 
         <div className="space-y-4">
         {frameworkComponents.map((item, index) => (
-          <div key={index} className="bg-gray-800 p-5 rounded-xl border border-gray-700">
-              <h3 className="text-xl font-bold text-blue-300"><span className="text-4xl font-black text-blue-500 mr-2">{item.letter}</span> - {item.name}</h3>
-              <p className="text-gray-400 mt-1 ml-12">{item.description}</p>
+          <div key={index} className="bg-muted p-5 rounded-xl border border-border">
+              <h3 className="text-xl font-bold text-card-foreground"><span className="text-4xl font-black text-primary mr-2">{item.letter}</span> - {item.name}</h3>
+              <p className="text-muted-foreground mt-1 ml-12">{item.description}</p>
               <div className="mt-2 ml-12">
-                <p className="text-sm text-gray-400 font-semibold">Examples:</p>
-                <ul className="list-disc list-inside text-sm text-gray-500 italic mt-1 space-y-1">
+                <p className="text-sm text-muted-foreground font-semibold">Examples:</p>
+                <ul className="list-disc list-inside text-sm text-muted-foreground italic mt-1 space-y-1">
                   {item.examples.map((ex, i) => (
                     <li key={i}>{ex}</li>
                   ))}
@@ -242,21 +242,21 @@ const Lesson1_5: React.FC = () => {
           ))}
         </div>
 
-        <div id="prompt-builder" className="mt-12 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
-          <h3 className="text-2xl font-bold text-indigo-300 mb-4">I.N.S.Y.N.C. Prompt Builder</h3>
-          <p className="text-gray-400 mb-6">Use the fields below to construct a prompt piece-by-piece. When you're ready, evaluate it to see how the AI responds and get feedback on your prompt's quality.</p>
+        <div id="prompt-builder" className="mt-12 p-6 bg-card rounded-xl border border-border">
+          <h3 className="text-2xl font-bold text-card-foreground mb-4">I.N.S.Y.N.C. Prompt Builder</h3>
+          <p className="text-muted-foreground mb-6">Use the fields below to construct a prompt piece-by-piece. When you're ready, evaluate it to see how the AI responds and get feedback on your prompt's quality.</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {frameworkComponents.map(comp => (
               <div key={comp.name}>
-                <label htmlFor={comp.name} className="block text-sm font-medium text-gray-300 mb-1">{comp.letter}: {comp.name}</label>
+                <label htmlFor={comp.name} className="block text-sm font-medium text-muted-foreground mb-1">{comp.letter}: {comp.name}</label>
                 <textarea
                   id={comp.name}
                   name={comp.name.toLowerCase().replace(' as...', 'As')}
                   rows={3}
                   value={promptParts[comp.name.toLowerCase().replace(' as...', 'As') as keyof typeof promptParts]}
                   onChange={handleInputChange}
-                  className="w-full bg-gray-900 border border-gray-600 rounded-md shadow-sm p-2 text-white focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full bg-muted border border-input rounded-md p-2 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   placeholder={comp.examples[0]}
                 />
               </div>
@@ -267,33 +267,33 @@ const Lesson1_5: React.FC = () => {
             <button
               onClick={handleEvaluatePrompt}
               disabled={isLoading}
-              className="w-full flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-500 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center px-6 py-3 rounded-md text-base font-medium bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? <><Send className="animate-spin mr-2"/> Evaluating...</> : 'Build & Evaluate Prompt'}
             </button>
           </div>
 
           {evaluationResult && (
-            <div className="mt-8 p-4 bg-gray-900 rounded-lg">
-              <h4 className="text-xl font-bold text-green-300 mb-4">Evaluation Results</h4>
+            <div className="mt-8 p-4 bg-card rounded-lg border border-border" role="status" aria-live="polite">
+              <h4 className="text-xl font-bold text-card-foreground mb-4">Evaluation Results</h4>
               <div>
-                <h5 className="font-bold text-gray-300">Constructed Prompt:</h5>
-                <p className="text-gray-400 whitespace-pre-wrap p-2 bg-gray-800 rounded-md">{constructedPrompt}</p>
+                <h5 className="font-bold text-muted-foreground">Constructed Prompt:</h5>
+                <p className="text-foreground whitespace-pre-wrap p-2 bg-muted rounded-md border border-border">{constructedPrompt}</p>
               </div>
               <div className="mt-4">
-                <h5 className="font-bold text-gray-300">AI Response:</h5>
-                <p className="text-gray-400 p-2 bg-gray-800 rounded-md whitespace-pre-wrap">{evaluationResult.response}</p>
+                <h5 className="font-bold text-muted-foreground">AI Response:</h5>
+                <p className="text-foreground p-2 bg-muted rounded-md whitespace-pre-wrap border border-border">{evaluationResult.response}</p>
               </div>
 
               {evaluationResult.feedback && (
                 <div className="mt-6">
-                  <h5 className="font-bold text-gray-300 mb-3">I.N.S.Y.N.C. Feedback:</h5>
+                  <h5 className="font-bold text-muted-foreground mb-3">I.N.S.Y.N.C. Feedback:</h5>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     {Object.entries(evaluationResult.feedback).map(([key, value]: [string, any]) => (
-                      <div key={key} className="bg-gray-800 p-3 rounded-lg">
-                        <p className="font-bold capitalize text-indigo-300">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
-                        <p className="text-gray-400 mt-1"><strong>Score:</strong> {value.score}/10</p>
-                        <p className="text-gray-400 mt-1"><strong>Comment:</strong> {value.comment}</p>
+                      <div key={key} className="bg-muted p-3 rounded-lg border border-border">
+                        <p className="font-bold capitalize text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
+                        <p className="text-muted-foreground mt-1"><strong>Score:</strong> {value.score}/10</p>
+                        <p className="text-muted-foreground mt-1"><strong>Comment:</strong> {value.comment}</p>
                       </div>
                     ))}
                   </div>
@@ -301,9 +301,9 @@ const Lesson1_5: React.FC = () => {
               )}
 
               {evaluationResult.error && (
-                <div className="mt-4 p-3 bg-red-900/50 border border-red-500/50 rounded-lg">
-                    <p className="text-red-300 font-bold">An Error Occurred</p>
-                    <p className="text-red-400 text-sm mt-1">{evaluationResult.error}</p>
+                <div className="mt-4 p-3 bg-destructive/10 border border-destructive/30 rounded-lg">
+                    <p className="text-destructive font-bold">An Error Occurred</p>
+                    <p className="text-destructive/80 text-sm mt-1">{evaluationResult.error}</p>
                 </div>
               )}
             </div>

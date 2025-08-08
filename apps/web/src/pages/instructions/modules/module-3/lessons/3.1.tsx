@@ -279,8 +279,8 @@ const Lesson3_1: React.FC = () => {
             Overall, it seems that providing examples is useful for solving some tasks. When zero-shot prompting and few-shot prompting are not sufficient, it might mean that whatever was learned by the model isn’t enough to do well at the task. From here it is recommended to start thinking about fine-tuning your models or experimenting with more advanced prompting techniques.
           </p>
 
-          <div className="mt-6 bg-card p-4 rounded-xl border-2 border-dashed border-primary/50">
-            <h3 className="font-semibold text-foreground mb-2">Your Turn: The Reasoning Challenge</h3>
+          <div className="mt-6 bg-card p-4 rounded-xl border border-border shadow-sm">
+            <h3 className="font-semibold text-card-foreground mb-2">Your Turn: The Reasoning Challenge</h3>
             <p className="text-muted-foreground mb-4">The model failed the reasoning task above. This is like trying to teach someone to solve a complex puzzle - sometimes showing them a few examples isn’t enough. Your challenge is to experiment with different few-shot approaches.</p>
             <p className="text-muted-foreground mb-4">
               <strong>Strategy tips:</strong>
@@ -301,8 +301,8 @@ const Lesson3_1: React.FC = () => {
           </div>
         </Accordion>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
-          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+        <div className="bg-card border border-border rounded-xl p-4 shadow-sm">
+          <h3 className="font-semibold text-card-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Identify when zero-shot is sufficient for straightforward tasks</li>
             <li>Write effective few-shot prompts using clear, consistent examples</li>

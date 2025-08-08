@@ -218,8 +218,8 @@ const Lesson3_2: React.FC = () => {
           <CheckpointQuiz {...autoCotQuiz} />
         </Accordion>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
-          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
+        <div className="bg-card border border-border rounded-xl p-4 shadow-sm">
+          <h3 className="font-semibold text-card-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Prompt Zero‑Shot CoT to elicit step‑by‑step reasoning</li>
             <li>Create concise Few‑Shot CoT examples that model clear logic</li>
