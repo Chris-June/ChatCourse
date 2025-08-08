@@ -83,7 +83,7 @@ const SettingsModal = () => {
     return (
     <Dialog open={isSettingsOpen} onOpenChange={toggleSettings}>
       <DialogContent 
-        className="bg-card border-border text-card-foreground max-w-2xl"
+        className="bg-card border-border text-card-foreground w-[92vw] sm:max-w-[640px] max-h-[85vh] overflow-hidden"
         aria-describedby="settings-description"
       >
         <DialogDescription id="settings-description" className="sr-only">
@@ -93,6 +93,7 @@ const SettingsModal = () => {
           <DialogTitle>Settings</DialogTitle>
         </DialogHeader>
 
+        <div className="overflow-y-auto max-h-[65vh] pr-2">
         <div className="py-4 space-y-4">
           <div className="flex items-center justify-between">
             <label htmlFor="model-select" className="text-sm font-medium text-muted-foreground">
@@ -263,6 +264,7 @@ const SettingsModal = () => {
             {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
           </Button>
           </div>
+        </div>
         </div>
 
         <div className="flex justify-end gap-2 pt-4">
