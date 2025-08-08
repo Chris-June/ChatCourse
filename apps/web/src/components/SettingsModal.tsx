@@ -42,6 +42,12 @@ const SettingsModal = () => {
     setTemperature,
     top_p,
     setTopP,
+    reasoningEffort,
+    setReasoningEffort,
+    verbosity,
+    setVerbosity,
+    toolMode,
+    setToolMode,
     apiKey,
     setApiKey,
     theme,
@@ -169,6 +175,54 @@ const SettingsModal = () => {
             <p className="text-xs text-muted-foreground">
               Top P is an alternative to temperature that selects from the highest probability tokens. A lower value narrows the selection to more likely tokens.
             </p>
+          </div>
+
+          {/* GPT-5 Controls */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-muted-foreground">Reasoning Effort</Label>
+              <Select value={reasoningEffort} onValueChange={(v) => setReasoningEffort(v as any)}>
+                <SelectTrigger className="bg-input border-input">
+                  <SelectValue placeholder="Select effort" />
+                </SelectTrigger>
+                <SelectContent className="bg-card border-border text-card-foreground">
+                  <SelectItem value="minimal">Minimal</SelectItem>
+                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">Trade-off depth of chain-of-thought style reasoning vs speed/cost.</p>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-muted-foreground">Verbosity</Label>
+              <Select value={verbosity} onValueChange={(v) => setVerbosity(v as any)}>
+                <SelectTrigger className="bg-input border-input">
+                  <SelectValue placeholder="Select verbosity" />
+                </SelectTrigger>
+                <SelectContent className="bg-card border-border text-card-foreground">
+                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">Controls length/detail of responses.</p>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-muted-foreground">Tool Mode</Label>
+            <Select value={toolMode} onValueChange={(v) => setToolMode(v as any)}>
+              <SelectTrigger className="bg-input border-input w-full md:w-[320px]">
+                <SelectValue placeholder="Tool usage" />
+              </SelectTrigger>
+              <SelectContent className="bg-card border-border text-card-foreground">
+                <SelectItem value="auto">Auto</SelectItem>
+                <SelectItem value="required">Required</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">Auto lets the model decide when to call tools; Required forces tool use before responding.</p>
           </div>
 
           <div className="space-y-2">

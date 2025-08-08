@@ -41,6 +41,10 @@ interface ChatState {
   customInstructions: string;
   temperature: number;
   top_p: number;
+  reasoningEffort: 'minimal' | 'low' | 'medium' | 'high';
+  verbosity: 'low' | 'medium' | 'high';
+  tools: any[]; // tool definitions passed to API
+  toolMode?: 'auto' | 'required';
   apiKey: string;
   startNewSession: () => void;
   setActiveSession: (sessionId: string) => void;
@@ -58,6 +62,10 @@ interface ChatState {
   setCustomInstructions: (instructions: string) => void;
   setTemperature: (temp: number) => void;
   setTopP: (top_p: number) => void;
+  setReasoningEffort: (effort: 'minimal' | 'low' | 'medium' | 'high') => void;
+  setVerbosity: (level: 'low' | 'medium' | 'high') => void;
+  setTools: (tools: any[]) => void;
+  setToolMode: (mode: 'auto' | 'required') => void;
   setApiKey: (apiKey: string) => void;
   removeLastMessage: () => void;
   setMessages: (messages: Message[]) => void;
@@ -73,10 +81,14 @@ export const useChatStore = create<ChatState>()(
       input: '',
       isStreaming: false,
       isSettingsOpen: false,
-      model: 'gpt-4.1-nano',
+      model: 'gpt-5-nano',
       customInstructions: '',
       temperature: 1,
       top_p: 1,
+      reasoningEffort: 'medium',
+      verbosity: 'medium',
+      tools: [],
+      toolMode: 'auto',
       apiKey: '',
       theme: 'dark',
 
@@ -216,6 +228,10 @@ export const useChatStore = create<ChatState>()(
       setCustomInstructions: (instructions) => set({ customInstructions: instructions }),
       setTemperature: (temp) => set({ temperature: temp }),
       setTopP: (top_p) => set({ top_p }),
+      setReasoningEffort: (effort) => set({ reasoningEffort: effort }),
+      setVerbosity: (level) => set({ verbosity: level }),
+      setTools: (tools) => set({ tools }),
+      setToolMode: (mode) => set({ toolMode: mode }),
       setApiKey: (apiKey) => set({ apiKey }),
 
       removeLastMessage: () => {
@@ -274,6 +290,10 @@ export const useChatStore = create<ChatState>()(
         activeSessionId: state.activeSessionId,
         model: state.model,
         customInstructions: state.customInstructions,
+        reasoningEffort: state.reasoningEffort,
+        verbosity: state.verbosity,
+        tools: state.tools,
+        toolMode: state.toolMode,
         theme: state.theme,
         apiKey: state.apiKey,
       }),

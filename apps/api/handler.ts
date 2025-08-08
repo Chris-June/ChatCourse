@@ -26,64 +26,31 @@ console.log('[handler.ts] All handlers imported successfully.');
 
 // --- Constants and Helper Functions ---
 
-// All previous models before aug 8th 2025 will be deprecated. TODO: update model avaialbe to gpt 5 family of models.
+// All previous models before Aug 8th, 2025 are deprecated.
+// GPT-5 family is the only allowed set.
+export const DEFAULT_MODEL = 'gpt-5-nano';
 
 const PRICING_MAP: Record<string, { input: number; output: number }> = {
-  'gpt-4.1-2025-04-14': { input: 0.50, output: 8.00 },
-  'gpt-4.1-mini-2025-04-14': { input: 0.10, output: 1.60 },
-  'gpt-4.1-nano-2025-04-14': { input: 0.025, output: 0.40 },
-  'gpt-4.5-preview-2025-02-27': { input: 37.50, output: 150.00 },
-  'gpt-4o-2024-08-06': { input: 1.25, output: 10.00 },
-  'gpt-4o-audio-preview-2024-12-17': { input: 0, output: 10.00 },
-  'gpt-4o-realtime-preview-2025-06-03': { input: 2.50, output: 20.00 },
-  'gpt-4o-mini-2024-07-18': { input: 0.075, output: 0.60 },
-  'gpt-4o-mini-audio-preview-2024-12-17': { input: 0, output: 0.60 },
-  'gpt-4o-mini-realtime-preview-2024-12-17': { input: 0.30, output: 2.40 },
-  'o1-2024-12-17': { input: 7.50, output: 60.00 },
-  'o1-pro-2025-03-19': { input: 0, output: 600.00 },
-  'o3-pro-2025-06-10': { input: 0, output: 80.00 },
-  'o3-2025-04-16': { input: 0.50, output: 8.00 },
-  'o3-deep-research-2025-06-26': { input: 2.50, output: 40.00 },
-  'o4-mini-2025-04-16': { input: 0.275, output: 4.40 },
-  'o4-mini-deep-research-2025-06-26': { input: 0.50, output: 8.00 },
-  'o3-mini-2025-01-31': { input: 0.55, output: 4.40 },
-  'o1-mini-2024-09-12': { input: 0.55, output: 4.40 },
-  'codex-mini-latest': { input: 0.375, output: 6.00 },
-  'gpt-4o-mini-search-preview-2025-03-11': { input: 0, output: 0.60 },
-  'gpt-4o-search-preview-2025-03-11': { input: 0, output: 10.00 },
+  // Prices are per 1M tokens (input/output)
+  // Source: OpenAI docs/screens (Aug 8, 2025)
+  'gpt-5': { input: 1.25, output: 10.00 },
+  'gpt-5-mini': { input: 0.25, output: 2.00 },
+  'gpt-5-nano': { input: 0.05, output: 0.40 },
 };
 
 export const getApiName = (model: string): string => {
-  const mapping: Record<string, string> = {
-    'gpt-4.1': 'gpt-4.1-2025-04-14',
-    'gpt-4.1-mini': 'gpt-4.1-mini-2025-04-14',
-    'gpt-4.1-nano': 'gpt-4.1-nano-2025-04-14',
-    'gpt-4.5-preview': 'gpt-4.5-preview-2025-02-27',
-    'gpt-4o': 'gpt-4o-2024-08-06',
-    'gpt-4o-audio-preview': 'gpt-4o-audio-preview-2024-12-17',
-    'gpt-4o-realtime-preview': 'gpt-4o-realtime-preview-2025-06-03',
-    'gpt-4o-mini': 'gpt-4o-mini-2024-07-18',
-    'gpt-4o-mini-audio-preview': 'gpt-4o-mini-audio-preview-2024-12-17',
-    'gpt-4o-mini-realtime-preview': 'gpt-4o-mini-realtime-preview-2024-12-17',
-    'o1': 'o1-2024-12-17',
-    'o1-pro': 'o1-pro-2025-03-19',
-    'o3-pro': 'o3-pro-2025-06-10',
-    'o3': 'o3-2025-04-16',
-    'o3-deep-research': 'o3-deep-research-2025-06-26',
-    'o4-mini': 'o4-mini-2025-04-16',
-    'o4-mini-deep-research': 'o4-mini-deep-research-2025-06-26',
-    'o3-mini': 'o3-mini-2025-01-31',
-    'o1-mini': 'o1-mini-2024-09-12',
-    'codex-mini-latest': 'codex-mini-latest',
-    'gpt-4o-mini-search-preview': 'gpt-4o-mini-search-preview-2025-03-11',
-    'gpt-4o-search-preview': 'gpt-4o-search-preview-2025-03-11',
+  // Identity mapping for GPT-5 family. Default to nano.
+  const allowed: Record<string, string> = {
+    'gpt-5': 'gpt-5',
+    'gpt-5-mini': 'gpt-5-mini',
+    'gpt-5-nano': 'gpt-5-nano',
   };
-  return mapping[model] || 'gpt-4.1-nano-2025-04-14'; // Default
+  return allowed[model] || DEFAULT_MODEL;
 };
 
 export const getPricing = (model: string) => {
   const apiName = getApiName(model);
-  return PRICING_MAP[apiName] || PRICING_MAP['gpt-4.1-nano-2025-04-14']; // New default will be GPT 5-nano
+  return PRICING_MAP[apiName] || PRICING_MAP[DEFAULT_MODEL];
 };
 
 export const getApiKey = (req: express.Request): string | null => {
@@ -128,29 +95,10 @@ app.use((req, res, next) => {
 app.use(express.json());
 console.log('[handler.ts] Middleware configured.');
 
-export const ALLOWED_MODELS = [ // TODO: update allowed models to gpt 5 family of models
-  'gpt-4.1',
-  'gpt-4.1-mini',
-  'gpt-4.1-nano',
-  'gpt-4.5-preview',
-  'gpt-4o',
-  'gpt-4o-audio-preview',
-  'gpt-4o-realtime-preview',
-  'gpt-4o-mini',
-  'gpt-4o-mini-audio-preview',
-  'gpt-4o-mini-realtime-preview',
-  'o1',
-  'o1-pro',
-  'o3-pro',
-  'o3',
-  'o3-deep-research',
-  'o4-mini',
-  'o4-mini-deep-research',
-  'o3-mini',
-  'o1-mini',
-  'codex-mini-latest',
-  'gpt-4o-mini-search-preview',
-  'gpt-4o-search-preview',
+export const ALLOWED_MODELS = [
+  'gpt-5',
+  'gpt-5-mini',
+  'gpt-5-nano',
 ];
 
 // --- Modular API Endpoints ---

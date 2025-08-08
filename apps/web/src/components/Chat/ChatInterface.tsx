@@ -39,6 +39,10 @@ const ChatInterface = () => {
     customInstructions,
     temperature,
     top_p,
+    reasoningEffort,
+    verbosity,
+    tools,
+    toolMode,
     theme,
     apiKey,
   } = useChatStore();
@@ -122,6 +126,10 @@ const ChatInterface = () => {
           customInstructions,
           temperature,
           top_p,
+          reasoning_effort: reasoningEffort,
+          verbosity,
+          tools,
+          tool_choice: toolMode === 'required' ? 'required' : 'auto',
           // Removed apiKey from body
         }),
       });
