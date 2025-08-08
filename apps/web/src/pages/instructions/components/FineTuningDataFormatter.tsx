@@ -19,46 +19,46 @@ const FineTuningDataFormatter: React.FC = () => {
   }, [prompt, completion]);
 
   return (
-    <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 space-y-4">
-      <h3 className="text-xl font-bold text-white">Live Data Formatter</h3>
-      <p className="text-sm text-gray-400">Fine-tuning requires structured data. Enter a prompt and a desired completion below to see how it's formatted into a single training example in JSONL format.</p>
+    <div className="bg-card border rounded-xl p-6 space-y-4 text-card-foreground">
+      <h3 className="text-xl font-bold">Live Data Formatter</h3>
+      <p className="text-sm text-muted-foreground">Fine-tuning requires structured data. Enter a prompt and a desired completion below to see how it's formatted into a single training example in JSONL format.</p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
         <div className="space-y-4">
           <div>
-            <label htmlFor="prompt-input" className="block text-sm font-medium text-gray-300 mb-2">Prompt (User's Input)</label>
+            <label htmlFor="prompt-input" className="block text-sm font-medium text-muted-foreground mb-2">Prompt (User's Input)</label>
             <Textarea
               id="prompt-input"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Enter the prompt..."
-              className="bg-gray-900 h-32"
+              className="h-32"
             />
           </div>
           <div>
-            <label htmlFor="completion-input" className="block text-sm font-medium text-gray-300 mb-2">Completion (Ideal Output)</label>
+            <label htmlFor="completion-input" className="block text-sm font-medium text-muted-foreground mb-2">Completion (Ideal Output)</label>
             <Textarea
               id="completion-input"
               value={completion}
               onChange={(e) => setCompletion(e.target.value)}
               placeholder="Enter the ideal completion..."
-              className="bg-gray-900 h-32"
+              className="h-32"
             />
           </div>
         </div>
 
         <div className="hidden md:flex justify-center items-center">
-            <ArrowRight className="w-12 h-12 text-gray-500" />
+            <ArrowRight className="w-12 h-12 text-muted-foreground" aria-hidden="true" />
         </div>
 
         <div className="md:hidden text-center py-4">
-            <p className="text-gray-500">Formats into</p>
+            <p className="text-muted-foreground">Formats into</p>
         </div>
 
         <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Formatted JSONL</label>
-            <pre className="bg-gray-900 rounded-lg p-4 text-sm text-green-300 whitespace-pre-wrap h-full min-h-[284px]">
-                <code>{formattedJsonL}</code>
+            <label className="block text-sm font-medium text-muted-foreground mb-2">Formatted JSONL</label>
+            <pre className="bg-muted rounded-lg p-4 text-sm text-foreground whitespace-pre-wrap h-full min-h-[284px] border" role="status" aria-live="polite">
+              <code>{formattedJsonL}</code>
             </pre>
         </div>
       </div>
