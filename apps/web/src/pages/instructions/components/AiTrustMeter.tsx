@@ -18,61 +18,67 @@ const AiTrustMeter: React.FC = () => {
   }, [stakes, transparency, correctability]);
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-400';
-    if (score >= 50) return 'text-yellow-400';
-    return 'text-red-400';
+    if (score >= 80) return 'text-emerald-500';
+    if (score >= 50) return 'text-yellow-500';
+    return 'text-red-500';
   };
 
   return (
-    <div className="bg-gray-900/50 p-6 rounded-lg border border-gray-700 space-y-6">
-      <h4 className="font-semibold text-white mb-2 text-lg flex items-center">
-        <ShieldCheck className="w-6 h-6 mr-3 text-green-400" />
+    <div className="bg-card text-card-foreground p-4 md:p-6 rounded-xl border shadow-sm space-y-6">
+      <h4 className="font-semibold text-foreground text-lg flex items-center">
+        <ShieldCheck className="h-5 w-5 mr-3 text-primary" />
         Interactive Trust Calculator
       </h4>
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
           {/* Stakes Slider */}
           <div>
-            <label className="block text-sm font-medium text-gray-300">Task Stakes</label>
-            <p className='text-xs text-gray-500 mb-2'>How critical is it for the AI to be right? (0=Low, 100=High)</p>
+            <label htmlFor="stakes-slider" className="block text-sm font-medium text-foreground">Task Stakes</label>
+            <p id="stakes-description" className='text-xs text-muted-foreground mb-2'>How critical is it for the AI to be right? (0=Low, 100=High)</p>
             <Slider
+              id="stakes-slider"
               value={[stakes]}
               onValueChange={(value) => setStakes(value[0])}
               max={100}
               step={1}
+              aria-describedby="stakes-description"
             />
           </div>
 
           {/* Transparency Slider */}
           <div>
-            <label className="block text-sm font-medium text-gray-300">AI Transparency</label>
-            <p className='text-xs text-gray-500 mb-2'>Can the user see why the AI decided something? (0=Opaque, 100=Explained)</p>
+            <label htmlFor="transparency-slider" className="block text-sm font-medium text-foreground">AI Transparency</label>
+            <p id="transparency-description" className='text-xs text-muted-foreground mb-2'>Can the user see why the AI decided something? (0=Opaque, 100=Explained)</p>
             <Slider
+              id="transparency-slider"
               value={[transparency]}
               onValueChange={(value) => setTransparency(value[0])}
               max={100}
               step={1}
+              aria-describedby="transparency-description"
             />
           </div>
 
           {/* Correctability Slider */}
           <div>
-            <label className="block text-sm font-medium text-gray-300">Correctability</label>
-            <p className='text-xs text-gray-500 mb-2'>How easily can a user fix the AI’s mistakes? (0=Impossible, 100=Easy)</p>
+            <label htmlFor="correctability-slider" className="block text-sm font-medium text-foreground">Correctability</label>
+            <p id="correctability-description" className='text-xs text-muted-foreground mb-2'>How easily can a user fix the AI’s mistakes? (0=Impossible, 100=Easy)</p>
             <Slider
+              id="correctability-slider"
               value={[correctability]}
               onValueChange={(value) => setCorrectability(value[0])}
               max={100}
               step={1}
+              aria-describedby="correctability-description"
             />
           </div>
         </div>
-        <div className="bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center">
-          <h5 className="font-semibold text-blue-300 mb-2">Calculated User Trust Score:</h5>
-          <p className={`text-6xl font-bold ${getScoreColor(trustScore)}`}>
+        <div className="bg-muted border rounded-lg flex flex-col items-center justify-center p-4">
+          <h5 className="font-semibold text-primary mb-2">Calculated User Trust Score:</h5>
+          <p className={`text-6xl font-bold ${getScoreColor(trustScore)}`} aria-live="polite" aria-atomic="true">
             {trustScore}
           </p>
-          <p className='text-xs text-gray-500 mt-2 text-center'>A measure of how likely a user is to trust and rely on the AI.</p>
+          <p className='text-xs text-muted-foreground mt-2 text-center'>A measure of how likely a user is to trust and rely on the AI.</p>
         </div>
       </div>
     </div>
