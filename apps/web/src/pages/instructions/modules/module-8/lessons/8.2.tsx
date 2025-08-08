@@ -144,7 +144,7 @@ function Lesson8_2() {
       subtitle="Building trust by showing the 'what' and the 'why'"
       quizQuestions={quizQuestions}
     >
-      <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
+      <div className="bg-muted/30 border border-border rounded-xl p-4 mb-6">
         <p className="text-xs text-muted-foreground mb-2">Estimated time: 12–16 minutes</p>
         <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
         <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
@@ -196,12 +196,12 @@ function Lesson8_2() {
         <AccordionItem value="item-3">
           <AccordionTrigger>
             <div className="flex items-center">
-              <Lightbulb className="w-5 h-5 mr-3 text-primary" />
+              <Lightbulb className="w-5 h-5 mr-3 text-amber-400" />
               Case Study: Explaining an AI's Decision
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="p-4 border rounded-lg bg-card space-y-4">
+            <div className="p-4 border border-border rounded-lg bg-card space-y-4">
               <div>
                 <h3 className="font-semibold text-foreground">The Scenario</h3>
                 <p className="text-muted-foreground">An AI-powered system has just denied a loan application. The model's internal reasons are a low credit score and a high debt-to-income ratio. Your goal is to communicate this sensitive decision to the user in a way that is clear, empathetic, and actionable.</p>
@@ -228,7 +228,7 @@ function Lesson8_2() {
           </AccordionContent>
         </AccordionItem>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Write clear, empathetic user-facing explanations</li>

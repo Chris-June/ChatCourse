@@ -98,7 +98,7 @@ function Lesson7_3() {
       subtitle="Fine-tuning teaches your LLM a new personality, style, or skill, turning it into a specialized performer."
       quizQuestions={quizQuestions}
     >
-      <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
+      <div className="bg-muted/30 border border-border rounded-xl p-4 mb-6">
         <p className="text-xs text-muted-foreground mb-2">Estimated time: 14–18 minutes</p>
         <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
         <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
@@ -137,7 +137,7 @@ function Lesson7_3() {
             <p className="mb-4 text-muted-foreground">
               A method actor needs a script. Your fine-tuning dataset is that script, composed of many 'scenes' (prompt/completion pairs). The quality of this script determines the quality of the final performance. Use the formatter below to see how a conversation is turned into a scene for the actor to rehearse.
             </p>
-            <div className="p-4 border rounded-lg bg-card">
+            <div className="p-4 border border-border rounded-lg bg-card">
               <FineTuningDataFormatter />
             </div>
           </AccordionContent>
@@ -154,7 +154,7 @@ function Lesson7_3() {
             <p className="mb-4 text-muted-foreground">
               Hiring a method actor for a lead role is expensive. Fine-tuning is too. It costs time and money, and the results depend on the quality of the script and the length of the rehearsal (epochs). This calculator gives you a sense of the investment required.
             </p>
-            <div className="p-4 border rounded-lg bg-card">
+            <div className="p-4 border border-border rounded-lg bg-card">
               <FineTuningCostCalculator />
             </div>
           </AccordionContent>
@@ -171,13 +171,13 @@ function Lesson7_3() {
             <p className="mb-4 text-muted-foreground">
               Do you need an actor who can read any script you hand them (RAG for knowledge)? Or one who deeply embodies a specific character (Fine-Tuning for behavior)? Knowing which to choose is a critical skill. Test your casting instincts with the scenarios below.
             </p>
-            <div className="p-4 border rounded-lg bg-card">
+            <div className="p-4 border border-border rounded-lg bg-card">
               <StrategyQuiz />
             </div>
           </AccordionContent>
         </AccordionItem>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Describe what fine-tuning is—and isn’t</li>
