@@ -20,6 +20,7 @@ import ContextUpdateSimulator from '@/pages/instructions/components/ContextUpdat
 import EthicalDilemma from '@/pages/instructions/components/EthicalDilemma';
 import BestPracticesAudit from '@/pages/instructions/components/BestPracticesAudit';
 import PersonalizedAgentBuilder from '@/pages/instructions/components/PersonalizedAgentBuilder';
+import ContextualChatChallenge from '@/pages/instructions/components/ContextualChatChallenge';
 
 export default function Lesson5_2() {
   const quizQuestions = [
@@ -152,6 +153,24 @@ export default function Lesson5_2() {
               <ContextDecisionGame />
               <TokenBudgetGuide />
               <ContextUpdateSimulator />
+              <div className="mt-6">
+                <h4 className="font-semibold text-foreground mb-2">Practice: Contextual Chat Challenge</h4>
+                <ContextualChatChallenge
+                  initialMessages={[
+                    {
+                      role: 'assistant',
+                      content:
+                        'Welcome! Practice context-aware chatting by following the checklist below.',
+                    },
+                  ]}
+                  challengeChecklist={[
+                    { text: 'Summarize the conversation so far', completed: false },
+                    { text: 'Propose alternative headlines', completed: false },
+                    { text: 'State the mission in one line', completed: false },
+                    { text: 'Mention “unlock human creativity” explicitly', completed: false },
+                  ]}
+                />
+              </div>
             </AccordionContent>
           </AccordionItem>
 

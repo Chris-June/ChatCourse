@@ -89,17 +89,17 @@ const ContextualChatChallenge: React.FC<ContextualChatChallengeProps> = ({ initi
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 bg-gray-800 p-4 rounded-lg border border-gray-700">
+    <div className="flex flex-col md:flex-row gap-4 bg-card text-card-foreground p-4 rounded-xl border shadow-sm">
       <div className="w-full md:w-1/3">
-        <h3 className="text-lg font-semibold text-white mb-2">Your Checklist</h3>
-        <div className="bg-gray-900 p-4 rounded-lg">
+        <h3 className="text-lg font-semibold text-foreground mb-2">Your Checklist</h3>
+        <div className="bg-muted border p-4 rounded-lg">
           <ul className="space-y-3">
             {checklist.map((item, index) => (
-              <motion.li key={index} className="flex items-center text-gray-300">
+              <motion.li key={index} className="flex items-center text-foreground">
                 {item.completed ? (
-                  <CheckSquare className="w-5 h-5 mr-3 text-green-400" />
+                  <CheckSquare className="w-5 h-5 mr-3 text-emerald-500" aria-hidden="true" />
                 ) : (
-                  <Square className="w-5 h-5 mr-3 text-gray-500" />
+                  <Square className="w-5 h-5 mr-3 text-muted-foreground" aria-hidden="true" />
                 )}
                 <span>{item.text}</span>
               </motion.li>
@@ -108,43 +108,54 @@ const ContextualChatChallenge: React.FC<ContextualChatChallengeProps> = ({ initi
         </div>
       </div>
       <div className="w-full md:w-2/3 flex flex-col h-[500px]">
-        <div ref={chatContainerRef} className="flex-grow bg-gray-900 rounded-lg p-4 overflow-y-auto mb-4">
+        <div
+          ref={chatContainerRef}
+          className="flex-grow bg-muted rounded-lg p-4 overflow-y-auto mb-4 border"
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions"
+        >
           <AnimatePresence>
             {messages.map((msg, index) => (
               <motion.div key={index} layout className={`flex items-start gap-3 my-4 ${msg.role === 'user' ? 'justify-end' : ''}`}>
-                {msg.role === 'assistant' && <Bot className="w-6 h-6 text-blue-400" />}
-                <div className={`max-w-md px-4 py-2 rounded-lg ${msg.role === 'user' ? 'bg-blue-600' : 'bg-gray-700'}`}>
+                {msg.role === 'assistant' && <Bot className="w-6 h-6 text-primary" aria-hidden="true" />}
+                <div className={`max-w-md px-4 py-2 rounded-lg ${msg.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted text-foreground'}`}>
                   {msg.content}
                 </div>
-                {msg.role === 'user' && <User className="w-6 h-6 text-green-400" />}
+                {msg.role === 'user' && <User className="w-6 h-6 text-emerald-500" aria-hidden="true" />}
               </motion.div>
             ))}
              {isLoading && (
                 <motion.div layout className="flex items-start gap-3 my-4">
-                    <Bot className="w-6 h-6 text-blue-400" />
-                    <div className="max-w-xs px-4 py-2 rounded-lg bg-gray-700">
+                    <Bot className="w-6 h-6 text-primary" aria-hidden="true" />
+                    <div className="max-w-xs px-4 py-2 rounded-lg bg-muted text-foreground">
                         <div className="flex items-center justify-center space-x-1">
-                            <span className="h-2 w-2 bg-blue-300 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                            <span className="h-2 w-2 bg-blue-300 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                            <span className="h-2 w-2 bg-blue-300 rounded-full animate-bounce"></span>
+                            <span className="h-2 w-2 bg-muted-foreground/50 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                            <span className="h-2 w-2 bg-muted-foreground/50 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                            <span className="h-2 w-2 bg-muted-foreground/50 rounded-full animate-bounce"></span>
                         </div>
                     </div>
                 </motion.div>
             )}
           </AnimatePresence>
         </div>
-        <div className="flex items-center bg-gray-900 rounded-lg px-2">
+        <div className="flex items-center bg-background border rounded-lg px-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Practice context management..."
-            className="w-full bg-transparent p-3 focus:outline-none"
+            className="w-full bg-transparent p-3 text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
             disabled={isLoading}
           />
-          <button onClick={handleSend} disabled={isLoading} className="p-2 text-gray-400 hover:text-blue-400 disabled:text-gray-600">
-            <Send className="w-5 h-5" />
+          <button
+            onClick={handleSend}
+            disabled={isLoading}
+            aria-label="Send message"
+            className="p-2 text-muted-foreground hover:text-primary disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-primary/40 rounded-full"
+          >
+            <Send className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
       </div>
