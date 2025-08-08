@@ -20,12 +20,15 @@ import InlineChat, {
 import MetricSorter from '@/pages/instructions/components/MetricSorter';
 import PromptABTester from '@/pages/instructions/components/PromptABTester';
 import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useRef } from 'react';
+import { useProgressStore } from '@/store/progressStore';
 
 export default function Lesson6_3() {
   const inlineChatRef = useRef<InlineChatHandle>(null);
+  const navigate = useNavigate();
+  const { completeLessonWithScore } = useProgressStore();
 
   const quizQuestions = [
     {
@@ -268,7 +271,13 @@ export default function Lesson6_3() {
           <p className="text-muted-foreground mb-6">
             Test your understanding of these experimentation principles.
           </p>
-          <ModuleQuizzes questions={quizQuestions} />
+          <ModuleQuizzes
+            questions={quizQuestions}
+            onComplete={(score, total) => {
+              completeLessonWithScore(6, 3, score, total);
+              navigate('/instructions/module-7/7.1');
+            }}
+          />
         </div>
 
         <div className="flex justify-between pt-4">

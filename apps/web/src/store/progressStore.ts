@@ -79,14 +79,52 @@ export const useProgressStore = create<ProgressState>()(
               completedAt: new Date().toISOString(),
             };
 
-            // Check if progress has advanced
+            // Determine next unlocked pointer
+            let nextModule = highestCompletedModule;
+            let nextLesson = highestCompletedLesson;
+
+            // If current completion advances progress, move pointer to this lesson
             if (module > highestCompletedModule || (module === highestCompletedModule && lesson > highestCompletedLesson)) {
-              return {
-                modules: newModules,
-                highestCompletedModule: module,
-                highestCompletedLesson: lesson,
-              };
+              nextModule = module;
+              nextLesson = lesson;
             }
+
+            // If this was the last lesson in the module, advance pointer to the start of the next module
+            const totalLessonsInThisModule = LESSONS_IN_MODULE[module] || 0;
+            if (lesson === totalLessonsInThisModule) {
+              nextModule = module + 1;
+              nextLesson = 0; // unlocks lesson 1 of next module via isLessonUnlocked
+            }
+
+            return {
+              modules: newModules,
+              highestCompletedModule: nextModule,
+              highestCompletedLesson: nextLesson,
+            };
+          }
+
+          // Idempotent advancement: if the lesson was already completed before we added advancement logic,
+          // still advance the pointer appropriately so users can progress by re-submitting.
+          let nextModule = highestCompletedModule;
+          let nextLesson = highestCompletedLesson;
+
+          if (module > highestCompletedModule || (module === highestCompletedModule && lesson > highestCompletedLesson)) {
+            nextModule = module;
+            nextLesson = lesson;
+          }
+
+          const totalLessonsInThisModule = LESSONS_IN_MODULE[module] || 0;
+          if (lesson === totalLessonsInThisModule) {
+            nextModule = module + 1;
+            nextLesson = 0;
+          }
+
+          if (nextModule !== highestCompletedModule || nextLesson !== highestCompletedLesson) {
+            return {
+              modules: newModules,
+              highestCompletedModule: nextModule,
+              highestCompletedLesson: nextLesson,
+            };
           }
 
           return { modules: newModules };
