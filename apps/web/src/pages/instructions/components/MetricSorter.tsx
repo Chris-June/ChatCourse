@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
+import { DndContext, closestCenter, PointerSensor, KeyboardSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, useSortable, rectSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { BarChart2, TrendingUp, TrendingDown, GripVertical } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 
 type Metric = {
   id: string;
@@ -27,19 +28,29 @@ const SortableItem = ({ id, text }: { id: string; text: string }) => {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} className="bg-gray-700 p-3 rounded-lg flex items-center shadow-md">
-      <div {...listeners} className="cursor-grab touch-none p-1">
-        <GripVertical className="w-5 h-5 text-gray-400" />
-      </div>
-      <span className="ml-2 text-white">{text}</span>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      className="bg-card border p-3 rounded-lg flex items-center shadow-sm focus-within:ring-2 focus-within:ring-ring"
+      aria-roledescription="Draggable item"
+    >
+      <button
+        {...listeners}
+        className="cursor-grab touch-none p-1 rounded outline-none focus:ring-2 focus:ring-ring"
+        aria-label="Drag handle"
+      >
+        <GripVertical className="w-5 h-5 text-muted-foreground" aria-hidden="true" />
+      </button>
+      <span className="ml-2 text-foreground">{text}</span>
     </div>
   );
 };
 
 const DropZone = ({ containerId, title, items, icon }: { containerId: string; title: string; items: Metric[]; icon: React.ReactNode }) => {
   return (
-    <div id={containerId} className="bg-gray-800/50 p-4 rounded-lg w-full">
-      <h4 className="text-lg font-semibold text-white mb-4 flex items-center">{icon}{title}</h4>
+    <div id={containerId} className="bg-muted p-4 rounded-lg w-full border">
+      <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center">{icon}{title}</h4>
       <SortableContext items={items.map(i => i.id)} strategy={rectSortingStrategy}>
         <div className="space-y-2 min-h-[100px]">
           {items.map(item => <SortableItem key={item.id} id={item.id} text={item.text} />)}
@@ -56,7 +67,10 @@ const MetricSorter: React.FC = () => {
     lowSignal: [],
   });
 
-  const sensors = useSensors(useSensor(PointerSensor));
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor)
+  );
 
   const findContainer = (id: string) => {
     if (id in containers) return id;
@@ -122,10 +136,16 @@ const MetricSorter: React.FC = () => {
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <div className="bg-gray-900/70 border border-gray-700 rounded-lg p-6 space-y-4">
-        <p className="text-center text-gray-300">For an AI email assistant, drag these metrics into the correct category:</p>
-        <div id="unassigned" className="p-4 bg-gray-800 rounded-lg">
-          <h4 className="text-lg font-semibold text-white mb-4 flex items-center"><BarChart2 className="w-5 h-5 mr-2 text-blue-400" />Metrics Pool</h4>
+      <Card className="space-y-4">
+        <CardHeader>
+          <CardTitle className="text-center text-base md:text-lg">Drag-and-Drop: Choose the Right Metrics</CardTitle>
+          <p className="text-center text-sm text-muted-foreground" id="metric-instructions">
+            For an AI email assistant, drag these metrics into the correct category.
+          </p>
+        </CardHeader>
+        <CardContent>
+        <div id="unassigned" className="p-4 bg-muted rounded-lg border" aria-describedby="metric-instructions">
+          <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center"><BarChart2 className="w-5 h-5 mr-2 text-primary" aria-hidden="true" />Metrics Pool</h4>
           <SortableContext items={containers.unassigned.map(i => i.id)} strategy={rectSortingStrategy}>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
               {containers.unassigned.map(item => <SortableItem key={item.id} id={item.id} text={item.text} />)}
@@ -133,10 +153,11 @@ const MetricSorter: React.FC = () => {
           </SortableContext>
         </div>
         <div className="flex flex-col md:flex-row gap-4 mt-4">
-          <DropZone containerId="highSignal" title="High Signal Metrics" items={containers.highSignal} icon={<TrendingUp className="w-5 h-5 mr-2 text-green-400" />} />
-          <DropZone containerId="lowSignal" title="Low Signal / Vanity Metrics" items={containers.lowSignal} icon={<TrendingDown className="w-5 h-5 mr-2 text-red-400" />} />
+          <DropZone containerId="highSignal" title="High Signal Metrics" items={containers.highSignal} icon={<TrendingUp className="w-5 h-5 mr-2 text-green-500" aria-hidden="true" />} />
+          <DropZone containerId="lowSignal" title="Low Signal / Vanity Metrics" items={containers.lowSignal} icon={<TrendingDown className="w-5 h-5 mr-2 text-red-500" aria-hidden="true" />} />
         </div>
-      </div>
+        </CardContent>
+      </Card>
     </DndContext>
   );
 };

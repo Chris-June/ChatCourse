@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Check, ArrowRight } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 
 const promptAdditions = {
   topic: { label: 'Topic: Black Holes', text: 'the concept of a black hole', color: 'bg-blue-500' },
@@ -35,34 +36,38 @@ const PromptImprover: React.FC = () => {
   const initialPrompt = "Tell me about space.";
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg border border-dashed border-gray-600 my-6">
-      <h3 className="text-xl font-semibold text-white mb-3">Interactive Prompt Builder</h3>
-      <p className="text-gray-400 mb-4">Click the buttons to add specificity to a vague prompt and see how it improves.</p>
-
-      <div className="flex flex-wrap gap-2 mb-4">
+    <Card className="my-6">
+      <CardHeader>
+        <CardTitle className="text-base md:text-lg">Interactive Prompt Builder</CardTitle>
+        <p className="text-sm text-muted-foreground">Click the chips to add specificity to a vague prompt and see how it improves.</p>
+      </CardHeader>
+      <CardContent>
+      <div className="flex flex-wrap gap-2 mb-4" role="group" aria-label="Prompt additions">
         {(Object.keys(promptAdditions) as AdditionKey[]).map(key => (
           <button
             key={key}
             onClick={() => toggleAddition(key)}
-            className={`px-3 py-1.5 text-sm font-medium rounded-full flex items-center gap-2 transition-all duration-200 ${activeAdditions.includes(key) ? 'bg-green-600 text-white' : 'bg-gray-700 hover:bg-gray-600 text-gray-300'}`}>
-            {activeAdditions.includes(key) && <Check className="w-4 h-4" />}
+            aria-pressed={activeAdditions.includes(key)}
+            className={`px-3 py-1.5 text-sm font-medium rounded-full flex items-center gap-2 transition-all duration-200 border 
+              ${activeAdditions.includes(key) ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-accent'}`}>
+            {activeAdditions.includes(key) && <Check className="w-4 h-4" aria-hidden="true" />}
             {promptAdditions[key].label}
           </button>
         ))}
       </div>
-
       <div className="flex flex-col md:flex-row items-center justify-center text-center mt-6 gap-4">
-          <div className="p-4 bg-red-900/20 border border-red-500/30 rounded-lg w-full md:w-1/2">
-              <p className="text-red-300 font-semibold">Vague Prompt</p>
-              <p className="text-sm text-gray-200 mt-2 font-mono bg-gray-900 p-3 rounded min-h-[60px] flex items-center justify-center">'{initialPrompt}'</p>
+          <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-lg w-full md:w-1/2">
+              <p className="text-destructive font-semibold">Vague Prompt</p>
+              <p className="text-sm text-muted-foreground mt-2 font-mono bg-background p-3 rounded border min-h-[60px] flex items-center justify-center">'{initialPrompt}'</p>
           </div>
-          <ArrowRight className="w-8 h-8 text-gray-500 flex-shrink-0 hidden md:block" />
-          <div className="p-4 bg-green-900/20 border border-green-500/30 rounded-lg w-full md:w-1/2">
-              <p className="text-green-300 font-semibold">Improved Prompt</p>
-              <p className="text-sm text-gray-200 mt-2 font-mono bg-gray-900 p-3 rounded min-h-[60px] flex items-center justify-center">'{finalPrompt}'</p>
+          <ArrowRight className="w-8 h-8 text-muted-foreground flex-shrink-0 hidden md:block" aria-hidden="true" />
+          <div className="p-4 bg-green-600/10 border border-green-500/30 rounded-lg w-full md:w-1/2">
+              <p className="text-green-700 dark:text-green-400 font-semibold">Improved Prompt</p>
+              <p className="text-sm text-foreground mt-2 font-mono bg-background p-3 rounded border min-h-[60px] flex items-center justify-center">'{finalPrompt}'</p>
           </div>
       </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

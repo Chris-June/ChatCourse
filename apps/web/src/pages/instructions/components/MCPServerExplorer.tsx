@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Wrench, ChevronRight, Github, Database, Calendar } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
+import { Button } from '@chat/ui';
 
 const servers = [
   {
     name: 'github',
-    icon: <Github className="w-5 h-5 mr-3 text-green-400" />,
+    icon: <Github className="w-5 h-5 mr-3 text-green-500" aria-hidden="true" />,
     description: 'For interacting with GitHub repositories.',
     tools: [
       { name: 'create_issue', description: 'Creates a new issue in a repo.' },
@@ -15,7 +17,7 @@ const servers = [
   },
   {
     name: 'internal_db',
-    icon: <Database className="w-5 h-5 mr-3 text-cyan-400" />,
+    icon: <Database className="w-5 h-5 mr-3 text-cyan-500" aria-hidden="true" />,
     description: 'For querying the company\'s internal database.',
     tools: [
       { name: 'query_inventory', description: 'Checks stock levels for a product.' },
@@ -24,7 +26,7 @@ const servers = [
   },
   {
     name: 'google_calendar',
-    icon: <Calendar className="w-5 h-5 mr-3 text-yellow-400" />,
+    icon: <Calendar className="w-5 h-5 mr-3 text-yellow-500" aria-hidden="true" />,
     description: 'For managing calendar events.',
     tools: [
       { name: 'create_event', description: 'Schedules a new event.' },
@@ -47,43 +49,48 @@ const MCPServerExplorer: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-900/70 p-6 rounded-xl my-6 border border-gray-700">
-        <h3 className="text-lg font-semibold text-white text-center mb-1">Interactive Demo: MCP Server Explorer</h3>
-        <p className="text-center text-gray-400 text-sm mb-6">Click on a server to simulate an agent discovering its available tools.</p>
-        <div className="flex space-x-6">
+    <Card className="my-6">
+      <CardHeader>
+        <CardTitle className="text-base md:text-lg text-center">Interactive Demo: MCP Server Explorer</CardTitle>
+        <p className="text-center text-sm text-muted-foreground">Click on a server to simulate an agent discovering its available tools.</p>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-col lg:flex-row gap-6">
         {/* Server List */}
-        <div className="w-1/3">
-          <h4 className="font-semibold text-white mb-3">Available Servers</h4>
+        <div className="lg:w-1/3">
+          <h4 className="font-semibold text-foreground mb-3">Available Servers</h4>
           <div className="space-y-2">
             {servers.map((server) => (
-              <button
+              <Button
                 key={server.name}
                 onClick={() => handleServerSelect(server)}
-                className={`w-full flex items-center p-3 rounded-lg text-left transition-colors duration-200 ${
-                  selectedServer.name === server.name
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-gray-800 hover:bg-gray-700 text-gray-300'
-                }`}>
+                variant={selectedServer.name === server.name ? 'default' : 'secondary'}
+                className="w-full justify-start"
+                aria-pressed={selectedServer.name === server.name}
+              >
                 {server.icon}
                 <span className="flex-grow font-semibold">{server.name}</span>
-                <ChevronRight className="w-5 h-5 transition-transform duration-200" />
-              </button>
+                <ChevronRight className="w-5 h-5 transition-transform duration-200" aria-hidden="true" />
+              </Button>
             ))}
           </div>
         </div>
 
         {/* Tool List */}
-        <div className="w-2/3 bg-gray-800 p-4 rounded-lg relative overflow-hidden">
+        <div className="lg:w-2/3 bg-muted p-4 rounded-lg relative overflow-hidden border">
           <AnimatePresence mode="wait">
             {isLoading ? (
               <motion.div
                 key="loader"
-                className="absolute inset-0 flex items-center justify-center bg-gray-800/80"
+                className="absolute inset-0 flex items-center justify-center bg-background/80"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                role="status"
+                aria-live="polite"
+                aria-busy="true"
               >
-                <p className='text-white'>Querying server...</p>
+                <p className='text-foreground'>Querying server...</p>
               </motion.div>
             ) : (
               <motion.div
@@ -95,20 +102,20 @@ const MCPServerExplorer: React.FC = () => {
               >
                 <div className="flex items-center mb-3">
                   {selectedServer.icon}
-                  <h4 className="text-xl font-bold text-white">{selectedServer.name} Tools</h4>
+                  <h4 className="text-xl font-semibold text-foreground">{selectedServer.name} Tools</h4>
                 </div>
-                <p className="text-sm text-gray-400 mb-4">{selectedServer.description}</p>
+                <p className="text-sm text-muted-foreground mb-4">{selectedServer.description}</p>
                 <div className="space-y-3">
                   {selectedServer.tools.map((tool) => (
-                    <div key={tool.name} className="bg-gray-900 p-3 rounded-md border border-gray-700/50">
+                    <div key={tool.name} className="bg-card p-3 rounded-md border">
                       <div className="flex items-center">
-                        <Wrench className="w-4 h-4 mr-2 text-blue-400 flex-shrink-0" />
-                        <p className="font-mono text-sm text-blue-300">{tool.name}</p>
+                        <Wrench className="w-4 h-4 mr-2 text-primary flex-shrink-0" aria-hidden="true" />
+                        <p className="font-mono text-sm text-foreground">{tool.name}</p>
                       </div>
-                      <p className="text-xs text-gray-400 ml-6 mb-2">{tool.description}</p>
-                      <div className="ml-6 mt-2 border-l-2 border-gray-700 pl-3">
-                        <p className='text-xs font-semibold text-gray-500'>Example Call:</p>
-                        <p className="font-mono text-xs text-green-400 bg-gray-800/50 p-1 rounded">{`${selectedServer.name}.${tool.name}(...)`}</p>
+                      <p className="text-xs text-muted-foreground ml-6 mb-2">{tool.description}</p>
+                      <div className="ml-6 mt-2 border-l-2 border-muted-foreground/20 pl-3">
+                        <p className='text-xs font-semibold text-muted-foreground'>Example Call:</p>
+                        <p className="font-mono text-xs text-primary bg-muted p-1 rounded">{`${selectedServer.name}.${tool.name}(...)`}</p>
                       </div>
                     </div>
                   ))}
@@ -118,7 +125,8 @@ const MCPServerExplorer: React.FC = () => {
           </AnimatePresence>
         </div>
       </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

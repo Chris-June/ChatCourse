@@ -179,7 +179,7 @@ const Lesson1_7: React.FC = () => {
     <LessonTemplate
       moduleNumber={1}
       lessonNumber={7}
-      title="1.7: Advanced Prompting Techniques"
+      title="Advanced Prompting Techniques"
       subtitle="Unlock the full potential of AI with sophisticated strategies."
       quizQuestions={quizQuestions}
     >

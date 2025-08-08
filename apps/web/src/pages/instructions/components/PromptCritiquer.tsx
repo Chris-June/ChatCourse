@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Check, X, HelpCircle } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
+import { Button } from '../../../components/ui/button';
 
 const promptToCritique = {
   text: 'Write an email about the new project.',
@@ -34,15 +36,17 @@ const PromptCritiquer: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg border border-dashed border-gray-600 my-6">
-      <h3 className="text-xl font-semibold text-white mb-2 flex items-center">
-        <HelpCircle className="w-6 h-6 mr-3 text-blue-400" />
-        Interactive Challenge: Critique This Prompt!
-      </h3>
-      <p className="text-gray-400 mb-4">Analyze the prompt below. Check the boxes for all the I.N.S.Y.N.C. elements you think are <span className='font-bold text-red-400'>missing</span>.</p>
-
-      <div className="bg-gray-900 p-4 rounded-md border border-gray-700 mb-4">
-        <p className="text-lg text-center font-mono text-gray-300 italic">"{promptToCritique.text}"</p>
+    <Card className="my-6">
+      <CardHeader>
+        <CardTitle className="text-base md:text-lg flex items-center">
+          <HelpCircle className="w-6 h-6 mr-3 text-primary" aria-hidden="true" />
+          Interactive Challenge: Critique This Prompt!
+        </CardTitle>
+        <p className="text-sm text-muted-foreground">Analyze the prompt below. Check the boxes for all the I.N.S.Y.N.C. elements you think are <span className='font-bold text-destructive'>missing</span>.</p>
+      </CardHeader>
+      <CardContent>
+      <div className="bg-muted p-4 rounded-md border mb-4">
+        <p className="text-lg text-center font-mono text-foreground/90 italic">"{promptToCritique.text}"</p>
       </div>
 
       <div className="space-y-3">
@@ -50,39 +54,44 @@ const PromptCritiquer: React.FC = () => {
           const element = promptToCritique.elements[key];
           const isCorrect = guesses[key] === !element.present;
           return (
-            <div key={key} className={`p-3 rounded-md transition-all duration-200 ${submitted ? (isCorrect ? 'bg-green-900/50' : 'bg-red-900/50') : 'bg-gray-700'}`}>
-              <label className="flex items-center text-white cursor-pointer">
+            <div key={key} className={`p-3 rounded-md transition-all duration-200 border ${submitted ? (isCorrect ? 'bg-green-600/10' : 'bg-red-600/10') : 'bg-muted'}`}>
+              <label className="flex items-center cursor-pointer text-foreground">
                 <input 
                   type="checkbox" 
                   checked={guesses[key]} 
                   onChange={() => handleGuessChange(key)}
                   disabled={submitted}
-                  className="w-5 h-5 rounded bg-gray-600 border-gray-500 text-blue-500 focus:ring-blue-600 mr-4"
+                  className="w-5 h-5 rounded border mr-4"
                 />
                 <span>{element.label}</span>
                 {submitted && (
-                  isCorrect ? <Check className="w-5 h-5 text-green-400 ml-auto" /> : <X className="w-5 h-5 text-red-400 ml-auto" />
+                  isCorrect ? <Check className="w-5 h-5 text-green-600 ml-auto" aria-hidden="true" /> : <X className="w-5 h-5 text-red-600 ml-auto" aria-hidden="true" />
                 )}
               </label>
-              {submitted && <p className='text-sm text-gray-300 mt-2 pl-9'>{element.explanation}</p>}
+              {submitted && <p className='text-sm text-muted-foreground mt-2 pl-9'>{element.explanation}</p>}
             </div>
           );
         })}
       </div>
-
       {!submitted ? (
-        <button onClick={() => setSubmitted(true)} className="w-full mt-4 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+        <Button onClick={() => setSubmitted(true)} className="w-full mt-4">
           Check My Answers
-        </button>
+        </Button>
       ) : (
-        <div className='text-center mt-4 p-3 bg-gray-900 rounded-md'>
-            <p className='font-bold text-lg'>You found {getScore()} out of 5 correctly!</p>
-            <button onClick={() => { setSubmitted(false); setGuesses({ intent: false, nuance: false, style: false, youAsNarrative: false, context: false }); }} className="mt-2 px-4 py-1 text-sm bg-gray-600 hover:bg-gray-500 rounded-md">
+        <div className='text-center mt-4 p-3 bg-muted rounded-md border' role="status" aria-live="polite">
+            <p className='font-bold'>You found {getScore()} out of 5 correctly!</p>
+            <Button
+              onClick={() => { setSubmitted(false); setGuesses({ intent: false, nuance: false, style: false, youAsNarrative: false, context: false }); }}
+              variant="secondary"
+              size="sm"
+              className="mt-2"
+            >
               Try Again
-            </button>
+            </Button>
         </div>
       )}
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

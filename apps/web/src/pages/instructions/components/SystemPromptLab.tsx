@@ -31,45 +31,45 @@ const SystemPromptLab: React.FC = () => {
   ];
 
   return (
-    <div className="bg-gray-900/50 p-6 rounded-lg border border-gray-700 space-y-4">
+    <div className="bg-card p-6 rounded-lg border space-y-4">
       <div className="flex items-center space-x-3">
-        <TestTube2 className="w-6 h-6 text-purple-400" />
-        <h4 className="font-semibold text-white text-lg">System Prompt Lab</h4>
+        <TestTube2 className="w-6 h-6 text-primary" aria-hidden="true" />
+        <h4 className="font-semibold text-foreground text-lg">System Prompt Lab</h4>
       </div>
-      <p className="text-gray-400 text-sm">
-        The <code className="bg-gray-700 p-1 rounded">system</code> prompt sets the personality and rules for the AI. Modify the prompt below and see how it changes the AI's behavior in the chat.
+      <p className="text-muted-foreground text-sm">
+        The <code className="bg-muted p-1 rounded border">system</code> prompt sets the personality and rules for the AI. Modify the prompt below and see how it changes the AI's behavior in the chat.
       </p>
 
       <div className="space-y-2">
-        <label htmlFor="system-prompt-textarea" className="font-semibold text-gray-300">System Prompt:</label>
+        <label htmlFor="system-prompt-textarea" className="font-semibold text-foreground">System Prompt:</label>
         <textarea
           id="system-prompt-textarea"
           value={systemPrompt}
           onChange={handlePromptChange}
-          className="w-full p-2 bg-gray-800 border border-gray-600 rounded-md font-mono text-sm text-white focus:ring-2 focus:ring-purple-500"
+          className="w-full p-2 bg-background border rounded-md font-mono text-sm text-foreground focus:ring-2 focus:ring-primary"
           rows={4}
         />
       </div>
 
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <span className="text-sm font-medium text-gray-400">Presets:</span>
+          <span className="text-sm font-medium text-muted-foreground">Presets:</span>
           {presets.map(p => (
-            <button key={p.name} onClick={() => setSystemPrompt(p.prompt)} className="px-3 py-1 text-xs bg-gray-700 text-white rounded-full hover:bg-gray-600">
+            <button key={p.name} onClick={() => setSystemPrompt(p.prompt)} className="px-3 py-1 text-xs bg-muted text-foreground rounded-full hover:opacity-90 border">
               {p.name}
             </button>
           ))}
         </div>
         <button 
           onClick={applyPrompt}
-          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-500 flex items-center space-x-2"
+          className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 flex items-center space-x-2"
         >
-          <Sparkles className="w-5 h-5" />
+          <Sparkles className="w-5 h-5" aria-hidden="true" />
           <span>Apply & Reset Chat</span>
         </button>
       </div>
 
-      <div className="mt-4 border-t border-gray-700 pt-4">
+      <div className="mt-4 border-t pt-4">
         <InlineChat 
           key={key} // Use key to force re-mount
           moduleId={`module-5.1-lab-${key}`}

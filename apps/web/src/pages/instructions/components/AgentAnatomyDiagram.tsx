@@ -1,78 +1,124 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChefHat, Bot, BookCopy, CookingPot } from 'lucide-react';
+import { type LucideIcon, ArrowRight, ChefHat, Bot, BookCopy, CookingPot } from 'lucide-react';
 
-const anatomySteps = [
+type Step = {
+  id: 'planner' | 'executor' | 'memory' | 'toolset';
+  Icon: LucideIcon;
+  title: string;
+  description: string;
+  analogy: string;
+};
+
+const anatomySteps: Step[] = [
   {
     id: 'planner',
-    icon: <ChefHat size={32} />,
+    Icon: ChefHat,
     title: 'The Planner (Head Chef)',
     description: 'Designs the high-level strategy to achieve the goal.',
-    analogy: 'The Head Chef receives an order for a "five-course meal" (the user\'s goal). It doesn\'t cook; it designs the menu, sequences the dishes, and writes the recipes (the plan) for the kitchen staff to follow.'
+    analogy:
+      'The Head Chef receives an order for a "five-course meal" (the user\'s goal). It doesn\'t cook; it designs the menu, sequences the dishes, and writes the recipes (the plan) for the kitchen staff to follow.'
   },
   {
     id: 'executor',
-    icon: <Bot size={32} />,
+    Icon: Bot,
     title: 'The Executor (Robo-Sous-Chef)',
     description: 'Carries out the plan by using tools.',
-    analogy: 'This is the tireless robotic Sous-Chef. It reads the recipes from the Head Chef and operates the kitchen appliances (the tools) to chop, mix, and cook the ingredients exactly as instructed.'
+    analogy:
+      'This is the tireless robotic Sous-Chef. It reads the recipes from the Head Chef and operates the kitchen appliances (the tools) to chop, mix, and cook the ingredients exactly as instructed.'
   },
   {
     id: 'memory',
-    icon: <BookCopy size={32} />,
+    Icon: BookCopy,
     title: 'Memory (Recipe Book & Pantry Log)',
     description: 'Retains information from past steps.',
-    analogy: 'This is the kitchen\'s shared knowledge base. It\'s a recipe book of what has worked before, a log of which ingredients have been used (short-term memory), and a pantry inventory of all available resources (long-term knowledge).'
+    analogy:
+      "This is the kitchen's shared knowledge base. It's a recipe book of what has worked before, a log of which ingredients have been used (short-term memory), and a pantry inventory of all available resources (long-term knowledge)."
   },
   {
     id: 'toolset',
-    icon: <CookingPot size={32} />,
+    Icon: CookingPot,
     title: 'The Toolset (Kitchen Appliances)',
     description: 'The specific skills the agent can use.',
-    analogy: 'These are the specialized appliances the Sous-Chef can operate: a high-tech oven (for running code), a blender (for data analysis), or a direct line to the grocery store (an API call). Each tool does one thing perfectly.'
-  },
+    analogy:
+      'These are the specialized appliances the Sous-Chef can operate: a high-tech oven (for running code), a blender (for data analysis), or a direct line to the grocery store (an API call). Each tool does one thing perfectly.'
+  }
 ];
 
 const AgentAnatomyDiagram: React.FC = () => {
-  const [activeStep, setActiveStep] = useState(anatomySteps[0]);
+  const [activeId, setActiveId] = useState<Step['id']>('planner');
+  const activeStep = anatomySteps.find((s) => s.id === activeId) ?? anatomySteps[0];
+
+  const order: Step['id'][] = anatomySteps.map((s) => s.id);
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const idx = order.indexOf(activeId);
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      const next = order[(idx + 1) % order.length];
+      setActiveId(next);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const prev = order[(idx - 1 + order.length) % order.length];
+      setActiveId(prev);
+    }
+  };
 
   return (
-    <div className="my-6 p-4 md:p-6 bg-gray-900 rounded-lg border border-gray-700">
-      <h3 className="text-xl font-bold text-center text-white mb-2">An Agent is an Autonomous Chef</h3>
-      <p className="text-center text-gray-400 text-sm mb-6">Click each component to understand its role in the automated kitchen.</p>
+    <div className="my-6 p-4 md:p-6 bg-card text-card-foreground rounded-xl border shadow-sm">
+      <h3 className="text-lg md:text-xl font-semibold text-center text-foreground mb-2">An Agent is an Autonomous Chef</h3>
+      <p className="text-center text-muted-foreground text-sm mb-6">Click each component to understand its role in the automated kitchen.</p>
       
-      <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-        {anatomySteps.map((step, index) => (
-          <React.Fragment key={step.id}>
-            <motion.div
-              onClick={() => setActiveStep(step)}
-              className={`p-4 rounded-lg border cursor-pointer w-full md:w-48 h-48 flex flex-col items-center justify-center text-center transition-colors duration-300 ${activeStep.id === step.id ? 'bg-blue-900/50 border-blue-500' : 'bg-gray-800 border-gray-700 hover:bg-gray-700/80'}`}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-            >
-              <div className={`mb-3 ${activeStep.id === step.id ? 'text-blue-400' : 'text-gray-400'}`}>{step.icon}</div>
-              <h4 className="font-bold text-md text-white">{step.title}</h4>
-            </motion.div>
-            {index < anatomySteps.length - 1 && (
-              <div className="hidden md:flex">
-                <ArrowRight className="text-gray-500 mx-2" size={24} />
-              </div>
-            )}
-          </React.Fragment>
-        ))}
+      <div
+        className="flex flex-col md:flex-row justify-center items-center gap-4"
+        role="radiogroup"
+        aria-label="Agent anatomy steps"
+        onKeyDown={onKeyDown}
+      >
+        {anatomySteps.map((step, index) => {
+          const isActive = activeId === step.id;
+          const Icon = step.Icon;
+          return (
+            <React.Fragment key={step.id}>
+              <motion.button
+                type="button"
+                onClick={() => setActiveId(step.id)}
+                className={
+                  `w-full md:w-48 h-48 inline-flex flex-col items-center justify-center rounded-lg border text-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background ${
+                    isActive
+                      ? 'bg-primary/10 border-primary text-primary'
+                      : 'bg-muted border-transparent text-muted-foreground hover:bg-muted/80'
+                  }`
+                }
+                role="radio"
+                aria-checked={isActive}
+              >
+                <Icon className="h-8 w-8 mb-3" aria-hidden="true" />
+                <h4 className="font-semibold text-sm md:text-base text-foreground text-center">
+                  {step.title}
+                </h4>
+              </motion.button>
+              {index < anatomySteps.length - 1 && (
+                <div className="hidden md:flex">
+                  <ArrowRight className="text-muted-foreground mx-2 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+                </div>
+              )}
+            </React.Fragment>
+          );
+        })}
       </div>
 
       <AnimatePresence mode="wait">
         <motion.div
           key={activeStep.id}
-          className="mt-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700 text-sm"
+          className="mt-6 p-4 bg-muted rounded-lg border text-sm"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
         >
-          <h4 className="font-bold text-blue-300 mb-2">Analogy: {activeStep.title}</h4>
-          <p className="text-gray-300">{activeStep.analogy}</p>
+          <h4 className="font-semibold text-primary mb-2">Analogy: {activeStep.title}</h4>
+          <p className="text-foreground">{activeStep.analogy}</p>
         </motion.div>
       </AnimatePresence>
     </div>

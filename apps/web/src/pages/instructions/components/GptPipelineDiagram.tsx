@@ -39,10 +39,10 @@ const GptPipelineDiagram: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="bg-gray-900 p-6 rounded-lg my-6 border border-dashed border-gray-700">
-      <h4 className="text-xl font-bold text-center text-white">Anatomy of a GPT Response</h4>
-      <p className="text-center text-gray-400 text-sm mb-6">Click on each step to see how your prompt travels through the AI's mind.</p>
-      <div className="flex justify-between items-center mb-6 p-4 bg-gray-800/50 rounded-lg flex-wrap">
+    <div className="bg-card p-6 rounded-lg my-6 border text-card-foreground">
+      <h4 className="text-xl font-bold text-center">Anatomy of a GPT Response</h4>
+      <p className="text-center text-muted-foreground text-sm mb-6">Click on each step to see how your prompt travels through the AI's mind.</p>
+      <div className="flex justify-between items-center mb-6 p-4 bg-muted rounded-lg flex-wrap">
         {pipelineSteps.map((step, index) => (
           <React.Fragment key={index}>
             <motion.div
@@ -52,23 +52,23 @@ const GptPipelineDiagram: React.FC = () => {
               transition={{ type: 'spring', stiffness: 300 }}
             >
               <motion.div
-                className={`p-3 rounded-full transition-colors duration-300 ${activeIndex === index ? 'bg-blue-500 shadow-lg shadow-blue-500/50' : 'bg-gray-700'}`}
+                className={`p-3 rounded-full transition-colors duration-300 ${activeIndex === index ? 'bg-primary shadow-lg shadow-primary/30' : 'bg-muted'}`}
                 whileHover={{ scale: 1.15 }}
               >
-                <step.icon className="w-7 h-7 text-white" />
+                <step.icon className="w-7 h-7 text-primary-foreground" aria-hidden="true" />
               </motion.div>
-              <p className={`mt-2 text-xs font-semibold transition-colors duration-300 ${activeIndex === index ? 'text-blue-300' : 'text-gray-400'}`}>
+              <p className={`mt-2 text-xs font-semibold transition-colors duration-300 ${activeIndex === index ? 'text-primary' : 'text-muted-foreground'}`}>
                 {step.label}
               </p>
             </motion.div>
             {index < pipelineSteps.length - 1 && (
-              <div className="flex-1 h-0.5 bg-gray-600 mx-2 hidden md:block"></div>
+              <div className="flex-1 h-0.5 bg-border mx-2 hidden md:block"></div>
             )}
           </React.Fragment>
         ))}
       </div>
-      <div className="text-center bg-gray-800/50 p-4 rounded-lg min-h-[110px] flex items-center justify-center">
-        <p className="text-gray-300 max-w-2xl mx-auto text-sm">{pipelineSteps[activeIndex].description}</p>
+      <div className="text-center bg-muted p-4 rounded-lg min-h-[110px] flex items-center justify-center border" role="status" aria-live="polite">
+        <p className="text-muted-foreground max-w-2xl mx-auto text-sm">{pipelineSteps[activeIndex].description}</p>
       </div>
     </div>
   );

@@ -2,14 +2,14 @@ import React from 'react';
 import { ArrowDown, GitCommitHorizontal } from 'lucide-react';
 
 const Box = ({ children, className }: { children: React.ReactNode, className?: string }) => (
-  <div className={`bg-card border border-border rounded-xl p-3 text-sm text-muted-foreground shadow-sm ${className}`}>
+  <div className={`bg-muted border rounded-xl p-3 text-sm text-foreground ${className}`}>
     {children}
   </div>
 );
 
 const LLMStep = ({ text }: { text: string }) => (
     <div className="flex items-center justify-center space-x-3">
-        <Box className="bg-primary/10 text-primary px-4 py-2">LLM</Box>
+        <Box className="bg-primary/15 text-primary px-4 py-2">LLM</Box>
         <p className="text-muted-foreground font-semibold">{text}</p>
     </div>
 );
@@ -23,8 +23,8 @@ const Example = ({ q, a, color } : { q: string, a: React.ReactNode, color: strin
 
 const AutoDemosDiagram: React.FC = () => {
   return (
-    <div className="my-6 p-4 bg-card border border-border rounded-xl text-sm shadow-sm">
-        <h3 className="text-center font-semibold text-lg text-card-foreground mb-4">Auto-CoT: AI Teaching Assistant</h3>
+    <div className="my-6 p-4 bg-card text-card-foreground border rounded-xl text-sm shadow-sm">
+        <h3 className="text-center font-semibold text-lg text-primary mb-4">Auto-CoT: AI Teaching Assistant</h3>
         <div className="text-xs text-muted-foreground mb-4 text-center">Like having an AI teaching assistant that automatically creates diverse examples with step-by-step solutions</div>
         
         <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
@@ -36,13 +36,13 @@ const AutoDemosDiagram: React.FC = () => {
                     <p className="text-center py-1">...</p>
                     <p>Q: A chef needs to cook 9 potatoes...</p>
                 </Box>
-                <ArrowDown className="w-6 h-6 text-muted-foreground" />
+                <ArrowDown className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                 <div className="text-xs text-muted-foreground mb-1">Step 2: Group similar problems</div>
                 <Box className="w-full text-center">Smart Clustering</Box>
-                <ArrowDown className="w-6 h-6 text-muted-foreground" />
+                <ArrowDown className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                 <div className="text-xs text-muted-foreground mb-1">Step 3: Generate step-by-step solutions</div>
                 <LLMStep text="Auto Demo Construction" />
-                <ArrowDown className="w-6 h-6 text-muted-foreground" />
+                <ArrowDown className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                 <div className="text-xs text-muted-foreground mb-1">Step 4: Select best examples</div>
                 <Box className="w-full">
                     <p>1. Q: Music shopping... A: <span className="text-primary">Let's think step by step...</span></p>
@@ -55,34 +55,31 @@ const AutoDemosDiagram: React.FC = () => {
             {/* Right Column: Live Examples */}
             <div className="flex flex-col space-y-4">
                 <div className="text-xs text-muted-foreground mb-2">Generated examples ready for use</div>
-                <Box className="space-y-3">
+                <Box className="space-y-3 bg-muted">
                     <Example 
                         q="Music shopping: 3 country albums + 5 pop albums = ?"
-                        a={<>
- <span className="text-primary">Let's break it down:</span> 3 albums × 3 songs each = 9 songs, 5 albums × 3 songs each = 15 songs, total = 24 songs</>}
-                        color="border-emerald-400"
+                        a={<> <span className="text-primary">Let's break it down:</span> 3 albums × 3 songs each = 9 songs, 5 albums × 3 songs each = 15 songs, total = 24 songs</>}
+                        color="border-emerald-500/70"
                     />
                      <Example 
                         q="Cooking time: 9 potatoes at 3 minutes each = ?"
-                        a={<>
- <span className="text-primary">Step by step:</span> Already cooked 7 potatoes (21 minutes), 2 remaining potatoes need 6 more minutes, total = 27 minutes</>}
-                        color="border-emerald-400"
+                        a={<> <span className="text-primary">Step by step:</span> Already cooked 7 potatoes (21 minutes), 2 remaining potatoes need 6 more minutes, total = 27 minutes</>}
+                        color="border-emerald-500/70"
                     />
                      <Example 
                         q="Pet store: 64 puppies, sold 28, 4 per cage = ?"
-                        a={<>
- <span className="text-primary">Let's calculate:</span> 64 - 28 = 36 puppies left, 36 ÷ 4 = 9 cages needed</>}
-                        color="border-emerald-400"
+                        a={<> <span className="text-primary">Let's calculate:</span> 64 - 28 = 36 puppies left, 36 ÷ 4 = 9 cages needed</>}
+                        color="border-emerald-500/70"
                     />
                 </Box>
                 
                 <div className="flex flex-col items-center">
-                    <p className="text-muted-foreground text-xs border border-dashed border-border rounded-full px-2 py-0.5">Test Question</p>
-                    <GitCommitHorizontal className="w-6 h-12 text-muted-foreground -rotate-90" />
+                    <p className="text-muted-foreground text-xs border border-dashed border-muted rounded-full px-2 py-0.5">Test Question</p>
+                    <GitCommitHorizontal className="w-6 h-12 text-muted-foreground -rotate-90" aria-hidden="true" />
                     <LLMStep text="Apply Learned Reasoning" />
-                    <ArrowDown className="w-6 h-6 text-muted-foreground" />
+                    <ArrowDown className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                     <Box className="w-full bg-muted">
-                        <span className="text-emerald-400">✅</span> Using the step-by-step approach: 64 - 28 = 36, 36 ÷ 4 = 9 cages. The answer is 9.
+                        <span className="text-emerald-500">✅</span> Using the step-by-step approach: 64 - 28 = 36, 36 ÷ 4 = 9 cages. The answer is 9.
                     </Box>
                 </div>
             </div>

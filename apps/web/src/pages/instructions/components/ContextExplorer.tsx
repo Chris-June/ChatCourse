@@ -119,11 +119,17 @@ const ContextExplorer: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 bg-gray-800 p-4 rounded-lg border border-gray-700 h-[600px]">
+    <div className="flex flex-col md:flex-row gap-4 bg-card text-card-foreground p-4 rounded-xl border shadow-sm h-[600px]">
       {/* Left Side: Chat Interface */}
       <div className="w-full md:w-1/2 flex flex-col h-full">
-        <h3 className="text-lg font-semibold text-white mb-2 text-center">Chat Interface</h3>
-        <div ref={chatContainerRef} className="flex-grow bg-gray-900 rounded-lg p-4 overflow-y-auto mb-4">
+        <h3 className="text-lg font-semibold text-foreground mb-2 text-center">Chat Interface</h3>
+        <div
+          ref={chatContainerRef}
+          className="flex-grow bg-muted rounded-lg p-4 overflow-y-auto mb-4 border"
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions"
+        >
           <AnimatePresence initial={false}>
             {messages.map((msg, index) => (
               <motion.div
@@ -134,47 +140,52 @@ const ContextExplorer: React.FC = () => {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
                 className={`flex items-start gap-3 my-4 ${msg.role === 'user' ? 'justify-end' : ''}`}>
-                {msg.role === 'assistant' && <Bot className="w-6 h-6 text-blue-400 flex-shrink-0" />}
-                <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200'}`}>
+                {msg.role === 'assistant' && <Bot className="w-6 h-6 text-primary flex-shrink-0" aria-hidden="true" />}
+                <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${msg.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted text-foreground'}`}>
                   {msg.content}
                 </div>
-                {msg.role === 'user' && <User className="w-6 h-6 text-green-400 flex-shrink-0" />}
+                {msg.role === 'user' && <User className="w-6 h-6 text-emerald-500 flex-shrink-0" aria-hidden="true" />}
               </motion.div>
             ))}
             {isLoading && (
                 <motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-start gap-3 my-4">
-                    <Bot className="w-6 h-6 text-blue-400 flex-shrink-0" />
-                    <div className="max-w-xs lg:max-w-md px-4 py-2 rounded-lg bg-gray-700 text-gray-200">
+                    <Bot className="w-6 h-6 text-primary flex-shrink-0" aria-hidden="true" />
+                    <div className="max-w-xs lg:max-w-md px-4 py-2 rounded-lg bg-muted text-foreground">
                         <div className="flex items-center justify-center space-x-1">
-                            <span className="h-2 w-2 bg-blue-300 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                            <span className="h-2 w-2 bg-blue-300 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                            <span className="h-2 w-2 bg-blue-300 rounded-full animate-bounce"></span>
+                            <span className="h-2 w-2 bg-muted-foreground/50 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                            <span className="h-2 w-2 bg-muted-foreground/50 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                            <span className="h-2 w-2 bg-muted-foreground/50 rounded-full animate-bounce"></span>
                         </div>
                     </div>
                 </motion.div>
             )}
           </AnimatePresence>
         </div>
-        <div className="flex items-center bg-gray-900 rounded-lg px-2">
+        <div className="flex items-center bg-background border rounded-lg px-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Type your message..."
-            className="w-full bg-transparent p-3 text-gray-200 placeholder-gray-500 focus:outline-none"
+            className="w-full bg-transparent p-3 text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
             disabled={isLoading}
           />
-          <button onClick={handleSend} disabled={isLoading} className="p-2 text-gray-400 hover:text-blue-400 disabled:text-gray-600 transition-colors rounded-full">
-            <Send className="w-5 h-5" />
+          <button
+            onClick={handleSend}
+            disabled={isLoading}
+            aria-label="Send message"
+            className="p-2 text-muted-foreground hover:text-primary disabled:opacity-50 transition-colors rounded-full focus-visible:ring-2 focus-visible:ring-primary/40"
+          >
+            <Send className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
       </div>
 
       {/* Right Side: Context Viewer */}
       <div className="w-full md:w-1/2 flex flex-col h-full">
-        <h3 className="text-lg font-semibold text-white mb-2 text-center">Live Context (Message Array)</h3>
-        <div className="flex-grow bg-gray-900 rounded-lg p-4 overflow-y-auto font-mono text-xs text-gray-300">
+        <h3 className="text-lg font-semibold text-foreground mb-2 text-center">Live Context (Message Array)</h3>
+        <div className="flex-grow bg-muted rounded-lg p-4 overflow-y-auto font-mono text-xs text-muted-foreground border">
           <pre><code>{
 `[
 ${messages.map(msg => 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircle, XCircle } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
+import { Button } from '../../../components/ui/button';
 
 const scenarios = [
   {
@@ -41,49 +43,52 @@ const PredictTheNextToken: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg border border-dashed border-gray-600 my-6">
-      <h3 className="text-xl font-semibold text-white mb-3">Interactive Game: Predict the Next Token!</h3>
-      <p className="text-gray-400 mb-4">An LLM's main job is to predict the next word. Try it yourself! Which word is most likely to come next?</p>
-      
-      <div className="bg-gray-900 p-4 rounded-md">
-        <p className="text-lg text-center font-mono text-gray-300">
-          {sentence} <span className="bg-blue-600 text-blue-600 animate-pulse rounded">__</span>
+    <Card className="my-6">
+      <CardHeader>
+        <CardTitle className="text-base md:text-lg">Interactive Game: Predict the Next Token!</CardTitle>
+        <p className="text-sm text-muted-foreground">An LLM's main job is to predict the next word. Try it yourself—pick the most likely continuation.</p>
+      </CardHeader>
+      <CardContent>
+      <div className="bg-muted p-4 rounded-md border">
+        <p className="text-lg text-center font-mono text-foreground/90">
+          {sentence} <span className="bg-primary/80 text-transparent animate-pulse rounded px-1">__</span>
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4" role="group" aria-label="Options">
         {options.map((option) => (
           <button
             key={option}
             onClick={() => handleOptionClick(option)}
             disabled={selectedOption !== null}
-            className={`p-3 rounded-md text-center font-semibold transition-all duration-200 
-              ${selectedOption === null ? 'bg-gray-700 hover:bg-blue-700' : ''}
-              ${selectedOption === option && isCorrect ? 'bg-green-600 ring-2 ring-green-400' : ''}
-              ${selectedOption === option && !isCorrect ? 'bg-red-600 ring-2 ring-red-400' : ''}
-              ${selectedOption !== null && selectedOption !== option ? 'bg-gray-700 opacity-50' : ''}
+            aria-pressed={selectedOption === option}
+            className={`p-3 rounded-md text-center font-semibold transition-all duration-200 border 
+              ${selectedOption === null ? 'bg-muted hover:bg-accent' : ''}
+              ${selectedOption === option && isCorrect ? 'bg-green-600 text-white ring-2 ring-green-400' : ''}
+              ${selectedOption === option && !isCorrect ? 'bg-red-600 text-white ring-2 ring-red-400' : ''}
+              ${selectedOption !== null && selectedOption !== option ? 'bg-muted opacity-60' : ''}
             `}
           >
             {option}
           </button>
         ))}
       </div>
-
       {selectedOption && (
-        <div className={`p-4 rounded-md mt-4 flex items-start gap-4 ${isCorrect ? 'bg-green-900/50' : 'bg-red-900/50'}`}>
-          {isCorrect ? <CheckCircle className="w-6 h-6 text-green-400 mt-1 flex-shrink-0" /> : <XCircle className="w-6 h-6 text-red-400 mt-1 flex-shrink-0" />}
+        <div className={`p-4 rounded-md mt-4 flex items-start gap-4 border`} role="status" aria-live="polite">
+          {isCorrect ? <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" aria-hidden="true" /> : <XCircle className="w-6 h-6 text-red-500 mt-1 flex-shrink-0" aria-hidden="true" />}
           <div>
-            <h4 className={`font-bold ${isCorrect ? 'text-green-300' : 'text-red-300'}`}>
+            <h4 className={`font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
               {isCorrect ? 'Correct!' : 'Less Likely'}
             </h4>
-            <p className="text-sm text-gray-300 mt-1">{explanation}</p>
-            <button onClick={handleNext} className="mt-3 px-3 py-1 text-sm bg-gray-600 hover:bg-gray-500 rounded-md">
+            <p className="text-sm text-muted-foreground mt-1">{explanation}</p>
+            <Button onClick={handleNext} variant="secondary" size="sm" className="mt-3">
               Next Example
-            </button>
+            </Button>
           </div>
         </div>
       )}
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

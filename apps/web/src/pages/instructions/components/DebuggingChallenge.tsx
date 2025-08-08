@@ -55,47 +55,77 @@ const DebuggingChallenge: React.FC = () => {
   }
 
   return (
-    <div className="bg-gray-900/50 p-6 rounded-lg border border-gray-700 space-y-4">
-      <h4 className="font-semibold text-white text-lg">{scenario.title}</h4>
-      <p className="text-gray-400 text-sm">{scenario.description}</p>
+    <div className="bg-card text-card-foreground p-6 rounded-lg border space-y-4">
+      <h4 className="font-semibold text-foreground text-lg">{scenario.title}</h4>
+      <p className="text-muted-foreground text-sm">{scenario.description}</p>
       
-      <div className="bg-gray-800 p-4 rounded-lg font-mono text-sm space-y-2">
+      <div className="bg-muted p-4 rounded-lg font-mono text-sm space-y-2">
         {scenario.history.map((msg, index) => (
-          <div 
-            key={index} 
-            className={`p-2 rounded cursor-pointer ${selectedLine === index ? (isCorrect ? 'bg-green-500/30 ring-2 ring-green-500' : 'bg-red-500/30 ring-2 ring-red-500') : 'hover:bg-gray-700'}`}
+          <div
+            key={index}
+            role="button"
+            tabIndex={0}
+            aria-selected={selectedLine === index}
+            aria-label={`line ${index + 1} role ${msg.role}`}
+            className={`p-2 rounded cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
+              selectedLine === index
+                ? isCorrect
+                  ? 'bg-emerald-500/20 ring-2 ring-emerald-500'
+                  : 'bg-destructive/20 ring-2 ring-destructive'
+                : 'hover:bg-muted/60'
+            }`}
             onClick={() => handleLineSelect(index)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleLineSelect(index);
+              }
+            }}
           >
-            <span className={msg.role === 'user' ? 'text-blue-400' : msg.role === 'assistant' ? 'text-green-400' : 'text-purple-400'}>role: {msg.role}</span>
-            <span className="text-white">, content: "{msg.content}"</span>
+            <span className={msg.role === 'user' ? 'text-primary' : msg.role === 'assistant' ? 'text-emerald-500' : 'text-purple-400'}>role: {msg.role}</span>
+            <span className="text-foreground">, content: "{msg.content}"</span>
           </div>
         ))}
       </div>
 
       {isCorrect !== null && (
-        <div className={`p-4 rounded-lg flex flex-col items-center text-center ${isCorrect ? 'bg-green-900/50' : 'bg-red-900/50'}`}>
+        <div
+          className={`p-4 rounded-lg flex flex-col items-center text-center ${isCorrect ? 'bg-emerald-500/10' : 'bg-destructive/10'}`}
+          role="status"
+          aria-live="polite"
+        >
           {isCorrect ? (
             <>
-              <CheckCircle className="w-12 h-12 text-green-400 mb-2" />
-              <h5 className="font-bold text-white">Correct!</h5>
-              <p className="text-gray-300 text-sm">{scenario.explanation}</p>
-              <button onClick={reset} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500">Next Challenge</button>
+              <CheckCircle className="w-12 h-12 text-emerald-500 mb-2" aria-hidden="true" />
+              <h5 className="font-bold text-foreground">Correct!</h5>
+              <p className="text-muted-foreground text-sm">{scenario.explanation}</p>
+              <button
+                onClick={reset}
+                className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+              >
+                Next Challenge
+              </button>
             </>
           ) : (
             <>
-              <AlertTriangle className="w-12 h-12 text-red-400 mb-2" />
-              <h5 className="font-bold text-white">Not Quite</h5>
-              <p className="text-gray-300 text-sm">That line seems okay. Look for something that breaks the logical flow of the conversation.</p>
-              <button onClick={() => setShowHint(true)} className="mt-4 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-500">Show Hint</button>
+              <AlertTriangle className="w-12 h-12 text-destructive mb-2" aria-hidden="true" />
+              <h5 className="font-bold text-foreground">Not Quite</h5>
+              <p className="text-muted-foreground text-sm">That line seems okay. Look for something that breaks the logical flow of the conversation.</p>
+              <button
+                onClick={() => setShowHint(true)}
+                className="mt-4 px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+              >
+                Show Hint
+              </button>
             </>
           )}
         </div>
       )}
 
       {showHint && !isCorrect && (
-        <div className="p-3 bg-gray-700 rounded-lg flex items-start">
-          <Lightbulb className="w-5 h-5 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
-          <p className="text-yellow-200 text-sm">
+        <div className="p-3 bg-muted rounded-lg flex items-start">
+          <Lightbulb className="w-5 h-5 text-yellow-500 mr-3 mt-1 flex-shrink-0" aria-hidden="true" />
+          <p className="text-muted-foreground text-sm">
             {currentScenario === 'roleConfusion' 
               ? 'Hint: An assistant’s response should have the `assistant` role. Does one of them have the wrong label?' 
               : 'Hint: Look for a user message that tries to change the AI’s fundamental instructions.'}

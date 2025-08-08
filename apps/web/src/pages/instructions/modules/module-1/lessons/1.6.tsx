@@ -2,6 +2,7 @@ import React from 'react';
 import { Wrench } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
+import PromptImprover from '@/pages/instructions/components/PromptImprover';
 
 const Lesson1_6: React.FC = () => {
   const quizQuestions = [
@@ -61,7 +62,7 @@ const Lesson1_6: React.FC = () => {
     <LessonTemplate
       moduleNumber={1}
       lessonNumber={6}
-      title="1.6: Workshop: Building with I.N.S.Y.N.C."
+      title="Workshop: Building with I.N.S.Y.N.C."
       subtitle="Put your knowledge to the test with a hands-on challenge."
       quizQuestions={quizQuestions}
     >
@@ -121,6 +122,11 @@ const Lesson1_6: React.FC = () => {
             <li><strong>Context:</strong> "Our main competitors focus on price, but our key differentiator is sustainability and our 'earthy' brand aesthetic."</li>
           </ul>
         </div>
+
+        {/* Interactive: From vague to specific */}
+        <section className="mt-8">
+          <PromptImprover />
+        </section>
 
         <InlineChat 
             moduleId="module-1.6"

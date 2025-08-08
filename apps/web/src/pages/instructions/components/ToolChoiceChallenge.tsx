@@ -39,23 +39,23 @@ const ToolChoiceChallenge: React.FC = () => {
 
   const getBorderColor = (id: string) => {
     if (!submitted) {
-      return selectedId === id ? 'border-blue-500' : 'border-gray-700';
+      return selectedId === id ? 'border-primary' : 'border';
     }
     if (id === challengeData.correctChoiceId) {
-      return 'border-green-500';
+      return 'border-emerald-500';
     }
     if (id === selectedId) {
       return 'border-red-500';
     }
-    return 'border-gray-700';
+    return 'border';
   };
 
   return (
-    <div className="bg-gray-900/70 border border-gray-700 rounded-lg p-6 space-y-4">
-      <h3 className="text-xl font-bold text-white">Challenge: Pick the Right Tool</h3>
-      <div className="p-4 bg-gray-800 rounded-lg">
-        <p className="text-gray-400 text-sm mb-1">User Prompt:</p>
-        <p className="text-white italic">"{challengeData.userPrompt}"</p>
+    <div className="bg-card border rounded-lg p-6 space-y-4">
+      <h3 className="text-xl font-bold text-foreground">Challenge: Pick the Right Tool</h3>
+      <div className="p-4 bg-muted rounded-lg border">
+        <p className="text-muted-foreground text-sm mb-1">User Prompt:</p>
+        <p className="text-foreground italic">"{challengeData.userPrompt}"</p>
       </div>
 
       <div className="space-y-3">
@@ -64,13 +64,13 @@ const ToolChoiceChallenge: React.FC = () => {
             key={choice.id}
             onClick={() => !submitted && setSelectedId(choice.id)}
             className={cn(
-              'p-4 rounded-lg border-2 cursor-pointer transition-all',
+              'p-4 rounded-lg border-2 cursor-pointer transition-all bg-background',
               getBorderColor(choice.id),
-              !submitted && 'hover:border-blue-400'
+              !submitted && 'hover:border-primary'
             )}
           >
-            <p className="font-mono text-sm text-white">{choice.name}</p>
-            <p className="text-xs text-gray-400 mt-1">{choice.description}</p>
+            <p className="font-mono text-sm text-foreground">{choice.name}</p>
+            <p className="text-xs text-muted-foreground mt-1">{choice.description}</p>
           </div>
         ))}
       </div>
@@ -86,22 +86,20 @@ const ToolChoiceChallenge: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={cn(
-              'p-4 rounded-lg mt-4 text-center',
-              selectedId === challengeData.correctChoiceId ? 'bg-green-900/50' : 'bg-red-900/50'
-            )}
+            className={cn('p-4 rounded-lg mt-4 text-center bg-muted border')}
+            role="status" aria-live="polite"
           >
             <div className="flex items-center justify-center mb-2">
-              {selectedId === challengeData.correctChoiceId ? (
-                <CheckCircle className="w-6 h-6 mr-2 text-green-400" />
+              <span aria-hidden="true">{selectedId === challengeData.correctChoiceId ? (
+                <CheckCircle className="w-6 h-6 mr-2 text-emerald-500" />
               ) : (
-                <XCircle className="w-6 h-6 mr-2 text-red-400" />
-              )}
-              <h4 className="text-lg font-bold text-white">
+                <XCircle className="w-6 h-6 mr-2 text-red-500" />
+              )}</span>
+              <h4 className="text-lg font-bold text-foreground">
                 {selectedId === challengeData.correctChoiceId ? 'Correct!' : 'Not Quite'}
               </h4>
             </div>
-            <p className="text-sm text-gray-300">{challengeData.explanation}</p>
+            <p className="text-sm text-muted-foreground">{challengeData.explanation}</p>
           </motion.div>
         )}
       </AnimatePresence>

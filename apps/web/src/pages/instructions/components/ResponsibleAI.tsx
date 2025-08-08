@@ -24,21 +24,21 @@ const points = [
 
 const ResponsibleAI: React.FC = () => {
   return (
-    <div className="bg-gray-800/50 p-6 rounded-lg border border-dashed border-gray-700 my-6">
-      <h3 className="text-xl font-bold text-center text-white mb-6 flex items-center justify-center">
-        <ShieldCheck className="w-6 h-6 mr-3 text-green-400" />
+    <div className="bg-card p-6 rounded-lg border border-dashed my-6">
+      <h3 className="text-xl font-bold text-center text-foreground mb-6 flex items-center justify-center">
+        <ShieldCheck className="w-6 h-6 mr-3 text-green-400" aria-hidden="true" />
         A Developer's Guide to Responsible AI
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {points.map((point, index) => {
           const Icon = point.icon;
           return (
-            <div key={index} className="bg-gray-900/50 p-4 rounded-lg">
+            <div key={index} className="bg-muted p-4 rounded-lg border">
               <div className="flex items-center mb-2">
-                <Icon className={`w-5 h-5 mr-2 ${point.color}`} />
-                <h4 className="font-bold text-white">{point.title}</h4>
+                <Icon className={`w-5 h-5 mr-2 ${point.color}`} aria-hidden="true" />
+                <h4 className="font-bold text-foreground">{point.title}</h4>
               </div>
-              <p className="text-sm text-gray-400">{point.text}</p>
+              <p className="text-sm text-muted-foreground">{point.text}</p>
             </div>
           );
         })}

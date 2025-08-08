@@ -47,42 +47,42 @@ const RagUseCases: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <Building className="w-8 h-8 text-blue-400" />
-        <h3 className="text-2xl font-bold text-white">Business Use Cases</h3>
+        <Building className="w-8 h-8 text-blue-400" aria-hidden="true" />
+        <h3 className="text-2xl font-bold text-foreground">Business Use Cases</h3>
       </div>
       <Accordion type="single" collapsible className="w-full">
         {businessUseCases.map((item, index) => (
-          <AccordionItem value={`business-${index}`} key={index} className="bg-gray-800/50 border-gray-700 border rounded-lg mb-2 px-4">
+          <AccordionItem value={`business-${index}`} key={index} className="bg-card border rounded-lg mb-2 px-4">
             <AccordionTrigger className="text-lg font-semibold text-blue-300 hover:no-underline">
               <div className="flex items-center gap-3">
-                <item.icon className="w-6 h-6" />
+                <item.icon className="w-6 h-6" aria-hidden="true" />
                 {item.title}
               </div>
             </AccordionTrigger>
-            <AccordionContent className="text-gray-300 space-y-2">
+            <AccordionContent className="text-foreground/90 space-y-2">
               <p>{item.description}</p>
-              <p className="text-xs text-gray-400 font-mono bg-gray-900 p-2 rounded-md">{item.example}</p>
+              <p className="text-xs text-muted-foreground font-mono bg-muted p-2 rounded-md">{item.example}</p>
             </AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
 
       <div className="flex items-center gap-3 pt-6">
-        <User className="w-8 h-8 text-green-400" />
-        <h3 className="text-2xl font-bold text-white">Personal Use Cases</h3>
+        <User className="w-8 h-8 text-green-400" aria-hidden="true" />
+        <h3 className="text-2xl font-bold text-foreground">Personal Use Cases</h3>
       </div>
       <Accordion type="single" collapsible className="w-full">
         {personalUseCases.map((item, index) => (
-          <AccordionItem value={`personal-${index}`} key={index} className="bg-gray-800/50 border-gray-700 border rounded-lg mb-2 px-4">
+          <AccordionItem value={`personal-${index}`} key={index} className="bg-card border rounded-lg mb-2 px-4">
             <AccordionTrigger className="text-lg font-semibold text-green-300 hover:no-underline">
               <div className="flex items-center gap-3">
-                <item.icon className="w-6 h-6" />
+                <item.icon className="w-6 h-6" aria-hidden="true" />
                 {item.title}
               </div>
             </AccordionTrigger>
-            <AccordionContent className="text-gray-300 space-y-2">
+            <AccordionContent className="text-foreground/90 space-y-2">
               <p>{item.description}</p>
-              <p className="text-xs text-gray-400 font-mono bg-gray-900 p-2 rounded-md">{item.example}</p>
+              <p className="text-xs text-muted-foreground font-mono bg-muted p-2 rounded-md">{item.example}</p>
             </AccordionContent>
           </AccordionItem>
         ))}

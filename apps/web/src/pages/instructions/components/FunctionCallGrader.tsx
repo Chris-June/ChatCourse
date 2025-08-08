@@ -74,7 +74,7 @@ const FunctionCallGrader: React.FC<FunctionCallGraderProps> = ({
   };
 
   return (
-    <div className="p-6 bg-card border border-border rounded-lg my-6">
+    <div className="p-6 bg-card border border-border rounded-lg my-6 text-card-foreground">
       <div className="mb-4">
         <h4 className="font-bold text-foreground mb-2">
           Your Target Function Schema:
@@ -87,7 +87,8 @@ const FunctionCallGrader: React.FC<FunctionCallGraderProps> = ({
       <textarea
         value={promptText}
         onChange={(e) => setPromptText(e.target.value)}
-        className="w-full p-3 bg-input rounded-md font-mono text-sm text-foreground whitespace-pre-wrap min-h-[100px] focus:ring-2 focus:ring-primary focus:outline-none"
+        aria-label="Prompt text to grade"
+        className="w-full p-3 bg-input rounded-md font-mono text-sm text-foreground whitespace-pre-wrap min-h-[100px] focus:ring-2 focus:ring-primary focus:outline-none border"
         placeholder="Write a prompt to trigger the function above..."
       />
 
@@ -99,11 +100,11 @@ const FunctionCallGrader: React.FC<FunctionCallGraderProps> = ({
         >
           {isLoading ? (
             <>
-              <Loader className="w-4 h-4 mr-2 animate-spin" /> Grading...
+              <Loader className="w-4 h-4 mr-2 animate-spin" aria-hidden="true" /> Grading...
             </>
           ) : (
             <>
-              <Sparkles className="w-4 h-4 mr-2" /> Grade My Prompt
+              <Sparkles className="w-4 h-4 mr-2" aria-hidden="true" /> Grade My Prompt
             </>
           )}
         </Button>
@@ -115,6 +116,8 @@ const FunctionCallGrader: React.FC<FunctionCallGraderProps> = ({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-6 p-4 bg-muted/50 rounded-lg border border-border"
+            role="status"
+            aria-live="polite"
           >
             <div className="flex items-center mb-3">
               <h4
@@ -125,18 +128,18 @@ const FunctionCallGrader: React.FC<FunctionCallGraderProps> = ({
                 Score: {feedback.score} / 100
               </h4>
             </div>
-            <div className="space-y-2">
+            <ul className="space-y-2" role="list">
               {feedback.results.map((result, index) => (
-                <div key={index} className="flex items-center text-sm">
+                <li key={index} className="flex items-center text-sm">
                   {result.passes ? (
-                    <CheckCircle className="w-4 h-4 mr-2 text-green-500 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 mr-2 text-green-500 flex-shrink-0" aria-hidden="true" />
                   ) : (
-                    <XCircle className="w-4 h-4 mr-2 text-red-500 flex-shrink-0" />
+                    <XCircle className="w-4 h-4 mr-2 text-red-500 flex-shrink-0" aria-hidden="true" />
                   )}
                   <span className="text-muted-foreground">{result.label}</span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
             <p className="text-foreground italic mt-4 pt-3 border-t border-border">
               {feedback.feedback}
             </p>

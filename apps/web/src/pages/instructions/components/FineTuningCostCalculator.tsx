@@ -23,14 +23,14 @@ const FineTuningCostCalculator: React.FC = () => {
   }, [datasetSize, epochs]);
 
   return (
-    <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 space-y-6">
-      <h3 className="text-xl font-bold text-white">Cost & Benefit Calculator</h3>
-      <p className="text-sm text-gray-400">Fine-tuning involves trade-offs. Use the sliders to see how dataset size and training epochs affect estimated costs, time, and the potential performance boost.</p>
+    <div className="bg-card border rounded-xl p-6 space-y-6 text-card-foreground">
+      <h3 className="text-xl font-bold">Cost & Benefit Calculator</h3>
+      <p className="text-sm text-muted-foreground">Fine-tuning involves trade-offs. Use the sliders to see how dataset size and training epochs affect estimated costs, time, and the potential performance boost.</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Dataset Size (Number of Examples)</label>
+            <label className="block text-sm font-medium text-muted-foreground mb-2">Dataset Size (Number of Examples)</label>
             <Slider
               defaultValue={[datasetSize]}
               min={100}
@@ -38,10 +38,10 @@ const FineTuningCostCalculator: React.FC = () => {
               step={100}
               onValueChange={(value) => setDatasetSize(value[0])}
             />
-            <p className="text-center text-lg font-semibold text-blue-300 mt-2">{datasetSize.toLocaleString()} examples</p>
+            <p className="text-center text-lg font-semibold text-primary mt-2">{datasetSize.toLocaleString()} examples</p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Training Epochs</label>
+            <label className="block text-sm font-medium text-muted-foreground mb-2">Training Epochs</label>
             <Slider
               defaultValue={[epochs]}
               min={1}
@@ -49,38 +49,38 @@ const FineTuningCostCalculator: React.FC = () => {
               step={1}
               onValueChange={(value) => setEpochs(value[0])}
             />
-            <p className="text-center text-lg font-semibold text-blue-300 mt-2">{epochs} {epochs > 1 ? 'epochs' : 'epoch'}</p>
+            <p className="text-center text-lg font-semibold text-primary mt-2">{epochs} {epochs > 1 ? 'epochs' : 'epoch'}</p>
           </div>
         </div>
 
-        <div className="bg-gray-900/50 rounded-lg p-4 space-y-4">
+        <div className="bg-muted rounded-lg p-4 space-y-4 border">
           <div className="flex items-center gap-4">
-            <DollarSign className="w-8 h-8 text-green-400" />
+            <DollarSign className="w-8 h-8 text-emerald-500" aria-hidden="true" />
             <div>
-              <p className="text-sm text-gray-400">Estimated Cost</p>
-              <p className="text-2xl font-bold text-white">${estimatedCost}</p>
+              <p className="text-sm text-muted-foreground">Estimated Cost</p>
+              <p className="text-2xl font-bold">${estimatedCost}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Clock className="w-8 h-8 text-yellow-400" />
+            <Clock className="w-8 h-8 text-yellow-500" aria-hidden="true" />
             <div>
-              <p className="text-sm text-gray-400">Estimated Training Time</p>
-              <p className="text-2xl font-bold text-white">~{estimatedTime} mins</p>
+              <p className="text-sm text-muted-foreground">Estimated Training Time</p>
+              <p className="text-2xl font-bold">~{estimatedTime} mins</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <TrendingUp className="w-8 h-8 text-purple-400" />
+            <TrendingUp className="w-8 h-8 text-primary" aria-hidden="true" />
             <div>
-              <p className="text-sm text-gray-400">Potential Performance Boost</p>
-              <div className="w-full bg-gray-700 rounded-full h-4 mt-1">
-                <div className="bg-purple-500 h-4 rounded-full" style={{ width: `${performanceBoost}%` }}></div>
+              <p className="text-sm text-muted-foreground">Potential Performance Boost</p>
+              <div className="w-full bg-muted-foreground/20 rounded-full h-4 mt-1">
+                <div className="bg-primary h-4 rounded-full" style={{ width: `${performanceBoost}%` }}></div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex items-center gap-2 text-xs text-gray-500 pt-2">
-        <Info className="w-4 h-4" />
+      <div className="flex items-center gap-2 text-xs text-muted-foreground pt-2">
+        <Info className="w-4 h-4" aria-hidden="true" />
         <p>Estimates are for illustrative purposes only and vary based on model, provider, and hardware.</p>
       </div>
     </div>

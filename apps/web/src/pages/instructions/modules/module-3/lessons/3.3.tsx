@@ -6,6 +6,7 @@ import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
+import SocraticTutorProject from '@/pages/instructions/components/SocraticTutorProject';
 
 const jsonChallengeChecklist = [
   { id: 'json-1', text: 'Ask the AI to extract name, age, and city from a sentence like "Sarah, 28, lives in Toronto"', completed: false },
@@ -27,6 +28,25 @@ const structuredListChallengeChecklist = [
   { id: 'list-3', text: 'Define example structure: {"title": "Todo App", "description": "A simple task manager"}', completed: false },
   { id: 'list-4', text: 'Verify response is valid JSON array like: [{"title": "...", "description": "..."}, {...}]', completed: false },
 ];
+
+// Socratic coaching checklist tailored to structured output
+const socraticChecklist = [
+  { text: 'Ask one guiding question before proposing a fix', completed: false },
+  { text: 'Re-center on the required output format (JSON or Markdown)', completed: false },
+  { text: 'Reference a concrete schema or example output', completed: false },
+  { text: 'Encourage the user to validate or correct malformed structure', completed: false },
+];
+
+const socraticSystemPrompt = `You are a Socratic prompt coach. The learner is practicing requesting structured outputs (JSON and Markdown).
+
+Your style: Ask short guiding questions first, then offer a small nudge. Keep replies concise. Do not dump final answers.
+
+Coaching priorities:
+1) Re-focus on explicit schemas (keys, data types) when asking for JSON.
+2) For Markdown, confirm the required elements (headings, lists, tables) and layout.
+3) Encourage including a small example of the desired output.
+4) If structure is malformed, suggest a minimal correction and why it matters.
+`;
 
 const Lesson3_3: React.FC = () => {
   const quizQuestions = [
@@ -91,14 +111,14 @@ const Lesson3_3: React.FC = () => {
     <LessonTemplate
       moduleNumber={3}
       lessonNumber={3}
-      title="3.3: Requesting Structured Output"
+      title="Requesting Structured Output"
       subtitle="Getting the AI to give you exactly what you need."
       quizQuestions={quizQuestions}
     >
       <div className="space-y-8">
-        <div className="bg-card border border-border rounded-xl p-4 shadow-sm">
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
           <p className="text-xs text-muted-foreground mb-2">Estimated time: 8–12 minutes</p>
-          <h3 className="font-semibold text-card-foreground mb-2">What you'll learn</h3>
+          <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>How to ask for predictable, machine‑readable outputs (JSON, Markdown)</li>
             <li>How to define schemas (keys, data types) to increase reliability</li>
@@ -115,7 +135,7 @@ const Lesson3_3: React.FC = () => {
             </p>
             <div className="relative">
               <CopyButton textToCopy={'From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city. Return it as a JSON object with keys "name" (string), "age" (number), and "city" (string).'} />
-              <div className="bg-muted border border-border p-3 rounded-md pr-10">
+              <div className="bg-muted p-3 rounded-md pr-10">
                 <code className="block whitespace-pre-wrap break-words font-mono text-muted-foreground">
                   <span className="text-muted-foreground">// Prompt - Like giving a developer a data schema</span>
                   {`
@@ -127,8 +147,8 @@ From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city
             <div className="mt-4 text-xs text-muted-foreground">
               <strong>What you'll get:</strong> A clean, usable JSON object.
             </div>
-            <div className="bg-muted border border-border p-3 rounded-md mt-2">
-              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-emerald-400">
+            <div className="bg-muted p-3 rounded-md mt-2">
+              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-success">
                 {`{
   "name": "Sarah",
   "age": 28,
@@ -138,8 +158,8 @@ From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city
             </div>
           </div>
 
-          <div className="mt-6 bg-card border border-border rounded-xl p-4 shadow-sm">
-            <h3 className="font-semibold text-card-foreground mb-2">Your Turn: Define Your Data Structure</h3>
+          <div className="mt-6 bg-card p-4 rounded-xl border-2 border-dashed border-primary/50">
+            <h3 className="font-semibold text-foreground mb-2">Your Turn: Define Your Data Structure</h3>
             <p className="text-muted-foreground mb-4">Practice being the client. Ask the AI to extract information from a sentence, but be demanding about the format. Specify the keys and data types you need.</p>
             <InlineChat 
               moduleId="module-3.3-json"
@@ -162,7 +182,7 @@ From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city
             </p>
             <div className="relative">
               <CopyButton textToCopy={"Create a markdown table comparing Python and JavaScript for web development. Include rows for 'Primary Use', 'Typing', and 'Backend Frameworks'."} />
-              <div className="bg-muted border border-border p-3 rounded-md pr-10">
+              <div className="bg-muted p-3 rounded-md pr-10">
                 <code className="block whitespace-pre-wrap break-words font-mono text-muted-foreground">
                   <span className="text-muted-foreground">// Prompt - Like giving a designer your specs</span>
                   {`
@@ -174,15 +194,15 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
             <div className="mt-4 text-xs text-muted-foreground">
               <strong>What you'll get:</strong> A perfectly formatted table like this:
             </div>
-            <div className="bg-muted border border-border p-3 rounded-md mt-2">
-              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-emerald-400">
+            <div className="bg-muted p-3 rounded-md mt-2">
+              <code className="block whitespace-pre-wrap break-words font-mono text-sm text-success">
                 {`| Feature | Python | JavaScript |\n| Primary Use | Data science, backend | Frontend, full-stack |\n| Typing | Dynamic (optional static) | Dynamic |\n| Backend Frameworks | Django, Flask | Express, Node.js |`}
               </code>
             </div>
           </div>
 
-          <div className="mt-6 bg-card border border-border rounded-xl p-4 shadow-sm">
-            <h3 className="font-semibold text-card-foreground mb-2">Your Turn: Design Your Own Template</h3>
+          <div className="mt-6 bg-card p-4 rounded-xl border-2 border-dashed border-primary/50">
+            <h3 className="font-semibold text-foreground mb-2">Your Turn: Design Your Own Template</h3>
             <p className="text-muted-foreground mb-4">Think of yourself as a client giving design specs to a designer. Ask for exactly what you want - a bulleted list, numbered steps, or a comparison table.</p>
             <InlineChat 
               moduleId="module-3.3-markdown"
@@ -195,7 +215,7 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
           </div>
         </Accordion>
 
-        <Accordion title="Exercise: Build Your Data Blueprint" icon={<Lightbulb className="text-amber-400" />}>
+        <Accordion title="Exercise: Build Your Data Blueprint" icon={<Lightbulb />}>
           <p className="text-muted-foreground mb-4">Think of this like being an architect designing a building. You need to specify exactly what data structure you want. Ask the AI to generate a list of project ideas for a new web developer, but be specific: you want a JSON array of objects, each with a 'title' and 'description'.</p>
           <InlineChat 
             moduleId="module-3.3-structured-output"
@@ -208,8 +228,17 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
           <p className="text-muted-foreground mt-3">This structured data is like pre-fabricated building materials - ready to be used directly in your application's UI components without any additional processing.</p>
         </Accordion>
 
-        <div className="bg-card border border-border rounded-xl p-4 shadow-sm">
-          <h3 className="font-semibold text-card-foreground mb-2">You can now…</h3>
+        <div className="mt-6 bg-card p-4 rounded-xl border-2 border-dashed border-primary/40">
+          <h3 className="font-semibold text-foreground mb-2">Socratic Coaching: Sharpen Your Structured Prompts</h3>
+          <p className="text-muted-foreground mb-4">Get coaching via guided questions to refine your JSON/Markdown requests. Aim for explicit schemas, concrete examples, and validation.</p>
+          <SocraticTutorProject 
+            challengeChecklist={socraticChecklist}
+            systemPrompt={socraticSystemPrompt}
+          />
+        </div>
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+          <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Write prompts that return clean JSON or Markdown on demand</li>
             <li>Specify exact schemas and validate outputs in your app</li>

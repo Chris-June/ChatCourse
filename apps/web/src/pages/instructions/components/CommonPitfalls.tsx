@@ -18,14 +18,14 @@ const pitfalls = [
 
 const CommonPitfalls: React.FC = () => {
   return (
-    <div className="bg-gray-900 p-4 rounded-xl border border-yellow-700">
-      <ul className="space-y-3">
+    <div className="bg-card text-card-foreground p-4 rounded-xl border">
+      <ul className="space-y-3" aria-label="Common pitfalls">
         {pitfalls.map((pitfall, index) => (
           <li key={index} className="flex items-start text-sm">
-            <AlertTriangle className="w-5 h-5 mr-3 text-yellow-400 flex-shrink-0 mt-1" />
+            <AlertTriangle className="h-5 w-5 mr-3 text-amber-500 flex-shrink-0 mt-1" aria-hidden="true" />
             <div>
-              <h4 className="font-semibold text-yellow-300">{pitfall.title}</h4>
-              <p className="text-gray-400">{pitfall.description}</p>
+              <h4 className="font-semibold text-foreground">{pitfall.title}</h4>
+              <p className="text-muted-foreground">{pitfall.description}</p>
             </div>
           </li>
         ))}

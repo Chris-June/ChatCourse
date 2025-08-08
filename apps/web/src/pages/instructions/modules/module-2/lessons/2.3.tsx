@@ -79,7 +79,7 @@ const Lesson2_3: React.FC = () => {
     <LessonTemplate
       moduleNumber={2}
       lessonNumber={3}
-      title="2.3: Practice Context Management with a Persona"
+      title="Practice Context Management with a Persona"
       subtitle="Create and maintain a Socratic Tutor persona to practice re-centering and explicit references."
       quizQuestions={quizQuestions}
     >

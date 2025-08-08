@@ -12,6 +12,7 @@ import LatencyFlowInfographic from '@/pages/instructions/components/LatencyFlowI
 import StreamingVisualizer from '@/pages/instructions/components/StreamingVisualizer';
 import ModelTierGuesser from '@/pages/instructions/components/ModelTierGuesser';
 import ApiCostEstimator from '@/pages/instructions/components/ApiCostEstimator';
+import ParameterSliders from '@/pages/instructions/components/ParameterSliders';
 import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
 import {
   Accordion,
@@ -148,6 +149,8 @@ export default function Lesson5_3() {
                 expensive, and unnecessary. Matching the model to the task is
                 key to managing cost and latency.
               </p>
+              {/* Sampling parameter education UI */}
+              <ParameterSliders />
               <ModelTierGuesser />
               <ApiCostEstimator />
             </AccordionContent>

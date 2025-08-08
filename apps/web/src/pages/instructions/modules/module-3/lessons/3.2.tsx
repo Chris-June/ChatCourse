@@ -113,7 +113,7 @@ const Lesson3_2: React.FC = () => {
     <LessonTemplate
       moduleNumber={3}
       lessonNumber={2}
-      title="3.2: Chain-of-Thought (CoT) Prompting"
+      title="Chain-of-Thought (CoT) Prompting"
       subtitle="Guide the model’s reasoning with few-shot CoT, zero-shot CoT, and Auto-CoT."
       quizQuestions={quizQuestions}
     >

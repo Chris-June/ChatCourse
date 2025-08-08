@@ -24,10 +24,10 @@ const agents = {
 };
 
 const AgentCard: React.FC<AgentCardProps> = ({ icon, title, description, isActive }) => (
-  <motion.div className={`p-4 rounded-lg border text-center w-full transition-all duration-300 ${isActive ? 'bg-blue-900/60 border-blue-500 shadow-lg' : 'bg-gray-800 border-gray-700'}`}>
-    <div className={`mb-2 flex justify-center ${isActive ? 'text-blue-300' : 'text-blue-400'}`}>{icon}</div>
-    <h4 className="font-bold text-md text-white">{title}</h4>
-    <p className="text-xs text-gray-400 mt-1">{description}</p>
+  <motion.div className={`p-4 rounded-lg border text-center w-full transition-all duration-300 ${isActive ? 'bg-primary/10 border-primary shadow-sm' : 'bg-muted'}`}>
+    <div className={`mb-2 flex justify-center ${isActive ? 'text-primary' : 'text-muted-foreground'}`} aria-hidden="true">{icon}</div>
+    <h4 className="font-bold text-md text-foreground">{title}</h4>
+    <p className="text-xs text-muted-foreground mt-1">{description}</p>
   </motion.div>
 );
 
@@ -62,16 +62,16 @@ const HierarchicalAgentDiagram: React.FC = () => {
   }, [status, activeWorker]);
 
   return (
-    <div className="my-6 p-4 md:p-6 bg-gray-900 rounded-lg flex flex-col items-center border border-gray-700">
-      <h3 className="text-xl font-bold text-center text-white mb-2">The Automated Restaurant Chain</h3>
-      <p className="text-center text-gray-400 text-sm mb-6">An Executive Chef delegates a goal to specialized kitchens.</p>
+    <div className="my-6 p-4 md:p-6 bg-card rounded-lg flex flex-col items-center border text-card-foreground">
+      <h3 className="text-xl font-bold text-center mb-2">The Automated Restaurant Chain</h3>
+      <p className="text-center text-muted-foreground text-sm mb-6">An Executive Chef delegates a goal to specialized kitchens.</p>
       
       <AgentCard {...agents.manager} isActive={status !== 'idle'} />
 
       <div className="my-4 h-8 flex items-center">
         <AnimatePresence>
-          {status === 'delegating' && <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}><ArrowDown className="text-blue-400 animate-pulse" size={32} /></motion.div>}
-          {status === 'done' && <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}><ArrowDown className="text-green-400" size={32} /></motion.div>}
+          {status === 'delegating' && <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}><ArrowDown className="text-primary animate-pulse" size={32} aria-hidden="true" /></motion.div>}
+          {status === 'done' && <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}><ArrowDown className="text-primary" size={32} aria-hidden="true" /></motion.div>}
         </AnimatePresence>
       </div>
 
@@ -82,11 +82,11 @@ const HierarchicalAgentDiagram: React.FC = () => {
       </div>
 
       <div className="mt-6 text-center">
-        <button onClick={runSimulation} disabled={status === 'delegating' || status === 'working'} className="px-6 py-2 rounded-full font-semibold text-white bg-blue-600 hover:bg-blue-500 disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center gap-2 transition-all">
-          {status === 'idle' || status === 'done' ? <><Play size={16} /> Start Goal: "Launch New Soup"</> : 'Simulation Running...'}
+        <button onClick={runSimulation} disabled={status === 'delegating' || status === 'working'} className="px-6 py-2 rounded-full font-semibold bg-primary text-primary-foreground hover:bg-primary/90 disabled:bg-muted-foreground/30 disabled:text-muted-foreground disabled:cursor-not-allowed flex items-center gap-2 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60">
+          {status === 'idle' || status === 'done' ? <><Play size={16} aria-hidden="true" /> Start Goal: "Launch New Soup"</> : 'Simulation Running...'}
         </button>
         {status === 'done' && (
-            <motion.div initial={{opacity: 0}} animate={{opacity: 1}} className="mt-4 p-3 bg-green-900/50 border border-green-700 rounded-lg text-green-300 text-sm">
+            <motion.div initial={{opacity: 0}} animate={{opacity: 1}} className="mt-4 p-3 bg-muted border rounded-lg text-sm" role="status" aria-live="polite">
               <strong>Goal Complete:</strong> The "Spicy Tomato" soup recipe and marketing plan is ready!
             </motion.div>
         )}

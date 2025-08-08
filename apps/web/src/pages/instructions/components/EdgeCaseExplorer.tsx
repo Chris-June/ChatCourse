@@ -15,20 +15,27 @@ const EdgeCaseExplorer: React.FC<EdgeCaseExplorerProps> = ({ cases }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   return (
-    <div className="my-6 flex flex-col md:flex-row gap-6 bg-gray-900 p-6 rounded-lg">
-      <div className="md:w-1/3 border-r border-gray-700 pr-4">
-        <h4 className="text-lg font-bold text-white mb-3 flex items-center">
-          <AlertTriangle className="w-5 h-5 mr-2 text-yellow-400" />
+    <div className="my-6 flex flex-col md:flex-row gap-6 bg-card text-card-foreground p-6 rounded-lg border">
+      <div className="md:w-1/3 border-r border-border pr-4">
+        <h4 className="text-lg font-bold text-foreground mb-3 flex items-center">
+          <AlertTriangle className="w-5 h-5 mr-2 text-yellow-500" aria-hidden="true" />
           Select a Scenario:
         </h4>
         <ul className="space-y-2">
           {cases.map((edgeCase, index) => (
             <li key={index}>
-              <button 
+              <button
                 onClick={() => setActiveIndex(index)}
-                className={`w-full text-left p-2 rounded-md transition-colors text-sm flex justify-between items-center ${activeIndex === index ? 'bg-blue-600/50 text-white' : 'hover:bg-gray-700/50 text-gray-300'}`}>
+                aria-pressed={activeIndex === index}
+                aria-label={`scenario ${index + 1}: ${edgeCase.scenario}`}
+                className={`w-full text-left p-2 rounded-md transition-colors text-sm flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
+                  activeIndex === index
+                    ? 'bg-primary/15 text-foreground ring-1 ring-primary'
+                    : 'hover:bg-muted text-muted-foreground'
+                }`}
+              >
                 {edgeCase.scenario}
-                <ChevronRight size={16} />
+                <ChevronRight size={16} aria-hidden="true" />
               </button>
             </li>
           ))}
@@ -44,8 +51,8 @@ const EdgeCaseExplorer: React.FC<EdgeCaseExplorerProps> = ({ cases }) => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <h5 className="font-bold text-yellow-300 mb-2">Potential Outcome:</h5>
-              <p className="text-gray-300">{cases[activeIndex].outcome}</p>
+              <h5 className="font-bold text-foreground mb-2">Potential Outcome:</h5>
+              <p className="text-muted-foreground">{cases[activeIndex].outcome}</p>
             </motion.div>
           )}
         </AnimatePresence>

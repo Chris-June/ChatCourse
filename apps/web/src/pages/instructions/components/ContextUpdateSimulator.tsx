@@ -44,22 +44,22 @@ const ContextUpdateSimulator = () => {
   };
 
   return (
-    <Card className="mt-6 bg-gray-900 border-gray-700 text-white overflow-hidden">
+    <Card className="mt-6 bg-card border text-card-foreground overflow-hidden">
       <CardHeader>
-        <CardTitle className="flex items-center text-xl text-white">
-          <BookOpen className="w-6 h-6 mr-3 text-blue-400" />
+        <CardTitle className="flex items-center text-xl text-foreground">
+          <BookOpen className="h-6 w-6 mr-3 text-primary" aria-hidden="true" />
           Context Window Simulator
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-gray-400 mb-4">
+        <p className="text-muted-foreground mb-4">
           This simulation shows how a conversation fits into an AI's limited "context window." Here, the AI can only remember the last <strong>{CONTEXT_WINDOW_SIZE}</strong> messages.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Conversation History */}
-          <div className="bg-gray-800/50 p-4 rounded-lg">
-            <h4 className="font-semibold text-white mb-3 flex items-center"><MessageSquare className="w-5 h-5 mr-2"/>Full Conversation</h4>
-            <div className="space-y-3 h-64 overflow-y-auto pr-2">
+          <div className="bg-muted border p-4 rounded-lg">
+            <h4 className="font-semibold text-foreground mb-3 flex items-center"><MessageSquare className="h-5 w-5 mr-2" aria-hidden="true"/>Full Conversation</h4>
+            <div className="space-y-3 h-64 overflow-y-auto pr-2" role="log" aria-live="polite" aria-relevant="additions">
               <AnimatePresence initial={false}>
                 {messages.map(msg => (
                   <motion.div
@@ -68,7 +68,7 @@ const ContextUpdateSimulator = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, x: -20 }}
-                    className={`p-3 rounded-lg max-w-[90%] ${msg.role === 'user' ? 'bg-blue-900/70 ml-auto' : 'bg-gray-700/80 mr-auto'}`}>
+                    className={`p-3 rounded-lg max-w-[90%] ${msg.role === 'user' ? 'bg-primary text-primary-foreground ml-auto' : 'bg-muted text-foreground mr-auto'}`}>
                     <p className="text-sm">{msg.content}</p>
                   </motion.div>
                 ))}
@@ -80,17 +80,17 @@ const ContextUpdateSimulator = () => {
                 onChange={e => setUserInput(e.target.value)}
                 onKeyPress={e => e.key === 'Enter' && handleSend()}
                 placeholder="Type a message..."
-                className="bg-gray-800 border-gray-600 text-white"
+                className="bg-background border text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/40"
               />
-              <Button onClick={handleSend} className="ml-2 bg-blue-600 hover:bg-blue-500">
-                <Send className="w-4 h-4"/>
+              <Button onClick={handleSend} aria-label="Send message" className="ml-2">
+                <Send className="h-4 w-4" aria-hidden="true"/>
               </Button>
             </div>
           </div>
 
           {/* Context Window View */}
-          <div className="bg-green-900/20 border border-green-700/50 p-4 rounded-lg">
-            <h4 className="font-semibold text-green-300 mb-3">AI's Context Window (Memory)</h4>
+          <div className="bg-accent border p-4 rounded-lg">
+            <h4 className="font-semibold text-foreground mb-3">AI's Context Window (Memory)</h4>
             <div className="space-y-3">
               <AnimatePresence>
                 {contextWindow.map(msg => (
@@ -101,7 +101,7 @@ const ContextUpdateSimulator = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
-                    className={`p-3 rounded-lg border text-sm ${msg.role === 'user' ? 'border-blue-700 bg-blue-900/30' : 'border-gray-600 bg-gray-700/40'}`}>
+                    className={`p-3 rounded-lg border text-sm ${msg.role === 'user' ? 'border-primary/40 bg-primary/10' : 'border-muted-foreground/30 bg-muted'}`}>
                     <span className="font-bold mr-2 capitalize">{msg.role}:</span>
                     <span>{msg.content}</span>
                   </motion.div>
@@ -109,7 +109,7 @@ const ContextUpdateSimulator = () => {
               </AnimatePresence>
             </div>
             {messages.length > CONTEXT_WINDOW_SIZE && (
-              <p className="text-xs text-yellow-400/80 mt-4 p-2 bg-yellow-900/20 rounded border border-yellow-700/30">
+              <p className="text-xs mt-4 p-2 bg-muted text-muted-foreground rounded border">
                 Notice how the oldest messages have been pushed out of the context window. The AI no longer "remembers" them.
               </p>
             )}

@@ -104,7 +104,7 @@ const Lesson2_2: React.FC = () => {
     <LessonTemplate
       moduleNumber={2}
       lessonNumber={2}
-      title="2.2: Keeping Conversations Coherent"
+      title="Keeping Conversations Coherent"
       subtitle="Learn to actively manage the AI's context to prevent confusion and keep your conversations on track."
       quizQuestions={quizQuestions}
     >

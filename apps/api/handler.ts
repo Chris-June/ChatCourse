@@ -26,6 +26,8 @@ console.log('[handler.ts] All handlers imported successfully.');
 
 // --- Constants and Helper Functions ---
 
+// All previous models before aug 8th 2025 will be deprecated. TODO: update model avaialbe to gpt 5 family of models.
+
 const PRICING_MAP: Record<string, { input: number; output: number }> = {
   'gpt-4.1-2025-04-14': { input: 0.50, output: 8.00 },
   'gpt-4.1-mini-2025-04-14': { input: 0.10, output: 1.60 },
@@ -81,7 +83,7 @@ export const getApiName = (model: string): string => {
 
 export const getPricing = (model: string) => {
   const apiName = getApiName(model);
-  return PRICING_MAP[apiName] || PRICING_MAP['gpt-4.1-nano-2025-04-14'];
+  return PRICING_MAP[apiName] || PRICING_MAP['gpt-4.1-nano-2025-04-14']; // New default will be GPT 5-nano
 };
 
 export const getApiKey = (req: express.Request): string | null => {
@@ -126,7 +128,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 console.log('[handler.ts] Middleware configured.');
 
-export const ALLOWED_MODELS = [
+export const ALLOWED_MODELS = [ // TODO: update allowed models to gpt 5 family of models
   'gpt-4.1',
   'gpt-4.1-mini',
   'gpt-4.1-nano',

@@ -31,17 +31,17 @@ const FlowStep: React.FC<FlowStepProps> = ({ icon, title, content, isCode = fals
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -20 }}
     transition={{ duration: 0.5 }}
-    className="flex items-start space-x-4 p-4 bg-gray-800/50 rounded-lg border border-gray-700"
+    className="flex items-start space-x-4 p-4 bg-muted rounded-lg border"
   >
-    <div className="text-blue-400 mt-1">{icon}</div>
+    <div className="text-primary mt-1" aria-hidden="true">{icon}</div>
     <div className="flex-1">
-      <h4 className="font-bold text-white">{title}</h4>
+      <h4 className="font-bold text-foreground">{title}</h4>
       {isCode ? (
-        <pre className="mt-2 p-3 bg-gray-900 rounded-md font-mono text-xs text-green-300 whitespace-pre-wrap">
+        <pre className="mt-2 p-3 bg-muted rounded-md font-mono text-xs text-foreground whitespace-pre-wrap border">
           <code>{content}</code>
         </pre>
       ) : (
-        <p className="text-gray-300 mt-1">{content}</p>
+        <p className="text-muted-foreground mt-1">{content}</p>
       )}
     </div>
   </motion.div>
@@ -81,20 +81,20 @@ const FunctionCallFlowVisualizer: React.FC = () => {
   }
 
   return (
-    <div className="bg-gray-900/70 border border-gray-700 rounded-lg p-6 space-y-4">
+    <div className="bg-card border rounded-lg p-6 space-y-4 text-card-foreground">
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-bold text-white">Function Call Lifecycle</h3>
+        <h3 className="text-xl font-bold">Function Call Lifecycle</h3>
         {currentStep === 0 ? (
             <Button onClick={startFlow} disabled={isRunning}>
-                <Play className="w-4 h-4 mr-2" /> Run Flow
+                <Play className="w-4 h-4 mr-2" aria-hidden="true" /> Run Flow
             </Button>
         ) : (
             <Button onClick={resetFlow} variant="outline">
-                <RefreshCw className="w-4 h-4 mr-2" /> Reset
+                <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" /> Reset
             </Button>
         )}
       </div>
-      <div className="space-y-4">
+      <div className="space-y-4" role="status" aria-live="polite">
         <AnimatePresence>
           {steps.slice(0, currentStep).map((step, index) => (
             <FlowStep key={index} {...step} />

@@ -125,7 +125,7 @@ const Lesson1_2: React.FC = () => {
     <LessonTemplate
       moduleNumber={1}
       lessonNumber={2}
-      title="1.2 Tokenization and Next-Token Prediction"
+      title="Tokenization and Next-Token Prediction"
       subtitle="The foundation of AI interaction."
       quizQuestions={quizQuestions}
     >

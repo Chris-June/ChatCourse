@@ -158,7 +158,7 @@ const Lesson1_3: React.FC = () => {
     <LessonTemplate
       moduleNumber={1}
       lessonNumber={3}
-      title="1.3: When AI Gets It Wrong (Hallucinations)"
+      title="When AI Gets It Wrong (Hallucinations)"
       subtitle="Understanding and identifying AI-generated misinformation."
       quizQuestions={quizQuestions}
     >

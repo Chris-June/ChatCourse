@@ -11,6 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import InlineChat, { ChallengeChecklistItem } from '@/components/InlineChat';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
+import ResponsibleAI from '@/pages/instructions/components/ResponsibleAI';
 import {
   Accordion,
   AccordionContent,
@@ -150,7 +151,7 @@ function Lesson8_1() {
       lessonNumber={1}
       quizQuestions={quizQuestions}
     >
-      <div className="bg-muted/30 border border-border rounded-xl p-4 mb-6">
+      <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
         <p className="text-xs text-muted-foreground mb-2">Estimated time: 14–18 minutes</p>
         <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
         <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
@@ -204,12 +205,12 @@ function Lesson8_1() {
         <AccordionItem value="item-3">
           <AccordionTrigger>
             <div className="flex items-center">
-              <Lightbulb className="w-5 h-5 mr-3 text-amber-400" />
+              <Lightbulb className="w-5 h-5 mr-3 text-primary" />
               Case Study: Mitigating Bias in a Hiring AI
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="p-4 border border-border rounded-lg bg-card space-y-4">
+            <div className="p-4 border rounded-lg bg-card space-y-4">
               <div>
                 <h3 className="font-semibold text-foreground">The Scenario</h3>
                 <p className="text-muted-foreground">An AI tool was built to screen resumes for a software engineering role, trained on your company's hiring data from the last 10 years. The data reflects a historical pattern of hiring predominantly from specific universities and demographic groups. As a result, the AI is unfairly penalizing qualified candidates from underrepresented backgrounds.</p>
@@ -236,7 +237,10 @@ function Lesson8_1() {
           </AccordionContent>
         </AccordionItem>
 
-        <div className="bg-muted/30 border border-border rounded-xl p-4">
+        {/* Responsible AI developer checklist */}
+        <ResponsibleAI />
+
+        <div className="bg-muted/30 border border-muted rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Identify bias types in datasets and models</li>

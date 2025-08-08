@@ -5,15 +5,15 @@ import { DollarSign, Zap, BrainCircuit } from 'lucide-react';
 const modelTiers = {
   'Tier 1: Fast & Light': {
     costPerMillionTokens: 0.15, // e.g., GPT-4o-mini
-    icon: <Zap className="w-5 h-5 text-green-400" />,
+    icon: <Zap className="h-5 w-5 text-emerald-500" />,
   },
   'Tier 2: Balanced': {
     costPerMillionTokens: 5.00, // e.g., GPT-4o
-    icon: <BrainCircuit className="w-5 h-5 text-blue-400" />,
+    icon: <BrainCircuit className="h-5 w-5 text-sky-500" />,
   },
   'Tier 3: Max Power': {
     costPerMillionTokens: 10.00, // e.g., GPT-4 Turbo
-    icon: <DollarSign className="w-5 h-5 text-purple-400" />,
+    icon: <DollarSign className="h-5 w-5 text-violet-500" />,
   },
 };
 
@@ -33,13 +33,13 @@ export default function ApiCostEstimator() {
   const totalTokensPerDay = requestsPerDay * avgTokens;
 
   return (
-    <div className="my-8 p-6 bg-gray-900/50 border border-gray-700 rounded-xl">
-      <h4 className="text-lg font-semibold text-center mb-6 text-white">API Cost Estimator</h4>
+    <div className="my-8 p-6 bg-card text-card-foreground border rounded-xl shadow-sm">
+      <h4 className="text-lg font-semibold text-center mb-6 text-foreground">API Cost Estimator</h4>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
         <div>
-          <label htmlFor="requests-slider" className="block text-sm font-medium text-gray-300 mb-2">
-            Requests per Day: <span className="font-bold text-cyan-400">{requestsPerDay.toLocaleString()}</span>
+          <label htmlFor="requests-slider" className="block text-sm font-medium text-foreground mb-2">
+            Requests per Day: <span className="font-bold text-primary">{requestsPerDay.toLocaleString()}</span>
           </label>
           <Slider
             id="requests-slider"
@@ -51,8 +51,8 @@ export default function ApiCostEstimator() {
           />
         </div>
         <div>
-          <label htmlFor="tokens-slider" className="block text-sm font-medium text-gray-300 mb-2">
-            Average Tokens per Request: <span className="font-bold text-cyan-400">{avgTokens.toLocaleString()}</span>
+          <label htmlFor="tokens-slider" className="block text-sm font-medium text-foreground mb-2">
+            Average Tokens per Request: <span className="font-bold text-primary">{avgTokens.toLocaleString()}</span>
           </label>
           <Slider
             id="tokens-slider"
@@ -70,20 +70,20 @@ export default function ApiCostEstimator() {
           const dailyCost = (totalTokensPerDay / 1_000_000) * costPerMillionTokens;
           const monthlyCost = dailyCost * 30;
           return (
-            <div key={name} className="p-4 bg-gray-800/60 rounded-lg flex items-center justify-between">
+            <div key={name} className="p-4 bg-muted border rounded-lg flex items-center justify-between">
               <div className="flex items-center">
                 <div className="mr-3">{icon}</div>
-                <span className="font-semibold text-white">{name}</span>
+                <span className="font-semibold text-foreground">{name}</span>
               </div>
               <div className="text-right">
-                <p className="text-lg font-bold text-green-400">{formatCurrency(monthlyCost)}<span className="text-sm font-normal text-gray-400">/mo</span></p>
-                <p className="text-xs text-gray-500">({formatCurrency(dailyCost)}/day)</p>
+                <p className="text-lg font-bold text-emerald-500">{formatCurrency(monthlyCost)}<span className="text-sm font-normal text-muted-foreground">/mo</span></p>
+                <p className='text-xs text-muted-foreground'>({formatCurrency(dailyCost)}/day)</p>
               </div>
             </div>
           );
         })}
       </div>
-       <p className="text-center text-xs text-gray-500 mt-6">
+       <p className="text-center text-xs text-muted-foreground mt-6">
         *Estimates are for illustrative purposes. Actual costs depend on specific models, usage, and provider pricing.
       </p>
     </div>

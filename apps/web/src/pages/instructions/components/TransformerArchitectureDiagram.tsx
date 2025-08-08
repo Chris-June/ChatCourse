@@ -34,10 +34,10 @@ const TransformerArchitectureDiagram: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="bg-gray-800/50 p-6 rounded-lg border border-dashed border-gray-700 my-6">
-      <h3 className="text-xl font-bold text-center text-white">Under the Hood: How an LLM 'Thinks'</h3>
-      <p className="text-center text-gray-400 text-sm mb-6">A simplified look at the Transformer Architecture</p>
-      <div className="flex justify-between items-center mb-6 p-4 bg-gray-900 rounded-lg">
+    <div className="bg-card p-6 rounded-lg border border-dashed my-6">
+      <h3 className="text-xl font-bold text-center text-foreground">Under the Hood: How an LLM 'Thinks'</h3>
+      <p className="text-center text-muted-foreground text-sm mb-6">A simplified look at the Transformer Architecture</p>
+      <div className="flex justify-between items-center mb-6 p-4 bg-muted rounded-lg border">
         {steps.map((step, index) => (
           <React.Fragment key={index}>
             <motion.div
@@ -47,25 +47,25 @@ const TransformerArchitectureDiagram: React.FC = () => {
               transition={{ type: 'spring', stiffness: 300 }}
             >
               <motion.div
-                className={`p-3 rounded-full transition-colors duration-300 ${activeIndex === index ? 'bg-blue-500 shadow-lg shadow-blue-500/50' : 'bg-gray-600'}`}
+                className={`p-3 rounded-full transition-colors duration-300 ${activeIndex === index ? 'bg-primary shadow-lg shadow-primary/40' : 'bg-muted'}`}
                 whileHover={{ scale: 1.15 }}
               >
-                <step.icon className="w-6 h-6 text-white" />
+                <step.icon className="w-6 h-6 text-primary-foreground" aria-hidden="true" />
               </motion.div>
-              <p className={`mt-2 text-xs font-semibold transition-colors duration-300 ${activeIndex === index ? 'text-blue-300' : 'text-gray-400'}`}>
+              <p className={`mt-2 text-xs font-semibold transition-colors duration-300 ${activeIndex === index ? 'text-primary' : 'text-muted-foreground'}`}>
                 {step.title}
               </p>
             </motion.div>
             {index < steps.length - 1 && (
-              <div className="flex-1 h-0.5 bg-gray-600 mx-2"></div>
+              <div className="flex-1 h-0.5 bg-border mx-2" aria-hidden="true"></div>
             )}
           </React.Fragment>
         ))}
       </div>
-      <div className="text-center bg-gray-900/50 p-4 rounded-lg min-h-[100px] flex items-center justify-center">
-        <p className="text-gray-300 max-w-2xl mx-auto text-sm">{steps[activeIndex].description}</p>
+      <div className="text-center bg-muted p-4 rounded-lg min-h-[100px] flex items-center justify-center border" role="region" aria-live="polite">
+        <p className="text-muted-foreground max-w-2xl mx-auto text-sm">{steps[activeIndex].description}</p>
       </div>
-      <p className="text-center text-xs text-gray-500 mt-4 italic">Key Takeaway: Transformers are powerful because they weigh the importance of every word against every other word, creating deep contextual understanding.</p>
+      <p className="text-center text-xs text-muted-foreground mt-4 italic">Key Takeaway: Transformers are powerful because they weigh the importance of every word against every other word, creating deep contextual understanding.</p>
     </div>
   );
 };

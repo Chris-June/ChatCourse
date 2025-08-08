@@ -37,56 +37,57 @@ const InsyncWorkshop: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg shadow-lg my-6">
+    <div className="bg-card p-6 rounded-lg border my-6 text-card-foreground">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <h3 className="text-xl font-semibold text-white mb-3 flex items-center"><Lightbulb className="w-6 h-6 mr-2 text-yellow-300"/>Build Your Prompt</h3>
+          <h3 className="text-xl font-semibold mb-3 flex items-center"><Lightbulb className="w-6 h-6 mr-2 text-primary" aria-hidden="true"/>Build Your Prompt</h3>
           <div className="space-y-3">
             {(Object.keys(insyncFields) as FieldKey[]).map(key => (
               <div key={key}>
-                <label className="block text-sm font-medium text-gray-300 mb-1">{insyncFields[key].label}</label>
+                <label className="block text-sm font-medium text-foreground mb-1">{insyncFields[key].label}</label>
                 <textarea
                   name={key}
                   value={formState[key]}
                   onChange={handleInputChange}
                   placeholder={insyncFields[key].placeholder}
                   rows={2}
-                  className="w-full p-2 bg-gray-900 border border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-200"
+                  className="w-full p-2 bg-muted border rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 text-foreground placeholder:text-muted-foreground"
                 />
               </div>
             ))}
           </div>
         </div>
         <div className="sticky top-24 h-full">
-          <h3 className="text-xl font-semibold text-white mb-3 flex items-center"><Sparkles className="w-6 h-6 mr-2 text-blue-300"/>Live Prompt Preview</h3>
-          <div className="bg-gray-900 p-4 rounded-md h-full min-h-[300px] border border-gray-700 relative">
+          <h3 className="text-xl font-semibold mb-3 flex items-center"><Sparkles className="w-6 h-6 mr-2 text-primary" aria-hidden="true"/>Live Prompt Preview</h3>
+          <div className="bg-muted p-4 rounded-md h-full min-h-[300px] border relative" role="region" aria-label="Live prompt preview">
             <AnimatePresence>
               {fullPrompt ? (
                 <motion.pre 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="whitespace-pre-wrap text-gray-300 text-sm font-mono">
+                  className="whitespace-pre-wrap text-foreground text-sm font-mono">
                     {fullPrompt}
                 </motion.pre>
               ) : (
                 <motion.p 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-gray-500 text-center absolute inset-0 flex items-center justify-center">
+                  className="text-muted-foreground text-center absolute inset-0 flex items-center justify-center"
+                  aria-live="polite">
                     Your prompt will appear here as you type.
                 </motion.p>
               )}
             </AnimatePresence>
             {fullPrompt && (
-              <button onClick={handleCopy} className="absolute top-2 right-2 p-1.5 bg-gray-700 hover:bg-gray-600 rounded-md">
-                {copied ? <Check className="w-5 h-5 text-green-400" /> : <Clipboard className="w-5 h-5 text-gray-400" />}
+              <button onClick={handleCopy} className="absolute top-2 right-2 p-1.5 bg-muted border hover:bg-muted/80 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60" aria-label="Copy prompt to clipboard">
+                {copied ? <Check className="w-5 h-5 text-primary" aria-hidden="true" /> : <Clipboard className="w-5 h-5 text-muted-foreground" aria-hidden="true" />}
               </button>
             )}
           </div>
         </div>
       </div>
       <div className="mt-6 text-center">
-        <button onClick={() => setShowOutput(true)} className="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105">
+        <button onClick={() => setShowOutput(true)} className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60">
           Generate Itinerary
         </button>
       </div>
@@ -96,9 +97,9 @@ const InsyncWorkshop: React.FC = () => {
             initial={{ opacity: 0, height: 0 }} 
             animate={{ opacity: 1, height: 'auto' }} 
             exit={{ opacity: 0, height: 0 }}
-            className="mt-6 bg-gray-900 p-6 rounded-lg border border-green-500/50 overflow-hidden">
-            <h3 className="text-xl font-bold text-green-300">Example Output:</h3>
-            <div className="prose prose-invert prose-sm mt-2 text-gray-300">
+            className="mt-6 bg-muted p-6 rounded-lg border overflow-hidden">
+            <h3 className="text-xl font-bold">Example Output:</h3>
+            <div className="prose prose-sm mt-2 text-foreground">
               <h4>Your Unforgettable 3-Day Tokyo Adventure!</h4>
               <p>Get ready for a whirlwind tour of Tokyo, blending futuristic marvels with serene traditions. Here’s a jam-packed itinerary perfect for a curious solo traveler!</p>
               <h5>Day 1: Modern Marvels & Electric Nights</h5>
