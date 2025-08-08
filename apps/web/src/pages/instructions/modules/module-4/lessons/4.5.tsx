@@ -209,7 +209,7 @@ const Lesson4_5: React.FC = () => {
           ]}
         />
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Explain how an agent operates and plans actions</li>
@@ -262,7 +262,7 @@ const Lesson4_5: React.FC = () => {
           </p>
         </Accordion>
 
-        <Accordion title="Exercise: Think Like an Agent" icon={<Lightbulb />}>
+        <Accordion title="Exercise: Think Like an Agent" icon={<Lightbulb className="text-amber-400" />}>
           <p className="text-muted-foreground mb-4">
             Consider the 'Automated Data Analyst' agent. Use the planner below to outline the first few steps of its <strong>Observe, Think, Act</strong> loop. What tools would it need? What decisions would it make? Get feedback on your plan from a simulated AI peer.
           </p>

@@ -261,7 +261,7 @@ const Lesson4_6 = () => {
           </AccordionItem>
         </Accordion>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Explain differences between basic function calling and MCP</li>
@@ -297,7 +297,7 @@ const Lesson4_6 = () => {
           <AccordionItem value="item-6">
             <AccordionTrigger>
               <div className="flex items-center">
-                <Lightbulb className="w-5 h-5 mr-2" />
+                <Lightbulb className="w-5 h-5 mr-2 text-amber-400" />
                 Exercise: Plan an Agent's MCP Interaction
               </div>
             </AccordionTrigger>

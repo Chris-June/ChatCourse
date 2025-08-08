@@ -88,7 +88,7 @@ const Lesson5_1 = () => {
       subtitle="How an AI Remembers and Reasons"
     >
       <div className="space-y-6 text-card-foreground">
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–14 minutes</p>
           <h3 className="font-semibold text-foreground mb-2">What you'll learn</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
@@ -105,7 +105,7 @@ const Lesson5_1 = () => {
           its memory.
         </p>
 
-        <div className="p-4 border rounded-lg bg-muted">
+        <div className="p-4 border border-border rounded-lg bg-muted">
           <ContextWindowVisualizer />
         </div>
 
@@ -126,7 +126,7 @@ const Lesson5_1 = () => {
                 roles is fundamental.
               </p>
               <ContextCaseStudies />
-              <div className="p-4 border rounded-lg bg-background">
+              <div className="p-4 border border-border rounded-lg bg-background">
                 <h4 className="font-bold text-foreground mb-2">
                   The Three Core Roles:
                 </h4>
@@ -182,7 +182,7 @@ const Lesson5_1 = () => {
           <AccordionItem value="item-3">
             <AccordionTrigger className="text-left hover:no-underline">
               <div className="flex items-center">
-                <Lightbulb className="w-5 h-5 mr-2 text-primary" />
+                <Lightbulb className="w-5 h-5 mr-2 text-amber-400" />
                 Live Rehearsal: The Context Explorer
               </div>
             </AccordionTrigger>
@@ -220,7 +220,7 @@ const Lesson5_1 = () => {
           </AccordionItem>
         </Accordion>
 
-        <div className="bg-muted/30 border border-muted rounded-xl p-4">
+        <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>Explain how context and roles guide the model’s responses</li>
