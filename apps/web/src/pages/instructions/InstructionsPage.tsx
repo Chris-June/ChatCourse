@@ -129,7 +129,7 @@ const InstructionsPage: React.FC = () => {
       </header>
       <div className="flex flex-1 overflow-hidden min-h-0">
         <InstructionsSidebar isOpen={isSidebarOpen} />
-        <main className="flex-1 overflow-y-auto p-8 min-h-0">
+        <main className="flex-1 overflow-y-auto overscroll-contain p-8 min-h-0">
           <Routes>
             <Route path="setup/*" element={<SetupRoutes />} />
             <Route path="module-1/*" element={<Module1Routes />} />
