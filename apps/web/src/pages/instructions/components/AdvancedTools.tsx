@@ -6,58 +6,54 @@ import {
   PromptVisualizer 
 } from '../../../components/prompting/advanced';
 
-// Local TabButton component for encapsulation
-const TabButton: React.FC<{ active: boolean; onClick: () => void; icon: React.ReactNode; label: string; }> = ({ active, onClick, icon, label }) => (
-  <button
-    onClick={onClick}
-    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${active ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-700'}`}>
-    {icon}
-    <span>{label}</span>
-  </button>
-);
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs';
 
 const AdvancedTools: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('challenges');
+  const [value, setValue] = useState<'visualizer' | 'patterns' | 'challenges'>('challenges');
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'visualizer':
-        return <PromptVisualizer />;
-      case 'patterns':
-        return <PromptPatternLibrary />;
-      case 'challenges':
-        return <PromptChallenges />;
-      default:
-        return <PromptVisualizer />;
+  const order: Array<typeof value> = ['visualizer', 'patterns', 'challenges'];
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const idx = order.indexOf(value);
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      const next = order[(idx + 1) % order.length];
+      setValue(next);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const prev = order[(idx - 1 + order.length) % order.length];
+      setValue(prev);
     }
   };
 
   return (
-    <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700 my-6">
-      <h3 className="text-lg font-semibold text-white mb-4">Advanced Tools Playground</h3>
-      <div className="flex space-x-2 border-b border-gray-700 mb-4 pb-2">
-        <TabButton
-          active={activeTab === 'visualizer'}
-          onClick={() => setActiveTab('visualizer')}
-          icon={<Target className="w-5 h-5" />}
-          label="Prompt Visualizer"
-        />
-        <TabButton
-          active={activeTab === 'patterns'}
-          onClick={() => setActiveTab('patterns')}
-          icon={<Layers className="w-5 h-5" />}
-          label="Pattern Library"
-        />
-        <TabButton
-          active={activeTab === 'challenges'}
-          onClick={() => setActiveTab('challenges')}
-          icon={<Zap className="w-5 h-5" />}
-          label="Prompt Challenges"
-        />
-      </div>
-      <div className="mt-4">
-        {renderContent()}
-      </div>
+    <div className="bg-card text-card-foreground p-4 md:p-6 rounded-xl border my-6 shadow-sm">
+      <h3 className="text-base md:text-lg font-semibold text-foreground mb-4">Advanced Tools Playground</h3>
+      <Tabs value={value} onValueChange={(v: string) => setValue(v as typeof value)}>
+        <TabsList className="mb-4" onKeyDown={onKeyDown} aria-label="Advanced tools tabs">
+          <TabsTrigger value="visualizer">
+            <Target className="h-4 w-4" aria-hidden="true" />
+            <span className="ml-2">Prompt Visualizer</span>
+          </TabsTrigger>
+          <TabsTrigger value="patterns">
+            <Layers className="h-4 w-4" aria-hidden="true" />
+            <span className="ml-2">Pattern Library</span>
+          </TabsTrigger>
+          <TabsTrigger value="challenges">
+            <Zap className="h-4 w-4" aria-hidden="true" />
+            <span className="ml-2">Prompt Challenges</span>
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="visualizer" role="tabpanel">
+          <PromptVisualizer />
+        </TabsContent>
+        <TabsContent value="patterns" role="tabpanel">
+          <PromptPatternLibrary />
+        </TabsContent>
+        <TabsContent value="challenges" role="tabpanel">
+          <PromptChallenges />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
