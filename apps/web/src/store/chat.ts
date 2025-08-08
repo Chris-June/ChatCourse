@@ -87,7 +87,38 @@ export const useChatStore = create<ChatState>()(
       top_p: 1,
       reasoningEffort: 'medium',
       verbosity: 'medium',
-      tools: [],
+      tools: [
+        {
+          type: 'function',
+          name: 'math.calculate',
+          description: 'Evaluate a basic arithmetic expression (digits and + - * / ( )).',
+          parameters: {
+            type: 'object',
+            properties: {
+              expression: { type: 'string', description: 'Arithmetic expression, e.g. (2+3)*4' },
+            },
+            required: ['expression'],
+            additionalProperties: false,
+          },
+        },
+        {
+          type: 'function',
+          name: 'time.now',
+          description: 'Get the current server time as ISO and locale string.',
+          parameters: { type: 'object', properties: {}, additionalProperties: false },
+        },
+        {
+          type: 'function',
+          name: 'text.extract_urls',
+          description: 'Extract all URLs from the provided text.',
+          parameters: {
+            type: 'object',
+            properties: { text: { type: 'string', description: 'Input text to scan for URLs' } },
+            required: ['text'],
+            additionalProperties: false,
+          },
+        },
+      ],
       toolMode: 'auto',
       apiKey: '',
       theme: 'dark',
