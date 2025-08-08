@@ -37,18 +37,18 @@ const JtbdBuilder: React.FC = () => {
   }, [selections]);
 
   return (
-    <div className="bg-gray-800/50 p-6 rounded-lg border border-gray-700 space-y-6">
+    <div className="bg-card p-6 rounded-lg border space-y-6 text-card-foreground">
       <div>
-        <h4 className="font-semibold text-white mb-3 text-lg">Build a "Job to be Done" Statement</h4>
-        <p className="text-gray-400 text-sm mb-4">Select an option from each category to construct a user-centric problem statement.</p>
+        <h4 className="font-semibold mb-3 text-lg">Build a "Job to be Done" Statement</h4>
+        <p className="text-muted-foreground text-sm mb-4">Select an option from each category to construct a user-centric problem statement.</p>
         <div className="grid md:grid-cols-3 gap-4">
           {Object.keys(options).map(part => (
             <div key={part}>
-              <label className="block text-sm font-medium text-gray-300 mb-1 capitalize">{part}</label>
+              <label className="block text-sm font-medium text-foreground mb-1 capitalize">{part}</label>
               <select
                 value={selections[part]}
                 onChange={(e) => handleSelect(part as any, e.target.value)}
-                className="w-full bg-gray-900 text-white border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow duration-200 text-sm"
+                className="w-full bg-muted text-foreground border rounded-lg p-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 transition-shadow duration-200 text-sm"
               >
                 {options[part as keyof typeof options].map(option => (
                   <option key={option} value={option}>{option}</option>
@@ -59,9 +59,9 @@ const JtbdBuilder: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-gray-900/70 p-4 rounded-lg border border-gray-600">
-        <h5 className="font-semibold text-blue-300 mb-2">Your Completed Statement:</h5>
-        <p className="text-white italic">"{fullStatement}"</p>
+      <div className="bg-muted p-4 rounded-lg border" role="status" aria-live="polite">
+        <h5 className="font-semibold mb-2">Your Completed Statement:</h5>
+        <p className="text-foreground italic">"{fullStatement}"</p>
       </div>
     </div>
   );
