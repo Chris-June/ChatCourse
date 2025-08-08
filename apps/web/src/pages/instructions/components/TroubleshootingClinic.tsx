@@ -14,19 +14,19 @@ const TroubleshootingClinic: React.FC<TroubleshootingClinicProps> = ({ items }) 
   return (
     <div className="space-y-6 my-4">
       {items.map((item, index) => (
-        <div key={index} className="bg-gray-800/60 p-4 rounded-lg border border-gray-700">
+        <div key={index} className="bg-card p-4 rounded-lg border">
           <div className="flex items-start mb-2">
-            <Wrench className="w-5 h-5 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
+            <Wrench className="w-5 h-5 text-amber-500 mr-3 mt-1 flex-shrink-0" aria-hidden="true" />
             <div>
-              <h5 className="font-semibold text-yellow-300">Problem:</h5>
-              <p className="text-gray-300">{item.problem}</p>
+              <h5 className="font-semibold text-foreground">Problem:</h5>
+              <p className="text-muted-foreground">{item.problem}</p>
             </div>
           </div>
-          <div className="flex items-start border-t border-gray-700 pt-3 mt-3">
-            <Lightbulb className="w-5 h-5 text-green-400 mr-3 mt-1 flex-shrink-0" />
+          <div className="flex items-start border-t pt-3 mt-3">
+            <Lightbulb className="w-5 h-5 text-emerald-500 mr-3 mt-1 flex-shrink-0" aria-hidden="true" />
             <div>
-              <h5 className="font-semibold text-green-300">Solution:</h5>
-              <p className="text-gray-300">{item.solution}</p>
+              <h5 className="font-semibold text-foreground">Solution:</h5>
+              <p className="text-muted-foreground">{item.solution}</p>
             </div>
           </div>
         </div>

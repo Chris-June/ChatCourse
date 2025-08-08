@@ -3,6 +3,7 @@ import { Lightbulb, Send } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import { useChatStore } from '@/store/chat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
+import PredictTheNextToken from '@/pages/instructions/components/PredictTheNextToken';
 
 const Lesson1_5: React.FC = () => {
   const apiKey = useChatStore(state => state.apiKey);
@@ -127,7 +128,7 @@ const Lesson1_5: React.FC = () => {
     <LessonTemplate
       moduleNumber={1}
       lessonNumber={5}
-      title="1.5: The I.N.S.Y.N.C. Framework"
+      title="The I.N.S.Y.N.C. Framework"
       subtitle="A powerful, memorable system for building high-quality prompts."
       quizQuestions={quizQuestions}
     >
@@ -308,6 +309,11 @@ const Lesson1_5: React.FC = () => {
               )}
             </div>
           )}
+
+          {/* Interactive: Understand next-token prediction */}
+          <section className="mt-10">
+            <PredictTheNextToken />
+          </section>
         </div>
 
         <KeyTakeaways

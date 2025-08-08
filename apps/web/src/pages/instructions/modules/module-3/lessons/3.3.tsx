@@ -6,6 +6,7 @@ import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
+import SocraticTutorProject from '@/pages/instructions/components/SocraticTutorProject';
 
 const jsonChallengeChecklist = [
   { id: 'json-1', text: 'Ask the AI to extract name, age, and city from a sentence like "Sarah, 28, lives in Toronto"', completed: false },
@@ -27,6 +28,25 @@ const structuredListChallengeChecklist = [
   { id: 'list-3', text: 'Define example structure: {"title": "Todo App", "description": "A simple task manager"}', completed: false },
   { id: 'list-4', text: 'Verify response is valid JSON array like: [{"title": "...", "description": "..."}, {...}]', completed: false },
 ];
+
+// Socratic coaching checklist tailored to structured output
+const socraticChecklist = [
+  { text: 'Ask one guiding question before proposing a fix', completed: false },
+  { text: 'Re-center on the required output format (JSON or Markdown)', completed: false },
+  { text: 'Reference a concrete schema or example output', completed: false },
+  { text: 'Encourage the user to validate or correct malformed structure', completed: false },
+];
+
+const socraticSystemPrompt = `You are a Socratic prompt coach. The learner is practicing requesting structured outputs (JSON and Markdown).
+
+Your style: Ask short guiding questions first, then offer a small nudge. Keep replies concise. Do not dump final answers.
+
+Coaching priorities:
+1) Re-focus on explicit schemas (keys, data types) when asking for JSON.
+2) For Markdown, confirm the required elements (headings, lists, tables) and layout.
+3) Encourage including a small example of the desired output.
+4) If structure is malformed, suggest a minimal correction and why it matters.
+`;
 
 const Lesson3_3: React.FC = () => {
   const quizQuestions = [
@@ -91,7 +111,7 @@ const Lesson3_3: React.FC = () => {
     <LessonTemplate
       moduleNumber={3}
       lessonNumber={3}
-      title="3.3: Requesting Structured Output"
+      title="Requesting Structured Output"
       subtitle="Getting the AI to give you exactly what you need."
       quizQuestions={quizQuestions}
     >
@@ -207,6 +227,15 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
           />
           <p className="text-muted-foreground mt-3">This structured data is like pre-fabricated building materials - ready to be used directly in your application's UI components without any additional processing.</p>
         </Accordion>
+
+        <div className="mt-6 bg-card p-4 rounded-xl border-2 border-dashed border-primary/40">
+          <h3 className="font-semibold text-foreground mb-2">Socratic Coaching: Sharpen Your Structured Prompts</h3>
+          <p className="text-muted-foreground mb-4">Get coaching via guided questions to refine your JSON/Markdown requests. Aim for explicit schemas, concrete examples, and validation.</p>
+          <SocraticTutorProject 
+            challengeChecklist={socraticChecklist}
+            systemPrompt={socraticSystemPrompt}
+          />
+        </div>
 
         <div className="bg-muted/30 border border-muted rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>

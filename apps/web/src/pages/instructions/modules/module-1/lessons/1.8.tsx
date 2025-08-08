@@ -2,13 +2,14 @@ import React from 'react';
 import { Trophy, Sparkles } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import Module1FinalChallenge from '../../../components/Module1FinalChallenge';
+import PromptCritiquer from '@/pages/instructions/components/PromptCritiquer';
 
 const Lesson1_8: React.FC = () => {
   return (
     <LessonTemplate
       moduleNumber={1}
       lessonNumber={8}
-      title="1.8: Module 1 Challenge"
+      title="Module 1 Challenge"
       subtitle="Put everything you've learned in Module 1 to the test."
       quizQuestions={[]}
     >
@@ -25,6 +26,11 @@ const Lesson1_8: React.FC = () => {
             Remember, this isn't just about getting a working answer; it's about demonstrating your skill in prompt engineering to get a high-quality, specific, and well-formatted response from the AI.
           </p>
         </div>
+
+        {/* Practice: Critique a prompt before the final challenge */}
+        <section className="mt-6">
+          <PromptCritiquer />
+        </section>
 
         {/* Interactive Challenge Component */}
         <Module1FinalChallenge />

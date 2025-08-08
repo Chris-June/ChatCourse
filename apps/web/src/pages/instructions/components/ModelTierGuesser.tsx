@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@chat/ui';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { CheckCircle2, XCircle, Zap } from 'lucide-react';
 
 const scenarios = [
@@ -41,12 +42,14 @@ export default function ModelTierGuesser() {
   const scenario = scenarios[currentScenarioIndex];
 
   return (
-    <div className="my-8 p-6 bg-gray-900/50 border border-gray-700 rounded-xl">
-      <h4 className="text-lg font-semibold text-center mb-2 text-white">Interactive Exercise: Guess the Model Tier</h4>
-      <p className="text-sm text-center text-gray-400 mb-6">Read the scenario and choose the most appropriate model.</p>
-      
-      <div className="bg-gray-800 p-4 rounded-lg text-center">
-        <p className="text-cyan-300 font-medium">{scenario.task}</p>
+    <Card className="my-8">
+      <CardHeader>
+        <CardTitle className="text-center text-base md:text-lg">Interactive Exercise: Guess the Model Tier</CardTitle>
+        <p className="text-sm text-center text-muted-foreground">Read the scenario and choose the most appropriate model.</p>
+      </CardHeader>
+      <CardContent>
+      <div className="bg-muted p-4 rounded-lg text-center border">
+        <p className="text-foreground font-medium">{scenario.task}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
@@ -56,19 +59,19 @@ export default function ModelTierGuesser() {
             variant="outline" 
             onClick={() => handleSelectTier(tier)}
             disabled={selectedTier !== null}
-            className={`p-4 h-full flex flex-col justify-center items-center text-center transition-all duration-200 ${selectedTier === tier ? (isCorrect ? 'bg-green-500/20 border-green-500' : 'bg-red-500/20 border-red-500') : 'hover:bg-gray-700'}`}>
-            <Zap className="w-6 h-6 mb-2" />
+            className={`p-4 h-full flex flex-col justify-center items-center text-center transition-all duration-200 ${selectedTier === tier ? (isCorrect ? 'bg-green-500/20 border-green-500' : 'bg-red-500/20 border-red-500') : ''}`}>
+            <Zap className="w-6 h-6 mb-2 text-primary" aria-hidden="true" />
             <span className="font-semibold">{tier}</span>
           </Button>
         ))}
       </div>
 
       {selectedTier !== null && (
-        <div className={`p-4 rounded-lg flex items-start ${isCorrect ? 'bg-green-900/30' : 'bg-red-900/30'}`}>
-          {isCorrect ? <CheckCircle2 className="w-6 h-6 text-green-400 mr-3 flex-shrink-0" /> : <XCircle className="w-6 h-6 text-red-400 mr-3 flex-shrink-0" />}
+        <div className={`p-4 rounded-lg flex items-start border ${isCorrect ? 'bg-green-500/10 border-green-500/40' : 'bg-red-500/10 border-red-500/40'}`} role="status" aria-live="polite">
+          {isCorrect ? <CheckCircle2 className="w-6 h-6 text-green-500 mr-3 flex-shrink-0" aria-hidden="true" /> : <XCircle className="w-6 h-6 text-red-500 mr-3 flex-shrink-0" aria-hidden="true" />}
           <div>
-            <h5 className={`font-bold ${isCorrect ? 'text-green-300' : 'text-red-300'}`}>{isCorrect ? 'Correct!' : 'Good Try!'}</h5>
-            <p className="text-gray-300 mt-1">{scenario.explanation}</p>
+            <h5 className={`font-semibold ${isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>{isCorrect ? 'Correct!' : 'Good Try!'}</h5>
+            <p className="text-muted-foreground mt-1">{scenario.explanation}</p>
           </div>
         </div>
       )}
@@ -78,6 +81,7 @@ export default function ModelTierGuesser() {
           Next Scenario →
         </Button>
       </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

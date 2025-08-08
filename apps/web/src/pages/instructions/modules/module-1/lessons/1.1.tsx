@@ -67,7 +67,7 @@ const Lesson1_1: React.FC = () => {
     <LessonTemplate
       moduleNumber={1}
       lessonNumber={1}
-      title="1.1 What is an AI, Really?"
+      title="What is an AI, Really?"
       subtitle="Beyond the hype, let's build a real foundation."
       quizQuestions={quizQuestions}
     >
@@ -80,6 +80,7 @@ const Lesson1_1: React.FC = () => {
           <li>Why prompting influences model behavior</li>
         </ul>
       </section>
+      
       <section className="space-y-6">
         <div className="p-6 bg-card rounded-xl border">
           <h2 className="text-2xl font-semibold text-card-foreground mb-4 flex items-center">

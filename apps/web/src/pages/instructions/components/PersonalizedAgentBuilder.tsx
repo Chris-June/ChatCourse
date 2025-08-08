@@ -28,15 +28,15 @@ const PersonalizedAgentBuilder = () => {
   };
 
   return (
-    <Card className="mt-8 bg-gray-900 border-gray-700 text-white">
+    <Card className="mt-8">
       <CardHeader>
         <div className="flex items-center space-x-4">
-          <div className="p-3 bg-purple-900/50 rounded-lg">
-            <Wand2 className="w-8 h-8 text-purple-400" />
+          <div className="p-3 bg-muted rounded-lg">
+            <Wand2 className="w-8 h-8 text-primary" aria-hidden="true" />
           </div>
           <div>
-            <CardTitle className="text-2xl text-white">Build Your Own Personalized Agent</CardTitle>
-            <CardDescription className="text-gray-400">
+            <CardTitle className="text-2xl">Build Your Own Personalized Agent</CardTitle>
+            <CardDescription>
               Mini-Challenge: Create a custom AI persona by defining its core instructions and tuning its behavior.
             </CardDescription>
           </div>
@@ -45,66 +45,68 @@ const PersonalizedAgentBuilder = () => {
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <Label htmlFor="agent-name" className="text-gray-300">Agent Name</Label>
+            <Label htmlFor="agent-name">Agent Name</Label>
             <Input 
               id="agent-name" 
               placeholder="e.g., 'Socratic Tutor' or 'Marketing Whiz'"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="bg-gray-800 border-gray-600 text-white"
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="system-prompt" className="text-gray-300">System Prompt</Label>
+          <Label htmlFor="system-prompt">System Prompt</Label>
           <Textarea
             id="system-prompt"
             placeholder="Define the AI's role, personality, and instructions..."
             value={systemPrompt}
             onChange={(e) => setSystemPrompt(e.target.value)}
-            className="bg-gray-800 border-gray-600 text-white min-h-[120px]"
+            className="min-h-[120px]"
           />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
           <div className="space-y-3">
-            <Label className="text-gray-300">Temperature: <span className="font-mono text-purple-400">{temperature[0].toFixed(2)}</span></Label>
+            <Label>Temperature: <span className="font-mono">{temperature[0].toFixed(2)}</span></Label>
             <Slider 
               min={0} 
               max={2} 
               step={0.1} 
               value={temperature} 
-              onValueChange={setTemperature} 
+              onValueChange={setTemperature}
+              aria-label="Temperature"
             />
-            <p className="text-xs text-gray-500">Controls randomness. Higher is more creative.</p>
+            <p className="text-xs text-muted-foreground">Controls randomness. Higher is more creative.</p>
           </div>
           <div className="space-y-3">
-            <Label className="text-gray-300">Top P: <span className="font-mono text-purple-400">{topP[0].toFixed(2)}</span></Label>
+            <Label>Top P: <span className="font-mono">{topP[0].toFixed(2)}</span></Label>
             <Slider 
               min={0} 
               max={1} 
               step={0.05} 
               value={topP} 
-              onValueChange={setTopP} 
+              onValueChange={setTopP}
+              aria-label="Top P"
             />
-            <p className="text-xs text-gray-500">Controls nucleus sampling. Filters token diversity.</p>
+            <p className="text-xs text-muted-foreground">Controls nucleus sampling. Filters token diversity.</p>
           </div>
           <div className="space-y-3">
-            <Label className="text-gray-300">Frequency Penalty: <span className="font-mono text-purple-400">{frequencyPenalty[0].toFixed(2)}</span></Label>
+            <Label>Frequency Penalty: <span className="font-mono">{frequencyPenalty[0].toFixed(2)}</span></Label>
             <Slider 
               min={-2} 
               max={2} 
               step={0.1} 
               value={frequencyPenalty} 
-              onValueChange={setFrequencyPenalty} 
+              onValueChange={setFrequencyPenalty}
+              aria-label="Frequency Penalty"
             />
-            <p className="text-xs text-gray-500">Reduces repetition of the same tokens.</p>
+            <p className="text-xs text-muted-foreground">Reduces repetition of the same tokens.</p>
           </div>
         </div>
       </CardContent>
       <CardFooter>
-        <Button onClick={handleSave} className="bg-purple-600 hover:bg-purple-500 text-white w-full md:w-auto">
+        <Button onClick={handleSave} className="w-full md:w-auto" aria-label="Save agent configuration">
           Save Agent
         </Button>
       </CardFooter>

@@ -1,9 +1,14 @@
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 const PersonalizationComparison = () => {
   return (
-    <div className="p-4 bg-gray-800 rounded-lg border border-gray-700 mt-4">
-      <h3 className="text-lg font-semibold text-white mb-2">Before-and-After: Generic vs. Personalized</h3>
-      <p className="text-gray-400">[Component under construction]</p>
-    </div>
+    <Card className="mt-4">
+      <CardHeader>
+        <CardTitle className="text-base md:text-lg">Before-and-After: Generic vs. Personalized</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm text-muted-foreground">[Component under construction]</p>
+      </CardContent>
+    </Card>
   );
 };
 

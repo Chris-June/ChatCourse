@@ -71,9 +71,9 @@ const RagPlayground: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 space-y-4">
-      <h3 className="text-xl font-bold text-white">Interactive RAG Playground</h3>
-      <p className="text-sm text-gray-400">Ask a question about our plans or policies to see RAG in action. Try: "What is the price of the pro plan?" or "How do I cancel?"</p>
+    <div className="bg-card border rounded-xl p-6 space-y-4">
+      <h3 className="text-xl font-bold text-foreground">Interactive RAG Playground</h3>
+      <p className="text-sm text-muted-foreground">Ask a question about our plans or policies to see RAG in action. Try: "What is the price of the pro plan?" or "How do I cancel?"</p>
       
       <form onSubmit={handleSubmit} className="flex items-center gap-2">
         <Input 
@@ -81,33 +81,33 @@ const RagPlayground: React.FC = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Ask a question..."
-          className="bg-gray-900"
+          className="bg-background"
         />
-        <Button type="submit" disabled={isLoading || !query}>Ask</Button>
+        <Button type="submit" disabled={isLoading || !query} aria-busy={isLoading}>Ask</Button>
       </form>
 
       <AnimatePresence>
         {submittedQuery && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4 pt-4">
             <div>
-              <h4 className="font-semibold text-teal-400 flex items-center gap-2"><Search className="w-5 h-5" /> Retrieved Documents</h4>
+              <h4 className="font-semibold text-teal-400 flex items-center gap-2"><Search className="w-5 h-5" aria-hidden="true" /> Retrieved Documents</h4>
               <div className="mt-2 space-y-2">
                 {retrievedDocs.length > 0 ? (
                   retrievedDocs.map(doc => (
-                    <motion.div key={doc.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-gray-900/70 p-3 rounded-lg border border-gray-700 text-sm text-gray-300">
+                    <motion.div key={doc.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-muted p-3 rounded-lg border text-sm text-foreground/90">
                       <p className="font-mono text-xs text-indigo-400">{doc.id}.txt</p>
                       <p>{doc.content}</p>
                     </motion.div>
                   ))
                 ) : (
-                  <p className="text-gray-400 text-sm">No relevant documents found.</p>
+                  <p className="text-muted-foreground text-sm">No relevant documents found.</p>
                 )}
               </div>
             </div>
 
             <div>
-              <h4 className="font-semibold text-green-400 flex items-center gap-2"><Bot className="w-5 h-5" /> Generated Answer</h4>
-              <div className="mt-2 bg-gray-900/70 p-4 rounded-lg border border-gray-700 text-gray-300 whitespace-pre-wrap min-h-[100px]">
+              <h4 className="font-semibold text-green-400 flex items-center gap-2"><Bot className="w-5 h-5" aria-hidden="true" /> Generated Answer</h4>
+              <div className="mt-2 bg-muted p-4 rounded-lg border text-foreground whitespace-pre-wrap min-h-[100px]" role="status" aria-live="polite">
                 {isLoading ? <span className="animate-pulse">Generating...</span> : answer}
               </div>
             </div>

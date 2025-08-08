@@ -69,7 +69,7 @@ const Lesson2_1: React.FC = () => {
     <LessonTemplate
       moduleNumber={2}
       lessonNumber={1}
-      title="2.1: The Power of Context in AI"
+      title="The Power of Context in AI"
       subtitle="Mastering the AI's 'working memory' is the key to unlocking complex, multi-step conversations."
       quizQuestions={quizQuestions}
     >

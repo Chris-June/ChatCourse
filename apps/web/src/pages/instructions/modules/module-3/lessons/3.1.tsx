@@ -102,7 +102,7 @@ const Lesson3_1: React.FC = () => {
     <LessonTemplate
       moduleNumber={3}
       lessonNumber={1}
-      title="3.1: Zero-Shot vs. Few-Shot Prompting"
+      title="Zero-Shot vs. Few-Shot Prompting"
       subtitle="Understand the foundational techniques for guiding AI models."
       quizQuestions={quizQuestions}
     >

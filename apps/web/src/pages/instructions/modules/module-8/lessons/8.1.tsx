@@ -11,6 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import InlineChat, { ChallengeChecklistItem } from '@/components/InlineChat';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
+import ResponsibleAI from '@/pages/instructions/components/ResponsibleAI';
 import {
   Accordion,
   AccordionContent,
@@ -235,6 +236,9 @@ function Lesson8_1() {
             </div>
           </AccordionContent>
         </AccordionItem>
+
+        {/* Responsible AI developer checklist */}
+        <ResponsibleAI />
 
         <div className="bg-muted/30 border border-muted rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>

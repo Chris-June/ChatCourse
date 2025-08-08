@@ -67,7 +67,7 @@ const Lesson1_4: React.FC = () => {
     <LessonTemplate
       moduleNumber={1}
       lessonNumber={4}
-      title="1.4: The Art of the Ask (Intro to Prompting)"
+      title="The Art of the Ask (Intro to Prompting)"
       subtitle="How to talk to an AI to get what you want."
       quizQuestions={quizQuestions}
     >

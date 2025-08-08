@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Thermometer, BrainCircuit } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 
 const ParameterSliders: React.FC = () => {
   const [temperature, setTemperature] = useState(0.8);
@@ -18,12 +19,17 @@ const ParameterSliders: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-800/50 p-6 rounded-lg border border-dashed border-gray-700 my-6">
+    <Card className="my-6">
+      <CardHeader>
+        <CardTitle className="text-base md:text-lg">Sampling Parameters</CardTitle>
+        <p className="text-sm text-muted-foreground">Adjust Temperature and Top-P to see how they influence creativity and diversity.</p>
+      </CardHeader>
+      <CardContent>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <label htmlFor="temperature" className="flex items-center text-lg font-semibold text-white mb-2">
-            <Thermometer className="w-5 h-5 mr-2 text-red-400" />
-            Temperature: {temperature.toFixed(2)}
+          <label htmlFor="temperature" className="flex items-center text-lg font-semibold text-foreground mb-2">
+            <Thermometer className="w-5 h-5 mr-2 text-primary" aria-hidden="true" />
+            Temperature: <span className="ml-1 font-mono">{temperature.toFixed(2)}</span>
           </label>
           <input
             id="temperature"
@@ -33,14 +39,15 @@ const ParameterSliders: React.FC = () => {
             step="0.01"
             value={temperature}
             onChange={(e) => setTemperature(parseFloat(e.target.value))}
-            className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer"
+            aria-describedby="temp-desc"
+            className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
           />
-          <p className="text-sm text-gray-400 mt-2 min-h-[40px]">{getTempDescription(temperature)}</p>
+          <p id="temp-desc" className="text-sm text-muted-foreground mt-2 min-h-[40px]" aria-live="polite">{getTempDescription(temperature)}</p>
         </div>
         <div>
-          <label htmlFor="topP" className="flex items-center text-lg font-semibold text-white mb-2">
-            <BrainCircuit className="w-5 h-5 mr-2 text-purple-400" />
-            Top-P: {topP.toFixed(2)}
+          <label htmlFor="topP" className="flex items-center text-lg font-semibold text-foreground mb-2">
+            <BrainCircuit className="w-5 h-5 mr-2 text-primary" aria-hidden="true" />
+            Top-P: <span className="ml-1 font-mono">{topP.toFixed(2)}</span>
           </label>
           <input
             id="topP"
@@ -50,16 +57,18 @@ const ParameterSliders: React.FC = () => {
             step="0.01"
             value={topP}
             onChange={(e) => setTopP(parseFloat(e.target.value))}
-            className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer"
+            aria-describedby="topp-desc"
+            className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
           />
-          <p className="text-sm text-gray-400 mt-2 min-h-[40px]">{getTopPDescription(topP)}</p>
+          <p id="topp-desc" className="text-sm text-muted-foreground mt-2 min-h-[40px]" aria-live="polite">{getTopPDescription(topP)}</p>
         </div>
       </div>
-      <div className="mt-6 text-center bg-gray-900/50 p-4 rounded-lg">
-        <h4 className="font-bold text-white">How they work together:</h4>
-        <p className="text-gray-300 text-sm">The model first uses Top-P to create a smaller pool of likely words, then uses Temperature to pick from that pool. It's recommended to alter one at a time, not both.</p>
+      <div className="mt-6 text-center bg-muted p-4 rounded-lg border">
+        <h4 className="font-semibold text-foreground">How they work together:</h4>
+        <p className="text-muted-foreground text-sm">The model first uses Top-P to create a smaller pool of likely words, then uses Temperature to pick from that pool. It's recommended to alter one at a time, not both.</p>
       </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

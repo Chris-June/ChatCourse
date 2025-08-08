@@ -12,23 +12,23 @@ interface SpotlightProps {
 const RealWorldSpotlight: React.FC<SpotlightProps> = ({ icon, title, children, takeaway }) => {
   return (
     <motion.div 
-      className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl my-6 border border-dashed border-blue-400/30 shadow-lg"
+      className="bg-card p-6 rounded-xl my-6 border border-dashed shadow-lg"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <div className="flex items-center mb-4">
-        <div className="flex-shrink-0 text-blue-400 bg-blue-900/50 p-3 rounded-full mr-4">
+        <div className="flex-shrink-0 text-blue-400 bg-blue-900/50 p-3 rounded-full mr-4" aria-hidden="true">
           {icon}
         </div>
-        <h4 className="font-bold text-blue-300 text-xl">{title}</h4>
+        <h4 className="font-bold text-xl text-foreground">{title}</h4>
       </div>
-      <div className="text-gray-300 space-y-3 mb-4">
+      <div className="text-foreground/90 space-y-3 mb-4">
         {children}
       </div>
-      <div className="bg-gray-800/70 p-3 rounded-lg flex items-center">
-        <Lightbulb className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0" />
-        <p className="text-sm text-yellow-200/90"><span className="font-semibold">Key Takeaway:</span> {takeaway}</p>
+      <div className="bg-muted p-3 rounded-lg flex items-center" role="status" aria-live="polite">
+        <Lightbulb className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0" aria-hidden="true" />
+        <p className="text-sm text-muted-foreground"><span className="font-semibold text-foreground">Key Takeaway:</span> {takeaway}</p>
       </div>
     </motion.div>
   );

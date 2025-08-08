@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Beaker, CheckCircle } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 
 const PromptA = `You are an email assistant. Write a professional email to the client asking for the signed documents.`;
 
@@ -20,24 +21,28 @@ const PromptABTester: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-900/70 border border-gray-700 rounded-lg p-6 space-y-6">
+    <Card className="space-y-6">
+      <CardHeader>
+        <CardTitle className="text-base md:text-lg">Prompt A/B Tester</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Prompt A */}
-        <div className="bg-gray-800 p-4 rounded-lg">
-          <h4 className="text-lg font-semibold text-blue-300 mb-2">Prompt A (Control)</h4>
-          <p className="text-sm text-gray-400 font-mono bg-gray-900 p-3 rounded-md whitespace-pre-wrap">{PromptA}</p>
+        <div className="bg-muted p-4 rounded-lg border">
+          <h4 className="text-sm font-semibold text-foreground mb-2">Prompt A (Control)</h4>
+          <p className="text-sm text-muted-foreground font-mono bg-background p-3 rounded-md border whitespace-pre-wrap">{PromptA}</p>
         </div>
 
         {/* Prompt B */}
-        <div className="bg-gray-800 p-4 rounded-lg">
-          <h4 className="text-lg font-semibold text-yellow-300 mb-2">Prompt B (Variant)</h4>
-          <p className="text-sm text-gray-400 font-mono bg-gray-900 p-3 rounded-md whitespace-pre-wrap">{PromptB}</p>
+        <div className="bg-muted p-4 rounded-lg border">
+          <h4 className="text-sm font-semibold text-foreground mb-2">Prompt B (Variant)</h4>
+          <p className="text-sm text-muted-foreground font-mono bg-background p-3 rounded-md border whitespace-pre-wrap">{PromptB}</p>
         </div>
       </div>
 
       <div className="text-center">
-        <Button onClick={handleRunTest} disabled={testRun} className="bg-green-600 hover:bg-green-500">
-          <Beaker className="w-5 h-5 mr-2" />
+        <Button onClick={handleRunTest} disabled={testRun} variant="default" aria-busy={testRun} aria-live="polite">
+          <Beaker className="w-5 h-5 mr-2" aria-hidden="true" />
           {testRun ? 'Running Test...' : 'Run A/B Test'}
         </Button>
       </div>
@@ -48,18 +53,21 @@ const PromptABTester: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="bg-green-900/50 border border-green-500 text-green-300 p-4 rounded-lg text-center"
+            className="p-4 rounded-lg text-center bg-muted border"
+            role="status"
+            aria-live="polite"
           >
             <div className="flex items-center justify-center mb-2">
-              <CheckCircle className="w-6 h-6 mr-2" />
-              <h4 className="text-xl font-bold">Test Complete!</h4>
+              <CheckCircle className="w-6 h-6 mr-2 text-primary" aria-hidden="true" />
+              <h4 className="text-base md:text-lg font-bold text-foreground">Test Complete!</h4>
             </div>
-            <p>Prompt B resulted in a <strong className="text-white">17% higher response rate</strong> from clients.</p>
-            <p className="text-sm text-green-400 mt-1">This suggests that being more specific and adding a sense of urgency improves the desired outcome.</p>
+            <p className="text-foreground">Prompt B resulted in a <strong>17% higher response rate</strong> from clients.</p>
+            <p className="text-sm text-muted-foreground mt-1">This suggests that being more specific and adding a sense of urgency improves the desired outcome.</p>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 
