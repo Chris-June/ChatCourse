@@ -81,3 +81,6 @@ coverage/
 
 # Misc
 *.pem
+
+# Ignore local API config
+apps/api/config/
