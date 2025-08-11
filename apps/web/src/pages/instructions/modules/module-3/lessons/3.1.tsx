@@ -9,12 +9,7 @@ import CheckpointQuiz from '../../../components/CheckpointQuiz';
 import ComparisonCard from '../../../components/ComparisonCard';
 import { Sparkles, ListChecks } from 'lucide-react';
 
-const reasoningChallengeChecklist = [
-  { id: 'reasoning-1', text: 'Get the AI to correctly identify the odd numbers', completed: false },
-  { id: 'reasoning-2', text: 'Get the AI to sum the odd numbers correctly', completed: false },
-  { id: 'reasoning-3', text: 'Get the AI to determine if the sum is even or odd', completed: false },
-  { id: 'reasoning-4', text: 'Achieve the correct final answer: False', completed: false },
-];
+import { zeroShotAssistantPrompt, fewShotAssistantPrompt, reasoningChallengeAssistantPrompt, reasoningChallengeChecklist } from '@/prompts';
 
 const Lesson3_1: React.FC = () => {
   const zeroShotQuiz = {
@@ -160,16 +155,11 @@ const Lesson3_1: React.FC = () => {
               <strong>Pro tip:</strong> Start with simple tasks like “Summarize this paragraph in 2 sentences” or “Translate this sentence to Spanish.” The key is being specific about your desired outcome without providing examples.
             </p>
             <InlineChat 
-              moduleId="module-3.1-zeroshot"
-              maxAttempts={10}
-              maxFollowUps={3}
-              placeholder="Try a zero-shot prompt here..."
-              systemPrompt="You are a helpful AI assistant. The user is learning about zero-shot prompting. Respond to their requests directly without examples, demonstrating zero-shot capabilities."
-              challengeChecklist={[
-                { id: 'zeroshot-1', text: 'Used a clear instruction without examples', completed: false },
-                { id: 'zeroshot-2', text: 'Received a relevant response', completed: false },
-                { id: 'zeroshot-3', text: 'Verified the response was generated without examples', completed: false }
-              ]}
+              moduleId="module-3.1-zero-shot"
+              maxAttempts={5}
+              maxFollowUps={2}
+              placeholder="Try a straightforward question—no examples needed..."
+              systemPrompt={zeroShotAssistantPrompt}
             />
           </div>
         </Accordion>
@@ -223,16 +213,11 @@ const Lesson3_1: React.FC = () => {
             <h3 className="font-semibold text-white mb-2">Your Turn: Few-Shot</h3>
             <p className="text-muted-foreground mb-4">Construct your own few-shot prompt. Provide the model with a few examples to guide its response for a simple classification or transformation task.</p>
             <InlineChat 
-              moduleId="module-3.1-fewshot"
-              maxAttempts={10}
-              maxFollowUps={3}
-              placeholder="Construct a few-shot prompt with examples..."
-              systemPrompt="You are a helpful AI assistant. The user is learning about few-shot prompting. When they provide examples, analyze the pattern and respond in kind. If they don’t provide examples, gently remind them that few-shot learning requires examples."
-              challengeChecklist={[
-                { id: 'fewshot-1', text: 'Included at least 2-3 clear examples', completed: false },
-                { id: 'fewshot-2', text: 'Maintained consistent format between examples', completed: false },
-                { id: 'fewshot-3', text: 'Received a response following the example pattern', completed: false }
-              ]}
+              moduleId="module-3.1-few-shot"
+              maxAttempts={5}
+              maxFollowUps={2}
+              placeholder="Provide 2-3 examples, then ask your question..."
+              systemPrompt={fewShotAssistantPrompt}
             />
           </div>
 
@@ -297,8 +282,8 @@ const Lesson3_1: React.FC = () => {
               maxAttempts={5}
               maxFollowUps={2}
               placeholder="Try to solve the reasoning problem..."
-              systemPrompt="You are a helpful AI assistant. The user is working on a reasoning challenge. Guide them through solving the problem step by step. If they ask for the answer directly, encourage them to think through it themselves first. When they provide a solution, verify their reasoning rather than just confirming if they’re right or wrong."
-              challengeChecklist={reasoningChallengeChecklist}
+              systemPrompt={reasoningChallengeAssistantPrompt}
+              challengeChecklist={reasoningChallengeChecklist.map((item: any) => ({ ...item }))}
             />
           </div>
         </Accordion>

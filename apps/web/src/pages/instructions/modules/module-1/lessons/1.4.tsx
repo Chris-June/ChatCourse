@@ -3,6 +3,14 @@ import { ThumbsUp, ThumbsDown } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
+import {
+  genericHelperPrompt,
+  pythonExpertHelperPrompt,
+  mealPlannerPrompt,
+  homeCookAssistantPrompt,
+  projectManagerPrompt,
+  businessAnalystPrompt,
+} from '@/prompts';
 
 const Lesson1_4: React.FC = () => {
   const quizQuestions = [
@@ -110,7 +118,7 @@ const Lesson1_4: React.FC = () => {
               <InlineChat 
                 moduleId="lesson-1.4-bad-prompt-1"
                 readOnly={true}
-                systemPrompt="You are a helpful assistant."
+                systemPrompt={genericHelperPrompt}
                 initialMessages={[{ role: 'user', content: 'Explain this code.' }]}
                 simulatedResponse="This code defines a function that takes two arguments, `a` and `b`, and returns their sum."
               />
@@ -121,7 +129,7 @@ const Lesson1_4: React.FC = () => {
               <InlineChat 
                 moduleId="lesson-1.4-good-prompt-1"
                 readOnly={true}
-                systemPrompt="You are a helpful assistant who is an expert Python programmer."
+                systemPrompt={pythonExpertHelperPrompt}
                 initialMessages={[{ role: 'user', content: 'Explain this Python code for a beginner. What is a type hint? Why is the return value `-> int`?' }]}
                 simulatedResponse="This is a Python function named `add` that takes two integers, `a` and `b`, as input. The `a: int` and `b: int` are called 'type hints,' which tell developers what kind of data the function expects. It calculates their sum and returns the result. The `-> int` part is also a type hint, indicating that the function is expected to return an integer. This helps catch bugs early and makes the code easier to understand!"
               />
@@ -134,7 +142,7 @@ const Lesson1_4: React.FC = () => {
               <InlineChat 
                 moduleId="lesson-1.4-bad-prompt-2"
                 readOnly={true}
-                systemPrompt="You are a helpful meal planner."
+                systemPrompt={mealPlannerPrompt}
                 initialMessages={[{ role: 'user', content: 'What should I make for dinner?' }]}
                 simulatedResponse="There are many options! You could make pasta, a stir-fry, or perhaps a salad. Without knowing your preferences or what ingredients you have, it's hard to give a specific suggestion."
               />
@@ -145,7 +153,7 @@ const Lesson1_4: React.FC = () => {
               <InlineChat 
                 moduleId="lesson-1.4-good-prompt-2"
                 readOnly={true}
-                systemPrompt="You are a creative and practical home cook assistant."
+                systemPrompt={homeCookAssistantPrompt}
                 initialMessages={[{ role: 'user', content: 'Give me a quick vegetarian dinner idea I can make in under 30 minutes with chickpeas, spinach, and rice. I like mildly spicy food and have a stovetop and microwave available.' }]}
                 simulatedResponse="Here's a delicious and easy-to-make vegetarian dinner idea that fits your requirements: Chickpea and Spinach Curry. You can make it in under 30 minutes using your stovetop and microwave. Simply sauté the onions, ginger, and garlic, then add the chickpeas, spinach, and your favorite curry spices. Serve over rice and enjoy!"
               />
@@ -158,7 +166,7 @@ const Lesson1_4: React.FC = () => {
               <InlineChat 
                 moduleId="lesson-1.4-bad-prompt-3"
                 readOnly={true}
-                systemPrompt="You are a helpful assistant."
+                systemPrompt={genericHelperPrompt}
                 initialMessages={[{ role: 'user', content: 'Write an email about the deadline.' }]}
                 simulatedResponse="Subject: Deadline\n\nHi Team,\n\nPlease be aware of the upcoming deadline. Let me know if you have any questions.\n\nThanks"
               />
@@ -169,7 +177,7 @@ const Lesson1_4: React.FC = () => {
               <InlineChat 
                 moduleId="lesson-1.4-good-prompt-3"
                 readOnly={true}
-                systemPrompt="You are a project manager."
+                systemPrompt={projectManagerPrompt}
                 initialMessages={[{ role: 'user', content: 'Write a professional email to my dev team announcing the project deadline has been moved to August 15th. Express confidence and ask them to flag blockers by EOD.' }]}
                 simulatedResponse="Subject: Project Phoenix Deadline Update: New Date is August 15th\n\nHi Team,\n\nQuick update: we've officially moved the final deadline for Project Phoenix to **August 15th**. \n\nI have full confidence in our ability to hit this new target, and I'm excited about the progress we're making. To ensure we have a smooth path forward, please take some time today to review your remaining tasks and **flag any potential blockers by the end of the day.**\n\nLet's keep up the great momentum!\n\nBest,\n[Your Name]"
               />
@@ -182,7 +190,7 @@ const Lesson1_4: React.FC = () => {
               <InlineChat 
                 moduleId="lesson-1.4-bad-prompt-4"
                 readOnly={true}
-                systemPrompt="You are a helpful assistant."
+                systemPrompt={genericHelperPrompt}
                 initialMessages={[{ role: 'user', content: 'Summarize the report for me.' }]}
                 simulatedResponse="To summarize the report, I need you to provide the text of the report first. Please paste the content you would like me to summarize."
               />
@@ -193,7 +201,7 @@ const Lesson1_4: React.FC = () => {
               <InlineChat 
                 moduleId="lesson-1.4-good-prompt-4"
                 readOnly={true}
-                systemPrompt="You are an expert business analyst."
+                systemPrompt={businessAnalystPrompt}
                 initialMessages={[{ role: 'user', content: 'Summarize this sales report, focusing on key growth areas and potential risks: [Paste report text here]' }]}
                 simulatedResponse="**Summary of Sales Report**\n\nBased on the provided text, here are the key takeaways:\n\n**Key Growth Areas:**\n*   **Enterprise SaaS Subscriptions:** Revenue from this segment is up 45% year-over-year, driven by the new flagship product, 'ConnectSphere.'\n*   **APAC Market:** The Asia-Pacific region has shown a 60% increase in new customer acquisition, significantly outperforming other territories.\n\n**Potential Risks:**\n*   **High Customer Churn:** The SMB (Small and Medium-sized Business) segment has a churn rate of 18%, which is higher than the industry average of 10%.\n*   **Dependency on 'ConnectSphere':** Over 70% of new revenue is tied to a single product, creating a potential vulnerability if market needs shift."
               />

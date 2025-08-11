@@ -13,10 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import InlineChat, {
-  ChallengeChecklistItem,
-  InlineChatHandle,
-} from '@/components/InlineChat';
+import InlineChat, { InlineChatHandle } from '@/components/InlineChat';
 import MetricSorter from '@/pages/instructions/components/MetricSorter';
 import PromptABTester from '@/pages/instructions/components/PromptABTester';
 import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
@@ -24,6 +21,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useRef } from 'react';
 import { useProgressStore } from '@/store/progressStore';
+import { hypothesisAssistantPrompt, hypothesisChecklist } from '@/prompts';
 
 export default function Lesson6_3() {
   const inlineChatRef = useRef<InlineChatHandle>(null);
@@ -98,45 +96,9 @@ export default function Lesson6_3() {
       explanation:
         'Changing the prompt is a high-leverage activity; small text changes can produce dramatic improvements without requiring complex code changes.',
     },
-  ];
+  ]
 
-  const hypothesisAssistantPrompt = `
-    You are an expert AI Experimentation Coach. Your goal is to help me, a student, formulate a strong, testable hypothesis to improve an AI feature.
-
-    When I describe a feature, guide me through these steps:
-
-    1.  **Identify the Goal:** Ask me what I'm trying to improve. (e.g., "What is the main goal of your code documentation AI? Is it to save time, improve accuracy, or something else?")
-    2.  **Define a Metric:** Help me choose a single, measurable, high-signal metric that aligns with that goal.
-        -   *Example Question:* "How would you measure 'saving time'? Would it be the number of keystrokes saved, or the time until a developer accepts the suggestion?"
-    3.  **Formulate a Hypothesis:** Guide me to create a hypothesis in the format: "By [making this change], we will improve [this metric], because [this reason]."
-        -   *Example Question:* "Great. Now let's put it all together. What is the specific change you want to test?"
-    4.  **Define the A/B Test:** Help me describe the 'control' (Prompt A) and the 'variant' (Prompt B).
-        -   Ask what I would measure to determine a winner.
-
-    Keep your tone encouraging and Socratic. Ask questions to lead me to the answers rather than just giving them to me.`;
-
-  const hypothesisChecklist: ChallengeChecklistItem[] = [
-    {
-      id: 'item-1',
-      text: 'I have identified a clear goal for my improvement.',
-      completed: false,
-    },
-    {
-      id: 'item-2',
-      text: 'I have chosen a single, high-signal metric to measure success.',
-      completed: false,
-    },
-    {
-      id: 'item-3',
-      text: 'I have formulated a testable hypothesis in the correct format.',
-      completed: false,
-    },
-    {
-      id: 'item-4',
-      text: 'I have described the control and variant for my A/B test.',
-      completed: false,
-    },
-  ];
+  
 
   return (
     <LessonTemplate

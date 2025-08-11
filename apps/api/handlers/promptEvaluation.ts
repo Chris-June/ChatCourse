@@ -1,7 +1,9 @@
+import { buildFinalChallengeMasterPrompt } from '../prompts/promptEvaluation';
 import OpenAI from 'openai';
 import { Request, Response } from 'express';
 
 import { constructINSYNCPrompt, validateINSYNCElements, PromptElement } from '../utils/insyncFramework';
+import { getApiName, DEFAULT_MODEL } from '../handler';
 
 const getApiKey = (req: Request): string | null => {
   const authHeader = req.headers.authorization;
@@ -11,34 +13,7 @@ const getApiKey = (req: Request): string | null => {
   return null;
 };
 
-// Helper function to get the correct API name
-function getApiName(model: string): string {
-  const mapping: Record<string, string> = {
-    'gpt-4.1': 'gpt-4.1-2025-04-14',
-    'gpt-4.1-mini': 'gpt-4.1-mini-2025-04-14',
-    'gpt-4.1-nano': 'gpt-4.1-nano-2025-04-14',
-    'gpt-4.5-preview': 'gpt-4.5-preview-2025-02-27',
-    'gpt-4o': 'gpt-4o-2024-08-06',
-    'gpt-4o-audio-preview': 'gpt-4o-audio-preview-2024-12-17',
-    'gpt-4o-realtime-preview': 'gpt-4o-realtime-preview-2025-06-03',
-    'gpt-4o-mini': 'gpt-4o-mini-2024-07-18',
-    'gpt-4o-mini-audio-preview': 'gpt-4o-mini-audio-preview-2024-12-17',
-    'gpt-4o-mini-realtime-preview': 'gpt-4o-mini-realtime-preview-2025-06-03',
-    'o1': 'o1-2024-12-17',
-    'o1-pro': 'o1-pro-2024-12-17',
-    'o3-pro': 'o3-pro-2025-06-10',
-    'o3': 'o3-2025-04-16',
-    'o3-deep-research': 'o3-deep-research-2025-06-26',
-    'o4-mini': 'o4-mini-2025-04-16',
-    'o4-mini-deep-research': 'o4-mini-deep-research-2025-06-26',
-    'o3-mini': 'o3-mini-2025-01-31',
-    'o1-mini': 'o1-mini-2024-09-12',
-    'codex-mini-latest': 'codex-mini-latest',
-    'gpt-4o-mini-search-preview': 'gpt-4o-mini-search-preview-2025-03-11',
-    'gpt-4o-search-preview': 'gpt-4o-search-preview-2025-03-11',
-  };
-  return mapping[model] || 'gpt-4o-mini-2024-07-18'; // Default fallback
-}
+// getApiName is imported from ../handler; DEFAULT_MODEL is 'gpt-5-nano'
 
 
 
@@ -102,7 +77,7 @@ Return JSON with:
 }`;
 
     const response = await openai.chat.completions.create({
-      model: getApiName('gpt-4o-mini'),
+      model: getApiName(DEFAULT_MODEL),
       messages: [
         {
           role: 'system',
@@ -204,7 +179,7 @@ Return JSON with:
 }`;
 
     const response = await openai.chat.completions.create({
-      model: getApiName('gpt-4o-mini'),
+      model: getApiName(DEFAULT_MODEL),
       messages: [
         {
           role: 'system',
@@ -290,7 +265,7 @@ Return JSON with:
 }`;
 
     const response = await openai.chat.completions.create({
-      model: getApiName('gpt-4o-mini'),
+      model: getApiName(DEFAULT_MODEL),
       messages: [
         {
           role: 'system',
@@ -331,53 +306,10 @@ export async function handleFinalChallengeEvaluation(req: Request, res: Response
       apiKey: apiKey || process.env.OPENAI_API_KEY,
     });
 
-    const masterSystemPrompt = `
-      You are an expert AI educator and prompt engineering master, specializing in the I.N.S.Y.N.C. framework.
-      Your task is to evaluate a user's prompt for the Module 1 Final Challenge.
-
-      **The Challenge Scenario:**
-      The user was asked to create a single, comprehensive prompt to generate three distinct social media posts for a new AI-powered productivity app called "CogniFlow." The posts should target LinkedIn (professional), Twitter (witty/engaging), and Instagram (visually-driven), each with a unique tone and call-to-action.
-
-      **Your Evaluation Criteria:**
-      You must evaluate the user's prompt based on all concepts taught in Module 1:
-      1.  **I.N.S.Y.N.C. Framework:** Assess each of the 6 elements.
-      2.  **Clarity vs. Vagueness:** How specific and unambiguous is the prompt?
-      3.  **Advanced Techniques:** Did the user apply concepts like providing examples (instructional priming) or asking for a specific format?
-
-      **Response Format:**
-      You MUST return your evaluation in a valid JSON object with the following structure. Do not include any text outside of the JSON object.
-
-      {
-        "feedback": {
-          "intent": { "score": number, "comment": "string" },
-          "nuance": { "score": number, "comment": "string" },
-          "style": { "score": number, "comment": "string" },
-          "youAs": { "score": number, "comment": "string" },
-          "narrativeFormat": { "score": number, "comment": "string" },
-          "context": { "score": number, "comment": "string" },
-          "advancedTechniques": { "score": number, "comment": "string" }
-        },
-        "overallScore": number, // A score out of 35
-        "strengths": ["string"],
-        "suggestions": ["string"],
-        "expertPrompt": "string", // An exemplary prompt that perfectly solves the challenge
-        "expertOutput": "string" // The output generated from the expert prompt
-      }
-
-      **Scoring Guide (0-5 for each):**
-      - **Intent:** 5 = Perfectly clear goal. 1 = Vague or missing.
-      - **Nuance:** 5 = Rich, specific details for each platform. 1 = Generic request.
-      - **Style:** 5 = Distinct, appropriate styles defined for all three platforms. 1 = No style mentioned.
-      - **You As...:** 5 = A well-defined, expert persona for the AI. 1 = No persona.
-      - **Narrative Format:** 5 = Clear, structured format for all outputs. 1 = No format requested.
-      - **Context:** 5 = Essential background on CogniFlow and its target audience. 1 = Missing context.
-      - **Advanced Techniques:** 5 = Excellent use of priming or other advanced methods. 1 = Basic prompt structure.
-
-      Now, evaluate the following user prompt.
-    `;
+    const masterSystemPrompt = buildFinalChallengeMasterPrompt();
 
     const response = await openai.chat.completions.create({
-      model: getApiName('gpt-4o-mini'),
+      model: getApiName(DEFAULT_MODEL),
       messages: [
         { role: 'system', content: masterSystemPrompt },
         { role: 'user', content: `User Prompt: "${userPrompt}"` }

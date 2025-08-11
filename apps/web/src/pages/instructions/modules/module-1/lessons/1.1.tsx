@@ -3,6 +3,7 @@ import { Lightbulb, BrainCircuit, Puzzle } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
+import { introAssistantPrompt } from '@/prompts';
 
 const Lesson1_1: React.FC = () => {
   const quizQuestions = [
@@ -149,7 +150,7 @@ const Lesson1_1: React.FC = () => {
           </p>
           <InlineChat 
             moduleId="lesson-1.1-chat"
-            systemPrompt="You are a helpful AI assistant for a course on prompt engineering. Your goal is to answer questions and have a simple conversation about tokenization and the basic concepts of how Large Language Models work. Keep your answers concise and easy to understand for a beginner."
+            systemPrompt={introAssistantPrompt}
             placeholder="Ask a question about tokens..."
           />
         </div>

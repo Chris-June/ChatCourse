@@ -7,46 +7,18 @@ import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
 import SocraticTutorProject from '@/pages/instructions/components/SocraticTutorProject';
+import {
+  socraticSystemPrompt,
+  jsonChallengeChecklist,
+  markdownChallengeChecklist,
+  structuredListChallengeChecklist,
+  socraticChecklist,
+  jsonAssistantPrompt,
+  markdownAssistantPrompt,
+  structuredListAssistantPrompt,
+} from '@/prompts';
 
-const jsonChallengeChecklist = [
-  { id: 'json-1', text: 'Ask the AI to extract name, age, and city from a sentence like "Sarah, 28, lives in Toronto"', completed: false },
-  { id: 'json-2', text: 'Explicitly specify "return as JSON object with keys: name, age, city"', completed: false },
-  { id: 'json-3', text: 'Define exact data types: name (string), age (number), city (string)', completed: false },
-  { id: 'json-4', text: 'Verify the response matches: {"name": "Sarah", "age": 28, "city": "Toronto"}', completed: false },
-];
-
-const markdownChallengeChecklist = [
-  { id: 'md-1', text: 'Ask the AI to create a comparison of Python vs JavaScript', completed: false },
-  { id: 'md-2', text: 'Explicitly specify "return as markdown table with columns: Feature, Python, JavaScript"', completed: false },
-  { id: 'md-3', text: 'Request specific rows: Syntax, Typing, Popular Frameworks', completed: false },
-  { id: 'md-4', text: 'Verify the response is a properly formatted markdown table with | separators', completed: false },
-];
-
-const structuredListChallengeChecklist = [
-  { id: 'list-1', text: 'Ask for 3 beginner web development project ideas', completed: false },
-  { id: 'list-2', text: 'Specify "return as JSON array with objects containing title and description keys"', completed: false },
-  { id: 'list-3', text: 'Define example structure: {"title": "Todo App", "description": "A simple task manager"}', completed: false },
-  { id: 'list-4', text: 'Verify response is valid JSON array like: [{"title": "...", "description": "..."}, {...}]', completed: false },
-];
-
-// Socratic coaching checklist tailored to structured output
-const socraticChecklist = [
-  { text: 'Ask one guiding question before proposing a fix', completed: false },
-  { text: 'Re-center on the required output format (JSON or Markdown)', completed: false },
-  { text: 'Reference a concrete schema or example output', completed: false },
-  { text: 'Encourage the user to validate or correct malformed structure', completed: false },
-];
-
-const socraticSystemPrompt = `You are a Socratic prompt coach. The learner is practicing requesting structured outputs (JSON and Markdown).
-
-Your style: Ask short guiding questions first, then offer a small nudge. Keep replies concise. Do not dump final answers.
-
-Coaching priorities:
-1) Re-focus on explicit schemas (keys, data types) when asking for JSON.
-2) For Markdown, confirm the required elements (headings, lists, tables) and layout.
-3) Encourage including a small example of the desired output.
-4) If structure is malformed, suggest a minimal correction and why it matters.
-`;
+ 
 
 const Lesson3_3: React.FC = () => {
   const quizQuestions = [
@@ -162,11 +134,11 @@ From the sentence "Sarah, 28, lives in Toronto", extract the name, age, and city
             <h3 className="font-semibold text-foreground mb-2">Your Turn: Define Your Data Structure</h3>
             <p className="text-muted-foreground mb-4">Practice being the client. Ask the AI to extract information from a sentence, but be demanding about the format. Specify the keys and data types you need.</p>
             <InlineChat 
-              moduleId="module-3.3-json"
+              moduleId="module-3.3-json-output"
               maxAttempts={5}
               maxFollowUps={2}
-              placeholder="Give the AI a sentence and a JSON schema..."
-              systemPrompt="You are a helpful AI assistant. The user is learning about JSON formatting. When they provide a sentence and a JSON schema, extract the relevant information and return it in the specified JSON format. Pay close attention to the requested keys and data types. If the user doesn't provide a schema, ask for one."
+              placeholder="Extract the JSON from this sentence using the schema..."
+              systemPrompt={jsonAssistantPrompt}
               challengeChecklist={jsonChallengeChecklist}
             />
           </div>
@@ -205,11 +177,11 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
             <h3 className="font-semibold text-foreground mb-2">Your Turn: Design Your Own Template</h3>
             <p className="text-muted-foreground mb-4">Think of yourself as a client giving design specs to a designer. Ask for exactly what you want - a bulleted list, numbered steps, or a comparison table.</p>
             <InlineChat 
-              moduleId="module-3.3-markdown"
+              moduleId="module-3.3-markdown-output"
               maxAttempts={5}
               maxFollowUps={2}
-              placeholder="Ask for a markdown table or list..."
-              systemPrompt="You are a helpful AI assistant. The user is learning about Markdown formatting. When they ask for content, respond with properly formatted Markdown. Include various elements like headers, lists, tables, and code blocks as appropriate. If they don't specify the format, use your best judgment to create a well-structured response."
+              placeholder="Write a Markdown summary with headings and a table..."
+              systemPrompt={markdownAssistantPrompt}
               challengeChecklist={markdownChallengeChecklist}
             />
           </div>
@@ -222,7 +194,7 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
             maxAttempts={5}
             maxFollowUps={2}
             placeholder="Generate a list of 3 project ideas for a beginner..."
-            systemPrompt="You are a helpful AI assistant. The user is learning about generating structured data. When they ask for a list, respond with a properly formatted JSON array of objects. Each object should have 'title' and 'description' keys. If they don't specify the structure, use this format by default. Always validate the JSON before returning it."
+            systemPrompt={structuredListAssistantPrompt}
             challengeChecklist={structuredListChallengeChecklist}
           />
           <p className="text-muted-foreground mt-3">This structured data is like pre-fabricated building materials - ready to be used directly in your application's UI components without any additional processing.</p>

@@ -3,6 +3,7 @@ import { Wrench } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
 import PromptImprover from '@/pages/instructions/components/PromptImprover';
+import { insyncEvaluatorPrompt } from '@/prompts';
 
 const Lesson1_6: React.FC = () => {
   const quizQuestions = [
@@ -141,7 +142,7 @@ const Lesson1_6: React.FC = () => {
             moduleId="module-1.6"
             maxAttempts={15}
             placeholder="Craft your prompt for the Tokyo itinerary here..."
-            systemPrompt={`You are an expert prompt engineer and AI educator. Your job is to help users master the I.N.S.Y.N.C. prompt framework by evaluating their prompt for a 3-day Tokyo itinerary. Your evaluation must be constructive and educational. Return your evaluation in this exact format:\n\n**I.N.S.Y.N.C. Prompt Evaluation**\n- Intent: [Score]/5 – [Brief explanation]\n- Nuance: [Score]/5 – [Brief explanation]\n- Style: [Score]/5 – [Brief explanation]\n- You as...: [Score]/5 – [Brief explanation]\n- Narrative Format: [Score]/5 – [Brief explanation]\n- Context: [Score]/5 – [Brief explanation]\n\n**Total Score: [XX/30]**\n\n**Strengths:**\n• [List strengths]\n\n**Suggestions for Improvement:**\n• [List improvements]\n\n**Revised Prompt Example:**\n"""\n[Provide an improved version of the user’s prompt using the full I.N.S.Y.N.C. structure]\n"""\n\n**Generated Output Example:**\n[Generate a sample itinerary using the revised prompt]`}
+            systemPrompt={insyncEvaluatorPrompt}
           />
       
       <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">

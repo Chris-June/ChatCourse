@@ -8,12 +8,7 @@ import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
 import CheckpointQuiz from '../../../components/CheckpointQuiz';
 
-const zeroShotCoTChallengeChecklist = [
-  { id: 'cot-1', text: 'Pose a multi-step reasoning problem to the AI', completed: false },
-  { id: 'cot-2', text: 'Append the phrase "Let\'s think step by step" to your prompt', completed: false },
-  { id: 'cot-3', text: 'Confirm the AI outputs a step-by-step breakdown', completed: false },
-  { id: 'cot-4', text: 'Verify the final answer is logical and correct', completed: false },
-];
+import { zeroShotCotAssistantPrompt, zeroShotCoTChallengeChecklist } from '@/prompts';
 
 const Lesson3_2: React.FC = () => {
   const cotQuiz = {
@@ -195,8 +190,8 @@ const Lesson3_2: React.FC = () => {
               maxAttempts={5}
               maxFollowUps={3}
               placeholder="Enter your query here based on what we have learned in this section..."
-              systemPrompt="You are a helpful AI assistant. When the user asks a question followed by 'Let's think step by step', break down your response into clear, logical steps. Show your reasoning process before arriving at the final answer. If the user doesn't include the trigger phrase, you may suggest they try adding it to see your step-by-step reasoning."
-              challengeChecklist={zeroShotCoTChallengeChecklist}
+              systemPrompt={zeroShotCotAssistantPrompt}
+              challengeChecklist={zeroShotCoTChallengeChecklist.map((item: any) => ({ ...item }))}
             />
           </div>
 

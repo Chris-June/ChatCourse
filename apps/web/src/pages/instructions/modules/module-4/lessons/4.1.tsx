@@ -7,6 +7,7 @@ import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
 import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
+import { stockPriceAssistantPrompt, stockPriceChecklist } from '@/prompts';
 
 const scheduleMeetingSchema = {
   name: 'schedule_meeting',
@@ -27,12 +28,7 @@ const scheduleMeetingSchema = {
   }
 };
 
-const stockPriceChecklist = [
-  { id: '1', text: 'Analyze the provided JSON output', completed: false },
-  { id: '2', text: 'Identify the function name: `get_stock_price`', completed: false },
-  { id: '3', text: 'Identify the argument: `ticker` with value "AAPL"', completed: false },
-  { id: '4', text: 'Formulate a natural language prompt that asks for the stock price of Apple', completed: false },
-];
+// checklist centralized in prompts
 
 const Lesson4_1: React.FC = () => {
   const quizQuestions = [
@@ -278,7 +274,7 @@ if (functionToCall) {
           <InlineChat 
             moduleId="module-4.1-stock-price"
             placeholder='What prompt makes the AI call the get_stock_price function for Apple?'
-            systemPrompt="You are a helpful assistant that helps users understand how to properly structure prompts to trigger specific function calls. When the user provides a prompt, analyze whether it would correctly trigger the 'get_stock_price' function with the appropriate ticker symbol. Provide guidance on how to improve the prompt if needed."
+            systemPrompt={stockPriceAssistantPrompt}
             initialMessages={[
               {
                 role: 'assistant',
@@ -286,7 +282,7 @@ if (functionToCall) {
               }
             ]}
             simulatedResponse={`{\n  "name": "get_stock_price",\n  "arguments": { "ticker": "AAPL" }\n}`}
-            challengeChecklist={stockPriceChecklist}
+            challengeChecklist={stockPriceChecklist.map(item => ({ ...item }))}
             maxAttempts={3}
             maxFollowUps={2}
           />

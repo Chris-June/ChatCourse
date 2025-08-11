@@ -6,14 +6,10 @@ import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
+import { socraticTutorChecklist } from '@/prompts';
 
 
-const challengeChecklist = [
-  { id: 'gnosi-1', text: "AI maintains 'Gnosi' persona (responds as a tutor named Gnosi)", completed: false },
-  { id: 'gnosi-2', text: "AI avoids giving direct answers (only asks guiding questions)", completed: false },
-  { id: 'gnosi-3', text: "AI asks logical, guiding questions that help you think deeper", completed: false },
-  { id: 'gnosi-4', text: "Successfully re-center the AI when it gives answers instead of questions", completed: false },
-];
+// checklist centralized in prompts
 
 const quizQuestions = [
   {
@@ -200,7 +196,7 @@ AI (Gnosi): If we think of a function calling itself, what must be true to stop 
             moduleId="module-2.3-project"
             placeholder="Your conversation with the Socratic Tutor..."
             maxFollowUps={15}
-            challengeChecklist={challengeChecklist}
+            challengeChecklist={socraticTutorChecklist.map((item: any) => ({ ...item }))}
           />
         </section>
       </div>

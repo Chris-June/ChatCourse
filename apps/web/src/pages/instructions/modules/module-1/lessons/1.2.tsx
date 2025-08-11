@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
+import { nextTokenAssistantPrompt } from '@/prompts';
 
 
 
@@ -185,7 +186,7 @@ const Lesson1_2: React.FC = () => {
         </p>
         <InlineChat 
           moduleId="lesson-1.2-chat"
-          systemPrompt="You are a helpful AI assistant demonstrating next-token prediction. Your goal is to complete the user's sentence or answer their question in a natural, helpful way. You are continuing a conversation about the fundamentals of prompt engineering."
+          systemPrompt={nextTokenAssistantPrompt}
           placeholder="Write the beginning of a prompt to see how the AI completes it..."
         />
         </div>

@@ -8,9 +8,10 @@ import ExplicitReferencesTabs from '../../../components/ExplicitReferencesTabs';
 import ContextContaminationDemo from '../../../components/ContextContaminationDemo';
 import InstructionPriming from '../../../components/InstructionPriming';
 import CommonPitfalls from '../../../components/CommonPitfalls';
-import InlineChat, { ChallengeChecklistItem } from '../../../../../components/InlineChat';
+import InlineChat from '../../../../../components/InlineChat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
+import { contextManagementChecklist } from '@/prompts';
 
 const initialConversation = [
   {
@@ -23,11 +24,7 @@ const initialConversation = [
   }
 ];
 
-const challengeChecklist: ChallengeChecklistItem[] = [
-  { id: '1', text: 'Summarize the initial marketing copy in your own words.', completed: false },
-  { id: '2', text: 'Ask for three alternative headlines based on the summary.', completed: false },
-  { id: '3', text: 'Reference the mission to \'unlock human creativity\' in a follow-up question.', completed: false },
-];
+ 
 
 const quizQuestions = [
   {
@@ -205,7 +202,7 @@ const Lesson2_2: React.FC = () => {
             moduleId="module-2.2-final-challenge"
             initialMessages={initialConversation} 
             placeholder="Practice all context management techniques..." 
-            challengeChecklist={challengeChecklist}
+            challengeChecklist={contextManagementChecklist}
             maxFollowUps={5}
             simulatedResponse="Excellent work! You've successfully guided the conversation using all the key techniques. You summarized the goal, used explicit references to ask for alternatives, and built upon the context to refine the final output."
           />
