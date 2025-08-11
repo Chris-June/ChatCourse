@@ -71,6 +71,18 @@ const Lesson1_4: React.FC = () => {
       subtitle="How to talk to an AI to get what you want."
       quizQuestions={quizQuestions}
     >
+      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 8–12 minutes</p>
+        <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>What a prompt is and why clarity matters</li>
+          <li>How to structure effective prompts with goal, tone, audience, and constraints</li>
+          <li>Using roles/personas to shape style and expertise</li>
+          <li>Why iteration improves results (refine → test → refine)</li>
+          <li>Recognizing vague vs. specific prompts with examples</li>
+        </ul>
+      </section>
+
       <div className="space-y-8 text-foreground">
         <div className="bg-card p-6 rounded-xl border border-border">
           <h2 className="text-2xl font-semibold text-card-foreground mb-4">Prompting Showdown: Vague vs. Specific</h2>
@@ -191,6 +203,16 @@ const Lesson1_4: React.FC = () => {
         </div>
 
        
+
+        <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+          <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li>Write clearer, more specific prompts</li>
+            <li>Set an appropriate persona and audience for the task</li>
+            <li>Iterate on prompts to steer quality and relevance</li>
+            <li>Diagnose why a prompt underperforms and improve it</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
             points={[

@@ -83,6 +83,16 @@ const Lesson2_3: React.FC = () => {
       subtitle="Create and maintain a Socratic Tutor persona to practice re-centering and explicit references."
       quizQuestions={quizQuestions}
     >
+      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–15 minutes</p>
+        <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>How to establish a clear, enforceable persona with a system prompt</li>
+          <li>Re-centering techniques when the model drifts from the rules</li>
+          <li>Hands-on practice managing context over multiple turns</li>
+          <li>Evaluating success with a simple, observable checklist</li>
+        </ul>
+      </section>
       <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
         <p className="text-sm text-muted-foreground">
           Why personas? Maintaining a consistent AI persona forces you to practice priming, re-centering, and explicit referencing. Expect ~10 minutes to set up your persona and complete the guided exercise.
@@ -207,7 +217,15 @@ AI (Gnosi): If we think of a function calling itself, what must be true to stop 
           "Don't assume the AI perfectly recalls minor details from very long conversations. Reiterate important information if needed."
         ]}
       />
-
+      
+      <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>Create and maintain a Socratic tutor persona</li>
+          <li>Re-center the AI when it violates persona constraints</li>
+          <li>Use checklists and examples to guide multi-turn behavior</li>
+        </ul>
+      </section>
 
       <KeyTakeaways
         points={[

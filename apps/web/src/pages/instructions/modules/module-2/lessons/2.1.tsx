@@ -73,6 +73,17 @@ const Lesson2_1: React.FC = () => {
       subtitle="Mastering the AI's 'working memory' is the key to unlocking complex, multi-step conversations."
       quizQuestions={quizQuestions}
     >
+      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 8–12 minutes</p>
+        <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>What the AI's context window is and how it works</li>
+          <li>Why long chats "forget" earlier messages</li>
+          <li>How to manage context to keep the AI on track</li>
+          <li>Practical do's and don'ts for context management</li>
+        </ul>
+      </section>
+
       <div className="space-y-8">
         <p className="text-lg text-muted-foreground max-w-prose">
           Have you ever had a conversation where you had to keep repeating yourself? It's frustrating. The same is true when talking to an AI. The key to a smooth, intelligent conversation is understanding and managing its 'memory'—what we call the <strong>context window</strong>.
@@ -136,6 +147,15 @@ const Lesson2_1: React.FC = () => {
             'Avoid vague pronouns like \'it\' or \'that\' when referring to something from much earlier in the conversation.',
           ]}
         />
+        
+        <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+          <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li>Explain the context window and why forgetting happens</li>
+            <li>Structure conversations to preserve important details</li>
+            <li>Use summarization and reminders to keep the AI aligned</li>
+          </ul>
+        </section>
 
         <KeyTakeaways points={[
           'The AI has a limited "working memory" (context window) that fills up like a whiteboard',

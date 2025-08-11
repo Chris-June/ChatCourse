@@ -39,6 +39,15 @@ interface ChatState {
   isSettingsOpen: boolean;
   model: string;
   customInstructions: string;
+  // Personalization
+  profileName: string; // user's name
+  roleTitle: string;   // user's role/title
+  industry: string;    // primary industry or domain
+  region: string;      // locale/region (e.g., en-US, Canada)
+  units: 'metric' | 'imperial';
+  tone: 'professional' | 'friendly' | 'concise';
+  expertise: 'novice' | 'intermediate' | 'expert';
+  audience: string;    // target audience description
   temperature: number;
   top_p: number;
   reasoningEffort: 'minimal' | 'low' | 'medium' | 'high';
@@ -60,6 +69,14 @@ interface ChatState {
   toggleSettings: () => void;
   setModel: (model: string) => void;
   setCustomInstructions: (instructions: string) => void;
+  setProfileName: (name: string) => void;
+  setRoleTitle: (role: string) => void;
+  setIndustry: (industry: string) => void;
+  setRegion: (region: string) => void;
+  setUnits: (units: 'metric' | 'imperial') => void;
+  setTone: (tone: 'professional' | 'friendly' | 'concise') => void;
+  setExpertise: (level: 'novice' | 'intermediate' | 'expert') => void;
+  setAudience: (audience: string) => void;
   setTemperature: (temp: number) => void;
   setTopP: (top_p: number) => void;
   setReasoningEffort: (effort: 'minimal' | 'low' | 'medium' | 'high') => void;
@@ -83,6 +100,15 @@ export const useChatStore = create<ChatState>()(
       isSettingsOpen: false,
       model: 'gpt-5-nano',
       customInstructions: '',
+      // Personalization defaults
+      profileName: '',
+      roleTitle: '',
+      industry: '',
+      region: '',
+      units: 'metric',
+      tone: 'professional',
+      expertise: 'intermediate',
+      audience: '',
       temperature: 1,
       top_p: 1,
       reasoningEffort: 'medium',
@@ -257,6 +283,14 @@ export const useChatStore = create<ChatState>()(
       toggleSettings: () => set((state) => ({ isSettingsOpen: !state.isSettingsOpen })),
       setModel: (model) => set({ model }),
       setCustomInstructions: (instructions) => set({ customInstructions: instructions }),
+      setProfileName: (name) => set({ profileName: name }),
+      setRoleTitle: (role) => set({ roleTitle: role }),
+      setIndustry: (industry) => set({ industry }),
+      setRegion: (region) => set({ region }),
+      setUnits: (units) => set({ units }),
+      setTone: (tone) => set({ tone }),
+      setExpertise: (level) => set({ expertise: level }),
+      setAudience: (audience) => set({ audience }),
       setTemperature: (temp) => set({ temperature: temp }),
       setTopP: (top_p) => set({ top_p }),
       setReasoningEffort: (effort) => set({ reasoningEffort: effort }),
@@ -321,6 +355,14 @@ export const useChatStore = create<ChatState>()(
         activeSessionId: state.activeSessionId,
         model: state.model,
         customInstructions: state.customInstructions,
+        profileName: state.profileName,
+        roleTitle: state.roleTitle,
+        industry: state.industry,
+        region: state.region,
+        units: state.units,
+        tone: state.tone,
+        expertise: state.expertise,
+        audience: state.audience,
         reasoningEffort: state.reasoningEffort,
         verbosity: state.verbosity,
         tools: state.tools,

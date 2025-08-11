@@ -132,6 +132,16 @@ const Lesson1_5: React.FC = () => {
       subtitle="A powerful, memorable system for building high-quality prompts."
       quizQuestions={quizQuestions}
     >
+      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–14 minutes</p>
+        <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>How the I.N.S.Y.N.C. framework maps to real prompt parts</li>
+          <li>Combining intent, nuance, style, persona, format, and context</li>
+          <li>Assembling a complete prompt and evaluating it</li>
+          <li>Interpreting AI feedback to refine a prompt</li>
+        </ul>
+      </section>
       <div className="space-y-8 text-foreground">
         <div className="bg-card p-6 rounded-xl border border-border">
           <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
@@ -315,6 +325,15 @@ const Lesson1_5: React.FC = () => {
             <PredictTheNextToken />
           </section>
         </div>
+
+        <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+          <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li>Use I.N.S.Y.N.C. to construct a clear, complete prompt</li>
+            <li>Evaluate and iterate based on structured feedback</li>
+            <li>Choose tone/persona and output format intentionally</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
             points={[

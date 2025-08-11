@@ -37,6 +37,15 @@ const ChatInterface = () => {
     model,
     toggleSettings,
     customInstructions,
+    // Personalization
+    profileName,
+    roleTitle,
+    industry,
+    region,
+    units,
+    tone,
+    expertise,
+    audience,
     temperature,
     top_p,
     reasoningEffort,
@@ -131,6 +140,16 @@ const ChatInterface = () => {
           messages,
           model: safeModel,
           customInstructions,
+          personalization: {
+            name: profileName,
+            role: roleTitle,
+            industry,
+            region,
+            units,
+            tone,
+            expertise,
+            audience,
+          },
           temperature,
           top_p,
           reasoning_effort: reasoningEffort,
@@ -354,7 +373,8 @@ const ChatInterface = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Type your message..."
-              disabled={isStreaming}
+              readOnly={isStreaming}
+              aria-readonly={isStreaming}
               className="pl-10 pr-28 py-4 rounded-full bg-zinc-800 text-gray-100 placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 disabled:opacity-50"
             />
             <Button

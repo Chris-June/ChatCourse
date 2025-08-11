@@ -39,7 +39,12 @@ const toolsRegistry: Record<string, (args: ToolArgs) => Promise<ToolOutput>> = {
 
 export const handleChat = async (req: express.Request, res: express.Response) => {
   try {
-    const { messages, model, temperature, top_p, reasoning_effort, verbosity, tools, tool_choice, applyBasePrompt } = req.body;
+    const { messages, model, temperature, top_p, reasoning_effort, verbosity, tools, tool_choice, applyBasePrompt, personalization } = req.body;
+    if (process.env.NODE_ENV !== 'production') {
+      try {
+        console.log('[chat] personalization received:', JSON.stringify(personalization));
+      } catch {}
+    }
     const apiKey = getApiKey(req) || process.env.OPENAI_API_KEY;
 
     if (!apiKey) {
@@ -91,7 +96,37 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
     } else if (verbosity === 'high') {
       systemStack.push({ role: 'system', content: 'Be detailed. Provide thorough explanations and examples when helpful.' });
     }
-    // 4) Conditional INSYNC base prompt
+    
+    // 4) Personalization (user context)
+    if (personalization && typeof personalization === 'object') {
+      const { name, role, industry, region, units, tone, expertise, audience } = personalization as Record<string, unknown>;
+      const fields: string[] = [];
+      const add = (label: string, val: unknown) => {
+        if (typeof val !== 'string') return;
+        const v = val.trim().slice(0, 300);
+        if (v) fields.push(`${label}: ${v}`);
+      };
+      add('Profile', name);
+      add('Role/Title', role);
+      add('Industry', industry);
+      add('Region', region);
+      add('Preferred Units', units);
+      add('Tone', tone);
+      add('Expertise Level', expertise);
+      add('Target Audience', audience);
+      if (fields.length) {
+        const sysMsg = {
+          role: 'system',
+          content: `User personalization for tailoring responses. Adapt examples, terminology, and assumptions accordingly.\n${fields.map((f) => `- ${f}`).join('\n')}`,
+        } as const;
+        systemStack.push(sysMsg);
+        if (process.env.NODE_ENV !== 'production') {
+          console.log('[chat] injected personalization system message:', sysMsg.content);
+        }
+      }
+    }
+
+    // 5) Conditional INSYNC base prompt
     if (shouldApplyBase) {
       try {
         const basePrompt = getBaseSystemPrompt();
