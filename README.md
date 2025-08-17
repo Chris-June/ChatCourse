@@ -29,9 +29,70 @@ This project is a monorepo managed with pnpm workspaces. The structure is as fol
 - `apps/web`: Contains the frontend web application.
 - `packages/`: For shared code between applications.
 
+## ChatCourse – Updated Quick Start (2025-08-17)
+
+The repo is a pnpm monorepo with:
+- `apps/web` (Vite + React) running on `http://localhost:3001`
+- `apps/api` (Express) running on `http://localhost:3000`
+- `packages/ui` shared components
+
+## Quick Start
+1) Install deps
+
+```bash
+pnpm install
+```
+
+2) Add environment variables
+
+```bash
+cp .env.example .env.local
+# edit .env.local and set at least:
+# OPENAI_API_KEY=sk-...
+```
+
+3) Run both web and API
+
+```bash
+pnpm dev
+```
+
+- Web: http://localhost:3001
+- API: http://localhost:3000
+
+## Scripts (root)
+- `pnpm dev` — runs web and api together
+- `pnpm build` — builds web and installs api deps
+- `pnpm start` — starts the API only
+- `pnpm lint`, `pnpm format`
+
+## Environment
+- Required: `OPENAI_API_KEY`
+- Optional: `OPENAI_ORG_ID`, `OPENAI_MODEL` (e.g., `gpt-5-nano`), `DEFAULT_TEMPERATURE`, `DEFAULT_TOP_P`, `MAX_TOKENS`
+- Dev proxy: `apps/web/vite.config.ts` proxies `/api` to `VITE_API_URL` or `http://localhost:3000`
+- Production web: `apps/web/.env.production` sets `VITE_API_URL=/api`
+
+## API Endpoints (apps/api/handler.ts)
+- POST `/api/chat`
+- POST `/api/chat/refine-prompt`
+- POST `/api/chat/grade-prompt`
+- POST `/api/chat/grade-function-prompt`
+- POST `/api/chat/evaluate-challenge`
+- POST `/api/chat/evaluate-final-challenge`
+- POST `/api/chat/evaluate-summary`
+- GET  `/api/chat/get-patterns`
+
+Allowed models: `gpt-5`, `gpt-5-mini`, `gpt-5-nano` (default: `gpt-5-nano`).
+
+## Deployment (Vercel)
+- SPA routes to `index.html`
+- `/api/*` routed to `apps/api/vercel.ts`
+
+—
+
+Legacy beginner-friendly instructions remain below for reference.
+
 ## 2. Before You Begin: Tools You’ll Need
-
-
 
 | Tool | What it’s for | How to get it |
 |------|---------------|---------------|
@@ -122,7 +183,7 @@ pnpm dev
 ```
 
 - First start takes ~20 seconds.  
-- When you see `http://localhost:5173`, **click it** (or paste it in your browser).
+- When you see `http://localhost:3001`, **click it** (or paste it in your browser).
 
 🎉 **That’s it!** Type a message and watch the AI reply.
 
@@ -130,7 +191,7 @@ pnpm dev
 
 | Want to… | Do this |
 |----------|---------|
-| **Change the AI’s personality** | Open `api/handler.ts`, scroll to the *System Prompt* near the end, and rewrite the text inside quotes. |
+| **Change the AI’s personality** | Open `apps/api/handler.ts`, scroll to the *System Prompt* near the end, and rewrite the text inside quotes. |
 | **Tweak responses (tone, format)** | In the chat site, click **Settings → Custom Instructions**. |
 | **Invite friends to play** | Send them this README. |
 | **Learn the techy stuff** | Expand the **Advanced Section** below (totally optional). |
@@ -167,7 +228,7 @@ Contributions are welcome! This is an open-source project, and I welcome any con
 
 The system prompt is stored in the `api` package in the `handler.ts` file. You can modify it there. The "System Prompt" is the place to set the AI model overall behavior and gives the user control over the AI model. You can test this by making small modification to the existing system prompt and then running the application. 
 
-Current system prompt found in `api/handler.ts` on line 129:
+Current system prompt can be found in `apps/api/handler.ts`:
 
 ```
 You are Intelli-Chat, a helpful and friendly AI assistant. Your responses should be concise, informative, and aim to assist the user with their requests.
@@ -326,7 +387,7 @@ pnpm dev
 ```
 
 - First start takes ~20 seconds.  
-- When you see `http://localhost:5173`, **click it** (or paste it in your browser).
+- When you see `http://localhost:3001`, **click it** (or paste it in your browser).
 
 🎉 **That’s it!** Type a message and watch the AI reply.
 
@@ -336,7 +397,7 @@ pnpm dev
 
 | Want to… | Do this |
 |----------|---------|
-| **Change the AI’s personality** | Open `api/handler.ts`, scroll to the *System Prompt* and rewrite the text inside quotes. |
+| **Change the AI’s personality** | Open `apps/api/handler.ts`, scroll to the *System Prompt* and rewrite the text inside quotes. |
 | **Tweak responses (tone, format)** | In the chat site, click **Settings → Custom Instructions**. |
 | **Invite friends to play** | Send them this README. |
 | **Learn the techy stuff** | Expand the **Advanced Section** below (totally optional). |
