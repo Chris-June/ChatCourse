@@ -110,7 +110,7 @@ const SettingsModal = () => {
           <DialogTitle>Settings</DialogTitle>
         </DialogHeader>
 
-        <div className="overflow-y-auto max-h-[65vh] pr-2">
+        <div className="overflow-y-auto max-h-[65vh] px-2">
         <div className="py-4 space-y-4">
           {/* Personalization */}
           <div className="space-y-3">

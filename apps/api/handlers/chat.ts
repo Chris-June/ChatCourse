@@ -181,10 +181,19 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
     const base: Record<string, any> = {
       model: apiName,
       stream: true,
-      temperature: temperature !== undefined && temperature >= 0 && temperature <= 2 ? temperature : parseFloat(process.env.DEFAULT_TEMPERATURE || '0.7'),
-      top_p: top_p !== undefined && top_p >= 0 && top_p <= 1 ? top_p : parseFloat(process.env.DEFAULT_TOP_P || '0.9'),
       max_output_tokens: maxTokens,
     };
+
+    // Include sampling params only for models that support them
+    const supportsSampling = apiName !== 'gpt-5-nano';
+    if (supportsSampling) {
+      base.temperature = (temperature !== undefined && temperature >= 0 && temperature <= 2)
+        ? temperature
+        : parseFloat(process.env.DEFAULT_TEMPERATURE || '0.7');
+      base.top_p = (top_p !== undefined && top_p >= 0 && top_p <= 1)
+        ? top_p
+        : parseFloat(process.env.DEFAULT_TOP_P || '0.9');
+    }
     if (reasoning_effort) base.reasoning = { effort: reasoning_effort };
     // Do not send 'verbosity' to OpenAI Responses API (unsupported)
     // Sanitize tool names for Responses API; keep a mapping to internal runner names
@@ -251,7 +260,6 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
               const payload = JSON.parse(dataStr);
               const type: string | undefined = payload.type;
               if (!responseId) {
-                // Try capture id from created or similar event shapes
                 responseId = payload.response_id || payload.id || payload.response?.id || responseId;
               }
               if (type === 'response.output_text.delta' && typeof payload.delta === 'string') {
@@ -262,15 +270,33 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
                 const delta: string = payload.text;
                 completionText += delta;
                 res.write(`data: ${JSON.stringify({ delta: redactOutput(delta) })}\n\n`);
+              } else if (type === 'response.delta' && payload?.delta?.type === 'output_text.delta' && typeof payload?.delta?.text === 'string') {
+                const delta: string = payload.delta.text;
+                completionText += delta;
+                res.write(`data: ${JSON.stringify({ delta: redactOutput(delta) })}\n\n`);
+              } else if (type === 'message.delta' && payload?.delta?.type === 'output_text.delta' && typeof payload?.delta?.text === 'string') {
+                const delta: string = payload.delta.text;
+                completionText += delta;
+                res.write(`data: ${JSON.stringify({ delta: redactOutput(delta) })}\n\n`);
+              } else if (Array.isArray(payload?.content)) {
+                for (const item of payload.content) {
+                  if (item?.type === 'output_text.delta' && typeof item?.text === 'string') {
+                    const delta: string = item.text;
+                    completionText += delta;
+                    res.write(`data: ${JSON.stringify({ delta: redactOutput(delta) })}\n\n`);
+                  } else if (item?.type === 'output_text.chunk' && typeof item?.text === 'string') {
+                    const delta: string = item.text;
+                    completionText += delta;
+                    res.write(`data: ${JSON.stringify({ delta: redactOutput(delta) })}\n\n`);
+                  }
+                }
               } else if (type === 'response.tool_call' && payload.name) {
-                // A compact event form: name + arguments
                 pendingToolCalls.push({ id: payload.id, name: payload.name, args: payload.arguments || payload.input || {} });
               } else if (payload.tool && payload.tool.name) {
-                // Fallback for other shapes that embed tool info
                 pendingToolCalls.push({ id: payload.tool.id, name: payload.tool.name, args: payload.tool.arguments || {} });
               }
             } catch (e) {
-              // ignore
+              // ignore parse errors
             }
           }
         }
