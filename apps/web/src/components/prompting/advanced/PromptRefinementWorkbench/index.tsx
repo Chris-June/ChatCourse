@@ -49,17 +49,10 @@ const PromptRefinementWorkbench: React.FC = () => {
     setIsAnalyzing(true);
 
     try {
-      const result = await api.post('/api/chat/refine-prompt', { 
+      const feedback = await api.post<PromptVersion['feedback']>('/api/chat/refine-prompt', { 
         prompt: currentPrompt,
         apiKey: localStorage.getItem('openai_api_key'),
       });
-
-      if (!result) {
-        console.error('API call failed: No response received');
-        return;
-      }
-
-      const feedback = result;
 
       // Ensure the feedback has the expected INSYNC structure
       const formattedFeedback = {
