@@ -60,7 +60,7 @@ const Module4Page: React.FC = () => {
                 to="/instructions/module-5/5.1"
                 className="flex items-center px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-500 transition-colors"
               >
-                <span>Multi-Turn Conversation</span>
+                <span>Multi-turn Conversations</span>
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Link>
             )}
