@@ -9,50 +9,51 @@ This document outlines the complete module and lesson structure for the AI Engin
 Below is the complete list of all module and lesson titles extracted from the course files.
 
 ### Module 1: Foundations of AI Engineering
-- **1.1:** What is an AI, Really?
-- **1.2:** Tokenization and Next-Token Prediction
-- **1.3:** When AI Gets It Wrong (Hallucinations)
-- **1.4:** The Art of the Prompt: Deconstruction & Pattern Recognition
-- **1.5:** The Socratic Method: Iterative Prompt Refinement
-- **1.6:** Instructional Priming: Setting the Stage for Success
-- **1.7:** Advanced Prompting Techniques
+- **1.1:** What is Generative AI?
+- **1.2:** The "Next-Word" Predictor
+- **1.3:** The Power of Specificity
+- **1.4:** Intro to Prompting
+- **1.5:** The I.N.S.Y.N.C. Framework
+- **1.6:** I.N.S.Y.N.C. Workshop
+- **1.7:** Advanced Prompting
+- **1.8:** Module 1 Challenge
 
 ### Module 2: The Art of Conversation
-- **2.1:** The AI's Short-Term Memory
-- **2.2:** Keeping Conversations Coherent
-- **2.3:** Project - The Socratic Tutor
+- **2.1:** The Power of Context Windows
+- **2.2:** Maintaining Context
+- **2.3:** Practical Examples
 
 ### Module 3: Advanced Prompting
-- **3.1:** Zero-Shot vs. Few-Shot Prompting
-- **3.2:** Chain-of-Thought Prompting
-- **3.3:** The Power of Personas
+- **3.1:** Zero-shot Prompting
+- **3.2:** Chain-of-Thought
+- **3.3:** Advanced Prompting Techniques
 
 ### Module 4: From Language to Action
-- **4.1:** Advanced API Integration
-- **4.2:** Multiple & Parallel Function Calls
-- **4.3:** Building Your First AI Tool
-- **4.4:** What is a GPT?
-- **4.5:** AI Agents: The Autonomous Workforce
-- **4.6:** The App Store for Agents: Mastering the Model Context Protocol (MCP)
+- **4.1:** Function Calling
+- **4.2:** Model Context Protocol (MCP)
+- **4.3:** Building Custom Tools
+- **4.4:** Understanding GPTs
+- **4.5:** AI Agents
+- **4.6:** MCP Servers
 
 ### Module 5: The AI UX
-- **5.1:** The Director's Script: Mastering AI Conversation
-- **5.2:** The Personal Concierge: AI That Knows You
-- **5.3:** Performance & UX: Building AI That Feels Instant
+- **5.1:** Multi-turn Conversations
+- **5.2:** Personalization at Scale
+- **5.3:** Performance Optimization
 
 ### Module 6: Building an AI Product
-- **6.1:** From Idea to Blueprint
-- **6.2:** Training Your AI Companion
-- **6.3:** The Chef's Secret: Iterative Improvement
+- **6.1:** Idea Generation
+- **6.2:** Design Thinking with AI
+- **6.3:** Iterative Development
 
 ### Module 7: Advanced AI Architectures
-- **7.1:** The Master Dispatcher
-- **7.2:** The Diligent Research Assistant
-- **7.3:** Training a Method Actor
+- **7.1:** Advanced Function Calling
+- **7.2:** R.A.G. Systems
+- **7.3:** Model Fine-Tuning
 
 ### Module 8: Responsible AI Development
-- **8.1:** Identifying and Mitigating Bias
-- **8.2:** Transparency and Explainability
+- **8.1:** Bias & Fairness
+- **8.2:** Explainability
 - **8.3:** Security & Privacy
 
 ## 3. Module-by-Module Analysis & Interactive Component Audit

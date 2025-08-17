@@ -18,58 +18,68 @@ Before we dive in, make sure to check out the [Project Setup Guide](/instruction
 
 ---
 
-## Module 1: The Heart of the Matter - Understanding AI Models
+## Module 1: Foundations of AI Engineering
 
-### 1.1 Demystifying AI: What Exactly Are We Working With?
+### 1.1 What is Generative AI?
 * **AI vs. Traditional Programming**: How AI differs from conventional software
 * **Large Language Models 101**: Understanding the basics of how LLMs work
 * **Capabilities and Limitations**: What AI can and can't do (yet)
 
-### 1.2 The Art of the Prompt
+### 1.2 The "Next-Word" Predictor
 * **Prompt Engineering Basics**: Crafting effective instructions
 * **Context is Everything**: How to provide the right information
 * **Iterative Refinement**: The process of improving AI responses
 
-### 1.3 Hands-on Exploration
+### 1.3 The Power of Specificity
 * **Interactive Session**: Trying different prompts and observing outputs
 * **Pattern Recognition**: Learning from AI's responses
 * **First Project Ideas**: Brainstorming potential features
 
-## Module 2: Guiding the Conversation - Prompts & Instructions
+### 1.4 Intro to Prompting
 
-### 2.1 System Prompts: Setting the Stage
+### 1.5 The I.N.S.Y.N.C. Framework
+
+### 1.6 I.N.S.Y.N.C. Workshop
+
+### 1.7 Advanced Prompting
+
+### 1.8 Module 1 Challenge
+
+## Module 2: The Art of Conversation
+
+### 2.1 The Power of Context Windows
 * **Role Definition**: Teaching the AI its purpose
 * **Tone and Style**: Establishing communication guidelines
 * **Example-Based Learning**: Showing, not just telling
 
-### 2.2 Custom Instructions: Personalization
+### 2.2 Maintaining Context
 * **User Preferences**: How to make the AI adapt to you
 * **Memory and Context**: Helping the AI remember important details
 * **Consistency in Responses**: Maintaining character and knowledge
 
-### 2.3 Practical Application
+### 2.3 Practical Examples
 * **Feature Design Workshop**: Planning a new capability
 * **Prompt Development**: Creating detailed instructions
 * **Testing and Refinement**: Iterating based on results
 
-## Module 3: AI in Action - Real-World Applications
+## Module 3: Advanced Prompting
 
-### 3.1 Dynamic Content Generation
+### 3.1 Zero-shot Prompting
 * **Text Generation**: Creating varied and engaging content
 * **Structured Outputs**: Getting consistent formats and data
 * **Creative Applications**: Beyond simple Q&A
 
-### 3.2 Logic and Problem Solving
+### 3.2 Chain-of-Thought
 * **Step-by-Step Reasoning**: Breaking down complex tasks
 * **Mathematical Operations**: Using AI for calculations
 * **Decision Making**: Weighing options and making recommendations
 
-### 3.3 Interactive Features
+### 3.3 Advanced Prompting Techniques
 * **Conversational Flows**: Designing natural interactions
 * **User Input Processing**: Understanding and responding to various inputs
 * **Feedback Loops**: Learning from user interactions
 
-## Module 4: Expanding Capabilities - Tools and Integrations
+## Module 4: From Language to Action
 
 ### 4.1 Function Calling
 * **Extending AI's Reach**: Connecting to external tools
@@ -91,19 +101,19 @@ Before we dive in, make sure to check out the [Project Setup Guide](/instruction
 * **Use Cases**: Personal, business, and social applications
 * **When to Build**: Identifying opportunities for custom GPTs
 
-### 4.5 Introduction to AI Agents
+### 4.5 AI Agents
 * **The Agentic Mindset**: Observe, think, act loop
 * **Autonomous Systems**: How agents make decisions and use tools
 * **Real-World Examples**: From personal assistants to complex coordinators
 
-### 4.6 Leveraging MCP Servers
+### 4.6 MCP Servers
 * **Standardized Tool Use**: The role of MCP in agent architecture
 * **Security and Discoverability**: Why MCP is critical for robust agents
 * **Connecting to Services**: Integrating with APIs like GitHub or Google
 
-## Module 5: Advanced Interaction Patterns
+## Module 5: The AI UX
 
-### 5.1 Multi-Turn Conversations
+### 5.1 Multi-turn Conversations
 * **Context Management**: Maintaining conversation flow
 * **State Tracking**: Remembering important details
 * **Handling Ambiguity**: Clarifying user intent
@@ -118,7 +128,7 @@ Before we dive in, make sure to check out the [Project Setup Guide](/instruction
 * **Latency Management**: Balancing speed and quality
 * **Cost-Effective Usage**: Managing API consumption
 
-## Module 6: The Collaborative Development Process
+## Module 6: Building an AI Product
 
 ### 6.1 Idea Generation
 * **Brainstorming Techniques**: Generating innovative concepts
@@ -130,44 +140,26 @@ Before we dive in, make sure to check out the [Project Setup Guide](/instruction
 * **Prototyping**: Rapidly testing ideas
 * **Gathering Feedback**: Learning from user input
 
-### 6.3 Iterative Improvement
+### 6.3 Iterative Development
 * **Analytics and Metrics**: Measuring success
 * **A/B Testing**: Comparing different approaches
 * **Continuous Learning**: Evolving with user needs
 
-## Module 7: Real-World Applications
+## Module 7: Advanced AI Architectures
 
-### 7.1 Industry-Specific Solutions
-* **Business Applications**: Automation and assistance
-* **Educational Tools**: Learning and teaching aids
-* **Creative Endeavors**: Art, writing, and design
+### 7.1 Advanced Function Calling
 
-### 7.2 Ethical Considerations
-* **Bias and Fairness**: Ensuring equitable outcomes
-* **Transparency**: Being clear about AI's role
-* **Responsible AI Use**: Best practices and guidelines
+### 7.2 R.A.G. Systems
 
-### 7.3 Future-Proofing
-* **Staying Current**: Keeping up with AI advancements
-* **Adaptation Strategies**: Evolving with the technology
-* **Community and Resources**: Where to learn more
+### 7.3 Model Fine-Tuning
 
-## Module 8: Capstone Project
+## Module 8: Responsible AI Development
 
-### 8.1 Project Planning
-* **Defining Objectives**: Clear goals and success criteria
-* **Scope Definition**: What's in and what's out
-* **Timeline and Milestones**: Realistic planning
+### 8.1 Bias & Fairness
 
-### 8.2 Implementation
-* **Guided Development**: Step-by-step building
-* **Troubleshooting**: Solving common challenges
-* **Documentation**: Creating user and developer guides
+### 8.2 Explainability
 
-### 8.3 Presentation and Review
-* **Showcasing Work**: Presenting your project
-* **Peer Feedback**: Learning from others
-* **Next Steps**: Continuing your AI journey
+### 8.3 Security & Privacy
 
 ---
 
