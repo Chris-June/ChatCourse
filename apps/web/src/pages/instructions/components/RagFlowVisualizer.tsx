@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, FileText, Cpu, MessageSquare, ArrowRight } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 import { Button } from '@/components/ui/button';
 
 const steps = [
@@ -77,6 +78,7 @@ const RagFlowVisualizer: React.FC = () => {
 
   return (
     <div className="bg-card border rounded-xl p-6 space-y-6">
+      <InteractiveHeader title="RAG Workflow" icon={Search} />
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <h3 className="text-xl font-bold text-foreground">RAG Workflow Visualizer</h3>
         <div className="flex items-center gap-2">

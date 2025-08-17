@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Scale } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface Feedback {
   title: string;
@@ -33,6 +34,7 @@ const EthicalDilemma = () => {
 
   return (
     <Card className="mt-6 bg-card border text-card-foreground">
+      <InteractiveHeader title="Ethical Dilemma" icon={Scale} />
       <CardHeader>
         <CardTitle className="flex items-center text-xl text-foreground">
           <Scale className="w-6 h-6 mr-3 text-destructive" aria-hidden="true" />

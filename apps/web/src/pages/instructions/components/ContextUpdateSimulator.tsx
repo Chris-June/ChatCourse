@@ -4,6 +4,7 @@ import { MessageSquare, BookOpen, Send } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import { Input } from '../../../components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -45,6 +46,7 @@ const ContextUpdateSimulator = () => {
 
   return (
     <Card className="mt-6 bg-card border text-card-foreground overflow-hidden">
+      <InteractiveHeader title="Context Window Simulator" icon={BookOpen} />
       <CardHeader>
         <CardTitle className="flex items-center text-xl text-foreground">
           <BookOpen className="h-6 w-6 mr-3 text-primary" aria-hidden="true" />

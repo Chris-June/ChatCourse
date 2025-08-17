@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { Cpu, Gauge, CheckCircle2, XCircle } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 import { Button } from '@chat/ui';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
-import { CheckCircle2, XCircle, Zap } from 'lucide-react';
 
 const scenarios = [
   {
@@ -42,46 +43,46 @@ export default function ModelTierGuesser() {
   const scenario = scenarios[currentScenarioIndex];
 
   return (
-    <Card className="my-8">
-      <CardHeader>
-        <CardTitle className="text-center text-base md:text-lg">Interactive Exercise: Guess the Model Tier</CardTitle>
-        <p className="text-sm text-center text-muted-foreground">Read the scenario and choose the most appropriate model.</p>
-      </CardHeader>
-      <CardContent>
-      <div className="bg-muted p-4 rounded-lg text-center border">
-        <p className="text-foreground font-medium">{scenario.task}</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-        {tiers.map(tier => (
-          <Button 
-            key={tier} 
-            variant="outline" 
-            onClick={() => handleSelectTier(tier)}
-            disabled={selectedTier !== null}
-            className={`p-4 h-full flex flex-col justify-center items-center text-center transition-all duration-200 ${selectedTier === tier ? (isCorrect ? 'bg-green-500/20 border-green-500' : 'bg-red-500/20 border-red-500') : ''}`}>
-            <Zap className="w-6 h-6 mb-2 text-primary" aria-hidden="true" />
-            <span className="font-semibold">{tier}</span>
-          </Button>
-        ))}
-      </div>
-
-      {selectedTier !== null && (
-        <div className={`p-4 rounded-lg flex items-start border ${isCorrect ? 'bg-green-500/10 border-green-500/40' : 'bg-red-500/10 border-red-500/40'}`} role="status" aria-live="polite">
-          {isCorrect ? <CheckCircle2 className="w-6 h-6 text-green-500 mr-3 flex-shrink-0" aria-hidden="true" /> : <XCircle className="w-6 h-6 text-red-500 mr-3 flex-shrink-0" aria-hidden="true" />}
-          <div>
-            <h5 className={`font-semibold ${isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>{isCorrect ? 'Correct!' : 'Good Try!'}</h5>
-            <p className="text-muted-foreground mt-1">{scenario.explanation}</p>
+    <div className="bg-card p-6 rounded-xl border my-6">
+      <InteractiveHeader title="Interactive Model Tier Guesser" subtitle="Guess the model tier from clues" icon={Gauge} />
+      <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center">
+        <Cpu className="w-5 h-5 mr-2 text-primary" />
+        Interactive: Model Tier Guesser
+      </h3>
+      <Card className="my-8">
+        <CardHeader>
+          <CardTitle className="text-center text-base md:text-lg">Interactive Exercise: Guess the Model Tier</CardTitle>
+          <p className="text-sm text-center text-muted-foreground">Read the scenario and choose the most appropriate model.</p>
+        </CardHeader>
+        <CardContent>
+          <div className="bg-muted p-4 rounded-lg text-center border mb-4">
+            <p className="text-foreground font-medium">{scenario.task}</p>
           </div>
-        </div>
-      )}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {tiers.map((tier) => (
+              <Button key={tier} variant={selectedTier === tier ? 'default' : 'secondary'} onClick={() => handleSelectTier(tier)}>
+                {tier}
+              </Button>
+            ))}
+          </div>
 
-      <div className="text-center mt-6">
-        <Button onClick={handleNext} disabled={selectedTier === null}>
-          Next Scenario →
-        </Button>
-      </div>
-      </CardContent>
-    </Card>
+          {selectedTier !== null && (
+            <div className={`mt-4 p-4 rounded-lg flex items-start border ${isCorrect ? 'bg-green-500/10 border-green-500/40' : 'bg-red-500/10 border-red-500/40'}`} role="status" aria-live="polite">
+              {isCorrect ? <CheckCircle2 className="w-6 h-6 text-green-500 mr-3 flex-shrink-0" aria-hidden="true" /> : <XCircle className="w-6 h-6 text-red-500 mr-3 flex-shrink-0" aria-hidden="true" />}
+              <div>
+                <h5 className={`font-semibold ${isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>{isCorrect ? 'Correct!' : 'Good Try!'}</h5>
+                <p className="text-muted-foreground mt-1">{scenario.explanation}</p>
+              </div>
+            </div>
+          )}
+
+          <div className="text-center mt-6">
+            <Button onClick={handleNext} disabled={selectedTier === null}>
+              Next Scenario →
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

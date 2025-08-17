@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send } from 'lucide-react';
+import { Send, PanelsTopLeft } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const MAX_MESSAGES = 4;
 
@@ -32,6 +33,7 @@ const RollingWhiteboard: React.FC = () => {
 
   return (
     <div className="bg-card p-4 rounded-xl border border-border shadow-sm">
+      <InteractiveHeader title="Rolling Whiteboard" icon={PanelsTopLeft} />
       <h3 className="font-semibold text-card-foreground mb-2">Analogy: A Rolling Whiteboard</h3>
       <p className="text-muted-foreground mb-4">
         This interactive whiteboard demonstrates how AI memory works. Each message you type is like writing on a whiteboard with limited space. When the board is full (typically 4,000-8,000 words), the oldest messages get erased to make room for new ones. This is why the AI might "forget" details from earlier in a long conversation.

@@ -1,4 +1,6 @@
 import { useState, useMemo } from 'react';
+import { Gauge } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const APPROX_CHARS_PER_TOKEN = 4;
 const MAX_TOKENS = 4096; // A common context window size for demonstration
@@ -24,6 +26,7 @@ const ContextWindowVisualizer = () => {
 
   return (
     <div className="p-4 bg-card text-card-foreground rounded-lg border">
+      <InteractiveHeader title="Interactive Context Window" subtitle="Estimate token usage as you type" icon={Gauge} />
       <h3 className="text-lg font-semibold text-foreground mb-2">Context Window Visualizer</h3>
       <p className="text-sm text-muted-foreground mb-4">
         Paste or type text below to see how it might fill a model's context window. This is a simple approximation where 1 token ≈ 4 characters.

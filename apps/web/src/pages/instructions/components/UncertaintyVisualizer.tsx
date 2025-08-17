@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Percent } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const UncertaintyVisualizer: React.FC = () => {
   const [confidence, setConfidence] = useState(95);
@@ -19,6 +20,7 @@ const UncertaintyVisualizer: React.FC = () => {
 
   return (
     <div className="bg-card p-6 rounded-lg border space-y-6">
+      <InteractiveHeader title="Interactive Uncertainty Visualizer" subtitle="Adjust confidence and see UI changes" icon={Percent} />
       <h4 className="font-semibold text-foreground mb-2 text-lg flex items-center">
         <Percent className="w-6 h-6 mr-3 text-primary" aria-hidden="true" />
         Visualizing AI Confidence

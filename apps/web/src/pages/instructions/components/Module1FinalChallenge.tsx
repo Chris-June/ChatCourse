@@ -4,6 +4,7 @@ import { Award, Check, Clipboard } from 'lucide-react';
 import { useChatStore } from '@/store/chat';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Button, Textarea } from '@chat/ui';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 
 type EvaluationFeedbackEntry = {
@@ -65,6 +66,7 @@ const Module1FinalChallenge: React.FC = () => {
 
   return (
     <Card className="my-6">
+      <InteractiveHeader title="Final Challenge" icon={Award} />
       <CardHeader>
         <CardTitle className="text-base md:text-lg">Final Challenge</CardTitle>
         <p className="text-sm text-muted-foreground">Craft a prompt and get automated feedback with improvement suggestions.</p>

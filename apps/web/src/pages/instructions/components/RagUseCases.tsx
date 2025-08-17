@@ -5,7 +5,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Building, User, Bot, Briefcase, GraduationCap, HeartPulse } from 'lucide-react';
+import { Building, User, Bot, Briefcase, GraduationCap, HeartPulse, BookOpen } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const businessUseCases = [
   {
@@ -46,6 +47,7 @@ const personalUseCases = [
 const RagUseCases: React.FC = () => {
   return (
     <div className="space-y-6">
+      <InteractiveHeader title="RAG Use Cases" icon={BookOpen} />
       <div className="flex items-center gap-3">
         <Building className="w-8 h-8 text-blue-400" aria-hidden="true" />
         <h3 className="text-2xl font-bold text-foreground">Business Use Cases</h3>

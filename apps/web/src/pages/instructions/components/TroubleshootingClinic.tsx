@@ -1,5 +1,6 @@
 import React from 'react';
 import { Wrench, Lightbulb } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface ClinicItem {
   problem: string;
@@ -13,6 +14,7 @@ interface TroubleshootingClinicProps {
 const TroubleshootingClinic: React.FC<TroubleshootingClinicProps> = ({ items }) => {
   return (
     <div className="space-y-6 my-4">
+      <InteractiveHeader title="Troubleshooting Clinic" icon={Wrench} />
       {items.map((item, index) => (
         <div key={index} className="bg-card p-4 rounded-lg border">
           <div className="flex items-start mb-2">

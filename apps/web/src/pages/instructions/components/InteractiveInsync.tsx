@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, Joystick } from 'lucide-react';
+import InteractiveHeader from '../../../components/InteractiveHeader';
 
 const promptElements = {
   intent: { label: 'Intent', text: 'Write a short, professional email', color: 'bg-blue-500' },
@@ -31,6 +32,7 @@ const InteractiveInsync: React.FC = () => {
 
   return (
     <div className="bg-card p-6 rounded-lg border my-6 text-card-foreground">
+      <InteractiveHeader title="Interactive I.N.S.Y.N.C." subtitle="Toggle elements to craft the prompt" icon={Joystick} />
       <h3 className="text-xl font-semibold mb-3">I.N.S.Y.N.C. in Action</h3>
       <p className="text-muted-foreground mb-4">Click the buttons below to add or remove elements from the prompt. See how a vague request transforms into a precise instruction.</p>
 

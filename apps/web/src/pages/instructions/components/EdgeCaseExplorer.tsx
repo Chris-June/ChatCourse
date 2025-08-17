@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, ChevronRight } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface EdgeCase {
   scenario: string;
@@ -16,6 +17,7 @@ const EdgeCaseExplorer: React.FC<EdgeCaseExplorerProps> = ({ cases }) => {
 
   return (
     <div className="my-6 flex flex-col md:flex-row gap-6 bg-card text-card-foreground p-6 rounded-lg border">
+      <InteractiveHeader title="Edge Case Explorer" icon={AlertTriangle} className="mb-4" />
       <div className="md:w-1/3 border-r border-border pr-4">
         <h4 className="text-lg font-bold text-foreground mb-3 flex items-center">
           <AlertTriangle className="w-5 h-5 mr-2 text-yellow-500" aria-hidden="true" />

@@ -1,12 +1,15 @@
 import React from 'react';
 import CopyButton from '../../../components/CopyButton';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
+import { Shapes } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const patternText = "You are a seasoned travel blogger specializing in budget travel. Create a 3-day itinerary for Lisbon, Portugal. Format it as a daily blog post, including money-saving tips.";
 
 const PatternRecognition: React.FC = () => {
   return (
     <Card>
+      <InteractiveHeader title="Pattern Recognition" icon={Shapes} />
       <CardHeader>
         <CardTitle className="text-base md:text-lg">Example: Applying a Prompt Pattern</CardTitle>
         <p className="text-sm text-muted-foreground">

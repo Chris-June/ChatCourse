@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lightbulb, Sparkles, Loader } from 'lucide-react';
+import { Lightbulb, Sparkles, Loader, ListChecks } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface AgentPlannerExerciseProps {
   goal: string;
@@ -27,6 +28,7 @@ const AgentPlannerExercise: React.FC<AgentPlannerExerciseProps> = ({ goal, initi
 
   return (
     <div className="bg-card text-card-foreground p-4 md:p-6 rounded-xl my-6 border shadow-sm">
+      <InteractiveHeader title="Exercise: Agent Planner" icon={ListChecks} className="mb-4" />
       <h3 className="text-lg font-semibold text-foreground text-center mb-1">Exercise: Plan an Agent's Actions</h3>
       <p className="text-center text-muted-foreground text-sm mb-4">Based on the agent's goal, write a plan using the Observe-Think-Act framework.</p>
 

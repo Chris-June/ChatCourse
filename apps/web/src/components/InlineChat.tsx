@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, forwardRef, useImperativeHandle, useRef } from 'react';
 import { useChatStore } from '@/store/chat';
-import { Send, Loader, X, AlertCircle, CheckCircle, Circle as CircleIcon } from 'lucide-react';
+import { Send, Loader, X, AlertCircle, CheckCircle, Circle as CircleIcon, MessageSquare } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 /**
  * Represents a single item in a dynamic checklist for a challenge.
@@ -435,6 +436,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
 
     return (
       <div className={`bg-card border border-border rounded-xl p-4 shadow-sm`}>
+        <InteractiveHeader title="Interactive Chat" subtitle="Ask and iterate in real-time" icon={MessageSquare} />
         {checklist && checklist.length > 0 && (
           <div className="mb-4 p-3 bg-background/50 rounded-xl border border-border">
             <h4 className="font-semibold text-white mb-2">Challenge Checklist</h4>

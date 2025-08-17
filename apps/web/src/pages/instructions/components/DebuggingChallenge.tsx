@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { AlertTriangle, CheckCircle, Lightbulb } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Lightbulb, Bug } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const scenarios = {
   roleConfusion: {
@@ -56,6 +57,7 @@ const DebuggingChallenge: React.FC = () => {
 
   return (
     <div className="bg-card text-card-foreground p-6 rounded-lg border space-y-4">
+      <InteractiveHeader title="Debugging Challenge" icon={Bug} />
       <h4 className="font-semibold text-foreground text-lg">{scenario.title}</h4>
       <p className="text-muted-foreground text-sm">{scenario.description}</p>
       

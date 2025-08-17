@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { tokenizeText } from '../utils/tokenizeText';
+import InteractiveHeader from '@/components/InteractiveHeader';
+import { ScanText } from 'lucide-react';
 
 const InteractiveTokenizer: React.FC = () => {
   const [inputText, setInputText] = useState('Hello world! This is a test.');
@@ -21,6 +23,7 @@ const InteractiveTokenizer: React.FC = () => {
 
   return (
     <div className="bg-card p-6 rounded-xl border border-border mb-6 my-8">
+      <InteractiveHeader title="Interactive Tokenizer" subtitle="Type to see tokens" icon={ScanText} />
       <h4 className="text-lg font-semibold text-card-foreground mb-4">Interactive Tokenizer Demo</h4>
       <p className="text-muted-foreground mb-4 text-sm">
         Type in the box below to see how your text gets broken down into tokens. This is a fundamental step in how LLMs process language.

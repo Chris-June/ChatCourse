@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircle, Clock, AlertTriangle, TrendingUp } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 type TrendDirection = 'up' | 'down' | 'neutral';
 
@@ -42,6 +43,7 @@ const MetricCard = ({
 const AgentEvalDashboard: React.FC = () => {
   return (
     <div className="my-6 p-4 md:p-6 bg-card text-card-foreground rounded-xl border shadow-sm">
+      <InteractiveHeader title="Agent Evaluation Dashboard" icon={TrendingUp} />
       <h3 className="text-lg md:text-xl font-semibold text-center text-foreground mb-6">Agent Performance Dashboard</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <MetricCard 

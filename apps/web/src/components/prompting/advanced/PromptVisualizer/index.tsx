@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useChatStore } from '@/store/chat';
 import CopyButton from '../../../CopyButton';
+import InteractiveHeader from '@/components/InteractiveHeader';
+import { Sliders } from 'lucide-react';
 
 interface PromptElement {
   id: string;
@@ -173,6 +175,7 @@ const PromptVisualizer: React.FC = () => {
 
   return (
     <div className="bg-gray-900 text-white p-6 sm:p-8 rounded-2xl border border-gray-700/50 shadow-2xl shadow-blue-500/10">
+      <InteractiveHeader title="Interactive Prompt Visualizer" subtitle="Adjust elements to see impact" icon={Sliders} />
       <header className="mb-8 text-center">
         <h2 className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-300">
           Interactive Prompt Visualizer

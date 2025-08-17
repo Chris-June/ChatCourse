@@ -4,6 +4,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { X, Plus } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 type Parameter = {
   id: number;
@@ -60,6 +61,7 @@ const FunctionSchemaDesigner: React.FC = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-4 bg-card border rounded-lg text-card-foreground">
+      <InteractiveHeader title="Interactive Function Schema Designer" subtitle="Define function and parameters; preview OpenAI schema" icon={Plus} />
       <div className="space-y-6">
         <h3 className="text-xl font-bold">Design Your Function</h3>
         <div className="space-y-2">

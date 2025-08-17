@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Sparkles } from 'lucide-react';
 import CopyButton from '../../../components/CopyButton';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface InteractivePromptExerciseProps {
   initialPrompt: string;
@@ -17,6 +18,7 @@ const InteractivePromptExercise: React.FC<InteractivePromptExerciseProps> = ({ i
 
   return (
     <div className="bg-card p-6 rounded-lg border my-6 text-card-foreground">
+      <InteractiveHeader title="Interactive Exercise" subtitle="Hands-on — try it now" icon={Sparkles} />
       <div className="relative">
         <CopyButton textToCopy={promptText} />
         <textarea

@@ -4,6 +4,7 @@ import { arrayMove, SortableContext, useSortable, rectSortingStrategy } from '@d
 import { CSS } from '@dnd-kit/utilities';
 import { BarChart2, TrendingUp, TrendingDown, GripVertical } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 type Metric = {
   id: string;
@@ -137,6 +138,7 @@ const MetricSorter: React.FC = () => {
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <Card className="space-y-4">
+        <InteractiveHeader title="Metric Sorter" icon={BarChart2} />
         <CardHeader>
           <CardTitle className="text-center text-base md:text-lg">Drag-and-Drop: Choose the Right Metrics</CardTitle>
           <p className="text-center text-sm text-muted-foreground" id="metric-instructions">

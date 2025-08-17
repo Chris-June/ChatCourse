@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Move } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 type Idea = {
   id: string;
@@ -54,6 +55,7 @@ const ImpactEffortMatrix: React.FC = () => {
 
   return (
     <div className="bg-card p-6 rounded-lg border text-card-foreground">
+      <InteractiveHeader title="Impact vs Effort Matrix" icon={Move} />
       <div className="grid grid-cols-2 grid-rows-2 gap-4 mb-6">
         {/* Quadrants */}
         <div onDrop={(e) => handleDrop(e, 'quick-wins')} onDragOver={handleDragOver} onDragLeave={handleDragLeave} className="bg-muted p-4 rounded-lg border-2 border-dashed border-border min-h-[150px] transition-colors duration-200" aria-describedby="quad-quick-wins-desc">

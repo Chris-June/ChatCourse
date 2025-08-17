@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Check, X, HelpCircle } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 
@@ -37,6 +38,7 @@ const PromptCritiquer: React.FC = () => {
 
   return (
     <Card className="my-6">
+      <InteractiveHeader title="Interactive Challenge" subtitle="Critique this prompt" icon={HelpCircle} />
       <CardHeader>
         <CardTitle className="text-base md:text-lg flex items-center">
           <HelpCircle className="w-6 h-6 mr-3 text-primary" aria-hidden="true" />

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle, Wrench } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const challengeData = {
   userPrompt: "Can you find my flight confirmation for my trip to Hawaii next week?",
@@ -52,6 +53,7 @@ const ToolChoiceChallenge: React.FC = () => {
 
   return (
     <div className="bg-card border rounded-lg p-6 space-y-4">
+      <InteractiveHeader title="Interactive Tool Choice" subtitle="Select the best tool for the job" icon={Wrench} />
       <h3 className="text-xl font-bold text-foreground">Challenge: Pick the Right Tool</h3>
       <div className="p-4 bg-muted rounded-lg border">
         <p className="text-muted-foreground text-sm mb-1">User Prompt:</p>

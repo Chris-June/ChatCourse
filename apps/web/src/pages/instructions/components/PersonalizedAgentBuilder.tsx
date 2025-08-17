@@ -6,6 +6,7 @@ import { Input } from '../../../components/ui/input';
 import { Label } from '../../../components/ui/label';
 import { Slider } from '../../../components/ui/slider';
 import { Textarea } from '../../../components/ui/textarea';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const PersonalizedAgentBuilder = () => {
   const [name, setName] = useState('');
@@ -29,6 +30,7 @@ const PersonalizedAgentBuilder = () => {
 
   return (
     <Card className="mt-8">
+      <InteractiveHeader title="Personalized Agent Builder" icon={Wand2} />
       <CardHeader>
         <div className="flex items-center space-x-4">
           <div className="p-3 bg-muted rounded-lg">
