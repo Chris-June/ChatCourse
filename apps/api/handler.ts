@@ -18,6 +18,7 @@ import { handlePairProgramming } from './handlers/pairProgramming';
 import { handleSummaryEvaluation } from './handlers/summaryEvaluation';
 console.log('[handler.ts] Module start');
 import { handleChat } from './handlers/chat';
+import { handleGradeFunctionPrompt } from './handlers/functionPromptGrader';
 console.log('[handler.ts] All handlers imported successfully.');
 
 
@@ -110,6 +111,8 @@ app.post('/api/chat/evaluate-challenge', handleChallengeEvaluation);
 app.post('/api/chat/evaluate-final-challenge', handleFinalChallengeEvaluation);
 app.post('/api/chat/grade-prompt', handleGradePrompt);
 app.post('/api/chat/refine-prompt', handleRefinePrompt);
+// Function-prompt grading (json schema aware)
+app.post('/api/chat/grade-function-prompt', handleGradeFunctionPrompt);
 
 // Prompt Pattern Library
 app.get('/api/chat/get-patterns', handleGetPatterns);
