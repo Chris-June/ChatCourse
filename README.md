@@ -113,28 +113,14 @@ If you use the Windsurf IDE (recommended by the maintainer):
 
 ## Screenshots
   
-You can add screenshots under `docs/screenshots/` and reference them here.
-  
-- Chat UI
+  - Setup
     
-    ![Chat UI](docs/screenshots/ChatUI.png)
-  
-- Chat UI Sidebar
-    
-    ![Chat UI Sidebar](docs/screenshots/ChatUIsidebar.png)
-  
-- Settings
-    
-    ![Settings](docs/screenshots/Settings.png)
-  
-- Settings (Advanced)
-    
-    ![Settings 2](docs/screenshots/Settings2.png)
+    ![Setup](docs/screenshots/Setup.png)
   
   <!-- Optional: custom sizing example -->
-  <!-- <img src="docs/screenshots/ChatUI.png" alt="Chat UI" width="900" /> -->
-  
-—
+  <!-- <img src="docs/screenshots/Setup.png" alt="Setup" width="900" /> -->
+   
+  —
 
 Legacy beginner-friendly instructions remain below for reference.
 
@@ -147,6 +133,8 @@ Legacy beginner-friendly instructions remain below for reference.
 | **Visual Studio Code (VS Code)** | A friendly text editor to open the project. | [Download VS Code](https://code.visualstudio.com/) and install it. |
 
 *Tip: “Terminal” is just a text window where you can type commands. Don’t panic—we’ll tell you exactly what to type.*
+
+![Terminal view](docs/screenshots/TerminalView.png)
 
 ## 3. Get the Project Code
 
@@ -220,6 +208,12 @@ OPENAI_API_KEY=sk-1234567890abcdef
 
 Save the file (**⌘S** or **Ctrl+S**).
 
+### Screenshots
+
+![Settings](docs/screenshots/Settings.png)
+
+![Settings – Advanced](docs/screenshots/Settings2.png)
+
 ## 7. Start Chatting!
 
 Still in the terminal, run:
@@ -230,6 +224,12 @@ pnpm dev
 
 - First start takes ~20 seconds.  
 - When you see `http://localhost:3001`, **click it** (or paste it in your browser).
+
+### Screenshots
+
+![Chat UI](docs/screenshots/ChatUI.png)
+
+![Chat UI Sidebar](docs/screenshots/ChatUIsidebar.png)
 
 🎉 **That’s it!** Type a message and watch the AI reply.
 
@@ -422,6 +422,12 @@ OPENAI_API_KEY=sk-1234567890abcdef
 
 Save the file (**⌘S** or **Ctrl+S**).
 
+### Screenshots
+
+![Settings](docs/screenshots/Settings.png)
+
+![Settings – Advanced](docs/screenshots/Settings2.png)
+
 ---
 
 ## 7. Start Chatting!
@@ -434,6 +440,12 @@ pnpm dev
 
 - First start takes ~20 seconds.  
 - When you see `http://localhost:3001`, **click it** (or paste it in your browser).
+
+### Screenshots
+
+![Chat UI](docs/screenshots/ChatUI.png)
+
+![Chat UI Sidebar](docs/screenshots/ChatUIsidebar.png)
 
 🎉 **That’s it!** Type a message and watch the AI reply.
 
