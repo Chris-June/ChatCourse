@@ -75,6 +75,20 @@ export default function Lesson5_3() {
             <li>Cost-aware design: caching and request strategies</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“Streaming makes the model finish generating faster.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Streaming improves perceived speed by showing partial output early; total generation time is typically unchanged.</p>
+            </div>
+          </div>
+        </section>
         <p className="text-muted-foreground">
           A brilliant AI that's too slow or too expensive is a failed product.
           In the real world, performance is a feature. This lesson covers the
@@ -200,6 +214,16 @@ export default function Lesson5_3() {
             <li>Reduce latency and cost with caching and batching strategies</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Streaming:</strong> Sending tokens as they are generated to improve perceived latency.</li>
+            <li><strong>Model Tier:</strong> A category of model capability/cost (e.g., light vs. flagship) chosen per task.</li>
+            <li><strong>Caching:</strong> Reusing prior responses to reduce latency and API cost for repeated queries.</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
           points={[

@@ -86,6 +86,20 @@ const Lesson4_2: React.FC = () => {
             <li>How APIs structure arrays of tool calls and handle failures</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“Parallel calls are always better than sequential calls.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Parallel is best for independent tasks; dependencies require sequential calls to pass results between tools.</p>
+            </div>
+          </div>
+        </section>
         <p className="text-muted-foreground">
           Simple tasks might need one tool, but complex queries often require a coordinated effort. Imagine asking an assistant to book a flight and reserve a rental car. This requires two different tools. Modern AI can handle this by calling multiple functions in a single turn, making workflows much more powerful and efficient.
         </p>
@@ -153,6 +167,16 @@ const Lesson4_2: React.FC = () => {
             <li>Handle partial failures and report structured results back to the model</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Parallel Call:</strong> Independent tools run in the same turn to reduce latency.</li>
+            <li><strong>Sequential Call:</strong> One tool depends on the output of another.</li>
+            <li><strong>Tool Call Array:</strong> API returns an array of calls your app must iterate and execute.</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
           points={[

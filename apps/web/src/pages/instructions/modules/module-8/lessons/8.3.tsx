@@ -120,6 +120,21 @@ function Lesson8_3() {
         </ul>
       </div>
 
+      {/* Myth vs Reality */}
+      <section className="bg-muted/30 border border-border rounded-xl p-4 mb-6">
+        <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+        <div className="grid md:grid-cols-2 gap-3">
+          <div className="bg-background border border-border rounded-lg p-3">
+            <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+            <p className="text-sm text-muted-foreground">“If an LLM isn’t connected to tools, it can’t leak sensitive information.”</p>
+          </div>
+          <div className="bg-background border border-border rounded-lg p-3">
+            <h4 className="font-semibold text-success mb-1">Reality</h4>
+            <p className="text-sm text-muted-foreground">Models can still echo secrets in prompts or training data. Defense‑in‑depth (sanitization, least privilege, output filtering) is required even without tools.</p>
+          </div>
+        </div>
+      </section>
+
       <Accordion type="multiple" defaultValue={['item-1']} className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -199,6 +214,16 @@ function Lesson8_3() {
             <li>Propose guardrails and monitoring for production use</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Prompt Injection:</strong> Inputs crafted to override system instructions or trigger unsafe actions.</li>
+            <li><strong>PoLP (Principle of Least Privilege):</strong> Grant only the minimal permissions necessary to tools/agents.</li>
+            <li><strong>PII Redaction:</strong> Detecting and masking personally identifiable information in inputs/outputs.</li>
+          </ul>
+        </section>
 
         <AccordionItem value="item-4">
           <AccordionTrigger>

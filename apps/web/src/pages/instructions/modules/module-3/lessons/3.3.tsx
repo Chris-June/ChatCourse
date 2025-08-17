@@ -7,6 +7,7 @@ import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
 import SocraticTutorProject from '@/pages/instructions/components/SocraticTutorProject';
+import CheckpointQuiz from '../../../components/CheckpointQuiz';
 import {
   socraticSystemPrompt,
   jsonChallengeChecklist,
@@ -97,6 +98,32 @@ const Lesson3_3: React.FC = () => {
             <li>When to use JSON vs. Markdown for application needs</li>
           </ul>
         </div>
+
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“If I ask for JSON, the AI will always return valid JSON.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Models can produce malformed outputs. Provide explicit schemas and examples, and always validate before using in your app.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Quick Check */}
+        <section className="bg-card p-4 rounded-xl border border-border">
+          <h3 className="font-semibold text-card-foreground mb-3">Quick Check</h3>
+          <CheckpointQuiz
+            question={quizQuestions[0].questionText}
+            options={quizQuestions[0].options}
+            correctAnswerIndex={quizQuestions[0].options.indexOf(quizQuestions[0].correctAnswer)}
+            explanation={quizQuestions[0].explanation}
+          />
+        </section>
         <Accordion title="Framing Your Request: You're the Client" isInitiallyOpen icon={<FileJson />}>
           <div className="prose prose-invert max-w-none">
             <p>
@@ -208,6 +235,16 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
             systemPrompt={socraticSystemPrompt}
           />
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Schema:</strong> The defined structure of data (keys, types, constraints) expected in output.</li>
+            <li><strong>Validation:</strong> Parsing and checking AI output against the expected structure before use.</li>
+            <li><strong>Markdown:</strong> Lightweight markup for formatted text (tables, headings, lists).</li>
+          </ul>
+        </section>
 
         <div className="bg-muted/30 border border-muted rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>

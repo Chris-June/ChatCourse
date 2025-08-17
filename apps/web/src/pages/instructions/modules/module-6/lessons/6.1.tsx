@@ -85,6 +85,20 @@ export default function Lesson6_1() {
             <li>Prioritizing with simple impact/effort thinking</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“Great AI products start with picking the right model.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Great AI products start with a real user job to be done, validated feasibility, and prioritized scope—the model comes later.</p>
+            </div>
+          </div>
+        </section>
         <p className="text-muted-foreground">
           Every great AI product starts not with a model, but with a problem.
           This lesson introduces a structured framework for turning a raw idea
@@ -220,6 +234,16 @@ export default function Lesson6_1() {
             <li>Use impact vs effort to prioritize next steps</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>JTBD (Jobs to be Done):</strong> A framework that focuses on the user’s underlying job/problem.</li>
+            <li><strong>Feasibility:</strong> Early check across tech, data, reliability, and ethics to see if it can/should be built.</li>
+            <li><strong>Impact/Effort Matrix:</strong> A tool to prioritize ideas into quick wins vs larger bets.</li>
+          </ul>
+        </section>
 
         <div
           id="knowledge-check"

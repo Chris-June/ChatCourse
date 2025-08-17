@@ -121,6 +121,21 @@ function Lesson8_1() {
         </ul>
       </div>
 
+      {/* Myth vs Reality */}
+      <section className="bg-muted/30 border border-border rounded-xl p-4 mb-6">
+        <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+        <div className="grid md:grid-cols-2 gap-3">
+          <div className="bg-background border border-border rounded-lg p-3">
+            <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+            <p className="text-sm text-muted-foreground">“Bias is only a problem if the model is racist or sexist on purpose.”</p>
+          </div>
+          <div className="bg-background border border-border rounded-lg p-3">
+            <h4 className="font-semibold text-success mb-1">Reality</h4>
+            <p className="text-sm text-muted-foreground">Most bias is inherited from data and processes, not intent. Proactive design, auditing, and measurement are required to mitigate it.</p>
+          </div>
+        </div>
+      </section>
+
       <Accordion type="multiple" defaultValue={['item-1']} className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -208,6 +223,16 @@ function Lesson8_1() {
             <li>Propose concrete mitigation steps</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Historical Bias:</strong> Past patterns embedded in data that perpetuate inequity.</li>
+            <li><strong>Representation Bias:</strong> Under/over‑sampling of groups leading to uneven performance.</li>
+            <li><strong>Fairness Metric:</strong> A quantitative measure (e.g., demographic parity) to assess equity.</li>
+          </ul>
+        </section>
 
         <AccordionItem value="item-4">
           <AccordionTrigger>

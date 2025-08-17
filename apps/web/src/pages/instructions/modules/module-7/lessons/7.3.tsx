@@ -108,6 +108,21 @@ function Lesson7_3() {
         </ul>
       </div>
 
+      {/* Myth vs Reality */}
+      <section className="bg-muted/30 border border-border rounded-xl p-4 mb-6">
+        <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+        <div className="grid md:grid-cols-2 gap-3">
+          <div className="bg-background border border-border rounded-lg p-3">
+            <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+            <p className="text-sm text-muted-foreground">“Fine‑tuning is how you keep a model up‑to‑date with new facts.”</p>
+          </div>
+          <div className="bg-background border border-border rounded-lg p-3">
+            <h4 className="font-semibold text-success mb-1">Reality</h4>
+            <p className="text-sm text-muted-foreground">Fine‑tuning is best for teaching behavior, style, or task patterns. Use RAG to inject current facts at query time.</p>
+          </div>
+        </div>
+      </section>
+
       <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -185,6 +200,16 @@ function Lesson7_3() {
             <li>Outline how you’ll evaluate a fine-tuned model</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Fine‑Tuning:</strong> Training a base model further on labeled examples to change behavior or style.</li>
+            <li><strong>JSONL:</strong> JSON Lines format where each line is a standalone JSON object (e.g., prompt/completion).</li>
+            <li><strong>Epoch:</strong> One full pass through the training dataset during fine‑tuning.</li>
+          </ul>
+        </section>
 
         <AccordionItem value="item-5">
           <AccordionTrigger>

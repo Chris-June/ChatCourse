@@ -8,6 +8,7 @@ import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
 import { socraticTutorChecklist } from '@/prompts';
 import quizQuestions from './utils/2.3.quizQuestions';
+import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
 
 // checklist centralized in prompts
 
@@ -48,6 +49,22 @@ const Lesson2_3: React.FC = () => {
         <p className="text-muted-foreground mb-4">
           Context management isn't just about memory—it's an active skill of guiding the AI's attention and maintaining your intended persona. You'll practice re-centering the AI when it starts to drift from your established character, like gently reminding someone of their role in a play.
         </p>
+
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“Personas lock the AI into rigid behavior that can’t adapt.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Personas provide consistent guardrails; you can still adapt by re-centering and updating constraints.
+              </p>
+            </div>
+          </div>
+        </section>
 
         <Accordion
           title="Project Objective"
@@ -134,6 +151,16 @@ AI (Gnosi): If we think of a function calling itself, what must be true to stop 
           <p className="text-muted-foreground mb-4">
             Use the chat window below to complete the project. Start by pasting the persona prompt from Step 1. If the AI starts giving direct answers instead of asking questions, gently remind it of its role by saying something like: 'Remember, you are Gnosi, a Socratic tutor who only asks questions.' The evaluation criteria will be tracked as a checklist inside the chat window.
           </p>
+          {/* Quick Check before the project */}
+          <section className="bg-card p-4 rounded-xl border border-border mb-4">
+            <h3 className="font-semibold text-card-foreground mb-3">Quick Check</h3>
+            <CheckpointQuiz
+              question={quizQuestions[0].questionText}
+              options={quizQuestions[0].options}
+              correctAnswerIndex={quizQuestions[0].options.indexOf(quizQuestions[0].correctAnswer)}
+              explanation={quizQuestions[0].explanation}
+            />
+          </section>
           <InlineChat 
             moduleId="module-2.3-project"
             placeholder="Your conversation with the Socratic Tutor..."
@@ -142,6 +169,16 @@ AI (Gnosi): If we think of a function calling itself, what must be true to stop 
           />
         </section>
       </div>
+
+      {/* Mini‑Glossary */}
+      <section className="mt-6 bg-muted/30 border border-border rounded-xl p-4">
+        <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+        <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+          <li><strong>Persona:</strong> A role that defines the AI’s behavior, boundaries, and tone.</li>
+          <li><strong>Re‑centering:</strong> A reminder/summary to realign the AI to the persona and task.</li>
+          <li><strong>System Prompt:</strong> The initial instruction that establishes rules that persist across turns.</li>
+        </ul>
+      </section>
 
       <BestPractices
         dos={[

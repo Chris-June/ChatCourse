@@ -91,6 +91,20 @@ const Lesson4_5: React.FC = () => {
             <li>Security: least privilege, error handling, and evaluation basics</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“Agents are just tools with a fancy name.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Agents operate in an Observe→Think→Act loop with planning and memory, coordinating tools autonomously.</p>
+            </div>
+          </div>
+        </section>
         <Accordion title="What is an AI Agent?" icon={<Bot />} isInitiallyOpen>
           <p className="text-muted-foreground mb-4">
             An AI Agent is a system that can perceive its environment, make decisions, and take actions to achieve a specific goal. Unlike a simple tool-using model that waits for your command, an agent operates in a continuous <strong>Observe → Think → Act</strong> loop. It's the difference between a smart calculator and a self-driving car.
@@ -217,6 +231,16 @@ const Lesson4_5: React.FC = () => {
             <li>Apply least‑privilege and add error handling/evaluation hooks</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Agent:</strong> A system that observes, plans (thinks), and acts using tools to achieve goals.</li>
+            <li><strong>Manager/Worker:</strong> Hierarchical pattern where a manager decomposes tasks for specialized workers.</li>
+            <li><strong>Least Privilege:</strong> Security principle of granting only the minimum permissions required.</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
           points={[

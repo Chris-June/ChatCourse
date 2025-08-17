@@ -120,6 +120,21 @@ function Lesson8_2() {
         </ul>
       </div>
 
+      {/* Myth vs Reality */}
+      <section className="bg-muted/30 border border-border rounded-xl p-4 mb-6">
+        <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+        <div className="grid md:grid-cols-2 gap-3">
+          <div className="bg-background border border-border rounded-lg p-3">
+            <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+            <p className="text-sm text-muted-foreground">“Transparency means open‑sourcing the entire model or code.”</p>
+          </div>
+          <div className="bg-background border border-border rounded-lg p-3">
+            <h4 className="font-semibold text-success mb-1">Reality</h4>
+            <p className="text-sm text-muted-foreground">Transparency can be achieved through logs, citations, and confidence indicators without exposing proprietary internals.</p>
+          </div>
+        </div>
+      </section>
+
       <Accordion type="multiple" defaultValue={['item-1']} className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -202,6 +217,16 @@ function Lesson8_2() {
             <li>Offer actionable next steps alongside decisions</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Transparency:</strong> Showing what the system did (e.g., tool calls, sources).</li>
+            <li><strong>Explainability:</strong> Clarifying why a decision was made in human terms.</li>
+            <li><strong>Confidence/Uncertainty:</strong> Indicators that help users gauge reliability of outputs.</li>
+          </ul>
+        </section>
 
         <AccordionItem value="item-4">
           <AccordionTrigger>

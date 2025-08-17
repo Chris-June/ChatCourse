@@ -8,6 +8,7 @@ import PatternRecognition from '../../../components/PatternRecognition';
 import IterativeRefinement from '../../../components/IterativeRefinement';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import TabButton from './components/TabButton';
+import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
 
 // Tab component moved to './components/TabButton'
 
@@ -169,6 +170,21 @@ const Lesson1_7: React.FC = () => {
           </p>
         </section>
 
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4 mb-8">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“Advanced prompting means just adding more words and jargon.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Advanced prompting is structured thinking: decompose, apply patterns, and iterate with targeted feedback.</p>
+            </div>
+          </div>
+        </section>
+
         {/* Interactive Tabs for Core Concepts */}
         <div className="bg-card rounded-xl border border-border shadow-sm mb-12">
           <div className="flex flex-wrap border-b border-border">
@@ -198,6 +214,17 @@ const Lesson1_7: React.FC = () => {
           </div>
         </section>
         
+        {/* Mini‑Glossary */}
+        <section className="mt-8 bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Deconstruction:</strong> Breaking a complex prompt into role, task, context, steps, and format.</li>
+            <li><strong>Pattern:</strong> A reusable blueprint (e.g., Persona, Critique‑Revise) for reliable outcomes.</li>
+            <li><strong>Iterative Refinement:</strong> Small, focused edits with evaluation between iterations.</li>
+            <li><strong>Priming:</strong> Supplying examples or instructions before the task to shape behavior.</li>
+          </ul>
+        </section>
+        
         <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
           <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
           <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -205,6 +232,17 @@ const Lesson1_7: React.FC = () => {
             <li>Iteratively refine prompts to reach target quality</li>
             <li>Select the right advanced technique for the task</li>
           </ul>
+        </section>
+        
+        {/* Quick Check */}
+        <section className="bg-card p-4 rounded-xl border border-border">
+          <h3 className="font-semibold text-card-foreground mb-3">Quick Check</h3>
+          <CheckpointQuiz
+            question={quizQuestions[0].questionText}
+            options={quizQuestions[0].options}
+            correctAnswerIndex={quizQuestions[0].options.indexOf(quizQuestions[0].correctAnswer)}
+            explanation={quizQuestions[0].explanation}
+          />
         </section>
         
         <KeyTakeaways

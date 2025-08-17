@@ -107,6 +107,20 @@ const Lesson4_6 = () => {
             <li>Orchestrating tools across multiple servers; clearer tool design</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“MCP is just the same as basic function calling.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">MCP adds dynamic tool discovery and server‑side isolation of credentials, enabling secure service orchestration beyond hard‑coded tools.</p>
+            </div>
+          </div>
+        </section>
         <p className="text-muted-foreground">
           Welcome to the future of agentic AI. Basic function calling is powerful,
           but it has limitations. It's like having a phone that can only call
@@ -269,6 +283,16 @@ const Lesson4_6 = () => {
             <li>Write clearer tool descriptions for MCP servers</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>MCP:</strong> A protocol that lets agents discover and use tools dynamically via servers.</li>
+            <li><strong>Service Orchestration:</strong> Combining tools from different servers to complete a task.</li>
+            <li><strong>Credential Isolation:</strong> Keeping API keys/server secrets on the MCP server, not in the client/model.</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
           points={[

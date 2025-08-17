@@ -91,6 +91,20 @@ export default function Lesson6_2() {
             <li>Spotting bias and building trust with users</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“A trustworthy AI should always act autonomously and make final decisions.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Trust grows when users remain in control. Collaborative designs with transparency, feedback, and override options build confidence.</p>
+            </div>
+          </div>
+        </section>
         <p className="text-muted-foreground">
           Building an AI is like training a powerful, intelligent animal. It's
           not just about teaching it tricks; it's about building a relationship
@@ -211,6 +225,16 @@ export default function Lesson6_2() {
             <li>Identify fairness risks and add transparency affordances</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>HCI (Human‑Computer Interaction):</strong> The study and design of user‑centered interactive systems.</li>
+            <li><strong>Uncertainty UI:</strong> Visual/UX patterns that communicate model confidence and allow user correction.</li>
+            <li><strong>Bias:</strong> Systematic unfairness from data or design that can harm or disadvantage groups.</li>
+          </ul>
+        </section>
 
         <div
           id="knowledge-check"

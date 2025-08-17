@@ -14,6 +14,7 @@ import BestPractices from '../../../components/BestPractices';
 import { contextManagementChecklist } from '@/prompts';
 import quizQuestions from './utils/2.2.quizQuestions';
 import initialConversation from './utils/2.2.initialConversation';
+import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
 
  
 
@@ -40,7 +41,32 @@ const Lesson2_2: React.FC = () => {
           Now that you understand the AI's "memory" is a finite context window, let's learn how to actively manage it. Context contamination happens when irrelevant or conflicting details from earlier in the conversation start to confuse the AI, leading to off-topic or incorrect responses. These techniques will help you keep your conversations on track, even when tackling complex, multi-step problems.
         </p>
 
+        {/* Myth vs. Reality to set expectations */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“If the model gets confused, it will eventually fix itself if I keep talking.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Confusion compounds. Use summaries, explicit references, or start fresh to re-center context deliberately.</p>
+            </div>
+          </div>
+        </section>
+
         <InstructionPriming />
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Re‑center:</strong> Summarize goals/constraints to align the model.</li>
+            <li><strong>Explicit Reference:</strong> Point to a specific prior message or item to focus attention.</li>
+            <li><strong>Context Contamination:</strong> Off‑topic or conflicting details that derail the model.</li>
+          </ul>
+        </section>
 
     <div className="rounded-xl border-gray-700">
       <Accordion 
@@ -119,6 +145,16 @@ const Lesson2_2: React.FC = () => {
           <p className="text-muted-foreground mb-4">
             Now, apply all the techniques you've learned. Start by summarizing the goal regularly to keep the AI focused on your objective. Use explicit references to direct the AI to specific details, like saying 'Make the second headline you suggested more inspiring by focusing on the mission to unlock human creativity' instead of 'Make it better.' Build on previous ideas by referencing them explicitly, and start fresh when the conversation becomes confused or off-track.
           </p>
+          {/* Quick Check before the final challenge */}
+          <section className="bg-card p-4 rounded-xl border border-border mb-4">
+            <h3 className="font-semibold text-card-foreground mb-3">Quick Check</h3>
+            <CheckpointQuiz
+              question={quizQuestions[0].questionText}
+              options={quizQuestions[0].options}
+              correctAnswerIndex={quizQuestions[0].options.indexOf(quizQuestions[0].correctAnswer)}
+              explanation={quizQuestions[0].explanation}
+            />
+          </section>
           <InlineChat 
             moduleId="module-2.2-final-challenge"
             initialMessages={initialConversation} 

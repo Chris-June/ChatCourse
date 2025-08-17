@@ -70,6 +70,20 @@ export default function Lesson5_2() {
             <li>Ethical guardrails: consent, privacy, and user control</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“Personalization means using a bigger, more expensive model.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Most personalization comes from constructing a dynamic <code className="font-mono">system</code> prompt with user data—not from changing models.</p>
+            </div>
+          </div>
+        </section>
         <p className="text-muted-foreground">
           A generic AI is useful, but a personalized AI is a game-changer.
           Personalization transforms a general-purpose tool into a bespoke
@@ -186,6 +200,16 @@ export default function Lesson5_2() {
             <li>Apply ethical practices for consent, privacy, and control</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Dynamic System Prompt:</strong> A template filled with user/session data at request time.</li>
+            <li><strong>Static Context:</strong> Stable user preferences (tone, language) used across sessions.</li>
+            <li><strong>Dynamic Context:</strong> Task‑specific details injected for the current interaction.</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
           points={[

@@ -87,6 +87,20 @@ const Lesson4_4: React.FC = () => {
             <li>Basics of chaining tools and ethics/safety considerations</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“A GPT is just the base model with a new name.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">A GPT packages instructions, knowledge, and tools into a specialized assistant—far more than a raw model.</p>
+            </div>
+          </div>
+        </section>
         <Accordion title="The Big Idea: Packaging AI Superpowers" icon={<Rocket />} isInitiallyOpen>
           <p className="text-muted-foreground">
             We've learned how to give an AI new skills with tools. Now, let's learn how to package those skills into a complete, specialized assistant called a <GlossaryTerm term="GPT" definition="A custom version of ChatGPT that combines instructions, extra knowledge, and capabilities for a specific purpose." />. Think of it as creating a custom superhero, complete with a unique personality, special knowledge, and a utility belt of custom tools.
@@ -223,6 +237,16 @@ const Lesson4_4: React.FC = () => {
             <li>Plan a safe tool chain with ethical guardrails</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>GPT:</strong> A packaged assistant combining instructions, knowledge, and tools.</li>
+            <li><strong>RAG:</strong> Retrieval‑Augmented Generation; adds external knowledge to reduce hallucinations.</li>
+            <li><strong>Tool Chaining:</strong> Using the output of one tool as input to another.</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
           points={[

@@ -6,6 +6,7 @@ import RollingWhiteboard from '../../../components/RollingWhiteboard';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import BestPractices from '../../../components/BestPractices';
 import quizQuestions from './utils/2.1.quizQuestions';
+import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
 
 const Lesson2_1: React.FC = () => {
   return (
@@ -32,6 +33,21 @@ const Lesson2_1: React.FC = () => {
           Have you ever had a conversation where you had to keep repeating yourself? It's frustrating. The same is true when talking to an AI. The key to a smooth, intelligent conversation is understanding and managing its 'memory'—what we call the <strong>context window</strong>.
         </p>
 
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“The AI remembers everything you say in a conversation.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">The AI only uses what fits in its context window. Older content falls out; you must summarize or restate critical details.</p>
+            </div>
+          </div>
+        </section>
+
         <section className="bg-card p-6 rounded-xl border border-border shadow-sm">
           <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
             <BrainCircuit className="w-7 h-7 mr-3 text-primary" />
@@ -41,6 +57,16 @@ const Lesson2_1: React.FC = () => {
             Think of the context window as the AI's short-term memory. It's a finite space that holds the recent back-and-forth of your conversation, measured in <strong>tokens</strong>, which are the basic units of text that the AI processes. A token can be a single word, part of a word, or even a single character. Every new message you send, and every response the AI gives, gets added to this window. When the window gets full, the oldest messages are 'forgotten' to make room for new ones.
           </p>
           <RollingWhiteboard />
+        </section>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Context Window:</strong> The limited “working memory” measured in tokens.</li>
+            <li><strong>Tokens:</strong> The units of text the model processes (words/sub‑words/characters).</li>
+            <li><strong>Re‑centering:</strong> Summarizing goals/constraints to keep the model aligned.</li>
+          </ul>
         </section>
 
         <section className="bg-card p-6 rounded-xl border border-border shadow-sm">
@@ -98,6 +124,17 @@ const Lesson2_1: React.FC = () => {
             <li>Structure conversations to preserve important details</li>
             <li>Use summarization and reminders to keep the AI aligned</li>
           </ul>
+        </section>
+
+        {/* Quick Check */}
+        <section className="bg-card p-4 rounded-xl border border-border">
+          <h3 className="font-semibold text-card-foreground mb-3">Quick Check</h3>
+          <CheckpointQuiz
+            question={quizQuestions[0].questionText}
+            options={quizQuestions[0].options}
+            correctAnswerIndex={quizQuestions[0].options.indexOf(quizQuestions[0].correctAnswer)}
+            explanation={quizQuestions[0].explanation}
+          />
         </section>
 
         <KeyTakeaways points={[

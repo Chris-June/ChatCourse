@@ -4,6 +4,8 @@ import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
 import PromptImprover from '@/pages/instructions/components/PromptImprover';
 import { insyncEvaluatorPrompt } from '@/prompts';
+import KeyTakeaways from '../../../components/KeyTakeaways';
+import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
 
 const Lesson1_6: React.FC = () => {
   const quizQuestions = [
@@ -93,6 +95,21 @@ const Lesson1_6: React.FC = () => {
           </div>
         </div>
 
+        {/* Myth vs. Reality callout for workshop expectations */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“A single, clever prompt will solve any task perfectly on the first try.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">High‑quality outcomes come from structured prompts and iterative refinement using feedback—exactly what I.N.S.Y.N.C. is for.</p>
+            </div>
+          </div>
+        </section>
+
         <div className="bg-card p-6 rounded-xl border border-border">
           <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Applying I.N.S.Y.N.C.</h2>
           <p className="text-muted-foreground mb-4">Before you start typing, think through the framework:</p>
@@ -106,6 +123,16 @@ const Lesson1_6: React.FC = () => {
           </ul>
           <p className="text-muted-foreground mt-4">Combine these elements to build a powerful prompt. The more specific you are, the better the result will be.</p>
         </div>
+
+        {/* Mini‑Glossary to reinforce core terms */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Persona (You as…):</strong> A role that sets the AI’s voice, expertise, and perspective.</li>
+            <li><strong>Narrative Format:</strong> The required structure of the output (e.g., bullets, table, JSON).</li>
+            <li><strong>Nuance:</strong> Specific requirements, constraints, or preferences that avoid generic results.</li>
+          </ul>
+        </section>
 
         <div className="bg-card p-6 rounded-xl border border-border">
           <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Applying I.N.S.Y.N.C. - Example 2: The Cover Letter</h2>
@@ -138,6 +165,17 @@ const Lesson1_6: React.FC = () => {
           <PromptImprover />
         </section>
 
+        {/* Quick Check to reinforce the concept before open practice */}
+        <section className="bg-card p-4 rounded-xl border border-border">
+          <h3 className="font-semibold text-card-foreground mb-3">Quick Check</h3>
+          <CheckpointQuiz
+            question={quizQuestions[1].questionText}
+            options={quizQuestions[1].options}
+            correctAnswerIndex={quizQuestions[1].options.indexOf(quizQuestions[1].correctAnswer)}
+            explanation={quizQuestions[1].explanation}
+          />
+        </section>
+
         <InlineChat 
             moduleId="module-1.6"
             maxAttempts={15}
@@ -153,6 +191,14 @@ const Lesson1_6: React.FC = () => {
           <li>Apply the framework to real scenarios (travel, cover letters, campaigns)</li>
         </ul>
       </section>
+
+      <KeyTakeaways
+        points={[
+          'Iterate deliberately: small changes to one element at a time reveal what truly improves results.',
+          'Personas and style make outputs distinctive; nuance and context make them relevant.',
+          'Specify narrative format to control structure and ease downstream use.',
+        ]}
+      />
       </div>
     </LessonTemplate>
   );

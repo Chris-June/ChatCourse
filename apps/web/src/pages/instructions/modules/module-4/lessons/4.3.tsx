@@ -86,6 +86,20 @@ const Lesson4_3: React.FC = () => {
             <li>How to define parameters and expected outputs</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“If I name a tool well, the AI will figure out the rest.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">The model relies on rich descriptions and clear parameters. Ambiguity leads to misuse or no use at all.</p>
+            </div>
+          </div>
+        </section>
         <Accordion title="The Anatomy of a Tool: The Recipe Card" icon={<Wrench />} isInitiallyOpen>
           <p className="text-muted-foreground mb-4">
             Think of an AI tool not as a pre-built appliance, but as a recipe you give to a master chef (the AI). The AI is brilliant, but it can only cook what's on the recipe card. Your job is to write a perfect recipe card—this is your tool's <strong>schema</strong>.
@@ -150,6 +164,16 @@ const Lesson4_3: React.FC = () => {
             <li>Guide the model toward the right tool with descriptive text</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Schema:</strong> The recipe card describing a tool’s purpose and parameters.</li>
+            <li><strong>Atomic Tool:</strong> A single‑purpose tool that does one task well.</li>
+            <li><strong>Parameters:</strong> Inputs the model must provide for the tool to run.</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
           points={[

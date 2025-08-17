@@ -97,6 +97,20 @@ const Lesson5_1 = () => {
             <li>How the system prompt shapes behavior, and limits from the context window</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“Models remember everything from previous chats automatically.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Models only see what you send in the current request. The conversation history you include is the model’s short‑term memory.</p>
+            </div>
+          </div>
+        </section>
         <p className="text-muted-foreground">
           Welcome to the director's room. An AI, like an actor, knows only what's
           in the script. In AI conversations, that script is called{' '}
@@ -228,6 +242,16 @@ const Lesson5_1 = () => {
             <li>Plan for the context window by trimming or summarizing history</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Context:</strong> The message history you send that gives the model short‑term memory.</li>
+            <li><strong>System Prompt:</strong> A high‑level instruction that sets persona, rules, and goals.</li>
+            <li><strong>Context Window:</strong> The maximum tokens the model can process at once; older content is truncated when exceeded.</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
           points={[

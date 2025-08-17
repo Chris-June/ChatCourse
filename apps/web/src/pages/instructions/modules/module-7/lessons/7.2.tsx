@@ -111,6 +111,21 @@ function Lesson7_2() {
         </ul>
       </div>
 
+      {/* Myth vs Reality */}
+      <section className="bg-muted/30 border border-border rounded-xl p-4 mb-6">
+        <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+        <div className="grid md:grid-cols-2 gap-3">
+          <div className="bg-background border border-border rounded-lg p-3">
+            <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+            <p className="text-sm text-muted-foreground">“Fine‑tuning is the best way to add new facts to a model.”</p>
+          </div>
+          <div className="bg-background border border-border rounded-lg p-3">
+            <h4 className="font-semibold text-success mb-1">Reality</h4>
+            <p className="text-sm text-muted-foreground">Use RAG to provide fresh, factual context at query time. Fine‑tuning is better for teaching styles or behaviors, not injecting facts.</p>
+          </div>
+        </div>
+      </section>
+
       <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -210,6 +225,16 @@ function Lesson7_2() {
             <li>Describe a basic RAG pipeline</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>RAG (Retrieval‑Augmented Generation):</strong> A pattern that retrieves relevant documents and conditions the model on them.</li>
+            <li><strong>Context Window:</strong> The amount of text the model can attend to in a single request.</li>
+            <li><strong>Hallucination:</strong> When a model confidently states incorrect or fabricated information.</li>
+          </ul>
+        </section>
 
         <AccordionItem value="item-6">
           <AccordionTrigger>

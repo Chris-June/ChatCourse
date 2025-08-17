@@ -117,6 +117,20 @@ export default function Lesson6_3() {
             <li>Running iterative experiments with clear readouts</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“More usage always means the product is better.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">High‑signal metrics (e.g., accept/copy rate) matter more than vanity metrics. A/B tests validate real improvements.</p>
+            </div>
+          </div>
+        </section>
         <p className="text-muted-foreground">
           A great AI product is like a Michelin-star dish. It doesn't just
           appear fully formed. It's the result of countless small adjustments—a
@@ -219,6 +233,16 @@ export default function Lesson6_3() {
             <li>Plan quick iterations and measure results responsibly</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>High‑Signal Metric:</strong> A metric closely tied to user value (e.g., accept rate) rather than vanity counts.</li>
+            <li><strong>A/B Test:</strong> An experiment that compares a control and a variant to measure causal impact.</li>
+            <li><strong>Hypothesis:</strong> A testable statement linking change (X) to an outcome (Y) with a reason (Z).</li>
+          </ul>
+        </section>
 
         <div
           id="knowledge-check"

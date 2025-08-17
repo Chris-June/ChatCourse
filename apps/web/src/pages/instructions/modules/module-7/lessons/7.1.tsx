@@ -169,6 +169,20 @@ export default function Lesson7_1() {
             <li>Writing prompts that reliably trigger tools</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“Function calling is just the model deciding to run some code.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Function calling is a structured, multi‑step protocol requiring precise schemas and well‑formed arguments. Clear descriptions and required fields are critical.</p>
+            </div>
+          </div>
+        </section>
         <p className="text-muted-foreground">
           By default, an LLM is a brilliant conversationalist trapped in a box.
           It can't check the weather, book a flight, or search your database.
@@ -283,6 +297,16 @@ export default function Lesson7_1() {
             <li>Write a user prompt that triggers the right tool</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Function Calling:</strong> A protocol where the LLM selects a tool and generates JSON arguments to execute it.</li>
+            <li><strong>JSON Schema:</strong> The structured definition of a tool’s parameters, including types and <code>required</code> fields.</li>
+            <li><strong>Tool Description:</strong> A concise explanation that helps the LLM choose the right tool for a user’s intent.</li>
+          </ul>
+        </section>
 
         <div
           id="knowledge-check"

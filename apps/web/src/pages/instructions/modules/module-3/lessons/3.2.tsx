@@ -123,6 +123,21 @@ const Lesson3_2: React.FC = () => {
             <li>When to provide Few‑Shot CoT examples and what Auto‑CoT offers</li>
           </ul>
         </div>
+
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“CoT guarantees correctness if you just add more steps.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">CoT improves transparency and reliability, but you must still verify logic. Poor or incorrect steps lead to wrong answers faster.</p>
+            </div>
+          </div>
+        </section>
         <CotDiagram />
 
         <Accordion 
@@ -222,6 +237,16 @@ const Lesson3_2: React.FC = () => {
             <li>Describe Auto‑CoT at a high level and when to try it</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>CoT (Chain‑of‑Thought):</strong> Showing intermediate reasoning steps.</li>
+            <li><strong>Zero‑Shot CoT:</strong> Triggering reasoning via a phrase like “Let’s think step by step.”</li>
+            <li><strong>Auto‑CoT:</strong> Automatically generated reasoning exemplars to save manual effort.</li>
+          </ul>
+        </section>
 
         <BestPractices
           dos={[

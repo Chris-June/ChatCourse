@@ -112,6 +112,22 @@ const Lesson3_1: React.FC = () => {
             <li>Limits of examples for multi-step reasoning tasks</li>
           </ul>
         </div>
+
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“More examples always produce better results than zero-shot.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">Quality and relevance of examples matter more than quantity. For many straightforward tasks, zero-shot is sufficient and faster.</p>
+            </div>
+          </div>
+        </section>
+
         <ZeroCotDiagram />
 
         <Accordion 
@@ -321,6 +337,16 @@ const Lesson3_1: React.FC = () => {
             <li>Recognize when example-based prompting still struggles and consider advanced techniques</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Zero‑shot:</strong> Instructing the model without examples; relies on pretraining.</li>
+            <li><strong>Few‑shot:</strong> Providing a handful of examples to guide output style/logic.</li>
+            <li><strong>Shot:</strong> One exemplar pair (input → output) included in the prompt.</li>
+          </ul>
+        </section>
 
         <BestPractices
           dos={[

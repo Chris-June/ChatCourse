@@ -107,6 +107,20 @@ const Lesson4_1: React.FC = () => {
             <li>Critical security practices for validating arguments</li>
           </ul>
         </div>
+        {/* Myth vs Reality */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Myth vs. Reality</h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-destructive mb-1">Myth</h4>
+              <p className="text-sm text-muted-foreground">“The AI executes your tools and code for you.”</p>
+            </div>
+            <div className="bg-background border border-border rounded-lg p-3">
+              <h4 className="font-semibold text-success mb-1">Reality</h4>
+              <p className="text-sm text-muted-foreground">The model only returns a structured request (JSON). Your application validates inputs and executes code securely.</p>
+            </div>
+          </div>
+        </section>
         <p className="text-lg text-muted-foreground">
           Imagine AI as a highly intelligent assistant who can't physically do things themselves, but can perfectly tell you exactly what to do. Function calling is like giving your AI assistant a set of specialized tools - a calculator, a calendar, a weather app - and teaching them to say: "To get the current temperature, use the weather tool with location 'New York'." They don't actually check the weather, but they give you the precise instructions to do it yourself.
         </p>
@@ -297,6 +311,16 @@ if (functionToCall) {
             <li>Validate and safely execute tool calls in your app</li>
           </ul>
         </div>
+
+        {/* Mini‑Glossary */}
+        <section className="bg-muted/30 border border-border rounded-xl p-4">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Mini‑Glossary</h3>
+          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+            <li><strong>Function Calling:</strong> Model returns a JSON tool request; your app executes the code.</li>
+            <li><strong>Schema:</strong> Name, description, and parameters that define a tool for the model.</li>
+            <li><strong>Validation:</strong> Verifying and sanitizing model-provided arguments before execution.</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
           points={[
