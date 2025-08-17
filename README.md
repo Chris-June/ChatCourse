@@ -111,6 +111,29 @@ If you use the Windsurf IDE (recommended by the maintainer):
     ```
     or install a cross-platform env tool (e.g., `cross-env`).
 
+## Screenshots
+  
+You can add screenshots under `docs/screenshots/` and reference them here.
+  
+- Chat UI
+    
+    ![Chat UI](docs/screenshots/ChatUI.png)
+  
+- Chat UI Sidebar
+    
+    ![Chat UI Sidebar](docs/screenshots/ChatUIsidebar.png)
+  
+- Settings
+    
+    ![Settings](docs/screenshots/Settings.png)
+  
+- Settings (Advanced)
+    
+    ![Settings 2](docs/screenshots/Settings2.png)
+  
+  <!-- Optional: custom sizing example -->
+  <!-- <img src="docs/screenshots/ChatUI.png" alt="Chat UI" width="900" /> -->
+  
 —
 
 Legacy beginner-friendly instructions remain below for reference.
@@ -130,20 +153,20 @@ Legacy beginner-friendly instructions remain below for reference.
 ### Option A – The Simple Download
 
 1. Visit the project page and click **“Download ZIP.”**  
-   `https://github.com/Chris-June/Chat`
-2. Un‑zip the file. You’ll get a folder called **`Chat`**.
+   `https://github.com/Chris-June/ChatCourse`
+2. Un‑zip the file. You’ll get a folder called **`ChatCourse`**.
 
 ### Option B – Use Git (skip if that word means nothing to you)
 
 1. In VS Code choose **Source Control → Clone Repository**.  
-2. Paste `git@github.com:Chris-June/Chat.git` when asked.
+2. Paste `git@github.com:Chris-June/ChatCourse.git` when asked.
 
 Either way, remember where you put the folder—you’ll need it soon.
 
 ## 4. Open the Project in VS Code
 
 1. Launch VS Code.  
-2. Select **File → Open Folder…** and pick the **`Chat`** folder.  
+2. Select **File → Open Folder…** and pick the **`ChatCourse`** folder.  
 3. VS Code will ask “**Do you trust the authors?**” Click **Yes**.
 
 ---
@@ -347,13 +370,13 @@ No complex maths, no mysterious jargon—just clear instructions.
 ### Option A – The Simple Download
 
 1. Visit the project page and click **“Download ZIP.”**  
-   `https://github.com/Chris-June/Chat`
-2. Un‑zip the file. You’ll get a folder called **`Chat`**.
+   `https://github.com/Chris-June/ChatCourse`
+2. Un‑zip the file. You’ll get a folder called **`ChatCourse`**.
 
 ### Option B – Use Git (skip if that word means nothing to you)
 
 1. In VS Code choose **Source Control → Clone Repository**.  
-2. Paste `git@github.com:Chris-June/Chat.git` when asked.
+2. Paste `git@github.com:Chris-June/ChatCourse.git` when asked.
 
 Either way, remember where you put the folder—you’ll need it soon.
 
@@ -362,7 +385,7 @@ Either way, remember where you put the folder—you’ll need it soon.
 ## 4. Open the Project in VS Code
 
 1. Launch VS Code.  
-2. Select **File → Open Folder…** and pick the **`Chat`** folder.  
+2. Select **File → Open Folder…** and pick the **`ChatCourse`** folder.  
 3. VS Code will ask “**Do you trust the authors?**” Click **Yes**.
 
 ---
@@ -482,4 +505,4 @@ MIT — do whatever you like, just keep this notice.
 
 ---
 
-**Need help?** Open an [issue](https://github.com/Chris-June/Chat/issues) or say hi in the community Discord. Everyone started somewhere. 🙌
+**Need help?** Open an [issue](https://github.com/Chris-June/ChatCourse/issues) or say hi in the community Discord. Everyone started somewhere. 🙌
