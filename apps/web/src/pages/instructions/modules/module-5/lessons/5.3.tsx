@@ -213,7 +213,7 @@ export default function Lesson5_3() {
         <BestPractices
           dos={[
             'Stream responses whenever possible to provide immediate feedback.',
-            "Match the model to the task\'s complexity (e.g., use light models for classification).",
+            "Match the model to the task's complexity (e.g., use light models for classification).",
             'Implement a caching layer for frequent, identical requests.',
           ]}
           donts={[

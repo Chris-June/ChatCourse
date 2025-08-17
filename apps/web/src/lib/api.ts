@@ -7,10 +7,10 @@ export const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 export interface ApiError extends Error {
   status?: number;
-  details?: any;
+  details?: unknown;
 }
 
-export async function fetchAPI<T = any>(
+export async function fetchAPI<T = unknown>(
   endpoint: string, 
   options: RequestInit = {}
 ): Promise<T> {
@@ -27,16 +27,19 @@ export async function fetchAPI<T = any>(
       },
     });
 
-    const data = await response.json().catch(() => ({}));
+    const data: unknown = await response.json().catch(() => ({}));
 
     if (!response.ok) {
-      const error: ApiError = new Error(data.message || 'Something went wrong');
+      const message = (typeof data === 'object' && data !== null && 'message' in data)
+        ? String((data as { message?: unknown }).message)
+        : 'Something went wrong';
+      const error: ApiError = new Error(message);
       error.status = response.status;
       error.details = data;
       throw error;
     }
 
-    return data;
+    return data as T;
   } catch (error) {
     console.error('API request failed:', error);
     throw error;
@@ -45,12 +48,12 @@ export async function fetchAPI<T = any>(
 
 // Helper methods for common HTTP methods
 export const api = {
-  get: <T = any>(endpoint: string, options: Omit<RequestInit, 'method'> = {}) => 
+  get: <T = unknown>(endpoint: string, options: Omit<RequestInit, 'method'> = {}) => 
     fetchAPI<T>(endpoint, { ...options, method: 'GET' }),
     
-  post: <T = any>(
+  post: <T = unknown>(
     endpoint: string, 
-    body: any, 
+    body: unknown, 
     options: Omit<RequestInit, 'method' | 'body'> = {}
   ) => 
     fetchAPI<T>(endpoint, { 
@@ -59,9 +62,9 @@ export const api = {
       body: JSON.stringify(body) 
     }),
     
-  put: <T = any>(
+  put: <T = unknown>(
     endpoint: string, 
-    body: any, 
+    body: unknown, 
     options: Omit<RequestInit, 'method' | 'body'> = {}
   ) => 
     fetchAPI<T>(endpoint, { 
@@ -70,6 +73,6 @@ export const api = {
       body: JSON.stringify(body) 
     }),
     
-  delete: <T = any>(endpoint: string, options: Omit<RequestInit, 'method'> = {}) => 
+  delete: <T = unknown>(endpoint: string, options: Omit<RequestInit, 'method'> = {}) => 
     fetchAPI<T>(endpoint, { ...options, method: 'DELETE' }),
 };

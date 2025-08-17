@@ -12,7 +12,7 @@ interface EvaluationCriterion {
 }
 
 interface FunctionCallGraderProps {
-  functionSchema: any;
+  functionSchema: unknown;
   initialPrompt: string;
   evaluationCriteria: EvaluationCriterion[];
 }

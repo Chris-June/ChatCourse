@@ -8,6 +8,7 @@ import BestPractices from '../../../components/BestPractices';
 import CheckpointQuiz from '../../../components/CheckpointQuiz';
 import ComparisonCard from '../../../components/ComparisonCard';
 import { Sparkles, ListChecks } from 'lucide-react';
+import type { ChallengeChecklistItem } from '@/components/InlineChat';
 
 import { zeroShotAssistantPrompt, fewShotAssistantPrompt, reasoningChallengeAssistantPrompt, reasoningChallengeChecklist } from '@/prompts';
 
@@ -283,7 +284,7 @@ const Lesson3_1: React.FC = () => {
               maxFollowUps={2}
               placeholder="Try to solve the reasoning problem..."
               systemPrompt={reasoningChallengeAssistantPrompt}
-              challengeChecklist={reasoningChallengeChecklist.map((item: any) => ({ ...item }))}
+              challengeChecklist={reasoningChallengeChecklist.map((item: ChallengeChecklistItem) => ({ ...item }))}
             />
           </div>
         </Accordion>

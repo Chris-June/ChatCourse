@@ -30,7 +30,7 @@ const FunctionSchemaDesigner: React.FC = () => {
         description: functionDescription,
         parameters: {
           type: 'object',
-          properties: parameters.reduce((acc, param) => {
+          properties: parameters.reduce<Record<string, { type: Parameter['type']; description: string }>>((acc, param) => {
             if (param.name) {
               acc[param.name] = {
                 type: param.type,
@@ -38,7 +38,7 @@ const FunctionSchemaDesigner: React.FC = () => {
               };
             }
             return acc;
-          }, {} as any),
+          }, {}),
           required: parameters.filter(p => p.required && p.name).map(p => p.name),
         },
       },

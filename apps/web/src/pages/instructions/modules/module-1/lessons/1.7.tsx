@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { addAnimationStyles } from './utils/addAnimationStyles';
 import { Beaker, BookOpen, FileText, Sparkles, Target } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import AdvancedTools from '../../../components/AdvancedTools';
@@ -6,43 +7,9 @@ import Deconstruction from '../../../components/Deconstruction';
 import PatternRecognition from '../../../components/PatternRecognition';
 import IterativeRefinement from '../../../components/IterativeRefinement';
 import KeyTakeaways from '../../../components/KeyTakeaways';
+import TabButton from './components/TabButton';
 
-// Tab component for the lesson navigation
-const TabButton: React.FC<{ 
-  active: boolean;
-  onClick: () => void;
-  icon: React.ReactNode;
-  label: string;
-}> = ({ active, onClick, icon, label }) => (
-  <button
-    onClick={onClick}
-    className={`flex items-center px-4 py-3 text-sm font-medium rounded-t-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-      active
-        ? 'bg-card text-primary border-b-2 border-primary'
-        : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
-    }`}
-  >
-    <span className="mr-2">{icon}</span>
-    {label}
-  </button>
-);
-
-// Add fade-in animation styles
-const addAnimationStyles = () => {
-  if (document.getElementById('fade-in-animation-style')) return;
-  const style = document.createElement('style');
-  style.id = 'fade-in-animation-style';
-  style.textContent = `
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-in {
-      animation: fadeIn 0.5s ease-out forwards;
-    }
-  `;
-  document.head.appendChild(style);
-};
+// Tab component moved to './components/TabButton'
 
 const Lesson1_7: React.FC = () => {
   const quizQuestions = [

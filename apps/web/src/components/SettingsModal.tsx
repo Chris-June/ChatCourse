@@ -25,7 +25,7 @@ import {
   Button,
 } from '@chat/ui';
 import { Sun, Moon, Save } from 'lucide-react';
-import { useChatStore } from '../store/chat';
+import { useChatStore, type Units, type Tone, type Expertise, type ReasoningEffort, type Verbosity, type ToolMode } from '../store/chat';
 import { models, modelFamilies } from '@/lib/models';
 
 
@@ -134,7 +134,7 @@ const SettingsModal = () => {
               </div>
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium text-muted-foreground">Units</Label>
-                <Select value={units} onValueChange={(v) => setUnits(v as any)}>
+                <Select value={units} onValueChange={(v) => setUnits(v as Units)}>
                   <SelectTrigger className="bg-input border-input h-9 w-full md:w-[320px]"><SelectValue placeholder="Units" /></SelectTrigger>
                   <SelectContent className="bg-card border-border text-card-foreground">
                     <SelectItem value="metric">Metric</SelectItem>
@@ -144,7 +144,7 @@ const SettingsModal = () => {
               </div>
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium text-muted-foreground">Tone</Label>
-                <Select value={tone} onValueChange={(v) => setTone(v as any)}>
+                <Select value={tone} onValueChange={(v) => setTone(v as Tone)}>
                   <SelectTrigger className="bg-input border-input h-9 w-full md:w-[320px]"><SelectValue placeholder="Tone" /></SelectTrigger>
                   <SelectContent className="bg-card border-border text-card-foreground">
                     <SelectItem value="professional">Professional</SelectItem>
@@ -155,7 +155,7 @@ const SettingsModal = () => {
               </div>
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium text-muted-foreground">Expertise</Label>
-                <Select value={expertise} onValueChange={(v) => setExpertise(v as any)}>
+                <Select value={expertise} onValueChange={(v) => setExpertise(v as Expertise)}>
                   <SelectTrigger className="bg-input border-input h-9 w-full md:w-[320px]"><SelectValue placeholder="Expertise" /></SelectTrigger>
                   <SelectContent className="bg-card border-border text-card-foreground">
                     <SelectItem value="novice">Novice</SelectItem>
@@ -259,7 +259,7 @@ const SettingsModal = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label className="text-sm font-medium text-muted-foreground">Reasoning Effort</Label>
-              <Select value={reasoningEffort} onValueChange={(v) => setReasoningEffort(v as any)}>
+              <Select value={reasoningEffort} onValueChange={(v) => setReasoningEffort(v as ReasoningEffort)}>
                 <SelectTrigger className="bg-input border-input">
                   <SelectValue placeholder="Select effort" />
                 </SelectTrigger>
@@ -275,7 +275,7 @@ const SettingsModal = () => {
 
             <div className="space-y-2">
               <Label className="text-sm font-medium text-muted-foreground">Verbosity</Label>
-              <Select value={verbosity} onValueChange={(v) => setVerbosity(v as any)}>
+              <Select value={verbosity} onValueChange={(v) => setVerbosity(v as Verbosity)}>
                 <SelectTrigger className="bg-input border-input">
                   <SelectValue placeholder="Select verbosity" />
                 </SelectTrigger>
@@ -291,7 +291,7 @@ const SettingsModal = () => {
 
           <div className="space-y-2">
             <Label className="text-sm font-medium text-muted-foreground">Tool Mode</Label>
-            <Select value={toolMode} onValueChange={(v) => setToolMode(v as any)}>
+            <Select value={toolMode} onValueChange={(v) => setToolMode(v as ToolMode)}>
               <SelectTrigger className="bg-input border-input w-full md:w-[320px]">
                 <SelectValue placeholder="Tool usage" />
               </SelectTrigger>

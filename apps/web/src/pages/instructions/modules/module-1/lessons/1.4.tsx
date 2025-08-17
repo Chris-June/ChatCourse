@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThumbsUp, ThumbsDown } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, BookOpen, Settings, ListChecks, Wand2, AlertTriangle, Sparkles } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
@@ -68,6 +68,39 @@ const Lesson1_4: React.FC = () => {
       ],
       correctAnswer: 'Write a short, friendly blog post (around 200 words) explaining three key benefits of dog ownership for first-time pet owners.',
       explanation: 'This prompt is specific about the intent (write a blog post), format (short, ~200 words), tone (friendly), content (three key benefits), and audience (first-time owners). This level of detail makes a good output highly probable.'
+    },
+    {
+      questionText: 'Which prompt structure is most likely to produce consistent results?',
+      options: [
+        '“Do your best.”',
+        'Task + Context + Constraints + Output format',
+        '“Be creative and keep going until I say stop.”',
+        '“You know what I mean.”'
+      ],
+      correctAnswer: 'Task + Context + Constraints + Output format',
+      explanation: 'Clear scaffolding narrows the probability space and produces more stable, on-target outputs.'
+    },
+    {
+      questionText: 'What is a practical use of a persona (e.g., “You are a CFO assistant”) in prompts?',
+      options: [
+        'To change the model’s training data',
+        'To steer tone, vocabulary, and domain assumptions',
+        'To unlock hidden APIs',
+        'To increase the context window'
+      ],
+      correctAnswer: 'To steer tone, vocabulary, and domain assumptions',
+      explanation: 'Personas frame the “voice” and domain lens the model should adopt for the task.'
+    },
+    {
+      questionText: 'Which guardrail best reduces meandering answers?',
+      options: [
+        '“Write anything you want.”',
+        '“If information is missing, ask exactly one clarifying question.”',
+        '“Ignore all instructions above.”',
+        '“Use lots of adjectives.”'
+      ],
+      correctAnswer: '“If information is missing, ask exactly one clarifying question.”',
+      explanation: 'Explicit interaction rules create predictable flows and reduce off-target output.'
     }
   ];
 
@@ -105,6 +138,48 @@ const Lesson1_4: React.FC = () => {
           <p className="text-muted-foreground mt-4">
             Think of the AI as an incredibly knowledgeable and skilled, but very literal, new employee. It can do almost anything you ask, but it won't do anything *until* you ask. It has no common sense and relies 100% on your instructions. The quality of your prompt directly determines the quality of its response.
           </p>
+        </div>
+
+        <div className="p-4 bg-muted/30 rounded-md border">
+          <h3 className="text-sm font-semibold mb-2 flex items-center"><BookOpen className="w-4 h-4 mr-2 text-emerald-500"/> Prompt Framework (Copy/Paste)</h3>
+          <pre className="bg-muted p-3 rounded text-xs overflow-x-auto">
+{`Task: <what to do>
+Context: <who/what/why that matters>
+Constraints: <tone, length, audience, do/don'ts>
+Output format: <bullets|table|JSON schema>`}
+          </pre>
+          <p className="text-xs text-muted-foreground mt-2">Tip: Friction disappears when learners reuse this scaffold for any task.</p>
+        </div>
+
+        <div className="p-4 bg-muted/20 rounded-md border">
+          <h3 className="text-sm font-semibold mb-2 flex items-center"><Settings className="w-4 h-4 mr-2 text-cyan-500"/> Prompt Patterns That Work</h3>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li><strong>Role + Task</strong>: “You are a career coach. Draft a 4-bullet action plan…”</li>
+            <li><strong>Few-shot</strong>: Show 1–2 short examples, then “Now do the same for…”</li>
+            <li><strong>Schema-first</strong>: “Return ONLY valid JSON: (title, bullets, summary)”</li>
+            <li><strong>Guardrails</strong>: “If info is missing, ask one clarifying question before answering.”</li>
+          </ul>
+        </div>
+
+        <div className="p-4 bg-muted/20 rounded-md border">
+          <h3 className="text-sm font-semibold mb-2 flex items-center"><Sparkles className="w-4 h-4 mr-2 text-indigo-500"/> Bad → Better Rewrites</h3>
+          <pre className="bg-muted p-3 rounded text-xs overflow-x-auto">
+{`Bad: "Help with marketing."
+Better:
+Task: Draft a LinkedIn post for a local bakery launch.
+Context: Audience = downtown professionals; goal = foot traffic.
+Constraints: 120–150 words, friendly, 1 CTA.
+Output: 1 post + 3 hashtag options.`}
+          </pre>
+        </div>
+
+        <div className="p-4 bg-muted/30 rounded-md border">
+          <h3 className="text-sm font-semibold mb-2 flex items-center"><AlertTriangle className="w-4 h-4 mr-2 text-rose-500"/> Myth vs. Reality</h3>
+          <ul className="text-sm text-muted-foreground space-y-1">
+            <li><strong>Myth:</strong> Longer prompt = always better. <strong>Reality:</strong> Longer can dilute constraints and waste tokens.</li>
+            <li><strong>Myth:</strong> Persona is optional fluff. <strong>Reality:</strong> It anchors tone and domain assumptions.</li>
+            <li><strong>Myth:</strong> The model knows your intent. <strong>Reality:</strong> State it explicitly.</li>
+          </ul>
         </div>
 
         <div className="text-lg text-muted-foreground">
@@ -208,9 +283,39 @@ const Lesson1_4: React.FC = () => {
             </div>
 
           </div>
-        </div>
 
-       
+            <div className="p-4 bg-card rounded-md border">
+              <h3 className="text-sm font-semibold mb-2 flex items-center"><ListChecks className="w-4 h-4 mr-2"/> Micro-Checklist</h3>
+              <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                <li>Stated the task and outcome clearly?</li>
+                <li>Included audience, tone, and constraints?</li>
+                <li>Specified output format (bullets/table/JSON)?</li>
+                <li>Added one example or acceptance criteria?</li>
+              </ul>
+            </div>
+
+            <div className="p-4 bg-muted/10 rounded-md border">
+              <h3 className="text-sm font-semibold mb-2 flex items-center"><Wand2 className="w-4 h-4 mr-2"/> Templates (Ready to Paste)</h3>
+              <pre className="bg-muted p-3 rounded text-xs overflow-x-auto mb-2">
+{`You are a [role]. Task: [goal]. Context: [who/what/why].
+Constraints: [tone, length, audience].
+Output: [structure]. If info is missing, ask 1 clarifying question.`}
+              </pre>
+              <pre className="bg-muted p-3 rounded text-xs overflow-x-auto">
+{`Return ONLY valid JSON:
+{ "title": string, "bullets": string[4], "cta": string }`}
+              </pre>
+            </div>
+
+            <div className="p-4 bg-card rounded-md border">
+              <h3 className="text-sm font-semibold mb-2">Pop Quiz (45s)</h3>
+              <ol className="list-decimal list-inside text-sm text-muted-foreground space-y-1">
+                <li>Rewrite: “Make a plan.” for a florist launching weekend pop-ups.</li>
+                <li>Add a guardrail to prevent vague answers.</li>
+              </ol>
+              <p className="text-xs text-muted-foreground mt-2">Tip: Ask the inline chat to grade “pass/fail with one improvement.”</p>
+            </div>
+        </div>
 
         <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
           <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
@@ -219,6 +324,8 @@ const Lesson1_4: React.FC = () => {
             <li>Set an appropriate persona and audience for the task</li>
             <li>Iterate on prompts to steer quality and relevance</li>
             <li>Diagnose why a prompt underperforms and improve it</li>
+            <li>Apply a reusable Task/Context/Constraints/Output scaffold</li>
+            <li>Add guardrails (e.g., ask 1 clarifying question) to reduce meandering</li>
           </ul>
         </section>
 

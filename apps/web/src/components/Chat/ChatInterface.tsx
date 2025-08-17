@@ -164,7 +164,7 @@ const ChatInterface = () => {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let assistantMessage: Message = { role: 'assistant', content: '' };
+      const assistantMessage: Message = { role: 'assistant', content: '' };
       addMessage(assistantMessage);
 
       let buffer = '';
@@ -226,7 +226,9 @@ const ChatInterface = () => {
       const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
       e.preventDefault();
-      handleSubmit(e as any);
+      // Submit the enclosing form without using any casts
+      const form = (e.currentTarget as HTMLInputElement).form;
+      form?.requestSubmit();
     }
   };
 

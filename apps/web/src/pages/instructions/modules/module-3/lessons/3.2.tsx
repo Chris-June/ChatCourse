@@ -9,6 +9,7 @@ import BestPractices from '../../../components/BestPractices';
 import CheckpointQuiz from '../../../components/CheckpointQuiz';
 
 import { zeroShotCotAssistantPrompt, zeroShotCoTChallengeChecklist } from '@/prompts';
+import type { ChallengeChecklistItem } from '../../../../../components/InlineChat';
 
 const Lesson3_2: React.FC = () => {
   const cotQuiz = {
@@ -38,7 +39,7 @@ const Lesson3_2: React.FC = () => {
   const autoCotQuiz = {
     question: 'What is the main advantage of Automatic CoT (Auto-CoT)?',
     options: [
-      'It writes the user\'s initial prompt for them.',
+      "It writes the user's initial prompt for them.",
       'It guarantees a correct answer every time.',
       'It automatically generates a diverse set of reasoning examples, saving significant manual effort.',
       'It allows the model to ask clarifying questions.',
@@ -51,11 +52,11 @@ const Lesson3_2: React.FC = () => {
       questionText: 'What is the core principle of Chain-of-Thought (CoT) prompting?',
       options: [
         'To chain multiple prompts together in a single API call.',
-        'To provide examples that include intermediate reasoning steps, showing the model \'how\' to think.',
+        "To provide examples that include intermediate reasoning steps, showing the model 'how' to think.",
         'To ask the AI a long chain of questions.',
         'To use the shortest prompt possible.'
       ],
-      correctAnswer: 'To provide examples that include intermediate reasoning steps, showing the model \'how\' to think.',
+      correctAnswer: "To provide examples that include intermediate reasoning steps, showing the model 'how' to think.",
       explanation: 'CoT works by explicitly showing the model the process of reasoning, which helps it tackle complex, multi-step problems more reliably.'
     },
     {
@@ -88,7 +89,7 @@ const Lesson3_2: React.FC = () => {
         'When you need to solve a reasoning task but don\'t have examples to use for few-shot prompting.',
         'When you want the shortest possible answer from the AI.'
       ],
-      correctAnswer: 'When you need to solve a reasoning task but don\'t have examples to use for few-shot prompting.',
+      correctAnswer: "When you need to solve a reasoning task but don't have examples to use for few-shot prompting.",
       explanation: 'Its main advantage is enabling reasoning without the need to craft detailed examples, making it a powerful and efficient technique.'
     },
     {
@@ -191,7 +192,7 @@ const Lesson3_2: React.FC = () => {
               maxFollowUps={3}
               placeholder="Enter your query here based on what we have learned in this section..."
               systemPrompt={zeroShotCotAssistantPrompt}
-              challengeChecklist={zeroShotCoTChallengeChecklist.map((item: any) => ({ ...item }))}
+              challengeChecklist={zeroShotCoTChallengeChecklist.map((item: ChallengeChecklistItem) => ({ ...item }))}
             />
           </div>
 
@@ -224,14 +225,14 @@ const Lesson3_2: React.FC = () => {
 
         <BestPractices
           dos={[
-            "Use Chain-of-Thought for problems that require multiple logical steps, like math or planning.",
-            "For Zero-Shot CoT, simply add 'Let\'s think step by step' to your prompt to encourage a reasoned breakdown.",
-            "When creating manual CoT examples, ensure the reasoning process is clear, correct, and easy for the model to replicate.",
+            'Use Chain-of-Thought for problems that require multiple logical steps, like math or planning.',
+            "For Zero-Shot CoT, simply add 'Let's think step by step' to your prompt to encourage a reasoned breakdown.",
+            'When creating manual CoT examples, ensure the reasoning process is clear, correct, and easy for the model to replicate.',
           ]}
           donts={[
-            "Don\'t use CoT for simple retrieval tasks where reasoning is not required; it adds unnecessary length.",
-            "Avoid overly complex or convoluted reasoning in your examples. Clarity is key.",
-            "Don\'t assume CoT makes the model infallible. Always check the reasoning steps for logical errors.",
+            "Don't use CoT for simple retrieval tasks where reasoning is not required; it adds unnecessary length.",
+            'Avoid overly complex or convoluted reasoning in your examples. Clarity is key.',
+            "Don't assume CoT makes the model infallible. Always check the reasoning steps for logical errors.",
           ]}
         />
 
@@ -239,7 +240,7 @@ const Lesson3_2: React.FC = () => {
           points={[
             'Chain-of-Thought (CoT) guides the AI by showing the reasoning steps, not just the final answer.',
             'It is highly effective for multi-step logic, math, and planning problems.',
-            'A simple phrase like \'Let\'s think step by step\' can trigger a reasoning process (Zero-Shot CoT) without needing examples.',
+            "A simple phrase like 'Let's think step by step' can trigger a reasoning process (Zero-Shot CoT) without needing examples.",
             'For complex tasks, providing explicit CoT examples (Few-Shot CoT) is a powerful way to improve reliability.',
           ]}
         />

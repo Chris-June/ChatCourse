@@ -19,10 +19,11 @@ export const InteractiveCodeBlock: React.FC<InteractiveCodeBlockProps> = ({ code
     setError(null);
 
     try {
-      const result = await api.post('/api/execute', { code, language });
+      const result = await api.post<{ output: string }>('/api/execute', { code, language });
       setOutput(result.output);
-    } catch (err: any) {
-      setError(err.message || 'Failed to execute code');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to execute code';
+      setError(message);
     } finally {
       setIsRunning(false);
     }

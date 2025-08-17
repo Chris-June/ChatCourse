@@ -1,77 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import { nextTokenAssistantPrompt } from '@/prompts';
+import InteractiveTokenizer from './components/InteractiveTokenizer';
+import PredictTheNextToken from '@/pages/instructions/components/PredictTheNextToken';
 
 
 
-const tokenizeText = (text: string): string[] => {
-  // This is a simplified tokenizer for demonstration.
-  // It splits by word boundaries or grabs any non-whitespace character.
-  return text.match(/\b\w+\b|\S/g) || [];
-};
-
-const InteractiveTokenizer = () => {
-  const [inputText, setInputText] = useState('Hello world! This is a test.');
-  const [tokens, setTokens] = useState<string[]>([]);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    setTokens(tokenizeText(inputText));
-  }, [inputText]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputText(e.target.value);
-  };
-
-  const animateTokens = () => {
-    setIsAnimating(true);
-    setTimeout(() => setIsAnimating(false), 1000); // Animation duration
-  };
-
-  return (
-    <div className="bg-card p-6 rounded-xl border border-border mb-6 my-8">
-      <h4 className="text-lg font-semibold text-card-foreground mb-4">Interactive Tokenizer Demo</h4>
-      <p className="text-muted-foreground mb-4 text-sm">
-        Type in the box below to see how your text gets broken down into tokens. This is a fundamental step in how LLMs process language.
-      </p>
-      <label htmlFor="tokenizer-input" className="block text-xs font-medium text-muted-foreground mb-2">
-        Enter text to tokenize
-      </label>
-      <textarea
-        value={inputText}
-        onChange={handleInputChange}
-        id="tokenizer-input"
-        className="w-full h-24 bg-muted border border-input rounded-md p-3 text-foreground focus:ring-2 focus:ring-primary transition"
-        placeholder="Enter text to tokenize..."
-      />
-      <div className="flex justify-end mt-3">
-        <button
-          onClick={animateTokens}
-          className="px-4 py-2 bg-primary text-primary-foreground text-sm rounded-lg hover:bg-primary/90 transition-colors"
-        >
-          Visualize Tokenization
-        </button>
-      </div>
-      <div className="mt-4 pt-4 border-t border-border">
-        <h5 className="text-base font-medium text-card-foreground mb-3">Tokens:</h5>
-        <div className="flex flex-wrap gap-2">
-          {tokens.map((token, index) => (
-            <span
-              key={index}
-              className={`px-2 py-1 rounded-md text-sm ${isAnimating ? 'animate-pulse bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}
-              style={{ animationDelay: isAnimating ? `${index * 50}ms` : '0ms' }}
-            >
-              {token}
-            </span>
-          ))}
-        </div>
-        <p className="text-xs text-muted-foreground mt-3" role="status" aria-live="polite">Token Count: {tokens.length}</p>
-      </div>
-    </div>
-  );
-};
+ 
 
 const Lesson1_2: React.FC = () => {
 
@@ -120,6 +57,40 @@ const Lesson1_2: React.FC = () => {
       correctAnswer: 'It makes the desired output the most statistically probable outcome.',
       explanation: 'Precisely! A good prompt sets the initial conditions of the predictive loop, guiding the AI to generate the sequence of tokens that aligns with your goal.'
     }
+    ,
+    {
+      questionText: 'What does greedy decoding (temperature = 0) usually produce?',
+      options: [
+        'Highly creative, varied text with many surprises',
+        'Stable, plain responses that follow the highest-probability next token',
+        'Translations into random languages',
+        'Longer responses regardless of prompt length'
+      ],
+      correctAnswer: 'Stable, plain responses that follow the highest-probability next token',
+      explanation: 'Greedy picks the single most likely token each step. Great for consistency; weaker for creativity.'
+    },
+    {
+      questionText: 'How does increasing temperature typically affect generation?',
+      options: [
+        'It decreases randomness and repetition',
+        'It increases randomness and variety in the next-token choice',
+        'It guarantees factual accuracy',
+        'It extends the context window'
+      ],
+      correctAnswer: 'It increases randomness and variety in the next-token choice',
+      explanation: 'Higher temperature flattens the probability distribution so lower-probability tokens are sampled more often.'
+    },
+    {
+      questionText: 'Why do tokens matter for costs and limits?',
+      options: [
+        'Costs/limits are measured in tokens, so longer prompts leave fewer tokens for the reply',
+        'Tokens determine which websites the model can read',
+        'Tokens control your internet bandwidth',
+        'Tokens only matter for non-English languages'
+      ],
+      correctAnswer: 'Costs/limits are measured in tokens, so longer prompts leave fewer tokens for the reply',
+      explanation: 'Token budgets cap how much you can send and receive. Keeping prompts concise preserves room for the answer.'
+    }
   ];
 
   return (
@@ -155,6 +126,71 @@ const Lesson1_2: React.FC = () => {
         </div>
 
         <InteractiveTokenizer />
+
+        <div className="p-4 bg-muted/20 rounded-md border mt-4">
+          <h4 className="text-sm font-semibold mb-2">Tokenization Gotchas</h4>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li><strong>Whitespace & punctuation</strong> are tokens too; formatting affects counts.</li>
+            <li><strong>Sub-words</strong> split rare/long terms (e.g., "un-believ-able").</li>
+            <li><strong>Emoji & symbols</strong> each cost tokens; heavy use shrinks reply space.</li>
+          </ul>
+        </div>
+
+        <div className="p-4 bg-muted/20 rounded-md border mt-4">
+          <h4 className="text-sm font-semibold mb-2">Mini-Glossary</h4>
+          <dl className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-muted-foreground">
+            <div><dt className="font-medium">Token</dt><dd>Smallest chunk the model reads/writes (word, sub-word, punctuation, emoji).</dd></div>
+            <div><dt className="font-medium">Vocabulary</dt><dd>The set of all tokens the model can emit.</dd></div>
+            <div><dt className="font-medium">Distribution</dt><dd>All possible next tokens with their probabilities.</dd></div>
+            <div><dt className="font-medium">Decoding</dt><dd>How a token is chosen (greedy, temperature, top‑p).</dd></div>
+          </dl>
+        </div>
+
+        <div className="p-4 bg-muted/10 rounded-md border mt-4">
+          <h4 className="text-sm font-semibold mb-2">Token Sense: Budget & Brevity</h4>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li><strong>Tokens ≠ words:</strong> English averages ~0.75 words/token.</li>
+            <li><strong>Be concise:</strong> Short prompts preserve tokens for the answer.</li>
+            <li><strong>Prefer clarity:</strong> "use" over "utilize"; remove filler; keep examples tight.</li>
+          </ul>
+        </div>
+
+        <div className="p-4 bg-muted/30 rounded-md border mt-4">
+          <h4 className="text-sm font-semibold mb-2">Myth vs. Reality</h4>
+          <ul className="text-sm text-muted-foreground space-y-1">
+            <li><strong>Myth:</strong> “Tokens are just words.” <br/>
+              <strong>Reality:</strong> Tokens can be words, sub‑words, punctuation, or even emojis.</li>
+            <li><strong>Myth:</strong> “Tokenization is always intuitive.” <br/>
+              <strong>Reality:</strong> Sometimes tokenization splits words in unexpected places (e.g., "friendship" → ["friend", "ship"]).</li>
+            <li><strong>Myth:</strong> “More tokens always mean more detail.” <br/>
+              <strong>Reality:</strong> More tokens can mean redundancy and higher costs.</li>
+          </ul>
+        </div>
+
+        <div className="p-4 bg-muted/20 rounded-md border mt-4">
+          <h4 className="text-sm font-semibold mb-2">Analogies to Understand Tokens</h4>
+          <p className="text-sm text-muted-foreground mb-2">Think of tokens like:</p>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li><strong>LEGO bricks:</strong> Small pieces that snap together to build larger structures (sentences, essays).</li>
+            <li><strong>Musical notes:</strong> Individual sounds that combine into melodies and songs.</li>
+            <li><strong>Currency:</strong> You “spend” tokens for input and output; manage your budget wisely.</li>
+          </ul>
+        </div>
+
+        <div className="p-4 bg-card rounded-md border mt-4">
+          <h4 className="text-sm font-semibold mb-2">Quick Check</h4>
+          <ol className="list-decimal list-inside text-sm text-muted-foreground space-y-1">
+            <li>List three different things that can be tokens besides whole words.</li>
+            <li>Why does breaking “unbelievable” into sub‑words help the model?</li>
+            <li>How might emojis affect your token budget?</li>
+          </ol>
+          <p className="text-xs text-muted-foreground mt-2">Tip: Write your answers and ask the inline chat to “check for accuracy in one sentence each.”</p>
+        </div>
+      </section>
+
+      {/* Interactive: Understand next-token prediction */}
+      <section className="mt-10">
+        <PredictTheNextToken />
       </section>
 
       <section className="mt-8">
@@ -175,6 +211,39 @@ const Lesson1_2: React.FC = () => {
         <p className="text-muted-foreground mb-4">
           Every amazing essay, complex piece of code, or creative story an AI generates is built one token at a time through this predictive process. This is why your prompt is so critical—it sets the starting conditions and guides the AI's predictions, making your desired output the most probable outcome.
         </p>
+
+        <div className="p-4 bg-muted/20 rounded-md border mt-4">
+          <h4 className="text-sm font-semibold mb-2">Greedy vs. Sampling (Tiny Demo)</h4>
+          <pre className="bg-muted p-3 rounded text-xs overflow-x-auto">
+{`Prompt: "Write a single upbeat sentence about opening a cafe."
+Greedy (temperature=0):
+- "We are opening a new cafe in town."
+Sampling (temperature=0.8, top_p=0.9):
+- "Doors swing open on our cozy new cafe—come in for the first pour!"`}
+          </pre>
+          <p className="text-xs text-muted-foreground mt-2">Greedy is stable and plain; sampling adds variety at the cost of consistency.</p>
+        </div>
+
+        <div className="p-4 bg-muted/20 rounded-md border mt-4">
+          <h4 className="text-sm font-semibold mb-2">Probability in Action</h4>
+          <p className="text-sm text-muted-foreground mb-2">Imagine typing <code className="bg-muted px-1 rounded">"Peanut butter and"</code>. The model assigns probabilities like:</p>
+          <ul className="list-disc list-inside text-sm text-muted-foreground my-2">
+            <li><strong>85%</strong>: "jelly"</li>
+            <li><strong>10%</strong>: "honey"</li>
+            <li><strong>3%</strong>: "chocolate"</li>
+            <li><strong>2%</strong>: "bananas"</li>
+          </ul>
+          <p className="text-xs text-muted-foreground">Decoding picks one token, appends it, and repeats—one step at a time.</p>
+        </div>
+
+        <div className="p-4 bg-card rounded-md border mt-4">
+          <h4 className="text-sm font-semibold mb-2">Quick Check</h4>
+          <ol className="list-decimal list-inside text-sm text-muted-foreground space-y-1">
+            <li>When would you prefer greedy decoding over sampling (and vice‑versa)?</li>
+            <li>How would you rewrite a verbose prompt to save tokens?</li>
+          </ol>
+          <p className="text-xs text-muted-foreground mt-2">Tip: Paste your answers into the chat below and ask for “pass/fail + one suggestion.”</p>
+        </div>
         </div>
       </section>
 
@@ -211,6 +280,8 @@ const Lesson1_2: React.FC = () => {
           <li>Explain tokens in plain language to a non-technical colleague</li>
           <li>Predict when tokenization will split words and why</li>
           <li>Write prompts that better steer next-token prediction</li>
+          <li>Describe the difference between greedy decoding and sampling</li>
+          <li>Estimate token budgets and adjust prompts to fit within limits</li>
         </ul>
       </section>
     </LessonTemplate>
