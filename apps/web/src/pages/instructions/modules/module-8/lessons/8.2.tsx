@@ -19,6 +19,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { useProgressStore } from '@/store/progressStore';
 import { explainabilityExpertPrompt, explanationChecklist } from '@/prompts';
+import { usePortfolioArtifacts } from '@/store/usePortfolioArtifacts';
 
 const quizQuestions = [
   {
@@ -96,10 +97,29 @@ const quizQuestions = [
 function Lesson8_2() {
   const { completeLesson } = useProgressStore();
   const navigate = useNavigate();
+  const { addArtifact, exportJSON, exportCSV } = usePortfolioArtifacts();
 
   const handleNextLesson = () => {
     completeLesson(8, 2);
     navigate('/instructions/module-8/8.3');
+  };
+
+  const handleSaveTemplate = () => {
+    addArtifact({
+      title: 'User Explanation Template – Module 8.2',
+      type: 'explanation',
+      module: 8,
+      lesson: 2,
+      data: {
+        structure: [
+          'Greeting & Empathy',
+          'Decision Summary (plain language)',
+          'Key Factors (non-jargon)',
+          'Next Steps (actionable options)',
+          'Contact/Appeal Info'
+        ],
+      },
+    });
   };
 
   return (
@@ -242,6 +262,17 @@ function Lesson8_2() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+
+      {/* Portfolio Panel */}
+      <div className="bg-muted/30 border border-border rounded-xl p-4 mt-6 mb-6">
+        <h3 className="font-semibold text-foreground mb-2">Portfolio</h3>
+        <p className="text-sm text-muted-foreground mb-3">Save an explanation template or export your collected artifacts.</p>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="secondary" onClick={handleSaveTemplate}>Save Explanation Template</Button>
+          <Button variant="outline" onClick={exportJSON}>Export JSON</Button>
+          <Button variant="outline" onClick={exportCSV}>Export CSV</Button>
+        </div>
+      </div>
 
       <div className="flex justify-between pt-8 mt-8 border-t">
         <Button variant="outline" asChild>

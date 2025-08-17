@@ -20,6 +20,7 @@ import { Button } from '@/components/ui/button';
 import { useProgressStore } from '@/store/progressStore';
 import { securityAuditorPrompt } from '@/prompts';
 import { securityGuardrailsChecklist } from '@/prompts';
+import { usePortfolioArtifacts } from '@/store/usePortfolioArtifacts';
 
 const quizQuestions = [
   {
@@ -96,10 +97,28 @@ const quizQuestions = [
 function Lesson8_3() {
   const { completeLesson } = useProgressStore();
   const navigate = useNavigate();
+  const { addArtifact, exportJSON, exportCSV } = usePortfolioArtifacts();
 
   const handleFinishModule = () => {
     completeLesson(8, 3);
     navigate('/instructions');
+  };
+
+  const handleSaveTemplate = () => {
+    addArtifact({
+      title: 'Security Guardrails Plan – Module 8.3',
+      type: 'security-plan',
+      module: 8,
+      lesson: 3,
+      data: {
+        guardrails: [
+          'Input Sanitization Patterns',
+          'Least Privilege Tool Permissions',
+          'Output Filtering & Redaction',
+          'Monitoring & Incident Response (canaries, alerts)'
+        ],
+      },
+    });
   };
 
   return (
@@ -239,6 +258,17 @@ function Lesson8_3() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+
+      {/* Portfolio Panel */}
+      <div className="bg-muted/30 border border-border rounded-xl p-4 mt-6">
+        <h3 className="font-semibold text-foreground mb-2">Portfolio</h3>
+        <p className="text-sm text-muted-foreground mb-3">Save a security guardrails plan or export your collected artifacts.</p>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="secondary" onClick={handleSaveTemplate}>Save Security Plan</Button>
+          <Button variant="outline" onClick={exportJSON}>Export JSON</Button>
+          <Button variant="outline" onClick={exportCSV}>Export CSV</Button>
+        </div>
+      </div>
 
       <div className="flex justify-between pt-8 mt-8 border-t border-border">
         <Button variant="outline" asChild>

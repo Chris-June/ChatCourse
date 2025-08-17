@@ -21,6 +21,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { useProgressStore } from '@/store/progressStore';
 import { ethicsReviewerPrompt, biasMitigationChecklist } from '@/prompts';
+import { usePortfolioArtifacts } from '@/store/usePortfolioArtifacts';
 
 const quizQuestions = [
   {
@@ -97,10 +98,28 @@ const quizQuestions = [
 function Lesson8_1() {
   const { completeLesson } = useProgressStore();
   const navigate = useNavigate();
+  const { addArtifact, exportJSON, exportCSV } = usePortfolioArtifacts();
 
   const handleNextLesson = () => {
     completeLesson(8, 1);
     navigate('/instructions/module-8/8.2');
+  };
+
+  const handleSaveTemplate = () => {
+    addArtifact({
+      title: 'Bias Mitigation Plan (Template) – Module 8.1',
+      type: 'note',
+      module: 8,
+      lesson: 1,
+      data: {
+        sections: [
+          'Context & Identified Bias (historical/representation/measurement/evaluation)',
+          'Fairness Metric Chosen (and rationale)',
+          'Mitigation Steps (data, process, modeling)',
+          'Evaluation Plan (before/after metrics, monitoring)'
+        ],
+      },
+    });
   };
 
   return (
@@ -214,6 +233,17 @@ function Lesson8_1() {
 
         {/* Responsible AI developer checklist */}
         <ResponsibleAI />
+
+        {/* Portfolio Panel */}
+        <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
+          <h3 className="font-semibold text-foreground mb-2">Portfolio</h3>
+          <p className="text-sm text-muted-foreground mb-3">Save a template for your bias mitigation plan or export your collected artifacts.</p>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="secondary" onClick={handleSaveTemplate}>Save Plan Template</Button>
+            <Button variant="outline" onClick={exportJSON}>Export JSON</Button>
+            <Button variant="outline" onClick={exportCSV}>Export CSV</Button>
+          </div>
+        </div>
 
         <div className="bg-muted/30 border border-muted rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
