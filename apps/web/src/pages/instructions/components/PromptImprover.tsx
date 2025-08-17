@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, Settings2 } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 
 const promptAdditions = {
@@ -37,6 +38,7 @@ const PromptImprover: React.FC = () => {
 
   return (
     <Card className="my-6">
+      <InteractiveHeader title="Interactive Prompt Builder" subtitle="Click chips to refine the prompt" icon={Settings2} />
       <CardHeader>
         <CardTitle className="text-base md:text-lg">Interactive Prompt Builder</CardTitle>
         <p className="text-sm text-muted-foreground">Click the chips to add specificity to a vague prompt and see how it improves.</p>

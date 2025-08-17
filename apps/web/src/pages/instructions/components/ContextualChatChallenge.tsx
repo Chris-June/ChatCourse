@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckSquare, Square, Send, Bot, User } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -90,6 +91,7 @@ const ContextualChatChallenge: React.FC<ContextualChatChallengeProps> = ({ initi
 
   return (
     <div className="flex flex-col md:flex-row gap-4 bg-card text-card-foreground p-4 rounded-xl border shadow-sm">
+      <InteractiveHeader title="Contextual Chat Challenge" icon={Bot} />
       <div className="w-full md:w-1/3">
         <h3 className="text-lg font-semibold text-foreground mb-2">Your Checklist</h3>
         <div className="bg-muted border p-4 rounded-lg">

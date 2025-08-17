@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Thermometer, BrainCircuit } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const ParameterSliders: React.FC = () => {
   const [temperature, setTemperature] = useState(0.8);
@@ -20,6 +21,7 @@ const ParameterSliders: React.FC = () => {
 
   return (
     <Card className="my-6">
+      <InteractiveHeader title="Interactive Sampling Parameters" subtitle="Adjust Temperature and Top-P" icon={BrainCircuit} />
       <CardHeader>
         <CardTitle className="text-base md:text-lg">Sampling Parameters</CardTitle>
         <p className="text-sm text-muted-foreground">Adjust Temperature and Top-P to see how they influence creativity and diversity.</p>

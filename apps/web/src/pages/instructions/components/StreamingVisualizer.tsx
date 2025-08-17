@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Loader2, Rabbit, Snail } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const fullText = "In the realm of artificial intelligence, performance is not merely a feature; it is the bedrock of a positive user experience. A model that delivers brilliant insights but takes an eternity to do so will invariably lead to user frustration and abandonment. Therefore, optimizing for speed is a critical discipline for any AI developer.";
 const words = fullText.split(' ');
@@ -41,6 +42,7 @@ export default function StreamingVisualizer() {
 
   return (
     <div className="my-8 p-6 bg-card border rounded-xl">
+      <InteractiveHeader title="Interactive Streaming Demo" subtitle="Compare standard vs. streamed output" icon={Rabbit} />
       <div className="text-center mb-6">
         <h4 className="text-lg font-semibold text-foreground">Interactive Demo: Standard vs. Streamed Response</h4>
         <p className="text-sm text-muted-foreground">Click the button to see the difference in user experience.</p>

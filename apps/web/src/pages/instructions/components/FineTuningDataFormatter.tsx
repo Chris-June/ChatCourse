@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, FileJson } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const FineTuningDataFormatter: React.FC = () => {
   const [prompt, setPrompt] = useState('User: Can you write a SQL query to find all customers from California?');
@@ -13,13 +14,14 @@ const FineTuningDataFormatter: React.FC = () => {
     };
     try {
       return JSON.stringify(data, null, 2);
-    } catch (error) {
+    } catch {
       return 'Error formatting JSON.';
     }
   }, [prompt, completion]);
 
   return (
     <div className="bg-card border rounded-xl p-6 space-y-4 text-card-foreground">
+      <InteractiveHeader title="Fine-tuning Data Formatter" icon={FileJson} />
       <h3 className="text-xl font-bold">Live Data Formatter</h3>
       <p className="text-sm text-muted-foreground">Fine-tuning requires structured data. Enter a prompt and a desired completion below to see how it's formatted into a single training example in JSONL format.</p>
       

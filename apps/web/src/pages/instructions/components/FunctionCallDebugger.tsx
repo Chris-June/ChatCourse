@@ -1,6 +1,7 @@
 import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { AlertTriangle, Lightbulb } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const debugData = {
   userPrompt: "Book a flight to JFK for this Friday.",
@@ -26,6 +27,7 @@ const debugData = {
 const FunctionCallDebugger: React.FC = () => {
   return (
     <div className="bg-card border border-dashed border-destructive/40 rounded-lg p-6 space-y-4 text-card-foreground">
+      <InteractiveHeader title="Interactive Function Call Debugger" subtitle="Find and fix schema issues causing call failures" icon={AlertTriangle} />
       <div className="flex items-center space-x-3">
         <AlertTriangle className="w-6 h-6 text-destructive" aria-hidden="true" />
         <h3 className="text-xl font-bold">Debug a Broken Function Call</h3>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TestTube2, Sparkles } from 'lucide-react';
 import InlineChat from '../../../components/InlineChat';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const SystemPromptLab: React.FC = () => {
   const [systemPrompt, setSystemPrompt] = useState('You are a helpful assistant.');
@@ -32,6 +33,7 @@ const SystemPromptLab: React.FC = () => {
 
   return (
     <div className="bg-card p-6 rounded-lg border space-y-4">
+      <InteractiveHeader title="Interactive System Prompt Lab" subtitle="Modify system prompts and see changes live" icon={TestTube2} />
       <div className="flex items-center space-x-3">
         <TestTube2 className="w-6 h-6 text-primary" aria-hidden="true" />
         <h4 className="font-semibold text-foreground text-lg">System Prompt Lab</h4>

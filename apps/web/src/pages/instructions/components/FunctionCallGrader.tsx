@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, CheckCircle, XCircle, Loader } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface EvaluationCriterion {
   id: string;
@@ -75,6 +76,7 @@ const FunctionCallGrader: React.FC<FunctionCallGraderProps> = ({
 
   return (
     <div className="p-6 bg-card border border-border rounded-lg my-6 text-card-foreground">
+      <InteractiveHeader title="Interactive Function Call Grader" subtitle="Evaluate prompts against a function schema" icon={CheckCircle} />
       <div className="mb-4">
         <h4 className="font-bold text-foreground mb-2">
           Your Target Function Schema:

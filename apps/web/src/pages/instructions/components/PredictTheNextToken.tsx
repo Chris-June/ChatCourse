@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle, Target } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 
@@ -44,6 +45,7 @@ const PredictTheNextToken: React.FC = () => {
 
   return (
     <Card className="my-6">
+      <InteractiveHeader title="Interactive Game" subtitle="Predict the next token" icon={Target} />
       <CardHeader>
         <CardTitle className="text-base md:text-lg">Interactive Game: Predict the Next Token!</CardTitle>
         <p className="text-sm text-muted-foreground">An LLM's main job is to predict the next word. Try it yourself—pick the most likely continuation.</p>

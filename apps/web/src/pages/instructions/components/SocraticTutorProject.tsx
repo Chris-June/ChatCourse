@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckSquare, Square, Send, Bot, User, ClipboardCopy } from 'lucide-react';
+import { CheckSquare, Square, Send, Bot, User, ClipboardCopy, GraduationCap } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -94,6 +95,7 @@ const SocraticTutorProject: React.FC<SocraticTutorProjectProps> = ({ challengeCh
 
   return (
     <div className="flex flex-col md:flex-row gap-4 bg-card p-4 rounded-lg border">
+      <InteractiveHeader title="Socratic Tutor Project" icon={GraduationCap} className="mb-2" />
       <div className="w-full md:w-1/3">
         <h3 className="text-lg font-semibold text-foreground mb-2">Project Checklist</h3>
         <div className="bg-muted p-4 rounded-lg space-y-3 border">

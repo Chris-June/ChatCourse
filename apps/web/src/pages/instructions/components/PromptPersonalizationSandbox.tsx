@@ -5,6 +5,7 @@ import { Button } from '../../../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Textarea } from '../../../components/ui/textarea';
 import { Input } from '../../../components/ui/input';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const personas: Record<string, string> = {
   "Pirate Captain": "You are a salty pirate captain. All your responses must be in pirate speak, full of 'arrrs' and references to the sea.",
@@ -37,6 +38,7 @@ const PromptPersonalizationSandbox = () => {
 
   return (
     <Card className="mt-6">
+      <InteractiveHeader title="Interactive Personalization" subtitle="Experiment with system prompts and personas" icon={TestTube2} />
       <CardHeader>
         <CardTitle className="flex items-center text-base md:text-lg">
           <TestTube2 className="w-6 h-6 mr-3 text-primary" aria-hidden="true" />

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, Bot } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const knowledgeBase = [
   {
@@ -72,6 +73,7 @@ const RagPlayground: React.FC = () => {
 
   return (
     <div className="bg-card border rounded-xl p-6 space-y-4">
+      <InteractiveHeader title="Interactive RAG" subtitle="Retrieve and generate with context" icon={Search} />
       <h3 className="text-xl font-bold text-foreground">Interactive RAG Playground</h3>
       <p className="text-sm text-muted-foreground">Ask a question about our plans or policies to see RAG in action. Try: "What is the price of the pro plan?" or "How do I cancel?"</p>
       

@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react';
+import { Target } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 import {
   Select,
@@ -51,6 +53,7 @@ const JtbdBuilder: React.FC = () => {
 
   return (
     <div className="bg-card p-6 rounded-lg border space-y-6 text-card-foreground">
+      <InteractiveHeader title="JTBD Builder" icon={Target} />
       <div>
         <h4 className="font-semibold mb-3 text-lg">Build a "Job to be Done" Statement</h4>
         <p className="text-muted-foreground text-sm mb-4">Select an option from each category to construct a user-centric problem statement.</p>

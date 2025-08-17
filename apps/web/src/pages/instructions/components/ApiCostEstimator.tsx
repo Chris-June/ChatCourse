@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Slider } from '@/components/ui/slider';
 import { DollarSign, Zap, BrainCircuit } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const modelTiers = {
   'Tier 1: Fast & Light': {
@@ -34,6 +35,7 @@ export default function ApiCostEstimator() {
 
   return (
     <div className="my-8 p-6 bg-card text-card-foreground border rounded-xl shadow-sm">
+      <InteractiveHeader title="Interactive API Cost Estimator" subtitle="Estimate costs by tier and usage" icon={DollarSign} />
       <h4 className="text-lg font-semibold text-center mb-6 text-foreground">API Cost Estimator</h4>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">

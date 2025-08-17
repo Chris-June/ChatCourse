@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { User, Bot, Cog, Terminal, CheckSquare, Play, RefreshCw } from 'lucide-react';
+import { User, Bot, Cog, Terminal, CheckSquare, Play, RefreshCw, GitBranch } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const mockData = {
   userPrompt: "What's the weather like in Boston?",
@@ -82,6 +83,7 @@ const FunctionCallFlowVisualizer: React.FC = () => {
 
   return (
     <div className="bg-card border rounded-lg p-6 space-y-4 text-card-foreground">
+      <InteractiveHeader title="Function Call Flow" icon={GitBranch} />
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-bold">Function Call Lifecycle</h3>
         {currentStep === 0 ? (

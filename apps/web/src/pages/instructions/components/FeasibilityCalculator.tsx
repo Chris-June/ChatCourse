@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 import { Slider } from '@/components/ui/slider';
 
 const FeasibilityCalculator: React.FC = () => {
@@ -22,11 +23,8 @@ const FeasibilityCalculator: React.FC = () => {
 
   return (
     <div className="bg-card p-6 rounded-lg border space-y-6 text-card-foreground">
+      <InteractiveHeader title="Feasibility Calculator" icon={SlidersHorizontal} />
       <div>
-        <h4 className="font-semibold mb-3 text-lg flex items-center">
-          <SlidersHorizontal className="w-6 h-6 mr-3 text-primary" aria-hidden="true" />
-          Feasibility Calculator
-        </h4>
         <p className="text-muted-foreground text-sm mb-4">Adjust the sliders to see how different factors affect an idea's viability.</p>
         
         <div className="space-y-5">

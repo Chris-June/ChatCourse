@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Beaker, CheckCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const PromptA = `You are an email assistant. Write a professional email to the client asking for the signed documents.`;
 
@@ -22,6 +23,7 @@ const PromptABTester: React.FC = () => {
 
   return (
     <Card className="space-y-6">
+      <InteractiveHeader title="Interactive A/B Test" subtitle="Compare prompts head-to-head" icon={Beaker} />
       <CardHeader>
         <CardTitle className="text-base md:text-lg">Prompt A/B Tester</CardTitle>
       </CardHeader>

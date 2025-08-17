@@ -284,7 +284,7 @@ Output: 1 post + 3 hashtag options.`}
 
           </div>
 
-            <div className="p-4 bg-card rounded-md border">
+            <div className="p-4 bg-card rounded-md border my-6">
               <h3 className="text-sm font-semibold mb-2 flex items-center"><ListChecks className="w-4 h-4 mr-2"/> Micro-Checklist</h3>
               <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
                 <li>Stated the task and outcome clearly?</li>
@@ -307,7 +307,7 @@ Output: [structure]. If info is missing, ask 1 clarifying question.`}
               </pre>
             </div>
 
-            <div className="p-4 bg-card rounded-md border">
+            <div className="p-4 bg-card rounded-md border my-6">
               <h3 className="text-sm font-semibold mb-2">Pop Quiz (45s)</h3>
               <ol className="list-decimal list-inside text-sm text-muted-foreground space-y-1">
                 <li>Rewrite: “Make a plan.” for a florist launching weekend pop-ups.</li>

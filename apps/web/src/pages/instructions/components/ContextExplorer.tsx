@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Bot, User } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -120,6 +121,7 @@ const ContextExplorer: React.FC = () => {
 
   return (
     <div className="flex flex-col md:flex-row gap-4 bg-card text-card-foreground p-4 rounded-xl border shadow-sm h-[600px]">
+      <InteractiveHeader title="Interactive Context Explorer" subtitle="See how past turns shape the current response" icon={Bot} />
       {/* Left Side: Chat Interface */}
       <div className="w-full md:w-1/2 flex flex-col h-full">
         <h3 className="text-lg font-semibold text-foreground mb-2 text-center">Chat Interface</h3>

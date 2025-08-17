@@ -1,11 +1,14 @@
 import React from 'react';
 import CopyButton from '../../../components/CopyButton';
+import { Repeat2 } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const refinedText = "Write a one-paragraph summary of 'Moby Dick', focusing on Captain Ahab's obsession and its consequences. Write it in a dramatic and suspenseful tone.";
 
 const IterativeRefinement: React.FC = () => {
   return (
     <div className="bg-card p-4 rounded-lg border text-card-foreground">
+        <InteractiveHeader title="Iterative Refinement" icon={Repeat2} />
         <h3 className="font-semibold mb-2">Example: Iterative Refinement</h3>
         <p className="text-muted-foreground mb-3">
           Iterative refinement is the process of starting with a simple prompt and making small, controlled changes to systematically improve the AI's output. It's a conversation, not a one-shot command.

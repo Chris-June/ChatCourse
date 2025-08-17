@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Slider } from '@/components/ui/slider';
 import { DollarSign, Clock, TrendingUp, Info } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const FineTuningCostCalculator: React.FC = () => {
   const [datasetSize, setDatasetSize] = useState(500);
@@ -24,6 +25,7 @@ const FineTuningCostCalculator: React.FC = () => {
 
   return (
     <div className="bg-card border rounded-xl p-6 space-y-6 text-card-foreground">
+      <InteractiveHeader title="Fine-tuning Cost Calculator" icon={DollarSign} />
       <h3 className="text-xl font-bold">Cost & Benefit Calculator</h3>
       <p className="text-sm text-muted-foreground">Fine-tuning involves trade-offs. Use the sliders to see how dataset size and training epochs affect estimated costs, time, and the potential performance boost.</p>
 

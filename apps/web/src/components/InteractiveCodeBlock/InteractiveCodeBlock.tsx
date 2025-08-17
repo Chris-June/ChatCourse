@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { PlayIcon, Loader2 } from 'lucide-react';
+import { PlayIcon, Loader2, Terminal } from 'lucide-react';
 import { api } from '@/lib/api';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface InteractiveCodeBlockProps {
   code: string;
@@ -31,6 +32,7 @@ export const InteractiveCodeBlock: React.FC<InteractiveCodeBlockProps> = ({ code
 
   return (
     <div className="code-block-container my-4 rounded-md border">
+      <InteractiveHeader title="Interactive Code" subtitle="Run the snippet to see results" icon={Terminal} />
       <div className="code-header bg-muted text-muted-foreground flex items-center justify-between p-2 border-b">
         <span className="text-sm">{language}</span>
         <Button

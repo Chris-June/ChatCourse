@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Lightbulb } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const challengeConversation = [
   { speaker: 'You', text: 'I need to create a logo for my new coffee shop, "The Daily Grind".' },
@@ -63,6 +64,7 @@ const SummarizationChallenge: React.FC = () => {
 
   return (
     <div className="bg-card p-4 rounded-xl border">
+      <InteractiveHeader title="Interactive Summarization Challenge" subtitle="Practice the summarize-and-recenter technique" icon={Lightbulb} />
       <h3 className="font-semibold text-foreground mb-2">Challenge: Write a Summary</h3>
       <p className="text-muted-foreground mb-3">
         This demonstrates the "Summarize and Re-center" technique. When conversations get long, the AI's working memory fills up. By summarizing, you bring the most important details back into focus—like highlighting key points on your whiteboard before adding new ones.

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Plus, Trash2, AlertCircle } from 'lucide-react';
+import { Plus, Trash2, AlertCircle, ScrollText } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface Message {
   role: 'system' | 'user' | 'assistant';
@@ -37,6 +38,7 @@ const RoleScriptingSandbox = () => {
 
   return (
     <div className="p-4 bg-card rounded-lg border mt-4">
+      <InteractiveHeader title="Interactive Role Scripting" subtitle="Construct multi-role conversation scripts" icon={ScrollText} />
       <h3 className="text-lg font-semibold text-foreground mb-2">Role-Based Scripting Sandbox</h3>
       <p className="text-sm text-muted-foreground mb-4">Construct a conversation script below. The tool will provide feedback on common structural errors.</p>
       

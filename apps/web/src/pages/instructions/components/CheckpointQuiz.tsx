@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, X } from 'lucide-react';
+import { Check, X, ClipboardCheck } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface QuizProps {
   question: string;
@@ -40,6 +41,7 @@ const CheckpointQuiz: React.FC<QuizProps> = ({ question, options, correctAnswerI
 
   return (
     <div className="bg-card border p-6 rounded-xl my-6 text-card-foreground">
+      <InteractiveHeader title="Interactive Quiz" subtitle="Quick knowledge check" icon={ClipboardCheck} />
       <h4 className="font-bold text-lg text-foreground mb-4">Checkpoint Quiz</h4>
       <p className="text-muted-foreground mb-4">{question}</p>
       <div

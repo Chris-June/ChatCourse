@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, CheckCircle, XCircle, Loader } from 'lucide-react';
 import { Button, Textarea } from '@chat/ui';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 interface LivePromptGraderProps {
   functionSchema: object;
@@ -59,6 +60,7 @@ const LivePromptGrader: React.FC<LivePromptGraderProps> = ({ functionSchema, ini
 
   return (
     <Card className="my-6">
+      <InteractiveHeader title="Interactive Prompt Grader" subtitle="Score and iterate on your function call prompt" icon={Sparkles} />
       <CardHeader>
         <CardTitle className="text-base md:text-lg">Live Prompt Grader</CardTitle>
       </CardHeader>

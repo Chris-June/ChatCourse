@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Sparkles, Clipboard, Check } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const insyncFields = {
   intent: { label: 'Intent', placeholder: 'e.g., Create a 3-day travel itinerary for Tokyo' },
@@ -38,6 +39,7 @@ const InsyncWorkshop: React.FC = () => {
 
   return (
     <div className="bg-card p-6 rounded-lg border my-6 text-card-foreground">
+      <InteractiveHeader title="I.N.S.Y.N.C. Workshop" icon={Lightbulb} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <h3 className="text-xl font-semibold mb-3 flex items-center"><Lightbulb className="w-6 h-6 mr-2 text-primary" aria-hidden="true"/>Build Your Prompt</h3>

@@ -3,6 +3,7 @@ import { Wrench, ChevronRight, Github, Database, Calendar } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Button } from '@chat/ui';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const servers = [
   {
@@ -50,6 +51,7 @@ const MCPServerExplorer: React.FC = () => {
 
   return (
     <Card className="my-6">
+      <InteractiveHeader title="Interactive MCP Explorer" subtitle="Discover servers and their tools" icon={Wrench} />
       <CardHeader>
         <CardTitle className="text-base md:text-lg text-center">Interactive Demo: MCP Server Explorer</CardTitle>
         <p className="text-center text-sm text-muted-foreground">Click on a server to simulate an agent discovering its available tools.</p>

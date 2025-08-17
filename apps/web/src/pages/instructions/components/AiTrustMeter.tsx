@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { ShieldCheck } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 import { Slider } from '@/components/ui/slider';
 
 const AiTrustMeter: React.FC = () => {
@@ -25,6 +26,7 @@ const AiTrustMeter: React.FC = () => {
 
   return (
     <div className="bg-card text-card-foreground p-4 md:p-6 rounded-xl border shadow-sm space-y-6">
+      <InteractiveHeader title="Interactive Trust Calculator" subtitle="Adjust sliders to see trust score" icon={ShieldCheck} />
       <h4 className="font-semibold text-foreground text-lg flex items-center">
         <ShieldCheck className="h-5 w-5 mr-3 text-primary" />
         Interactive Trust Calculator

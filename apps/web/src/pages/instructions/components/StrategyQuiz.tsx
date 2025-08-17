@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Lightbulb, Database, Settings, CheckCircle, XCircle } from 'lucide-react';
+import { Lightbulb, Database, Settings, CheckCircle, XCircle, Target } from 'lucide-react';
+import InteractiveHeader from '@/components/InteractiveHeader';
 
 const questions = [
   {
@@ -59,6 +60,7 @@ const StrategyQuiz: React.FC = () => {
 
   return (
     <div className="bg-card border rounded-xl p-6">
+      <InteractiveHeader title="Interactive Strategy Quiz" subtitle="Choose the right technique for the scenario" icon={Target} />
       <h3 className="text-xl font-bold text-foreground mb-4">When to Use Which Technique?</h3>
       <AnimatePresence mode="wait">
         <motion.div
