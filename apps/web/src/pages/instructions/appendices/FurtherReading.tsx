@@ -71,9 +71,9 @@ const FurtherReading: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
       <div className="text-center mb-12">
-        <Library className="mx-auto h-16 w-16 text-blue-400" />
-        <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">Further Reading</h1>
-        <p className="mt-6 text-lg leading-8 text-gray-300">
+        <Library className="mx-auto h-16 w-16 text-primary" />
+        <h1 className="mt-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">Further Reading</h1>
+        <p className="mt-6 text-lg leading-8 text-muted-foreground">
           A curated collection of books, papers, and resources to deepen your understanding of AI.
         </p>
       </div>
@@ -81,16 +81,16 @@ const FurtherReading: React.FC = () => {
       <div className="space-y-12">
         {sections.map((section, sectionIndex) => (
           <section key={sectionIndex}>
-            <div className="flex items-center mb-6 pb-2 border-b border-zinc-700">
+            <div className="flex items-center mb-6 pb-2 border-b border-border">
               {section.icon}
-              <h2 className="text-2xl font-bold text-white">{section.title}</h2>
+              <h2 className="text-2xl font-bold text-foreground">{section.title}</h2>
             </div>
             <div className="space-y-6">
               {section.items.map((item, itemIndex) => (
-                <div key={itemIndex} className="bg-zinc-800/50 rounded-xl p-6 hover:bg-zinc-800/70 transition-colors border border-zinc-700/50">
-                  <h3 className="text-lg font-semibold text-blue-300">
+                <div key={itemIndex} className="bg-muted/30 rounded-xl p-6 hover:bg-muted/40 transition-colors border border-border">
+                  <h3 className="text-lg font-semibold text-primary">
                     {item.url ? (
-                      <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                      <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ring-offset-background rounded-md">
                         {item.title || item.name}
                       </a>
                     ) : (
@@ -98,9 +98,9 @@ const FurtherReading: React.FC = () => {
                     )}
                   </h3>
                   {item.author && (
-                    <p className="text-sm text-gray-400 mb-2">by {item.author}</p>
+                    <p className="text-sm text-muted-foreground mb-2">by {item.author}</p>
                   )}
-                  <p className="text-gray-300 mt-1">{item.description}</p>
+                  <p className="text-muted-foreground mt-1">{item.description}</p>
                 </div>
               ))}
             </div>

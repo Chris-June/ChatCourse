@@ -57,9 +57,9 @@ const ToolsAndResources: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
       <div className="text-center mb-12">
-        <Wrench className="mx-auto h-16 w-16 text-green-400" />
-        <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">Tools & Resources</h1>
-        <p className="mt-6 text-lg leading-8 text-gray-300">
+        <Wrench className="mx-auto h-16 w-16 text-primary" />
+        <h1 className="mt-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">Tools & Resources</h1>
+        <p className="mt-6 text-lg leading-8 text-muted-foreground">
           A curated list of essential platforms, libraries, and tools for building with AI.
         </p>
       </div>
@@ -67,17 +67,17 @@ const ToolsAndResources: React.FC = () => {
       <div className="space-y-12">
         {sections.map((section, sectionIndex) => (
           <section key={sectionIndex}>
-            <div className="flex items-center mb-6 pb-2 border-b border-zinc-700">
+            <div className="flex items-center mb-6 pb-2 border-b border-border">
               {section.icon}
-              <h2 className="text-2xl font-bold text-white">{section.title}</h2>
+              <h2 className="text-2xl font-bold text-foreground">{section.title}</h2>
             </div>
             <div className="space-y-6">
               {section.items.map((item, itemIndex) => (
-                <div key={itemIndex} className="bg-zinc-800/50 rounded-xl p-6 hover:bg-zinc-800/70 transition-colors border border-zinc-700/50">
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-green-300 hover:underline">
+                <div key={itemIndex} className="bg-muted/30 rounded-xl p-6 hover:bg-muted/40 transition-colors border border-border">
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ring-offset-background rounded-md">
                     {item.name}
                   </a>
-                  <p className="text-gray-300 mt-1">{item.description}</p>
+                  <p className="text-muted-foreground mt-1">{item.description}</p>
                 </div>
               ))}
             </div>

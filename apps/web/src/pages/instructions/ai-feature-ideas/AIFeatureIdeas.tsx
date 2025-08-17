@@ -172,10 +172,10 @@ const AIFeatureIdeas = () => {
   const DifficultyDisplay = ({ level }: { level: number }) => (
     <div className="flex items-center">
       {[...Array(level)].map((_, i) => (
-        <Star key={i} className="w-4 h-4 text-yellow-400" />
+        <Star key={i} className="w-4 h-4 text-amber-400" />
       ))}
       {[...Array(3 - level)].map((_, i) => (
-        <Star key={i} className="w-4 h-4 text-zinc-600" />
+        <Star key={i} className="w-4 h-4 text-muted-foreground" />
       ))}
     </div>
   );
@@ -183,14 +183,14 @@ const AIFeatureIdeas = () => {
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
       <div className="text-center mb-12">
-        <Lightbulb className="mx-auto h-16 w-16 text-yellow-400" />
-        <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">AI Feature Ideas</h1>
-        <p className="mt-6 text-lg leading-8 text-gray-300">
+        <Lightbulb className="mx-auto h-16 w-16 text-amber-400" />
+        <h1 className="mt-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">AI Feature Ideas</h1>
+        <p className="mt-6 text-lg leading-8 text-muted-foreground">
           A curated list of practical AI-powered features to inspire your next project.
         </p>
-        <div className="mt-8 p-4 bg-zinc-800/50 rounded-lg border border-zinc-700/50 inline-block">
-          <h3 className="font-semibold text-white mb-3">Difficulty Legend:</h3>
-          <div className="flex flex-col items-start space-y-2 text-sm text-gray-400">
+        <div className="mt-8 p-4 bg-muted/30 rounded-lg border border-border inline-block">
+          <h3 className="font-semibold text-foreground mb-3">Difficulty Legend:</h3>
+          <div className="flex flex-col items-start space-y-2 text-sm text-muted-foreground">
             <div className="flex items-center">
               <DifficultyDisplay level={1} />
               <span className="ml-2">Beginner</span>
@@ -210,7 +210,7 @@ const AIFeatureIdeas = () => {
       <div className="space-y-16">
         {features.map((section, sectionIndex) => (
           <section key={sectionIndex} className="scroll-mt-20" id={`section-${sectionIndex}`}>
-            <div className="flex items-center mb-6 pb-2 border-b border-zinc-700">
+            <div className="flex items-center mb-6 pb-2 border-b border-border">
               <div className="text-2xl mr-3">
                 {section.icon}
               </div>
@@ -221,25 +221,25 @@ const AIFeatureIdeas = () => {
               {section.items.map((item, itemIndex) => (
                 <div 
                   key={itemIndex} 
-                  className="bg-zinc-800/50 rounded-xl p-6 hover:bg-zinc-800/70 transition-colors border border-zinc-700/50"
+                  className="bg-muted/30 rounded-xl p-6 hover:bg-muted/40 transition-colors border border-border"
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-xl font-semibold text-blue-300">{item.title}</h3>
+                    <h3 className="text-xl font-semibold text-primary">{item.title}</h3>
                     <DifficultyDisplay level={item.difficulty} />
                   </div>
                   
-                  <p className="text-gray-300 mb-4">{item.description}</p>
+                  <p className="text-muted-foreground mb-4">{item.description}</p>
                   
-                  <div className="bg-zinc-900/50 p-4 rounded-lg mb-4 border-l-4 border-blue-500">
-                    <p className="text-sm text-blue-300 font-medium mb-1">Example:</p>
-                    <p className="text-gray-300 italic">{item.example}</p>
+                  <div className="bg-background p-4 rounded-lg mb-4 border-l-4 border-primary">
+                    <p className="text-sm text-primary font-medium mb-1">Example:</p>
+                    <p className="text-muted-foreground italic">{item.example}</p>
                   </div>
 
-                  <div className="mt-4 pt-4 border-t border-zinc-700/50">
-                    <h4 className="text-sm font-semibold text-blue-400 mb-2">Related Concepts:</h4>
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <h4 className="text-sm font-semibold text-primary mb-2">Related Concepts:</h4>
                     <div className="flex flex-wrap gap-2">
                       {item.relatedConcepts.map((concept, i) => (
-                        <span key={i} className="text-xs bg-blue-900/50 text-blue-300 px-2 py-1 rounded-md">
+                        <span key={i} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-md">
                           {concept}
                         </span>
                       ))}
@@ -248,16 +248,16 @@ const AIFeatureIdeas = () => {
                   
                   <div className="mt-4">
                     <details className="group">
-                      <summary className="flex items-center cursor-pointer text-sm font-medium text-gray-400 hover:text-white">
+                      <summary className="flex items-center cursor-pointer text-sm font-medium text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ring-offset-background rounded-md">
                         <span className="mr-2">Key Considerations</span>
                         <svg className="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                       </summary>
-                      <ul className="mt-3 pl-5 space-y-2 text-sm text-gray-400">
+                      <ul className="mt-3 pl-5 space-y-2 text-sm text-muted-foreground">
                         {item.considerations.map((consideration, i) => (
                           <li key={i} className="flex items-start">
-                            <span className="text-blue-400 mr-2">•</span>
+                            <span className="text-primary mr-2">•</span>
                             <span>{consideration}</span>
                           </li>
                         ))}
@@ -271,8 +271,8 @@ const AIFeatureIdeas = () => {
         ))}
       </div>
 
-      <div className="mt-16 p-6 bg-gradient-to-r from-green-900/20 to-blue-900/20 rounded-xl border border-green-800/50">
-        <h2 className="text-2xl font-bold mb-4 text-green-300">Have an Idea?</h2>
+      <div className="mt-16 p-6 bg-muted/30 rounded-xl border border-border">
+        <h2 className="text-2xl font-bold mb-4 text-foreground">Have an Idea?</h2>
         <p className="mb-4">
           We'd love to hear your suggestions for new AI-powered features! Share your ideas with the community 
           and let's build something amazing together.
@@ -281,7 +281,7 @@ const AIFeatureIdeas = () => {
           href="https://discord.gg/CrGqs9cxnM" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="inline-block"
+          className="inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ring-offset-background rounded-md"
         >
           <Button variant="outline" className="mt-2">
             Share Your Idea

@@ -12,8 +12,8 @@ const AppendicesPage: React.FC = () => {
   return (
     <div className="flex flex-col md:flex-row h-full">
       {/* Sidebar for appendix sections */}
-      <aside className="w-full md:w-64 bg-gray-800 p-4 md:p-6 md:border-r md:border-gray-700">
-        <h2 className="text-xl font-bold mb-4 text-blue-400">Appendices</h2>
+      <aside className="w-full md:w-[260px] bg-muted/30 p-4 md:p-6 md:border-r border-border">
+        <h2 className="text-xl font-semibold mb-4 text-foreground">Appendices</h2>
         <nav>
           <ul>
             {appendixSections.map((section) => (
@@ -21,14 +21,14 @@ const AppendicesPage: React.FC = () => {
                 <NavLink
                   to={`/instructions/appendices/${section.id}`}
                   className={({ isActive }) =>
-                    `flex items-center p-3 my-1 rounded-lg transition-colors text-sm ${
+                    `group flex items-center p-3 my-1 rounded-lg border transition-colors text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ring-offset-background ${
                       isActive
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-300 hover:bg-gray-700'
+                        ? 'bg-primary/10 text-primary border-primary'
+                        : 'text-muted-foreground hover:bg-muted/40 border-transparent'
                     }`
                   }
                 >
-                  <section.icon className="w-4 h-4 mr-3" />
+                  <section.icon className="w-4 h-4 mr-3 text-muted-foreground group-[aria-current=page]:text-primary" />
                   {section.title}
                 </NavLink>
               </li>
@@ -38,7 +38,7 @@ const AppendicesPage: React.FC = () => {
       </aside>
 
       {/* Main content for the selected section */}
-      <main className="flex-1 p-6 overflow-y-auto">
+      <main className="flex-1 p-6 md:p-8 overflow-y-auto">
         <Outlet />
       </main>
     </div>
@@ -46,3 +46,4 @@ const AppendicesPage: React.FC = () => {
 };
 
 export default AppendicesPage;
+

@@ -32,12 +32,12 @@ const glossaryTerms = [
 const Glossary: React.FC = () => {
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-blue-400 mb-4">Glossary of Terms</h2>
+      <h2 className="text-2xl font-bold text-foreground mb-4">Glossary of Terms</h2>
       <div className="space-y-4">
         {glossaryTerms.map((item, index) => (
-          <div key={index} className="bg-gray-800 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold text-blue-300">{item.term}</h3>
-            <p className="text-gray-300 mt-1">{item.definition}</p>
+          <div key={index} className="bg-muted/30 p-4 rounded-lg border border-border hover:bg-muted/40 transition-colors">
+            <h3 className="text-lg font-semibold text-primary">{item.term}</h3>
+            <p className="text-muted-foreground mt-1">{item.definition}</p>
           </div>
         ))}
       </div>
