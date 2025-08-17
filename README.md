@@ -88,6 +88,29 @@ Allowed models: `gpt-5`, `gpt-5-mini`, `gpt-5-nano` (default: `gpt-5-nano`).
 - SPA routes to `index.html`
 - `/api/*` routed to `apps/api/vercel.ts`
 
+## Editor: Windsurf (optional)
+
+If you use the Windsurf IDE (recommended by the maintainer):
+- Download the installer from the official Windsurf website.
+- Install and launch Windsurf, then open the repo folder `ChatCourse/`.
+- Use Windsurf’s integrated terminal to run project commands (e.g., `pnpm install`, `pnpm dev`).
+
+### OS-specific notes
+- macOS/Linux
+  - Terminal app: Terminal/iTerm. Shell: zsh/bash.
+  - Copy env file: `cp .env.example .env.local`
+  - Start both apps: `pnpm dev` (Web: 3001, API: 3000)
+- Windows
+  - Use PowerShell (or WSL for Unix-like experience).
+  - Copy env file: `copy .env.example .env.local`
+  - Start both apps: `pnpm dev`
+  - If the API dev script errors on `NODE_ENV=development`, run it in PowerShell like:
+    ```powershell
+    $env:NODE_ENV = "development"
+    pnpm --filter @chat/api dev
+    ```
+    or install a cross-platform env tool (e.g., `cross-env`).
+
 —
 
 Legacy beginner-friendly instructions remain below for reference.
