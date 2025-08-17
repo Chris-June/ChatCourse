@@ -5,13 +5,9 @@ import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
+import { weatherAssistantPrompt, weatherChecklist } from '@/prompts';
 
-const weatherChecklist = [
-  { id: '1', text: 'My goal is to find the weather in a specific city.', completed: false },
-  { id: '2', text: 'I have a tool called `get_weather` that takes a `city`.', completed: false },
-  { id: '3', text: 'I will call that tool with the city name provided.', completed: false },
-  { id: '4', text: 'The tool will return the temperature, which I can give to the user.', completed: false },
-];
+// checklist centralized in prompts
 
 const Lesson4_3: React.FC = () => {
   const quizQuestions = [
@@ -132,7 +128,7 @@ const Lesson4_3: React.FC = () => {
           <InlineChat 
             moduleId="module-4.3-get-weather"
             placeholder='Try: "What is the weather like in London?"'
-            systemPrompt="You are a helpful weather assistant that demonstrates tool usage. When asked about the weather, you should use the 'get_weather' tool to provide accurate information. Guide users through the process of making tool calls and explain the JSON structure being used."
+            systemPrompt={weatherAssistantPrompt}
             initialMessages={[
               {
                 role: 'assistant',
@@ -140,7 +136,7 @@ const Lesson4_3: React.FC = () => {
               }
             ]}
             simulatedResponse={`Okay, you want the weather. I will use the 'get_weather' tool.\n\n<tool_code>\n{\n  "name": "get_weather",\n  "arguments": {\n    "city": "the city you asked for"\n  }\n}\n</tool_code>\n\nIt is 75°F and sunny.`}
-            challengeChecklist={weatherChecklist}
+            challengeChecklist={weatherChecklist.map(item => ({ ...item }))}
             maxAttempts={3}
             maxFollowUps={2}
           />

@@ -43,7 +43,7 @@ const RoleScriptingSandbox = () => {
       <div className="flex flex-col md:flex-row gap-2 mb-4">
         <select 
           value={currentRole}
-          onChange={(e) => setCurrentRole(e.target.value as any)}
+          onChange={(e) => setCurrentRole(e.target.value as Message['role'])}
           className="bg-background border rounded-md px-3 py-2 text-foreground focus:ring-2 focus:ring-primary focus:outline-none"
         >
           <option value="system">system</option>

@@ -5,66 +5,9 @@ import KeyTakeaways from '../../../components/KeyTakeaways';
 import RollingWhiteboard from '../../../components/RollingWhiteboard';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import BestPractices from '../../../components/BestPractices';
+import quizQuestions from './utils/2.1.quizQuestions';
 
 const Lesson2_1: React.FC = () => {
-  const quizQuestions = [
-    {
-      questionText: 'What does the AI\'s \'context window\' primarily represent?',
-      options: [
-        'The total knowledge the AI has about the world.',
-        'The AI\'s short-term memory for the current conversation.',
-        'The physical size of the chat window on your screen.',
-        'A list of pre-approved questions you can ask.'
-      ],
-      correctAnswer: 'The AI\'s short-term memory for the current conversation.',
-      explanation: 'The context window is like the AI\'s working memory. It holds the recent back-and-forth to understand what you\'re talking about right now.'
-    },
-    {
-      questionText: 'How is the size of a context window measured?',
-      options: [
-        'In minutes and seconds.',
-        'By the number of messages.',
-        'In tokens (pieces of words).',
-        'In megabytes (MB).'
-      ],
-      correctAnswer: 'In tokens (pieces of words).',
-      explanation: 'AI models break text down into tokens. The context window has a fixed limit on how many tokens of the recent conversation it can hold.'
-    },
-    {
-      questionText: 'What typically happens when a conversation gets too long and exceeds the context window?',
-      options: [
-        'The AI crashes and you have to restart.',
-        'The AI asks you to pay for more memory.',
-        'The oldest messages are \'forgotten\' to make room for new ones.',
-        'The AI automatically summarizes the entire conversation.'
-      ],
-      correctAnswer: 'The oldest messages are \'forgotten\' to make room for new ones.',
-      explanation: 'This is a crucial concept. The window has a fixed size, so to add new information, the oldest information must be dropped. This is why an AI might forget things from the beginning of a long chat.'
-    },
-    {
-      questionText: 'Which of these is a direct result of POOR context management?',
-      options: [
-        'The AI builds on your previous ideas.',
-        'The AI forgets what you told it just a few messages ago.',
-        'The AI maintains a consistent personality.',
-        'The AI successfully completes a complex, multi-step task.'
-      ],
-      correctAnswer: 'The AI forgets what you told it just a few messages ago.',
-      explanation: 'When important context is lost, the AI loses the thread of the conversation, leading to frustrating situations where it seems to have amnesia.'
-    },
-    {
-      questionText: 'Why is mastering the context window considered a powerful skill?',
-      options: [
-        'It allows you to have deep, multi-step conversations and guide the AI through complex tasks.',
-        'It makes the AI respond faster.',
-        'It unlocks a secret, more intelligent version of the AI.',
-        'It is not a useful skill.'
-      ],
-      correctAnswer: 'It allows you to have deep, multi-step conversations and guide the AI through complex tasks.',
-      explanation: 'By understanding the context window, you can ensure the AI has the right information at the right time to perform complex tasks and have coherent, meaningful conversations.'
-    }
-  ];
-
   return (
     <LessonTemplate
       moduleNumber={2}
@@ -73,6 +16,17 @@ const Lesson2_1: React.FC = () => {
       subtitle="Mastering the AI's 'working memory' is the key to unlocking complex, multi-step conversations."
       quizQuestions={quizQuestions}
     >
+      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 8–12 minutes</p>
+        <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>What the AI's context window is and how it works</li>
+          <li>Why long chats "forget" earlier messages</li>
+          <li>How to manage context to keep the AI on track</li>
+          <li>Practical do's and don'ts for context management</li>
+        </ul>
+      </section>
+
       <div className="space-y-8">
         <p className="text-lg text-muted-foreground max-w-prose">
           Have you ever had a conversation where you had to keep repeating yourself? It's frustrating. The same is true when talking to an AI. The key to a smooth, intelligent conversation is understanding and managing its 'memory'—what we call the <strong>context window</strong>.
@@ -136,6 +90,15 @@ const Lesson2_1: React.FC = () => {
             'Avoid vague pronouns like \'it\' or \'that\' when referring to something from much earlier in the conversation.',
           ]}
         />
+        
+        <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+          <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li>Explain the context window and why forgetting happens</li>
+            <li>Structure conversations to preserve important details</li>
+            <li>Use summarization and reminders to keep the AI aligned</li>
+          </ul>
+        </section>
 
         <KeyTakeaways points={[
           'The AI has a limited "working memory" (context window) that fills up like a whiteboard',

@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import OpenAI from 'openai';
+import { getApiName, DEFAULT_MODEL } from '../handler';
+import { buildSummaryEvaluationSystemPrompt, buildSummaryEvaluationUserPrompt } from '../prompts/summaryEvaluation';
 
 /**
  * Handler for Summary Evaluation endpoint
@@ -23,19 +25,13 @@ export const handleSummaryEvaluation = async (req: Request, res: Response): Prom
       apiKey: openaiApiKey,
     });
 
-    const evaluationPrompt = `Evaluate this summary prompt based on the provided conversation:\n\nConversation:\n${conversation.map((msg: any) => `${msg.speaker}: ${msg.text}`).join('\n')}\n\nUser Summary Prompt:\n${userSummary}\n\nPlease provide a constructive evaluation that:\n1. Assesses how well the summary captures the key points\n2. Identifies any missing important context\n3. Suggests specific improvements\n4. Gives an overall quality rating\n\nKeep the evaluation concise and actionable.`;
+    const evaluationPrompt = buildSummaryEvaluationUserPrompt({ conversation, userSummary });
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: getApiName(DEFAULT_MODEL),
       messages: [
-        {
-          role: 'system',
-          content: 'You are an expert prompt evaluator. Provide constructive, specific feedback on how well the user\'s summary prompt captures the conversation context. Be encouraging and educational.'
-        },
-        {
-          role: 'user',
-          content: evaluationPrompt
-        }
+        { role: 'system', content: buildSummaryEvaluationSystemPrompt() },
+        { role: 'user', content: evaluationPrompt },
       ],
       temperature: 0.4,
       max_tokens: 512,

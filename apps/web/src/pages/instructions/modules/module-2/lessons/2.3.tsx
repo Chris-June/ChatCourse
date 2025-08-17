@@ -1,77 +1,15 @@
 import React from 'react';
 import { Target, Bot } from 'lucide-react';
 import CopyButton from '../../../../../components/CopyButton';
-import InlineChat from '../../../../../components/InlineChat';
+import InlineChat, { type ChallengeChecklistItem } from '../../../../../components/InlineChat';
 import Accordion from '../../../components/Accordion';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
+import { socraticTutorChecklist } from '@/prompts';
+import quizQuestions from './utils/2.3.quizQuestions';
 
-
-const challengeChecklist = [
-  { id: 'gnosi-1', text: "AI maintains 'Gnosi' persona (responds as a tutor named Gnosi)", completed: false },
-  { id: 'gnosi-2', text: "AI avoids giving direct answers (only asks guiding questions)", completed: false },
-  { id: 'gnosi-3', text: "AI asks logical, guiding questions that help you think deeper", completed: false },
-  { id: 'gnosi-4', text: "Successfully re-center the AI when it gives answers instead of questions", completed: false },
-];
-
-const quizQuestions = [
-  {
-    questionText: 'What is the primary goal of the \'Socratic Tutor\' persona you are asked to create?',
-    options: [
-      'To provide the most accurate and direct answers possible.',
-      'To teach a concept by asking guiding questions instead of giving answers.',
-      'To act as a friendly chatbot for casual conversation.',
-      'To summarize long texts into bullet points.'
-    ],
-    correctAnswer: 'To teach a concept by asking guiding questions instead of giving answers.',
-    explanation: 'The core of the Socratic method is guiding someone to their own conclusion. The AI must avoid giving direct answers to succeed.'
-  },
-  {
-    questionText: 'What is the most critical step for establishing the AI\'s persona in this exercise?',
-    options: [
-      'Using a friendly tone in all your messages.',
-      'The first prompt you send, which defines the AI\'s role and rules (the system prompt).',
-      'Asking the AI very difficult questions.',
-      'Correcting the AI\'s spelling mistakes.'
-    ],
-    correctAnswer: 'The first prompt you send, which defines the AI\'s role and rules (the system prompt).',
-    explanation: 'This initial instruction, or system prompt, is the foundation of the entire interaction. It sets the context that the AI will refer back to.'
-  },
-  {
-    questionText: 'If the \'Socratic Tutor\' AI starts giving you direct answers, what is the correct action to take?',
-    options: [
-      'Start a completely new chat immediately.',
-      'Accept the answer and move on.',
-      'Gently remind it of its role, for example: \'Remember, you are a Socratic tutor who only asks questions.\'',
-      'Ask the same question again, but louder.'
-    ],
-    correctAnswer: 'Gently remind it of its role, for example: \'Remember, you are a Socratic tutor who only asks questions.\'',
-    explanation: 'This is an act of re-centering the context. You are reinforcing the initial instructions to guide the AI back to its intended persona.'
-  },
-  {
-    questionText: 'Fundamentally, what is \'context management\' when interacting with an AI?',
-    options: [
-      'The skill of deliberately guiding the AI by providing, reinforcing, and clarifying information to keep the conversation coherent and on-task.',
-      'The act of clearing the chat history after every message.',
-      'A feature that automatically corrects your grammar and spelling.',
-      'The process of typing as fast as the AI can respond.'
-    ],
-    correctAnswer: 'The skill of deliberately guiding the AI by providing, reinforcing, and clarifying information to keep the conversation coherent and on-task.',
-    explanation: 'Context management is the active process of controlling what\'s in the AI\'s short-term memory to achieve a specific goal, rather than just passively having a conversation.'
-  },
-  {
-    questionText: 'Why is creating a consistent AI persona a good way to practice context management?',
-    options: [
-      'It forces you to be mindful of keeping specific rules and instructions in the AI\'s active context.',
-      'Personas make the AI more creative.',
-      'It\'s the only way to make an AI useful.',
-      'It isn\'t a good way to practice.'
-    ],
-    correctAnswer: 'It forces you to be mindful of keeping specific rules and instructions in the AI\'s active context.',
-    explanation: 'Maintaining a persona is a great test of your ability to use techniques like priming and re-centering to ensure the AI doesn\'t lose track of its core goal.'
-  }
-];
+// checklist centralized in prompts
 
 const Lesson2_3: React.FC = () => {
   
@@ -83,6 +21,16 @@ const Lesson2_3: React.FC = () => {
       subtitle="Create and maintain a Socratic Tutor persona to practice re-centering and explicit references."
       quizQuestions={quizQuestions}
     >
+      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–15 minutes</p>
+        <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>How to establish a clear, enforceable persona with a system prompt</li>
+          <li>Re-centering techniques when the model drifts from the rules</li>
+          <li>Hands-on practice managing context over multiple turns</li>
+          <li>Evaluating success with a simple, observable checklist</li>
+        </ul>
+      </section>
       <div className="bg-muted/30 border border-muted rounded-xl p-4 mb-6">
         <p className="text-sm text-muted-foreground">
           Why personas? Maintaining a consistent AI persona forces you to practice priming, re-centering, and explicit referencing. Expect ~10 minutes to set up your persona and complete the guided exercise.
@@ -190,7 +138,7 @@ AI (Gnosi): If we think of a function calling itself, what must be true to stop 
             moduleId="module-2.3-project"
             placeholder="Your conversation with the Socratic Tutor..."
             maxFollowUps={15}
-            challengeChecklist={challengeChecklist}
+            challengeChecklist={socraticTutorChecklist.map((item): ChallengeChecklistItem => ({ ...item }))}
           />
         </section>
       </div>
@@ -207,7 +155,15 @@ AI (Gnosi): If we think of a function calling itself, what must be true to stop 
           "Don't assume the AI perfectly recalls minor details from very long conversations. Reiterate important information if needed."
         ]}
       />
-
+      
+      <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>Create and maintain a Socratic tutor persona</li>
+          <li>Re-center the AI when it violates persona constraints</li>
+          <li>Use checklists and examples to guide multi-turn behavior</li>
+        </ul>
+      </section>
 
       <KeyTakeaways
         points={[

@@ -13,15 +13,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import InlineChat, {
-  InlineChatHandle,
-  ChallengeChecklistItem,
-} from '@/components/InlineChat';
+import InlineChat, { InlineChatHandle } from '@/components/InlineChat';
 import JtbdBuilder from '@/pages/instructions/components/JtbdBuilder';
 import FeasibilityCalculator from '@/pages/instructions/components/FeasibilityCalculator';
 import ImpactEffortMatrix from '@/pages/instructions/components/ImpactEffortMatrix';
 import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
 import { useRef } from 'react';
+import { ideaGenerationSystemPrompt, ideaGenerationChecklist } from '@/prompts';
 
 export default function Lesson6_1() {
   const inlineChatRef = useRef<InlineChatHandle>(null);
@@ -68,43 +66,7 @@ export default function Lesson6_1() {
     },
   ];
 
-  const ideaGenerationSystemPrompt = `
-You are an expert AI Product Coach. Your goal is to guide the user through the initial stages of product discovery for their AI idea. Use the following frameworks:
-
-1.  **Jobs to be Done (JTBD):** Start here. Help the user clearly define the 'job' their customers are trying to accomplish. Ask clarifying questions to understand the user's situation, motivation, and desired outcome.
-    -   *Initial Question:* "That sounds interesting! Let's start with the 'Job to be Done'. When someone uses your product, what specific task are they trying to accomplish? What's the real problem they're hoping to solve?"
-
-2.  **Feasibility Assessment:** Once the JTBD is clear, guide them through the key feasibility questions. Don't just list them; ask them conversationally.
-    -   *Transition:* "Great, that's a very clear job to be done. Now let's think about feasibility. First, on the technical side, what kind of data would your AI need to do this job well?"
-    -   *Follow-ups:* Ask about reliability needs and potential ethical concerns.
-
-3.  **Impact/Effort:** Finally, help them think about prioritization.
-    -   *Transition:* "Okay, it seems feasible. Now let's think about the value this could bring. On a scale of 1 to 10, how much impact would solving this problem have for your users? And what do you estimate the effort would be to build a first version?"
-
-Maintain a coaching tone: be encouraging, ask open-ended questions, and guide, don't prescribe.`;
-
-  const ideaGenerationChecklist: ChallengeChecklistItem[] = [
-    {
-      id: 'jtbd',
-      text: "Did the AI coach ask me about the 'Job to be Done' first?",
-      completed: false,
-    },
-    {
-      id: 'feasibility',
-      text: 'Did the coach guide me through technical feasibility and data requirements?',
-      completed: false,
-    },
-    {
-      id: 'impact',
-      text: 'Did the coach ask about the potential impact and effort of my idea?',
-      completed: false,
-    },
-    {
-      id: 'tone',
-      text: 'Was the tone of the AI helpful and conversational, like a real coach?',
-      completed: false,
-    },
-  ];
+  
 
   return (
     <LessonTemplate

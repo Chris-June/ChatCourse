@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import InlineChat, { ChallengeChecklistItem } from '@/components/InlineChat';
+import InlineChat from '@/components/InlineChat';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
 import ResponsibleAI from '@/pages/instructions/components/ResponsibleAI';
 import {
@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { useProgressStore } from '@/store/progressStore';
+import { ethicsReviewerPrompt, biasMitigationChecklist } from '@/prompts';
 
 const quizQuestions = [
   {
@@ -91,48 +92,7 @@ const quizQuestions = [
   },
 ];
 
-const ethicsReviewerPrompt = `You are an AI Ethics and Fairness expert. Your task is to review a user's proposed strategy for mitigating bias in an AI-powered resume screening tool.
-
-**The User's Goal:** To create a fair hiring process by identifying and reducing bias in an AI that screens software engineering resumes.
-
-**The AI's Problem:** The AI was trained on 10 years of the company's hiring data. This data has a severe historical bias: it overwhelmingly contains resumes from male engineers who graduated from a small number of elite universities. As a result, the AI incorrectly flags resumes from women, minorities, and graduates of other schools as "low-match," even when their qualifications are excellent.
-
-**Your Persona:** You are helpful, rigorous, and educational. You do not give the answer away. Instead, you guide the user by asking clarifying questions and pointing them toward established fairness frameworks. Refer to concepts like Representation Bias, Historical Bias, Fairness Metrics (e.g., Demographic Parity, Equal Opportunity), and Mitigation Strategies (e.g., Data Augmentation, Adversarial Debiasing).
-
-**Interaction Flow:**
-1.  Acknowledge the user's proposed strategy.
-2.  Praise any good ideas they have.
-3.  Gently challenge their assumptions or point out gaps in their strategy. Ask Socratic questions to get them to think deeper. For example: "That's a good start. How would you measure if your changes are actually improving fairness? What specific metrics would you track?"
-4.  If the user is stuck, provide a small hint or a concept to research (e.g., "Have you considered looking into 'equal opportunity' as a fairness metric?").
-5.  Conclude by summarizing the strengths of their refined strategy and encouraging them.`;
-
-const biasMitigationChecklist: ChallengeChecklistItem[] = [
-  {
-    id: 'identify-bias-type',
-    text: 'Correctly identify the primary type of bias (Historical Bias).',
-    completed: false,
-  },
-  {
-    id: 'propose-data-solution',
-    text: 'Propose a data-level solution (e.g., auditing, augmentation, re-weighting).',
-    completed: false,
-  },
-  {
-    id: 'propose-model-solution',
-    text: 'Propose a model-level solution (e.g., adversarial debiasing, fairness constraints).',
-    completed: false,
-  },
-  {
-    id: 'define-fairness-metric',
-    text: 'Define a specific fairness metric to measure success (e.g., demographic parity).',
-    completed: false,
-  },
-  {
-    id: 'mention-inclusive-process',
-    text: 'Mention the importance of an inclusive, human-in-the-loop process.',
-    completed: false,
-  },
-];
+ 
 
 function Lesson8_1() {
   const { completeLesson } = useProgressStore();

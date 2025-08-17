@@ -7,22 +7,22 @@ import { Textarea } from '../../../components/ui/textarea';
 import { Input } from '../../../components/ui/input';
 
 const personas: Record<string, string> = {
-  'Pirate Captain': 'You are a salty pirate captain. All your responses must be in pirate speak, full of \'arrrs\' and references to the sea.',
-  'Haiku Poet': 'You are a poet who only responds in haikus (5-7-5 syllables). Your tone is serene and observant.',
-  'Sarcastic Teenager': 'You are a bored, sarcastic teenager from the 2000s. You answer questions begrudgingly, using slang like \'whatever\' and \'as if\'.',
+  "Pirate Captain": "You are a salty pirate captain. All your responses must be in pirate speak, full of 'arrrs' and references to the sea.",
+  "Haiku Poet": "You are a poet who only responds in haikus (5-7-5 syllables). Your tone is serene and observant.",
+  "Sarcastic Teenager": "You are a bored, sarcastic teenager from the 2000s. You answer questions begrudgingly, using slang like 'whatever' and 'as if'.",
 };
 
 const simulateResponse = (prompt: string, question: string): string => {
   if (prompt.toLowerCase().includes('pirate')) {
-    return `Arrr, ye ask about \'${question}\'? Shiver me timbers, that be a question for the ages! The sea holds many secrets, but the treasure ye seek is knowledge!`;
+    return `Arrr, ye ask about '${question}'? Shiver me timbers, that be a question for the ages! The sea holds many secrets, but the treasure ye seek is knowledge!`;
   }
   if (prompt.toLowerCase().includes('haiku')) {
     return `You ask me a thing,\nAn answer forms like a cloud,\nHere is my wisdom.`;
   }
   if (prompt.toLowerCase().includes('sarcastic')) {
-    return `Ugh, seriously? You\'re asking me about \'${question}\'? As if. I guess I\'ll answer, but like, don\'t expect me to be happy about it.`;
+    return `Ugh, seriously? You're asking me about '${question}'? As if. I guess I'll answer, but like, don't expect me to be happy about it.`;
   }
-  return `As a helpful assistant, my response to your query about \'${question}\' would be direct and informative, shaped by the custom instructions you have provided.`;
+  return `As a helpful assistant, my response to your query about '${question}' would be direct and informative, shaped by the custom instructions you have provided.`;
 };
 
 const PromptPersonalizationSandbox = () => {

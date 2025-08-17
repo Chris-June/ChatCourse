@@ -2,10 +2,7 @@ import { Zap, Sliders, Rocket, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
 import { useRef } from 'react';
-import InlineChat, {
-  InlineChatHandle,
-  ChallengeChecklistItem,
-} from '@/components/InlineChat';
+import InlineChat, { InlineChatHandle } from '@/components/InlineChat';
 import KeyTakeaways from '@/pages/instructions/components/KeyTakeaways';
 import BestPractices from '@/pages/instructions/components/BestPractices';
 import LatencyFlowInfographic from '@/pages/instructions/components/LatencyFlowInfographic';
@@ -20,6 +17,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { classificationAgentPrompt, modelSelectionChecklist } from '@/prompts';
 
 export default function Lesson5_3() {
   const inlineChatRef = useRef<InlineChatHandle>(null);
@@ -28,34 +26,6 @@ export default function Lesson5_3() {
     inlineChatRef.current?.setPromptText(text);
   };
 
-  const classificationAgentPrompt = `
-  You are an expert AI software consultant. Your job is to recommend the best language model tier for a user's task.
-
-  Model Tiers:
-  - Tier 1 (Fast & Light): GPT-4o-mini. Cost: $0.15/M tokens. Best for simple, high-volume tasks like classification, extraction, or chatbots where speed is critical and reasoning is minimal.
-  - Tier 2 (Balanced): GPT-4.1-mini. Cost: $1/M tokens. A good default for most tasks requiring solid reasoning, summarization, and multi-step instructions without needing maximum power.
-  - Tier 3 (Powerful): GPT-4.1. Cost: $5/M tokens. The most powerful model for complex reasoning, deep analysis, and tasks requiring near-human-level understanding, like legal analysis or advanced code generation.
-
-  When a user describes their task, first, clarify any ambiguities. Then, recommend a tier and JUSTIFY your choice based on the task's complexity, required speed, and cost implications. Be concise and clear.
-`;
-
-  const modelSelectionChecklist: ChallengeChecklistItem[] = [
-    {
-      id: '1',
-      text: 'Ask about a task requiring high accuracy (e.g., legal analysis).',
-      completed: false,
-    },
-    {
-      id: '2',
-      text: 'Ask about a task requiring high speed (e.g., real-time transcription).',
-      completed: false,
-    },
-    {
-      id: '3',
-      text: 'Ask about a task that is very cost-sensitive (e.g., a free hobby project).',
-      completed: false,
-    },
-  ];
 
   const quizQuestions = [
     {
@@ -243,7 +213,7 @@ export default function Lesson5_3() {
         <BestPractices
           dos={[
             'Stream responses whenever possible to provide immediate feedback.',
-            "Match the model to the task\'s complexity (e.g., use light models for classification).",
+            "Match the model to the task's complexity (e.g., use light models for classification).",
             'Implement a caching layer for frequent, identical requests.',
           ]}
           donts={[

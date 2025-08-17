@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, useEffect, useCallback, forwardRef, useImperativeHandle, useRef } from 'react';
 import { useChatStore } from '@/store/chat';
 import { Send, Loader, X, AlertCircle, CheckCircle, Circle as CircleIcon } from 'lucide-react';
 
@@ -86,6 +86,11 @@ interface InlineChatProps {
    * This is useful for displaying pre-canned examples.
    */
   readOnly?: boolean;
+  /**
+   * Optional maximum output tokens to request from the model.
+   * If omitted, the server will use its defaults or environment value.
+   */
+  maxOutputTokens?: number;
 }
 
 const RATE_LIMIT_RESET_HOURS = 24;
@@ -110,6 +115,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
       maxFollowUps,
       readOnly = false,
       simulatedResponse,
+      maxOutputTokens,
     },
     ref
   ) => {
@@ -254,6 +260,25 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
       }
     };
 
+    // --- Type Guards ---
+    const isRecord = (value: unknown): value is Record<string, unknown> =>
+      typeof value === 'object' && value !== null;
+
+    // --- Refs ---
+    const formRef = useRef<HTMLFormElement>(null);
+
+    // --- Helpers ---
+    const runSimulatedResponse = () => {
+      if (!simulatedResponse) return;
+      setIsLoading(true);
+      setTimeout(() => {
+        setMessages((prev) => [...prev, { role: 'assistant', content: simulatedResponse }]);
+        setIsLoading(false);
+        setSimulationHasRun(true);
+        checkChecklistCompletion(simulatedResponse);
+      }, 1000);
+    };
+
     /**
      * Handles the form submission for sending a new chat message.
      * This function orchestrates rate-limiting, API calls, and streaming response handling.
@@ -271,13 +296,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
 
       // If in read-only mode, immediately show the simulated response after a delay
       if (readOnly && simulatedResponse) {
-        setIsLoading(true);
-        setTimeout(() => {
-          setMessages((prev) => [...prev, { role: 'assistant', content: simulatedResponse }]);
-          setIsLoading(false);
-          setSimulationHasRun(true); // Disable the button after running
-          checkChecklistCompletion(simulatedResponse);
-        }, 1000); // 1-second delay to simulate network latency
+        runSimulatedResponse();
         return;
       }
 
@@ -309,7 +328,13 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
         );
 
         // 2. API Call to the backend
-        const url = process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/chat` : '/api/chat';
+        // Prefer NEXT_PUBLIC_API_URL; else, in dev when app runs on 3001, call API at 3000.
+        let url = '/api/chat';
+        if (process.env.NEXT_PUBLIC_API_URL) {
+          url = `${process.env.NEXT_PUBLIC_API_URL}/api/chat`;
+        } else if (typeof window !== 'undefined' && window.location.port === '3001') {
+          url = 'http://localhost:3000/api/chat';
+        }
 
         const response = await fetch(url, {
           method: 'POST',
@@ -317,8 +342,29 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${apiKey}`,
           },
-          body: JSON.stringify({ messages: newMessages, systemPrompt }),
+          body: JSON.stringify({ messages: newMessages, systemPrompt, max_output_tokens: maxOutputTokens }),
         });
+
+        if (!response.ok) {
+          // Try to parse JSON error, fallback to text
+          let serverError = '';
+          try {
+            const data: unknown = await response.json();
+            if (isRecord(data) && typeof data.error === 'string') {
+              serverError = data.error;
+            } else {
+              serverError = JSON.stringify(data);
+            }
+          } catch {
+            try {
+              serverError = await response.text();
+            } catch {
+              // Provide a minimal fallback to satisfy no-empty lint rule
+              serverError = serverError || 'Unknown error';
+            }
+          }
+          throw new Error(serverError || `Request failed with status ${response.status}`);
+        }
 
         if (!response.body) {
           throw new Error('No response body');
@@ -359,7 +405,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
                     return newMessages;
                   });
                 }
-              } catch (e) {
+              } catch {
                 console.error('Failed to parse stream data:', jsonStr);
               }
             }
@@ -369,7 +415,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
         // Final check after the stream is complete
         checkChecklistCompletion(assistantMessage);
 
-      } catch (error: any) {
+      } catch (error: unknown) {
         let errorMessage = 'An unexpected error occurred.';
         if (error instanceof Error) {
           if (error.name === 'TypeError') { // Likely a network error
@@ -426,8 +472,8 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
           <div className="p-4 text-center">
             <button
               type="button"
-              onClick={() => handleSubmit(new Event('submit') as any)}
-              disabled={isLoading || simulationHasRun}
+              onClick={runSimulatedResponse}
+              disabled={isLoading || simulationHasRun || !simulatedResponse}
               className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-full shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed"
             >
               {isLoading ? (
@@ -438,7 +484,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit}>
+          <form ref={formRef} onSubmit={handleSubmit}>
           <div className="relative">
             <textarea
               value={prompt}
@@ -450,7 +496,7 @@ const InlineChat = forwardRef<InlineChatHandle, InlineChatProps>(
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
-                  handleSubmit(e as any);
+                  formRef.current?.requestSubmit();
                 }
               }}
             />

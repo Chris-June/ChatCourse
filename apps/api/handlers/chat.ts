@@ -39,7 +39,12 @@ const toolsRegistry: Record<string, (args: ToolArgs) => Promise<ToolOutput>> = {
 
 export const handleChat = async (req: express.Request, res: express.Response) => {
   try {
-    const { messages, model, temperature, top_p, reasoning_effort, verbosity, tools, tool_choice, applyBasePrompt } = req.body;
+    const { messages, model, temperature, top_p, reasoning_effort, verbosity, tools, tool_choice, applyBasePrompt, personalization } = req.body;
+    if (process.env.NODE_ENV !== 'production') {
+      try {
+        console.log('[chat] personalization received:', JSON.stringify(personalization));
+      } catch {}
+    }
     const apiKey = getApiKey(req) || process.env.OPENAI_API_KEY;
 
     if (!apiKey) {
@@ -91,7 +96,37 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
     } else if (verbosity === 'high') {
       systemStack.push({ role: 'system', content: 'Be detailed. Provide thorough explanations and examples when helpful.' });
     }
-    // 4) Conditional INSYNC base prompt
+    
+    // 4) Personalization (user context)
+    if (personalization && typeof personalization === 'object') {
+      const { name, role, industry, region, units, tone, expertise, audience } = personalization as Record<string, unknown>;
+      const fields: string[] = [];
+      const add = (label: string, val: unknown) => {
+        if (typeof val !== 'string') return;
+        const v = val.trim().slice(0, 300);
+        if (v) fields.push(`${label}: ${v}`);
+      };
+      add('Profile', name);
+      add('Role/Title', role);
+      add('Industry', industry);
+      add('Region', region);
+      add('Preferred Units', units);
+      add('Tone', tone);
+      add('Expertise Level', expertise);
+      add('Target Audience', audience);
+      if (fields.length) {
+        const sysMsg = {
+          role: 'system',
+          content: `User personalization for tailoring responses. Adapt examples, terminology, and assumptions accordingly.\n${fields.map((f) => `- ${f}`).join('\n')}`,
+        } as const;
+        systemStack.push(sysMsg);
+        if (process.env.NODE_ENV !== 'production') {
+          console.log('[chat] injected personalization system message:', sysMsg.content);
+        }
+      }
+    }
+
+    // 5) Conditional INSYNC base prompt
     if (shouldApplyBase) {
       try {
         const basePrompt = getBaseSystemPrompt();
@@ -146,10 +181,19 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
     const base: Record<string, any> = {
       model: apiName,
       stream: true,
-      temperature: temperature !== undefined && temperature >= 0 && temperature <= 2 ? temperature : parseFloat(process.env.DEFAULT_TEMPERATURE || '0.7'),
-      top_p: top_p !== undefined && top_p >= 0 && top_p <= 1 ? top_p : parseFloat(process.env.DEFAULT_TOP_P || '0.9'),
       max_output_tokens: maxTokens,
     };
+
+    // Include sampling params only for models that support them
+    const supportsSampling = apiName !== 'gpt-5-nano';
+    if (supportsSampling) {
+      base.temperature = (temperature !== undefined && temperature >= 0 && temperature <= 2)
+        ? temperature
+        : parseFloat(process.env.DEFAULT_TEMPERATURE || '0.7');
+      base.top_p = (top_p !== undefined && top_p >= 0 && top_p <= 1)
+        ? top_p
+        : parseFloat(process.env.DEFAULT_TOP_P || '0.9');
+    }
     if (reasoning_effort) base.reasoning = { effort: reasoning_effort };
     // Do not send 'verbosity' to OpenAI Responses API (unsupported)
     // Sanitize tool names for Responses API; keep a mapping to internal runner names
@@ -216,7 +260,6 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
               const payload = JSON.parse(dataStr);
               const type: string | undefined = payload.type;
               if (!responseId) {
-                // Try capture id from created or similar event shapes
                 responseId = payload.response_id || payload.id || payload.response?.id || responseId;
               }
               if (type === 'response.output_text.delta' && typeof payload.delta === 'string') {
@@ -227,15 +270,33 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
                 const delta: string = payload.text;
                 completionText += delta;
                 res.write(`data: ${JSON.stringify({ delta: redactOutput(delta) })}\n\n`);
+              } else if (type === 'response.delta' && payload?.delta?.type === 'output_text.delta' && typeof payload?.delta?.text === 'string') {
+                const delta: string = payload.delta.text;
+                completionText += delta;
+                res.write(`data: ${JSON.stringify({ delta: redactOutput(delta) })}\n\n`);
+              } else if (type === 'message.delta' && payload?.delta?.type === 'output_text.delta' && typeof payload?.delta?.text === 'string') {
+                const delta: string = payload.delta.text;
+                completionText += delta;
+                res.write(`data: ${JSON.stringify({ delta: redactOutput(delta) })}\n\n`);
+              } else if (Array.isArray(payload?.content)) {
+                for (const item of payload.content) {
+                  if (item?.type === 'output_text.delta' && typeof item?.text === 'string') {
+                    const delta: string = item.text;
+                    completionText += delta;
+                    res.write(`data: ${JSON.stringify({ delta: redactOutput(delta) })}\n\n`);
+                  } else if (item?.type === 'output_text.chunk' && typeof item?.text === 'string') {
+                    const delta: string = item.text;
+                    completionText += delta;
+                    res.write(`data: ${JSON.stringify({ delta: redactOutput(delta) })}\n\n`);
+                  }
+                }
               } else if (type === 'response.tool_call' && payload.name) {
-                // A compact event form: name + arguments
                 pendingToolCalls.push({ id: payload.id, name: payload.name, args: payload.arguments || payload.input || {} });
               } else if (payload.tool && payload.tool.name) {
-                // Fallback for other shapes that embed tool info
                 pendingToolCalls.push({ id: payload.tool.id, name: payload.tool.name, args: payload.tool.arguments || {} });
               }
             } catch (e) {
-              // ignore
+              // ignore parse errors
             }
           }
         }

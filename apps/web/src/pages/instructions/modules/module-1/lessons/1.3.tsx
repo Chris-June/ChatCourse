@@ -1,101 +1,10 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Lightbulb, Check, X, HelpCircle } from 'lucide-react';
+import React from 'react';
+import { Lightbulb, AlertTriangle, BookOpen, ShieldCheck, Search, Link2, ListChecks } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
+import HallucinationGame from './components/HallucinationGame';
 
-// A new, self-contained interactive component for the Hallucination Game
-const HallucinationGame: React.FC = () => {
-  const statements = [
-    {
-      text: 'The Eiffel Tower is located in Paris, France and was completed in 1889.',
-      isHallucination: false,
-      explanation: 'This is a well-known, verifiable fact. The Eiffel Tower was indeed completed in March 1889 for the World\'s Fair.',
-    },
-    {
-      text: 'The first person to walk on the moon was Neil Armstrong, who famously said, \'That\'s one small step for a man, one giant leap for mankind.\'',
-      isHallucination: false,
-      explanation: 'This is a correct historical fact and a famous quote from the Apollo 11 mission in 1969.',
-    },
-    {
-      text: 'The Golden Gate Bridge in San Francisco is famous for its reddish-orange color, which is known as \'International Orange\' and was originally chosen to make it more visible in the city\'s dense fog.',
-      isHallucination: false,
-      explanation: 'This is true. The color was selected specifically for visibility and has become iconic.',
-    },
-    {
-      text: 'The best way to treat a jellyfish sting is to urinate on it, as the ammonia in urine neutralizes the venom.',
-      isHallucination: true,
-      explanation: 'This is a common myth popularized by TV shows. Urinating on a sting can actually make it worse by causing the stingers to release more venom. The recommended treatment is rinsing with vinegar or hot water.',
-    },
-    {
-      text: 'The inventor of the telephone, Alexander Graham Bell, made the first-ever phone call to his assistant, Thomas Watson, who was in the next room.',
-      isHallucination: false,
-      explanation: 'This is a historically accurate account of the first telephone call made in March 1876.',
-    },
-    {
-      text: 'Penguins are found in the Arctic and are the primary predators of polar bears.',
-      isHallucination: true,
-      explanation: 'This is a complete fabrication. Penguins live almost exclusively in the Southern Hemisphere (Antarctica), while polar bears live in the Arctic (Northern Hemisphere). They would never meet in the wild.',
-    },
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [guess, setGuess] = useState<'fact' | 'hallucination' | null>(null);
-  const [showResult, setShowResult] = useState(false);
-
-  const currentStatement = statements[currentIndex];
-
-  const handleGuess = (userGuess: 'fact' | 'hallucination') => {
-    setGuess(userGuess);
-    setShowResult(true);
-  };
-
-  const handleNext = () => {
-    setShowResult(false);
-    setGuess(null);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % statements.length);
-  };
-
-  const isCorrect = guess !== null && (guess === 'fact' ? !currentStatement.isHallucination : currentStatement.isHallucination);
-
-  return (
-    <div className="bg-card p-6 rounded-xl my-6 border border-border">
-      <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-center"><HelpCircle className="w-6 h-6 mr-3 text-sky-400"/>The Hallucination Game</h3>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -50 }}
-          transition={{ duration: 0.3 }}
-        >
-          <p className="text-lg text-muted-foreground bg-muted p-4 rounded-md min-h-[100px]">"{currentStatement.text}"</p>
-        </motion.div>
-      </AnimatePresence>
-
-      {!showResult ? (
-        <div className="flex justify-center space-x-4 mt-4">
-          <button onClick={() => handleGuess('fact')} className="bg-success hover:bg-success/90 text-success-foreground font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">Fact</button>
-          <button onClick={() => handleGuess('hallucination')} className="bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">Hallucination</button>
-        </div>
-      ) : (
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className={`mt-4 p-4 rounded-lg text-center ${isCorrect ? 'bg-success/10 border-success/20' : 'bg-destructive/10 border-destructive/20'} border`}
-          role="status" aria-live="polite">
-          <h4 className="font-bold text-lg flex items-center justify-center">
-            {isCorrect ? <Check className="mr-2 text-success"/> : <X className="mr-2 text-destructive"/>}
-            <span className={isCorrect ? 'text-success' : 'text-destructive'}>{isCorrect ? 'Correct!' : 'Incorrect'}</span>
-          </h4>
-          <p className="text-muted-foreground mt-2">{currentStatement.explanation}</p>
-          <p className="text-xs text-muted-foreground mt-2">Verification tip: Cross-check with a primary or authoritative source (e.g., official site, encyclopedia, scholarly database).</p>
-          <button onClick={handleNext} className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105">Next Statement</button>
-        </motion.div>
-      )}
-    </div>
-  );
-};
+// HallucinationGame moved to './components/HallucinationGame'
 
 const Lesson1_3: React.FC = () => {
   const quizQuestions = [
@@ -152,6 +61,40 @@ const Lesson1_3: React.FC = () => {
       correctAnswer: 'False',
       explanation: 'An AI\'s tone is just another part of its prediction. It can generate highly confident-sounding prose for completely fabricated information. Always verify critical information from a primary source.'
     }
+    ,
+    {
+      questionText: 'Which is the best prompt to reduce hallucinations?',
+      options: [
+        '“Be creative and confident.”',
+        '“Cite sources with URLs and mark any uncertainty explicitly.”',
+        '“Write as fast as possible.”',
+        '“Use emojis to show confidence.”'
+      ],
+      correctAnswer: '“Cite sources with URLs and mark any uncertainty explicitly.”',
+      explanation: 'Requesting citations and explicit uncertainty nudges the model toward verifiable, cautious output.'
+    },
+    {
+      questionText: 'Which is a common hallucination pattern?',
+      options: [
+        'Providing a valid source link',
+        'Admitting it lacks context',
+        'Inventing a plausible but fake citation or URL',
+        'Returning an empty response'
+      ],
+      correctAnswer: 'Inventing a plausible but fake citation or URL',
+      explanation: 'LLMs can fabricate sources that look real because they predict the “shape” of a citation.'
+    },
+    {
+      questionText: 'What’s a reliable mitigation within this module’s scope?',
+      options: [
+        'Turning temperature to 2.0',
+        'Grounding with provided context and using structured output requirements',
+        'Asking for jokes to lighten the tone',
+        'Using only very long prompts'
+      ],
+      correctAnswer: 'Grounding with provided context and using structured output requirements',
+      explanation: 'Supplying relevant context and constraining format are practical, immediate levers.'
+    }
   ];
 
   return (
@@ -188,6 +131,44 @@ const Lesson1_3: React.FC = () => {
         <p className="text-muted-foreground mt-4">
           Think of it this way: the AI doesn't 'know' things. It only knows which words are likely to follow other words. Sometimes, the most 'likely' path leads to a dead end of made-up facts, fake statistics, or invented stories. Because it has no concept of 'truth,' it can't tell you it's making something up. It just keeps predicting.
         </p>
+
+      <div className="p-4 bg-muted/30 rounded-md border mt-4">
+        <h3 className="text-sm font-semibold mb-2 flex items-center"><AlertTriangle className="w-4 h-4 mr-2 text-rose-400"/> Myths vs. Reality</h3>
+        <ul className="text-sm text-muted-foreground space-y-1">
+          <li><strong>Myth:</strong> Confident tone = correctness. <strong>Reality:</strong> Tone is predicted like any other token.</li>
+          <li><strong>Myth:</strong> Longer answer = more accurate. <strong>Reality:</strong> Length can inflate confidence without facts.</li>
+          <li><strong>Myth:</strong> It “knows” sources. <strong>Reality:</strong> It predicts the <em>shape</em> of citations unless you provide them.</li>
+        </ul>
+      </div>
+
+      <div className="p-4 bg-muted/20 rounded-md border mt-4">
+        <h3 className="text-sm font-semibold mb-2 flex items-center"><Search className="w-4 h-4 mr-2 text-cyan-400"/> Red Flags to Spot Fast</h3>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>Very specific facts with no sources (dates, figures, legal details)</li>
+          <li>Perfectly formatted but unverifiable citations/URLs</li>
+          <li>Name or entity mashups (mixing people, places, or product lines)</li>
+          <li>Inconsistent numbers across the same answer</li>
+        </ul>
+      </div>
+
+      <div className="p-4 bg-card rounded-md border mt-4">
+        <h3 className="text-sm font-semibold mb-2 flex items-center"><BookOpen className="w-4 h-4 mr-2 text-emerald-400"/> Classic Hallucination Patterns</h3>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li><strong>Fabricated citations:</strong> realistic‑looking papers/URLs that don’t exist.</li>
+          <li><strong>Wrong timelines:</strong> mixing years, event order, or release dates.</li>
+          <li><strong>Entity conflation:</strong> merging details of similarly named people/companies.</li>
+          <li><strong>Speculative specifics:</strong> confident numbers without a source.</li>
+        </ul>
+      </div>
+
+      <div className="p-4 bg-card rounded-md border mt-4">
+        <h3 className="text-sm font-semibold mb-2">Quick Check</h3>
+        <ol className="list-decimal list-inside text-sm text-muted-foreground space-y-1">
+          <li>Which red flag have you seen most often?</li>
+          <li>How would you rewrite a vague question to make hallucination less likely?</li>
+        </ol>
+        <p className="text-xs text-muted-foreground mt-2">Tip: Ask the inline chat to grade your answers “pass/fail + one improvement.”</p>
+      </div>
       </div>
 
       <HallucinationGame />
@@ -202,6 +183,12 @@ const Lesson1_3: React.FC = () => {
         <p className="text-muted-foreground">
           Imagine an actor who forgets their lines but is determined to keep the play going. Instead of stopping, they improvise something that sounds plausible in the context of the scene. The AI does the same—it fills in gaps with what's statistically likely, which isn't always what's factually true.
         </p>
+
+      <div className="p-4 bg-muted/20 rounded-md border mt-4">
+        <h3 className="text-sm font-semibold mb-2">Probability in Action</h3>
+        <p className="text-sm text-muted-foreground mb-2">When facts are missing, the model still has to pick a next token. It chooses what seems most <em>probable</em>—not what is most <em>true</em>.</p>
+        <p className="text-xs text-muted-foreground">Takeaway: if you don’t provide context, you’re inviting plausible guesses.</p>
+      </div>
       </div>
 
       <div className="bg-card p-6 rounded-xl border border-border">
@@ -217,11 +204,45 @@ const Lesson1_3: React.FC = () => {
           <li><strong>Request a Confidence Score:</strong> Ask the AI to "rate its confidence in this answer on a scale of 1 to 10." This can sometimes give you a signal about how speculative the response is.</li> 
           <li><strong>Use Structured Responses:</strong> While hallucinations still occur, there are improvements such as structured responses and other mechanisms we will discuss later in this course that help reduce errors and improve grounding.</li>
         </ul>
+
+        <div className="rounded-md border p-3 bg-muted/40 mt-4">
+          <p className="text-sm text-muted-foreground mb-2 font-medium flex items-center"><ShieldCheck className="w-4 h-4 mr-2"/> Return Uncertainty Explicitly</p>
+          <pre className="bg-muted text-muted-foreground p-3 rounded-md overflow-x-auto text-xs">
+{`If you are uncertain about any part, return:
+{
+  "certainty": "low|medium|high",
+  "needs_review": true,
+  "what_to_verify": ["...", "..."]
+}`}
+          </pre>
+        </div>
+
+        <div className="rounded-md border p-3 bg-muted/40 mt-4">
+          <p className="text-sm text-muted-foreground mb-2 font-medium flex items-center"><Link2 className="w-4 h-4 mr-2"/> Ask for Verifiable Output</p>
+          <pre className="bg-muted text-muted-foreground p-3 rounded-md overflow-x-auto text-xs">
+{`Return sources as an array of objects with fields:
+[{ "title": string, "url": string, "type": "primary|secondary" }]`}
+          </pre>
+        </div>
+
+        <div className="rounded-md border p-3 bg-muted/30 mt-4">
+          <p className="text-sm text-muted-foreground mb-2 font-medium flex items-center"><ListChecks className="w-4 h-4 mr-2"/> Verification Checklist</p>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li>Scan numbers/dates; do they match elsewhere?</li>
+            <li>Open 2–3 sources; do links resolve and corroborate?</li>
+            <li>Flag any low-certainty fields for manual review.</li>
+          </ul>
+        </div>
       </div>
 
-      <div className="bg-accent/10 border border-accent/20 p-4 mb-8 rounded-xl text-center">
-        <h4 className="font-bold text-accent">Pro-Tip: Healthy Skepticism</h4>
-        <p className="text-accent/80 mt-1">Treat AI responses like a helpful starting point from a brilliant but sometimes unreliable intern. Always verify critical information yourself.</p>
+      <div className="p-4 bg-muted/20 rounded-md border mt-6">
+        <h3 className="text-sm font-semibold mb-2">Mini‑Glossary</h3>
+        <dl className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-muted-foreground">
+          <div><dt className="font-medium">Hallucination</dt><dd>Fluent but false or unfounded output.</dd></div>
+          <div><dt className="font-medium">Grounding</dt><dd>Anchoring answers to provided context or sources.</dd></div>
+          <div><dt className="font-medium">Uncertainty</dt><dd>Model‑signaled confidence about its own output.</dd></div>
+          <div><dt className="font-medium">Verification</dt><dd>Human checks that confirm claims with evidence.</dd></div>
+        </dl>
       </div>
 
       <KeyTakeaways 
@@ -240,6 +261,8 @@ const Lesson1_3: React.FC = () => {
           <li>Identify common hallucination patterns and red flags</li>
           <li>Prompt with grounding context and structure to reduce errors</li>
           <li>Apply a verification step for important outputs</li>
+          <li>List at least three red flags that suggest hallucination risk</li>
+          <li>Design a simple verification plan for critical outputs</li>
         </ul>
       </section>
     </LessonTemplate>

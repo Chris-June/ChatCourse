@@ -51,7 +51,7 @@ const SideMenu = ({
 
         <Button
           variant="outline"
-          className="w-full mb-4 bg-zinc-800 border-zinc-700 hover:bg-zinc-700"
+          className="w-full mb-4 bg-zinc-800 border-zinc-700 hover:bg-zinc-700 rounded-md"
           onClick={() => {
             onNewSession();
           }}
@@ -70,7 +70,7 @@ const SideMenu = ({
             >
               <Button
                 variant={session.id === activeSessionId ? 'secondary' : 'ghost'}
-                className="w-full justify-start truncate pr-16"
+                className="w-full justify-start truncate pr-16 rounded-md"
                 onClick={() => {
                   onSwitchSession(session.id);
                 }}
@@ -85,7 +85,7 @@ const SideMenu = ({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-7 w-7"
+                    className="h-7 w-7 rounded-md"
                     onClick={(e) => {
                       e.stopPropagation();
                       const newTopic = prompt('Enter new session name:', session.topic);
@@ -99,7 +99,7 @@ const SideMenu = ({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-7 w-7 text-red-500/80 hover:text-red-500"
+                    className="h-7 w-7 text-red-500/80 hover:text-red-500 rounded-md"
                     onClick={(e) => {
                       e.stopPropagation();
                       if (window.confirm('Are you sure you want to delete this session?')) {
@@ -116,13 +116,13 @@ const SideMenu = ({
         </div>
 
         <div className="mt-auto space-y-2 pt-4 border-t border-zinc-800">
-          <Button variant="ghost" className="w-full justify-start" onClick={() => navigate('/')}>
+          <Button variant="ghost" className="w-full justify-start rounded-md" onClick={() => navigate('/')}>
             <Home size={16} className="mr-2" />
             Home
           </Button>
           <Button
             variant="ghost"
-            className="w-full justify-start"
+            className="w-full justify-start rounded-md"
             onClick={() => navigate('/instructions/setup/project-setup')}
           >
             <BookOpen size={16} className="mr-2" />
@@ -130,7 +130,7 @@ const SideMenu = ({
           </Button>
           <Button
             variant="ghost"
-            className="w-full justify-start"
+            className="w-full justify-start rounded-md"
             onClick={onOpenSettings}
           >
             <Settings size={16} className="mr-2" />

@@ -20,6 +20,7 @@ const moduleData = [
     id: 'module-1',
     title: '1. Prompt Engineering Fundamentals',
     lessons: [
+      { id: '1.0', title: 'Overview', path: '/instructions/module-1/overview' },
       { id: '1.1', title: 'What is Generative AI?', path: '/instructions/module-1/1.1' },
       { id: '1.2', title: 'The "Next-Word" Predictor', path: '/instructions/module-1/1.2' },
       { id: '1.3', title: 'The Power of Specificity', path: '/instructions/module-1/1.3' },
@@ -34,6 +35,7 @@ const moduleData = [
     id: 'module-2',
     title: '2. Context Management',
     lessons: [
+      { id: '2.0', title: 'Overview', path: '/instructions/module-2/overview' },
       { id: '2.1', title: 'The Power of Context in AI', path: '/instructions/module-2/2.1' },
       { id: '2.2', title: 'Maintaining Coherent Conversations', path: '/instructions/module-2/2.2' },
       { id: '2.3', title: 'Practical Context Exercises', path: '/instructions/module-2/2.3' },
@@ -43,6 +45,7 @@ const moduleData = [
     id: 'module-3',
     title: '3. Prompting Techniques',
     lessons: [
+      { id: '3.0', title: 'Overview', path: '/instructions/module-3/overview' },
       { id: '3.1', title: 'Zero-shot and Few-shot Prompting', path: '/instructions/module-3/3.1' },
       { id: '3.2', title: 'Chain-of-Thought Prompting', path: '/instructions/module-3/3.2' },
       { id: '3.3', title: 'Advanced Prompt Patterns', path: '/instructions/module-3/3.3' },
@@ -52,6 +55,7 @@ const moduleData = [
     id: 'module-4',
     title: '4. AI Capabilities & Tools',
     lessons: [
+      { id: '4.0', title: 'Overview', path: '/instructions/module-4/overview' },
       { id: '4.1', title: 'Function Calling', path: '/instructions/module-4/4.1' },
       { id: '4.2', title: 'Model Context Protocol (MCP)', path: '/instructions/module-4/4.2' },
       { id: '4.3', title: 'Building Custom Tools', path: '/instructions/module-4/4.3' },
@@ -64,6 +68,7 @@ const moduleData = [
     id: 'module-5',
     title: '5. Advanced Interactions',
     lessons: [
+      { id: '5.0', title: 'Overview', path: '/instructions/module-5/overview' },
       { id: '5.1', title: 'Multi-Turn Conversations', path: '/instructions/module-5/5.1' },
       { id: '5.2', title: 'Personalization', path: '/instructions/module-5/5.2' },
       { id: '5.3', title: 'Performance Optimization', path: '/instructions/module-5/5.3' },
@@ -73,6 +78,7 @@ const moduleData = [
     id: 'module-6',
     title: '6. Development with AI',
     lessons: [
+      { id: '6.0', title: 'Overview', path: '/instructions/module-6/overview' },
       { id: '6.1', title: 'Idea Generation', path: '/instructions/module-6/6.1' },
       { id: '6.2', title: 'Design Thinking', path: '/instructions/module-6/6.2' },
       { id: '6.3', title: 'Iterative Development', path: '/instructions/module-6/6.3' },
@@ -82,6 +88,7 @@ const moduleData = [
     id: 'module-7',
     title: '7. Advanced Techniques',
     lessons: [
+      { id: '7.0', title: 'Overview', path: '/instructions/module-7/overview' },
       { id: '7.1', title: 'Function Calling', path: '/instructions/module-7/7.1' },
       { id: '7.2', title: 'RAG Systems', path: '/instructions/module-7/7.2' },
       { id: '7.3', title: 'Model Fine-Tuning', path: '/instructions/module-7/7.3' },
@@ -91,6 +98,7 @@ const moduleData = [
     id: 'module-8',
     title: '8. Responsible AI',
     lessons: [
+      { id: '8.0', title: 'Overview', path: '/instructions/module-8/overview' },
       { id: '8.1', title: 'Bias and Fairness', path: '/instructions/module-8/8.1' },
       { id: '8.2', title: 'Explainability', path: '/instructions/module-8/8.2' },
       { id: '8.3', title: 'Security & Privacy', path: '/instructions/module-8/8.3' },
@@ -115,7 +123,10 @@ const InstructionsSidebar: React.FC<InstructionsSidebarProps> = ({ isOpen }) => 
     if (import.meta && import.meta.env && import.meta.env.DEV) {
       disableGating = true;
     }
-  } catch {}
+  } catch {
+    // Swallow parse/localStorage errors safely (noop to satisfy no-empty rule)
+    void 0;
+  }
 
   const toggleModule = (moduleId: string) => {
     setExpandedModules(prev => ({
@@ -187,9 +198,10 @@ const InstructionsSidebar: React.FC<InstructionsSidebarProps> = ({ isOpen }) => 
                   {expandedModules[module.id] && (
                     <div className="ml-4 mt-1 space-y-1 border-l border-border pl-2">
                       {module.lessons.map((lesson) => {
-                        const moduleNumber = parseInt(module.id.split('-')[1]);
-                        const lessonNumber = parseInt(lesson.id.split('.')[1]);
-                        const isLocked = !disableGating && !isLessonUnlocked(moduleNumber, lessonNumber);
+                          const moduleNumber = parseInt(module.id.split('-')[1]);
+                          const lessonNumber = parseInt(lesson.id.split('.')[1]);
+                        const isOverview = lesson.id.endsWith('.0') || lesson.title.toLowerCase().includes('overview');
+                        const isLocked = isOverview ? false : (!disableGating && !isLessonUnlocked(moduleNumber, lessonNumber));
 
                         return (
                           <Button

@@ -10,12 +10,12 @@ const steps = [
   },
   {
     title: '2. Embeddings',
-    description: "Each token \'brick\' is given a unique GPS coordinate in a vast \'meaning space\'. Words with similar meanings get placed closer together. 'King' is near 'Queen', but far from 'Taco'.",
+    description: "Each token 'brick' is given a unique GPS coordinate in a vast 'meaning space'. Words with similar meanings get placed closer together. 'King' is near 'Queen', but far from 'Taco'.",
     icon: Layers,
   },
   {
     title: '3. Positional Encoding',
-    description: "The AI needs to know the order of the words. Positional encoding is like stamping each \'brick\' with its sequence number. Now 'The cat sat on the mat' is different from 'The mat sat on the cat'.",
+    description: "The AI needs to know the order of the words. Positional encoding is like stamping each 'brick' with its sequence number. Now 'The cat sat on the mat' is different from 'The mat sat on the cat'.",
     icon: LocateFixed,
   },
   {
@@ -25,7 +25,7 @@ const steps = [
   },
   {
     title: '5. Final Output',
-    description: 'After all the meetings, the AI has a deep understanding. It predicts the most probable next \'brick\' from its entire vocabulary, adds it to the sequence, and then converts the final chain of bricks back into human-readable text.',
+    description: "After all the meetings, the AI has a deep understanding. It predicts the most probable next 'brick' from its entire vocabulary, adds it to the sequence, and then converts the final chain of bricks back into human-readable text.",
     icon: ArrowRight,
   },
 ];

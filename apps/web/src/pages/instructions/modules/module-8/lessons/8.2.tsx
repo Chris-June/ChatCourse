@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import InlineChat, { ChallengeChecklistItem } from '@/components/InlineChat';
+import InlineChat from '@/components/InlineChat';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
 import {
   Accordion,
@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { useProgressStore } from '@/store/progressStore';
+import { explainabilityExpertPrompt, explanationChecklist } from '@/prompts';
 
 const quizQuestions = [
   {
@@ -90,42 +91,7 @@ const quizQuestions = [
   },
 ];
 
-const explainabilityExpertPrompt = `You are an AI Explainability and User Experience (UX) expert. Your task is to review a user-submitted explanation for a sensitive AI decision.
-
-**The User's Goal:** To communicate a loan denial to a user in a way that is clear, empathetic, and actionable.
-
-**The Core Problem:** An AI model denied a loan application based on a low credit score and a high debt-to-income ratio. The explanation must be delivered without using technical jargon.
-
-**Your Evaluation Criteria:**
-1.  **Clarity:** Is the explanation easy to understand for a non-technical user?
-2.  **Empathy:** Does the tone acknowledge the user's disappointment and feel supportive?
-3.  **Actionability:** Does it provide concrete, helpful next steps?
-4.  **Transparency (without oversharing):** Does it explain the *key factors* of the decision (credit score, debt) without revealing proprietary model details?
-
-Provide constructive feedback. If the user's explanation is good, validate it and praise its strengths. If it's weak, gently guide them. For example, if it lacks empathy, ask, "This is a clear explanation. How might you adjust the tone to be more supportive of the user during this disappointing moment?"`;
-
-const explanationChecklist: ChallengeChecklistItem[] = [
-  {
-    id: 'clarity',
-    text: 'Explain the decision using simple, non-technical language.',
-    completed: false,
-  },
-  {
-    id: 'empathy',
-    text: 'Use an empathetic and supportive tone.',
-    completed: false,
-  },
-  {
-    id: 'actionability',
-    text: 'Provide clear, actionable next steps for the user.',
-    completed: false,
-  },
-  {
-    id: 'transparency',
-    text: 'Mention the key factors (e.g., credit information) without being overly technical.',
-    completed: false,
-  },
-];
+ 
 
 function Lesson8_2() {
   const { completeLesson } = useProgressStore();

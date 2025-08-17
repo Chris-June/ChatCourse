@@ -6,9 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import InlineChat, {
-  ChallengeChecklistItem,
-} from '@/components/InlineChat';
+import InlineChat from '@/components/InlineChat';
 import KeyTakeaways from '@/pages/instructions/components/KeyTakeaways';
 import BestPractices from '@/pages/instructions/components/BestPractices';
 import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
@@ -21,6 +19,7 @@ import EthicalDilemma from '@/pages/instructions/components/EthicalDilemma';
 import BestPracticesAudit from '@/pages/instructions/components/BestPracticesAudit';
 import PersonalizedAgentBuilder from '@/pages/instructions/components/PersonalizedAgentBuilder';
 import ContextualChatChallenge from '@/pages/instructions/components/ContextualChatChallenge';
+import { personalizedTutorSystemPrompt, personalizedTutorChecklist } from '@/prompts';
 
 export default function Lesson5_2() {
   const quizQuestions = [
@@ -51,31 +50,6 @@ export default function Lesson5_2() {
         'Static context is general and user-defined (e.g., tone preference), while dynamic context is task-specific and injected by the application (e.g., current item being viewed).',
       explanation:
         'Static context provides broad, reusable instructions based on user preferences, whereas dynamic context provides immediate, situational information for the current task.',
-    },
-  ];
-
-  const systemPrompt = `You are an expert Biology tutor. The student's name is Maria, a 10th grader who is a visual learner. Your goal is to help her with her homework on cell division for an upcoming exam. Be encouraging and use visual descriptions or analogies where possible.`;
-
-  const checklistItems: ChallengeChecklistItem[] = [
-    {
-      id: '1',
-      text: 'AI addressed me by my name, Maria.',
-      completed: false,
-    },
-    {
-      id: '2',
-      text: 'AI acknowledged that I am a visual learner.',
-      completed: false,
-    },
-    {
-      id: '3',
-      text: 'AI used a visual analogy to explain a concept.',
-      completed: false,
-    },
-    {
-      id: '4',
-      text: 'AI maintained an encouraging and helpful tone.',
-      completed: false,
     },
   ];
 
@@ -190,8 +164,8 @@ export default function Lesson5_2() {
               </p>
               <InlineChat
                 moduleId="module-5.2-personalized-tutor"
-                systemPrompt={systemPrompt}
-                challengeChecklist={checklistItems}
+                systemPrompt={personalizedTutorSystemPrompt}
+                challengeChecklist={personalizedTutorChecklist}
                 placeholder='Try asking: "Can you help me understand mitosis?"'
                 initialMessages={[
                   {

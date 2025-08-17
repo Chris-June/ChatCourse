@@ -3,6 +3,7 @@ import { Wrench } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
 import PromptImprover from '@/pages/instructions/components/PromptImprover';
+import { insyncEvaluatorPrompt } from '@/prompts';
 
 const Lesson1_6: React.FC = () => {
   const quizQuestions = [
@@ -66,6 +67,15 @@ const Lesson1_6: React.FC = () => {
       subtitle="Put your knowledge to the test with a hands-on challenge."
       quizQuestions={quizQuestions}
     >
+      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–15 minutes</p>
+        <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>Breaking down tasks with the I.N.S.Y.N.C. framework</li>
+          <li>Turning vague goals into structured, actionable prompts</li>
+          <li>Hands-on iteration using examples and feedback</li>
+        </ul>
+      </section>
       <div className="space-y-8 text-foreground">
         <div className="bg-card p-6 rounded-xl border border-border">
           <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
@@ -132,8 +142,17 @@ const Lesson1_6: React.FC = () => {
             moduleId="module-1.6"
             maxAttempts={15}
             placeholder="Craft your prompt for the Tokyo itinerary here..."
-            systemPrompt={`You are an expert prompt engineer and AI educator. Your job is to help users master the I.N.S.Y.N.C. prompt framework by evaluating their prompt for a 3-day Tokyo itinerary. Your evaluation must be constructive and educational. Return your evaluation in this exact format:\n\n**I.N.S.Y.N.C. Prompt Evaluation**\n- Intent: [Score]/5 – [Brief explanation]\n- Nuance: [Score]/5 – [Brief explanation]\n- Style: [Score]/5 – [Brief explanation]\n- You as...: [Score]/5 – [Brief explanation]\n- Narrative Format: [Score]/5 – [Brief explanation]\n- Context: [Score]/5 – [Brief explanation]\n\n**Total Score: [XX/30]**\n\n**Strengths:**\n• [List strengths]\n\n**Suggestions for Improvement:**\n• [List improvements]\n\n**Revised Prompt Example:**\n"""\n[Provide an improved version of the user’s prompt using the full I.N.S.Y.N.C. structure]\n"""\n\n**Generated Output Example:**\n[Generate a sample itinerary using the revised prompt]`}
+            systemPrompt={insyncEvaluatorPrompt}
           />
+      
+      <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>Decompose tasks using I.N.S.Y.N.C. elements</li>
+          <li>Iteratively improve prompts from feedback</li>
+          <li>Apply the framework to real scenarios (travel, cover letters, campaigns)</li>
+        </ul>
+      </section>
       </div>
     </LessonTemplate>
   );

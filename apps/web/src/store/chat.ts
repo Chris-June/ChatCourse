@@ -30,6 +30,27 @@ export type ChatSession = {
   messages: Message[];
 };
 
+// Shared union types for settings
+export type Units = 'metric' | 'imperial';
+export type Tone = 'professional' | 'friendly' | 'concise';
+export type Expertise = 'novice' | 'intermediate' | 'expert';
+export type ReasoningEffort = 'minimal' | 'low' | 'medium' | 'high';
+export type Verbosity = 'low' | 'medium' | 'high';
+export type ToolMode = 'auto' | 'required';
+
+// Minimal tool/function schema type used by the API layer
+export type ToolDefinition = {
+  type: 'function';
+  name: string;
+  description?: string;
+  parameters: {
+    type: 'object';
+    properties: Record<string, unknown>;
+    required?: string[];
+    additionalProperties?: boolean;
+  };
+};
+
 // Define the state and actions for the store
 interface ChatState {
   sessions: ChatSession[];
@@ -39,12 +60,21 @@ interface ChatState {
   isSettingsOpen: boolean;
   model: string;
   customInstructions: string;
+  // Personalization
+  profileName: string; // user's name
+  roleTitle: string;   // user's role/title
+  industry: string;    // primary industry or domain
+  region: string;      // locale/region (e.g., en-US, Canada)
+  units: Units;
+  tone: Tone;
+  expertise: Expertise;
+  audience: string;    // target audience description
   temperature: number;
   top_p: number;
-  reasoningEffort: 'minimal' | 'low' | 'medium' | 'high';
-  verbosity: 'low' | 'medium' | 'high';
-  tools: any[]; // tool definitions passed to API
-  toolMode?: 'auto' | 'required';
+  reasoningEffort: ReasoningEffort;
+  verbosity: Verbosity;
+  tools: ToolDefinition[]; // tool definitions passed to API
+  toolMode?: ToolMode;
   apiKey: string;
   startNewSession: () => void;
   setActiveSession: (sessionId: string) => void;
@@ -60,12 +90,20 @@ interface ChatState {
   toggleSettings: () => void;
   setModel: (model: string) => void;
   setCustomInstructions: (instructions: string) => void;
+  setProfileName: (name: string) => void;
+  setRoleTitle: (role: string) => void;
+  setIndustry: (industry: string) => void;
+  setRegion: (region: string) => void;
+  setUnits: (units: Units) => void;
+  setTone: (tone: Tone) => void;
+  setExpertise: (level: Expertise) => void;
+  setAudience: (audience: string) => void;
   setTemperature: (temp: number) => void;
   setTopP: (top_p: number) => void;
-  setReasoningEffort: (effort: 'minimal' | 'low' | 'medium' | 'high') => void;
-  setVerbosity: (level: 'low' | 'medium' | 'high') => void;
-  setTools: (tools: any[]) => void;
-  setToolMode: (mode: 'auto' | 'required') => void;
+  setReasoningEffort: (effort: ReasoningEffort) => void;
+  setVerbosity: (level: Verbosity) => void;
+  setTools: (tools: ToolDefinition[]) => void;
+  setToolMode: (mode: ToolMode) => void;
   setApiKey: (apiKey: string) => void;
   removeLastMessage: () => void;
   setMessages: (messages: Message[]) => void;
@@ -83,6 +121,15 @@ export const useChatStore = create<ChatState>()(
       isSettingsOpen: false,
       model: 'gpt-5-nano',
       customInstructions: '',
+      // Personalization defaults
+      profileName: '',
+      roleTitle: '',
+      industry: '',
+      region: '',
+      units: 'metric',
+      tone: 'professional',
+      expertise: 'intermediate',
+      audience: '',
       temperature: 1,
       top_p: 1,
       reasoningEffort: 'medium',
@@ -138,7 +185,7 @@ export const useChatStore = create<ChatState>()(
         set({ activeSessionId: sessionId });
       },
 
-      addMessage: (message) => {
+      addMessage: (message: Message) => {
         set((state) => {
           const activeSession = get().getActiveSession();
           if (!activeSession) return state;
@@ -156,11 +203,11 @@ export const useChatStore = create<ChatState>()(
         });
       },
 
-      setInput: (input) => set({ input }),
+      setInput: (input: string) => set({ input }),
 
-      setStreaming: (isStreaming) => set({ isStreaming }),
+      setStreaming: (isStreaming: boolean) => set({ isStreaming }),
 
-      updateLastMessageMetadata: (metadata) => {
+      updateLastMessageMetadata: (metadata: TokenMetadata) => {
         set((state) => {
           const activeSession = get().getActiveSession();
           if (!activeSession) return state;
@@ -183,7 +230,7 @@ export const useChatStore = create<ChatState>()(
         });
       },
 
-      updateLastMessage: (updater) => {
+      updateLastMessage: (updater: string | ((prev: string) => string)) => {
         set((state) => {
           const activeSession = get().getActiveSession();
           if (!activeSession) return state;
@@ -216,7 +263,7 @@ export const useChatStore = create<ChatState>()(
         return sessions.find((s) => s.id === activeSessionId);
       },
 
-      setSessionTopic: (sessionId, topic) => {
+      setSessionTopic: (sessionId: string, topic: string) => {
         set((state) => ({
           sessions: state.sessions.map((s) =>
             s.id === sessionId ? { ...s, topic } : s
@@ -224,7 +271,7 @@ export const useChatStore = create<ChatState>()(
         }));
       },
 
-      renameSession: (sessionId, newTopic) => {
+      renameSession: (sessionId: string, newTopic: string) => {
         set((state) => ({
           sessions: state.sessions.map((s) =>
             s.id === sessionId ? { ...s, topic: newTopic } : s
@@ -232,7 +279,7 @@ export const useChatStore = create<ChatState>()(
         }));
       },
 
-      deleteSession: (sessionId) => {
+      deleteSession: (sessionId: string) => {
         set((state) => {
           const remainingSessions = state.sessions.filter((s) => s.id !== sessionId);
           let newActiveSessionId = state.activeSessionId;
@@ -255,15 +302,23 @@ export const useChatStore = create<ChatState>()(
       },
 
       toggleSettings: () => set((state) => ({ isSettingsOpen: !state.isSettingsOpen })),
-      setModel: (model) => set({ model }),
-      setCustomInstructions: (instructions) => set({ customInstructions: instructions }),
-      setTemperature: (temp) => set({ temperature: temp }),
-      setTopP: (top_p) => set({ top_p }),
-      setReasoningEffort: (effort) => set({ reasoningEffort: effort }),
-      setVerbosity: (level) => set({ verbosity: level }),
-      setTools: (tools) => set({ tools }),
-      setToolMode: (mode) => set({ toolMode: mode }),
-      setApiKey: (apiKey) => set({ apiKey }),
+      setModel: (model: string) => set({ model }),
+      setCustomInstructions: (instructions: string) => set({ customInstructions: instructions }),
+      setProfileName: (name: string) => set({ profileName: name }),
+      setRoleTitle: (role: string) => set({ roleTitle: role }),
+      setIndustry: (industry: string) => set({ industry }),
+      setRegion: (region: string) => set({ region }),
+      setUnits: (units: Units) => set({ units }),
+      setTone: (tone: Tone) => set({ tone }),
+      setExpertise: (level: Expertise) => set({ expertise: level }),
+      setAudience: (audience: string) => set({ audience }),
+      setTemperature: (temp: number) => set({ temperature: temp }),
+      setTopP: (top_p: number) => set({ top_p }),
+      setReasoningEffort: (effort: ReasoningEffort) => set({ reasoningEffort: effort }),
+      setVerbosity: (level: Verbosity) => set({ verbosity: level }),
+      setTools: (tools: ToolDefinition[]) => set({ tools }),
+      setToolMode: (mode: ToolMode) => set({ toolMode: mode }),
+      setApiKey: (apiKey: string) => set({ apiKey }),
 
       removeLastMessage: () => {
         set((state) => {
@@ -285,7 +340,7 @@ export const useChatStore = create<ChatState>()(
 
       toggleTheme: () => set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
 
-      setMessages: (messages) => {
+      setMessages: (messages: Message[]) => {
         set((state) => {
           const activeSession = get().getActiveSession();
           if (!activeSession) return state;
@@ -304,16 +359,16 @@ export const useChatStore = create<ChatState>()(
       name: 'chat-storage',
       // Custom merge function to handle state hydration issues
       merge: (persistedState, currentState) => {
-        const state = persistedState as any;
+        const state = persistedState as Partial<ChatState> | undefined;
         // Ensure sessions is always an array
         if (state && typeof state === 'object' && !Array.isArray(state.sessions)) {
-          state.sessions = [];
+          (state as { sessions: ChatState['sessions'] }).sessions = [];
         }
 
         // Deep merge
         return {
           ...currentState,
-          ...(persistedState as any),
+          ...(persistedState as Partial<ChatState>),
         };
       },
       partialize: (state) => ({
@@ -321,6 +376,14 @@ export const useChatStore = create<ChatState>()(
         activeSessionId: state.activeSessionId,
         model: state.model,
         customInstructions: state.customInstructions,
+        profileName: state.profileName,
+        roleTitle: state.roleTitle,
+        industry: state.industry,
+        region: state.region,
+        units: state.units,
+        tone: state.tone,
+        expertise: state.expertise,
+        audience: state.audience,
         reasoningEffort: state.reasoningEffort,
         verbosity: state.verbosity,
         tools: state.tools,

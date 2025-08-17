@@ -25,7 +25,7 @@ import {
   Button,
 } from '@chat/ui';
 import { Sun, Moon, Save } from 'lucide-react';
-import { useChatStore } from '../store/chat';
+import { useChatStore, type Units, type Tone, type Expertise, type ReasoningEffort, type Verbosity, type ToolMode } from '../store/chat';
 import { models, modelFamilies } from '@/lib/models';
 
 
@@ -38,6 +38,23 @@ const SettingsModal = () => {
     setModel, 
     customInstructions, 
     setCustomInstructions,
+    // Personalization
+    profileName,
+    setProfileName,
+    roleTitle,
+    setRoleTitle,
+    industry,
+    setIndustry,
+    region,
+    setRegion,
+    units,
+    setUnits,
+    tone,
+    setTone,
+    expertise,
+    setExpertise,
+    audience,
+    setAudience,
     temperature,
     setTemperature,
     top_p,
@@ -83,7 +100,7 @@ const SettingsModal = () => {
     return (
     <Dialog open={isSettingsOpen} onOpenChange={toggleSettings}>
       <DialogContent 
-        className="bg-card border-border text-card-foreground w-[92vw] sm:max-w-[640px] max-h-[85vh] overflow-hidden"
+        className="bg-card border-border text-card-foreground w-[95vw] sm:max-w-[720px] max-h-[85vh] overflow-hidden"
         aria-describedby="settings-description"
       >
         <DialogDescription id="settings-description" className="sr-only">
@@ -93,8 +110,68 @@ const SettingsModal = () => {
           <DialogTitle>Settings</DialogTitle>
         </DialogHeader>
 
-        <div className="overflow-y-auto max-h-[65vh] pr-2">
+        <div className="overflow-y-auto max-h-[65vh] px-2">
         <div className="py-4 space-y-4">
+          {/* Personalization */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-muted-foreground">Personalization</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="profileName" className="text-sm font-medium text-muted-foreground">Your name</Label>
+                <Input id="profileName" value={profileName} onChange={(e) => setProfileName(e.target.value)} className="bg-input border-input h-9 w-full md:w-[320px]" placeholder="Jane Doe" />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="roleTitle" className="text-sm font-medium text-muted-foreground">Role / Title</Label>
+                <Input id="roleTitle" value={roleTitle} onChange={(e) => setRoleTitle(e.target.value)} className="bg-input border-input h-9 w-full md:w-[320px]" placeholder="Founder, Product Manager" />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="industry" className="text-sm font-medium text-muted-foreground">Industry</Label>
+                <Input id="industry" value={industry} onChange={(e) => setIndustry(e.target.value)} className="bg-input border-input h-9 w-full md:w-[320px]" placeholder="SaaS, Retail, Healthcare" />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="region" className="text-sm font-medium text-muted-foreground">Region / Locale</Label>
+                <Input id="region" value={region} onChange={(e) => setRegion(e.target.value)} className="bg-input border-input h-9 w-full md:w-[320px]" placeholder="US, CA, EU; en-US" />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-sm font-medium text-muted-foreground">Units</Label>
+                <Select value={units} onValueChange={(v) => setUnits(v as Units)}>
+                  <SelectTrigger className="bg-input border-input h-9 w-full md:w-[320px]"><SelectValue placeholder="Units" /></SelectTrigger>
+                  <SelectContent className="bg-card border-border text-card-foreground">
+                    <SelectItem value="metric">Metric</SelectItem>
+                    <SelectItem value="imperial">Imperial</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-sm font-medium text-muted-foreground">Tone</Label>
+                <Select value={tone} onValueChange={(v) => setTone(v as Tone)}>
+                  <SelectTrigger className="bg-input border-input h-9 w-full md:w-[320px]"><SelectValue placeholder="Tone" /></SelectTrigger>
+                  <SelectContent className="bg-card border-border text-card-foreground">
+                    <SelectItem value="professional">Professional</SelectItem>
+                    <SelectItem value="friendly">Friendly</SelectItem>
+                    <SelectItem value="concise">Concise</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-sm font-medium text-muted-foreground">Expertise</Label>
+                <Select value={expertise} onValueChange={(v) => setExpertise(v as Expertise)}>
+                  <SelectTrigger className="bg-input border-input h-9 w-full md:w-[320px]"><SelectValue placeholder="Expertise" /></SelectTrigger>
+                  <SelectContent className="bg-card border-border text-card-foreground">
+                    <SelectItem value="novice">Novice</SelectItem>
+                    <SelectItem value="intermediate">Intermediate</SelectItem>
+                    <SelectItem value="expert">Expert</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="audience" className="text-sm font-medium text-muted-foreground">Target audience</Label>
+              <Input id="audience" value={audience} onChange={(e) => setAudience(e.target.value)} className="bg-input border-input h-9 w-full md:w-[660px]" placeholder="e.g., investors, technical team, customers" />
+              <p className="text-xs text-muted-foreground">Used to tailor explanations and terminology.</p>
+            </div>
+          </div>
+
           <div className="flex items-center justify-between">
             <label htmlFor="model-select" className="text-sm font-medium text-muted-foreground">
               Model
@@ -182,7 +259,7 @@ const SettingsModal = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label className="text-sm font-medium text-muted-foreground">Reasoning Effort</Label>
-              <Select value={reasoningEffort} onValueChange={(v) => setReasoningEffort(v as any)}>
+              <Select value={reasoningEffort} onValueChange={(v) => setReasoningEffort(v as ReasoningEffort)}>
                 <SelectTrigger className="bg-input border-input">
                   <SelectValue placeholder="Select effort" />
                 </SelectTrigger>
@@ -198,7 +275,7 @@ const SettingsModal = () => {
 
             <div className="space-y-2">
               <Label className="text-sm font-medium text-muted-foreground">Verbosity</Label>
-              <Select value={verbosity} onValueChange={(v) => setVerbosity(v as any)}>
+              <Select value={verbosity} onValueChange={(v) => setVerbosity(v as Verbosity)}>
                 <SelectTrigger className="bg-input border-input">
                   <SelectValue placeholder="Select verbosity" />
                 </SelectTrigger>
@@ -214,7 +291,7 @@ const SettingsModal = () => {
 
           <div className="space-y-2">
             <Label className="text-sm font-medium text-muted-foreground">Tool Mode</Label>
-            <Select value={toolMode} onValueChange={(v) => setToolMode(v as any)}>
+            <Select value={toolMode} onValueChange={(v) => setToolMode(v as ToolMode)}>
               <SelectTrigger className="bg-input border-input w-full md:w-[320px]">
                 <SelectValue placeholder="Tool usage" />
               </SelectTrigger>
@@ -267,7 +344,7 @@ const SettingsModal = () => {
         </div>
         </div>
 
-        <div className="flex justify-end gap-2 pt-4">
+        <div className="flex justify-end gap-2 pt-4 px-1">
           <Button 
             variant="outline"
             size="sm"
@@ -277,9 +354,10 @@ const SettingsModal = () => {
             Clear
           </Button>
           <Button 
+            size="sm"
             onClick={handleSave}
             disabled={isSaving}
-            className="gap-2"
+            className="gap-2 px-3"
           >
             <Save className="h-4 w-4" />
             {isSaving ? 'Saving...' : 'Save Settings'}

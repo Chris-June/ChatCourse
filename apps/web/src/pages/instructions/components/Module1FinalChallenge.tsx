@@ -6,12 +6,24 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui
 import { Button, Textarea } from '@chat/ui';
 
 
+type EvaluationFeedbackEntry = {
+  score: number;
+  comment: string;
+};
+
+type EvaluationResult = {
+  feedback?: Record<string, EvaluationFeedbackEntry>;
+  expertPrompt: string;
+  expertOutput: unknown;
+};
+
+
 
 const Module1FinalChallenge: React.FC = () => {
   const { apiKey } = useChatStore();
   const [userPrompt, setUserPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [evaluationResult, setEvaluationResult] = useState<any>(null);
+  const [evaluationResult, setEvaluationResult] = useState<EvaluationResult | null>(null);
   const [copied, setCopied] = useState(false);
 
   const handleCopy = (text: string) => {
@@ -107,7 +119,7 @@ const Module1FinalChallenge: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {evaluationResult.feedback && Object.entries(evaluationResult.feedback).map(([key, value]: [string, any]) => (
+                    {evaluationResult.feedback && Object.entries(evaluationResult.feedback).map(([key, value]: [string, EvaluationFeedbackEntry]) => (
                       <div key={key} className="bg-muted p-4 rounded-xl border">
                         <p className="font-semibold capitalize text-foreground">{key}</p>
                         <p className="text-muted-foreground mt-1"><strong>Score:</strong> {value.score}/5</p>

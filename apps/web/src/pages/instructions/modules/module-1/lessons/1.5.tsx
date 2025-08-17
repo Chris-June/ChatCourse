@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
-import { Lightbulb, Send } from 'lucide-react';
+import { Lightbulb, Send, BookOpen, Layers, Link2, Braces, ListChecks, Sparkles, Gauge } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import { useChatStore } from '@/store/chat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
-import PredictTheNextToken from '@/pages/instructions/components/PredictTheNextToken';
+
+// Types replacing explicit any usages
+type FeedbackEntry = {
+  score: number;
+  comment: string;
+};
+
+type EvaluationResult = {
+  response?: string;
+  feedback?: Record<string, FeedbackEntry>;
+  error?: string;
+};
 
 const Lesson1_5: React.FC = () => {
   const apiKey = useChatStore(state => state.apiKey);
@@ -17,7 +28,7 @@ const Lesson1_5: React.FC = () => {
     context: '',
   });
 
-  const [evaluationResult, setEvaluationResult] = useState<any>(null);
+  const [evaluationResult, setEvaluationResult] = useState<EvaluationResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -43,7 +54,16 @@ const Lesson1_5: React.FC = () => {
       return;
     }
 
-    const url = `${process.env.NEXT_PUBLIC_API_URL || ''}/api/chat/grade-prompt`;
+    // Resolve API URL robustly (support dev split ports)
+    let url = '/api/chat/grade-prompt';
+    if (process.env.NEXT_PUBLIC_API_URL) {
+      url = `${process.env.NEXT_PUBLIC_API_URL}/api/chat/grade-prompt`;
+    } else if (typeof window !== 'undefined') {
+      const port = window.location.port;
+      if (port === '3001') {
+        url = 'http://localhost:3000/api/chat/grade-prompt';
+      }
+    }
 
     try {
       const response = await fetch(url, {
@@ -56,8 +76,14 @@ const Lesson1_5: React.FC = () => {
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
+        let detail = '';
+        try {
+          const maybeJson = await response.json();
+          detail = typeof maybeJson?.error === 'string' ? maybeJson.error : JSON.stringify(maybeJson);
+        } catch {
+          detail = await response.text();
+        }
+        throw new Error(`API error: ${response.status} ${response.statusText} - ${detail}`);
       }
 
       const data = await response.json();
@@ -119,6 +145,50 @@ const Lesson1_5: React.FC = () => {
       options: ['Nuance', 'Style', 'Intent', 'Context'],
       correctAnswer: 'Style',
       explanation: 'Style refers to the personality, voice, and tone of the response. Nuance is about specific constraints like word count or what to include/exclude.'
+    },
+    {
+      questionText: 'What is the primary focus of “Prompt Engineering”?',
+      options: [
+        'Designing the model architecture',
+        'Crafting instructions, roles, and formats to steer outputs',
+        'Fine‑tuning weights with new data',
+        'Indexing documents for retrieval'
+      ],
+      correctAnswer: 'Crafting instructions, roles, and formats to steer outputs',
+      explanation: 'Prompt engineering shapes how the model responds by constraining and guiding its next‑token probabilities.'
+    },
+    {
+      questionText: 'What is the primary focus of “Context Engineering”?',
+      options: [
+        'Collecting, structuring, and supplying high‑signal information to the model',
+        'Asking the model to imagine details',
+        'Turning up the temperature for creativity',
+        'Making prompts longer for completeness'
+      ],
+      correctAnswer: 'Collecting, structuring, and supplying high‑signal information to the model',
+      explanation: 'Context engineering curates what the model sees so it has the right facts, constraints, and examples at the right time.'
+    },
+    {
+      questionText: 'Which pairing best reduces hallucinations in this lesson’s scope?',
+      options: [
+        'Vague prompt + no context',
+        'Structured prompt + rich, relevant context',
+        'High temperature + short prompt',
+        'Persona only + creative tone'
+      ],
+      correctAnswer: 'Structured prompt + rich, relevant context',
+      explanation: 'Clear instructions plus high‑quality context narrows uncertainty and improves factuality.'
+    },
+    {
+      questionText: 'Which INSYNC elements most directly act as context levers?',
+      options: [
+        'Intent and Style',
+        'You‑as and Narrative Format',
+        'Nuance and Context',
+        'Send button and API key'
+      ],
+      correctAnswer: 'Nuance and Context',
+      explanation: 'Nuance defines constraints/details; Context supplies background—the two strongest levers for context engineering.'
     }
   ];
 
@@ -132,6 +202,16 @@ const Lesson1_5: React.FC = () => {
       subtitle="A powerful, memorable system for building high-quality prompts."
       quizQuestions={quizQuestions}
     >
+      <section className="mb-6 bg-muted/30 border border-muted rounded-xl p-4">
+        <p className="text-xs text-muted-foreground mb-2">Estimated time: 10–14 minutes</p>
+        <h4 className="text-sm font-semibold mb-2 text-foreground">What you'll learn</h4>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+          <li>How the I.N.S.Y.N.C. framework maps to real prompt parts</li>
+          <li>Combining intent, nuance, style, persona, format, and context</li>
+          <li>Assembling a complete prompt and evaluating it</li>
+          <li>Interpreting AI feedback to refine a prompt</li>
+        </ul>
+      </section>
       <div className="space-y-8 text-foreground">
         <div className="bg-card p-6 rounded-xl border border-border">
           <h2 className="text-2xl font-semibold mb-4 text-card-foreground flex items-center">
@@ -226,6 +306,78 @@ const Lesson1_5: React.FC = () => {
           </div>
         </div>
 
+        {/* Inserted: Context Engineering Content Blocks */}
+        <div className="p-6 bg-card rounded-xl border mt-6">
+          <h3 className="text-xl font-semibold text-card-foreground mb-2 flex items-center">
+            <Sparkles className="w-5 h-5 mr-2 text-indigo-400"/>
+            Beyond Prompt Engineering: Context Engineering
+          </h3>
+          <p className="text-sm text-muted-foreground mb-3">
+            <strong>Prompt engineering</strong> shapes <em>how</em> the model should respond (role, style, format). <strong>Context engineering</strong> shapes <em>what</em> the model sees (facts, constraints, examples). Together they determine the probability landscape the model samples from.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="rounded-md border p-4 bg-muted/30">
+              <h4 className="text-sm font-semibold mb-1 flex items-center"><BookOpen className="w-4 h-4 mr-2"/> Prompt Engineering</h4>
+              <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                <li>Role & tone (You‑as…)</li>
+                <li>Task framing & acceptance criteria</li>
+                <li>Output schemas & formatting</li>
+                <li>Guardrails (ask 1 clarifying question, etc.)</li>
+              </ul>
+            </div>
+            <div className="rounded-md border p-4 bg-muted/20">
+              <h4 className="text-sm font-semibold mb-1 flex items-center"><Layers className="w-4 h-4 mr-2"/> Context Engineering</h4>
+              <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                <li>Curate high‑signal facts & constraints</li>
+                <li>Include few‑shot examples & counter‑examples</li>
+                <li>Reference IDs, links, names, dates</li>
+                <li>Minimize fluff to preserve token budget</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-6 bg-card rounded-xl border">
+          <h3 className="text-xl font-semibold text-card-foreground mb-2 flex items-center"><Gauge className="w-5 h-5 mr-2"/> Why Context Quality Wins</h3>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1 mb-3">
+            <li><strong>Relevance</strong>: Only what’s needed for the task at hand.</li>
+            <li><strong>Recency</strong>: Prefer current details when time‑sensitive.</li>
+            <li><strong>Reliability</strong>: Prefer primary sources and verifiable data.</li>
+            <li><strong>Resolution</strong>: Specific names, IDs, and examples beat vague summaries.</li>
+          </ul>
+          <div className="rounded-md border p-3 bg-muted/40">
+            <p className="text-xs text-muted-foreground">Rule of thumb: If a detail changes the output, it belongs in context. If it doesn’t, cut it.</p>
+          </div>
+        </div>
+
+        <div className="p-6 bg-card rounded-xl border">
+          <h3 className="text-xl font-semibold text-card-foreground mb-2 flex items-center"><Braces className="w-5 h-5 mr-2"/> Context Pack Template (Copy & Paste)</h3>
+          <p className="text-sm text-muted-foreground mb-2">Paste a compact packet into the <em>Context</em> field of the builder:</p>
+          <pre className="bg-muted text-muted-foreground p-3 rounded-md overflow-x-auto text-xs">
+{`CONTEXT:\nproject: IntelliSync Onboarding Website\nobjective: Increase signups from local SMBs\nconstraints: tone=friendly, max_words=120, include CTA\ninputs:\n- audience: downtown professionals (25–45)\n- offer: free 30‑min consult\n- date: Sept 1 launch\nreferences:\n- url: https://intellisync.io/onboarding\n- contact: hello@intellisync.io\nexamples:\n- good_post: ">> sample copy here"\n- avoid: "corporate buzzwords"`}
+          </pre>
+          <p className="text-xs text-muted-foreground mt-2">Tight, atomic, verifiable. Use bullets, IDs, and links where helpful.</p>
+        </div>
+
+        <div className="p-6 bg-card rounded-xl border">
+          <h3 className="text-xl font-semibold text-card-foreground mb-2 flex items-center"><ListChecks className="w-5 h-5 mr-2"/> Context Engineering Checklist</h3>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li>Does the model have the <em>minimum sufficient</em> facts to answer?</li>
+            <li>Are sources/IDs included for any critical claims?</li>
+            <li>Did you include one good example and one anti‑example?</li>
+            <li>Can you remove 20% of fluff without losing meaning?</li>
+          </ul>
+        </div>
+
+        <div className="p-6 bg-muted/30 rounded-xl border">
+          <h3 className="text-sm font-semibold mb-2">Pop Quiz (60s)</h3>
+          <ol className="list-decimal list-inside text-sm text-muted-foreground space-y-1">
+            <li>Rewrite your last prompt to separate <em>prompt</em> instructions from a <em>context pack</em>.</li>
+            <li>Name two ways better context could reduce hallucinations.</li>
+          </ol>
+          <p className="text-xs text-muted-foreground mt-2">Tip: Ask the builder to grade your context on relevance, reliability, and resolution.</p>
+        </div>
+
         <div className="space-y-4">
         {frameworkComponents.map((item, index) => (
           <div key={index} className="bg-muted p-5 rounded-xl border border-border">
@@ -241,6 +393,19 @@ const Lesson1_5: React.FC = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* INSYNC/Context mapping card */}
+        <div className="p-4 bg-muted/20 rounded-md border mt-6">
+          <h3 className="text-sm font-semibold mb-2 flex items-center"><Link2 className="w-4 h-4 mr-2"/> How I.N.S.Y.N.C. Powers Context</h3>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li><strong>Intent</strong>: sharp task phrasing to bound scope.</li>
+            <li><strong>Nuance</strong>: constraints, acceptance criteria, anti‑patterns.</li>
+            <li><strong>Style</strong>: tone, vocabulary, audience alignment.</li>
+            <li><strong>You‑as</strong>: domain lens/persona to adopt.</li>
+            <li><strong>Narrative Format</strong>: schema that downstream tools can parse.</li>
+            <li><strong>Context</strong>: facts, references, IDs, examples.</li>
+          </ul>
         </div>
 
         <div id="prompt-builder" className="mt-12 p-6 bg-card rounded-xl border border-border">
@@ -290,7 +455,7 @@ const Lesson1_5: React.FC = () => {
                 <div className="mt-6">
                   <h5 className="font-bold text-muted-foreground mb-3">I.N.S.Y.N.C. Feedback:</h5>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                    {Object.entries(evaluationResult.feedback).map(([key, value]: [string, any]) => (
+                    {Object.entries(evaluationResult.feedback).map(([key, value]: [string, FeedbackEntry]) => (
                       <div key={key} className="bg-muted p-3 rounded-lg border border-border">
                         <p className="font-bold capitalize text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
                         <p className="text-muted-foreground mt-1"><strong>Score:</strong> {value.score}/10</p>
@@ -310,18 +475,26 @@ const Lesson1_5: React.FC = () => {
             </div>
           )}
 
-          {/* Interactive: Understand next-token prediction */}
-          <section className="mt-10">
-            <PredictTheNextToken />
-          </section>
         </div>
+
+        <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
+          <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>
+          <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <li>Use I.N.S.Y.N.C. to construct a clear, complete prompt</li>
+            <li>Evaluate and iterate based on structured feedback</li>
+            <li>Choose tone/persona and output format intentionally</li>
+            <li>Differentiate prompt engineering from context engineering</li>
+            <li>Assemble a compact, verifiable context pack for a task</li>
+            <li>Use INSYNC as a context engine (Nuance + Context as primary levers)</li>
+          </ul>
+        </section>
 
         <KeyTakeaways
             points={[
-              "The I.N.S.Y.N.C. framework provides a structured way to build high-quality prompts.",
-              "Each element (Intent, Nuance, Style, You as..., Narrative Format, Context) plays a specific role.",
-              "A well-structured prompt significantly increases the chances of getting the desired output.",
-              "Iterating on each part of the framework can help you refine your prompts effectively.",
+              'INSYNC is both a prompt scaffold and a context engine—Intent/Style/You‑as steer behavior; Nuance/Context supply facts and constraints; Narrative Format structures output.',
+              'Prompt engineering guides how the model responds; context engineering controls what it sees—both shape the probability landscape.',
+              'Context quality (relevance, recency, reliability, resolution) predicts output quality more than prompt length.',
+              'Compact context packs + clear schemas reduce hallucinations and speed iteration.',
           ]}
         />
       </div>
