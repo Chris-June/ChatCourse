@@ -30,32 +30,35 @@ const LivePromptGrader: React.FC<LivePromptGraderProps> = ({ functionSchema, ini
     setIsLoading(true);
     setFeedback(null);
 
-    // TODO: Replace simulated API call with a real one to a new `/api/chat/grade-function-prompt` endpoint.
-    // The endpoint should accept `promptText` and `functionSchema` and return a score and feedback.
+    try {
+      const resp = await fetch('/api/chat/grade-function-prompt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ promptText, functionSchema }),
+      });
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+      if (!resp.ok) {
+        const text = await resp.text();
+        throw new Error(`Failed to grade prompt: ${resp.status} ${text}`);
+      }
 
-    // Simulated, rule-based feedback
-    let score = 50;
-    let feedbackText = 'Your prompt is a bit too generic. Try being more specific about the date and time.';
-
-    if (promptText.match(/\d{1,2}(am|pm)/i)) {
-      score += 25;
-      feedbackText = 'Good job specifying a time! Now, can you add a specific date instead of a relative one like \'today\' or \'tomorrow\'?';
+      const data: { score?: number; feedback?: string } = await resp.json();
+      if (typeof data.score === 'number' && typeof data.feedback === 'string') {
+        setFeedback({ score: data.score, feedback: data.feedback });
+      } else {
+        throw new Error('Invalid response payload.');
+      }
+    } catch (err) {
+      console.error(err);
+      setFeedback({
+        score: 0,
+        feedback: 'We could not grade your prompt at this time. Please try again.',
+      });
+    } finally {
+      setIsLoading(false);
     }
-
-    if (promptText.includes('check-in') || promptText.includes('sync')) {
-      score += 25;
-      feedbackText = 'Excellent work including a clear topic for the meeting!';
-    }
-    
-    if (score > 90) {
-        feedbackText = 'This is a great prompt! It is clear, specific, and provides all the necessary information for the function call.'
-    }
-
-    setFeedback({ score, feedback: feedbackText });
-    setIsLoading(false);
   };
 
   return (
