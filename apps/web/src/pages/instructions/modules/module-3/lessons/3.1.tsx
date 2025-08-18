@@ -9,6 +9,8 @@ import CheckpointQuiz from '../../../components/CheckpointQuiz';
 import ComparisonCard from '../../../components/ComparisonCard';
 import { Sparkles, ListChecks } from 'lucide-react';
 import type { ChallengeChecklistItem } from '@/components/InlineChat';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 
 import { zeroShotAssistantPrompt, fewShotAssistantPrompt, reasoningChallengeAssistantPrompt, reasoningChallengeChecklist } from '@/prompts';
 
@@ -369,6 +371,14 @@ const Lesson3_1: React.FC = () => {
             'Multi-step reasoning can be a challenge for both zero-shot and few-shot prompting, often requiring more advanced techniques.',
           ]}
         />
+
+        {/* Portfolio: export artifacts and see saved items for this lesson */}
+        <PortfolioPanel
+          title="Portfolio"
+          description="Export your collected artifacts anytime. Some lessons also provide a Save action."
+          className="mt-4"
+        />
+        <ArtifactViewer module={3} lesson={1} className="mb-6" />
       </div>
     </LessonTemplate>
   );

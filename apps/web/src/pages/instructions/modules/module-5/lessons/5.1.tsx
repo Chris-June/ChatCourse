@@ -13,6 +13,8 @@ import FailedPrompts from '@/pages/instructions/components/FailedPrompts';
 import KeyTakeaways from '@/pages/instructions/components/KeyTakeaways';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
 import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 import RoleScriptingSandbox from '@/pages/instructions/components/RoleScriptingSandbox';
 import SystemPromptLab from '@/pages/instructions/components/SystemPromptLab';
 import {
@@ -275,6 +277,10 @@ const Lesson5_1 = () => {
             "Don't exceed the context window without a plan, as the model will 'forget' early parts of the conversation.",
           ]}
         />
+
+        {/* Portfolio & Saved Artifacts */}
+        <PortfolioPanel />
+        <ArtifactViewer module={5} lesson={1} />
 
         <div
           id="knowledge-check"

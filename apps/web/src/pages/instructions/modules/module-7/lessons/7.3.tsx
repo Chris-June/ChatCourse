@@ -16,12 +16,15 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
 
 import FineTuningDataFormatter from '@/pages/instructions/components/FineTuningDataFormatter';
 import FineTuningCostCalculator from '@/pages/instructions/components/FineTuningCostCalculator';
 import StrategyQuiz from '@/pages/instructions/components/StrategyQuiz';
 import { useProgressStore } from '@/store/progressStore';
+import { usePortfolioArtifacts } from '@/store/usePortfolioArtifacts';
 
 const quizQuestions = [
     {
@@ -84,10 +87,32 @@ const quizQuestions = [
 function Lesson7_3() {
   const { completeLesson } = useProgressStore();
   const navigate = useNavigate();
+  const { addArtifact } = usePortfolioArtifacts();
 
   const handleFinishCourse = () => {
     completeLesson(7, 3);
     navigate('/instructions');
+  };
+
+  const handleSaveJsonlSample = () => {
+    addArtifact({
+      title: 'Fine‑Tuning JSONL Sample – Module 7.3',
+      type: 'jsonl',
+      module: 7,
+      lesson: 3,
+      data: {
+        examples: [
+          {
+            prompt: 'User: Write a friendly welcome email to a new customer named Alex about our premium plan.\nAssistant:',
+            completion: 'Hi Alex,\n\nWelcome to our premium plan! You now have access to...\n\nBest,\nThe Team'
+          },
+          {
+            prompt: 'User: Answer in a witty, concise tone: What\'s our refund policy?\nAssistant:',
+            completion: 'We\'re flexible. If it\'s not a fit, let us know within 30 days and we\'ll sort it out—no awkward break‑up required.'
+          }
+        ]
+      },
+    });
   };
 
   return (
@@ -225,6 +250,16 @@ function Lesson7_3() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+
+      {/* Portfolio Panel */}
+      <PortfolioPanel
+        title="Portfolio"
+        description="Save a fine‑tuning JSONL sample or export your collected artifacts."
+        onSave={handleSaveJsonlSample}
+        saveLabel="Save JSONL Sample"
+      />
+
+      <ArtifactViewer module={7} lesson={3} className="mb-6" />
 
       <div className="flex justify-between pt-8 mt-8 border-t">
         <Button variant="outline" asChild>

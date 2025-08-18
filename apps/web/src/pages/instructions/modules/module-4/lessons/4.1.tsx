@@ -8,6 +8,8 @@ import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
 import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
 import { stockPriceAssistantPrompt, stockPriceChecklist } from '@/prompts';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 
 const scheduleMeetingSchema = {
   name: 'schedule_meeting',
@@ -345,6 +347,14 @@ if (functionToCall) {
             'Don\'t let the model execute functions that could have harmful side effects without safeguards.',
           ]}
         />
+
+        {/* Portfolio: export artifacts and see saved items for this lesson */}
+        <PortfolioPanel
+          title="Portfolio"
+          description="Export your collected artifacts anytime. Some lessons also provide a Save action."
+          className="mt-4"
+        />
+        <ArtifactViewer module={4} lesson={1} className="mb-6" />
 
       </div>
     </LessonTemplate>

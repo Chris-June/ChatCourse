@@ -7,6 +7,8 @@ import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
 import CheckpointQuiz from '../../../components/CheckpointQuiz';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 
 import { zeroShotCotAssistantPrompt, zeroShotCoTChallengeChecklist } from '@/prompts';
 import type { ChallengeChecklistItem } from '../../../../../components/InlineChat';
@@ -269,6 +271,14 @@ const Lesson3_2: React.FC = () => {
             'For complex tasks, providing explicit CoT examples (Few-Shot CoT) is a powerful way to improve reliability.',
           ]}
         />
+
+        {/* Portfolio: export artifacts and see saved items for this lesson */}
+        <PortfolioPanel
+          title="Portfolio"
+          description="Export your collected artifacts anytime. Some lessons also provide a Save action."
+          className="mt-4"
+        />
+        <ArtifactViewer module={3} lesson={2} className="mb-6" />
       </div>
     </LessonTemplate>
   );

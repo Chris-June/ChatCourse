@@ -40,8 +40,32 @@ function download(filename: string, text: string, mime = 'application/json') {
   URL.revokeObjectURL(url);
 }
 
+const STORAGE_KEY = 'portfolio_artifacts_v1';
+
+function safeLoad(): Artifact[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed as Artifact[];
+  } catch {
+    return [];
+  }
+}
+
+function safeSave(arts: Artifact[]) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(arts));
+  } catch {
+    // ignore quota or serialization errors
+  }
+}
+
 export const usePortfolioArtifacts = create<PortfolioState>((set, get) => ({
-  artifacts: [],
+  artifacts: safeLoad(),
   addArtifact: (art) =>
     set((state) => ({
       artifacts: [
@@ -83,3 +107,10 @@ export const usePortfolioArtifacts = create<PortfolioState>((set, get) => ({
     download('portfolio-artifacts.csv', csv, 'text/csv');
   },
 }));
+
+// Persist on changes (browser only)
+if (typeof window !== 'undefined') {
+  usePortfolioArtifacts.subscribe((state) => {
+    safeSave(state.artifacts);
+  });
+}

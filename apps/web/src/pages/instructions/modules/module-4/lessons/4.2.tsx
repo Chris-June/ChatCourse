@@ -6,6 +6,8 @@ import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
 import { parallelToolsAssistantPrompt, multiCallChecklist } from '@/prompts';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 
 // checklist centralized in prompts
 
@@ -199,6 +201,14 @@ const Lesson4_2: React.FC = () => {
             'Don\'t build a workflow that requires too many sequential steps, as this increases latency and cost.',
           ]}
         />
+
+        {/* Portfolio: export artifacts and see saved items for this lesson */}
+        <PortfolioPanel
+          title="Portfolio"
+          description="Export your collected artifacts anytime. Some lessons also provide a Save action."
+          className="mt-4"
+        />
+        <ArtifactViewer module={4} lesson={2} className="mb-6" />
 
       </div>
     </LessonTemplate>

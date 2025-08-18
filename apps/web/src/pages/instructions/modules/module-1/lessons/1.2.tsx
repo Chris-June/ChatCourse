@@ -2,6 +2,8 @@ import React from 'react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 import { nextTokenAssistantPrompt } from '@/prompts';
 import InteractiveTokenizer from './components/InteractiveTokenizer';
 import PredictTheNextToken from '@/pages/instructions/components/PredictTheNextToken';
@@ -272,7 +274,13 @@ Sampling (temperature=0.8, top_p=0.9):
         ]}
       />
 
-      
+      {/* Portfolio: export artifacts and see saved items for this lesson */}
+      <PortfolioPanel
+        title="Portfolio"
+        description="Export your collected artifacts anytime. Some lessons also provide a Save action."
+        className="mt-4 mb-4"
+      />
+      <ArtifactViewer module={1} lesson={2} className="mb-6" />
 
       <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
         <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>

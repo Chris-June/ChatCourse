@@ -17,6 +17,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
 import { useProgressStore } from '@/store/progressStore';
 import { explainabilityExpertPrompt, explanationChecklist } from '@/prompts';
 import { usePortfolioArtifacts } from '@/store/usePortfolioArtifacts';
@@ -97,7 +98,7 @@ const quizQuestions = [
 function Lesson8_2() {
   const { completeLesson } = useProgressStore();
   const navigate = useNavigate();
-  const { addArtifact, exportJSON, exportCSV } = usePortfolioArtifacts();
+  const { addArtifact } = usePortfolioArtifacts();
 
   const handleNextLesson = () => {
     completeLesson(8, 2);
@@ -264,15 +265,13 @@ function Lesson8_2() {
       </Accordion>
 
       {/* Portfolio Panel */}
-      <div className="bg-muted/30 border border-border rounded-xl p-4 mt-6 mb-6">
-        <h3 className="font-semibold text-foreground mb-2">Portfolio</h3>
-        <p className="text-sm text-muted-foreground mb-3">Save an explanation template or export your collected artifacts.</p>
-        <div className="flex flex-wrap gap-2">
-          <Button variant="secondary" onClick={handleSaveTemplate}>Save Explanation Template</Button>
-          <Button variant="outline" onClick={exportJSON}>Export JSON</Button>
-          <Button variant="outline" onClick={exportCSV}>Export CSV</Button>
-        </div>
-      </div>
+      <PortfolioPanel
+        title="Portfolio"
+        description="Save an explanation template or export your collected artifacts."
+        onSave={handleSaveTemplate}
+        saveLabel="Save Explanation Template"
+        className="mt-6 mb-6"
+      />
 
       <div className="flex justify-between pt-8 mt-8 border-t">
         <Button variant="outline" asChild>

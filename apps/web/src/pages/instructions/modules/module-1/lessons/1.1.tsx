@@ -3,6 +3,8 @@ import { Lightbulb, BrainCircuit, Puzzle } from 'lucide-react';
 import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import InlineChat from '../../../../../components/InlineChat';
 import KeyTakeaways from '../../../components/KeyTakeaways';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 import { introAssistantPrompt } from '@/prompts';
 
 const Lesson1_1: React.FC = () => {
@@ -289,6 +291,14 @@ Sampling (temperature=0.8, top_p=0.9):
           />
         </div>
       </section>
+
+      {/* Portfolio: export artifacts and see saved items for this lesson */}
+      <PortfolioPanel
+        title="Portfolio"
+        description="Export your collected artifacts anytime. Some lessons also provide a Save action."
+        className="mb-4"
+      />
+      <ArtifactViewer module={1} lesson={1} className="mb-6" />
 
       <section className="mt-6 bg-muted/30 border border-muted rounded-xl p-4">
         <h4 className="text-sm font-semibold mb-2 text-foreground">You can now…</h4>

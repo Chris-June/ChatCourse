@@ -9,6 +9,8 @@ import BestPractices from '../../../components/BestPractices';
 import { socraticTutorChecklist } from '@/prompts';
 import quizQuestions from './utils/2.3.quizQuestions';
 import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 
 // checklist centralized in prompts
 
@@ -209,6 +211,14 @@ AI (Gnosi): If we think of a function calling itself, what must be true to stop 
           'Context management isn\'t just about memory—it\'s an active skill of guiding the AI\'s attention and maintaining your intended persona.'
         ]}
       />
+
+      {/* Portfolio: export artifacts and see saved items for this lesson */}
+      <PortfolioPanel
+        title="Portfolio"
+        description="Export your collected artifacts anytime. Some lessons also provide a Save action."
+        className="mt-6"
+      />
+      <ArtifactViewer module={2} lesson={3} className="mb-6" />
     </LessonTemplate>
   );
 };

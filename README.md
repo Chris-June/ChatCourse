@@ -257,6 +257,8 @@ pnpm dev
 ---
 
 ## 10. Advanced Section (Developers & Curious Cats)
+  
+  For rubric-based audits of the learning modules, see `Discovery.md` (Modules 1–8 quality reviews).
 
 ### `apps/web`
 
@@ -264,7 +266,7 @@ This is the frontend application built with React (Vite). It provides the user i
 
 ### `api`
 
-This is the backend API that handles the chat logic, likely by interacting with the OpenAI API. It is a Node.js service, likely a serverless function, as suggested by the `handler.ts` file.
+This is the backend API that handles the chat logic, interacting with the OpenAI API. It is a Node.js service, l a serverless function, as identified by the `handler.ts` file.
 
 ## Contributing
 

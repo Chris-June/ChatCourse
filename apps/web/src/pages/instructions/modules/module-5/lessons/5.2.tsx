@@ -20,6 +20,8 @@ import BestPracticesAudit from '@/pages/instructions/components/BestPracticesAud
 import PersonalizedAgentBuilder from '@/pages/instructions/components/PersonalizedAgentBuilder';
 import ContextualChatChallenge from '@/pages/instructions/components/ContextualChatChallenge';
 import { personalizedTutorSystemPrompt, personalizedTutorChecklist } from '@/prompts';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 
 export default function Lesson5_2() {
   const quizQuestions = [
@@ -248,6 +250,10 @@ export default function Lesson5_2() {
         </div>
 
         <PersonalizedAgentBuilder />
+
+        {/* Portfolio & Saved Artifacts */}
+        <PortfolioPanel />
+        <ArtifactViewer module={5} lesson={2} />
 
         <div
           id="knowledge-check"

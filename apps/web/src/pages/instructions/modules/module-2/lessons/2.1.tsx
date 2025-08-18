@@ -7,6 +7,8 @@ import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import BestPractices from '../../../components/BestPractices';
 import quizQuestions from './utils/2.1.quizQuestions';
 import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 
 const Lesson2_1: React.FC = () => {
   return (
@@ -144,6 +146,14 @@ const Lesson2_1: React.FC = () => {
           'Short conversations (under ~10 messages) rarely have memory issues',
           'If the AI seems confused, gently remind it of key details from earlier'
         ]} />
+
+        {/* Portfolio: export artifacts and see saved items for this lesson */}
+        <PortfolioPanel
+          title="Portfolio"
+          description="Export your collected artifacts anytime. Some lessons also provide a Save action."
+          className="mt-4"
+        />
+        <ArtifactViewer module={2} lesson={1} className="mb-6" />
       </div>
     </LessonTemplate>
   );
