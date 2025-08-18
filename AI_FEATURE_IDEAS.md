@@ -296,3 +296,25 @@ We welcome contributions! Here's how you can help:
 
 ---
 *Note: These are conceptual ideas and may require additional development and resources to implement. The goal is to inspire creative thinking about AI applications.*
+
+## Appendix A — Module 4 Aligned Ideas
+
+### A1. Export/Save AI Artifacts ⭐
+- Idea: Allow users to export or persist chat transcripts, checklist results, and planner snapshots to local storage or cloud.
+- Considerations: Privacy controls, JSON/Markdown export, versioning, downloadable portfolios.
+
+### A2. Accessibility Patterns for Interactive UI ⭐
+- Idea: Provide ARIA-compliant patterns for accordions, copy buttons, and live chat regions.
+- Considerations: Roles/attributes, keyboard navigation, focus management, reduced-motion support, status (`aria-live`).
+
+### A3. MCP Mock Server Lab ⭐⭐
+- Idea: Minimal Model Context Protocol (MCP) server + explorer to demonstrate dynamic tool discovery and credential isolation.
+- Considerations: Server scaffolding, example tools, safe credentials, two-server orchestration exercise.
+
+### A4. Tool Multi-Call Iteration ⭐⭐
+- Idea: Implement parallel/sequential tool calls with partial-failure handling and structured aggregation.
+- Considerations: Batching strategy, retries/backoff, error payload shape, UI surfacing of partial results.
+
+### A5. JSON Schema Validation Demo ⭐
+- Idea: Live validator for model outputs with examples of malformed JSON and fixes.
+- Considerations: Lightweight validator, copyable schemas, inline tips, optional CI hook for schema checks.

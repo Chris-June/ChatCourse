@@ -11,6 +11,8 @@ import ModelTierGuesser from '@/pages/instructions/components/ModelTierGuesser';
 import ApiCostEstimator from '@/pages/instructions/components/ApiCostEstimator';
 import ParameterSliders from '@/pages/instructions/components/ParameterSliders';
 import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 import {
   Accordion,
   AccordionContent,
@@ -246,6 +248,10 @@ export default function Lesson5_3() {
             "Don't regenerate answers to the same question repeatedly.",
           ]}
         />
+
+        {/* Portfolio & Saved Artifacts */}
+        <PortfolioPanel />
+        <ArtifactViewer module={5} lesson={3} />
 
         <div
           id="knowledge-check"

@@ -24,6 +24,8 @@ import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuiz
 import { Button } from '@/components/ui/button';
 import { useRef } from 'react';
 import { designCritiquePrompt, designCritiqueChecklist } from '@/prompts';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 
 export default function Lesson6_2() {
   const inlineChatRef = useRef<InlineChatHandle>(null);
@@ -216,6 +218,10 @@ export default function Lesson6_2() {
             challengeChecklist={designCritiqueChecklist}
           />
         </div>
+
+        {/* Portfolio & Saved Artifacts */}
+        <PortfolioPanel />
+        <ArtifactViewer module={6} lesson={2} />
 
         <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>

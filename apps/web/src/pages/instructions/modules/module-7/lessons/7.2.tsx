@@ -17,6 +17,8 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 import RagPlayground from '@/pages/instructions/components/RagPlayground';
 import InlineChat from '@/components/InlineChat';
 import LessonTemplate from '@/components/layouts/LessonTemplate';
@@ -25,6 +27,7 @@ import RagFlowVisualizer from '@/pages/instructions/components/RagFlowVisualizer
 import RagUseCases from '@/pages/instructions/components/RagUseCases';
 import { useProgressStore } from '@/store/progressStore';
 import { ragPromptValidator, ragPromptChecklist } from '@/prompts';
+import { usePortfolioArtifacts } from '@/store/usePortfolioArtifacts';
 
 const quizQuestions = [
     {
@@ -87,10 +90,35 @@ const quizQuestions = [
 function Lesson7_2() {
   const { completeLesson } = useProgressStore();
   const navigate = useNavigate();
+  const { addArtifact } = usePortfolioArtifacts();
 
   const handleNext = () => {
     completeLesson(7, 2);
     navigate('/instructions/module-7/7.3');
+  };
+
+  const handleSaveRagTemplate = () => {
+    addArtifact({
+      title: 'RAG Prompt Template – Module 7.2',
+      type: 'prompt',
+      module: 7,
+      lesson: 2,
+      data: {
+        template: `Using ONLY the provided context, answer the question.
+
+Context:
+{{context}}
+
+Question:
+{{question}}
+
+Instructions:
+- Cite specific snippets from context
+- If the answer is not in the context, say "I don't know"
+- Keep the answer concise and factual`,
+        checklist: ragPromptChecklist.map((c) => c.text),
+      },
+    });
   };
 
   return (
@@ -250,6 +278,16 @@ function Lesson7_2() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+
+      {/* Portfolio Panel */}
+      <PortfolioPanel
+        title="Portfolio"
+        description="Save a RAG prompt template or export your collected artifacts."
+        onSave={handleSaveRagTemplate}
+        saveLabel="Save RAG Prompt Template"
+      />
+
+      <ArtifactViewer module={7} lesson={2} className="mb-6" />
 
       <div className="flex justify-between pt-8 mt-8 border-t">
         <Button variant="outline" asChild>

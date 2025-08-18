@@ -18,6 +18,8 @@ import JtbdBuilder from '@/pages/instructions/components/JtbdBuilder';
 import FeasibilityCalculator from '@/pages/instructions/components/FeasibilityCalculator';
 import ImpactEffortMatrix from '@/pages/instructions/components/ImpactEffortMatrix';
 import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 import { useRef } from 'react';
 import { ideaGenerationSystemPrompt, ideaGenerationChecklist } from '@/prompts';
 
@@ -244,6 +246,10 @@ export default function Lesson6_1() {
             <li><strong>Impact/Effort Matrix:</strong> A tool to prioritize ideas into quick wins vs larger bets.</li>
           </ul>
         </section>
+
+        {/* Portfolio & Saved Artifacts */}
+        <PortfolioPanel />
+        <ArtifactViewer module={6} lesson={1} />
 
         <div
           id="knowledge-check"

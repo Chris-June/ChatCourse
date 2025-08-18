@@ -15,6 +15,8 @@ import { contextManagementChecklist } from '@/prompts';
 import quizQuestions from './utils/2.2.quizQuestions';
 import initialConversation from './utils/2.2.initialConversation';
 import CheckpointQuiz from '@/pages/instructions/components/CheckpointQuiz';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 
  
 
@@ -190,8 +192,13 @@ const Lesson2_2: React.FC = () => {
               'Avoid vague pronouns like \'it\' or \'that\' when referring to something from much earlier in the conversation.',]}
               />
 
-
-
+      {/* Portfolio: export artifacts and see saved items for this lesson */}
+      <PortfolioPanel
+        title="Portfolio"
+        description="Export your collected artifacts anytime. Some lessons also provide a Save action."
+        className="mt-6"
+      />
+      <ArtifactViewer module={2} lesson={2} className="mb-6" />
 
     </LessonTemplate>
   );

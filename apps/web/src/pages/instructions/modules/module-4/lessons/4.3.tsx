@@ -6,6 +6,8 @@ import LessonTemplate from '../../../../../components/layouts/LessonTemplate';
 import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
 import { weatherAssistantPrompt, weatherChecklist } from '@/prompts';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 
 // checklist centralized in prompts
 
@@ -198,6 +200,14 @@ const Lesson4_3: React.FC = () => {
             'Don\'t use overly complex parameter structures that might confuse the model.',
           ]}
         />
+
+        {/* Portfolio: export artifacts and see saved items for this lesson */}
+        <PortfolioPanel
+          title="Portfolio"
+          description="Export your collected artifacts anytime. Some lessons also provide a Save action."
+          className="mt-4"
+        />
+        <ArtifactViewer module={4} lesson={3} className="mb-6" />
       </div>
     </LessonTemplate>
   );

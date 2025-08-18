@@ -17,6 +17,8 @@ import InlineChat, { InlineChatHandle } from '@/components/InlineChat';
 import MetricSorter from '@/pages/instructions/components/MetricSorter';
 import PromptABTester from '@/pages/instructions/components/PromptABTester';
 import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useRef } from 'react';
@@ -243,6 +245,10 @@ export default function Lesson6_3() {
             <li><strong>Hypothesis:</strong> A testable statement linking change (X) to an outcome (Y) with a reason (Z).</li>
           </ul>
         </section>
+
+        {/* Portfolio & Saved Artifacts */}
+        <PortfolioPanel />
+        <ArtifactViewer module={6} lesson={3} />
 
         <div
           id="knowledge-check"

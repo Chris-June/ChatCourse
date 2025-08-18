@@ -17,8 +17,10 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
 import { useProgressStore } from '@/store/progressStore';
 import { explainabilityExpertPrompt, explanationChecklist } from '@/prompts';
+import { usePortfolioArtifacts } from '@/store/usePortfolioArtifacts';
 
 const quizQuestions = [
   {
@@ -96,10 +98,29 @@ const quizQuestions = [
 function Lesson8_2() {
   const { completeLesson } = useProgressStore();
   const navigate = useNavigate();
+  const { addArtifact } = usePortfolioArtifacts();
 
   const handleNextLesson = () => {
     completeLesson(8, 2);
     navigate('/instructions/module-8/8.3');
+  };
+
+  const handleSaveTemplate = () => {
+    addArtifact({
+      title: 'User Explanation Template – Module 8.2',
+      type: 'explanation',
+      module: 8,
+      lesson: 2,
+      data: {
+        structure: [
+          'Greeting & Empathy',
+          'Decision Summary (plain language)',
+          'Key Factors (non-jargon)',
+          'Next Steps (actionable options)',
+          'Contact/Appeal Info'
+        ],
+      },
+    });
   };
 
   return (
@@ -242,6 +263,15 @@ function Lesson8_2() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+
+      {/* Portfolio Panel */}
+      <PortfolioPanel
+        title="Portfolio"
+        description="Save an explanation template or export your collected artifacts."
+        onSave={handleSaveTemplate}
+        saveLabel="Save Explanation Template"
+        className="mt-6 mb-6"
+      />
 
       <div className="flex justify-between pt-8 mt-8 border-t">
         <Button variant="outline" asChild>

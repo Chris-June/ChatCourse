@@ -8,6 +8,8 @@ import KeyTakeaways from '../../../components/KeyTakeaways';
 import BestPractices from '../../../components/BestPractices';
 import SocraticTutorProject from '@/pages/instructions/components/SocraticTutorProject';
 import CheckpointQuiz from '../../../components/CheckpointQuiz';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 import {
   socraticSystemPrompt,
   jsonChallengeChecklist,
@@ -276,6 +278,14 @@ Create a markdown table comparing Python and JavaScript for web development. Inc
             'You can dramatically improve reliability by providing a clear example of the output you want in your prompt.',
           ]}
         />
+
+        {/* Portfolio: export artifacts and see saved items for this lesson */}
+        <PortfolioPanel
+          title="Portfolio"
+          description="Export your collected artifacts anytime. Some lessons also provide a Save action."
+          className="mt-4"
+        />
+        <ArtifactViewer module={3} lesson={3} className="mb-6" />
       </div>
     </LessonTemplate>
   );

@@ -26,11 +26,15 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
+import PortfolioPanel from '@/components/portfolio/PortfolioPanel';
+import ArtifactViewer from '@/components/portfolio/ArtifactViewer';
 import ModuleQuizzes from '@/pages/instructions/modules/ModuleQuizzes/ModuleQuizzes';
+import { usePortfolioArtifacts } from '@/store/usePortfolioArtifacts';
 
 export default function Lesson7_1() {
   const navigate = useNavigate();
   const { completeLesson } = useProgressStore();
+  const { addArtifact } = usePortfolioArtifacts();
 
   const handleNext = () => {
     completeLesson(7, 1);
@@ -151,6 +155,29 @@ export default function Lesson7_1() {
       weight: 20,
     },
   ];
+
+  const handleSaveSchemaTemplate = () => {
+    addArtifact({
+      title: 'Tool Schema Template – Module 7.1',
+      type: 'schema',
+      module: 7,
+      lesson: 1,
+      data: {
+        name: 'send_email',
+        description: 'Send an email to a recipient with a subject and body',
+        parameters: {
+          type: 'object',
+          properties: {
+            to: { type: 'string', description: 'Recipient email address' },
+            subject: { type: 'string', description: 'Email subject' },
+            body: { type: 'string', description: 'Email content (markdown allowed)' },
+            cc: { type: 'array', items: { type: 'string' }, description: 'Optional CC recipients' },
+          },
+          required: ['to', 'subject', 'body'],
+        },
+      },
+    });
+  };
 
   return (
     <LessonTemplate
@@ -288,6 +315,17 @@ export default function Lesson7_1() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+
+        {/* Portfolio Panel */}
+        <PortfolioPanel
+          title="Portfolio"
+          description="Save a tool schema template or export your collected artifacts."
+          onSave={handleSaveSchemaTemplate}
+          saveLabel="Save Schema Template"
+          className="mb-6"
+        />
+
+        <ArtifactViewer module={7} lesson={1} className="mb-6" />
 
         <div className="bg-muted/30 border border-border rounded-xl p-4">
           <h3 className="font-semibold text-foreground mb-2">You can now…</h3>
