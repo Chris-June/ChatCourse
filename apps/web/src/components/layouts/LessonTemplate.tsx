@@ -63,7 +63,7 @@ const LessonTemplate: React.FC<LessonTemplateProps> = ({
         nextLessonTitle={nextLessonTitle}
       />
 
-      <div>
+      <div className="lesson-body">
         {children}
       </div>
 

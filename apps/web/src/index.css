@@ -8,6 +8,10 @@
     height: 100%;
     overscroll-behavior: contain; /* block viewport rubber-banding */
   }
+  /* Prevent the browser window from scrolling; rely on app-level scroll containers */
+  html, body {
+    overflow: hidden;
+  }
 }
 
 @layer base {
@@ -166,5 +170,12 @@
     max-width: 100%;
     overflow-x: auto;
     border-collapse: collapse;
+  }
+}
+
+/* Normalize lesson body bottom spacing to avoid overscroll */
+@layer components {
+  .lesson-body > :last-child {
+    margin-bottom: 0 !important;
   }
 }

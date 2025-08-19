@@ -306,7 +306,7 @@ const ChatInterface = () => {
           <div className="w-8" /> {/* Spacer to balance the header */}
         </header>
 
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 relative">
+        <div data-scroll-container className="flex-1 overflow-y-auto p-4 space-y-4 relative">
           {/* Semi-transparent logo overlay */}
           <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0 opacity-40">
             <img 

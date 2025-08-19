@@ -153,7 +153,7 @@ const Lesson2_1: React.FC = () => {
           description="Export your collected artifacts anytime. Some lessons also provide a Save action."
           className="mt-4"
         />
-        <ArtifactViewer module={2} lesson={1} className="mb-6" />
+        <ArtifactViewer module={2} lesson={1} />
       </div>
     </LessonTemplate>
   );
