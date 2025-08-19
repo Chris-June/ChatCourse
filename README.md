@@ -36,10 +36,10 @@ The repo is a pnpm monorepo with:
 - `apps/api` (Express) running on `http://localhost:3000`
 - `packages/ui` shared components
 
-## 2. Screenshots
+## Screenshots
   
   - Setup
-    ![Setup](docs/screenshots/Setup.png)
+    <img src="docs/screenshots/Setup.png" alt="Setup screen after installing tools" width="720" />
     _Caption: After installing tools, your setup screen may look like this._
 
    
@@ -52,12 +52,23 @@ Beginner-friendly instructions below for reference.
 | Tool | What it’s for | How to get it |
 |------|---------------|---------------|
 | **GitHub Account** | Saving and sharing your project. | [Create a free account](https://github.com/signup) if you don’t have one. |
+ 
+ <img src="docs/screenshots/GitHub.png" alt="GitHub repository page for ChatCourse" width="720" />
+ _Caption: The GitHub repository page where you can Download ZIP or copy the clone URL._
+ 
 | **Node.js** | The engine that runs the project’s code. | [Download Node.js (LTS)](https://nodejs.org/) and run the installer. |
+ 
+ <img src="docs/screenshots/Nodes.png" alt="Node.js website homepage with Download LTS button" width="720" />
+ _Caption: Download the LTS version from nodejs.org and run the installer._
+ 
 | **Visual Studio Code (VS Code)** | A friendly text editor to open the project. | [Download VS Code](https://code.visualstudio.com/) and install it. |
+
+<img src="docs/screenshots/VSCode.png" alt="Visual Studio Code website download page" width="720" />
+_Caption: Download and install Visual Studio Code from code.visualstudio.com._
 
 *Tip: “Terminal” is just a text window where you can type commands. Don’t panic—we’ll tell you exactly what to type.*
 
-![Terminal view](docs/screenshots/TerminalView.png)
+<img src="docs/screenshots/Terminal.png" alt="Terminal window highlighted for entering commands" width="720" />
 
 _Caption: The Terminal is a text window where you type the commands we show._
 
@@ -73,7 +84,10 @@ _Caption: The Terminal is a text window where you type the commands we show._
 
 1. In VS Code choose **Source Control → Clone Repository**.  
 2. Paste `git@github.com:Chris-June/ChatCourse.git` when asked.
-
+ 
+ <img src="docs/screenshots/TerminalClone.png" alt="Terminal showing git clone command for ChatCourse" width="720" />
+ _Caption: Cloning the repo in VS Code’s integrated Terminal using the SSH URL._
+ 
 Either way, remember where you put the folder—you’ll need it soon.
 
 ## 4. Open the Project in Your Editor (VS Code or Windsurf)
@@ -88,11 +102,14 @@ Either way, remember where you put the folder—you’ll need it soon.
   2. Click **Open Folder** and pick the **`ChatCourse`** folder.
   3. Use Windsurf’s built‑in **Terminal** for commands like `pnpm install` and `pnpm dev`.
 
+  <img src="docs/screenshots/Windsurf.png" alt="Windsurf download options for Mac, Windows, Linux" width="720" />
+  _Caption: Download Windsurf for your OS, then open the ChatCourse folder and use the integrated Terminal._
+
 ---
 
 ## 5. Install the Project’s Libraries
 
-1. In VS Code choose **Terminal → New Terminal**.  
+1. In VS Code or Windsurf, choose **Terminal → New Terminal**.  
 2. A panel appears at the bottom. Copy‑paste this and press **Enter**:
 
 ```bash
@@ -124,11 +141,15 @@ Save the file (**⌘S** or **Ctrl+S**).
 
 ### Screenshots
 
-![Settings](docs/screenshots/Settings.png)
+<img src="docs/screenshots/API_Key.png" alt="Settings panel showing where to paste the OpenAI API key" width="720" />
+
+_Caption: Paste your OpenAI API key in the Settings panel, then Save Settings._
+
+<img src="docs/screenshots/Settings.png" alt=".env.local settings example with OpenAI API key" width="720" />
 
 _Caption: Add your AI key in the `.env.local` file so the app can talk to OpenAI._
 
-![Settings – Advanced](docs/screenshots/Settings2.png)
+<img src="docs/screenshots/Settings2.png" alt="Advanced settings panel screenshot" width="720" />
 
 _Caption: Optional advanced options—skip these for now if you like._
 
@@ -137,19 +158,23 @@ _Caption: Optional advanced options—skip these for now if you like._
 Still in the terminal, run:
 
 ```bash
-pnpm dev
+pnpm run dev
 ```
+
+<img src="docs/screenshots/pnpm_run_dev.png" alt="Terminal running pnpm run dev to start the app" width="720" />
+
+_Caption: Start the app with `pnpm dev` (or `pnpm run dev`)._
 
 - First start takes ~20 seconds.  
 - When you see `http://localhost:3001`, **click it** (or paste it in your browser).
 
 ### Screenshots
 
-![Chat UI](docs/screenshots/ChatUI.png)
+<img src="docs/screenshots/ChatUI.png" alt="Main chat UI with message input" width="720" />
 
 _Caption: The main chat screen. Type a message and press Enter._
 
-![Chat UI Sidebar](docs/screenshots/ChatUIsidebar.png)
+<img src="docs/screenshots/ChatUIsidebar.png" alt="Chat UI sidebar showing settings and options" width="720" />
 
 _Caption: The sidebar holds settings like model and Custom Instructions._
 
