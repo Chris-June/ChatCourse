@@ -36,88 +36,16 @@ The repo is a pnpm monorepo with:
 - `apps/api` (Express) running on `http://localhost:3000`
 - `packages/ui` shared components
 
-## Quick Start
-1) Install deps
-
-```bash
-pnpm install
-```
-
-2) Add environment variables
-
-```bash
-cp .env.example .env.local
-# edit .env.local and set at least:
-# OPENAI_API_KEY=sk-...
-```
-
-3) Run both web and API
-
-```bash
-pnpm dev
-```
-
-- Web: http://localhost:3001
-- API: http://localhost:3000
-
-## Scripts (root)
-- `pnpm dev` — runs web and api together
-- `pnpm build` — builds web and installs api deps
-- `pnpm start` — starts the API only
-- `pnpm lint`, `pnpm format`
-
-## Environment
-- Required: `OPENAI_API_KEY`
-- Optional: `OPENAI_ORG_ID`, `OPENAI_MODEL` (e.g., `gpt-5-nano`), `DEFAULT_TEMPERATURE`, `DEFAULT_TOP_P`, `MAX_TOKENS`
-- Dev proxy: `apps/web/vite.config.ts` proxies `/api` to `VITE_API_URL` or `http://localhost:3000`
-- Production web: `apps/web/.env.production` sets `VITE_API_URL=/api`
-
-## API Endpoints (apps/api/handler.ts)
-- POST `/api/chat`
-- POST `/api/chat/refine-prompt`
-- POST `/api/chat/grade-prompt`
-- POST `/api/chat/grade-function-prompt`
-- POST `/api/chat/evaluate-challenge`
-- POST `/api/chat/evaluate-final-challenge`
-- POST `/api/chat/evaluate-summary`
-- GET  `/api/chat/get-patterns`
-
-Allowed models: `gpt-5`, `gpt-5-mini`, `gpt-5-nano` (default: `gpt-5-nano`).
-
-## Deployment (Vercel)
-- SPA routes to `index.html`
-- `/api/*` routed to `apps/api/vercel.ts`
-
-<!-- Editor guidance moved into Section 4 below to keep steps linear for beginners. -->
-
-### OS-specific notes
-- macOS/Linux
-  - Terminal app: Terminal/iTerm. Shell: zsh/bash.
-  - Copy env file: `cp .env.example .env.local`
-  - Start both apps: `pnpm dev` (Web: 3001, API: 3000)
-- Windows
-  - Use PowerShell (or WSL for Unix-like experience).
-  - Copy env file: `copy .env.example .env.local`
-  - Start both apps: `pnpm dev`
-  - If the API dev script errors on `NODE_ENV=development`, run it in PowerShell like:
-    ```powershell
-    $env:NODE_ENV = "development"
-    pnpm --filter @chat/api dev
-    ```
-    or install a cross-platform env tool (e.g., `cross-env`).
-
-## Screenshots
+## 2. Screenshots
   
   - Setup
     ![Setup](docs/screenshots/Setup.png)
     _Caption: After installing tools, your setup screen may look like this._
-  
-  <!-- Optional: custom sizing example -->
-  <!-- <img src="docs/screenshots/Setup.png" alt="Setup" width="900" /> -->
+
    
   —
 
-Legacy beginner-friendly instructions remain below for reference.
+Beginner-friendly instructions below for reference.
 
 ## 2. Before You Begin: Tools You’ll Need
 
