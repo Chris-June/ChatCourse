@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { getApiName, DEFAULT_MODEL } from '../handler';
 import { buildSummaryEvaluationSystemPrompt, buildSummaryEvaluationUserPrompt } from '../prompts/summaryEvaluation';
+import OpenAI from 'openai';
 
 /**
  * Handler for Summary Evaluation endpoint
@@ -27,47 +27,25 @@ export const handleSummaryEvaluation = async (req: Request, res: Response): Prom
 
     const evaluationPrompt = buildSummaryEvaluationUserPrompt({ conversation, userSummary });
 
-    const model = getApiName(DEFAULT_MODEL);
-    const supportsSampling = model === 'gpt-5';
-
-    const http = await fetch('https://api.openai.com/v1/responses', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${openaiApiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model,
-        ...(supportsSampling ? { temperature: 0.4, top_p: 0.9 } : {}),
-        max_output_tokens: 512,
-        input: [
-          { role: 'system', content: [{ type: 'input_text', text: buildSummaryEvaluationSystemPrompt() }] },
-          { role: 'user', content: [{ type: 'input_text', text: evaluationPrompt }] },
-        ],
-      }),
+    // Use OpenAI SDK Chat Completions for reliable text output
+    const client = new OpenAI({ apiKey: openaiApiKey });
+    const chatModel = 'gpt-5-mini'; // more capable for evaluation text
+    const resp = await client.chat.completions.create({
+      model: chatModel,
+      messages: [
+        { role: 'system', content: buildSummaryEvaluationSystemPrompt() },
+        { role: 'user', content: evaluationPrompt },
+      ],
     });
-    if (!http.ok) {
-      const t = await http.text();
-      throw new Error(`OpenAI responses error: ${http.status} ${t}`);
-    }
-    const json: any = await http.json();
-    const pieces: string[] = [];
-    const out = json?.output || [];
-    if (Array.isArray(out)) {
-      for (const o of out) {
-        if (Array.isArray(o?.content)) {
-          for (const ci of o.content) {
-            if (ci?.type === 'output_text' && typeof ci?.text === 'string') pieces.push(ci.text);
-          }
-        }
-      }
-    }
-    const evaluationText = pieces.join('') || '';
+    const evaluationText = resp.choices?.[0]?.message?.content?.trim() || '';
 
-    res.json({ evaluation: evaluationText });
+    res.json({
+      evaluation: evaluationText || 'I could not retrieve a model response. Try again in a moment, or refine your summary with specific details from the conversation (name, rustic style, warm/handmade feel).'
+    });
 
   } catch (error) {
     console.error('Error in summary evaluation handler:', error);
-    res.status(500).json({ error: 'Failed to evaluate summary' });
+    const message = error instanceof Error ? error.message : 'Failed to evaluate summary';
+    res.status(500).json({ error: 'Failed to evaluate summary', detail: message });
   }
 };

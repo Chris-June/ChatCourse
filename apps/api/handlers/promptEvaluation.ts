@@ -260,7 +260,7 @@ export async function handleChallengeEvaluation(req: Request, res: Response): Pr
         }
       }
     }
-    const text = pieces.join('');
+    const text = pieces.join('') || (typeof json?.output_text === 'string' ? json.output_text : '');
     const evaluation = JSON.parse(text || '{}');
     res.json(evaluation);
 
@@ -319,7 +319,10 @@ export async function handleFinalChallengeEvaluation(req: Request, res: Response
         }
       }
     }
-    const text = pieces.join('');
+    const text = pieces.join('') || (typeof json?.output_text === 'string' ? json.output_text : '');
+    if (!text) {
+      console.warn('[final challenge] Empty output text from Responses API. Keys:', Object.keys(json || {}));
+    }
     const evaluation = JSON.parse(text || '{}');
     res.json(evaluation);
 

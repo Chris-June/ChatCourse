@@ -34,20 +34,24 @@ const SummarizationChallenge: React.FC = () => {
         ? `${apiBaseUrl}${apiBaseUrl.endsWith('/') ? '' : '/'}api/chat/evaluate-summary`
         : '/api/chat/evaluate-summary';
 
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      const devKey = import.meta.env.VITE_OPENAI_KEY as string | undefined;
+      if (devKey) headers['Authorization'] = `Bearer ${devKey}`;
+
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
         body: JSON.stringify({
           conversation: challengeConversation,
           userSummary: userSummary,
-          context: 'summarization-challenge'
+          context: 'summarization-challenge',
+          ...(devKey ? { apiKey: devKey } : {})
         }),
       });
 
       if (!response.ok) {
-        throw new Error(`Evaluation failed: ${response.status}`);
+        const detail = await response.text().catch(() => '');
+        throw new Error(`Evaluation failed: ${response.status}${detail ? ` - ${detail}` : ''}`);
       }
 
       const data = await response.json();
