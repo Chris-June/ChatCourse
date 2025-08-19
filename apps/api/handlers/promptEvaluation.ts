@@ -224,63 +224,44 @@ export async function handleChallengeEvaluation(req: Request, res: Response): Pr
       return;
     }
 
-    const openai = new OpenAI({
-      apiKey: apiKey || process.env.OPENAI_API_KEY,
+    const model = getApiName(DEFAULT_MODEL);
+    const supportsSampling = model === 'gpt-5';
+
+    const evaluationPrompt = `Evaluate this prompt against the challenge criteria using I.N.S.Y.N.C. principles:\n\nChallenge: ${challenge}\nUser Prompt: ${userPrompt}\nSuccess Criteria: ${successCriteria.join(', ')}\n\nAnalyze how well the prompt incorporates I.N.S.Y.N.C. elements:\n- Intent: Clear goal definition\n- Nuance: Specific details and constraints\n- Style: Appropriate tone and voice\n- You as...: AI role/persona specification\n- Narrative Format: Output structure requirements\n- Context: Relevant background information\n\nReturn JSON with:\n{\n  "success": true/false,\n  "score": 0-100,\n  "feedback": "detailed feedback",\n  "criteriaEvaluation": [\n    {\n      "criteria": "criteria name",\n      "met": true/false,\n      "feedback": "specific feedback for this criterion"\n    }\n  ],\n  "insyncAnalysis": {\n    "intent": {"score": 0-5, "feedback": "..."},\n    "nuance": {"score": 0-5, "feedback": "..."},\n    "style": {"score": 0-5, "feedback": "..."},\n    "youAs": {"score": 0-5, "feedback": "..."},\n    "narrativeFormat": {"score": 0-5, "feedback": "..."},\n    "context": {"score": 0-5, "feedback": "..."}\n  }\n}`;
+
+    const http = await fetch('https://api.openai.com/v1/responses', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey || process.env.OPENAI_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model,
+        ...(supportsSampling ? { temperature: 0.3, top_p: 0.9 } : {}),
+        input: [
+          { role: 'system', content: [{ type: 'input_text', text: 'You are an expert prompt engineering evaluator. Analyze prompts against challenges using I.N.S.Y.N.C. framework principles.' }] },
+          { role: 'user', content: [{ type: 'input_text', text: evaluationPrompt }] },
+        ],
+      }),
     });
-
-    const evaluationPrompt = `Evaluate this prompt against the challenge criteria using I.N.S.Y.N.C. principles:
-
-Challenge: ${challenge}
-User Prompt: ${userPrompt}
-Success Criteria: ${successCriteria.join(', ')}
-
-Analyze how well the prompt incorporates I.N.S.Y.N.C. elements:
-- Intent: Clear goal definition
-- Nuance: Specific details and constraints
-- Style: Appropriate tone and voice
-- You as...: AI role/persona specification
-- Narrative Format: Output structure requirements
-- Context: Relevant background information
-
-Return JSON with:
-{
-  "success": true/false,
-  "score": 0-100,
-  "feedback": "detailed feedback",
-  "criteriaEvaluation": [
-    {
-      "criteria": "criteria name",
-      "met": true/false,
-      "feedback": "specific feedback for this criterion"
+    if (!http.ok) {
+      const t = await http.text();
+      throw new Error(`OpenAI responses error: ${http.status} ${t}`);
     }
-  ],
-  "insyncAnalysis": {
-    "intent": {"score": 0-5, "feedback": "..."},
-    "nuance": {"score": 0-5, "feedback": "..."},
-    "style": {"score": 0-5, "feedback": "..."},
-    "youAs": {"score": 0-5, "feedback": "..."},
-    "narrativeFormat": {"score": 0-5, "feedback": "..."},
-    "context": {"score": 0-5, "feedback": "..."}
-  }
-}`;
-
-    const response = await openai.chat.completions.create({
-      model: getApiName(DEFAULT_MODEL),
-      messages: [
-        {
-          role: 'system',
-          content: 'You are an expert prompt engineering evaluator. Analyze prompts against challenges using I.N.S.Y.N.C. framework principles.'
-        },
-        {
-          role: 'user',
-          content: evaluationPrompt
+    const json: any = await http.json();
+    const pieces: string[] = [];
+    const out = json?.output || [];
+    if (Array.isArray(out)) {
+      for (const o of out) {
+        if (Array.isArray(o?.content)) {
+          for (const ci of o.content) {
+            if (ci?.type === 'output_text' && typeof ci?.text === 'string') pieces.push(ci.text);
+          }
         }
-      ],
-      response_format: { type: 'json_object' },
-      temperature: 0.3,
-    });
-
-    const evaluation = JSON.parse(response.choices[0]?.message?.content || '{}');
+      }
+    }
+    const text = pieces.join('');
+    const evaluation = JSON.parse(text || '{}');
     res.json(evaluation);
 
   } catch (error) {
@@ -302,23 +283,44 @@ export async function handleFinalChallengeEvaluation(req: Request, res: Response
       return;
     }
 
-    const openai = new OpenAI({
-      apiKey: apiKey || process.env.OPENAI_API_KEY,
-    });
+    const model = getApiName(DEFAULT_MODEL);
+    const supportsSampling = model === 'gpt-5';
 
     const masterSystemPrompt = buildFinalChallengeMasterPrompt();
 
-    const response = await openai.chat.completions.create({
-      model: getApiName(DEFAULT_MODEL),
-      messages: [
-        { role: 'system', content: masterSystemPrompt },
-        { role: 'user', content: `User Prompt: "${userPrompt}"` }
-      ],
-      response_format: { type: 'json_object' },
-      temperature: 0.2,
+    const http = await fetch('https://api.openai.com/v1/responses', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey || process.env.OPENAI_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model,
+        ...(supportsSampling ? { temperature: 0.2, top_p: 0.9 } : {}),
+        input: [
+          { role: 'system', content: [{ type: 'input_text', text: masterSystemPrompt }] },
+          { role: 'user', content: [{ type: 'input_text', text: `User Prompt: "${userPrompt}"` }] }
+        ]
+      }),
     });
-
-    const evaluation = JSON.parse(response.choices[0]?.message?.content || '{}');
+    if (!http.ok) {
+      const t = await http.text();
+      throw new Error(`OpenAI responses error: ${http.status} ${t}`);
+    }
+    const json: any = await http.json();
+    const pieces: string[] = [];
+    const out = json?.output || [];
+    if (Array.isArray(out)) {
+      for (const o of out) {
+        if (Array.isArray(o?.content)) {
+          for (const ci of o.content) {
+            if (ci?.type === 'output_text' && typeof ci?.text === 'string') pieces.push(ci.text);
+          }
+        }
+      }
+    }
+    const text = pieces.join('');
+    const evaluation = JSON.parse(text || '{}');
     res.json(evaluation);
 
   } catch (error) {
