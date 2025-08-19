@@ -40,28 +40,29 @@ The repo is a pnpm monorepo with:
   
   - Setup
     <img src="docs/screenshots/Setup.png" alt="Setup screen after installing tools" width="720" />
-    _Caption: After installing tools, your setup screen may look like this._
+ 
+ After installing tools, your setup screen may look like this.
 
    
   —
 
 Beginner-friendly instructions below for reference.
 
-## 2. Before You Begin: Tools You’ll Need
+## 2. Before You Begin: You’ll Need a 3 FREE tools
 
 | Tool | What it’s for | How to get it |
 |------|---------------|---------------|
-| **GitHub Account** | Saving and sharing your project. | [Create a free account](https://github.com/signup) if you don’t have one. |
+| **GitHub Account** | GitHub is a code hosting platform operated by Microsoft. It is free to use and is hosted in the cloud. You can use it to store and share your code, just like how I am shring it with you. | [Create a free account](https://github.com/signup) if you don’t have one. |
  
  <img src="docs/screenshots/GitHub.png" alt="GitHub repository page for ChatCourse" width="720" />
  The GitHub repository page where you can Download ZIP or copy the clone URL.
  
-| **Node.js** | The engine that runs the project’s code. | [Download Node.js (LTS)](https://nodejs.org/) and run the installer. |
+| **Node.js** | The engine that runs the project’s code. You will not be using Nodes directly as it runs in the background and is a dependency for the project. | [Download Node.js (LTS)](https://nodejs.org/) and run the installer. |
  
  <img src="docs/screenshots/Nodes.png" alt="Node.js website homepage with Download LTS button" width="720" />
  Download the LTS version from nodejs.org and run the installer.
  
-| **Visual Studio Code (VS Code)** | A friendly text editor to open the project. | [Download VS Code](https://code.visualstudio.com/) and install it. |
+| **Visual Studio Code (VS Code)** | A friendly text editor to open the project and modify files. During the course we will "look" at some code blocks to understand how the project works - Specifically the Prompting and AI sections. | [Download VS Code](https://code.visualstudio.com/) and install it. |
 
 <img src="docs/screenshots/VSCode.png" alt="Visual Studio Code website download page" width="720" />
 Download and install Visual Studio Code from code.visualstudio.com.
@@ -69,7 +70,7 @@ Download and install Visual Studio Code from code.visualstudio.com.
 *Tip: “Terminal” is just a text window where you can type commands. Don’t panic—we’ll tell you exactly what to type.*
 
 <img src="docs/screenshots/Terminal.png" alt="Terminal window highlighted for entering commands" width="720" />
-The Terminal is a text window where you type the commands we show.
+The Terminal is a text window where you type the commands we show. This allows you to run commands to install dependencies and start the app.
 
 ## 3. Get the Project Code
 
@@ -81,7 +82,7 @@ The Terminal is a text window where you type the commands we show.
 
 ### Option B – Use Git (skip if that word means nothing to you)
 
-1. In VS Code choose **Source Control → Clone Repository**.  
+1. In VS Code or Windsurfchoose **Source Control → Clone Repository**.  
 2. Paste `git@github.com:Chris-June/ChatCourse.git` when asked.
  
  <img src="docs/screenshots/TerminalClone.png" alt="Terminal showing git clone command for ChatCourse" width="720" />
@@ -91,7 +92,7 @@ Either way, remember where you put the folder—you’ll need it soon.
 
 ## 4. Open the Project in Your Editor (VS Code or Windsurf)
 
-- **Option A — VS Code (most common)**
+- **Option A — VS Code (Free & popular)**
   1. Open **VS Code**.
   2. Click **File → Open Folder…** and pick the **`ChatCourse`** folder.
   3. If VS Code asks “**Do you trust the authors?**” click **Yes**.
