@@ -184,8 +184,8 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
       max_output_tokens: maxTokens,
     };
 
-    // Include sampling params only for models that support them
-    const supportsSampling = apiName !== 'gpt-5-nano';
+    // Include sampling params only for models that support them (full gpt-5 only)
+    const supportsSampling = apiName === 'gpt-5';
     if (supportsSampling) {
       base.temperature = (temperature !== undefined && temperature >= 0 && temperature <= 2)
         ? temperature
@@ -290,7 +290,35 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
                     res.write(`data: ${JSON.stringify({ delta: redactOutput(delta) })}\n\n`);
                   }
                 }
-              } else if (type === 'response.tool_call' && payload.name) {
+              } else {
+                // Fallbacks: handle final, non-delta shapes
+                // 1) payload.response.output[...].content[...]{ type: 'output_text', text }
+                const tryEmitFromOutput = (root: any) => {
+                  try {
+                    const out = root?.response?.output || root?.output || [];
+                    if (Array.isArray(out)) {
+                      for (const o of out) {
+                        if (Array.isArray(o?.content)) {
+                          for (const ci of o.content) {
+                            if (ci?.type === 'output_text' && typeof ci?.text === 'string' && ci.text) {
+                              completionText += ci.text;
+                              res.write(`data: ${JSON.stringify({ delta: redactOutput(ci.text) })}\n\n`);
+                            }
+                            if ((ci?.type === 'output_text.chunk' || ci?.type === 'output_text.delta') && typeof ci?.text === 'string' && ci.text) {
+                              completionText += ci.text;
+                              res.write(`data: ${JSON.stringify({ delta: redactOutput(ci.text) })}\n\n`);
+                            }
+                          }
+                        }
+                      }
+                    }
+                  } catch {}
+                };
+                if (type === 'response.completed' || type === 'response.output_text' || typeof payload?.response === 'object') {
+                  tryEmitFromOutput(payload);
+                }
+              }
+              if (type === 'response.tool_call' && payload.name) {
                 pendingToolCalls.push({ id: payload.id, name: payload.name, args: payload.arguments || payload.input || {} });
               } else if (payload.tool && payload.tool.name) {
                 pendingToolCalls.push({ id: payload.tool.id, name: payload.tool.name, args: payload.tool.arguments || {} });
@@ -337,6 +365,90 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
       };
       pendingCalls = await streamOnce(nextBody);
     }
+    // Fallback: if streaming yielded no text, do a non-streaming call and emit once
+    if (!completionText) {
+      try {
+        const fallbackBody: any = { ...base, stream: false, input };
+        const http = await fetch('https://api.openai.com/v1/responses', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(fallbackBody),
+        });
+        if (http.ok) {
+          const json: any = await http.json();
+          const pieces: string[] = [];
+          const out = json?.output || [];
+          if (Array.isArray(out)) {
+            for (const o of out) {
+              if (Array.isArray(o?.content)) {
+                for (const ci of o.content) {
+                  if (ci?.type === 'output_text' && typeof ci?.text === 'string') pieces.push(ci.text);
+                  if ((ci?.type === 'output_text.chunk' || ci?.type === 'output_text.delta') && typeof ci?.text === 'string') pieces.push(ci.text);
+                }
+              }
+            }
+          }
+          const text = pieces.join('');
+          if (text) {
+            completionText = text;
+            res.write(`data: ${JSON.stringify({ delta: redactOutput(text) })}\n\n`);
+          }
+        } else {
+          const t = await http.text();
+          console.error('Fallback non-streaming error:', http.status, t);
+        }
+      } catch (e) {
+        console.error('Fallback non-streaming exception:', e);
+      }
+    }
+
+    // Secondary fallback: simplified minimal payload
+    if (!completionText) {
+      try {
+        const joined = messagesForAPI.map(m => `${m.role.toUpperCase()}: ${m.content}`).join('\n');
+        const minimal = {
+          model: apiName,
+          input: [
+            { role: 'user', content: [{ type: 'input_text', text: joined }] }
+          ]
+        } as const;
+        const http2 = await fetch('https://api.openai.com/v1/responses', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(minimal),
+        });
+        if (http2.ok) {
+          const json: any = await http2.json();
+          const pieces: string[] = [];
+          const out = json?.output || [];
+          if (Array.isArray(out)) {
+            for (const o of out) {
+              if (Array.isArray(o?.content)) {
+                for (const ci of o.content) {
+                  if (ci?.type === 'output_text' && typeof ci?.text === 'string') pieces.push(ci.text);
+                }
+              }
+            }
+          }
+          const text = pieces.join('');
+          if (text) {
+            completionText = text;
+            res.write(`data: ${JSON.stringify({ delta: redactOutput(text) })}\n\n`);
+          }
+        } else {
+          const t2 = await http2.text();
+          console.error('Secondary fallback error:', http2.status, t2);
+        }
+      } catch (e2) {
+        console.error('Secondary fallback exception:', e2);
+      }
+    }
 
     const completionTokens = encoding.encode(completionText).length;
     encoding.free();
@@ -359,8 +471,9 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
     res.write('data: [DONE]\n\n');
 
   } catch (error: any) {
-    console.error('Error streaming from OpenAI:', error);
-    res.write(`data: ${JSON.stringify({ error: { message: 'Error streaming response.' } })}\n\n`);
+    const msg = (error && typeof error.message === 'string') ? error.message : 'Error streaming response.';
+    console.error('Error streaming from OpenAI:', msg);
+    res.write(`data: ${JSON.stringify({ error: { message: msg } })}\n\n`);
   } finally {
     res.end();
   }

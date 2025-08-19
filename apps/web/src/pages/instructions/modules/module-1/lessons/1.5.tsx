@@ -10,10 +10,20 @@ type FeedbackEntry = {
   comment: string;
 };
 
+type InsyncElementKey = 'intent' | 'nuance' | 'style' | 'youAs' | 'narrativeFormat' | 'context';
+
+type InsyncFeedback = Partial<Record<InsyncElementKey, FeedbackEntry>> & {
+  totalScore?: number;
+  improvedPrompt?: string;
+  overallFeedback?: string;
+  rubricUsed?: string;
+};
+
 type EvaluationResult = {
   response?: string;
-  feedback?: Record<string, FeedbackEntry>;
+  feedback?: InsyncFeedback;
   error?: string;
+  rubric?: string;
 };
 
 const Lesson1_5: React.FC = () => {
@@ -455,14 +465,56 @@ const Lesson1_5: React.FC = () => {
                 <div className="mt-6">
                   <h5 className="font-bold text-muted-foreground mb-3">I.N.S.Y.N.C. Feedback:</h5>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                    {Object.entries(evaluationResult.feedback).map(([key, value]: [string, FeedbackEntry]) => (
-                      <div key={key} className="bg-muted p-3 rounded-lg border border-border">
-                        <p className="font-bold capitalize text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
-                        <p className="text-muted-foreground mt-1"><strong>Score:</strong> {value.score}/10</p>
-                        <p className="text-muted-foreground mt-1"><strong>Comment:</strong> {value.comment}</p>
-                      </div>
-                    ))}
+                    {(['intent','nuance','style','youAs','narrativeFormat','context'] as InsyncElementKey[])
+                      .filter(k => Boolean(evaluationResult.feedback?.[k]))
+                      .map((k) => {
+                        const value = evaluationResult.feedback?.[k] as FeedbackEntry | undefined;
+                        return (
+                          <div key={k} className="bg-muted p-3 rounded-lg border border-border">
+                            <p className="font-bold capitalize text-muted-foreground">{k.replace(/([A-Z])/g, ' $1').trim()}</p>
+                            <p className="text-muted-foreground mt-1"><strong>Score:</strong> {(value && typeof value.score === 'number') ? value.score : 0}/10</p>
+                            <p className="text-muted-foreground mt-1"><strong>Comment:</strong> {value?.comment ?? ''}</p>
+                          </div>
+                        );
+                      })}
                   </div>
+
+                  {/* Totals and extras */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mt-4">
+                    {typeof evaluationResult.feedback?.totalScore === 'number' && (
+                      <div className="bg-muted p-3 rounded-lg border border-border">
+                        <p className="font-bold text-muted-foreground">Total Score</p>
+                        <p className="text-muted-foreground mt-1">{evaluationResult.feedback.totalScore}/30</p>
+                      </div>
+                    )}
+                    {evaluationResult.feedback?.rubricUsed && (
+                      <div className="bg-muted p-3 rounded-lg border border-border">
+                        <p className="font-bold text-muted-foreground">Rubric</p>
+                        <p className="text-muted-foreground mt-1">{evaluationResult.feedback.rubricUsed}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  {typeof evaluationResult.feedback?.improvedPrompt === 'string' && evaluationResult.feedback.improvedPrompt.length > 0 && (
+                    <div className="mt-4">
+                      <h6 className="font-bold text-muted-foreground mb-1">Improved Prompt</h6>
+                      <p className="text-foreground p-2 bg-muted rounded-md whitespace-pre-wrap border border-border">{evaluationResult.feedback.improvedPrompt}</p>
+                    </div>
+                  )}
+
+                  {typeof evaluationResult.feedback?.overallFeedback === 'string' && evaluationResult.feedback.overallFeedback.length > 0 && (
+                    <div className="mt-4">
+                      <h6 className="font-bold text-muted-foreground mb-1">Overall Feedback</h6>
+                      <p className="text-foreground p-2 bg-muted rounded-md whitespace-pre-wrap border border-border">{evaluationResult.feedback.overallFeedback}</p>
+                    </div>
+                  )}
+
+                  {typeof evaluationResult.rubric === 'string' && evaluationResult.rubric.length > 0 && (
+                    <div className="mt-4">
+                      <h6 className="font-bold text-muted-foreground mb-1">Scoring Rubric</h6>
+                      <pre className="text-xs text-muted-foreground bg-muted p-3 rounded-md whitespace-pre-wrap border border-border">{evaluationResult.rubric}</pre>
+                    </div>
+                  )}
                 </div>
               )}
 

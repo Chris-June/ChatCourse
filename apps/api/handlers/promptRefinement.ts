@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { getApiName, DEFAULT_MODEL } from '../handler';
-import { buildPromptAnalysisPrompt, buildInsyncEvaluationPrompt, SYSTEM_INSYNC_EXPERT } from '../prompts/promptRefinement';
+import { buildPromptAnalysisPrompt, buildInsyncEvaluationPrompt, SYSTEM_INSYNC_EXPERT, INSYNC_RUBRIC } from '../prompts/promptRefinement';
 
 /**
  * Handler for PromptRefinementWorkbench - refine prompt
@@ -24,7 +24,7 @@ export const handleRefinePrompt = async (req: Request, res: Response): Promise<v
 
   try {
     const model = getApiName(DEFAULT_MODEL);
-    const supportsSampling = model !== 'gpt-5-nano';
+    const supportsSampling = model === 'gpt-5';
     const resp = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
       headers: {
@@ -33,7 +33,7 @@ export const handleRefinePrompt = async (req: Request, res: Response): Promise<v
       },
       body: JSON.stringify({
         model,
-        ...(supportsSampling ? { temperature: 0.4 } : {}),
+        ...(supportsSampling ? { temperature: 0.4, top_p: 0.9 } : {}),
         input: [
           { role: 'user', content: [{ type: 'input_text', text: analysisPrompt }] },
         ],
@@ -101,7 +101,7 @@ export const handleGradePrompt = async (req: Request, res: Response): Promise<vo
       },
       body: JSON.stringify({
         model,
-        ...(supportsSampling ? { temperature: 0.3 } : {}),
+        ...(supportsSampling ? { temperature: 0.3, top_p: 0.9 } : {}),
         input: [
           { role: 'system', content: [{ type: 'input_text', text: SYSTEM_INSYNC_EXPERT }] },
           { role: 'user', content: [{ type: 'input_text', text: evaluationPrompt }] },
@@ -126,6 +126,40 @@ export const handleGradePrompt = async (req: Request, res: Response): Promise<vo
     }
     const evaluation = JSON.parse(evalPieces.join('') || '{}');
 
+    // Normalize fields to ensure 'comment' exists and scores are consistent
+    const norm = (obj: any) => {
+      if (!obj) return { score: 0, comment: 'No evaluation available', example: '' };
+      const score5 = typeof obj.score === 'number' ? obj.score : 0;
+      return {
+        // scale element score to /10 for UI
+        score: Math.max(0, Math.min(10, Math.round(score5 * 2))),
+        // prefer 'comment', fallback to 'feedback'
+        comment: typeof obj.comment === 'string' ? obj.comment : (typeof obj.feedback === 'string' ? obj.feedback : ''),
+        example: typeof obj.example === 'string' ? obj.example : ''
+      };
+    };
+
+    const normalized = {
+      intent: norm(evaluation.intent),
+      nuance: norm(evaluation.nuance),
+      style: norm(evaluation.style),
+      youAs: norm(evaluation.youAs),
+      narrativeFormat: norm(evaluation.narrativeFormat),
+      context: norm(evaluation.context),
+      // keep totalScore in 0–30 domain based on raw 0–5 scores
+      totalScore: typeof evaluation.totalScore === 'number' ? evaluation.totalScore : [
+        typeof evaluation.intent?.score === 'number' ? evaluation.intent.score : 0,
+        typeof evaluation.nuance?.score === 'number' ? evaluation.nuance.score : 0,
+        typeof evaluation.style?.score === 'number' ? evaluation.style.score : 0,
+        typeof evaluation.youAs?.score === 'number' ? evaluation.youAs.score : 0,
+        typeof evaluation.narrativeFormat?.score === 'number' ? evaluation.narrativeFormat.score : 0,
+        typeof evaluation.context?.score === 'number' ? evaluation.context.score : 0,
+      ].reduce((a,b)=>a+b,0),
+      improvedPrompt: typeof evaluation.improvedPrompt === 'string' ? evaluation.improvedPrompt : '',
+      overallFeedback: typeof evaluation.overallFeedback === 'string' ? evaluation.overallFeedback : '',
+      rubricUsed: evaluation.rubricUsed || 'INSYNC_RUBRIC_V1',
+    };
+
     // Step 2: Direct response to the user's prompt (non-streaming)
     const replyHTTP = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
@@ -135,7 +169,7 @@ export const handleGradePrompt = async (req: Request, res: Response): Promise<vo
       },
       body: JSON.stringify({
         model,
-        ...(supportsSampling ? { temperature: 0.7 } : {}),
+        ...(supportsSampling ? { temperature: 0.7, top_p: 0.9 } : {}),
         input: [
           { role: 'user', content: [{ type: 'input_text', text: prompt }] },
         ],
@@ -159,7 +193,11 @@ export const handleGradePrompt = async (req: Request, res: Response): Promise<vo
     }
     const directResponse = replyPieces.join('') || 'No response generated.';
 
-    res.json({ response: directResponse, feedback: evaluation });
+    res.json({
+      response: directResponse,
+      feedback: normalized,
+      rubric: INSYNC_RUBRIC,
+    });
   } catch (error) {
     console.error('Error in grade-prompt handler:', error);
     res.status(500).json({ error: 'Failed to grade prompt.' });
