@@ -88,12 +88,7 @@ Allowed models: `gpt-5`, `gpt-5-mini`, `gpt-5-nano` (default: `gpt-5-nano`).
 - SPA routes to `index.html`
 - `/api/*` routed to `apps/api/vercel.ts`
 
-## Editor: Windsurf (optional)
-
-If you use the Windsurf IDE (recommended by the maintainer):
-- Download the installer from the official Windsurf website.
-- Install and launch Windsurf, then open the repo folder `ChatCourse/`.
-- Use Windsurf’s integrated terminal to run project commands (e.g., `pnpm install`, `pnpm dev`).
+<!-- Editor guidance moved into Section 4 below to keep steps linear for beginners. -->
 
 ### OS-specific notes
 - macOS/Linux
@@ -114,8 +109,8 @@ If you use the Windsurf IDE (recommended by the maintainer):
 ## Screenshots
   
   - Setup
-    
     ![Setup](docs/screenshots/Setup.png)
+    _Caption: After installing tools, your setup screen may look like this._
   
   <!-- Optional: custom sizing example -->
   <!-- <img src="docs/screenshots/Setup.png" alt="Setup" width="900" /> -->
@@ -136,6 +131,8 @@ Legacy beginner-friendly instructions remain below for reference.
 
 ![Terminal view](docs/screenshots/TerminalView.png)
 
+_Caption: The Terminal is a text window where you type the commands we show._
+
 ## 3. Get the Project Code
 
 ### Option A – The Simple Download
@@ -151,11 +148,17 @@ Legacy beginner-friendly instructions remain below for reference.
 
 Either way, remember where you put the folder—you’ll need it soon.
 
-## 4. Open the Project in VS Code
+## 4. Open the Project in Your Editor (VS Code or Windsurf)
 
-1. Launch VS Code.  
-2. Select **File → Open Folder…** and pick the **`ChatCourse`** folder.  
-3. VS Code will ask “**Do you trust the authors?**” Click **Yes**.
+- **Option A — VS Code (most common)**
+  1. Open **VS Code**.
+  2. Click **File → Open Folder…** and pick the **`ChatCourse`** folder.
+  3. If VS Code asks “**Do you trust the authors?**” click **Yes**.
+
+- **Option B — Windsurf (free, beginner‑friendly AI editor)**
+  1. Open **Windsurf**.
+  2. Click **Open Folder** and pick the **`ChatCourse`** folder.
+  3. Use Windsurf’s built‑in **Terminal** for commands like `pnpm install` and `pnpm dev`.
 
 ---
 
@@ -171,23 +174,6 @@ pnpm install
 6. **Open the app** in your browser:
    - Frontend: http://localhost:3001
    - API: http://localhost:3000
-
-## 4. Open the Project in VS Code
-
-1. Launch VS Code.  
-2. Select **File → Open Folder…** and pick the **`chat-app-monorepo`** folder.  
-3. VS Code will ask “**Do you trust the authors?**” Click **Yes**.
-
-## 5. Install the Project’s Libraries
-
-1. In VS Code choose **Terminal → New Terminal**.  
-2. A panel appears at the bottom. Copy‑paste this and press **Enter**:
-
-```bash
-pnpm install
-```
-
-Wait until the scrolling stops (≈1 minute).
 
 ## 6. Add Your AI Key
 
@@ -212,7 +198,11 @@ Save the file (**⌘S** or **Ctrl+S**).
 
 ![Settings](docs/screenshots/Settings.png)
 
+_Caption: Add your AI key in the `.env.local` file so the app can talk to OpenAI._
+
 ![Settings – Advanced](docs/screenshots/Settings2.png)
+
+_Caption: Optional advanced options—skip these for now if you like._
 
 ## 7. Start Chatting!
 
@@ -229,9 +219,100 @@ pnpm dev
 
 ![Chat UI](docs/screenshots/ChatUI.png)
 
+_Caption: The main chat screen. Type a message and press Enter._
+
 ![Chat UI Sidebar](docs/screenshots/ChatUIsidebar.png)
 
+_Caption: The sidebar holds settings like model and Custom Instructions._
+
+### Course Module Previews
+
+![Module 1 overview](docs/screenshots/mod1.png)
+
+_Caption: Module 1 — Foundations of AI & Prompting (overview and what you’ll learn)._ 
+
+![Module 1 skills](docs/screenshots/mod1_2.png)
+
+_Caption: Module 1 — Skills you’ll build and how to use this module._
+
+![Module 2 overview](docs/screenshots/mod2.png)
+
+_Caption: Module 2 — Context Management (overview and what you’ll learn)._ 
+
+![Module 2 skills](docs/screenshots/mod2_2.png)
+
+_Caption: Module 2 — Skills you’ll build and how to use this module._
+
+![Module 3 overview](docs/screenshots/mod3.png)
+
+_Caption: Module 3 — Prompting Techniques (overview and what you’ll learn)._ 
+
+![Module 3 skills](docs/screenshots/mod3_2.png)
+
+_Caption: Module 3 — Skills you’ll build and how to use this module._
+
+![Module 4 overview](docs/screenshots/mod4.png)
+
+_Caption: Module 4 — AI Capabilities & Tools (overview and what you’ll learn)._ 
+
+![Module 4 skills](docs/screenshots/mod4_2.png)
+
+_Caption: Module 4 — Skills you’ll build and how to use this module._
+
+![Module 5 overview](docs/screenshots/mod5.png)
+
+_Caption: Module 5 — Advanced Interactions (overview and what you’ll learn)._ 
+
+![Module 5 skills](docs/screenshots/mod5_2.png)
+
+_Caption: Module 5 — Skills you’ll build and how to use this module._
+
+![Module 6 overview](docs/screenshots/mod6.png)
+
+_Caption: Module 6 — Development with AI (overview and what you’ll learn)._ 
+
+![Module 6 skills](docs/screenshots/mod6_2.png)
+
+_Caption: Module 6 — Skills you’ll build and how to use this module._
+
+![Module 7 overview](docs/screenshots/mod7.png)
+
+_Caption: Module 7 — Advanced Techniques (overview and what you’ll learn)._ 
+
+![Module 7 skills](docs/screenshots/mod7_2.png)
+
+_Caption: Module 7 — Skills you’ll build and how to use this module._
+
+![Module 8 overview](docs/screenshots/mod8.png)
+
+_Caption: Module 8 — Responsible AI (overview and what you’ll learn)._ 
+
+![Module 8 skills](docs/screenshots/mod8_2.png)
+
+_Caption: Module 8 — Skills you’ll build and how to use this module._
+
 🎉 **That’s it!** Type a message and watch the AI reply.
+
+## Troubleshooting (Common fixes)
+
+- **pnpm: command not found**
+  - Open Terminal and run: `npm install -g pnpm`
+  - Close and reopen the Terminal, then try `pnpm install` again.
+
+- **App says “Missing API key” or responses don’t work**
+  - Make sure you created `.env.local` and added `OPENAI_API_KEY=sk-...`.
+  - Save the file, stop the app (Ctrl+C), then run `pnpm dev` again.
+
+- **Port already in use (3000 or 3001)**
+  - Close other running apps or restart your computer.
+  - Then run `pnpm dev` again.
+
+- **Windows: errors with NODE_ENV**
+  - Use PowerShell and set: `$env:NODE_ENV = "development"` then run `pnpm --filter @chat/api dev`.
+
+- **Network/CORS or “fetch failed” in the browser**
+  - Make sure the API is running (Terminal shows localhost:3000) and the web app is running (localhost:3001).
+  - If issues persist, stop both (Ctrl+C) and start again with `pnpm dev`.
 
 ## 8. What’s Next?
 
@@ -259,6 +340,9 @@ pnpm dev
 ## 10. Advanced Section (Developers & Curious Cats)
   
   For rubric-based audits of the learning modules, see `Discovery.md` (Modules 1–8 quality reviews).
+
+<details>
+<summary>Advanced (Developers & Curious Cats)</summary>
 
 ### `apps/web`
 
@@ -335,188 +419,11 @@ The `ALLOWED_MODELS` environment variable in the `.env.local` file can be used t
 
 The `DEFAULT_MODEL` environment variable in the `.env.local` file can be used to set the default model.
 
-## License
-
-This project is licensed under the MIT License.
-
-# Intelli‑Chat Community Build (No‑Code Edition)
-
-**Welcome!** This guide is written for absolute beginners—people who have *never* coded before and have only a fuzzy idea of what “AI” is. Follow the steps below and you’ll have your own private AI chat website running on your computer in less than 30 minutes.
-
----
-
-## 1. What You’re Getting
-
-- A **chat website** (like ChatGPT) that runs locally on your machine.  
-- A **private build space** where you can experiment without the whole internet watching.  
-- The freedom to **fork** (make your own copy) and share ideas with friends.
-
-No complex maths, no mysterious jargon—just clear instructions.
-
----
-
-## 2. Three Tools to Install (All Free)
-
-| Tool | Why you need it | How to install |
-|------|-----------------|----------------|
-| **Node.js** | Lets your computer run the chat program. | [Download Node.js (LTS)](https://nodejs.org/en/download/) and run the installer—click “Next” until it finishes. |
-| **pnpm** | Fetches the extra bits the project needs. | After Node installs, open **Terminal** (Mac) or **Command Prompt** (Windows) and type:<br>`npm install -g pnpm` |
-| **Visual Studio Code (VS Code)** | A friendly text editor to open the project. | [Download VS Code](https://code.visualstudio.com/) and install it. |
-
-*Tip: “Terminal” is just a text window where you can type commands. Don’t panic—we’ll tell you exactly what to type.*
-
----
-
-## 3. Get the Project Code
-
-### Option A – The Simple Download
-
-1. Visit the project page and click **“Download ZIP.”**  
-   `https://github.com/Chris-June/ChatCourse`
-2. Un‑zip the file. You’ll get a folder called **`ChatCourse`**.
-
-### Option B – Use Git (skip if that word means nothing to you)
-
-1. In VS Code choose **Source Control → Clone Repository**.  
-2. Paste `git@github.com:Chris-June/ChatCourse.git` when asked.
-
-Either way, remember where you put the folder—you’ll need it soon.
-
----
-
-## 4. Open the Project in VS Code
-
-1. Launch VS Code.  
-2. Select **File → Open Folder…** and pick the **`ChatCourse`** folder.  
-3. VS Code will ask “**Do you trust the authors?**” Click **Yes**.
-
----
-
-## 5. Install the Project’s Libraries
-
-1. In VS Code choose **Terminal → New Terminal**.  
-2. A panel appears at the bottom. Copy‑paste this and press **Enter**:
-
-```bash
-pnpm install
-```
-
-Wait until the scrolling stops (≈1 minute).
-
----
-
-## 6. Add Your AI Key
-
-1. Get a free key on the OpenAI website → **[Create API Key](https://platform.openai.com/account/api-keys)**.  
-2. Copy the key (looks like `sk-…`).  
-3. In VS Code’s terminal, run:
-
-```bash
-cp .env.example .env.local
-```
-
-4. Open **`.env.local`** (left‑hand file list).  
-5. Find `OPENAI_API_KEY=` and paste your key after the `=` sign:  
-
-```
-OPENAI_API_KEY=sk-1234567890abcdef
-```
-
-Save the file (**⌘S** or **Ctrl+S**).
-
-### Screenshots
-
-![Settings](docs/screenshots/Settings.png)
-
-![Settings – Advanced](docs/screenshots/Settings2.png)
-
----
-
-## 7. Start Chatting!
-
-Still in the terminal, run:
-
-```bash
-pnpm dev
-```
-
-- First start takes ~20 seconds.  
-- When you see `http://localhost:3001`, **click it** (or paste it in your browser).
-
-### Screenshots
-
-![Chat UI](docs/screenshots/ChatUI.png)
-
-![Chat UI Sidebar](docs/screenshots/ChatUIsidebar.png)
-
-🎉 **That’s it!** Type a message and watch the AI reply.
-
----
-
-## 8. What’s Next?
-
-| Want to… | Do this |
-|----------|---------|
-| **Change the AI’s personality** | Open `apps/api/handler.ts`, scroll to the *System Prompt* and rewrite the text inside quotes. |
-| **Tweak responses (tone, format)** | In the chat site, click **Settings → Custom Instructions**. |
-| **Invite friends to play** | Send them this README. |
-| **Learn the techy stuff** | Expand the **Advanced Section** below (totally optional). |
-
----
-
-## 9. Glossary (Plain‑English)
-
-| Term | Simple meaning |
-|------|----------------|
-| **AI** | Software that predicts text responses. |
-| **API key** | Secret password that lets your app talk to OpenAI. |
-| **Terminal / Command Prompt** | A text box for giving your computer instructions. |
-| **Install** | Put new software on your computer. |
-| **pnpm install** | Download all the pieces the project needs. |
-| **Localhost** | Fancy word for “my own computer.” |
-| **Fork** | Make your own copy of someone’s project on GitHub. |
-
----
-
-## 10. Advanced Section (Developers & Curious Cats)
-
-<details>
-<summary>Click to expand</summary>
-
-### Project Structure
-```
-/ (root)
-├─ api          – backend chat logic
-├─ apps/web     – the React website
-├─ packages     – shared code (empty for now)
-└─ …
-```
-
-### Available Scripts
-| Command | What it does |
-|---------|--------------|
-| `pnpm dev` | Starts the site in development mode. |
-| `pnpm build` | Creates an optimized production build. |
-| `pnpm lint` | Checks code style. |
-
-### Custom Instructions & Prompt Stack
-See **Settings → Custom Instructions** in the website for a friendly editor. Internally the prompt order is:
-
-1. Safety rules  
-2. Default system prompt  
-3. **Your Custom Instructions**  
-4. Memory (if enabled)  
-5. Chat history  
-6. Your new message  
-
 </details>
-
----
 
 ## License
 
 MIT — do whatever you like, just keep this notice.
 
 ---
-
 **Need help?** Open an [issue](https://github.com/Chris-June/ChatCourse/issues) or say hi in the community Discord. Everyone started somewhere. 🙌
