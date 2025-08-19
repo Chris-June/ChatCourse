@@ -54,27 +54,26 @@ Beginner-friendly instructions below for reference.
 | **GitHub Account** | Saving and sharing your project. | [Create a free account](https://github.com/signup) if you don’t have one. |
  
  <img src="docs/screenshots/GitHub.png" alt="GitHub repository page for ChatCourse" width="720" />
- _Caption: The GitHub repository page where you can Download ZIP or copy the clone URL._
+ The GitHub repository page where you can Download ZIP or copy the clone URL.
  
 | **Node.js** | The engine that runs the project’s code. | [Download Node.js (LTS)](https://nodejs.org/) and run the installer. |
  
  <img src="docs/screenshots/Nodes.png" alt="Node.js website homepage with Download LTS button" width="720" />
- _Caption: Download the LTS version from nodejs.org and run the installer._
+ Download the LTS version from nodejs.org and run the installer.
  
 | **Visual Studio Code (VS Code)** | A friendly text editor to open the project. | [Download VS Code](https://code.visualstudio.com/) and install it. |
 
 <img src="docs/screenshots/VSCode.png" alt="Visual Studio Code website download page" width="720" />
-_Caption: Download and install Visual Studio Code from code.visualstudio.com._
+Download and install Visual Studio Code from code.visualstudio.com.
 
 *Tip: “Terminal” is just a text window where you can type commands. Don’t panic—we’ll tell you exactly what to type.*
 
 <img src="docs/screenshots/Terminal.png" alt="Terminal window highlighted for entering commands" width="720" />
-
-_Caption: The Terminal is a text window where you type the commands we show._
+The Terminal is a text window where you type the commands we show.
 
 ## 3. Get the Project Code
 
-### Option A – The Simple Download
+### Option A – The Simple Download
 
 1. Visit the project page and click **“Download ZIP.”**  
    `https://github.com/Chris-June/ChatCourse`
@@ -82,15 +81,15 @@ _Caption: The Terminal is a text window where you type the commands we show._
 
 ### Option B – Use Git (skip if that word means nothing to you)
 
-1. In VS Code choose **Source Control → Clone Repository**.  
+1. In VS Code choose **Source Control → Clone Repository**.  
 2. Paste `git@github.com:Chris-June/ChatCourse.git` when asked.
  
  <img src="docs/screenshots/TerminalClone.png" alt="Terminal showing git clone command for ChatCourse" width="720" />
- _Caption: Cloning the repo in VS Code’s integrated Terminal using the SSH URL._
+ Cloning the repo in VS Code’s integrated Terminal using the SSH URL.
  
 Either way, remember where you put the folder—you’ll need it soon.
 
-## 4. Open the Project in Your Editor (VS Code or Windsurf)
+## 4. Open the Project in Your Editor (VS Code or Windsurf)
 
 - **Option A — VS Code (most common)**
   1. Open **VS Code**.
@@ -103,7 +102,7 @@ Either way, remember where you put the folder—you’ll need it soon.
   3. Use Windsurf’s built‑in **Terminal** for commands like `pnpm install` and `pnpm dev`.
 
   <img src="docs/screenshots/Windsurf.png" alt="Windsurf download options for Mac, Windows, Linux" width="720" />
-  _Caption: Download Windsurf for your OS, then open the ChatCourse folder and use the integrated Terminal._
+  Download Windsurf for your OS, then open the ChatCourse folder and use the integrated Terminal.
 
 ---
 
@@ -143,15 +142,15 @@ Save the file (**⌘S** or **Ctrl+S**).
 
 <img src="docs/screenshots/API_Key.png" alt="Settings panel showing where to paste the OpenAI API key" width="720" />
 
-_Caption: Paste your OpenAI API key in the Settings panel, then Save Settings._
+Paste your OpenAI API key in the Settings panel, then Save Settings.
 
 <img src="docs/screenshots/Settings.png" alt=".env.local settings example with OpenAI API key" width="720" />
 
-_Caption: Add your AI key in the `.env.local` file so the app can talk to OpenAI._
+Add your AI key in the `.env.local` file so the app can talk to OpenAI.
 
 <img src="docs/screenshots/Settings2.png" alt="Advanced settings panel screenshot" width="720" />
 
-_Caption: Optional advanced options—skip these for now if you like._
+Optional advanced options—skip these for now if you like.
 
 ## 7. Start Chatting!
 
@@ -163,86 +162,86 @@ pnpm run dev
 
 <img src="docs/screenshots/pnpm_run_dev.png" alt="Terminal running pnpm run dev to start the app" width="720" />
 
-_Caption: Start the app with `pnpm dev` (or `pnpm run dev`)._
+Start the app with `pnpm dev` (or `pnpm run dev`).
 
-- First start takes ~20 seconds.  
+- First start takes ~20 seconds.  
 - When you see `http://localhost:3001`, **click it** (or paste it in your browser).
 
 ### Screenshots
 
 <img src="docs/screenshots/ChatUI.png" alt="Main chat UI with message input" width="720" />
 
-_Caption: The main chat screen. Type a message and press Enter._
+The main chat screen. Type a message and press Enter.
 
 <img src="docs/screenshots/ChatUIsidebar.png" alt="Chat UI sidebar showing settings and options" width="720" />
 
-_Caption: The sidebar holds settings like model and Custom Instructions._
+The sidebar holds settings like model and Custom Instructions.
 
 ### Course Module Previews
 
 ![Module 1 overview](docs/screenshots/mod1.png)
 
-_Caption: Module 1 — Foundations of AI & Prompting (overview and what you’ll learn)._ 
+Module 1 — Foundations of AI & Prompting (overview and what you’ll learn).
 
 ![Module 1 skills](docs/screenshots/mod1_2.png)
 
-_Caption: Module 1 — Skills you’ll build and how to use this module._
+Module 1 — Skills you’ll build and how to use this module.
 
 ![Module 2 overview](docs/screenshots/mod2.png)
 
-_Caption: Module 2 — Context Management (overview and what you’ll learn)._ 
+Module 2 — Context Management (overview and what you’ll learn).
 
 ![Module 2 skills](docs/screenshots/mod2_2.png)
 
-_Caption: Module 2 — Skills you’ll build and how to use this module._
+Module 2 — Skills you’ll build and how to use this module.
 
 ![Module 3 overview](docs/screenshots/mod3.png)
 
-_Caption: Module 3 — Prompting Techniques (overview and what you’ll learn)._ 
+Module 3 — Prompting Techniques (overview and what you’ll learn).
 
 ![Module 3 skills](docs/screenshots/mod3_2.png)
 
-_Caption: Module 3 — Skills you’ll build and how to use this module._
+Module 3 — Skills you’ll build and how to use this module.
 
 ![Module 4 overview](docs/screenshots/mod4.png)
 
-_Caption: Module 4 — AI Capabilities & Tools (overview and what you’ll learn)._ 
+Module 4 — AI Capabilities & Tools (overview and what you’ll learn).
 
 ![Module 4 skills](docs/screenshots/mod4_2.png)
 
-_Caption: Module 4 — Skills you’ll build and how to use this module._
+Module 4 — Skills you’ll build and how to use this module.
 
 ![Module 5 overview](docs/screenshots/mod5.png)
 
-_Caption: Module 5 — Advanced Interactions (overview and what you’ll learn)._ 
+Module 5 — Advanced Interactions (overview and what you’ll learn).
 
 ![Module 5 skills](docs/screenshots/mod5_2.png)
 
-_Caption: Module 5 — Skills you’ll build and how to use this module._
+Module 5 — Skills you’ll build and how to use this module.
 
 ![Module 6 overview](docs/screenshots/mod6.png)
 
-_Caption: Module 6 — Development with AI (overview and what you’ll learn)._ 
+Module 6 — Development with AI (overview and what you’ll learn).
 
 ![Module 6 skills](docs/screenshots/mod6_2.png)
 
-_Caption: Module 6 — Skills you’ll build and how to use this module._
+Module 6 — Skills you’ll build and how to use this module.
 
 ![Module 7 overview](docs/screenshots/mod7.png)
 
-_Caption: Module 7 — Advanced Techniques (overview and what you’ll learn)._ 
+Module 7 — Advanced Techniques (overview and what you’ll learn).
 
 ![Module 7 skills](docs/screenshots/mod7_2.png)
 
-_Caption: Module 7 — Skills you’ll build and how to use this module._
+Module 7 — Skills you’ll build and how to use this module.
 
 ![Module 8 overview](docs/screenshots/mod8.png)
 
-_Caption: Module 8 — Responsible AI (overview and what you’ll learn)._ 
+Module 8 — Responsible AI (overview and what you’ll learn).
 
 ![Module 8 skills](docs/screenshots/mod8_2.png)
 
-_Caption: Module 8 — Skills you’ll build and how to use this module._
+Module 8 — Skills you’ll build and how to use this module.
 
 🎉 **That’s it!** Type a message and watch the AI reply.
 
