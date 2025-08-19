@@ -10,6 +10,8 @@ This is a monorepo for a chat application, consisting of a web-based frontend an
 
 No complex maths, no mysterious jargon—just clear instructions.
 
+Setup time: about 10–15 minutes on a typical laptop.
+
 ## Project Structure
 
 This project is a monorepo managed with pnpm workspaces. The structure is as follows:
@@ -48,26 +50,26 @@ The repo is a pnpm monorepo with:
 
 Beginner-friendly instructions below for reference.
 
-## 2. Before You Begin: You’ll Need a 3 FREE tools
+## 2. Before You Begin: You’ll need three free tools
 
 | Tool | What it’s for | How to get it |
 |------|---------------|---------------|
-| **GitHub Account** | GitHub is a code hosting platform operated by Microsoft. It is free to use and is hosted in the cloud. You can use it to store and share your code, just like how I am shring it with you. | [Create a free account](https://github.com/signup) if you don’t have one. |
+| **GitHub Account** | GitHub is a free website where you can store and share this project. | [Create a free account](https://github.com/signup) if you don’t have one. |
  
  <img src="docs/screenshots/GitHub.png" alt="GitHub repository page for ChatCourse" width="720" />
  The GitHub repository page where you can Download ZIP or copy the clone URL.
  
-| **Node.js** | The engine that runs the project’s code. You will not be using Nodes directly as it runs in the background and is a dependency for the project. | [Download Node.js (LTS)](https://nodejs.org/) and run the installer. |
+| **Node.js** | The engine that runs the project’s code. Node.js runs behind the scenes so this project can work. | [Download Node.js (LTS)](https://nodejs.org/) and run the installer. |
  
  <img src="docs/screenshots/Nodes.png" alt="Node.js website homepage with Download LTS button" width="720" />
  Download the LTS version from nodejs.org and run the installer.
  
-| **Visual Studio Code (VS Code)** | A friendly text editor to open the project and modify files. During the course we will "look" at some code blocks to understand how the project works - Specifically the Prompting and AI sections. | [Download VS Code](https://code.visualstudio.com/) and install it. |
+| **Visual Studio Code (VS Code)** | A free editor to open the project and make changes. | [Download VS Code](https://code.visualstudio.com/) and install it. |
 
 <img src="docs/screenshots/VSCode.png" alt="Visual Studio Code website download page" width="720" />
 Download and install Visual Studio Code from code.visualstudio.com.
 
-*Tip: “Terminal” is just a text window where you can type commands. Don’t panic—we’ll tell you exactly what to type.*
+*Tip: “Terminal” is just a text window where you can type commands. Don’t panic—we’ll tell you exactly what to type. It’s like sending simple instructions to your computer.*
 
 <img src="docs/screenshots/Terminal.png" alt="Terminal window highlighted for entering commands" width="720" />
 The Terminal is a text window where you type the commands we show. This allows you to run commands to install dependencies and start the app.
@@ -80,10 +82,16 @@ The Terminal is a text window where you type the commands we show. This allows y
    `https://github.com/Chris-June/ChatCourse`
 2. Un‑zip the file. You’ll get a folder called **`ChatCourse`**.
 
-### Option B – Use Git (skip if that word means nothing to you)
+### Option B – Use Git (skip if that word means nothing to you)
 
-1. In VS Code or Windsurfchoose **Source Control → Clone Repository**.  
+1. In VS Code or Windsurf, choose **Source Control → Clone Repository**.  
 2. Paste `git@github.com:Chris-June/ChatCourse.git` when asked.
+
+If SSH is new to you, use HTTPS instead:
+
+```bash
+git clone https://github.com/Chris-June/ChatCourse.git
+```
  
  <img src="docs/screenshots/TerminalClone.png" alt="Terminal showing git clone command for ChatCourse" width="720" />
  Cloning the repo in VS Code’s integrated Terminal using the SSH URL.
@@ -92,7 +100,7 @@ Either way, remember where you put the folder—you’ll need it soon.
 
 ## 4. Open the Project in Your Editor (VS Code or Windsurf)
 
-- **Option A — VS Code (Free & popular)**
+- **Option A — VS Code (free and popular)**
   1. Open **VS Code**.
   2. Click **File → Open Folder…** and pick the **`ChatCourse`** folder.
   3. If VS Code asks “**Do you trust the authors?**” click **Yes**.
@@ -121,6 +129,8 @@ pnpm install
    - API: http://localhost:3000
 
 ## 6. Add Your AI Key
+
+This step lets the app talk to OpenAI. It’s free to create a key.
 
 1. Get a free key on the OpenAI website → **[Create API Key](https://platform.openai.com/account/api-keys)**.  
 2. Copy the key (looks like `sk-…`).  
@@ -158,14 +168,18 @@ Optional advanced options—skip these for now if you like.
 Still in the terminal, run:
 
 ```bash
-pnpm run dev
+pnpm dev
 ```
 
 <img src="docs/screenshots/pnpm_run_dev.png" alt="Terminal running pnpm run dev to start the app" width="720" />
 
-Start the app with `pnpm dev` (or `pnpm run dev`).
+Start the app with `pnpm dev`.
 
-- First start takes ~20 seconds.  
+> What you should see
+> - API: http://localhost:3000
+> - Web: http://localhost:3001 — click this link
+
+- First start takes about 20 seconds.  
 - When you see `http://localhost:3001`, **click it** (or paste it in your browser).
 
 ### Screenshots
@@ -179,6 +193,9 @@ The main chat screen. Type a message and press Enter.
 The sidebar holds settings like model and Custom Instructions.
 
 ### Course Module Previews
+
+<details>
+<summary>Course Module Previews (open to view)</summary>
 
 ![Module 1 overview](docs/screenshots/mod1.png)
 
@@ -245,6 +262,8 @@ Module 8 — Responsible AI (overview and what you’ll learn).
 Module 8 — Skills you’ll build and how to use this module.
 
 🎉 **That’s it!** Type a message and watch the AI reply.
+
+</details>
 
 ## Troubleshooting (Common fixes)
 
