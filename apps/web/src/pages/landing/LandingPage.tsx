@@ -1,3 +1,13 @@
+/**
+  * LandingPage
+  * 
+  * Purpose: Marketing/intro page for IntelliSync Solutions with hero, features, and footer.
+  * 
+  * Important: Global styles in `apps/web/src/index.css` set `html, body { overflow: hidden; }`
+  * to rely on app-level scroll containers. To ensure this page remains scrollable,
+  * the top-level wrapper uses `min-h-screen` and `overflow-y-auto` so the content
+  * scrolls within this page container.
+  */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HeroImage from '../../assets/images/Hero.png';
@@ -5,7 +15,7 @@ import './LandingPage.css';
 
 const LandingPage: React.FC = () => {
   return (
-    <div className="landing-page bg-gray-900 text-white">
+    <div className="landing-page bg-gray-900 text-white h-screen overflow-y-auto">
       {/* Hero Section */}
       <header className="hero-section relative overflow-hidden pt-48 pb-32 md:pt-56 md:pb-40">
         <div className="absolute inset-0 z-0 h-[120%] -top-[10%]">

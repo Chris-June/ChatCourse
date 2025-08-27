@@ -12,10 +12,14 @@ import ScrollToTop from './components/ScrollToTop';
 
 function RootLayout() {
   return (
-    <>
+    /*
+     * The app uses global `html, body { overflow: hidden; }` (see `src/index.css`).
+     * Provide a top-level scroll container for all pages so scrolling works consistently.
+     */
+    <div className="h-screen overflow-y-auto bg-background text-foreground">
       <ScrollToTop />
       <Outlet />
-    </>
+    </div>
   );
 }
 
