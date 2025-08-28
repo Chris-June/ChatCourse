@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm --filter web build && echo PWD=$(pwd) && if [ -d apps/web/dist ]; then echo 'Copying from apps/web/dist -> ./dist'; rm -rf dist && mkdir -p dist && cp -a apps/web/dist/. dist/; else echo 'Copying from ./dist -> ../../dist'; mkdir -p ../../dist && cp -a dist/. ../../dist/; fi && echo 'List root dist (one of these will succeed):' && (ls -la dist || ls -la ../../dist)",
+  "buildCommand": "pnpm vercel-build",
   "outputDirectory": "dist",
   "routes": [
     {

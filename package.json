@@ -10,7 +10,8 @@
     "build": "pnpm --filter web build && pnpm --filter @chat/api install",
     "start": "pnpm --filter @chat/api start",
     "lint": "eslint . --ext .ts,.tsx --report-unused-disable-directives --max-warnings 0",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "vercel-build": "pnpm --filter web build && if [ -d apps/web/dist ]; then rm -rf dist && mkdir -p dist && cp -a apps/web/dist/. dist/; else mkdir -p ../../dist && cp -a dist/. ../../dist/; fi"
   },
   "engines": {
     "node": ">=18.0.0",
