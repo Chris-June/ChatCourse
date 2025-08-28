@@ -8,8 +8,9 @@
 
 // Import the handler (ESM import to align with `type: module` in apps/web)
 import handlerFromApi from '../../api/vercel';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 // Explicit default export avoids TS transform that can emit CommonJS `exports.*`.
-export default async function handler(req: any, res: any) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   return handlerFromApi(req, res);
 }
