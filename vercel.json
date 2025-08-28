@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm --filter web build && rm -rf dist && cp -R apps/web/dist dist",
+  "buildCommand": "pnpm --filter web build && echo PWD=$(pwd) && ls -la && ls -la apps/web || true && ls -la apps/web/dist || true && rm -rf dist && mkdir -p dist && cp -a apps/web/dist/. dist/ && ls -la dist",
   "outputDirectory": "dist",
   "routes": [
     {
