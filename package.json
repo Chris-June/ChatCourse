@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package",
   "name": "chat-app-monorepo",
   "private": true,
   "workspaces": [

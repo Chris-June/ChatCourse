@@ -57,6 +57,13 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
       return res.status(400).json({ error: `Model ${model} is not allowed.` });
     }
 
+    // Send SSE headers as early as possible to avoid Express sending a 500
+    // if an error occurs before headers are written (e.g., tiktoken init).
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    try { res.flushHeaders(); } catch {}
+
     // Using direct fetch to Responses API; OpenAI SDK streaming not used here
 
     const lastMessage = messages[messages.length - 1];
@@ -144,13 +151,20 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
       content: msg.content,
     }));
 
-    const encoding = get_encoding('cl100k_base');
-    const promptTokens = messagesForAPI.reduce((acc, msg) => acc + encoding.encode(msg.content).length, 0);
-
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
-    res.flushHeaders();
+    // Guard tiktoken usage: it may fail in certain serverless environments.
+    let promptTokens = 0;
+    // Use a loose type since tiktoken's encode returns a Uint32Array, and
+    // the exact type is not important for our usage here.
+    let encoding: any = null;
+    try {
+      encoding = get_encoding('cl100k_base');
+      promptTokens = messagesForAPI.reduce((acc, msg) => acc + encoding!.encode(msg.content).length, 0);
+    } catch (e) {
+      // Fallback: approximate tokens as chars/4 if tiktoken is unavailable
+      console.error('[chat] tiktoken unavailable, falling back to rough token estimate.', e);
+      const approx = (s: string) => Math.ceil(s.length / 4);
+      promptTokens = messagesForAPI.reduce((acc, msg) => acc + approx(msg.content), 0);
+    }
 
     // Determine selected model with safe default
     const selectedModel = (model && ALLOWED_MODELS.includes(model)) ? model : DEFAULT_MODEL;
@@ -450,8 +464,17 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
       }
     }
 
-    const completionTokens = encoding.encode(completionText).length;
-    encoding.free();
+    let completionTokens = 0;
+    try {
+      if (encoding) {
+        completionTokens = encoding.encode(completionText).length;
+      } else {
+        // Use the same approximation if encoding was not initialized
+        completionTokens = Math.ceil(completionText.length / 4);
+      }
+    } finally {
+      try { encoding && encoding.free && encoding.free(); } catch {}
+    }
 
     const { input: inputCost, output: outputCost } = getPricing(selectedModel);
     const promptCost = (promptTokens / 1_000_000) * inputCost;
