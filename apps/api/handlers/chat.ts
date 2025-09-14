@@ -4,7 +4,7 @@
  * streaming responses from the AI model, and calculating token usage.
  */
 
-import { getBaseSystemPrompt } from '../config/systemPrompts.js';
+import { getBaseSystemPrompt } from '../config/systemPrompts';
 import { getApiKey, getApiName, getPricing, ALLOWED_MODELS, DEFAULT_MODEL } from '../handler.js'; // Exported from handler
 import { sanitizeInput, redactOutput } from '../guardrails.js';
 
