@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+
 import OpenAI from 'openai';
 import { getApiName, DEFAULT_MODEL } from '../handler.js';
 import { buildPairProgrammingSystemPrompt } from '../prompts/pairProgramming.js';
@@ -19,7 +19,10 @@ export const handlePairProgramming = async (req: any, res: any): Promise<void> =
     return h && h.startsWith('Bearer ') ? h.substring(7) : null;
   })();
   const bodyKey = typeof apiKey === 'string' ? apiKey : null;
-  const resolvedKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
+  const requireUserKey = process.env.REQUIRE_USER_API_KEY === 'true';
+  const allowServerKeyInProd = process.env.ALLOW_SERVER_KEY_IN_PROD === 'true';
+  const canUseServerKey = !requireUserKey && (process.env.NODE_ENV !== 'production' || allowServerKeyInProd);
+  const resolvedKey = headerKey || bodyKey || (canUseServerKey ? process.env.OPENAI_API_KEY : undefined);
   if (!resolvedKey) {
     res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
     return;

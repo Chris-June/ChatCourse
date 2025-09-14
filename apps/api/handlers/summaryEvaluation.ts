@@ -19,7 +19,10 @@ export const handleSummaryEvaluation = async (req: any, res: any): Promise<void>
       return h && h.startsWith('Bearer ') ? h.substring(7) : null;
     })();
     const bodyKey = typeof (req.body?.apiKey) === 'string' ? (req.body.apiKey as string) : null;
-    const openaiApiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
+    const requireUserKey = process.env.REQUIRE_USER_API_KEY === 'true';
+    const allowServerKeyInProd = process.env.ALLOW_SERVER_KEY_IN_PROD === 'true';
+    const canUseServerKey = !requireUserKey && (process.env.NODE_ENV !== 'production' || allowServerKeyInProd);
+    const openaiApiKey = headerKey || bodyKey || (canUseServerKey ? process.env.OPENAI_API_KEY : undefined);
     if (!openaiApiKey) {
       res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
       return;

@@ -35,7 +35,10 @@ export async function handlePromptVisualization(req: Request, res: Response): Pr
     const { elements } = req.body as EvaluationRequest;
     const headerKey = getApiKey(req);
     const bodyKey = typeof (req.body as any)?.apiKey === 'string' ? (req.body as any).apiKey as string : null;
-    const apiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
+    const requireUserKey = process.env.REQUIRE_USER_API_KEY === 'true';
+    const allowServerKeyInProd = process.env.ALLOW_SERVER_KEY_IN_PROD === 'true';
+    const canUseServerKey = !requireUserKey && (process.env.NODE_ENV !== 'production' || allowServerKeyInProd);
+    const apiKey = headerKey || bodyKey || (canUseServerKey ? process.env.OPENAI_API_KEY : undefined);
     
     if (!elements || !Array.isArray(elements)) {
       res.status(400).json({ error: 'Invalid elements provided' });
@@ -144,7 +147,10 @@ export async function handlePromptEvaluation(req: Request, res: Response): Promi
     const { prompt, framework } = req.body as EvaluationRequest;
     const headerKey = getApiKey(req);
     const bodyKey = typeof (req.body as any)?.apiKey === 'string' ? (req.body as any).apiKey as string : null;
-    const apiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
+    const requireUserKey = process.env.REQUIRE_USER_API_KEY === 'true';
+    const allowServerKeyInProd = process.env.ALLOW_SERVER_KEY_IN_PROD === 'true';
+    const canUseServerKey = !requireUserKey && (process.env.NODE_ENV !== 'production' || allowServerKeyInProd);
+    const apiKey = headerKey || bodyKey || (canUseServerKey ? process.env.OPENAI_API_KEY : undefined);
     
     if (!prompt) {
       res.status(400).json({ error: 'Prompt is required' });
@@ -156,9 +162,11 @@ export async function handlePromptEvaluation(req: Request, res: Response): Promi
       return;
     }
 
-    const openai = new OpenAI({
-      apiKey: apiKey || process.env.OPENAI_API_KEY,
-    });
+    if (!apiKey) {
+      res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
+      return;
+    }
+    const openai = new OpenAI({ apiKey });
 
     const evaluationPrompt = `Analyze this prompt using the I.N.S.Y.N.C. framework:
 
@@ -226,7 +234,10 @@ export async function handleChallengeEvaluation(req: Request, res: Response): Pr
     const { userPrompt, challenge, successCriteria } = req.body as EvaluationRequest;
     const headerKey = getApiKey(req);
     const bodyKey = typeof (req.body as any)?.apiKey === 'string' ? (req.body as any).apiKey as string : null;
-    const apiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
+    const requireUserKey2 = process.env.REQUIRE_USER_API_KEY === 'true';
+    const allowServerKeyInProd2 = process.env.ALLOW_SERVER_KEY_IN_PROD === 'true';
+    const canUseServerKey2 = !requireUserKey2 && (process.env.NODE_ENV !== 'production' || allowServerKeyInProd2);
+    const apiKey = headerKey || bodyKey || (canUseServerKey2 ? process.env.OPENAI_API_KEY : undefined);
 
     if (!userPrompt || !challenge || !successCriteria) {
       res.status(400).json({ error: 'Missing required parameters' });
@@ -291,7 +302,10 @@ export async function handleFinalChallengeEvaluation(req: Request, res: Response
     const { userPrompt } = req.body as EvaluationRequest;
     const headerKey = getApiKey(req);
     const bodyKey = typeof (req.body as any)?.apiKey === 'string' ? (req.body as any).apiKey as string : null;
-    const apiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
+    const requireUserKey3 = process.env.REQUIRE_USER_API_KEY === 'true';
+    const allowServerKeyInProd3 = process.env.ALLOW_SERVER_KEY_IN_PROD === 'true';
+    const canUseServerKey3 = !requireUserKey3 && (process.env.NODE_ENV !== 'production' || allowServerKeyInProd3);
+    const apiKey = headerKey || bodyKey || (canUseServerKey3 ? process.env.OPENAI_API_KEY : undefined);
 
     if (!userPrompt) {
       res.status(400).json({ error: 'Missing userPrompt' });
@@ -303,10 +317,14 @@ export async function handleFinalChallengeEvaluation(req: Request, res: Response
 
     const masterSystemPrompt = buildFinalChallengeMasterPrompt();
 
+    if (!apiKey) {
+      res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
+      return;
+    }
     const http = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey || process.env.OPENAI_API_KEY}`,
+        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

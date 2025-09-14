@@ -36,7 +36,7 @@ const toolsRegistry: Record<string, (args: ToolArgs) => Promise<ToolOutput>> = {
   },
 };
 
-export const handleChat = async (req: express.Request, res: express.Response) => {
+export const handleChat = async (req: any, res: any) => {
   try {
     const { messages, model, temperature, top_p, reasoning_effort, verbosity, tools, tool_choice, applyBasePrompt, personalization } = req.body;
     if (process.env.NODE_ENV !== 'production') {
@@ -49,7 +49,10 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
     // - Otherwise: in development, allow fallback to server env OPENAI_API_KEY for convenience.
     //             in production, require user-provided key via Authorization header.
     const requireUserKey = process.env.REQUIRE_USER_API_KEY === 'true';
-    const apiKey = getApiKey(req) || (!requireUserKey && process.env.NODE_ENV !== 'production' ? process.env.OPENAI_API_KEY : undefined);
+    const allowServerKeyInProd = process.env.ALLOW_SERVER_KEY_IN_PROD === 'true';
+    const userProvided = getApiKey(req) || (typeof req.body?.apiKey === 'string' ? req.body.apiKey as string : null);
+    const canUseServerKey = !requireUserKey && (process.env.NODE_ENV !== 'production' || allowServerKeyInProd);
+    const apiKey = userProvided || (canUseServerKey ? process.env.OPENAI_API_KEY : undefined);
 
     if (!apiKey) {
       return res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });

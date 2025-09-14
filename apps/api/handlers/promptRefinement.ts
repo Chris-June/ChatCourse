@@ -18,10 +18,14 @@ export const handleRefinePrompt = async (req: Request, res: Response): Promise<v
     return;
   }
 
-  // API key policy:
-  // - Production: require Authorization header; do not fallback to body/env.
-  // - Development: allow body apiKey or server env key as fallback.
-  const resolvedKey = headerApiKey || (process.env.NODE_ENV !== 'production' ? (bodyApiKey || process.env.OPENAI_API_KEY) : undefined);
+  // API key policy (Option B):
+  // - REQUIRE_USER_API_KEY=true: always require user-provided key.
+  // - Otherwise: use header/body key if present; if missing then
+  //   allow fallback to server key in dev, and also in prod if ALLOW_SERVER_KEY_IN_PROD=true.
+  const requireUserKey = process.env.REQUIRE_USER_API_KEY === 'true';
+  const allowServerKeyInProd = process.env.ALLOW_SERVER_KEY_IN_PROD === 'true';
+  const canUseServerKey = !requireUserKey && (process.env.NODE_ENV !== 'production' || allowServerKeyInProd);
+  const resolvedKey = headerApiKey || bodyApiKey || (canUseServerKey ? process.env.OPENAI_API_KEY : undefined);
   if (!resolvedKey) {
     res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
     return;
@@ -89,7 +93,10 @@ export const handleGradePrompt = async (req: Request, res: Response): Promise<vo
   const { prompt } = req.body;
   const headerKey = getApiKey(req);
   const bodyKey = typeof req.body?.apiKey === 'string' ? (req.body.apiKey as string) : null;
-  const apiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
+  const requireUserKey2 = process.env.REQUIRE_USER_API_KEY === 'true';
+  const allowServerKeyInProd2 = process.env.ALLOW_SERVER_KEY_IN_PROD === 'true';
+  const canUseServerKey2 = !requireUserKey2 && (process.env.NODE_ENV !== 'production' || allowServerKeyInProd2);
+  const apiKey = headerKey || bodyKey || (canUseServerKey2 ? process.env.OPENAI_API_KEY : undefined);
 
   if (!prompt) {
     res.status(400).json({ error: 'Prompt is required.' });
