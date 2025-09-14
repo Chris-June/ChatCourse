@@ -1,9 +1,9 @@
-import { buildFinalChallengeMasterPrompt } from '../prompts/promptEvaluation';
+import { buildFinalChallengeMasterPrompt } from '../prompts/promptEvaluation.js';
 import OpenAI from 'openai';
 import { Request, Response } from 'express';
 
-import { constructINSYNCPrompt, validateINSYNCElements, PromptElement } from '../utils/insyncFramework';
-import { getApiName, DEFAULT_MODEL } from '../handler';
+import { constructINSYNCPrompt, validateINSYNCElements, PromptElement } from '../utils/insyncFramework.js';
+import { getApiName, DEFAULT_MODEL } from '../handler.js';
 
 const getApiKey = (req: Request): string | null => {
   const authHeader = req.headers.authorization;

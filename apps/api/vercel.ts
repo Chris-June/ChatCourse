@@ -3,8 +3,8 @@
  * @description This file serves as the entry point for Vercel serverless functions
  */
 
-// Import the Express app from handler.ts
-import app from './handler';
+// Import the Express app from handler.ts (ensure .js extension for NodeNext)
+import app from './handler.js';
 
 // Export the Vercel serverless function
 export default async function handler(req: any, res: any) {

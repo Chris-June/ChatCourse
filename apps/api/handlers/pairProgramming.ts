@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import OpenAI from 'openai';
-import { getApiName, DEFAULT_MODEL } from '../handler';
-import { buildPairProgrammingSystemPrompt } from '../prompts/pairProgramming';
+import { getApiName, DEFAULT_MODEL } from '../handler.js';
+import { buildPairProgrammingSystemPrompt } from '../prompts/pairProgramming.js';
 
 /**
  * Handler for PairProgrammingSimulator
  */
-export const handlePairProgramming = async (req: Request, res: Response): Promise<void> => {
+export const handlePairProgramming = async (req: any, res: any): Promise<void> => {
   const { messages, code, role, apiKey } = req.body;
 
   if (!messages) {

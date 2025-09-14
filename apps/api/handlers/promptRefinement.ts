@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { getApiName, DEFAULT_MODEL } from '../handler';
-import { buildPromptAnalysisPrompt, buildInsyncEvaluationPrompt, SYSTEM_INSYNC_EXPERT, INSYNC_RUBRIC } from '../prompts/promptRefinement';
+import { getApiName, DEFAULT_MODEL } from '../handler.js';
+import { buildPromptAnalysisPrompt, buildInsyncEvaluationPrompt, SYSTEM_INSYNC_EXPERT, INSYNC_RUBRIC } from '../prompts/promptRefinement.js';
 
 /**
  * Handler for PromptRefinementWorkbench - refine prompt

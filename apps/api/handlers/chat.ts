@@ -5,9 +5,9 @@
  */
 
 import express from 'express';
-import { getBaseSystemPrompt } from '../config/systemPrompts';
-import { getApiKey, getApiName, getPricing, ALLOWED_MODELS, DEFAULT_MODEL } from '../handler'; // Exported from handler
-import { sanitizeInput, redactOutput } from '../guardrails';
+import { getBaseSystemPrompt } from '../config/systemPrompts.js';
+import { getApiKey, getApiName, getPricing, ALLOWED_MODELS, DEFAULT_MODEL } from '../handler.js'; // Exported from handler
+import { sanitizeInput, redactOutput } from '../guardrails.js';
 
 // --- Simple tool registry (server-executed) ---
 type ToolArgs = Record<string, any>;

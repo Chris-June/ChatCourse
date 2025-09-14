@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { buildSummaryEvaluationSystemPrompt, buildSummaryEvaluationUserPrompt } from '../prompts/summaryEvaluation';
+import { buildSummaryEvaluationSystemPrompt, buildSummaryEvaluationUserPrompt } from '../prompts/summaryEvaluation.js';
 import OpenAI from 'openai';
 
 /**
  * Handler for Summary Evaluation endpoint
  */
-export const handleSummaryEvaluation = async (req: Request, res: Response): Promise<void> => {
+export const handleSummaryEvaluation = async (req: any, res: any): Promise<void> => {
   try {
     const { conversation, userSummary } = req.body;
 

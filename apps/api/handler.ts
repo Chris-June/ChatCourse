@@ -12,18 +12,18 @@ import dotenv from 'dotenv';
 
 
 
-import { handlePromptVisualization, handleChallengeEvaluation, handleFinalChallengeEvaluation } from './handlers/promptEvaluation';
-import { handleGetPatterns } from './handlers/promptPatterns';
-import { handleRefinePrompt, handleGradePrompt } from './handlers/promptRefinement';
-import { handlePairProgramming } from './handlers/pairProgramming';
-import { handleSummaryEvaluation } from './handlers/summaryEvaluation';
+import { handlePromptVisualization, handleChallengeEvaluation, handleFinalChallengeEvaluation } from './handlers/promptEvaluation.js';
+import { handleGetPatterns } from './handlers/promptPatterns.js';
+import { handleRefinePrompt, handleGradePrompt } from './handlers/promptRefinement.js';
+import { handlePairProgramming } from './handlers/pairProgramming.js';
+import { handleSummaryEvaluation } from './handlers/summaryEvaluation.js';
 // Load env vars in development (Vercel provides env in prod)
 // Avoid using import.meta in this module to prevent TS build issues on Vercel.
 // We simply load from standard .env files if present during local development.
 dotenv.config();
 console.log('[handler.ts] Module start');
-import { handleChat } from './handlers/chat';
-import { handleGradeFunctionPrompt } from './handlers/functionPromptGrader';
+import { handleChat } from './handlers/chat.js';
+import { handleGradeFunctionPrompt } from './handlers/functionPromptGrader.js';
 console.log('[handler.ts] All handlers imported successfully.');
 
 
