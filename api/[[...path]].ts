@@ -9,14 +9,13 @@
  */
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-// Use CommonJS require to avoid NodeNext ESM extension issues
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const app = require('../apps/api/handler').default as (req: any, res: any) => any;
+import app from '../apps/api/handler.js';
 
 /**
  * Default export for Vercel serverless function.
  * We simply pass the request/response through to the Express app.
  */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  return app(req as any, res as any);
+  return (app as any)(req as any, res as any);
 }
+
