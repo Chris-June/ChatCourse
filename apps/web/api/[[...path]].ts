@@ -6,12 +6,12 @@
  * the function is discovered without duplicating implementation.
  */
 
-// Load the Express handler via CommonJS require to avoid ESM cross-root resolution issues
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const handlerFromApi = require('../../api/handler').default as (req: any, res: any) => any;
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 // Explicit default export avoids TS transform that can emit CommonJS `exports.*`.
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  return handlerFromApi(req, res);
+  // Dynamically import to avoid top-level cross-root ESM resolution issues
+  type ApiHandler = (req: VercelRequest, res: VercelResponse) => Promise<void> | void;
+  const mod = await import('../../api/handler.js') as { default: ApiHandler };
+  return mod.default(req, res);
 }

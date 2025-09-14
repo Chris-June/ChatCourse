@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getApiName, DEFAULT_MODEL } from '../handler';
+import { getApiName, DEFAULT_MODEL } from '../handler.js';
 
 /**
  * Grades a free-form prompt against a provided function schema.
