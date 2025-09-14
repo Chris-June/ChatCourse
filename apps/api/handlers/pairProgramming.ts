@@ -14,9 +14,18 @@ export const handlePairProgramming = async (req: Request, res: Response): Promis
     return;
   }
 
-  const openai = new OpenAI({
-    apiKey: apiKey || process.env.OPENAI_API_KEY,
-  });
+  const headerKey = (() => {
+    const h = req.headers.authorization;
+    return h && h.startsWith('Bearer ') ? h.substring(7) : null;
+  })();
+  const bodyKey = typeof apiKey === 'string' ? apiKey : null;
+  const resolvedKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
+  if (!resolvedKey) {
+    res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
+    return;
+  }
+
+  const openai = new OpenAI({ apiKey: resolvedKey });
 
   const systemPrompt = buildPairProgrammingSystemPrompt({ role, code, messages });
 

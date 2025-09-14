@@ -19,9 +19,9 @@ export const handleSummaryEvaluation = async (req: Request, res: Response): Prom
       return h && h.startsWith('Bearer ') ? h.substring(7) : null;
     })();
     const bodyKey = typeof (req.body?.apiKey) === 'string' ? (req.body.apiKey as string) : null;
-    const openaiApiKey = headerKey || bodyKey || process.env.OPENAI_API_KEY;
+    const openaiApiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
     if (!openaiApiKey) {
-      res.status(500).json({ error: 'OpenAI API key not configured' });
+      res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
       return;
     }
 

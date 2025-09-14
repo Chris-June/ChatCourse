@@ -19,7 +19,11 @@ export const handleGradeFunctionPrompt = async (req: Request, res: Response): Pr
     return;
   }
 
-  const apiKey = headerApiKey || bodyApiKey || process.env.OPENAI_API_KEY || '';
+  const apiKey = headerApiKey || (process.env.NODE_ENV !== 'production' ? (bodyApiKey || process.env.OPENAI_API_KEY) : undefined);
+  if (!apiKey) {
+    res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
+    return;
+  }
   const model = getApiName(DEFAULT_MODEL);
   const supportsSampling = model !== 'gpt-5-nano';
 

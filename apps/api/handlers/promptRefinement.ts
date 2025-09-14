@@ -18,7 +18,14 @@ export const handleRefinePrompt = async (req: Request, res: Response): Promise<v
     return;
   }
 
-  const resolvedKey = headerApiKey || bodyApiKey || process.env.OPENAI_API_KEY || '';
+  // API key policy:
+  // - Production: require Authorization header; do not fallback to body/env.
+  // - Development: allow body apiKey or server env key as fallback.
+  const resolvedKey = headerApiKey || (process.env.NODE_ENV !== 'production' ? (bodyApiKey || process.env.OPENAI_API_KEY) : undefined);
+  if (!resolvedKey) {
+    res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
+    return;
+  }
 
   const analysisPrompt = buildPromptAnalysisPrompt(prompt);
 
@@ -80,7 +87,9 @@ const getApiKey = (req: Request): string | null => {
  */
 export const handleGradePrompt = async (req: Request, res: Response): Promise<void> => {
   const { prompt } = req.body;
-  const apiKey = getApiKey(req) || process.env.OPENAI_API_KEY || '';
+  const headerKey = getApiKey(req);
+  const bodyKey = typeof req.body?.apiKey === 'string' ? (req.body.apiKey as string) : null;
+  const apiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
 
   if (!prompt) {
     res.status(400).json({ error: 'Prompt is required.' });

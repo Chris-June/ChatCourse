@@ -33,16 +33,21 @@ interface EvaluationRequest {
 export async function handlePromptVisualization(req: Request, res: Response): Promise<void> {
   try {
     const { elements } = req.body as EvaluationRequest;
-    const apiKey = getApiKey(req);
+    const headerKey = getApiKey(req);
+    const bodyKey = typeof (req.body as any)?.apiKey === 'string' ? (req.body as any).apiKey as string : null;
+    const apiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
     
     if (!elements || !Array.isArray(elements)) {
       res.status(400).json({ error: 'Invalid elements provided' });
       return;
     }
 
-    const openai = new OpenAI({
-      apiKey: apiKey || process.env.OPENAI_API_KEY,
-    });
+    if (!apiKey) {
+      res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
+      return;
+    }
+
+    const openai = new OpenAI({ apiKey });
 
     // Validate elements
     console.log('Validating I.N.S.Y.N.C. elements...');
@@ -137,7 +142,9 @@ Return JSON with:
 export async function handlePromptEvaluation(req: Request, res: Response): Promise<void> {
   try {
     const { prompt, framework } = req.body as EvaluationRequest;
-    const apiKey = getApiKey(req);
+    const headerKey = getApiKey(req);
+    const bodyKey = typeof (req.body as any)?.apiKey === 'string' ? (req.body as any).apiKey as string : null;
+    const apiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
     
     if (!prompt) {
       res.status(400).json({ error: 'Prompt is required' });
@@ -217,7 +224,9 @@ Return JSON with:
 export async function handleChallengeEvaluation(req: Request, res: Response): Promise<void> {
   try {
     const { userPrompt, challenge, successCriteria } = req.body as EvaluationRequest;
-    const apiKey = getApiKey(req);
+    const headerKey = getApiKey(req);
+    const bodyKey = typeof (req.body as any)?.apiKey === 'string' ? (req.body as any).apiKey as string : null;
+    const apiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
 
     if (!userPrompt || !challenge || !successCriteria) {
       res.status(400).json({ error: 'Missing required parameters' });
@@ -229,10 +238,14 @@ export async function handleChallengeEvaluation(req: Request, res: Response): Pr
 
     const evaluationPrompt = `Evaluate this prompt against the challenge criteria using I.N.S.Y.N.C. principles:\n\nChallenge: ${challenge}\nUser Prompt: ${userPrompt}\nSuccess Criteria: ${successCriteria.join(', ')}\n\nAnalyze how well the prompt incorporates I.N.S.Y.N.C. elements:\n- Intent: Clear goal definition\n- Nuance: Specific details and constraints\n- Style: Appropriate tone and voice\n- You as...: AI role/persona specification\n- Narrative Format: Output structure requirements\n- Context: Relevant background information\n\nReturn JSON with:\n{\n  "success": true/false,\n  "score": 0-100,\n  "feedback": "detailed feedback",\n  "criteriaEvaluation": [\n    {\n      "criteria": "criteria name",\n      "met": true/false,\n      "feedback": "specific feedback for this criterion"\n    }\n  ],\n  "insyncAnalysis": {\n    "intent": {"score": 0-5, "feedback": "..."},\n    "nuance": {"score": 0-5, "feedback": "..."},\n    "style": {"score": 0-5, "feedback": "..."},\n    "youAs": {"score": 0-5, "feedback": "..."},\n    "narrativeFormat": {"score": 0-5, "feedback": "..."},\n    "context": {"score": 0-5, "feedback": "..."}\n  }\n}`;
 
+    if (!apiKey) {
+      res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
+      return;
+    }
     const http = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey || process.env.OPENAI_API_KEY}`,
+        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -276,7 +289,9 @@ export async function handleChallengeEvaluation(req: Request, res: Response): Pr
 export async function handleFinalChallengeEvaluation(req: Request, res: Response): Promise<void> {
   try {
     const { userPrompt } = req.body as EvaluationRequest;
-    const apiKey = getApiKey(req);
+    const headerKey = getApiKey(req);
+    const bodyKey = typeof (req.body as any)?.apiKey === 'string' ? (req.body as any).apiKey as string : null;
+    const apiKey = headerKey || (process.env.NODE_ENV !== 'production' ? (bodyKey || process.env.OPENAI_API_KEY) : undefined);
 
     if (!userPrompt) {
       res.status(400).json({ error: 'Missing userPrompt' });
