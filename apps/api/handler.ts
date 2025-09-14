@@ -6,9 +6,7 @@
  */
 
 import express from 'express';
-import path from 'path';
 import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
 
 
 
@@ -20,11 +18,9 @@ import { handleRefinePrompt, handleGradePrompt } from './handlers/promptRefineme
 import { handlePairProgramming } from './handlers/pairProgramming';
 import { handleSummaryEvaluation } from './handlers/summaryEvaluation';
 // Load env vars in development (Vercel provides env in prod)
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const envLocalPath = path.join(__dirname, '.env.local');
-dotenv.config({ path: envLocalPath });
-dotenv.config(); // fallback to .env
+// Avoid using import.meta in this module to prevent TS build issues on Vercel.
+// We simply load from standard .env files if present during local development.
+dotenv.config();
 console.log('[handler.ts] Module start');
 import { handleChat } from './handlers/chat';
 import { handleGradeFunctionPrompt } from './handlers/functionPromptGrader';

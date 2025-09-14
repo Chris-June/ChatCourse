@@ -45,10 +45,13 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
         console.log('[chat] personalization received:', JSON.stringify(personalization));
       } catch {}
     }
-    const apiKey = getApiKey(req) || process.env.OPENAI_API_KEY;
+    // API key policy:
+    // - Development: allow fallback to server env OPENAI_API_KEY for convenience.
+    // - Production: require user-provided key via Authorization header; do NOT use server key.
+    const apiKey = getApiKey(req) || (process.env.NODE_ENV !== 'production' ? process.env.OPENAI_API_KEY : undefined);
 
     if (!apiKey) {
-      return res.status(401).json({ error: 'API key is required.' });
+      return res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
     }
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ error: 'Messages are required.' });
