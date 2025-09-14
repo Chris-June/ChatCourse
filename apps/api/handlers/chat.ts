@@ -6,7 +6,6 @@
 
 import express from 'express';
 import { getBaseSystemPrompt } from '../config/systemPrompts';
-import { get_encoding } from 'tiktoken';
 import { getApiKey, getApiName, getPricing, ALLOWED_MODELS, DEFAULT_MODEL } from '../handler'; // Exported from handler
 import { sanitizeInput, redactOutput } from '../guardrails';
 
@@ -46,9 +45,11 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
       } catch {}
     }
     // API key policy:
-    // - Development: allow fallback to server env OPENAI_API_KEY for convenience.
-    // - Production: require user-provided key via Authorization header; do NOT use server key.
-    const apiKey = getApiKey(req) || (process.env.NODE_ENV !== 'production' ? process.env.OPENAI_API_KEY : undefined);
+    // - If REQUIRE_USER_API_KEY=true, always require Authorization header (no fallback), even in dev.
+    // - Otherwise: in development, allow fallback to server env OPENAI_API_KEY for convenience.
+    //             in production, require user-provided key via Authorization header.
+    const requireUserKey = process.env.REQUIRE_USER_API_KEY === 'true';
+    const apiKey = getApiKey(req) || (!requireUserKey && process.env.NODE_ENV !== 'production' ? process.env.OPENAI_API_KEY : undefined);
 
     if (!apiKey) {
       return res.status(401).json({ error: 'API key is required. Provide it in the Authorization header as: Bearer <YOUR_KEY>' });
@@ -160,7 +161,8 @@ export const handleChat = async (req: express.Request, res: express.Response) =>
     // the exact type is not important for our usage here.
     let encoding: any = null;
     try {
-      encoding = get_encoding('cl100k_base');
+      const tk = await import('tiktoken');
+      encoding = tk.get_encoding('cl100k_base');
       promptTokens = messagesForAPI.reduce((acc, msg) => acc + encoding!.encode(msg.content).length, 0);
     } catch (e) {
       // Fallback: approximate tokens as chars/4 if tiktoken is unavailable
