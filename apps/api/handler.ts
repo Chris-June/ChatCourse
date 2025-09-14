@@ -82,7 +82,8 @@ app.use((req, res, next) => {
     'https://intelli-sync.vercel.app',
     'https://intelli-sync-dev.vercel.app',
     'https://intelli-sync-git-main-intellisync.vercel.app/',
-    'https://www.intellisync.academy'
+    'https://www.intellisync.academy',
+    'https://course.intellisync.io'
   ];
   const origin = req.headers.origin;
   if (origin && allowedOrigins.includes(origin)) {
