@@ -102,6 +102,14 @@ app.use((req, res, next) => {
 app.use(express.json());
 console.log('[handler.ts] Middleware configured.');
 
+// Lightweight request logger to help debug routing in serverless
+app.use((req, _res, next) => {
+  try {
+    console.log(`[api] ${req.method} ${req.url}`);
+  } catch {}
+  next();
+});
+
 export const ALLOWED_MODELS = [
   'gpt-5',
   'gpt-5-mini',
@@ -110,6 +118,11 @@ export const ALLOWED_MODELS = [
 
 // --- Modular API Endpoints ---
 console.log('[handler.ts] Configuring API endpoints...');
+
+// Health check to verify routing works under serverless
+app.get('/api/health', (req, res) => {
+  res.json({ ok: true, url: req.url, ts: new Date().toISOString() });
+});
 
 // INSYNC Framework & Prompt Evaluation
 app.post('/api/chat/visualize-prompt', handlePromptVisualization);
