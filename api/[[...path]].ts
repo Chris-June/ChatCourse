@@ -16,6 +16,17 @@ import app from '../apps/api/handler.js';
  * We simply pass the request/response through to the Express app.
  */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Ensure Express sees the '/api/...' prefix. Vercel functions under /api
+  // often receive paths like '/chat' instead of '/api/chat'. Our Express
+  // routes are registered as '/api/...', so we normalize here.
+  try {
+    const originalUrl = (req as any).url as string;
+    if (typeof originalUrl === 'string' && !originalUrl.startsWith('/api/')) {
+      (req as any).url = originalUrl.startsWith('/') ? `/api${originalUrl}` : `/api/${originalUrl}`;
+    }
+  } catch {
+    // no-op normalization failure, continue
+  }
   return (app as any)(req as any, res as any);
 }
 
